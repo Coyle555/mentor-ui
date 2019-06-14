@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add multiple records button default render is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Add Multiple Records"
+>
+  <button
+    className="btn-table"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-copy"
+    />
+  </button>
+</span>
+`;
+
+exports[`Add multiple records button disabled render is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Add Multiple Records"
+>
+  <button
+    className="btn-table"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-copy"
+    />
+  </button>
+</span>
+`;

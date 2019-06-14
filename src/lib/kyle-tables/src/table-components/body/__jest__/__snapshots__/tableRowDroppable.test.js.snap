@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default droppable table row render 1`] = `"test"`;
+
+exports[`Droppable table row with canDrop and isOver 1`] = `
+<tr>
+  <td
+    className="table-cell-droppable font-bold bg-primary"
+    colSpan={3}
+  >
+    foo - bar
+  </td>
+</tr>
+`;

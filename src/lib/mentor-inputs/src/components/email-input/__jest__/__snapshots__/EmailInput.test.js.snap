@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmailInput /> with a non-string value passed in 1`] = `
+<input
+  autoComplete="false"
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="email"
+  value="4593.3"
+/>
+`;
+
+exports[`<EmailInput /> with a required attribute 1`] = `
+<input
+  autoComplete="false"
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  required={true}
+  type="email"
+  value=""
+/>
+`;
+
+exports[`<EmailInput /> with a value passed in 1`] = `
+<input
+  autoComplete="false"
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="email"
+  value="bill@gmail.com"
+/>
+`;
+
+exports[`<EmailInput /> with autocomplete enabled 1`] = `
+<input
+  autoComplete="true"
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="email"
+  value=""
+/>
+`;
+
+exports[`<EmailInput /> with no props 1`] = `
+<input
+  autoComplete="false"
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="email"
+  value=""
+/>
+`;

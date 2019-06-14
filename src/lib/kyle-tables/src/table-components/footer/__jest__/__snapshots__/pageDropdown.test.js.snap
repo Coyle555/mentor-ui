@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of page dropdown 1`] = `null`;
+
+exports[`Page dropdown with infinity max page 1`] = `
+<div
+  className="form-inline"
+>
+  <div
+    className="form-group"
+  >
+    <label>
+      Page number: 
+    </label>
+    <div
+      className="input-group"
+    >
+      <input
+        className="apm-mi-form-control m-l-sm m-r-xs"
+        data-testid="pagedropdown"
+        max={NaN}
+        min={1}
+        name="page-dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="number"
+        value={1}
+      />
+      <div
+        className="input-group-addon"
+        style={
+          Object {
+            "backgroundColor": "transparent",
+            "border": "none",
+          }
+        }
+      >
+        of 
+        NaN
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Page dropdown with less than negative max page 1`] = `null`;

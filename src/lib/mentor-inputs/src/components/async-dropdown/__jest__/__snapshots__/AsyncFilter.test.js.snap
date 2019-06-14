@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectInput /> with no props 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  />
+</select>
+`;

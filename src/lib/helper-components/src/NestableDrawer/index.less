@@ -1,0 +1,149 @@
+@import '../../../styles/variables';
+
+.APMNestableDrawer {
+	display: flex;
+    flex-direction: column;
+	transition: border .4s ease;
+
+	&-is-active,
+	&-is-root-open {
+		border-left: 4px solid @green-primary;
+	}
+
+	&-inner {
+		background: @charcoal;
+		flex-direction: column;
+		height: auto;
+		display: none;
+		padding-left: 18px;
+
+		&-enter-active,
+		&-exit-active {
+			position: relative;
+			overflow: hidden;
+			transition-delay: 0s;
+			transition-timing-function: ease;
+			transition-duration: .4s;
+			transition-property: height, visibility;
+		}
+
+		&-enter-done {
+			height: auto !important;
+			display: block;
+		}
+
+		&-exit-done{
+			height: auto !important;
+			display: none !important;
+		}
+	}
+
+	&-label {
+		font-family: 'Lato', sans-serif;
+		color: @steel-blue;
+		max-width: 150px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&-block {
+			display: flex;
+			align-items: center;
+
+			&-icon {
+				font-size: 16px;
+				height: 16px;
+				position: relative;
+				width: 16px;
+				margin-right: 12px;
+				transition: margin .4s ease;
+
+				&:before {
+					position: absolute;
+					color: @steel-blue;
+					left: 50%;
+					transform: translateX(-50%);
+				}
+			}
+		}
+
+		&-container {
+			display: flex;
+			min-height: 33px;
+			background-color: @charcoal;
+			justify-content: space-between;
+			cursor: pointer;
+			transition: all .1s ease;
+			font-size: 14px;
+			padding: 0 18px 0 18px;
+
+			&-is-root {
+				font-size: 16px;
+				min-height: 48px;
+				background-color: @charcoal-dark;
+
+			}
+
+			&-is-active,
+			&-is-open {
+				background-color: @charcoal;
+			}
+
+			&-is-active,
+			&-is-open,
+			&:hover {
+				.APMNestableDrawer-label-block-icon:before,
+				.APMNestableDrawer-label {
+					color: @soft-white;
+				}
+			}
+
+			&:hover {
+				background-color: @charcoal;
+			}
+		}
+
+		&-icon {
+			align-self: center;
+			color: @steel-blue;
+			font-size: 12px;
+
+			&-active {
+				transform: rotate(-90deg);
+				color: @soft-white;
+			}
+		}
+
+		&:hover {
+			color: @soft-white;
+		}
+
+	}
+
+	&-bg {
+		&:last-child {
+			margin-bottom: 18px;
+		}
+	}
+
+	&-is-mini {
+		.APMNestableDrawer {
+			&-label {
+				display: none;
+
+				&-block-icon {
+					margin: auto auto auto 3px;
+				}
+
+				&-icon {
+					display: none;
+				}
+			}
+
+		}
+	}
+
+	&-bg&-is-root {
+		min-height: 48px;
+	}
+}

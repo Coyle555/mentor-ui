@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter item of type date 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    <div>
+      Date: 
+      {"value":"1995-10-22T00:00:00.000Z","year":"numeric","month":"long","day":"numeric"}
+    </div>
+  </td>
+  <td>
+    <button
+      className="clear-filter"
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </td>
+</tr>
+`;
+
+exports[`Filter item of type datetime 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    <div>
+      Date: 
+      {"value":814320000000,"year":"numeric","month":"long","day":"numeric"}
+    </div>
+     - 
+    <div>
+      Time: 
+      {"value":814320000000,"hour":"numeric","minute":"numeric"}
+    </div>
+  </td>
+  <td>
+    <button
+      className="clear-filter"
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </td>
+</tr>
+`;
+
+exports[`Filter item that is disabled 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    Baz
+  </td>
+  <td />
+</tr>
+`;
+
+exports[`Filter item with child object 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    Baz
+  </td>
+  <td>
+    <button
+      className="clear-filter"
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </td>
+</tr>
+`;
+
+exports[`Rendering default filter item 1`] = `
+<tr>
+  <td />
+  <td />
+  <td
+    className="filter-value"
+  />
+  <td>
+    <button
+      className="clear-filter"
+      onClick={[Function]}
+      type="button"
+    >
+      Clear
+    </button>
+  </td>
+</tr>
+`;

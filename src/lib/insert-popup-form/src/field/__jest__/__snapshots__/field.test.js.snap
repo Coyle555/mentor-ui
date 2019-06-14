@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of the field 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  />
+  <div
+    className="col-lg-8"
+  />
+  <div
+    className="col-lg-2"
+  />
+</div>
+`;
+
+exports[`Rendering a field that can be submitted 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  />
+  <div
+    className="col-lg-8"
+  />
+  <div
+    className="col-lg-2"
+  >
+    <button
+      className="nav-btn nav-btn-submit"
+      onClick={[MockFunction]}
+    >
+      <i
+        className="far fa-check fa-2x"
+      />
+      <br />
+      Submit
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Rendering a field with a string value 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  />
+  <div
+    className="col-lg-8"
+  >
+    <input
+      type="text"
+    >
+      foo
+    </input>
+  </div>
+  <div
+    className="col-lg-2"
+  />
+</div>
+`;
+
+exports[`Rendering a field with an object value 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  />
+  <div
+    className="col-lg-8"
+  >
+    <input
+      type="text"
+    />
+  </div>
+  <div
+    className="col-lg-2"
+  />
+</div>
+`;
+
+exports[`Rendering field that can go left 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  >
+    <button
+      className="nav-btn"
+      onClick={[MockFunction]}
+    >
+      <i
+        className="far fa-chevron-left fa-2x"
+      />
+      <br />
+      Back
+    </button>
+  </div>
+  <div
+    className="col-lg-8"
+  />
+  <div
+    className="col-lg-2"
+  />
+</div>
+`;
+
+exports[`Rendering field that can go left and right 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  >
+    <button
+      className="nav-btn"
+      onClick={null}
+    >
+      <i
+        className="far fa-chevron-left fa-2x"
+      />
+      <br />
+      Back
+    </button>
+  </div>
+  <div
+    className="col-lg-8"
+  />
+  <div
+    className="col-lg-2"
+  >
+    <button
+      className="nav-btn"
+      onClick={null}
+    >
+      <i
+        className="far fa-chevron-right fa-2x"
+      />
+      <br />
+      Next
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Rendering field that can go right 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-lg-2 text-right"
+  />
+  <div
+    className="col-lg-8"
+  />
+  <div
+    className="col-lg-2"
+  >
+    <button
+      className="nav-btn"
+      onClick={[MockFunction]}
+    >
+      <i
+        className="far fa-chevron-right fa-2x"
+      />
+      <br />
+      Next
+    </button>
+  </div>
+</div>
+`;

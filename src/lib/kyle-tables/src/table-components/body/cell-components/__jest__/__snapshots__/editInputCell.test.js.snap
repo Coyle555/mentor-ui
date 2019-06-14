@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of edit input cell 1`] = `
+<div>
+  {"className":"bar","data-testid":"edit-input","name":"foo","required":false,"value":"baz"}
+</div>
+`;

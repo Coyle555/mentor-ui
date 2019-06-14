@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a typeahead option 1`] = `
+<li
+  className="filter-tokenizer-list__item"
+  onClick={[Function]}
+>
+  <a
+    className="typeahead-option filter-tokenizer-list__item"
+  />
+</li>
+`;
+
+exports[`Option label passed in 1`] = `
+<li
+  className="filter-tokenizer-list__item"
+  onClick={[Function]}
+>
+  <a
+    className="typeahead-option filter-tokenizer-list__item"
+  >
+    foo
+  </a>
+</li>
+`;
+
+exports[`Option that is active 1`] = `
+<li
+  className="hover filter-tokenizer-list__item"
+  onClick={[Function]}
+>
+  <a
+    className="typeahead-option filter-tokenizer-list__item"
+  />
+</li>
+`;
+
+exports[`Option with a custom list anchor link class 1`] = `
+<li
+  className="filter-tokenizer-list__item"
+  onClick={[Function]}
+>
+  <a
+    className="typeahead-option filter-tokenizer-list__item bar"
+  />
+</li>
+`;
+
+exports[`Option with a custom list item class 1`] = `
+<li
+  className="filter-tokenizer-list__item foo"
+  onClick={[Function]}
+>
+  <a
+    className="typeahead-option filter-tokenizer-list__item"
+  />
+</li>
+`;

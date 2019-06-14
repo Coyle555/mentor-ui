@@ -1,0 +1,33 @@
+@import '../../../styles/variables';
+
+.APMToken {
+  display: inline-block;
+  background-color: #2E667E;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  position: relative;
+
+  &-action {
+    border-left: 1px solid #003852;
+    padding: 4px 12px 4px 8px;
+    color: #FFF;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &-buffer {
+      padding-right: 41px;
+    }
+
+    &-icon {
+      color: #FFF;
+    }
+
+    &:hover > &-icon {
+      opacity: .9;
+      color: #F7B422;
+    }
+  }
+}

@@ -1,0 +1,596 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of the toolbar 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render when collapsed 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <button
+    className="btn-table"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="far fa-list-ul"
+    />
+  </button>
+</div>
+`;
+
+exports[`Toolbar render when collapsed and loadng 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <button
+    className="btn-table"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="far fa-list-ul"
+    />
+  </button>
+</div>
+`;
+
+exports[`Toolbar render with a custom button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="foo"
+  >
+    <button
+      className="btn-table"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    />
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a delete records button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Delete Rows"
+  >
+    <button
+      className="btn-table"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-trash-alt"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a edit records button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Edit Mode"
+  >
+    <button
+      className="btn-table"
+      type="button"
+    >
+      <i
+        className="fal fa-pencil"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a export csv button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <a
+    className="btn-table"
+    data-for="table-tooltip"
+    data-tip="Export To CSV"
+    download={true}
+    href="foo"
+  >
+    <i
+      className="fal fa-file-csv"
+    />
+  </a>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a multiple insert button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a single insert button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with a view columns button 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;
+
+exports[`Toolbar render with quickviews 1`] = `
+<div
+  className="table-header-toolbar"
+>
+  <div
+    className="table-header-icon m-r-sm"
+  >
+    <span
+      data-for="table-tooltip"
+      data-tip="foo"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className={null}
+        />
+      </button>
+    </span>
+  </div>
+  <span
+    className="table-header-icon-divider m-r-md"
+  />
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Record"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-file-plus"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Add Multiple Records"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-copy"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
+      />
+    </button>
+  </span>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+    id="table-tooltip"
+  />
+</div>
+`;

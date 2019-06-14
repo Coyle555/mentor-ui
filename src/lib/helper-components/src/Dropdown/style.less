@@ -1,0 +1,106 @@
+@import '../../../../styles/variables';
+
+.APMDropdown {
+  position: relative;
+}
+
+.APMDropdown-menu {
+	display: block;
+	margin-right: 30px;
+	background-color: #FFF;
+	margin-top: 0;
+	border: medium none;
+	border-radius: 3px;
+	box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+	display: block;
+	float: left;
+	font-size: 12px;
+	left: 0;
+	list-style: none outside none;
+	padding: 0;
+	position: absolute;
+	text-shadow: none;
+	top: 100%;
+	z-index: @zIndex-dropdown;
+	-webkit-animation: DROPDOWN 0.1s; /* Safari 4+ */
+	-moz-animation:    DROPDOWN 0.1s; /* Fx 5+ */
+	-o-animation:      DROPDOWN 0.1s; /* Opera 12+ */
+	animation:         DROPDOWN 0.1s; /* IE 10+, Fx 29+ */
+
+	&-header {
+		color: @charcoal;
+		font-size: 14px;
+		font-weight: bold;
+		margin-top: 18px;
+		font-family: lato, sans-serif;
+	}
+
+	&-trigger {
+		&-container {
+			display: flex;
+			align-items: center;
+			height: 100%;
+		}
+	}
+
+	&-item {
+		font-size: 14px;
+		font-family: 'Lato', sans-serif;
+		color: inherit;
+		padding: 9px 18px;
+		text-align: left;
+		font-weight: normal;
+		transition: all .1s ease;
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+		color: @charcoal !important;
+		text-decoration: none !important;
+		height: 44px;
+		min-width: 220px;
+
+		&-icon {
+			margin-right: 12px;
+			color: @charcoal;
+			width: 16px;
+			font-size: 16px;
+		}
+
+		&-separator {
+			display: block;
+			height: 1px;
+			background-color: @blue-gray-light;
+			margin: 9px 0;
+		}
+
+		&:hover,
+		&:active {
+			background-color: @soft-white;
+			cursor: pointer;
+			color: @charcoal !important;
+			text-decoration: none !important;
+		}
+
+		&:active {
+			background-color: @blue-gray-light;
+		}
+
+	}
+}
+
+@-webkit-keyframes DROPDOWN {
+  0%   { opacity: 0; height: 0; }
+  100% { opacity: 1; height: auto;}
+}
+@-moz-keyframes DROPDOWN {
+  0%   { opacity: 0; height: 0; }
+  100% { opacity: 1; height: auto;}
+}
+@-o-keyframes DROPDOWN {
+  0%   { opacity: 0; height: 0; }
+  100% { opacity: 1; height: auto;}
+}
+@keyframes DROPDOWN {
+  0%   { opacity: 0; height: 0; }
+  100% { opacity: 1; height: auto;}
+}

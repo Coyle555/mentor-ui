@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+</div>
+`;
+
+exports[`Render of a step with a title 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Step that has a next step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-right-bar"
+  />
+</div>
+`;
+
+exports[`Step that has a next step and an active step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-active"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      <i
+        className="fa fa-check"
+      />
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-active-title"
+  />
+  <div
+    className="stepper-step-right-bar stepper-bar-active"
+  />
+</div>
+`;
+
+exports[`Step that has a next step and an inactive(default) step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-active"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      6
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-active-title"
+  />
+  <div
+    className="stepper-step-right-bar stepper-bar-default"
+  />
+</div>
+`;
+
+exports[`Step that has a previous step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-left-bar"
+  />
+</div>
+`;
+
+exports[`Step that has a previous step and an active step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-active"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      6
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-active-title"
+  />
+  <div
+    className="stepper-step-left-bar stepper-bar-active"
+  />
+</div>
+`;
+
+exports[`Step that has a previous step and an inactive(default) step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      16
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-left-bar stepper-bar-default"
+  />
+</div>
+`;
+
+exports[`Step that has an error 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-error"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-error-title"
+  >
+    foo
+  </div>
+</div>
+`;
+
+exports[`Step that has been completed with no error 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-active"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      <i
+        className="fa fa-check"
+      />
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-active-title"
+  />
+</div>
+`;
+
+exports[`Step that is active 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-active"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      6
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-active-title"
+  />
+</div>
+`;
+
+exports[`Step with a custom width 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "50%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+</div>
+`;

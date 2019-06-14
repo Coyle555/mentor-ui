@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of async dropdown cell 1`] = `
+<div>
+  {}
+</div>
+`;

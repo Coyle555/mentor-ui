@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of no results in a table 1`] = `
+<div
+  className="table-no-results text-success text-center font-bold"
+>
+  No Results
+</div>
+`;

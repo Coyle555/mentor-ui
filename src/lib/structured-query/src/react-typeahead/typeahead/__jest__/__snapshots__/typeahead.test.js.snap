@@ -1,0 +1,612 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Handling key events Going down keystroke 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="hover filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                foo
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                bar
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                baz
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Handling key events Going up keystroke 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                foo
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                bar
+              </a>
+            </li>
+            <li
+              class="hover filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                baz
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Handling key events Going up/down keystroke with no options 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Category label render 1`] = `
+<div
+  className="token-collection"
+  onClick={[Function]}
+>
+  <div
+    className="filter-input-group"
+  >
+    <div
+      className="filter-category"
+    >
+      foo
+    </div>
+    <div
+      className="filter-operator"
+    />
+    <div
+      className="typeahead"
+    >
+      <input
+        className="filter-tokenizer-text-input"
+        disabled={false}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Custom class render 1`] = `
+<div
+  className="token-collection"
+  onClick={[Function]}
+>
+  <div
+    className="filter-input-group"
+  >
+    <div
+      className="filter-category"
+    />
+    <div
+      className="filter-operator"
+    />
+    <div
+      className="typeahead"
+    >
+      <input
+        className="filter-tokenizer-text-input foo"
+        disabled={false}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Default render 1`] = `
+<div
+  className="token-collection"
+  onClick={[Function]}
+>
+  <div
+    className="filter-input-group"
+  >
+    <div
+      className="filter-category"
+    />
+    <div
+      className="filter-operator"
+    />
+    <div
+      className="typeahead"
+    >
+      <input
+        className="filter-tokenizer-text-input"
+        disabled={false}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Disabled input 1`] = `
+<div
+  className="token-collection"
+  onClick={[Function]}
+>
+  <div
+    className="filter-input-group"
+  >
+    <div
+      className="filter-category"
+    />
+    <div
+      className="filter-operator"
+    />
+    <div
+      className="typeahead"
+    >
+      <input
+        className="filter-tokenizer-text-input"
+        disabled={true}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Operator label render 1`] = `
+<div
+  className="token-collection"
+  onClick={[Function]}
+>
+  <div
+    className="filter-input-group"
+  >
+    <div
+      className="filter-category"
+    />
+    <div
+      className="filter-operator"
+    >
+      bar
+    </div>
+    <div
+      className="typeahead"
+    >
+      <input
+        className="filter-tokenizer-text-input"
+        disabled={false}
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Typeahead with a list of options Datepicker instead of a list of options 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+        <div>
+          Datepicker: 
+          {}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Typeahead with a list of options Empty list of options 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Typeahead with a list of options List of string options 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                foo
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                bar
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                baz
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Typeahead with a list of options Options that are generated from a function 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value=""
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                1
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                2
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                3
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Updating the list of options Filtering a list of options with a function 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value="b"
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                apple
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Updating the list of options Filtering a list of string options 1`] = `
+<div>
+  <div
+    class="token-collection"
+  >
+    <div
+      class="filter-input-group"
+    >
+      <div
+        class="filter-category"
+      />
+      <div
+        class="filter-operator"
+      />
+      <div
+        class="typeahead"
+      >
+        <input
+          class="filter-tokenizer-text-input"
+          type="text"
+          value="b"
+        />
+        <div
+          class="typeahead-selector"
+        >
+          <div
+            class="header"
+          >
+            Field
+          </div>
+          <ul>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                bar
+              </a>
+            </li>
+            <li
+              class="filter-tokenizer-list__item"
+            >
+              <a
+                class="typeahead-option filter-tokenizer-list__item"
+              >
+                baz
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of selected option 1`] = `
+<h2
+  className="selected-option"
+>
+  
+  <i
+    className="fa fa-times"
+    onClick={[Function]}
+  />
+</h2>
+`;
+
+exports[`Selected option with a string option 1`] = `
+<h2
+  className="selected-option"
+>
+  foo
+  <i
+    className="fa fa-times"
+    onClick={[Function]}
+  />
+</h2>
+`;
+
+exports[`Selected option with an option object 1`] = `
+<h2
+  className="selected-option"
+>
+  foo
+  <i
+    className="fa fa-times"
+    onClick={[Function]}
+  />
+</h2>
+`;

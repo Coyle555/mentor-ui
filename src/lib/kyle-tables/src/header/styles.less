@@ -1,0 +1,111 @@
+@import '../../../../styles/variables';
+
+.table-header-container {
+	display: flex;
+	color: #fff;
+	background-color: @blue-primary;
+	padding: 10px;
+	height: inherit;
+	max-height: inherit;
+}
+
+.table-header-filter {
+	flex: 1;
+}
+
+.table-header-icon {
+	display: inline;
+}
+
+.table-header-toolbar {
+	line-height: 40px;
+}
+
+.table-header-collapsed-menu {
+	background-color: @blue-primary;
+	border: 1px solid #ccc;
+	margin-top: 11px;
+	border-radius: 5px;
+	padding-top: 3px;
+	padding-left: 0px;
+	box-shadow: 2px 2px 4px -3px rgba(0,0,0,0.75);
+	padding: 10px;
+
+	.btn-table {
+		margin: 0 10px;
+	}
+}
+
+.table-header-icon-divider {
+	display: inline-block;
+	width: 1px;
+	height: 35px;
+	border-right: 1px solid grey;
+	box-sizing: border-box;
+	margin-bottom: -4px;
+}
+
+.table-header-delete-warning-arrow {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid #566075;
+	margin: 0 auto;
+	margin-top: 5px;
+}
+
+.table-header-delete-warning {
+	background-color: #fff;
+	border: 1px solid #566075;
+	padding: 5px;
+	border-radius: 3px;
+	text-align: center;
+	min-width: 150px;
+}
+
+.table-heading-cell {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: @extra_zIndex;
+	padding: 8px;
+	font-weight: bold;
+	background-color: #fff;
+	height: 68px;
+	margin-top: 30px;
+}
+
+
+/* sticky polyfill */
+.table-heading-cell:before,
+.table-heading-cell:after {
+	content: '';
+	display: table;
+}
+
+.table-header-columns-ul {
+	border: medium none;
+	border-radius: 3px;
+	box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+	font-size: 12px;
+	list-style: none outside none;
+	text-shadow: none;
+	background-color: #fff;
+	margin: 5px 0 0 0;
+	padding-left: 4px;
+	padding-right: 4px;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: @coverAll_zIndex;
+}
+
+.table-header-columns-li {
+	text-align: left;
+	padding-left: 3px;
+	border-radius: 3px;
+	color: inherit;
+	margin: 4px;
+	font-weight: normal;
+	user-select: none;
+}

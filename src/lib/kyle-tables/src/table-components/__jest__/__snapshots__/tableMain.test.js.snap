@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of table main 1`] = `
+<div
+  className="table-main-container"
+>
+  <div
+    className="table-content"
+  >
+    <div
+      className="table-no-results text-success text-center font-bold"
+    >
+      No Results
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Table main render with records 1`] = `
+<div
+  className="table-main-container"
+>
+  <div
+    className="table-content"
+  >
+    <table
+      className="table-main"
+    >
+      <thead
+        className=""
+      >
+        <tr
+          className=""
+        />
+      </thead>
+      <tbody
+        className=""
+      />
+    </table>
+  </div>
+  <div
+    className="table-footer m-t-sm"
+  >
+    <div>
+      <button
+        disabled={true}
+        type="button"
+      >
+        <i
+          className="fas fa-chevron-left"
+        />
+         Previous
+      </button>
+      <button
+        disabled={true}
+        type="button"
+      >
+        Next 
+        <i
+          className="fas fa-chevron-right"
+        />
+      </button>
+    </div>
+    <div
+      className="text-center"
+    >
+      <p>
+        Showing 
+        <b>
+          1
+        </b>
+         to 
+        <b>
+          25
+        </b>
+         of 
+        <b>
+          10
+        </b>
+         records
+      </p>
+    </div>
+    <div
+      className="form-inline"
+    >
+      <div
+        className="form-group"
+      >
+        <label>
+          Page number: 
+        </label>
+        <div
+          className="input-group"
+        >
+          <input
+            className="apm-mi-form-control m-l-sm m-r-xs"
+            data-testid="pagedropdown"
+            max={1}
+            min={1}
+            name="page-dropdown"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="number"
+            value={1}
+          />
+          <div
+            className="input-group-addon"
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "border": "none",
+              }
+            }
+          >
+            of 
+            1
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add single record button default render is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Add Record"
+>
+  <button
+    className="btn-table"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-file-plus"
+    />
+  </button>
+</span>
+`;
+
+exports[`Add single record button disabled render is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Add Record"
+>
+  <button
+    className="btn-table"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-file-plus"
+    />
+  </button>
+</span>
+`;

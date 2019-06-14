@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a stepper 1`] = `
+<div
+  className="stepper-container"
+>
+  <div
+    className="stepper"
+  />
+</div>
+`;
+
+exports[`Stepper with steps 1`] = `
+<div
+  className="stepper-container"
+>
+  <div
+    className="stepper"
+  >
+    <div
+      className="stepper-step"
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="stepper-step-circle stepper-active"
+        onClick={[Function]}
+      >
+        <span
+          className="stepper-step-text"
+        >
+          1
+        </span>
+      </div>
+      <div
+        className="stepper-step-title stepper-active-title"
+      />
+      <div
+        className="stepper-step-right-bar stepper-bar-default"
+      />
+    </div>
+    <div
+      className="stepper-step"
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="stepper-step-circle stepper-default"
+        onClick={[Function]}
+      >
+        <span
+          className="stepper-step-text"
+        >
+          2
+        </span>
+      </div>
+      <div
+        className="stepper-step-title stepper-default-title"
+      />
+      <div
+        className="stepper-step-left-bar stepper-bar-default"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Stepper with steps and an active step 1`] = `
+<div
+  className="stepper-container"
+>
+  <div
+    className="stepper"
+  >
+    <div
+      className="stepper-step"
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="stepper-step-circle stepper-active"
+        onClick={[Function]}
+      >
+        <span
+          className="stepper-step-text"
+        >
+          1
+        </span>
+      </div>
+      <div
+        className="stepper-step-title stepper-active-title"
+      />
+      <div
+        className="stepper-step-right-bar stepper-bar-default"
+      />
+    </div>
+    <div
+      className="stepper-step"
+      style={
+        Object {
+          "width": "50%",
+        }
+      }
+    >
+      <div
+        className="stepper-step-circle stepper-default"
+        onClick={[Function]}
+      >
+        <span
+          className="stepper-step-text"
+        >
+          2
+        </span>
+      </div>
+      <div
+        className="stepper-step-title stepper-default-title"
+      />
+      <div
+        className="stepper-step-left-bar stepper-bar-default"
+      />
+    </div>
+  </div>
+</div>
+`;

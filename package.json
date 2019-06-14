@@ -1,0 +1,16 @@
+{
+  "name": "mentor-ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MentorAPM/mentor-ui.git",
+  "author": "ahstein3521 <adamhs3521@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+  	"src/lib/mentor-inputs",
+  	"src/lib/structured-query",
+  	"src/lib/helper-components",
+  	"src/lib/insert-popup-form",
+    "src/lib/kyle-tables"
+  ]
+}

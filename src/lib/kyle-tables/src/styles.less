@@ -1,0 +1,201 @@
+@import '../../../styles/variables';
+@tdBorderColor: #dfe6ee;
+
+.table-container {
+	width: 100%;
+	max-width: 100%;
+	background: white;
+	height: 100%;
+}
+
+.table-main-container {
+	overflow: auto;
+	height: calc(100% - 65px);
+	display: flex;
+	flex-direction: column;
+	background: white;
+	position: relative;
+
+	.table-content {
+		flex: 1
+	}
+}
+
+.table-main {
+	border-spacing: 0;
+	padding: 0;
+	margin-top: 0;
+	border-collapse: separate;
+	width: 100%;
+	background: white;
+	table-layout: fixed;
+}
+
+.apm-table-map {
+	height: 100%;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;
+
+	&-appear {
+		right: 0;
+	}
+
+	&-appear-active {
+		right: 50%;
+		transition: right 400ms ease-in-out;
+	}
+
+	&-enter {
+		right: 0;
+	}
+
+	&-enter-active {
+		border-right: 5px solid @green-primary;
+		right: 50%;
+		transition: right 400ms ease-in-out;
+	}
+
+	&-enter-done {
+		border-right: 5px solid @green-primary;
+		right: 50%;
+	}
+
+	&-exit {
+		border-right: 5px solid @green-primary;
+		right: 50%;
+	}
+
+	&-exit-active {
+		border-right: 5px solid @green-primary;
+		right: 0;
+		transition: right 400ms ease-in-out;
+	}
+
+	&-exit-done {
+		right: 0;
+	}
+}
+
+.apm-table-map-display {
+	height: 100%;
+  display: flex;
+  align-self: flex-end;
+}
+
+.table-loading {
+	margin: 75px;
+	text-align: center;
+}
+
+.table-no-results {
+	position: relative;
+	top: 20%;
+	font-size: 3rem;
+	padding: 50px;
+}
+
+.table-popover {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 4;
+	left: 100%;
+
+	&-appear {
+		left: 100%;
+	}
+
+	&-appear-active {
+		left: 0;
+		transition: left 400ms ease-in-out;
+	}
+
+	&-enter {
+		left: 100%;
+	}
+
+	&-enter-active {
+		left: 0;
+		transition: left 400ms ease-in-out;
+	}
+
+	&-enter-done {
+		left: 0;
+	}
+
+	&-exit {
+		left: 0;
+	}
+
+	&-exit-active {
+		left: 100%;
+		transition: left 400ms ease-in-out;
+	}
+
+	&-exit-done {
+		left: 100%;
+	}
+}
+
+.table-row-hierarchy:last-child .table-cell-view{
+	border-bottom: 1px solid @tdBorderColor;
+}
+.table-row-hierarchy:hover {
+	box-shadow: 0 2px 14px 0 rgba(176, 186, 197, 0.6);
+}
+
+.table-row-hierarchy-odd {
+	//background: rgb(249, 249, 249);
+}
+
+.table-row-hierarchy-even {
+	//background: #fff;
+}
+
+.table-row-hierarchy:nth-child(odd) {
+    background: #f4f7fa;
+}
+
+.table-row-hierarchy-cell {
+	position: relative;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 73px;
+	box-sizing: border-box;
+}
+
+.table-hierarchy-branch {
+	border: none;
+	border-left: 2px dotted grey;
+	position: absolute;
+	top: 0;
+	width: 0;
+	height: 73px;
+}
+
+.table-hierarchy-container {
+	border: none;
+	border-left: 2px dotted grey;
+	position: absolute;
+	top: 0;
+	width: 0;
+}
+
+.table-hierarchy-container .table-hierarchy-content {
+	position: absolute;
+	top: 10px;
+	left: 15px;
+	height: 42px;
+}
+
+.table-hierarchy-container hr {
+	border-top: 2px dotted grey;
+	width: 10px;
+	margin-top: 34px
+}

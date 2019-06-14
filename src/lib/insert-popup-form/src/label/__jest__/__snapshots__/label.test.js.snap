@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of insert form label 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-4 col-md-offset-2"
+  >
+    <label
+      className="label"
+    >
+      
+    </label>
+  </div>
+  <div
+    className="col-md-4 text-right"
+  />
+</div>
+`;
+
+exports[`Render with a custom label 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-4 col-md-offset-2"
+  >
+    <label
+      className="label"
+    >
+      Foo
+    </label>
+  </div>
+  <div
+    className="col-md-4 text-right"
+  />
+</div>
+`;
+
+exports[`Render with a required label 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-md-4 col-md-offset-2"
+  >
+    <label
+      className="label"
+    >
+      
+    </label>
+  </div>
+  <div
+    className="col-md-4 text-right"
+  >
+    <label
+      className="required-input"
+    >
+      Required
+    </label>
+  </div>
+</div>
+`;

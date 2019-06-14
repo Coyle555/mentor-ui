@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of edit records is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Toggle Edit Mode"
+>
+  <button
+    className="btn-table"
+    type="button"
+  >
+    <i
+      className="fal fa-pencil"
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    />
+  </button>
+</span>
+`;
+
+exports[`Edit records render with a callback is correct 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Toggle Edit Mode"
+>
+  <button
+    className="btn-table"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-pencil"
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    />
+  </button>
+</span>
+`;
+
+exports[`Edit records with disable enabled 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Toggle Edit Mode"
+>
+  <button
+    className="btn-table"
+    disabled={true}
+    type="button"
+  >
+    <i
+      className="fal fa-pencil"
+      style={Object {}}
+    />
+  </button>
+</span>
+`;
+
+exports[`Edit records with edit mode disabled 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Toggle Edit Mode"
+>
+  <button
+    className="btn-table"
+    type="button"
+  >
+    <i
+      className="fal fa-pencil"
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    />
+  </button>
+</span>
+`;
+
+exports[`Edit records with edit mode enabled 1`] = `
+<span
+  data-for="table-tooltip"
+  data-tip="Toggle Edit Mode"
+>
+  <button
+    className="btn-table"
+    type="button"
+  >
+    <i
+      className="fal fa-pencil"
+      style={
+        Object {
+          "color": "#8dc63f",
+        }
+      }
+    />
+  </button>
+</span>
+`;

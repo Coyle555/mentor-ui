@@ -1,0 +1,113 @@
+@import '../../../../styles/variables';
+
+.APMDrawer {
+	display: flex;
+    flex-direction: column;
+	transition: border .4s ease;
+
+	&-inner {
+		background: @charcoal;
+		flex-direction: column;
+		height: auto;
+		display: none;
+		padding-left: 18px;
+
+		&-enter-active,
+		&-exit-active {
+			position: relative;
+			overflow: hidden;
+			transition-delay: 0s;
+			transition-timing-function: ease;
+			transition-duration: .4s;
+			transition-property: height, visibility;
+		}
+
+		&-enter-done {
+			height: auto !important;
+			display: block;
+		}
+
+		&-exit-done{
+			height: auto !important;
+			display: none !important;
+		}
+	}
+
+	&-label {
+		font-family: 'Lato', sans-serif;
+		color: @steel-blue;
+		max-width: 150px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&-block {
+			display: flex;
+			align-items: center;
+
+			&-icon {
+				font-size: 16px;
+				height: 16px;
+				position: relative;
+				width: 16px;
+				margin-right: 12px;
+
+				&:before {
+					position: absolute;
+					color: @steel-blue;
+					left: 50%;
+					transform: translateX(-50%);
+				}
+			}
+		}
+
+		&-container {
+			display: flex;
+			background-color: @charcoal;
+			padding: 0 18px 0 18px;
+			justify-content: space-between;
+			cursor: pointer;
+			transition: all .1s ease;
+			font-size: 16px;
+			min-height: 48px;
+
+			&-is-open {
+				background-color: @charcoal;
+			}
+
+			&-is-open,
+			&-is-active,
+			&:hover {
+				.APMDrawer-label-block-icon:before,
+				.APMDrawer-label {
+					color: @soft-white;
+				}
+			}
+
+			&:hover {
+				background-color: @charcoal;
+			}
+		}
+
+		&-icon {
+			align-self: center;
+			color: @steel-blue;
+
+			&-active {
+				transform: rotate(-90deg);
+				color: @soft-white;
+			}
+		}
+
+		&:hover {
+			color: @soft-white;
+		}
+
+	}
+
+	&-bg {
+		border-radius: 3px;
+		overflow: hidden;
+	}
+
+}
