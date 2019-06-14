@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/MentorAPM/mentor-ui.git",
-  "author": "ahstein3521 <adamhs3521@gmail.com>",
+  "author": "",
   "license": "MIT",
   "private": true,
   "workspaces": [
