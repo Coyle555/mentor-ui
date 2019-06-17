@@ -17,7 +17,7 @@ import {
 	SelectInput
 } from 'mentor-inputs';
 
-import KeyEvent from 'utils/keyevent';
+import { KeyEvent } from 'utils/keyEvent';
 
 import './styles/form.less';
 

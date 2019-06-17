@@ -10,6 +10,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "fscreen": "^1.0.2",
+    "insert-popup-form": "^0.0.1",
     "lodash": "^4.17.11",
     "mentor-inputs": "^0.0.1",
     "moment": "^2.20.1",
@@ -19,7 +20,8 @@
     "react-toastify": "^5.2.1",
     "react-tooltip": "^3.10.0",
     "react-transition-group": "^4.1.1",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "structured-query": "^0.0.1"
   },
   "repository": {
     "type": "git",

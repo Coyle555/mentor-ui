@@ -6,16 +6,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const libs = fs.readdirSync('./packages/lib');
 
-module.exports = libs.map(libName => {
-
+module.exports = libs.filter(v => v === 'kyle-tables').map(libName => {
+ 
 	return {
 		entry: `./packages/lib/${libName}/src/index.js`,
 		output: {
 			filename: 'index.js',
 			path: `${__dirname}/packages/lib/${libName}/dist`,
 		},
-		node: { fs: 'empty' },
-
 		optimization: {
 			runtimeChunk: false,
 			splitChunks: {
@@ -69,6 +67,4 @@ module.exports = libs.map(libName => {
 			new CaseSensitivePathsPlugin(),
 		]
 	}
-
-
 });

@@ -1,3 +1,3 @@
-import { InsertForm } from './src/insertForm';
+import { InsertForm } from './insertForm';
 
 export default InsertForm;
