@@ -34,5 +34,6 @@
   "bugs": {
     "url": "https://github.com/MentorAPM/mentor-ui/issues"
   },
-  "homepage": "https://github.com/MentorAPM/mentor-ui#readme"
+  "homepage": "https://github.com/MentorAPM/mentor-ui#readme",
+  "gitHead": "434aed7bcaf6ced1e59f95e536732b5d750292db"
 }

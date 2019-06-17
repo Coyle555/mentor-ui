@@ -4,8 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
-    "build": "rollup -c"
+    "test": "jest"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -21,7 +20,7 @@
     "react-tooltip": "^3.10.0",
     "react-transition-group": "^4.1.1",
     "shortid": "^2.2.14",
-    "structured-query": "^0.0.2"
+    "structured-query": "latest"
   },
   "repository": {
     "type": "git",
@@ -32,5 +31,6 @@
   "bugs": {
     "url": "https://github.com/MentorAPM/mentor-ui/issues"
   },
-  "homepage": "https://github.com/MentorAPM/mentor-ui#readme"
+  "homepage": "https://github.com/MentorAPM/mentor-ui#readme",
+  "gitHead": "434aed7bcaf6ced1e59f95e536732b5d750292db"
 }
