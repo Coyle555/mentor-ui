@@ -7,10 +7,16 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-  	"src/lib/mentor-inputs",
-  	"src/lib/structured-query",
-  	"src/lib/helper-components",
-  	"src/lib/insert-popup-form",
+    "src/lib/mentor-inputs",
+    "src/lib/structured-query",
+    "src/lib/helper-components",
+    "src/lib/insert-popup-form",
     "src/lib/kyle-tables"
-  ]
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  }
 }
