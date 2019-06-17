@@ -41,15 +41,15 @@ Component
 ```
 
 ## Code style guideline (JavaScript)
-* AirBnB JavaScript Styleguide (https://github.com/airbnb/javascript)
-* Tabs (4 spaces) for indentation
-* Trailing commas
+* AirBnB JavaScript Styleguide (https://github.com/airbnb/javascript).
+* Tabs (4 spaces) for indentation.
+* Trailing commas.
 ```
 	const movies = {
    		batmanBegins,
 	}
 ```
-* Destructor props at the top of the render function
+* Destructor props at the top of the render function.
 ```
 	return (
 		const {
@@ -58,7 +58,33 @@ Component
       	} = props;
    	)
 ```
-* Max length should be 61 characters for lines
+* Max length should be 61 characters for lines.
+
+#### Code import guidelines
+* External dependencies imported at the top of the file.
+* Internal dependencies imported following external dependencies and a linebreak.
+* Stylesheet imported following internal dependencies and a linebreak or utils.js.
+```
+import React from 'react';
+import cn from 'classnames';
+
+import { ComponentA } from './components/ComponentA';
+
+import './utils.js';
+import './style.less';
+```
+#### Code export guidelines
+* Named imports should be renamed to uppercase alphabet letters at the top of the file.
+* Then export original named import as a constant at the bottom of the file.
+```
+import { ComponentA as A } from './src/ComponentA';
+import { ComponentB as B } from './src/ComponentB';
+import { ComponentC as C } from './src/ComponentC';
+
+export const ComponentA = A;
+export const ComponentB = B;
+export const ComponentC = C;
+```
 
 ## Code style guideline (less/css)
 * Component classes should be capitalized and prefixed with APM such as `APMComponent`.
