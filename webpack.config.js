@@ -1,33 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+
+const TerserPlugin = require('terser-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const libs = fs.readdirSync('./packages/lib');
+const libs = [
+	'mentor-inputs',
+	'structured-query',
+	'helper-components',
+	'datepicker',
+	'insert-popup-form',
+	'kyle-tables'
+];
 
-module.exports = libs.filter(v => v === 'kyle-tables').map(libName => {
+module.exports = libs.map(libName => {
  
 	return {
+		mode: 'production',
 		entry: `./packages/lib/${libName}/src/index.js`,
 		output: {
 			filename: 'index.js',
 			path: `${__dirname}/packages/lib/${libName}/dist`,
+			libraryTarget: 'commonjs2',
 		},
-		optimization: {
-			runtimeChunk: false,
-			splitChunks: {
-				cacheGroups: {
-					main: {
-						chunks: 'initial',
-						name: 'vendor',
-						priority: -10,
-						test: /node_modules\/(.*)\.js/
-					}
-				}
-			}
-		},
-
 		resolve: { extensions: ['.js', '.jsx'] },
 		module: {
 			rules: [
@@ -63,8 +60,15 @@ module.exports = libs.filter(v => v === 'kyle-tables').map(libName => {
 		},
 
 		plugins: [
+	  	new TerserPlugin({
+	    	parallel: true,
+	    	terserOptions: { ecma: 6 }
+	    }),
 			new webpack.ProgressPlugin({ profile: false }),
 			new CaseSensitivePathsPlugin(),
+		],
+		externals: [
+			'react'
 		]
 	}
 });
