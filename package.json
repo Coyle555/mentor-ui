@@ -7,10 +7,16 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-  	"src/lib/mentor-inputs",
-  	"src/lib/structured-query",
-  	"src/lib/helper-components",
-  	"src/lib/insert-popup-form",
+    "src/lib/mentor-inputs",
+    "src/lib/structured-query",
+    "src/lib/helper-components",
+    "src/lib/insert-popup-form",
     "src/lib/kyle-tables"
-  ]
+  ],
+  "peerDependencies": {
+    "airbnb-browser-shims": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-preset-airbnb": "^3.2.1"
+  }
 }
