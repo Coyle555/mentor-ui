@@ -1,4 +1,5 @@
 # mentor-ui
+Discrete react components that work together like legos to build functional and practical user interfaces. Think composable, modular, and flexible.
 
 *Component Organization*
 1. [Component Folder Organization Standard](#Component-Folder-Organization-Standard)
@@ -13,7 +14,7 @@
 
 *CSS style guidelines and component structure guidelines*
 1. [LESS/CSS Code style guideline](#LESS-Code-styleguide)
-2. [Example Button Component (JSX)](#Example-JSX-Button-Component))
+2. [Example Button Component (JSX)](#Example-JSX-Button-Component)
 3. [Example Button Component (Rendered)](#Example-Rendered-Button-Component)
 4. [Example Button Component (less/css)](#Example-LESS-Button-Component)
 
