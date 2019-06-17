@@ -1,5 +1,8 @@
 # mentor-ui
 
+1. [Component Folder Organization Standard](#Component Folder Organization Standard)
+2. 
+
 ## Component Folder Organization Standard
 - Component folders should be Capitalized to denote it is a React Component. NOTE: folders containing components should be lowercase.
 - Any subcomponents should be exported from the main component file.
