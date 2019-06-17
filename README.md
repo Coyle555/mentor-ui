@@ -7,15 +7,15 @@
 * [A component with sub components](#A-component-with-sub-components)
 
 *JavaScript style guidelines*
-* [Code style guideline (JavaScript)](#Code-style-guideline-(JavaScript))
+* [Code style guideline (JavaScript)](#JavaScript-Code-style-guideline)
 * [Code import guidelines](#Code-import-guidelines)
 * [Code export guidelines](#Code-export-guidelines)
 
 *CSS style guidelines and component structure guidelines*
-* [Code style guideline (less/css)](#Code-style-guideline-(less/css))
-* [Example Button Component (JSX)](#Example-Button-Component-(JSX))
-* [Example Button Component (Rendered)](#Example-Button-Component-(Rendered))
-* [Example Button Component (less/css)](#Example-Button-Component-(less/css))
+* [Code style guideline (less/css)](#LESS/CSS-Code-style-guideline)
+* [Example Button Component (JSX)](#Example-JSX-Button-Component))
+* [Example Button Component (Rendered)](#Example-Rendered-Button-Component)
+* [Example Button Component (less/css)](#Example-LESS/CSS-Button-Component)
 
 ## Component Folder Organization Standard
 - Component folders should be Capitalized to denote it is a React Component. NOTE: folders containing components should be lowercase.
@@ -57,7 +57,7 @@ Component
       └─ same structure as single component etc...
 ```
 
-## Code style guideline (JavaScript)
+## JavaScript Code style guideline
 * AirBnB JavaScript Styleguide (https://github.com/airbnb/javascript).
 * Tabs (4 spaces) for indentation.
 * Trailing commas.
@@ -103,7 +103,7 @@ export const ComponentB = B;
 export const ComponentC = C;
 ```
 
-## Code style guideline (less/css)
+## LESS/CSS Code style guideline
 * Component classes should be capitalized and prefixed with APM such as `APMComponent`.
 * `&` parent selector is should be used liberally to match css structure with its coresponding jsx component.
 * All element classes that make up a component should be prefixed with the root component classname *(see example below).
@@ -111,7 +111,7 @@ export const ComponentC = C;
 * media queries and animations should generally be at the bottom of the file.
 * Non-component specific classes should be lowercase such as utility classes etc (`.contianer .grid .mr-5`).
 
-#### Example Button Component (JSX)
+#### Example JSX Button Component
 ```
 import composeClass from 'composeClass';
 
@@ -131,7 +131,7 @@ export const Button = (props) => {
 };
 ```
 
-#### Example Button Component (Rendered)
+#### Example Rendered Button Component
 ```
 <button class="APMButton">
 	<i class="APMButton-icon"></i>
@@ -139,7 +139,7 @@ export const Button = (props) => {
 </button>
 ```
 
-#### Example Button Component (less/css)
+#### Example LESS/CSS Button Component
 ```
 .APMButton {
 	background-color: gray;
