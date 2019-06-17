@@ -7,12 +7,12 @@
 4. [A component with sub components](#A-component-with-sub-components)
 
 *JavaScript style guidelines*
-1. [JavaScript Code style guideline](#JavaScript-Code-style-guideline)
+1. [JavaScript Code style guideline](#JavaScript-Code-styleguide)
 2. [Code import guidelines](#Code-import-guidelines)
 3. [Code export guidelines](#Code-export-guidelines)
 
 *CSS style guidelines and component structure guidelines*
-1. [LESS/CSS Code style guideline](#LESS-Code-style-guideline)
+1. [LESS/CSS Code style guideline](#LESS-Code-styleguide)
 2. [Example Button Component (JSX)](#Example-JSX-Button-Component))
 3. [Example Button Component (Rendered)](#Example-Rendered-Button-Component)
 4. [Example Button Component (less/css)](#Example-LESS-Button-Component)
