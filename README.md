@@ -2,7 +2,7 @@
 
 *Component Organization*
 * [Component Folder Organization Standard](#Component-Folder-Organization-Standard)
-* [Component Folder Contents](#Component-folder-contents)
+* [Component folder contents](#Component-folder-contents)
 * [A single component](#A-single-component)
 * [A component with sub components](#A-component-with-sub-components)
 
