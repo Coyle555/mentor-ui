@@ -4,6 +4,7 @@
 
 ## Component Organization Standard
 - Component folders should be Capitalized to denote it is a React Component.
+- NOTE: folders containing components should be lowercase.
 - `index.test.js`: component unit tests
 - `index.story.js`: storybook use cases for component
 - `index.js`: all component logic, so imports should look like `import { Component } from 'src/Component';`.
@@ -32,7 +33,7 @@ Component
 ├─ index.js
 ├─ utils.js
 ├─ style.less
-└─ components
+└─ components // this is not a react component so it's lowercase
    ├─ SubComponentA
    └─ SubComponentB
       └─ same structure as single component etc...
