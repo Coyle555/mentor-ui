@@ -1,10 +1,9 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import cx from 'classnames';
-import range from 'lodash/range';
-import chunk from 'lodash/chunk';
+import { range, chunk } from 'lodash';
 
-import CalendarDay from '../CalendarDay';
+import { CalendarDay } from '../CalendarDay';
 
 import './style.less';
 

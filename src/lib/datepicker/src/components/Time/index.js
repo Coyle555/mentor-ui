@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import InputSlider from '../InputSlider';
-import { composeClass } from '../../../../components/utils';
+import { InputSlider } from '../InputSlider';
+import { composeClass } from 'utils';
 
 import './style.less';
 

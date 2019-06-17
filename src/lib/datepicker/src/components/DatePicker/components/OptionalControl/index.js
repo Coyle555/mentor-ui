@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { composeClass } from '../../../../../../components/utils';
+import {
+	composeClass
+} from 'utils';
 
 import './style.less';
 

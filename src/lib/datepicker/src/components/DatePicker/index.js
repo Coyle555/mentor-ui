@@ -3,14 +3,12 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Calendar from '../Calendar';
+import { Calendar } from '../Calendar';
 import { Time } from '../Time';
 import {
 	OptionalControl
 } from './components/OptionalControl';
-import {
-	composeClass
-} from '../../../../components/utils';
+import { composeClass } from 'utils';
 
 import './style.less';
 import * as utils from './utils';

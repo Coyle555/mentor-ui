@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import cn from 'classnames';
-import { composeClass } from '../../../../components/utils';
+import { composeClass } from 'utils';
 import moment from 'moment';
 
 import { DatePicker } from '../DatePicker';
