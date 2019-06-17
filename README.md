@@ -81,7 +81,7 @@ Component
       	} = props;
    	)
 ```
-* Max length should be 61 characters for lines.
+* Max line length should be 61 characters.
 
 [Back to the top](#mentor-ui)
 #### Code import guidelines
