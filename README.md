@@ -1,13 +1,27 @@
 # mentor-ui
 
-1. [Component Folder Organization Standard](#Component Folder Organization Standard)
-2. 
+*Component Organization*
+* [Component Folder Organization Standard](#Component-Folder-Organization-Standard)
+* [Component Folder Contents](#Component-folder-contents)
+* [A single component](#A-single-component)
+* [A component with sub components](#A-component-with-sub-components)
+
+*JavaScript style guidelines*
+* [Code style guideline (JavaScript)](#Code-style-guideline-(JavaScript))
+* [Code import guidelines](#Code-import-guidelines)
+* [Code export guidelines](#Code-export-guidelines)
+
+*CSS style guidelines and component structure guidelines*
+* [Code style guideline (less/css)](#Code-style-guideline-(less/css))
+* [Example Button Component (JSX)](#Example-Button-Component-(JSX))
+* [Example Button Component (Rendered)](#Example-Button-Component-(Rendered))
+* [Example Button Component (less/css)](#Example-Button-Component-(less/css))
 
 ## Component Folder Organization Standard
 - Component folders should be Capitalized to denote it is a React Component. NOTE: folders containing components should be lowercase.
 - Any subcomponents should be exported from the main component file.
 
-#### Component Folder Contents
+#### Component folder contents
 - `index.test.js`: component unit tests.
 - `index.story.js`: storybook use cases for component.
 - `index.js`: all component logic, so imports should look like `import { Component } from 'src/Component';`.
