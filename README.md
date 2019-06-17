@@ -38,8 +38,8 @@ Discrete react components that work together like legos to build functional and 
 Component
 ├─ __jest__
 │  └─ index.test.js
-├─ __story__
-│  └─ index.story.js
+├─ __stories__
+│  └─ index.stories.js
 ├─ index.js
 ├─ utils.js
 └─ style.less
@@ -51,8 +51,8 @@ Component
 Component
 ├─ __jest__
 │  └─ index.test.js
-├─ __story__
-│  └─ index.story.js
+├─ __stories__
+│  └─ index.stories.js
 ├─ index.js
 ├─ utils.js
 ├─ style.less
