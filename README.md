@@ -7,12 +7,12 @@
 * [A component with sub components](#A-component-with-sub-components)
 
 *JavaScript style guidelines*
-* [Code style guideline (JavaScript)](#JavaScript-Code-style-guideline)
+* [JavaScript Code style guideline](#JavaScript-Code-style-guideline)
 * [Code import guidelines](#Code-import-guidelines)
 * [Code export guidelines](#Code-export-guidelines)
 
 *CSS style guidelines and component structure guidelines*
-* [Code style guideline (less/css)](#LESS/CSS-Code-style-guideline)
+* [LESS/CSS Code style guideline](#LESS/CSS-Code-style-guideline)
 * [Example Button Component (JSX)](#Example-JSX-Button-Component))
 * [Example Button Component (Rendered)](#Example-Rendered-Button-Component)
 * [Example Button Component (less/css)](#Example-LESS/CSS-Button-Component)
@@ -57,7 +57,7 @@ Component
       └─ same structure as single component etc...
 ```
 
-## JavaScript Code style guideline
+## JavaScript Code styleguide
 * AirBnB JavaScript Styleguide (https://github.com/airbnb/javascript).
 * Tabs (4 spaces) for indentation.
 * Trailing commas.
@@ -103,7 +103,7 @@ export const ComponentB = B;
 export const ComponentC = C;
 ```
 
-## LESS/CSS Code style guideline
+## LESS/CSS Code styleguide
 * Component classes should be capitalized and prefixed with APM such as `APMComponent`.
 * `&` parent selector is should be used liberally to match css structure with its coresponding jsx component.
 * All element classes that make up a component should be prefixed with the root component classname *(see example below).
