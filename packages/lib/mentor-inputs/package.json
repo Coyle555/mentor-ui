@@ -23,8 +23,7 @@
     "react-tether": "^2.0.3",
     "react-toastify": "^5.2.1",
     "react-transition-group": "^4.1.1",
-    "shortid": "^2.2.14",
-    "structured-query": "^0.0.1"
+    "shortid": "^2.2.14"
   },
   "repository": {
     "type": "git",

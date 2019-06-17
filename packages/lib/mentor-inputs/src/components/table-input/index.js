@@ -4,7 +4,6 @@ import onClickOutside from 'react-onclickoutside';
 
 import Portal from './portal';
 import Table, { convertModel } from 'kyle-tables';
-import SubHeader from 'components/layout/SubHeader';
 import { constructQuery } from 'components/layout/common/Table/utils/tableUtils';
 
 class TableInput extends Component {
@@ -117,9 +116,9 @@ class TableInput extends Component {
 	customLayout = (Header, Table) => {
 		return (
 			<Fragment>
-				<SubHeader>
+				<div className="subheader">
 					{Header}
-				</SubHeader>
+				</div>
 				{Table}
 			</Fragment>
 		);
