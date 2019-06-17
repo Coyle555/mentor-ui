@@ -1,6 +1,7 @@
 # mentor-ui
 Discrete react components that work together like legos to build functional and practical user interfaces. Think composable, modular, and flexible.
 
+## Table of Contents
 *Component Organization*
 1. [Component Folder Organization Standard](#Component-Folder-Organization-Standard)
 2. [Component folder contents](#Component-folder-contents)
