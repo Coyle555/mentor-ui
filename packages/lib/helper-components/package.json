@@ -1,0 +1,34 @@
+{
+  "name": "helper-components",
+  "version": "0.0.11",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "fscreen": "^1.0.2",
+    "lodash": "^4.17.11",
+    "mentor-inputs": "^0.0.1",
+    "moment": "^2.20.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-toastify": "^5.2.1",
+    "react-tooltip": "^3.10.0",
+    "react-transition-group": "^4.1.1",
+    "shortid": "^2.2.14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MentorAPM/mentor-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MentorAPM/mentor-ui/issues"
+  },
+  "homepage": "https://github.com/MentorAPM/mentor-ui#readme"
+}

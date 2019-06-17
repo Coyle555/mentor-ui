@@ -1,0 +1,39 @@
+{
+  "name": "structured-query",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "blacklist": "^1.1.4",
+    "classnames": "^2.2.6",
+    "fuzzy": "^0.1.3",
+    "lodash": "^4.17.11",
+    "mentor-inputs": "0.0.1",
+    "moment": "^2.20.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dnd": "^7.6.0",
+    "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.5",
+    "react-intl": "^2.9.0",
+    "react-onclickoutside": "^6.7.0",
+    "react-tether": "^2.0.3",
+    "react-toastify": "^5.2.1",
+    "react-tooltip": "^3.10.0",
+    "react-transition-group": "^4.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MentorAPM/mentor-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MentorAPM/mentor-ui/issues"
+  },
+  "homepage": "https://github.com/MentorAPM/mentor-ui#readme"
+}
