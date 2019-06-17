@@ -1,6 +1,6 @@
 {
   "name": "insert-popup-form",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "UI components used by Mentor APM ",
   "main": "dist/index.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "react-tooltip": "^3.10.0",
     "react-transition-group": "^4.1.1",
     "shortid": "^2.2.14",
-    "structured-query": "^0.0.1"
+    "structured-query": "^0.0.2"
   },
   "repository": {
     "type": "git",

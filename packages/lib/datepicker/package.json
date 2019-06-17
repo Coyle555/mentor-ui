@@ -1,6 +1,6 @@
 {
   "name": "datepicker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "classnames": "^2.2.6",
     "fuzzy": "^0.1.3",
     "input-moment": "^0.4.0",
-    "insert-popup-form": "^0.0.1",
+    "insert-popup-form": "^0.0.2",
     "lodash": "^4.17.11",
     "mentor-inputs": "^0.0.1",
     "moment": "^2.20.1",
@@ -28,7 +28,7 @@
     "react-toastify": "^5.2.1",
     "react-transition-group": "^4.1.1",
     "shortid": "^2.2.14",
-    "structured-query": "^0.0.1"
+    "structured-query": "^0.0.2"
   },
   "repository": {
     "type": "git",
