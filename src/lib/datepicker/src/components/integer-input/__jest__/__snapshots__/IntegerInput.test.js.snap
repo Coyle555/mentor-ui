@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IntegerInput /> accepts a value prop of type number 1`] = `
+<input
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="number"
+  value={3}
+/>
+`;
+
+exports[`<IntegerInput /> disabled w/ a min of 1 and max of 5 1`] = `
+<input
+  className="apm-mi-form-control"
+  disabled={true}
+  max={5}
+  min={1}
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="number"
+  value=""
+/>
+`;
+
+exports[`<IntegerInput /> with a custom className 1`] = `
+<input
+  className="apm-mi-form-control custom-class"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="number"
+  value=""
+/>
+`;
+
+exports[`<IntegerInput /> with no props 1`] = `
+<input
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="number"
+  value=""
+/>
+`;

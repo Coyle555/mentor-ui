@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectInput /> with a parsed value 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value={0.59}
+>
+  <option
+    value=""
+  />
+  <option
+    value={1.4}
+  >
+    apple
+  </option>
+  <option
+    value={0.59}
+  >
+    bananas
+  </option>
+  <option
+    value={5.99}
+  >
+    cranberries
+  </option>
+</select>
+`;
+
+exports[`<SelectInput /> with a required attribute 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+  required={true}
+>
+  <option
+    disabled={true}
+    value=""
+  />
+</select>
+`;
+
+exports[`<SelectInput /> with no props 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  />
+</select>
+`;
+
+exports[`<SelectInput /> with options from array of objects w/ no parsing props 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  />
+  <option
+    value={
+      Object {
+        "label": "apple",
+        "price": 1.4,
+      }
+    }
+  >
+    [object Object]
+  </option>
+  <option
+    value={
+      Object {
+        "label": "bananas",
+        "price": 0.59,
+      }
+    }
+  >
+    [object Object]
+  </option>
+  <option
+    value={
+      Object {
+        "label": "cranberries",
+        "price": 5.99,
+      }
+    }
+  >
+    [object Object]
+  </option>
+</select>
+`;
+
+exports[`<SelectInput /> with options from array of objects w/ parsing props 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  />
+  <option
+    value={1.4}
+  >
+    apple
+  </option>
+  <option
+    value={0.59}
+  >
+    bananas
+  </option>
+  <option
+    value={5.99}
+  >
+    cranberries
+  </option>
+</select>
+`;
+
+exports[`<SelectInput /> with options from array of strings 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  />
+  <option
+    value="apples"
+  >
+    apples
+  </option>
+  <option
+    value="bananas"
+  >
+    bananas
+  </option>
+  <option
+    value="cranberries"
+  >
+    cranberries
+  </option>
+</select>
+`;
+
+exports[`<SelectInput /> with placeholder option text 1`] = `
+<select
+  className="apm-mi-form-control"
+  onBlur={[Function]}
+  onChange={[Function]}
+>
+  <option
+    value=""
+  >
+    Select one por favor
+  </option>
+</select>
+`;
