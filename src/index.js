@@ -1,3 +1,4 @@
-export * from './src/DatePicker';
+import './styles';
 
-import './style.less';
+export * from './components/DatePicker';
+
