@@ -1,14 +1,10 @@
 {
   "name": "mentor-ui",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "repository": "https://github.com/MentorAPM/mentor-ui.git",
   "author": "",
   "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/lib/*"
-  ],
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.5",
@@ -27,7 +23,6 @@
     "@testing-library/react": "^8.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
-    "babel-loader-lerna-cra": "^0.1.3",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-react-remove-properties": "^0.3.0",
     "babel-preset-airbnb": "^3.2.1",
@@ -46,12 +41,33 @@
     "react-test-renderer": "^16.8.6",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.3.0",
-    "uglifyjs-webpack-plugin": "^2.1.3",
     "webpack": "^4.34.0",
     "webpack-cli": "^3.3.4"
   },
   "dependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "blacklist": "^1.1.4",
+    "classnames": "^2.2.6",
+    "fuzzy": "^0.1.3",
+    "lodash": "^4.17.11",
+    "moment": "^2.20.1",
+    "prop-types": "^15.7.2",
+    "react-dnd": "^7.6.0",
+    "react-dropzone": "^10.1.5",
+    "react-intl": "^2.9.0",
+    "react-onclickoutside": "^6.7.0",
+    "react-tether": "^2.0.3",
+    "react-toastify": "^5.2.1",
+    "react-tooltip": "^3.10.0",
+    "react-transition-group": "^4.1.1",
+    "react-color": "^2.17.3",
+    "shortid": "^2.2.14",
+    "fscreen": "^1.0.2",
+    "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.1.1",
+    "react-stepper-horizontal": "^1.0.11",
+    "stickyfilljs": "^2.1.0",
+    "airbnb-browser-shims": "^3.2.1"
   }
 }
