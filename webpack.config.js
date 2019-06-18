@@ -16,7 +16,7 @@ const libs = [
 ];
 
 module.exports = libs.map(libName => {
- 
+
 	return {
 		mode: 'production',
 		entry: `./packages/lib/${libName}/src/index.js`,
@@ -32,7 +32,7 @@ module.exports = libs.map(libName => {
 					test: /\.jsx?$/,
 					loader: ['babel-loader'],
 					exclude: /node_modules/
-				},		
+				},
 				{
 					test: /\.css$/,
 					use: [
@@ -60,13 +60,13 @@ module.exports = libs.map(libName => {
 		},
 
 		plugins: [
-	  	new TerserPlugin({
-	    	parallel: true,
-	    	terserOptions: { ecma: 6 }
-	    }),
-			new webpack.ProgressPlugin({ profile: false }),
-			new CaseSensitivePathsPlugin(),
-		],
+			new TerserPlugin({
+				parallel: true,
+				terserOptions: { ecma: 6 }
+			}),
+				new webpack.ProgressPlugin({ profile: false }),
+				new CaseSensitivePathsPlugin(),
+			],
 		externals: [
 			'react'
 		]

@@ -58,6 +58,7 @@
 		"react-dom": "^16.8.6"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-pro": "^5.9.0",
 		"blacklist": "^1.1.4",
 		"moment": "^2.24.0",
 		"react-onclickoutside": "^6.8.0"
