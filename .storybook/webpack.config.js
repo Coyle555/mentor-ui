@@ -14,8 +14,7 @@ module.exports = async ({ config, mode }) => {
 	});
 
 	// resolvers
-	config.resolve.alias['mentor-ui-constants'] = path.resolve(__dirname, '../src/styles/index.less');
-
+	config.resolve.alias['mentor-ui-constants'] = path.resolve(__dirname, '../src/styles/mentor-ui-constants.less');
 
 
 	// Return the altered config
