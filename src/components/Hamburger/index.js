@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import './style.less';
 
-function Hamburger(props) {
+export const Hamburger = (props) => {
 	const { isOpen } = props;
 
 	return (
@@ -19,4 +19,4 @@ function Hamburger(props) {
 	)
 }
 
-export default Hamburger;
+

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
 import { Typeahead } from '../typeahead/typeahead';
-import { KeyEvent } from '../keyevent/keyevent';
+import { KeyEvent } from 'utils';
 import { ActiveFilters } from './activeFilters';
 import {
 	_getCategoryDataType,

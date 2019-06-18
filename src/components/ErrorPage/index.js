@@ -9,7 +9,7 @@ const statusText = {
 	500: 'Server Error'
 };
 
-const ErrorPage = props => (
+export const ErrorPage = props => (
 	<div className="middle-box text-center animated fadeInDown">
 		<h1>{props.status}</h1>
 		<h3 className="font-bold">{statusText[props.status] || 'Something went wrong'}</h3>
@@ -27,4 +27,3 @@ ErrorPage.propTypes = {
 // 	status: 500,
 // };
 
-export default ErrorPage;

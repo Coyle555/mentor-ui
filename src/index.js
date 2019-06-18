@@ -1,13 +1,18 @@
-<<<<<<< HEAD
-export * from './lib/datepicker/src/index';
-export * from './lib/helper-components/src/index';
-export * from './lib/insert-popup-form/src/index';
-export * from './lib/mentor-inputs/src/index';
-export * from './lib/kyle-tables/src/index';
-export * from './lib/structured-query/src/index';
-=======
+import a from './components/Button';
+import b from './components/Drawer';
+
 import './styles';
 
 export * from './components/DatePicker';
+export * from './components/Dropdown';
+export * from './components/ErrorPage';
+export * from './components/Modal';
 
->>>>>>> 6b2899fd837423fc7608a6ee6fdcba4f61c9860e
+export * from './components/mentor-inputs/src/index';
+export * from './components/kyle-tables/src/index';
+export * from './components/structured-query/src/index';
+
+export const Button = a; 
+export const Drawer = b;
+
+
