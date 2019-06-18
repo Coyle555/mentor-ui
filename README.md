@@ -74,14 +74,19 @@ Component
 ```
 * Destructor props at the top of the render function.
 ```
+	const {
+		onClick,
+		color,
+	} = props;
+	
 	return (
-		const {
-			onClick,
-         	color,
-      	} = props;
+		<BatScooter
+			onClick={oncClick}
+			style={{ backgroundColor: color }}
+		/>
    	)
 ```
-* Max line length should be 61 characters.
+* Max line length should be 100 characters.
 
 [Back to the top](#mentor-ui)
 #### Code import guidelines
@@ -110,6 +115,10 @@ import { ComponentC as C } from './src/ComponentC';
 export const ComponentA = A;
 export const ComponentB = B;
 export const ComponentC = C;
+```
+* No default exports. All exports should be named exports.
+```
+export const ComponentA = [class/function/variable]
 ```
 
 [Back to the top](#mentor-ui)
