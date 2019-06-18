@@ -8,7 +8,7 @@ import {
 	Portal,
 	Stepper,
 	SelectedOption,
-} from './components';
+} from './components/index';
 
 import {
 	asyncFilter,

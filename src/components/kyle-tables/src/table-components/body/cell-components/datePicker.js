@@ -4,7 +4,7 @@ import fuzzy from 'fuzzy';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 
-import { DatePicker } from 'datepicker';
+import { DatePicker } from 'components/DatePicker';
 
 export class TableDatePicker extends PureComponent {
 

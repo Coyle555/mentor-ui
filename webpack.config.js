@@ -7,15 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	mode: 'production',
-	entry: {
-
-		 'mentor-inputs': './src/lib/mentor-inputs/src/index.js',
-		 'structured-query': './src/lib/structured-query/src/index.js',
-		 'insert-popup-form': './src/lib/insert-popup-form/src/index.js',
-		 'kyle-tables': './src/lib/kyle-tables/src/index.js',
-		 'helper-components': './src/lib/helper-components/src/index.js',
-		 'datepicker': './src/lib/datepicker/src/index.js',
-	},
+	entry: './src/index.js',
 	  optimization: {
     splitChunks: {
       // include all types of chunks

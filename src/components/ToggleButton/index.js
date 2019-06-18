@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ToggleButton({ isOpen }) {
+export const ToggleButton = ({ isOpen, toggleNav, navigationOpen }) => {
 	return (
 		<div
 			className="apm-toggle-navigation"
@@ -17,4 +17,4 @@ function ToggleButton({ isOpen }) {
 	)
 }
 
-export ToggleButton;
+

@@ -7,7 +7,7 @@ import onClickOutside from 'react-onclickoutside';
 
 import { TypeaheadSelector } from './selector';
 import { DatePicker } from '../datepicker/datepicker';
-import { KeyEvent } from '../keyevent/keyevent';
+import { keyEvent } from 'utils';
 
 // Typeahead an auto-completion text input
 //
@@ -145,16 +145,16 @@ export class TypeaheadClass extends Component {
 	// Event mappings for keystrokes
 	eventMap = (event) => {
 		switch (event.keyCode) {
-			case KeyEvent.DOM_VK_UP:
+			case keyEvent.DOM_VK_UP:
 				return this.navUp;
-			case KeyEvent.DOM_VK_DOWN:
+			case keyEvent.DOM_VK_DOWN:
 				return this.navDown;
-			case KeyEvent.DOM_VK_RETURN:
-			case KeyEvent.DOM_VK_ENTER:
+			case keyEvent.DOM_VK_RETURN:
+			case keyEvent.DOM_VK_ENTER:
 				return this._onEnter;
-			case KeyEvent.DOM_VK_ESCAPE:
+			case keyEvent.DOM_VK_ESCAPE:
 				return this._onEscape;
-			//case KeyEvent.DOM_VK_TAB:
+			//case keyEvent.DOM_VK_TAB:
 				//return this._onTab;
 			default:
 				return null;

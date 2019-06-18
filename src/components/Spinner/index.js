@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const Spinner = ({ className, large }) => (
+export const Spinner = ({ className, large }) => (
 	<i className={cn({
 		'fa fa-spinner apm-spinner': true,
 		'fa-lg': large,
@@ -20,4 +20,3 @@ Spinner.defaultProps = {
 	large: false
 };
 
-export default Spinner;

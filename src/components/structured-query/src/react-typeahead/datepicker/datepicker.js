@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { DatePicker as Picker } from 'datepicker';
+import { DatePicker as Picker } from 'components/DatePicker';
 
 export class DatePicker extends Component {
 
