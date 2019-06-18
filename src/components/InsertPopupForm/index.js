@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Portal } from './portal';
-import { Stepper } from './stepper/stepper';
-import { SelectedOption } from './selectedOption';
-import { Label } from './label/label';
-import { Field } from './field/field';
+import {
+	Field,
+	Label,
+	Portal,
+	Stepper,
+	SelectedOption,
+} from './components';
+
 import {
 	asyncFilter,
 	getMentorInput,
@@ -27,7 +30,7 @@ const TABLE_INPUT_RE = /^\/(\w+)/;
 // question at a time based on the formFields inputted. Once an input is
 // filled out, it jumps to the next input. It allows for navigation using the
 // Enter, Tab, and arrow up and down keys.
-export class InsertForm extends Component {
+export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({

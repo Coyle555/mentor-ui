@@ -30,6 +30,6 @@ export class SelectedOption extends Component {
 					onClick={this.removeSelectedOption}
 				/>
 			</h2>
-	       );
+		);
 	}
 }

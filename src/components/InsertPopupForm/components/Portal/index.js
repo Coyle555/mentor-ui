@@ -26,4 +26,3 @@ export class Portal extends React.Component {
 		return createPortal(this.props.children, this.el);
 	}
 }
-

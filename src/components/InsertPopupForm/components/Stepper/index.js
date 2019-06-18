@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Step } from './step';
+import { Step } from './components/Step';
 
 export const Stepper = ({ activeStep, onClick, steps }) => (
 	<div className="stepper-container">
