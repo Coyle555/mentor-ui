@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { InputSlider } from '../InputSlider';
+import { Slider } from '../Slider';
 import { composeClass } from 'utils';
 
 import './style.less';
@@ -51,7 +51,7 @@ export const Time = (props) => {
 				<div className={cc('time-text')}>
 					Hours:
 				</div>
-				<InputSlider
+				<Slider
 					className="u-slider-time"
 					xmin={minHour}
 					xmax={maxHour}
@@ -61,7 +61,7 @@ export const Time = (props) => {
 				<div className={cc("time-text")}>
 					Minutes:
 				</div>
-				<InputSlider
+				<Slider
 					className="u-slider-time"
 					xmin={minHour}
 					xmax={maxHour}

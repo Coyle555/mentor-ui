@@ -1,4 +1,4 @@
-import cx from 'classnames';
+import cn from 'classnames';
 import blacklist from 'blacklist';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -6,67 +6,7 @@ import PropTypes from 'prop-types';
 
 import './style.less';
 
-export class InputSlider extends Component {
-	static propTypes = {
-		axis: PropTypes.string,
-		x: PropTypes.number,
-		xmax: PropTypes.number,
-		xmin: PropTypes.number,
-		y: PropTypes.number,
-		ymax: PropTypes.number,
-		ymin: PropTypes.number,
-		xstep: PropTypes.number,
-		ystep: PropTypes.number
-	};
-
-	static defaultProps = {
-		axis: 'x',
-		xmin: 0,
-		ymin: 0,
-		xstep: 1,
-		ystep: 1
-	};
-
-	render() {
-		const { axis } = this.props;
-		const props = blacklist(
-			this.props,
-			'axis',
-			'x',
-			'y',
-			'xmin',
-			'xmax',
-			'ymin',
-			'ymax',
-			'xstep',
-			'ystep',
-			'onChange',
-			'onDragEnd',
-			'className',
-			'onClick'
-		);
-		const pos = this.getPosition();
-
-		const valueStyle = {};
-		if (axis === 'x') valueStyle.width = pos.left;
-		if (axis === 'y') valueStyle.height = pos.top;
-
-		props.className = cx('u-slider', `u-slider-${axis}`, this.props.className);
-
-		return (
-			<div {...props} onClick={this.handleClick}>
-				<div className="value" style={valueStyle} />
-				<div
-					className="handle"
-					ref={ref => this.handleRef = ref}
-					onTouchStart={this.handleMouseDown}
-					onMouseDown={this.handleMouseDown}
-					onClick={this.onSliderClick}
-					style={pos}
-				/>
-			</div>
-		);
-	}
+export class Slider extends Component {
 
 	onSliderClick = e => {
 		e.stopPropagation();
@@ -114,11 +54,27 @@ export class InputSlider extends Component {
 	};
 
 	change = (pos, dragEnd) => {
-		if (!this.props.onChange) return;
+		console.log('change: ', pos, dragEnd);
 
-		const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
-		const { width, height } = rect;
-		const { axis, xstep, ystep, xmax, xmin, ymax, ymin } = this.props;
+		const rect = ReactDOM
+			.findDOMNode(this)
+			.getBoundingClientRect();
+
+		const {
+			width,
+			height
+		} = rect;
+
+		const {
+			axis,
+			xstep,
+			ystep,
+			xmax,
+			xmin,
+			ymax,
+			ymin
+		} = this.props;
+
 		let { top, left } = pos;
 		let dx = 0;
 		let dy = 0;
@@ -159,6 +115,7 @@ export class InputSlider extends Component {
 			x: clientPos.x,
 			y: clientPos.y
 		};
+		console.log('handleMouseDown: ', e);
 
 		document.addEventListener('mousemove', this.handleDrag);
 		document.addEventListener('mouseup', this.handleDragEnd);
@@ -183,6 +140,7 @@ export class InputSlider extends Component {
 	handleDrag = e => {
 		e.preventDefault();
 		this.change(this.getPos(e));
+		console.log('handleDrag: ', this.getPos(e));
 	};
 
 	handleDragEnd = e => {
@@ -211,4 +169,70 @@ export class InputSlider extends Component {
 			true
 		);
 	};
+
+	render() {
+		const { axis } = this.props;
+		const props = blacklist(
+			this.props,
+			'axis',
+			'x',
+			'y',
+			'xmin',
+			'xmax',
+			'ymin',
+			'ymax',
+			'xstep',
+			'ystep',
+			'onChange',
+			'onDragEnd',
+			'className',
+			'onClick'
+		);
+
+		const pos = this.getPosition();
+
+		const valueStyle = {};
+		if (axis === 'x') valueStyle.width = pos.left;
+		if (axis === 'y') valueStyle.height = pos.top;
+
+		props.className = cn(
+			'u-slider',
+			`u-slider-${axis}`,
+			this.props.className
+		);
+
+		return (
+			<div {...props} onClick={this.handleClick}>
+				<div className="value" style={valueStyle} />
+				<div
+					className="handle"
+					ref={ref => this.handleRef = ref}
+					onTouchStart={this.handleMouseDown}
+					onMouseDown={this.handleMouseDown}
+					onClick={this.onSliderClick}
+					style={pos}
+				/>
+			</div>
+		);
+	}
 }
+
+Slider.propTypes = {
+	axis: PropTypes.string,
+	x: PropTypes.number,
+	xmax: PropTypes.number,
+	xmin: PropTypes.number,
+	y: PropTypes.number,
+	ymax: PropTypes.number,
+	ymin: PropTypes.number,
+	xstep: PropTypes.number,
+	ystep: PropTypes.number
+};
+
+Slider.defaultProps = {
+	axis: 'x',
+	xmin: 0,
+	ymin: 0,
+	xstep: 1,
+	ystep: 1
+};
