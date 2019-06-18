@@ -1,0 +1,87 @@
+@coverAll_zIndex: 1000;
+@blue-primary: blue;
+@green-primary: green;
+
+.APMDatePickerComposed {
+	width: 100%;
+
+	&-input-group {
+		width: 1px;
+		position: relative;
+		display: flex;
+		border-collapse: separate;
+		border: 1px solid @blue-primary;
+		width: 100%;
+		padding: 0;
+
+		&-has-error {
+			border-color: #be1717;
+		}
+
+		&-button {
+			color: @blue-primary;
+			border-right: 1px solid @blue-primary;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1;
+			padding: 6px 12px;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+
+			&-is-on {
+				color: white;
+				background-color: @blue-primary;
+				border-color: @blue-primary;
+			}
+
+			&-has-error {
+				color: #be1717;
+				border-color: #be1717;
+			}
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+
+	&-input-field {
+		width: 100%;
+		background-color: #FFFFFF;
+		background-image: none;
+		border: none;
+		color: #16181e;
+		padding: 6px 12px;
+		transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+		height: 100%;
+
+		&:invalid {
+			border-color: #ed5565 !important;
+		}
+
+		&:focus {
+			outline: none;
+			border-color: @green-primary;
+		}
+
+		&[disabled] {
+			background-color: #e4f1cf;
+			border-color: #e4f1cf;
+		}
+	}
+
+	&-datepicker-container {
+		position: absolute;
+		left: 38px;
+		top: 30px;
+		background-color: #fff;
+		z-index: @coverAll_zIndex;
+		max-width: 400px;
+		font-size: 12.6px;
+	}
+}
