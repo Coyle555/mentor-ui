@@ -1,12 +1,11 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import './style.less';
 
-export const Hamburger = (props) => {
-	const { isOpen } = props;
-
+export const Hamburger = ({ isOpen }) => {
+	
 	return (
 		<button className="APMHamburger">
 			<div className={
@@ -19,4 +18,6 @@ export const Hamburger = (props) => {
 	)
 }
 
-
+Hamburger.propTypes = {
+	isOpen: PropTypes.bool
+};
