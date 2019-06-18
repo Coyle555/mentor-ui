@@ -8,7 +8,7 @@ module.exports = async ({ config, mode }) => {
 
   // Make whatever fine-grained changes you need
   config.module.rules.push({
-    test: /\.less/,
+    test: /\.less$/,
     use: ['style-loader', 'css-loader', 'less-loader'],
     include: path.resolve(__dirname, '../'),
   });
