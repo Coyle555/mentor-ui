@@ -58,6 +58,8 @@
 		"react-dom": "^16.8.6"
 	},
 	"dependencies": {
-		"blacklist": "^1.1.4"
+		"blacklist": "^1.1.4",
+		"moment": "^2.24.0",
+		"react-onclickoutside": "^6.8.0"
 	}
 }

@@ -18,7 +18,7 @@ const DEFAULT_FORMAT_MASKS = {
 };
 
 
-export class DatePickerContainer extends Component {
+class DatePickerContainer extends Component {
 	constructor(props) {
 		super(props);
 
