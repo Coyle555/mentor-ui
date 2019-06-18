@@ -8,12 +8,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
 	mode: 'production',
 	entry: {
-		'mentor-inputs': './src/lib/mentor-inputs/src/index.js',
-		'structured-query': './src/lib/structured-query/src/index.js',
-		'insert-popup-form': './src/lib/insert-popup-form/src/index.js',
-		'kyle-tables': './src/lib/kyle-tables/src/index.js',
-		'helper-components': './src/lib/helper-components/src/index.js',
-		'datepicker': './src/lib/datepicker/src/index.js',
+
+		 'mentor-inputs': './src/lib/mentor-inputs/src/index.js',
+		 'structured-query': './src/lib/structured-query/src/index.js',
+		 'insert-popup-form': './src/lib/insert-popup-form/src/index.js',
+		 'kyle-tables': './src/lib/kyle-tables/src/index.js',
+		 'helper-components': './src/lib/helper-components/src/index.js',
+		 'datepicker': './src/lib/datepicker/src/index.js',
 	},
 	  optimization: {
     splitChunks: {
@@ -22,7 +23,8 @@ module.exports = {
     }
   },
 	output: {
-		filename: '[name].js',
+		filename: 'bundle.js',
+		// filename: '[name].js',
 		path: __dirname + '/dist',
 		libraryTarget: 'commonjs2',
 	},
