@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { BooleanInputComponent } from '../components/boolean-input/booleanInput';
 import { DatePicker } from 'datepicker';
 import EmailInput from '../components/email-input/emailInput';
