@@ -15,7 +15,7 @@ import {
 	getMentorInput,
 	AsyncDropdown,
 	ListFilter,
-	//TableInput,
+	TableInput,
 	TextareaInput,
 	SelectInput
 } from 'mentor-inputs';
@@ -172,18 +172,12 @@ export default class InsertForm extends Component {
 			} else if (!!field.tableOnInsert) {
 
 				InputComponent = (
-					<input 
-						disabled
-						value="Under Construction"
+					<TableInput
+						{...mentorInputProps}
+						apiInfo={field.tableOnInsert}
+						onSelectData={this._handleOptionMatch}
 					/>
-				)
-				// InputComponent = (
-				// 	<TableInput
-				// 		{...mentorInputProps}
-				// 		apiInfo={field.tableOnInsert}
-				// 		onSelectData={this._handleOptionMatch}
-				// 	/>
-				// );
+				);
 
 			} else {
 				MentorInput = getMentorInput(field.type);

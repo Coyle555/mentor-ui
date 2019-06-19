@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-//import { TableInput } from 'mentor-inputs';
+import { TableInput } from 'mentor-inputs';
 
 export class EditTableInputCell extends PureComponent {
 
@@ -32,22 +32,14 @@ export class EditTableInputCell extends PureComponent {
 		const { apiInfo, colId, inputClass, required, value } = this.props;
 
 		return (
-			<input 
+			<TableInput
+				apiInfo={apiInfo}
 				className={inputClass}
-				disabled
-				type="text"
-				value="Under Construction"
+				name={colId}
+				onSelectData={this.onSelectData}
+				required={required}
+				value={value}
 			/>
-		)
-		// return (
-		// 	<TableInput
-		// 		apiInfo={apiInfo}
-		// 		className={inputClass}
-		// 		name={colId}
-		// 		onSelectData={this.onSelectData}
-		// 		required={required}
-		// 		value={value}
-		// 	/>
-		// );
+		);
 	}
 };

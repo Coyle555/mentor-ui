@@ -1,5 +1,5 @@
 import { BooleanInputComponent } from './components/boolean-input/booleanInput';
-// import DatePickerComponent from './components/datepicker/datePicker';
+
 import EmailInputComponent from './components/email-input/emailInput';
 import FileInputComponent from './components/file-input/fileInput';
 import FloatInputComponent from './components/float-input/floatInput';
@@ -10,7 +10,7 @@ import SelectInputComponent from './components/select-input/selectInput';
 import TextInputComponent from './components/text-input/textInput';
 import TextareaInputComponent from './components/textarea-input/textareaInput';
 import TokenInputComponent from './components/token-input/tokenInput';
-//import TableInputComponent from './components/table-input/table-input-btn';
+import TableInputComponent from './components/table-input/index';
 import APMDropzoneComponent from './components/Dropzone';
 
 import { getMentorInput as getMentorInputFunc } from './utils/utils';
@@ -26,12 +26,12 @@ export const IntegerInput = IntegerInputComponent;
 export const ListFilter = ListFilterComponent;
  //export const MaskedInput = MaskedInputComponent;
 export const SelectInput = SelectInputComponent;
-//export const TableInput = TableInputComponent;
+export const TableInput = TableInputComponent;
 export const TextInput = TextInputComponent;
 export const TextareaInput = TextareaInputComponent;
 export const TokenInput = TokenInputComponent;
 export const APMDropzone = APMDropzoneComponent;
-//export * from './score-input';
+
 export * from './components/mui-input/index';
 export * from './components/async-dropdown/index';
 export * from './hooks/index';

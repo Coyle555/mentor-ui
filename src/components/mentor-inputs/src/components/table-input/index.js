@@ -1,208 +1,112 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import onClickOutside from 'react-onclickoutside';
+import classNames from 'classnames';
 
-import Portal from './portal';
-import Table, { convertModel } from 'kyle-tables';
-import { constructQuery } from 'components/layout/common/Table/utils/tableUtils';
+import TableInput from './table';
 
-class TableInput extends Component {
-
+class TableInputButton extends Component {
+	
 	static propTypes = {
 		apiInfo: PropTypes.shape({
 			apiPath: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired
-		}),
-		closeTableModal: PropTypes.func,
-		selectData: PropTypes.func
+		}).isRequired,
+		error: PropTypes.bool,
+		onSelectData: PropTypes.func,
+		value: PropTypes.string
+	}
+
+	static defaultProps = {
+		onSelectData: null
 	}
 
 	constructor(props) {
 		super(props);
 
-		this.tableSettingsId = this.props.apiInfo.name;
-		this.extraColumns = [{
-			header: <th className="table-heading-cell table-expand-cell" />,
-			cell: <i className="far fa-bullseye-pointer apm-color-dark-green" />,
-			onClick: this.props.selectData
-		}];
+		const { value } = this.props;
+		let val = value;
+
+		if (typeof value !== 'string') {
+			val = String(value);
+		}
+
+		// last value checks if the value has changed to fire a select data evt
+		this.lastVal = val;
 
 		this.state = {
-			count: 0,
-			filters: [],
-			limit: 0,
-			loading: true,
-			loadingModel: true,
-			model: {},
-			page: 1,
-			sortDir: null,
-			sortId: null,
-			value: []
+			hasError: this.checkForError(val),
+			tableOpen: false
 		};
 	}
 
-	componentDidMount() {
-		const { apiInfo } = this.props;
+	checkForError = (value) => {
+		const { name, required, validation } = this.props;
 
-		this.getData('?limit=25');
-		_api.loadModel(apiInfo.apiPath)
-			.then(this.loadModel)
-			.catch(err => {
-				this.setState({ loadingModel: false });
-			});
-	}
+		let error = !!required && !value;
 
-	getData = (query = '') => {
-		const { apiInfo } = this.props;
-		_api.unsubscribe(this);
-
-		// if api path has a query included in it, append the new query
-		if (apiInfo.apiPath.includes('?')) {
-			query = '&' + query.substr(1);
+		if (!error && !!value && typeof validation === 'function') {
+			error = validation(value, name);
 		}
 
-		_api.get(apiInfo.apiPath + query, this)
-			.then(this.loadTableData)
-			.catch(err => {
-				this.setState({ loading: false });
-			});
+		return error;
 	}
 
-	updateListener = (data) => {
-		this.setState({
-			value: this.state.value.map(val => {
-				if (val.id === data.id) {
-					return data;
-				}
-
-				return val;
-			})
-		});
+	openTableInput = () => {
+		this.setState({ tableOpen: true });
 	}
 
-	addListener = this.updateListener
-	removeListener = this.updateListener
-	deleteListener = this.reloadData
+	closeTableInput = () => {
+		this.setState({ tableOpen: false });
+	}
 
-	loadModel = (model) => {
+	selectData = (data) => {
+		const { name, onSelectData } = this.props;
 
 		this.setState({
-			columns: convertModel(model),
-			loadingModel: false,
-			model
-		});
-	}
-
-	loadTableData = (response) => {
-		const { Count, Limit, Page, Value } = response;
-		let sortId = null;
-		let sortDir = null;
-
-		if (response.Sort) {
-			[sortId, sortDir] = response.Sort.split(' ');
-		}
-	
-		this.setState({
-			count: Count,
-			limit: Limit,
-			loading: false,
-			page: Page,
-			sortDir,
-			sortId,
-			value: Value
-		});
-	}
-
-	customLayout = (Header, Table) => {
-		return (
-			<Fragment>
-				<div className="subheader">
-					{Header}
-				</div>
-				{Table}
-			</Fragment>
-		);
-	}
-
-	handleTableChange = (
-		limit = 0,
-		page = 0,
-		sortId = null,
-		sortDir = null,
-		filters = []
-	) => {
-		const query = constructQuery({
-			limit: 25,
-			page,
-			sortId,
-			sortDir,
-			filters
-		});
-
-		this.setState({
-			filters,
-			loading: true
+			hasError: this.checkForError(data),
+			tableOpen: false
 		}, () => {
-			this.getData(query);
+			if (typeof onSelectData === 'function') {
+				onSelectData(data, name);
+			}
 		});
-	}
-
-	handleClickOutside = (event) => {
-		this.props.closeTableInput();
 	}
 
 	render() {
-		const { apiInfo } = this.props;
-		const {
-			columns,
-			count,
-			filters,
-			limit,
-			loading,
-			loadingModel,
-			model,
-			page,
-			sortDir,
-			sortId,
-			value
-		} = this.state;
+		const { apiInfo, value } = this.props;
+		const { hasError, tableOpen } = this.state;
+
+		const inputClasses = classNames({
+			'apm-mi-form-control': true,
+			[this.props.className]: !!this.props.className,
+			'apm-error-border-color': !!hasError
+		});
 
 		return (
-			<Portal>
-				<div style={{
-					position: 'absolute',
-					width: '75%',
-					height: '75%',
-					boxShadow: '0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)',
-					left: '12.5%',
-					top: '12.5%',
-					zIndex: 10,
-					background: 'white'
-				}}>
-					<Table
-						allowSelection={false}
-						columns={columns}
-						currentPage={page}
-						customLayout={this.customLayout}
-						data={value}
-						deletable={false}
-						editable={false}
-						extraColumns={this.extraColumns}
-						filters={filters}
-						handleTableChange={this.handleTableChange}
-						id={apiInfo.name}
-						insertable={false}
-						loading={loadingModel || loading}
-						model={model}
-						pageSize={limit}
-						recordCount={count}
-						sortDir={sortDir}
-						sortId={sortId}
+			<Fragment>
+				{ tableOpen &&
+					<TableInput
+						apiInfo={apiInfo}
+						closeTableInput={this.closeTableInput}
+						selectData={this.selectData}
 					/>
-				</div>
-			</Portal>
+				}
+				<button
+					className={inputClasses}
+					onClick={this.openTableInput}
+					style={{
+						color: !!hasError ? '#be1717' : 'inherit',
+						whiteSpace: 'nowrap',
+						textOverflow: 'ellipsis',
+						overflow: 'hidden'
+					}}
+					type="button"
+				>
+					{ value || '[Find Record]' }
+				</button>
+			</Fragment>
 		);
 	}
 }
 
-export default onClickOutside(TableInput);
+export default TableInputButton;
