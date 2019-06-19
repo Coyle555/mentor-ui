@@ -1,6 +1,6 @@
 import a from './components/Button';
 import b from './components/Drawer';
-import c from './components/InsertPopupForm';
+import c from './components/InsertPopupForm/index';
 import d from './components/Token';
 
 import './styles/index.less';
