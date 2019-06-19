@@ -6,19 +6,22 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
-	//mode: 'production',
+	mode: 'production',
 	entry: './src/index.js',
-	 //  optimization: {
-  //   splitChunks: {
-  //     // include all types of chunks
-  //     chunks: 'all'
-  //   }
-  // },
+	optimization: {
+	  splitChunks: {
+	    // include all types of chunks
+	    chunks: 'all'
+	  }
+	},
 	output: {
 		filename: 'bundle.js',
+		library: 'mentor-ui',
 		// filename: '[name].js',
 		path: __dirname + '/dist',
-		libraryTarget: 'commonjs2',
+		publicPath: '/dist/',
+		umdNamedDefine: true,
+		libraryTarget: 'umd',
 	},
 	// optimization: {
 	// 	runtimeChunk: false,

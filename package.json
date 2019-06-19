@@ -5,6 +5,9 @@
   "repository": "https://github.com/MentorAPM/mentor-ui.git",
   "author": "",
   "license": "MIT",
+	"publishConfig": {
+		"access": "restricted"
+	},  
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.5",
