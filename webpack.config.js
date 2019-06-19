@@ -1,4 +1,4 @@
-// const path = require('path');
+const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -6,21 +6,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
-	mode: 'production',
+	//mode: 'production',
 	entry: './src/index.js',
-	  optimization: {
-    splitChunks: {
-      // include all types of chunks
-      chunks: 'all'
-    }
-  },
+	 //  optimization: {
+  //   splitChunks: {
+  //     // include all types of chunks
+  //     chunks: 'all'
+  //   }
+  // },
 	output: {
 		filename: 'bundle.js',
 		// filename: '[name].js',
 		path: __dirname + '/dist',
 		libraryTarget: 'commonjs2',
 	},
-	resolve: { extensions: ['.js', '.jsx'] },
 	// optimization: {
 	// 	runtimeChunk: false,
 	// 	splitChunks: {
@@ -75,8 +74,26 @@ module.exports = {
 		new webpack.ProgressPlugin({ profile: false }),
 		new CaseSensitivePathsPlugin(),
 	],
-	externals: [
-		'react'
-	]
+	externals: {           
+		react: {          
+			commonjs: "react",          
+			commonjs2: "react",          
+			amd: "React",          
+			root: "React"      
+		},      
+		"react-dom": {          
+			commonjs: "react-dom",          
+			commonjs2: "react-dom",          
+			amd: "ReactDOM",          
+			root: "ReactDOM"      
+		}  
+	},
+	resolve: {
+		extensions: ['.js', '.jsx'],
+		alias: {
+			'react': path.join(__dirname, './node_modules/react'),
+			'react-dom': path.join(__dirname, './node_modules/react-dom')
+		}
+	} 
 };
 
