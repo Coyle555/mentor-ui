@@ -23,8 +23,12 @@ inquirer.prompt([question])
 
 			console.log({ stderr });
 			console.log({ stdout });
+			process.exit(0);
 		})
 
-	})	
+	})
+
+
+	
 
 

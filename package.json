@@ -6,7 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "prepare": "rm -rf ./dist & webpack & node ./bump"
+    "prepare": "rm -rf /dist && webpack && node ./bump"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
