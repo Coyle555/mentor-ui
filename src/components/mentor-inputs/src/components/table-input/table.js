@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 
 import Portal from './portal';
-import { Table, convertModel } from 'components/kyle-tables/index';
-import { constructQuery } from 'components/layout/common/Table/utils/tableUtils';
+import { Table, convertModel } from 'components/kyle-tables/src/index';
+import { constructQuery } from './constructQuery';
+
 
 class TableInput extends Component {
 

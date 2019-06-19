@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { TableInput } from 'mentor-inputs';
+import { TableInput } from 'components/mentor-inputs/src/index';
 
 export class EditTableInputCell extends PureComponent {
 
