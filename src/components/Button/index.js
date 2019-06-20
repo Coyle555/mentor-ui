@@ -15,7 +15,6 @@ const Button = (props) => {
     isLeftEndCap,
     isRightEndCap,
     isCapless,
-    isDisabled,
     onClick, 
     ...btnAttributes
   } = props;
@@ -23,7 +22,6 @@ const Button = (props) => {
   return (
     <button
 		  {...btnAttributes}
-      onClick={!isDisabled ? onClick : () => {}}
       className={classNames(
         "APMButton",
       { "APMButton-light": isLight },
@@ -32,7 +30,7 @@ const Button = (props) => {
       { "APMButton-end-cap-left": isLeftEndCap },
       { "APMButton-end-cap-right": isRightEndCap },
       { "APMButton-is-capless": isCapless },
-      { "APMButton-is-disabled": isDisabled },
+      { "APMButton-is-disabled": btnAttributes.disabled },
       { "APMButton-is-medium": medium },
         className,
       )}>
@@ -44,6 +42,7 @@ const Button = (props) => {
 Button.propTypes = {
 	className: PropTypes.string,
 	children: PropTypes.node,
+  disabled: PropTypes.bool,
 	onClick: PropTypes.func,
 	medium: PropTypes.bool,
 	isLight: PropTypes.bool,

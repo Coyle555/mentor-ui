@@ -21,8 +21,6 @@ inquirer.prompt([question])
 				process.exit(1);
 			}
 
-			console.log({ stderr });
-			console.log({ stdout });
 			process.exit(0);
 		})
 
