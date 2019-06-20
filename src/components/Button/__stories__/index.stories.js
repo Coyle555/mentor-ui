@@ -5,12 +5,13 @@ import { withKnobs, optionsKnob as options } from '@storybook/addon-knobs';
 import Button from '../';
 
 const optionsConfig = {
-	medium: 'medium',
+	disabled: 'disabled',
+	isCapless: 'isCapless',	
 	isLight: 'isLight',
+	isLeftEndCap: 'isLeftEndCap',	
 	isMini: 'isMini',
-	isLeftEndCap: 'isLeftEndCap',
 	isRightEndCap: 'isRightEndCap',
-	disabled: 'disabled'
+	medium: 'medium',
 }
 
 //options returns an array of strings
@@ -28,7 +29,7 @@ storiesOf('Button', module)
 		return (
 			<div style={{padding: 10}}>
 				<Button {...props}>
-					Click Here
+					Button Component!
 				</Button>
 			</div>
 		)
