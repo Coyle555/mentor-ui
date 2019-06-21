@@ -18,16 +18,15 @@ export const Time = (props) => {
 		onChange,
     } = props;
 
-	console.log('minHour: ', minHour)
-	console.log('maxHour:', maxHour)
-
-	const changeHours = pos => {
-		moment.hours(pos.x);
+	const changeHours = percentage => {
+		console.log('h percentage: ', percentage)
+		//moment.hours(pos.x);
 		onChange(moment);
 	};
 
-	const changeMinutes = pos => {
-		moment.minutes(pos.x);
+	const changeMinutes = percentage => {
+		console.log('m percentage: ', percentage)
+		//moment.minutes(pos.x);
 		onChange(moment);
 	};
 
@@ -55,20 +54,12 @@ export const Time = (props) => {
 					Hours:
 				</div>
 				<Slider
-					className="u-slider-time"
-					xmin={minHour}
-					xmax={maxHour}
-					x={moment.hour()}
 					onChange={changeHours}
 				/>
 				<div className={cc("time-text")}>
 					Minutes:
 				</div>
 				<Slider
-					className="u-slider-time"
-					xmin={minHour}
-					xmax={maxHour}
-					x={moment.minute()}
 					onChange={changeMinutes}
 				/>
 			</div>

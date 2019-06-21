@@ -1,69 +1,111 @@
 import React, {
 	useState,
+	useRef,
+	useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
-const SliderTypes = Object.freeze({
-	VERTICAL: 'VERTICAL',
-	HORIZONTAL: 'HORIZONTAL',
-})
+const KNOB_SIZE = 44;
 
 export const Slider = (props) => {
+	const [ percentage, setPercentage ] = useState();
+	const handleRef = useRef();
+	const handleGrabListener = useRef();
+	const sliderRef = useRef();
+
 	const {
-		type,
 		className,
 		onChange,
 	} = props;
 
-	const valueStyle = {};
-	const pos = {};
+	useEffect(() => {
+		onChange(percentage);
+	}, [percentage]);
 
-	if (type === SliderTypes.HORIZONTAL)
-		valueStyle.width = pos.left;
-	else
-		valueStyle.height = pos.top;
+	const handleGrab = (event) => {
+		if (!handleGrabListener.current) {
+			handleGrabListener.current = onMove.bind(
+				null,
+				sliderRef,
+				setPercentage,
+			);
+		}
 
-	const classes = cn(
-		'u-slider',
-		`u-slider-${type}`,
-		className,
-	);
+		handleRef.current.addEventListener(
+			'mousemove',
+			handleGrabListener.current,
+		);
+	};
 
-	const handleMouseDown = (event) => {
-	}
+	const handleRelease = (event) => {
+		handleRef.current.removeEventListener(
+			'mousemove',
+			handleGrabListener.current,
+		);
+	};
+
+	const styles = {
+		valueWidth: {
+			width: `calc(${percentage}% + ${KNOB_SIZE / 4}px)`
+		},
+		handlePos: {
+			left: `calc(${percentage}% - ${KNOB_SIZE / 2}px)`
+		},
+	};
+
+	const cc = composeNamespace('APMSlider', className);
 
 	return (
-		<div className={classes}>
-			<div className="value" style={valueStyle} />
+		<div
+			className={cc()}
+			ref={sliderRef}
+		>
 			<div
-				className="handle"
-				onTouchStart={handleMouseDown}
-				onMouseDown={handleMouseDown}
-				style={pos}
+				className={cc('value')}
+				style={styles.valueWidth}
+			/>
+			<div
+				className={cc('handle')}
+				ref={handleRef}
+				onMouseDown={handleGrab}
+				onMouseUp={handleRelease}
+				onMouseOut={handleRelease}
+				style={styles.handlePos}
 			/>
 		</div>
 	);
 };
 
-Slider.propTypes = {
-	axis: PropTypes.string,
-	x: PropTypes.number,
-	xmax: PropTypes.number,
-	xmin: PropTypes.number,
-	y: PropTypes.number,
-	ymax: PropTypes.number,
-	ymin: PropTypes.number,
-	xstep: PropTypes.number,
-	ystep: PropTypes.number
-};
+export function normalizer(value, min, max) {
+	if (value > max) return max
+	if (value < min) return min
+	return value
+}
 
-Slider.defaultProps = {
-	axis: 'x',
-	xmin: 0,
-	ymin: 0,
-	xstep: 1,
-	ystep: 1
+export function onMove(sliderRef, callback, event) {
+	const sliderRect = sliderRef
+		.current
+		.getBoundingClientRect();
+
+	const sliderX = sliderRect.x;
+	const sliderWidth = sliderRect.width;
+	const mouseX = event.clientX;
+
+	const x = Math.abs(sliderX - mouseX);
+	const newPercentage = normalizer(
+		Math.abs(x / sliderWidth) * 100,
+		0,
+		100
+	);
+
+	callback(newPercentage);
+}
+
+Slider.propTypes = {
+	className: PropTypes.string,
+	onChange: PropTypes.func,
 };
