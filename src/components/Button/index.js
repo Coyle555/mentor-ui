@@ -16,7 +16,6 @@ const Button = (props) => {
     isLeftEndCap,
     isRightEndCap,
     isCapless,
-    onClick, 
     ...btnAttributes
   } = props;
 

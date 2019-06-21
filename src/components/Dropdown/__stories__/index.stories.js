@@ -15,7 +15,7 @@ import Button from '../../Button/index';
 const CENTERED = {padding: 10, width: '50%', margin: '20px auto'};	
 
 storiesOf('Dropdown', module)
-	.add('Basic Dropdown Menu', () => {
+	.addWithJSX('Basic Dropdown Menu', () => {
 
 		return (
 			<div style={CENTERED}>
@@ -36,7 +36,7 @@ storiesOf('Dropdown', module)
 			</div>
 		)
 	})
-	.add('Dropdown Trigger using render props', () => {
+	.addWithJSX('Dropdown Trigger using render props', () => {
 
 			return (
 				<div style={{padding: 10}}>
@@ -61,7 +61,7 @@ storiesOf('Dropdown', module)
 				</div>
 			)		
 		})
-	.add('Custom dropdown content', () => {
+	.addWithJSX('Custom dropdown content', () => {
 
 			return (
 				<div style={CENTERED}>

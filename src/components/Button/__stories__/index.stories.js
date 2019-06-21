@@ -1,6 +1,7 @@
 import React from 'react';
-import { storiesOf, action } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import { withKnobs, optionsKnob as options } from '@storybook/addon-knobs';
+import { action, configureActions } from '@storybook/addon-actions';
 
 import Button from '../';
 
@@ -22,14 +23,16 @@ const formatProps = (selectedOptions = []) =>
 
 storiesOf('Button', module)
 	.addDecorator(withKnobs)
-	.add('props', () => {
+	.addWithJSX('props', () => {
 
 		const selectedOptions = options('Props', optionsConfig, [], { display: 'check'});
 		const props = formatProps(selectedOptions);
 
 		return (
-			<div style={{padding: 10}}>
-				<Button {...props}>
+			<div>
+				<Button {...props}
+					onClick={action('onClick')}
+				>
 					Button Component!
 				</Button>
 			</div>

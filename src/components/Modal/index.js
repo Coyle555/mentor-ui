@@ -22,9 +22,10 @@ const useFullScreen = (wrapper) => {
 			// wrapper.current.style.width = null;
 			// wrapper.current.style.height = null;
 		} else {
+			// wrapper.current.style.width = '100%';
+			// wrapper.current.style.height = '100%';			
 			fscreen.requestFullscreen(wrapper.current);
-			wrapper.current.style.width = '100%';
-			wrapper.current.style.height = '100%';
+
 			setIsFullScreen(true);
 		}
 	}
@@ -57,11 +58,12 @@ export const Modal = props => {
 
 	const overlayClassName = cn(
 		props.overlayClassName,
-		'--apm-modal-overlay--',
+		'APM-modal-overlay',
 		{ 'apm-fullscreen': isFullScreen }
 	);
 
 	const contentClassName = cn(
+		'apm-modal-content',
 		props.contentClassName,
 		{ 'apm-fullscreen': isFullScreen }
 	);
@@ -76,12 +78,13 @@ export const Modal = props => {
 	const contentStyle = defaults({
 		width: props.width,
 		height: props.height,
-	}, props.contentStyle)
+	}, props.contentStyle);
 
 	const handleClickOutside = evt => {
+
 		// we only want to respond to on click events directly on the overlay
 		// not on any of it's child nodes
-		if (!props.closeOnOutsideClick || !evt.target.classList.contains('--apm-modal-overlay--')) {
+		if (!props.closeOnOutsideClick || !evt.target.classList.contains('APM-modal-overlay')) {
 			return;
 		}
 
@@ -90,7 +93,6 @@ export const Modal = props => {
 			// dont allow it to bubble up. if its a nested modal, both will close
 			evt.stopPropagation();
 		}
-
 	}
 
 	return createPortal(
@@ -140,11 +142,8 @@ export const Modal = props => {
 
 Modal.defaultProps = {
 	closeOnOutsideClick: true,
-	contentClassName: 'apm-modal-content',
 	contentStyle: {},
-	display: false,
 	onClose: () => { return true; },
-	overlayClassName: 'apm-modal-overlay animated fadeIn',
 	overlayStyle: {},
 }
 
@@ -159,7 +158,7 @@ Modal.propTypes = {
 	height: PropTypes.number,
 	hideCloseButton: PropTypes.bool,
 	onClose: PropTypes.func,
-	onOpen: PropTypes.func,
+	// onOpen: PropTypes.func,
 	overlayClassName: PropTypes.string,
 	overlayStyle: PropTypes.object,
 	width: PropTypes.number,
