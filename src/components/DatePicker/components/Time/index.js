@@ -18,6 +18,9 @@ export const Time = (props) => {
 		onChange,
     } = props;
 
+	console.log('minHour: ', minHour)
+	console.log('maxHour:', maxHour)
+
 	const changeHours = pos => {
 		moment.hours(pos.x);
 		onChange(moment);

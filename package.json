@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "rm -rf /dist && webpack && node ./bump",
-	"storybook": "start-storybook"
+    "storybook": "start-storybook"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
@@ -54,7 +54,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.9.0",
     "airbnb-browser-shims": "^3.2.1",
-    "blacklist": "^1.1.4",
     "classnames": "^2.2.6",
     "fscreen": "^1.0.2",
     "fuzzy": "^0.1.3",

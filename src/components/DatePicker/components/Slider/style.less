@@ -8,9 +8,9 @@
 @background-color: lightGray;
 @color-blue: blue;
 @slider-fix: 10;
-@import '../../../../styles/mentor-ui-constants';
+@import '~mentor-ui-constants';
 
-.u-slider-time {
+.APMSlider {
 	position: relative;
 	display: inline-block;
 	background-color: @color-gray;
@@ -19,7 +19,7 @@
 	width: 100%;
 	cursor: pointer;
 
-	.value {
+	&-value {
 		position: absolute;
 		background-color: @color-blue;
 		border-radius: 3px;
@@ -27,7 +27,7 @@
 		height: 100%;
 	}
 
-	.handle {
+	&-handle {
 		position: absolute;
 		width: @slider-size;
 		height: @slider-size;
