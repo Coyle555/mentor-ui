@@ -32,7 +32,6 @@ const Button = (props) => {
       { "APMButton-end-cap-left": isLeftEndCap },
       { "APMButton-end-cap-right": isRightEndCap },
       { "APMButton-is-capless": isCapless },
-      { "APMButton-is-disabled": btnAttributes.disabled },
       { "APMButton-is-medium": medium },
         className,
       )}>

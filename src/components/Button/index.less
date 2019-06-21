@@ -10,7 +10,14 @@
 	transition: all .1s ease;
 	cursor: pointer;
 
-	&:hover {
+	&:disabled {
+    background-color: #B0BAC5;
+    border: 1px solid #B0BAC5;
+    color: #FFF;
+    cursor: not-allowed;
+	}
+
+	&:hover:not([disabled]) {
 		background-color: rgba(141, 198, 63, .8);
 	}
 
@@ -93,13 +100,5 @@
     border-right: none;
     border-left: none;
     border-radius: 0;
-  }
-
-  &-is-disabled,
-  &-is-disabled:hover {
-    background-color: #B0BAC5;
-    border: 1px solid #B0BAC5;
-    color: #FFF;
-    cursor: not-allowed;
   }
 }
