@@ -1,0 +1,39 @@
+.APM-errorpage {
+	max-width: 400px;
+	margin: 0 auto;
+	h1 {
+		font-size: 120px;
+		margin-bottom: 10px;
+		letter-spacing: 5px;
+	}
+	h3 {
+		margin-top: 5px;
+	}
+	text-align: center;
+	-webkit-animation: FADEIN 0.5s; /* Safari 4+ */
+	-moz-animation:    FADEIN 0.5s; /* Fx 5+ */
+	-o-animation:      FADEIN 0.5s; /* Opera 12+ */
+	animation:         FADEIN 0.5s; /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
+  75%  { opacity: .8; transform: translate3d(0, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0);}
+}
+@-moz-keyframes FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
+  75%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0);}
+}
+@-o-keyframes FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
+  75%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0);}
+}
+@keyframes FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
+  75%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0);}
+}
+

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './index.less';
+
 const statusText = {
 	400: 'Route not found',
 	401: 'Unauthorized',
@@ -10,11 +12,11 @@ const statusText = {
 };
 
 export const ErrorPage = props => (
-	<div className="middle-box text-center animated fadeInDown">
+	<div className="APM-errorpage">
 		<h1>{props.status}</h1>
-		<h3 className="font-bold">{statusText[props.status] || 'Something went wrong'}</h3>
-			<div className="error-desc">
-				{ props.children }
+		<h3>{statusText[props.status] || 'Something went wrong'}</h3>
+		<div className="error-desc">
+			{ props.children }
 		</div>
 	</div>
 );

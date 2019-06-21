@@ -6,6 +6,7 @@ import './index.less';
 
 const Button = (props) => {
   const {
+    block,
     className = '',
     children,
 	  medium,
@@ -24,6 +25,7 @@ const Button = (props) => {
 		  {...btnAttributes}
       className={classNames(
         "APMButton",
+      { "APMButton-block": block },
       { "APMButton-light": isLight },
       { "APMButton-outline": isOutline },
       { "APMButton-is-mini": isMini },
@@ -40,6 +42,7 @@ const Button = (props) => {
 }
 
 Button.propTypes = {
+  block: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
   disabled: PropTypes.bool,

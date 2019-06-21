@@ -5,6 +5,7 @@ import { withKnobs, optionsKnob as options } from '@storybook/addon-knobs';
 import Button from '../';
 
 const optionsConfig = {
+	block: 'block',
 	disabled: 'disabled',
 	isCapless: 'isCapless',	
 	isLight: 'isLight',

@@ -42,8 +42,8 @@ export const DropdownTrigger = props => {
 
 	return (
 		<div
-			  className={props.className}
-			  onClick={handleOnClick}
+			className={props.className}
+			onClick={handleOnClick}
 		>
 				{ 
 					typeof props.render === 'function'
@@ -54,7 +54,7 @@ export const DropdownTrigger = props => {
 	);
 }
 
-export const DropdownMenu = props => {
+export const DropdownContent = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext);
 	const ref = useRef(null);
 
@@ -69,18 +69,24 @@ export const DropdownMenu = props => {
 		}
 	}, []);
 
-	// center the menu and/or make sure its completely visible on the viewport
+	// make sure its completely visible on the viewport
 	useEffect(() => {
 		if (!isOpen) return;
 		//const wrapper = ref.current.parentNode.getBoundingClientRect();
 		const content = ref.current.getBoundingClientRect();
 		const maxWidth = window.innerWidth;
 
+		// clipped on right side of screen
 		if (content.right > maxWidth) {
 			ref.current.style.left = (maxWidth - content.right - 18) + 'px';
 
+		// clipped on left side of screen	
 		} else if (content.left < 0) {
+
 			ref.current.style.left = '0px';
+		
+		} else {
+			// TODO - center it around the Dropdown trigger (or maybe allow user to pass in position prop)
 		}
 
 	});
@@ -93,12 +99,21 @@ export const DropdownMenu = props => {
 
 	return (
 		<div
-			className="APMDropdown-menu"
+			className={props.className}
 			onClick={handleOnClick}
 			ref={ref}
+			style={props.style}
 		>
 			{ props.children }
 		</div>
+	)
+}
+
+export const DropdownMenu = props => {
+	return (
+		<DropdownContent className="APMDropdown-menu">
+			{ props.children }
+		</DropdownContent>
 	)
 }
 
