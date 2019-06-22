@@ -5,24 +5,21 @@ import classNames from 'classnames';
 import FloatInput from '../float-input/floatInput';
 
 // TO DO - Allow for different currency symbols
+import './styles.less';
 
 const MoneyInput = ({ currency, ...inputProps}) => {
 
 	return (
 		<div className="input-group">
+			<FloatInput
+				precision={2}
+				{...inputProps}
+			/>
 			<div
 				className="input-group-addon"
-				style={{
-					backgroundColor: 'transparent',
-					border: 'none'
-				}}
 			>
 				<i className="far fa-dollar-sign" />
-			</div>
-			<FloatInput
-				{...inputProps}
-				precision={2}
-			/>
+			</div>			
 		</div>				
 	)
 }

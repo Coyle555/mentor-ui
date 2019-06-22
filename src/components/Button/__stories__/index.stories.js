@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, optionsKnob as options } from '@storybook/addon-knobs';
-import { action, configureActions } from '@storybook/addon-actions';
+import { action } from 'storybook-utils';
 
 import Button from '../';
 

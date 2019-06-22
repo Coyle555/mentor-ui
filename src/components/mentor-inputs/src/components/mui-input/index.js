@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { useInputValidation } from '../../hooks/index';
-// // a material ui style input attempt with validation
-//import './styles.less';
+ // a material ui style input attempt with validation
+import './styles.less';
 
 export const MuiInput = props => {
 	const {
@@ -48,7 +48,7 @@ export const MuiInput = props => {
 			<span className="apm-mui-highlight" />
 			<span className="apm-mui-bar" />
 			<label>{ label }</label>
-			<span className="text-danger text-center">
+			<span className="APM-error-text">
 				<strong data-testid={inputProps.name + '-error'}>
 					{ errorMessage }
 				</strong>

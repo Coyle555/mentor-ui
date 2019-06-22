@@ -54,12 +54,13 @@ export const useInputState = (props = {}) => {
 
 	/// as soon as the input ref is attached to the node
 	/// check for errors on the value
+	/// (We also need to reevaluate error status if required attribute is changed)
 	useEffect(() => {	
 		if (!inputRef.current || !inputRef.current.name) return;
 
 		checkErrors(inputRef.current, validate);
 
-	}, [inputRef.current]);
+	}, [inputRef.current, input.required]);
 
 	return {
 

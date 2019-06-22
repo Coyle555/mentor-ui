@@ -14,6 +14,22 @@ import Button from '../../Button/index';
 
 const CENTERED = {padding: 10, width: '50%', margin: '20px auto'};	
 
+const renderButton = (isOpen) => (
+	<Button medium>
+		<i className={`fas fa-caret-${isOpen ? 'down' : 'up'}`}/>
+	</Button>
+);
+
+renderButton.toString = () => `
+	function(isOpen) {
+		return (
+			<Button medium>
+				<i className={'fas fa-caret-' + isOpen ? 'down' : 'up'}/>
+			</Button>					
+		)
+	}
+`	
+
 storiesOf('Dropdown', module)
 	.addWithJSX('Basic Dropdown Menu', () => {
 
@@ -41,13 +57,7 @@ storiesOf('Dropdown', module)
 			return (
 				<div style={{padding: 10}}>
 					<Dropdown>
-						<DropdownTrigger 
-							render={isOpen => 
-								<Button medium>
-									<i className={`fas fa-caret-${isOpen ? 'down' : 'up'}`}/>
-								</Button>
-							}
-						/>
+						<DropdownTrigger render={renderButton} />
 						<DropdownMenu>
 							<h2 style={{textAlign: 'center'}}>DropdownMenu</h2>
 							<DropdownMenuItem>
@@ -67,11 +77,7 @@ storiesOf('Dropdown', module)
 				<div style={CENTERED}>
 					<Dropdown>
 						<DropdownTrigger 
-							render={isOpen => 
-								<Button medium>
-									<i className={`fas fa-caret-${isOpen ? 'down' : 'up'}`}/>
-								</Button>
-							}
+							render={renderButton}
 						/>
 						<DropdownContent style={{border: '1px dotted red', width: 300}}>
 							<h2 style={{textAlign: 'center'}}>Custom Dropdown Content</h2>

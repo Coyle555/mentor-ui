@@ -1,6 +1,6 @@
-@import '../../../../../styles/variables';
+@import '~mentor-ui-constants';
 
-@input_transition: .3s ease all;
+@input_transition: .2s ease all;
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -120,6 +120,11 @@ input:-webkit-autofill:active  {
   to  { width:0; background:transparent; }
 }
 
+.APM-error-text {
+  color: @error;
+  text-align: center;
+  font-size: 0.7rem;
+}
 .apm-mui-dropdown {
   background-color: #fff;
   box-shadow: 1px 1px 2px 1px;

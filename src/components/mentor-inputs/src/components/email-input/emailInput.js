@@ -10,6 +10,7 @@ const EmailInput = ({ validation, ...props }) => {
 	// but use have the browser determine if theres an error
 	/// (Im doing the regex test as well because the testing environment returns an empyt object for input.validity)
 	function isEmail(value, input) {
+		if (!value) return;
 		//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
 		if (input.validity.patternMismatch || !EMAIL_REGEX.test(value)) {
 			return 'Not a valid email address.';
