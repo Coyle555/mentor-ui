@@ -91,10 +91,11 @@ module.exports = {
 		}  
 	},
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx', '.less'],
 		alias: {
 			'react': path.join(__dirname, './node_modules/react'),
-			'react-dom': path.join(__dirname, './node_modules/react-dom')
+			'react-dom': path.join(__dirname, './node_modules/react-dom'),
+			'mentor-ui-constants': path.resolve(__dirname, './src/styles/mentor-ui-constants.less')
 		}
 	} 
 };
