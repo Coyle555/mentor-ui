@@ -16,7 +16,7 @@ module.exports = async ({ config, mode }) => {
 	// resolvers
 	config.resolve.alias['mentor-ui-constants'] = path.resolve(__dirname, '../src/styles/mentor-ui-constants.less');
 	config.resolve.alias['storybook-utils'] = path.resolve(__dirname, '../src/utils/storybook');
-
+	config.resolve.alias['storybook-useState'] = path.resolve(__dirname, './useState.addons');
 	// Return the altered config
 	return config;
 };
