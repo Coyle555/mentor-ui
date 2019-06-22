@@ -6,7 +6,7 @@ import { Time } from '../';
 
 const m = moment();
 
-storiesOf('Time', module)
+storiesOf('DatePicker/Time', module)
 	.add('general', () =>
 		<Time
 			moment={m}

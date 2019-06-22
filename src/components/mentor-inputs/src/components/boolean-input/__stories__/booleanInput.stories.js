@@ -6,7 +6,7 @@ import { action } from 'storybook-utils';
 import { BooleanInputComponent } from '../booleanInput';
 
 
-storiesOf('BooleanInput', module)
+storiesOf('Inputs/BooleanInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

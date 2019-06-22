@@ -11,7 +11,7 @@ const actions = {
 	onChange: action('onChange')
 }
 
-storiesOf('EmailInput', module)
+storiesOf('Inputs/EmailInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

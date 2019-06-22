@@ -6,7 +6,7 @@ import { action } from 'storybook-utils';
 import IntegerInput from '../integerInput';
 
 
-storiesOf('IntegerInput', module)
+storiesOf('Inputs/IntegerInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

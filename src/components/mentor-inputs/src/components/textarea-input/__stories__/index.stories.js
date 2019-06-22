@@ -6,7 +6,7 @@ import { action } from 'storybook-utils';
 import TextAreaInput from '../textareaInput';
 
 
-storiesOf('TextArea', module)
+storiesOf('Inputs/TextArea', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

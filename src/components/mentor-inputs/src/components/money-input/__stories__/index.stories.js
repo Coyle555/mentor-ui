@@ -6,7 +6,7 @@ import { action } from 'storybook-utils';
 import MoneyInput from '../moneyInput';
 
 
-storiesOf('MoneyInput', module)
+storiesOf('Inputs/MoneyInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

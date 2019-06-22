@@ -12,7 +12,7 @@ const containerStyles = {
     transform: 'translate(-50%, -50%)',
 }
 
-storiesOf('Slider', module)
+storiesOf('DatePicker/Slider', module)
 	.addDecorator(fn =>
 		<div style={containerStyles}>
 			{fn()}

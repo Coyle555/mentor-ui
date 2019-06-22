@@ -18,7 +18,7 @@ const ControlledInput = props => {
 	)
 }
 
-storiesOf('MuiInput', module)
+storiesOf('Inputs/MuiInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

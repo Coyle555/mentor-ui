@@ -6,7 +6,7 @@ import { action } from 'storybook-utils';
 import FloatInput from '../floatInput';
 
 
-storiesOf('FloatInput', module)
+storiesOf('Inputs/FloatInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('general', () => {
 

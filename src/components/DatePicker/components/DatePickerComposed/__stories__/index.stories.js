@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import { DatePickerComposed } from '../';
 
-storiesOf('DatePickerComposed', module)
+storiesOf('DatePicker/DatePickerComposed', module)
 	.add('general', () =>
 		<DatePickerComposed
 		/>
