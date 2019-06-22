@@ -10,8 +10,9 @@ const UrlInput = ({ validation, ...props }) => {
 	// but use have the browser determine if theres an error
 	/// (Im doing the regex test as well because the testing environment returns an empyt object for input.validity)
 	function isUrl(value, input) {
+
 		//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url
-		if (input.validity.patternMismatch || !URL_REGEX.test(value)) {
+		if (value.length && (input.validity.patternMismatch || !URL_REGEX.test(value))) {
 			return 'Not a valid URL.';
 		} else if (typeof validation === 'function') {
 			const customError = validation(value, input);
@@ -22,7 +23,6 @@ const UrlInput = ({ validation, ...props }) => {
 	return (
 		<TextInput
 			{...props}
-			type="url"
 			validation={isUrl}
 		/>		
 	)

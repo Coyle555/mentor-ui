@@ -25,7 +25,4 @@ ErrorPage.propTypes = {
 	status: PropTypes.number,
 };
 
-// ErrorPage.defaultProps = {
-// 	status: 500,
-// };
 

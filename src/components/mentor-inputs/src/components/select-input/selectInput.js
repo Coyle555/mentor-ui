@@ -33,20 +33,30 @@ const SelectInput = ({
 	});	
 
 	const formattedOptions = useMemo(() => {
-		return options.map((option, i) => {
-			const label = getOptionLabel(option);
-			const val = getOptionValue(option);
+		const isGetLabelFn = typeof getOptionLabel === 'function';
+		const isGetValueFn = typeof getOptionValue === 'function';
 
+		return options.map((option, i) => {
+			let label, val = option;
+			
+			if (isGetLabelFn) {
+				/// prevent potential crash cause by react trying to render JSON in the html
+				// this probably wont look pretty but its better than the alternative
+				label = String(getOptionLabel(option));
+			} else {
+				label = typeof option === 'string' ? option : String(option);
+			}
+
+			if (isGetLabelFn) {
+				val = getOptionValue(option);
+			}
+			
 			return (
 				<option
-					key={typeof val === 'object' ? i : val}
+					key={i + label}
 					value={val}
 				>
-					{ /// prevent potential crash cause by react trying to render JSON in the html
-						typeof label === 'string' 
-							? label
-							: String(label) // this probably wont look pretty but its better than the alternative
-					}
+					{ label }
 				</option>	
 			)
 		});
@@ -85,8 +95,8 @@ SelectInput.propTypes = {
 };
 
 SelectInput.defaultProps = {
-	getOptionLabel: (val) => { return val },
-	getOptionValue: (val) => { return val },
+	// getOptionLabel: (val) => { return val },
+	// getOptionValue: (val) => { return val },
 	options: []
 };
 
