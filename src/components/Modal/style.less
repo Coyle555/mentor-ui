@@ -16,6 +16,10 @@
 	animation:         FADEIN 0.3s; /* IE 10+, Fx 29+ */	
 }
 
+.APM-modal-wrapper+ .APM-modal-wrapper .APM-modal-overlay {
+	// dont stack overlays...
+	background: none;
+}
 
 .APM-modal-overlay.apm-fullscreen {
 	//position: initial;
@@ -23,8 +27,6 @@
 
 .apm-modal-content.apm-fullscreen {
 	// margin-top: 0;
-	// width: 100%;
-	// height: 100%;
 }
 
 .apm-modal-content {

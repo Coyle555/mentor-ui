@@ -22,8 +22,7 @@ const useFullScreen = (wrapper) => {
 			// wrapper.current.style.width = null;
 			// wrapper.current.style.height = null;
 		} else {
-			// wrapper.current.style.width = '100%';
-			// wrapper.current.style.height = '100%';			
+
 			fscreen.requestFullscreen(wrapper.current);
 
 			setIsFullScreen(true);
@@ -39,7 +38,9 @@ export const Modal = props => {
 	const modalRef = useRef(null);
 
 	const el = useMemo(() => {
-		return document.createElement('div');
+		const div = document.createElement('div');
+		div.className = 'APM-modal-wrapper'
+		return div;
 	}, []);
 
 	const { isFullScreen, toggle } = useFullScreen(modalRef);
@@ -76,8 +77,8 @@ export const Modal = props => {
 	);
 
 	const contentStyle = defaults({
-		width: props.width,
-		height: props.height,
+		width:  props.width,
+		height: props.height
 	}, props.contentStyle);
 
 	const handleClickOutside = evt => {

@@ -8,19 +8,10 @@ import DropdownContext from '../../utils/context';
 const DropdownTrigger = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext)
 
-	const handleOnClick = evt => {
-		setIsOpen(!isOpen);
-		// if (!isOpen) {
-		// 	evt.stopPropagation();
-		// 				
-		// }
-
-	}
-
 	return (
 		<div
 			className={props.className}
-			onClick={handleOnClick}
+			onClick={() => setIsOpen(!isOpen)}
 		>
 				{ 
 					typeof props.render === 'function'
