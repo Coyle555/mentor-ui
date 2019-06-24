@@ -9,7 +9,7 @@ import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
-const KNOB_SIZE = 44;
+const KNOB_SIZE = 38;
 const BORDER_OFFSET = 2;
 
 export const Slider = (props) => {
@@ -69,8 +69,10 @@ export const Slider = (props) => {
 		valueWidth: {
 			width: `calc(${percentage}% + ${KNOB_SIZE / 4}px)`
 		},
-		handlePos: {
-			left: handlePos
+		handle: {
+			left: handlePos,
+			height: `${KNOB_SIZE}px`,
+			width: `${KNOB_SIZE}px`,
 		},
 	};
 
@@ -91,14 +93,14 @@ export const Slider = (props) => {
 				onMouseDown={handleGrab}
 				onMouseUp={handleRelease}
 				onMouseOut={handleRelease}
-				style={styles.handlePos}
+				style={styles.handle}
 			/>
 		</div>
 	);
 };
 
 function calcHandlePos(
-	percentage = 0,
+	percentage,
 	knob_size,
 	width,
 	offset
@@ -107,7 +109,10 @@ function calcHandlePos(
 
 	if (percentage + knob_percentage >= 100)
 		return `calc(100% - ${knob_size - offset}px)`
-	else if (percentage - knob_percentage <= 0)
+
+	else if (width === 0
+		|| !percentage
+		|| percentage - knob_percentage <= 0)
 		return `${-offset}px`;
 
 	return `calc(${Math.floor(percentage)}% - ${knob_size / 2}px)`;

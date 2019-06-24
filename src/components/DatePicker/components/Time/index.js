@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { Slider } from '../Slider';
-import { composeClass } from 'utils';
+import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
@@ -14,7 +14,6 @@ export const Time = (props) => {
 		moment,
 		minHour,
 		maxHour,
-		display,
 		onChange,
     } = props;
 
@@ -30,13 +29,12 @@ export const Time = (props) => {
 		onChange(moment);
 	};
 
-    const cc = composeClass('APMTime', className);
+    const cc = composeNamespace('APMTime', className);
 
 	return (
 		<div className={cn(
 			cc(),
 			className,
-			{ [cc('display')]: display },
 		)}>
 			<div className={cc('showtime')}>
 				<span className={cc('time')}>
