@@ -18,12 +18,16 @@ export const Time = (props) => {
     } = props;
 
 	const changeHours = percentage => {
-		//moment.hours(pos.x);
+		const hours = calcHoursFromPercentage(percentage);
+
+		moment.hours(hours);
 		onChange(moment);
 	};
 
 	const changeMinutes = percentage => {
-		//moment.minutes(pos.x);
+		const minutes = calcMinutesFromPercentage(percentage);
+
+		moment.minutes(minutes);
 		onChange(moment);
 	};
 
@@ -56,13 +60,22 @@ export const Time = (props) => {
 					Minutes:
 				</div>
 				<Slider
-					defaultPercentage={75}
 					onChange={changeMinutes}
 				/>
 			</div>
 		</div>
 	);
 };
+
+function calcHoursFromPercentage(percentage) {
+	const dec = percentage / 100
+	return dec * 23
+}
+
+function calcMinutesFromPercentage(percentage) {
+	const dec = percentage / 100
+	return dec * 59
+}
 
 Time.propTypes = {
 	className: PropTypes.string,
