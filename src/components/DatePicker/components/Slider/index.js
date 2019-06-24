@@ -10,9 +10,12 @@ import { composeNamespace } from 'compose-namespace';
 import './style.less';
 
 const KNOB_SIZE = 44;
+const BORDER_OFFSET = 2;
 
 export const Slider = (props) => {
 	const [ percentage, setPercentage ] = useState();
+	const [ sliderRect, setSliderRect ] = useState({ width: 0});
+
 	const handleRef = useRef();
 	const handleGrabListener = useRef();
 	const sliderRef = useRef();
@@ -26,11 +29,18 @@ export const Slider = (props) => {
 		onChange(percentage);
 	}, [percentage]);
 
+	useEffect(() => {
+		setSliderRect(
+			sliderRef.current
+			.getBoundingClientRect()
+		);
+	}, [sliderRef.current])
+
 	const handleGrab = (event) => {
 		if (!handleGrabListener.current) {
 			handleGrabListener.current = onMove.bind(
 				null,
-				sliderRef,
+				sliderRect,
 				setPercentage,
 			);
 		}
@@ -48,12 +58,19 @@ export const Slider = (props) => {
 		);
 	};
 
+	const handlePos = calcHandlePos(
+		percentage,
+		KNOB_SIZE,
+		sliderRect.width,
+		BORDER_OFFSET,
+	);
+
 	const styles = {
 		valueWidth: {
 			width: `calc(${percentage}% + ${KNOB_SIZE / 4}px)`
 		},
 		handlePos: {
-			left: `calc(${percentage}% - ${KNOB_SIZE / 2}px)`
+			left: handlePos
 		},
 	};
 
@@ -80,17 +97,29 @@ export const Slider = (props) => {
 	);
 };
 
+function calcHandlePos(
+	percentage = 0,
+	knob_size,
+	width,
+	offset
+) {
+	const knob_percentage = Math.floor(knob_size / width * 50);
+
+	if (percentage + knob_percentage >= 100)
+		return `calc(100% - ${knob_size - offset}px)`
+	else if (percentage - knob_percentage <= 0)
+		return `${-offset}px`;
+
+	return `calc(${Math.floor(percentage)}% - ${knob_size / 2}px)`;
+};
+
 export function normalizer(value, min, max) {
 	if (value > max) return max
 	if (value < min) return min
 	return value
 }
 
-export function onMove(sliderRef, callback, event) {
-	const sliderRect = sliderRef
-		.current
-		.getBoundingClientRect();
-
+export function onMove(sliderRect, callback, event) {
 	const sliderX = sliderRect.x;
 	const sliderWidth = sliderRect.width;
 	const mouseX = event.clientX;
