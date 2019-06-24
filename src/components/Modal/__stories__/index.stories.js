@@ -8,14 +8,6 @@ import { Modal } from '../index';
 
 import Button from '../../Button';
 
-const optionsConfig = {
-	display: 'display',
-	fullScreenToggle: 'fullScreenToggle',
-}
-
-//options returns an array of strings
-const formatProps = (selectedOptions = []) => 
-	selectedOptions.reduce((obj, curr) => ({ ...obj, [curr]: true }), {});
 
 
 storiesOf('Modal', module)
@@ -25,7 +17,7 @@ storiesOf('Modal', module)
 
 		return (
 			<React.Fragment>
-				<p>Go to the Knobs tab below to toggle the modal's visibility.</p>
+				
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={boolean('display', false)}

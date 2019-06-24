@@ -1,4 +1,4 @@
-import { BooleanInputComponent } from './components/boolean-input/booleanInput';
+import BooleanInputComponent from './components/boolean-input/booleanInput';
 
 import EmailInputComponent from './components/email-input/emailInput';
 import FileInputComponent from './components/file-input/fileInput';

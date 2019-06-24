@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import './index.less';
 
+/**
+  A simple button component with some preset styles
+*/
 const Button = (props) => {
   const {
     block,
@@ -16,30 +19,36 @@ const Button = (props) => {
     isLeftEndCap,
     isRightEndCap,
     isCapless,
+    text,
     ...btnAttributes
   } = props;
+
+  const btnClass = classNames(
+      "APMButton",
+    { "APMButton-block": block },
+    { "APMButton-light": isLight },
+    { "APMButton-outline": isOutline },
+    { "APMButton-is-mini": isMini },
+    { "APMButton-end-cap-left": isLeftEndCap },
+    { "APMButton-end-cap-right": isRightEndCap },
+    { "APMButton-is-capless": isCapless },
+    { "APMButton-is-medium": medium },
+      className,
+  );
 
   return (
     <button
 		  {...btnAttributes}
-      className={classNames(
-        "APMButton",
-      { "APMButton-block": block },
-      { "APMButton-light": isLight },
-      { "APMButton-outline": isOutline },
-      { "APMButton-is-mini": isMini },
-      { "APMButton-end-cap-left": isLeftEndCap },
-      { "APMButton-end-cap-right": isRightEndCap },
-      { "APMButton-is-capless": isCapless },
-      { "APMButton-is-medium": medium },
-        className,
-      )}>
+      className={btnClass}>
       { children }
     </button>
   )
 }
 
 Button.propTypes = {
+  /**
+    Makes the component have more prominent text with a width that spans it's container
+  */
   block: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
@@ -51,8 +60,8 @@ Button.propTypes = {
 	isOutline: PropTypes.bool,
 	isLeftEndCap: PropTypes.bool,
 	isRightEndCap: PropTypes.bool,
-	isCapless: PropTypes.bool,
-	isDisabled: PropTypes.bool
+	isCapless: PropTypes.bool
 }
+
 
 export default Button;

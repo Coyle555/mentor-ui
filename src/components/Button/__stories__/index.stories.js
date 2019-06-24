@@ -1,7 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, optionsKnob as options } from '@storybook/addon-knobs';
-import { action } from 'storybook-utils';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
+import { action, SwitchBoard } from 'storybook-utils';
+import { withInfo } from '@storybook/addon-info';
 
 import Button from '../';
 
@@ -22,19 +23,25 @@ const formatProps = (selectedOptions = []) =>
 	
 
 storiesOf('Button', module)
+	.addDecorator(withInfo)
 	.addDecorator(withKnobs)
-	.addWithJSX('props', () => {
-
-		const selectedOptions = options('Props', optionsConfig, [], { display: 'check'});
-		const props = formatProps(selectedOptions);
-
+	.add('general', () => {
+		
+		const buttonText = text('children', 'Button Text');
 		return (
-			<div>
-				<Button {...props}
-					onClick={action('onClick')}
-				>
-					Button Component!
-				</Button>
-			</div>
+			<Button 
+				block={boolean('block', false)}
+				disabled={boolean('disabled', false)}
+				isCapless={boolean('isCapless', false)}
+				isLight={boolean('isLight', false)}
+				isLeftEndCap={boolean('isLeftEndCap', false)}
+				isMini={boolean('isMini', false)}
+				isRightEndCap={boolean('isRightEndCap', false)}
+				isOutline={boolean('isOutline', false)}
+				medium={boolean('medium', false)}
+				onClick={action('onClick')}
+			>
+				{ buttonText }
+			</Button>
 		)
 })

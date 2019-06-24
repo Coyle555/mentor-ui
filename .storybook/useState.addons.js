@@ -16,7 +16,7 @@ let count = -1;
 const channel = addons.getChannel();
 
 channel.addListener(STORY_CHANGED, () => {
-	state = {};
+	state = [];
 	count = -1;
 });
 
