@@ -2,6 +2,7 @@ import React, {
 	useState,
 	useRef,
 	useEffect,
+	useLayoutEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -13,23 +14,27 @@ const KNOB_SIZE = 38;
 const BORDER_OFFSET = 2;
 
 export const Slider = (props) => {
-	const [ percentage, setPercentage ] = useState();
-	const [ sliderRect, setSliderRect ] = useState({ width: 0});
+	const {
+		className,
+		onChange,
+		defaultPercentage,
+	} = props;
+
+	const [ percentage, setPercentage ] = useState(
+		defaultPercentage
+	);
+	const [ sliderRect, setSliderRect ] = useState({ width: 0 });
 
 	const handleRef = useRef();
 	const handleGrabListener = useRef();
 	const sliderRef = useRef();
 
-	const {
-		className,
-		onChange,
-	} = props;
 
 	useEffect(() => {
 		onChange(percentage);
 	}, [percentage]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setSliderRect(
 			sliderRef.current
 			.getBoundingClientRect()
@@ -106,6 +111,7 @@ function calcHandlePos(
 	offset
 ) {
 	const knob_percentage = Math.floor(knob_size / width * 50);
+	console.log('args: ', arguments);
 
 	if (percentage + knob_percentage >= 100)
 		return `calc(100% - ${knob_size - offset}px)`
@@ -142,4 +148,5 @@ export function onMove(sliderRect, callback, event) {
 Slider.propTypes = {
 	className: PropTypes.string,
 	onChange: PropTypes.func,
+	defaultPercentage: PropTypes.number,
 };
