@@ -29,7 +29,6 @@ export const Slider = (props) => {
 	const handleGrabListener = useRef();
 	const sliderRef = useRef();
 
-
 	useEffect(() => {
 		onChange(percentage);
 	}, [percentage]);
@@ -47,6 +46,7 @@ export const Slider = (props) => {
 				null,
 				sliderRect,
 				setPercentage,
+				KNOB_SIZE,
 			);
 		}
 
@@ -63,7 +63,7 @@ export const Slider = (props) => {
 		);
 	};
 
-	const handlePos = calcHandlePos(
+	const [handlePos, operator] = calcHandlePos(
 		percentage,
 		KNOB_SIZE,
 		sliderRect.width,
@@ -72,10 +72,14 @@ export const Slider = (props) => {
 
 	const styles = {
 		valueWidth: {
-			width: `calc(${percentage}% + ${KNOB_SIZE / 4}px)`
+			width: getValueWidthStyle(handlePos, KNOB_SIZE),
 		},
 		handle: {
-			left: handlePos,
+			left: getHandleStyle(
+				handlePos,
+				operator,
+				BORDER_OFFSET
+			),
 			height: `${KNOB_SIZE}px`,
 			width: `${KNOB_SIZE}px`,
 		},
@@ -104,25 +108,31 @@ export const Slider = (props) => {
 	);
 };
 
-function calcHandlePos(
+export function calcHandlePos(
 	percentage,
-	knob_size,
+	knobSize,
 	width,
-	offset
 ) {
-	const knob_percentage = Math.floor(knob_size / width * 50);
-	console.log('args: ', arguments);
+	if (!percentage)
+		percentage = 0;
 
-	if (percentage + knob_percentage >= 100)
-		return `calc(100% - ${knob_size - offset}px)`
+	const knob_percentage = knobSize / width * 50;
 
-	else if (width === 0
-		|| !percentage
-		|| percentage - knob_percentage <= 0)
-		return `${-offset}px`;
+	const scalar = percentage * knobSize / width;
+	const operator = percentage + knob_percentage >= 100
+		? '+'
+		: '-';
 
-	return `calc(${Math.floor(percentage)}% - ${knob_size / 2}px)`;
+	return [percentage - scalar, operator];
 };
+
+export function getHandleStyle(pos, operator, offset) {
+	return `calc(${pos}% ${operator}  ${offset}px)`
+}
+
+export function getValueWidthStyle(pos, knobSize) {
+	return `calc(${pos}% + ${KNOB_SIZE / 2}px)`
+}
 
 export function normalizer(value, min, max) {
 	if (value > max) return max
@@ -130,17 +140,23 @@ export function normalizer(value, min, max) {
 	return value
 }
 
-export function onMove(sliderRect, callback, event) {
+export function onMove(
+	sliderRect,
+	callback,
+	knobSize,
+	event,
+) {
 	const sliderX = sliderRect.x;
-	const sliderWidth = sliderRect.width;
+	const sliderWidth = sliderRect.width - knobSize;
 	const mouseX = event.clientX;
 
-	const x = Math.abs(sliderX - mouseX);
-	const newPercentage = normalizer(
-		Math.abs(x / sliderWidth) * 100,
+	const x =  mouseX - sliderX - knobSize / 2;
+
+	const newPercentage = Math.round(normalizer(
+		x / sliderWidth * 100,
 		0,
-		100
-	);
+		100,
+	));
 
 	callback(newPercentage);
 }
