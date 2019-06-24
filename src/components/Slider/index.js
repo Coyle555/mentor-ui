@@ -47,6 +47,7 @@ export const Slider = (props) => {
 				sliderRect,
 				setPercentage,
 				KNOB_SIZE,
+				normalizer,
 			);
 		}
 
@@ -144,6 +145,7 @@ export function onMove(
 	sliderRect,
 	callback,
 	knobSize,
+	normalizer,
 	event,
 ) {
 	const sliderX = sliderRect.x;
