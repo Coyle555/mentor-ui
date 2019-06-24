@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Slider } from '../Slider';
+import { Slider } from 'components/Slider';
 import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
