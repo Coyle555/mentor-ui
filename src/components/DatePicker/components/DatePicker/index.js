@@ -137,9 +137,8 @@ export class DatePicker extends Component {
 							onChange={this.props.onChange}
 						/>
 					}
-					{ !timeDisabled &&
+					{ !timeDisabled && tab === 'time' &&
 						<Time
-							display={tab === 'time'}
 							minHour={minHour}
 							maxHour={maxHour}
 							minMinute={minMinute}

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Slider } from '../Slider';
-import { composeClass } from 'utils';
+import { Slider } from 'components/Slider';
+import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
@@ -14,29 +14,29 @@ export const Time = (props) => {
 		moment,
 		minHour,
 		maxHour,
-		display,
 		onChange,
     } = props;
 
 	const changeHours = percentage => {
-		console.log('h percentage: ', percentage)
-		//moment.hours(pos.x);
+		const hours = calcHoursFromPercentage(percentage);
+
+		moment.hours(hours);
 		onChange(moment);
 	};
 
 	const changeMinutes = percentage => {
-		console.log('m percentage: ', percentage)
-		//moment.minutes(pos.x);
+		const minutes = calcMinutesFromPercentage(percentage);
+
+		moment.minutes(minutes);
 		onChange(moment);
 	};
 
-    const cc = composeClass('APMTime', className);
+    const cc = composeNamespace('APMTime', className);
 
 	return (
 		<div className={cn(
 			cc(),
 			className,
-			{ [cc('display')]: display },
 		)}>
 			<div className={cc('showtime')}>
 				<span className={cc('time')}>
@@ -66,6 +66,16 @@ export const Time = (props) => {
 		</div>
 	);
 };
+
+function calcHoursFromPercentage(percentage) {
+	const dec = percentage / 100
+	return dec * 23
+}
+
+function calcMinutesFromPercentage(percentage) {
+	const dec = percentage / 100
+	return dec * 59
+}
 
 Time.propTypes = {
 	className: PropTypes.string,
