@@ -50,18 +50,22 @@ export const Time = (props) => {
 				</span>
 			</div>
 			<div className={cc('sliders')}>
-				<div className={cc('time-text')}>
-					Hours:
+				<div className={cc('slider')}>
+					<div className={cc('slider-label')}>
+						Hours
+					</div>
+					<Slider
+						onChange={changeHours}
+					/>
 				</div>
-				<Slider
-					onChange={changeHours}
-				/>
-				<div className={cc("time-text")}>
-					Minutes:
+				<div className={cc('slider')}>
+					<div className={cc('slider-label')}>
+						Minutes
+					</div>
+					<Slider
+						onChange={changeMinutes}
+					/>
 				</div>
-				<Slider
-					onChange={changeMinutes}
-				/>
 			</div>
 		</div>
 	);
