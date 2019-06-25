@@ -89,8 +89,8 @@ export const Time = (props) => {
 					<Slider
 						onChange={changeMinutes}
 						defaultPercentage={calcDx(
-							moment.hours(),
-							24,
+							moment.minutes(),
+							60,
 							100,
 						)}
 					/>
