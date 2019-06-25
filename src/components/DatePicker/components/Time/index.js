@@ -18,14 +18,14 @@ export const Time = (props) => {
     } = props;
 
 	const changeHours = percentage => {
-		const hours = calcHoursFromPercentage(percentage);
+		const hours = calcDx(percentage, 100, 24);
 
 		moment.hours(hours);
 		onChange(moment);
 	};
 
 	const changeMinutes = percentage => {
-		const minutes = calcMinutesFromPercentage(percentage);
+		const minutes = calcDx(percentage, 100, 59);;
 
 		moment.minutes(minutes);
 		onChange(moment);
@@ -38,16 +38,35 @@ export const Time = (props) => {
 			cc(),
 			className,
 		)}>
-			<div className={cc('showtime')}>
-				<span className={cc('time')}>
-					{moment.format('HH')}
-				</span>
-				<span className={cc('separater')}>
-					:
-				</span>
-				<span className={cc('time')}>
-					{moment.format('mm')}
-				</span>
+			<div className={cc('display')}>
+				<div className={cc('display-panel')}>
+					<div className={cc('display-panel-label')}>
+						<span
+							className={cc('display-panel-number')}>
+							{moment.format('HH')}
+						</span>
+						<span
+							className={cc('display-panel-letter')}>
+							h
+						</span>
+					</div>
+				</div>
+				<div className={cc('separator')}>
+					<div className={cc('separator-stroke')} />
+					<div className={cc('separator-stroke')} />
+				</div>
+				<div className={cc('display-panel')}>
+					<div className={cc('display-panel-label')}>
+						<span
+							className={cc('display-panel-number')}>
+							{moment.format('mm')}
+						</span>
+						<span
+							className={cc('display-panel-letter')}>
+							m
+						</span>
+					</div>
+				</div>
 			</div>
 			<div className={cc('sliders')}>
 				<div className={cc('slider')}>
@@ -56,6 +75,11 @@ export const Time = (props) => {
 					</div>
 					<Slider
 						onChange={changeHours}
+						defaultPercentage={calcDx(
+							moment.hours(),
+							24,
+							100,
+						)}
 					/>
 				</div>
 				<div className={cc('slider')}>
@@ -64,6 +88,11 @@ export const Time = (props) => {
 					</div>
 					<Slider
 						onChange={changeMinutes}
+						defaultPercentage={calcDx(
+							moment.hours(),
+							24,
+							100,
+						)}
 					/>
 				</div>
 			</div>
@@ -71,14 +100,11 @@ export const Time = (props) => {
 	);
 };
 
-function calcHoursFromPercentage(percentage) {
-	const dec = percentage / 100
-	return dec * 23
-}
-
-function calcMinutesFromPercentage(percentage) {
-	const dec = percentage / 100
-	return dec * 59
+// transform minutes to a percentage
+// or visa-versa
+export function calcDx(x, y, dy) {
+	const dec = x / y;
+	return dec * dy;
 }
 
 Time.propTypes = {
