@@ -2,13 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
+import { withInfo } from '@storybook/addon-info';
 
-import { BooleanInputComponent } from '../booleanInput';
+import BooleanInput from '../booleanInput';
 
 
 storiesOf('Inputs/BooleanInput', module)
 	.addDecorator(withKnobs)
-	.addWithJSX('general', () => {
+	.add('general', () => {
 
 		const onBlur = action('onBlur');
 		const onChange = action('onChange');
@@ -22,12 +23,12 @@ storiesOf('Inputs/BooleanInput', module)
 		}
 
 		return (
-			<BooleanInputComponent 
+			<BooleanInput
 				onBlur={onBlur}
 				onChange={onChange}
+				name="example-boolean-input"
 				placeholder={text('Set placeholder text', 'Select one', 'Placeholder Value')}
 				required={boolean('Is required?', false, 'Required')}
-				name="example-boolean-input"
 				value={select('value', initialValues, null, 'Set value from props')}
 			/>
 		)

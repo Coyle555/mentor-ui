@@ -1,37 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action, configureActions } from '@storybook/addon-actions';
 import { withKnobs, optionsKnob, number, boolean, text } from '@storybook/addon-knobs';
 
-
+import useState from 'storybook-useState';
 import { Modal } from '../index';
 
 import Button from '../../Button';
 
-const optionsConfig = {
-	display: 'display',
-	fullScreenToggle: 'fullScreenToggle',
-}
-
-//options returns an array of strings
-const formatProps = (selectedOptions = []) => 
-	selectedOptions.reduce((obj, curr) => ({ ...obj, [curr]: true }), {});
 
 
 storiesOf('Modal', module)
 	.addDecorator(withKnobs)
-	.addWithJSX('general', () => {
+	.add('general', () => {
 
-
+		const [modalVisibility, setModalVisibility] = useState(false);
 		return (
 			<React.Fragment>
-				<p>Go to the Knobs tab below to toggle the modal's visibility.</p>
+				<Button onClick={() => setModalVisibility(true)}>
+					Open The Modal By Clicking Here
+				</Button>
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
-					display={boolean('display', false)}
+					display={modalVisibility}
 					fullScreenToggle={boolean('fullScreenToggle', false)}
 					hideCloseButton={boolean('hideCloseButton', false)}
-					onClose={() => alert('props.onClose function was invoked.')}
+					onClose={() => setModalVisibility(false)}
 					height={number('Override height', null)}
 					width={number('Override width', null)}
 				>
@@ -42,27 +36,31 @@ storiesOf('Modal', module)
 	})
 	.addWithJSX('nested modals', () => {
 
-
+		const [modal1Visibility, setModal1Visibility] = useState(false);
+		const [modal2Visibility, setModal2Visibility] = useState(false);
 		return (
 			<React.Fragment>
-				<p>Go to the Knobs tab below to toggle the modal's visibility.</p>
+				<Button onClick={() => setModal1Visibility(true)}>
+					Open The Modal By Clicking Here
+				</Button>					
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
-					display={boolean('display outer modal', false)}
-					// fullScreenToggle={boolean('fullScreenToggle', false)}
-					hideCloseButton
-					onClose={() => alert('outer modal\'s props.onClose function was invoked.')}
-					height={200}
-					width={200}
+					display={modal1Visibility}
+					// fullScreenToggle
+					onClose={() => setModal1Visibility(false)}
+					height={300}
+					width={300}
 				>
 					<p>Modal 1 Content</p>
+					<Button onClick={() => setModal2Visibility(true)}>
+						Open The Inner Modal By Clicking Here
+					</Button>						
 					<Modal 
-						display={boolean('display inner modal', true)}
-						overlayStyle={{ background: 'none' }}
+						display={modal2Visibility}
+						// overlayStyle={{ background: 'none' }}
 						height={400}
-						onClose={() => alert('inner modal\'s props.onClose function was invoked.')}
-						fullScreenToggle
-						hideCloseButton
+						onClose={() => setModal2Visibility(false)}
+						// fullScreenToggle
 						width={400}
 					>
 						<p>Modal 2 Content</p>

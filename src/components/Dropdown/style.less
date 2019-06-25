@@ -4,6 +4,20 @@
   position: relative;
 }
 
+.APMDropdown-content {
+	display: block;
+	margin-top: 0;
+	float: left;
+	left: 0;
+	position: absolute;
+	top: 100%;
+	z-index: @zIndex-dropdown;
+	-webkit-animation: DROPDOWN 0.1s; /* Safari 4+ */
+	-moz-animation:    DROPDOWN 0.1s; /* Fx 5+ */
+	-o-animation:      DROPDOWN 0.1s; /* Opera 12+ */
+	animation:         DROPDOWN 0.1s; /* IE 10+, Fx 29+ */
+}
+
 .APMDropdown-menu {
 	display: block;
 	margin-right: 30px;
@@ -12,19 +26,12 @@
 	border: medium none;
 	border-radius: 3px;
 	box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
-	//float: left;
 	font-size: 12px;
-	// left: 0;
 	list-style: none outside none;
 	padding: 0;
 	position: absolute;
 	text-shadow: none;
-	// top: 100%;
-	z-index: @zIndex-dropdown;
-	-webkit-animation: DROPDOWN 0.1s; /* Safari 4+ */
-	-moz-animation:    DROPDOWN 0.1s; /* Fx 5+ */
-	-o-animation:      DROPDOWN 0.1s; /* Opera 12+ */
-	animation:         DROPDOWN 0.1s; /* IE 10+, Fx 29+ */
+
 
 	&-header {
 		color: @charcoal;

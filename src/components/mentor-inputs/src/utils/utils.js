@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BooleanInputComponent } from '../components/boolean-input/booleanInput';
+import BooleanInput from '../components/boolean-input/booleanInput';
 import { DatePicker } from 'components/DatePicker';
 import EmailInput from '../components/email-input/emailInput';
 import FileInput from '../components/file-input/fileInput';
@@ -27,7 +27,7 @@ export function getMentorInput(type = '') {
 		case 'listfilter':
 			return ListFilter;
 		case 'boolean':
-			return BooleanInputComponent;
+			return BooleanInput;
 		case 'integer':
 			return IntegerInput;
 		case 'file':

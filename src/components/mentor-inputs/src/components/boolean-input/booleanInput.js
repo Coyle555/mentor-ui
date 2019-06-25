@@ -9,7 +9,7 @@ const OPTIONS = [
 	{ value: false, label: 'False' }
 ];
 
-export const BooleanInputComponent = props => {
+const BooleanInput = props => {
 	
 	return (
 		<SelectInput 
@@ -41,3 +41,14 @@ function parse(value) {
 			return ''
 	}
 }
+
+BooleanInput.propTypes = {
+	className: PropTypes.string,
+	placeholder: PropTypes.string,
+	required: PropTypes.bool,
+	// validation: PropTypes.func,
+	style: PropTypes.object,
+	value: PropTypes.oneOf([ false, true, 'false', 'true', '', null, undefined])	
+}
+
+export default BooleanInput;

@@ -16,7 +16,7 @@ let count = -1;
 const channel = addons.getChannel();
 
 channel.addListener(STORY_CHANGED, () => {
-	state = {};
+	state = [];
 	count = -1;
 });
 
@@ -28,18 +28,21 @@ channel.addListener('FORCE_RE_RENDER_W_NEW_STATE', () => {
 
 export default function useState(initialValue) {
 	count += 1;
-	if (!state[count]) {
-		state[count] = initialValue;
+
+	const idx = count;
+
+	if (!state[idx]) {
+		state[idx] = initialValue;
 	}
 
  	const setState = newValue => {
- 		
- 		if (Object.is(state[count], newValue)) return;
  
- 		state[count] = newValue;
+ 		if (Object.is(state[idx], newValue)) return;
+ 
+ 		state[idx] = newValue;
  		channel.emit('FORCE_RE_RENDER_W_NEW_STATE');
  		console.log('updating state', state);
  	}
 
-	return [state[count], setState]
+	return [state[idx], setState]
 }
