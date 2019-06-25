@@ -10,8 +10,8 @@ import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
-const KNOB_SIZE = 38;
-const BORDER_OFFSET = 2;
+export const KNOB_SIZE = 38;
+export const BORDER_OFFSET = 2;
 
 export const Slider = (props) => {
 	const {
