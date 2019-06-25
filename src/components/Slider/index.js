@@ -30,7 +30,8 @@ export const Slider = (props) => {
 	const sliderRef = useRef();
 
 	useEffect(() => {
-		onChange(percentage);
+		if (onChange)
+			onChange(percentage);
 	}, [percentage]);
 
 	useLayoutEffect(() => {
