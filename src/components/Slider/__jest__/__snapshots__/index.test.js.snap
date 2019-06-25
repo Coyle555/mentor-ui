@@ -10,6 +10,7 @@ exports[`Slider component Should default render 1`] = `
     />
     <div
       class="APMSlider-handle"
+      data-testid="slider-handle"
       style="height: 38px; width: 38px;"
     />
   </div>
@@ -26,6 +27,24 @@ exports[`Slider component Should match snapshot with className prop 1`] = `
     />
     <div
       class=" APMSlider-handle RidelsMPA-handle"
+      data-testid="slider-handle"
+      style="height: 38px; width: 38px;"
+    />
+  </div>
+</div>
+`;
+
+exports[`Slider component Should match snapshot with prop defaultPercentage prop 1`] = `
+<div>
+  <div
+    class="APMSlider"
+  >
+    <div
+      class="APMSlider-value"
+    />
+    <div
+      class="APMSlider-handle"
+      data-testid="slider-handle"
       style="height: 38px; width: 38px;"
     />
   </div>

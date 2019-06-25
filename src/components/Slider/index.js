@@ -100,6 +100,7 @@ export const Slider = (props) => {
 			/>
 			<div
 				className={cc('handle')}
+				data-testid="slider-handle"
 				ref={handleRef}
 				onMouseDown={handleGrab}
 				onMouseUp={handleRelease}
@@ -129,11 +130,11 @@ export function calcHandlePos(
 };
 
 export function getHandleStyle(pos, operator, offset) {
-	return `calc(${pos}% ${operator}  ${offset}px)`
+	return `calc(${pos}% ${operator} ${offset}px)`
 }
 
 export function getValueWidthStyle(pos, knobSize) {
-	return `calc(${pos}% + ${KNOB_SIZE / 2}px)`
+	return `calc(${pos}% + ${knobSize / 2}px)`
 }
 
 export function normalizer(value, min, max) {
