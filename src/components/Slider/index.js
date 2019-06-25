@@ -154,7 +154,7 @@ export function onMove(
 
 	const x =  mouseX - sliderX - knobSize / 2;
 
-	const newPercentage = Math.round(normalizer(
+	const newPercentage = Math.floor(normalizer(
 		x / sliderWidth * 100,
 		0,
 		100,
