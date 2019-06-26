@@ -1,14 +1,17 @@
 import cn from 'classnames';
 import moment from 'moment';
-import React, { Component } from 'react';
+import React, {
+	useState,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import { Calendar } from '../Calendar';
 import { Time } from '../Time';
+import { TabNav } from '../TabNav';
 import {
 	OptionalControl
 } from './components/OptionalControl';
-import { composeClass } from 'utils';
+import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 import * as utils from './utils';
@@ -18,151 +21,123 @@ const tabDisabled = {
 	width: '100%'
 };
 
-export class DatePicker extends Component {
-	state = {
-		tab: 'date'
-	};
+const TAB_LABELS = Object.freeze({
+	time: 'Time',
+	date: 'Date',
+})
 
-	componentDidMount() {
-		if (this.props.dateDisabled) {
-			this.setState({ tab: 'time' });
-		}
-	}
+const TAB_OPTIONS = Object.freeze([
+	{
+		label: TAB_LABELS.date,
+		iconClass: 'fal fa-calendar-alt',
+	},
+	{
+		label: TAB_LABELS.time,
+		iconClass: 'fal fa-clock',
+	},
+])
 
-	handleClickTab = (e, tab) => {
-		e.preventDefault();
-		this.setState({ tab: e.target.name });
-	};
+export function DatePicker(props) {
+	const {
+		moment: m,
+		className,
+		clearInput,
+		dateDisabled,
+		handleClose,
+		minDate,
+		maxDate,
+		minHour,
+		maxHour,
+		minMinute,
+		maxMinute,
+		saveDate,
+		timeDisabled,
+		onChange,
+	} = props;
 
+	const [activeTab, setActiveTab] = useState(TAB_LABELS.date);
 
-	render() {
-		const { tab } = this.state;
+	const cc = composeNamespace('APMDatePicker', className);
 
-		const {
-			moment: m,
-			className,
-			clearInput,
-			dateDisabled,
-			handleClose,
-			minDate,
-			maxDate,
-			minHour,
-			maxHour,
-			minMinute,
-			maxMinute,
-			saveDate,
-			timeDisabled
-		} = this.props;
-
-		const cc = composeClass('APMDatePicker', className);
-
-		return (
-			<div className={cc()}>
-				<i />
-				<div className={cc('optional-controls')}>
-					<div className={cc('optional-controls-main')}>
-						{ utils.isCallbackValid(saveDate) ||
-							<OptionalControl
-								onClick={saveDate}
-								iconClass='fal fa-save'
-							>
-								Save
-							</OptionalControl>
-						}
-						{ utils.isCallbackValid(clearInput) &&
-							<OptionalControl
-								onClick={clearInput}
-								iconClass='fal fa-empty-set'
-							>
-								Clear
-							</OptionalControl>
-						}
-					</div>
-					{ utils.isCallbackValid(handleClose) &&
+	return (
+		<div className={cc()}>
+			<div className={cc('optional-controls')}>
+				<div className={cc('optional-controls-main')}>
+					{ utils.isCallbackValid(saveDate) ||
 						<OptionalControl
 							onClick={saveDate}
-							iconClass='fal fa-times'
-							className={cc('optional-controls-orphan')}
-						/>
-					}
-				</div>
-				<div className={cc('options')}>
-					{ !dateDisabled &&
-						<button
-							className={cn(
-								'im-btn',
-								{ 'is-active': tab === 'date' }
-							)}
-							name="date"
-							onClick={this.handleClickTab}
-							style={timeDisabled
-								? tabDisabled
-								: {}
-							}
-							type="button"
+							iconClass='fal fa-save'
 						>
-							<i className="fal fa-calendar-alt fa-sm m-r-xs" />
-							Date
-						</button>
+							Save
+						</OptionalControl>
 					}
-					{ !timeDisabled &&
-						<button
-							className={cn(
-								'im-btn',
-								{ 'is-active': tab === 'time' }
-							)}
-							name="time"
-							onClick={this.handleClickTab}
-							style={dateDisabled
-								? tabDisabled
-								: {}
-							}
-							type="button"
+					{ utils.isCallbackValid(clearInput) &&
+						<OptionalControl
+							onClick={clearInput}
+							iconClass='fal fa-empty-set'
 						>
-							<i className="fal fa-clock fa-sm m-r-xs" />
-							Time
-						</button>
+							Clear
+						</OptionalControl>
 					}
 				</div>
-				<div className="tabs">
-					{ !dateDisabled &&
-						<Calendar
-							className={cn(
-								'tab',
-								{ 'is-active': tab === 'date' }
-							)}
-							maxDate={maxDate}
-							minDate={minDate}
-							moment={m}
-							onChange={this.props.onChange}
-						/>
-					}
-					{ !timeDisabled && tab === 'time' &&
-						<Time
-							minHour={minHour}
-							maxHour={maxHour}
-							minMinute={minMinute}
-							maxMinute={maxMinute}
-							moment={m}
-							onChange={this.props.onChange}
-						/>
-					}
-				</div>
+				{ utils.isCallbackValid(handleClose) &&
+					<OptionalControl
+						onClick={saveDate}
+						iconClass='fal fa-times'
+						className={cc('optional-controls-orphan')}
+					/>
+				}
 			</div>
-		);
-	}
-}
+			<TabNav
+				className={cc('nav')}
+				tabs={TAB_OPTIONS}
+				activeTab={activeTab}
+				onClick={onTabClick(setActiveTab)}
+			/>
+			<div className="tabs">
+				{ !dateDisabled &&
+					<Calendar
+						className={cn(
+							'tab',
+							{ 'is-active': activeTab === TAB_LABELS.date }
+						)}
+						maxDate={maxDate}
+						minDate={minDate}
+						moment={m}
+						onChange={onChange}
+					/>
+				}
+				{ !timeDisabled && activeTab === TAB_LABELS.time &&
+					<Time
+						minHour={minHour}
+						maxHour={maxHour}
+						minMinute={minMinute}
+						maxMinute={maxMinute}
+						moment={m}
+						onChange={onChange}
+					/>
+				}
+			</div>
+		</div>
+	);
+};
+
+function onTabClick(setActiveTab) {
+	return (label) => {
+		setActiveTab(label);
+	};
+};
 
 DatePicker.propTypes = {
 	clearInput: PropTypes.func,
-	dateDisabled: PropTypes.bool,
+	isDateDisabled: PropTypes.bool,
 	handleClose: PropTypes.func,
 	minHour: PropTypes.number,
 	maxHour: PropTypes.number,
 	minMinute: PropTypes.number,
 	maxMinute: PropTypes.number,
 	saveDate: PropTypes.func,
-	timeDisabled: PropTypes.bool
+	isTimeDisabled: PropTypes.bool
 };
 
 DatePicker.defaultProps = {
