@@ -116,6 +116,7 @@ export class Table extends Component {
 		customLayout: null,
 		currentPage: DEFAULT_PAGE,
 		data: [],
+		deletable: true,
 		deleteCb: null,
 		displayCols: [],
 		draggable: null,
@@ -469,7 +470,7 @@ export class Table extends Component {
 	}
 
 	prepColumnsForHeader = (columns) => {
-		return columns.filter(col => !!col.category && !col.hidden)
+		return columns.filter(col => !!col.category)
 			.map(col => ({
 				id: col.id,
 				category: col.category,

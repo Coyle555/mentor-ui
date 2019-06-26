@@ -41,7 +41,7 @@ export class ActiveFiltersClass extends Component {
 		this.setState({ filtersActive: false });
 	}
 
-	renderFilters = () => {
+	renderFilters = (ref) => {
 		const { clearSearch, disabled, onRemove, searchTokens } = this.props;
 
 		if (searchTokens.length === 0) {
@@ -49,7 +49,10 @@ export class ActiveFiltersClass extends Component {
 		}
 
 		return (
-			<table className="active-filters-list ignore-react-onclickoutside">
+			<table
+				className="active-filters-list ignore-react-onclickoutside"
+				ref={ref}
+			>
 				<thead>
 					<tr>
 						<td>Field</td>
@@ -94,30 +97,36 @@ export class ActiveFiltersClass extends Component {
 				targetAttachment="bottom left"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{zIndex: 4}}
-			>
-				<span
-					className="input-group-addon left-addon"
-					data-for="structured-query-tooltip"
-					data-tip="View Filters"
-					onClick={this.toggleFilterList}
-					style={{
-						background: searchTokens.length === 0
-							? 'lightgrey'
-							: 'white',
-						borderRadius: 0,
-						position: 'relative',
-						cursor: searchTokens.length === 0
-							? 'not-allowed'
-							: 'pointer'
-					}}
-				>
-					<i className="far fa-list" />
-					<span className="active-filter-count">
-						{searchTokens.length}
+				renderTarget={ref => (
+					<span
+						className="input-group-addon left-addon"
+						data-for="structured-query-tooltip"
+						data-tip="View Filters"
+						onClick={this.toggleFilterList}
+						ref={ref}
+						style={{
+							background: searchTokens.length === 0
+								? 'lightgrey'
+								: 'white',
+							borderRadius: 0,
+							position: 'relative',
+							cursor: searchTokens.length === 0
+								? 'not-allowed'
+								: 'pointer'
+						}}
+					>
+						<i className="far fa-list" />
+						<span className="active-filter-count">
+							{searchTokens.length}
+						</span>
 					</span>
-				</span>
-				{ filtersActive && this.renderFilters() }
-			</Tether>
+				)}
+				renderElement={ref => (
+					filtersActive
+						? this.renderFilters(ref)
+						: null
+				)}
+			/>
 		);
 	}
 };

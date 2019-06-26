@@ -205,6 +205,7 @@ export class Toolbar extends Component {
 	render() {
 		const { isToolbarCollapsed } = this.props;
 
+		console.log(this.props);
 		return (
 			<div className="table-header-toolbar">
 				{ isToolbarCollapsed

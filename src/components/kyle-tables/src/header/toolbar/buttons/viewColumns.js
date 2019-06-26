@@ -51,43 +51,50 @@ class ViewColumnsComponent extends Component {
 				targetAttachment="bottom right"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{zIndex: 10}}
-			>
-				<span
-					data-for="table-tooltip"
-					data-tip="Toggle Columns"
-				>
-					<button
-						className={btnClasses}
-						onClick={this.onClick}
-						type="button"
-						disabled={disabled}
+				renderTarget={ref => (
+					<span
+						data-for="table-tooltip"
+						data-tip="Toggle Columns"
+						ref={ref}
 					>
-						<i className="fal fa-columns" />
-					</button>
-				</span>
-				{ btnActive &&
-					<ul className="table-header-columns-ul ignore-react-onclickoutside">
-					{ viewColumns.map(col => (
-						<li key={col.id} className="table-header-columns-li">
-							<div className="pretty p-default">
-								<input
-									type="checkbox"
-									id={col.category}
-									checked={col.display}
-									name={col.id}
-									onChange={onDisplayColChange}
-								/>
-								<div className="state p-primary">
-									<label htmlFor={col.category}>
-										{col.category}
-									</label>
+						<button
+							className={btnClasses}
+							onClick={this.onClick}
+							type="button"
+							disabled={disabled}
+						>
+							<i className="fal fa-columns" />
+						</button>
+					</span>
+				)}
+				renderElement={ref => (
+					btnActive && (
+						<ul
+							className="table-header-columns-ul ignore-react-onclickoutside"
+							ref={ref}
+						>
+						{ viewColumns.map(col => (
+							<li key={col.id} className="table-header-columns-li">
+								<div className="pretty p-default">
+									<input
+										type="checkbox"
+										id={col.category}
+										checked={col.display}
+										name={col.id}
+										onChange={onDisplayColChange}
+									/>
+									<div className="state p-primary">
+										<label htmlFor={col.category}>
+											{col.category}
+										</label>
+									</div>
 								</div>
-							</div>
-						</li>
-					))}
-					</ul>
-				}
-			</Tether>
+							</li>
+						))}
+						</ul>
+					)
+				)}
+			/>
 		);
 	}
 }
