@@ -49,7 +49,6 @@ export class Table extends Component {
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,
 		deleteCb: PropTypes.func,
-		deleteTokenCb: PropTypes.func,
 		displayCols: PropTypes.arrayOf(PropTypes.string),
 		draggable: PropTypes.shape({
 			dragType: PropTypes.string,
@@ -118,7 +117,6 @@ export class Table extends Component {
 		currentPage: DEFAULT_PAGE,
 		data: [],
 		deleteCb: null,
-		deleteTokenCb: null,
 		displayCols: [],
 		draggable: null,
 		dropType: '',
@@ -264,9 +262,6 @@ export class Table extends Component {
 			sortId, sortDir, this.props.filters);
 	}
 
-	// When a user enters or removes a token into the structured filter
-	// search, retrieve the updated data
-	// filter resets to page 1 on a token add/remove
 	// @filters([object]) - list of objects describing each filter to apply
 	_loadFilterChange = (filters) => {
 		this.props.handleTableChange(this.props.pageSize, DEFAULT_PAGE,
@@ -294,15 +289,6 @@ export class Table extends Component {
 		});
 	}
 
-	// handle inserting a new token into a cell
-	_onInsertTokenClick = (rowId, colId, token) => {
-		const { insertTokenCb } = this.props;
-
-		if (typeof insertTokenCb === 'function') {
-			insertTokenCb(rowId, colId, token);
-		}
-	}
-
 	// user deletes row(s)
 	_onDeleteClick = () => {
 		const { deleteCb } = this.props;
@@ -324,15 +310,6 @@ export class Table extends Component {
 				numRowsSelected: 0,
 				selectedRows: {}
 			});
-		}
-	}
-
-	// handle deletion when user deletes a token in a row
-	_onDeleteTokenClick = (rowId, colId, token) => {
-		const { deleteTokenCb } = this.props;
-
-		if (typeof deleteTokenCb === 'function') {
-			deleteTokenCb(rowId , colId, token);
 		}
 	}
 
@@ -593,8 +570,6 @@ export class Table extends Component {
 						_editOnOptionMatch: this._onOptionMatch,
 						_editOnColorChange: this._onBlur,
 						_editOnDeleteImageClick: this._onDeleteImageClick,
-						_editOnDeleteTokenClick: this._onDeleteTokenClick,
-						_editOnInsertTokenClick: this._onInsertTokenClick,
 					}}
 					recordProperties={recordProperties}
 					dragProperties={{

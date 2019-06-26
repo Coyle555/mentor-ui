@@ -79,8 +79,6 @@ export const TableMain = ({
 							_onOptionMatch={rowProperties._editOnOptionMatch}
 							_onColorChange={rowProperties._editOnColorChange}
 							_onDeleteImageClick={rowProperties._editOnDeleteImageClick}
-							_onDeleteTokenClick={rowProperties._editOnDeleteTokenClick}
-							_onInsertTokenClick={rowProperties._editOnInsertTokenClick}
 							_onRowSelect={_onRowSelect}
 						/>
 					</table>

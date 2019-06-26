@@ -33,7 +33,6 @@ export class TableRow extends PureComponent {
 		model: PropTypes.object,
 		onBlur: PropTypes.func,
 		onOptionMatch: PropTypes.func,
-		onDeleteTokenClick: PropTypes.func,
 		rowSelected: PropTypes.bool,
 		row: PropTypes.object,
 		rowId: PropTypes.string,
@@ -94,8 +93,6 @@ export class TableRow extends PureComponent {
 			onOptionMatch,
 			onColorChange,
 			onDeleteImageClick,
-			onDeleteTokenClick,
-			onInsertTokenClick,
 			portalRef,
 			selectedRows,
 			rowSelected,
@@ -166,8 +163,6 @@ export class TableRow extends PureComponent {
 						onOptionMatch={onOptionMatch}
 						onColorChange={onColorChange}
 						onDeleteImageClick={onDeleteImageClick}
-						onDeleteTokenClick={onDeleteTokenClick}
-						onInsertTokenClick={onInsertTokenClick}
 						portalRef={portalRef}
 						required={col.required}
 						row={row}

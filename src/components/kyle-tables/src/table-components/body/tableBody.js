@@ -84,8 +84,6 @@ export class TableBody extends Component {
 			_onBlur,
 			_onColorChange,
 			_onDeleteImageClick,
-			_onDeleteTokenClick,
-			_onInsertTokenClick,
 			_onOptionMatch,
 			_onRowSelect,
 		} = this.props;
@@ -116,8 +114,6 @@ export class TableBody extends Component {
 					onBlur={_onBlur}
 					onColorChange={_onColorChange}
 					onDeleteImageClick={_onDeleteImageClick}
-					onDeleteTokenClick={_onDeleteTokenClick}
-					onInsertTokenClick={_onInsertTokenClick}
 					portalRef={portalRef}
 					selectedRows={selectedRows}
 					rowSelected={!!selectedRows[row.id]}

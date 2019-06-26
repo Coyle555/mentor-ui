@@ -10,7 +10,6 @@ import { EditInputCell } from './cell-components/editInputCell';
 import { EditDropzoneCell } from './cell-components/editDropzoneCell';
 import { EditImageCell } from './cell-components/editImageCell';
 import { EditTableInputCell } from './cell-components/editTableInputCell';
-import { TokenCell } from './cell-components/tokenCell';
 import { TableListFilter } from './cell-components/listFilter';
 import { TableDatePicker } from './cell-components/datePicker';
 import { SelectCell } from './cell-components/selectCell';
@@ -31,14 +30,12 @@ export const Cell = ({
 	onColorChange,
 	onOptionMatch,
 	onDeleteImageClick,
-	onDeleteTokenClick,
 	portalRef,
 	required,
 	row,
 	rowId,
 	rowSelected,
 	tableOnInsert,
-	tokenize,
 	type,
 	updatable,
 	uploadFileCb,
@@ -84,40 +81,10 @@ export const Cell = ({
 		}
 	}
 
-	// cell is an array so tokenize
-	if (tokenize) {
-		if (!Array.isArray(value)) {
-			value = [];
-		}
-
-		// create all the tokens
-		cell = value.map((val, i) => (
-			<TokenCell
-				colId={colId}
-				editMode={editMode && rowSelected && updatable !== false}
-				key={typeof val === 'object'
-					? rowId + val.id
-					: rowId + val
-				}
-				onClick={onDeleteTokenClick}
-				rowId={rowId}
-				rowSelected={rowSelected}
-				token={val}
-			/>
-		));
-
-		return (
-			<td className="table-cell-view">
-				{cell}
-			</td>
-		);
-	}
-
 	// convert different data types to the proper string
 	value = convertCellToString(value);
 
 	// determine the type of cell to render based on column data
-	// Token cell if its an array of objects
 	// no edit box if column is not in edit mode or updatable or
 	// disable column is enabled and column isn't editable so just display value
 	if (!rowSelected || !editMode || updatable === false || multiline) {
