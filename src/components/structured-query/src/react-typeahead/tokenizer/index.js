@@ -22,7 +22,6 @@ import {
 	ENUM_OPERATIONS,
 	ASYNC_OPERATIONS
 } from './constants';
-//import './index.less';
 
 // A typeahead that, when an option is selected replaces the text entry
 // widget with a renderable 'token' that can be deleted by pressing
