@@ -12,24 +12,8 @@ export const Time = (props) => {
     const {
 		className,
 		moment,
-		minHour,
-		maxHour,
 		onChange,
     } = props;
-
-	const changeHours = percentage => {
-		const hours = calcDx(percentage, 100, 24);
-
-		moment.hours(hours);
-		onChange(moment);
-	};
-
-	const changeMinutes = percentage => {
-		const minutes = calcDx(percentage, 100, 59);;
-
-		moment.minutes(minutes);
-		onChange(moment);
-	};
 
     const cc = composeNamespace('APMTime', className);
 
@@ -74,7 +58,11 @@ export const Time = (props) => {
 						Hours
 					</div>
 					<Slider
-						onChange={changeHours}
+						onChange={changeHours(
+							moment,
+							onChange,
+							calcDx,
+						)}
 						defaultPercentage={calcDx(
 							moment.hours(),
 							24,
@@ -87,7 +75,11 @@ export const Time = (props) => {
 						Minutes
 					</div>
 					<Slider
-						onChange={changeMinutes}
+						onChange={changeMinutes(
+							moment,
+							onChange,
+							calcDx,
+						)}
 						defaultPercentage={calcDx(
 							moment.minutes(),
 							60,
@@ -104,14 +96,37 @@ export const Time = (props) => {
 // or visa-versa
 export function calcDx(x, y, dy) {
 	const dec = x / y;
-	return dec * dy;
-}
+	return Math.round(dec * dy);
+};
+
+export function changeHours(
+	moment,
+	onChange,
+	calcDx,
+) {
+	return (percentage) => {
+		const hours = calcDx(percentage, 100, 24);
+
+		moment.hours(hours);
+		onChange(moment);
+	}
+};
+
+export function changeMinutes(
+	moment,
+	onChange,
+	calcDx,
+) {
+	return (percentage) => {
+		const minutes = calcDx(percentage, 100, 59);;
+
+		moment.minutes(minutes);
+		onChange(moment);
+	}
+};
 
 Time.propTypes = {
 	className: PropTypes.string,
 	moment: PropTypes.object.isRequired,
-	minHour: PropTypes.number,
-	maxHour: PropTypes.number,
-	display: PropTypes.boolean,
-	onChange: PropTypes.func,
+	onChange: PropTypes.func.isRequired,
 }
