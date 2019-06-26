@@ -279,7 +279,7 @@ export class Tokenizer extends Component {
 		});
 
 		const searchWrapperClasses = classNames(
-			'input-group-addon left-addon',
+			'input-group-addon left-addon first-addon',
 			{ 'cursor-pointer': typeof exportSearch === 'function' }
 		);
 

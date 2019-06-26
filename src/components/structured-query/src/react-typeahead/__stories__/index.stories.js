@@ -3,6 +3,10 @@ import { storiesOf, action } from '@storybook/react';
 
 import { StructuredQuery } from '../index';
 
+const onTokenAdd = () => {};
+const onTokenRemove = () => {};
+const exportSearch = () => {};
+
 storiesOf('Structured Query', module)
 	.add('String options', () => {
 		const options = [
@@ -11,5 +15,12 @@ storiesOf('Structured Query', module)
 			{ id: 'baz', category: 'Baz', type: 'string' }
 		];
 
-		return <StructuredQuery options={options} />
+		return (
+			<StructuredQuery
+				exportSearch={exportSearch}
+				onTokenAdd={onTokenAdd}
+				onTokenRemove={onTokenRemove}
+				options={options}
+			/>
+		);
 	});

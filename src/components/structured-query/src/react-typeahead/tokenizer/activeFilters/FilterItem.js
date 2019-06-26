@@ -71,13 +71,12 @@ export class FilterItem extends Component {
 				</td>
 				<td>
 					{ !disabled &&
-						<button
+						<a
 							className="clear-filter"
 							onClick={this.onRemove}
-							type="button"
 						>
 							Clear
-						</button>
+						</a>
 					}
 				</td>
 			</tr>

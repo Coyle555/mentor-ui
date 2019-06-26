@@ -60,13 +60,12 @@ export class ActiveFiltersClass extends Component {
 						<td>Value</td>
 						<td>
 							{ !disabled &&
-								<button
+								<a
 									className="clear-all-filters"
 									onClick={clearSearch}
-									type="button"
 								>
 									Clear All
-								</button>
+								</a>
 							}
 						</td>
 					</tr>

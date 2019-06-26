@@ -337,34 +337,31 @@ export class TypeaheadClass extends Component {
 		const { category, customClasses, disabled, operator } = this.props;
 
 		let inputClassList = classNames({
-			'filter-tokenizer-text-input': true,
 			[customClasses.input]: !!customClasses.input
 		});
 
 		return (
 			<div
-				className="token-collection"
+				className="filter-input-group"
 				onClick={this._focusTypeahead}
 			>
-				<div className="filter-input-group">
-					<div className="filter-category">
-						{category}
-					</div>
-					<div className="filter-operator">
-						{operator}
-					</div>
-					<div className="typeahead">
-						<input
-							className={inputClassList}
-							disabled={disabled}
-							onChange={this._onTextEntryUpdated}
-							onKeyDown={this._onKeyDown}
-							ref={ref => this.inputRef = ref}
-							type="text"
-							value={this.state.value}
-						/>
-						{this._renderIncrementalSearchResults()}
-					</div>
+				<div className="filter-category">
+					{category}
+				</div>
+				<div className="filter-operator">
+					{operator}
+				</div>
+				<div className="typeahead">
+					<input
+						className={inputClassList}
+						disabled={disabled}
+						onChange={this._onTextEntryUpdated}
+						onKeyDown={this._onKeyDown}
+						ref={ref => this.inputRef = ref}
+						type="text"
+						value={this.state.value}
+					/>
+					{this._renderIncrementalSearchResults()}
 				</div>
 			</div>
 	       );
