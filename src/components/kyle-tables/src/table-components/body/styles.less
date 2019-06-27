@@ -186,6 +186,7 @@
 	opacity: 0.8;
 	margin: 0 10px;
 	color: white;
+	cursor: pointer;
 
 	&:hover {
 		opacity: 1;
@@ -198,11 +199,11 @@
 	}
 
 	&:active {
-		color: #8dc63f
+		color: @green-primary;
 	}
 
 	&[disabled] {
-		color: #be1717;
+		color: @error;
 		cursor: not-allowed;
 	}
 }

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { convertToTimeZone } from 'date-fns-timezone';
 import classNames from 'classnames';
 
 import { convertCellToString } from '../../utils/utils';
@@ -67,7 +66,7 @@ export const Cell = ({
 	// convert different data types to the proper string
 	value = convertCellToString(value, type);
 	
-	if (typeof value !== 'object' && !image && !!value) {
+	if (!image && !!value) {
 		title = value;
 	}
 
@@ -91,34 +90,6 @@ export const Cell = ({
 		if (!!image && !!value) {
 
 			cell = <img src={value} style={{ maxWidth: '50px' }} />;
-
-		} else if (type === 'datetime' && Date.parse(value)) {
-
-			const date = Date.parse(new Date(value));
-			const region = new Intl.DateTimeFormat().resolvedOptions();
-			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
-			const options = {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-				hour: 'numeric',
-				minute: 'numeric'
-			};
-
-			cell = new Intl.DateTimeFormat('default', options).format(convertedDate);
-
-		} else if (type === 'date' && Date.parse(value)) {
-
-			const date = Date.parse(new Date(value));
-			const region = new Intl.DateTimeFormat().resolvedOptions();
-			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
-			const options = {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric'
-			};
-
-			cell = new Intl.DateTimeFormat('default', options).format(convertedDate);
 
 		} else {
 			cell = value;

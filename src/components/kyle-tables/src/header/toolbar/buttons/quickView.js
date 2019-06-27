@@ -1,38 +1,99 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Tether from 'react-tether';
+import classNames from 'classnames';
+import onClickOutside from 'react-onclickoutside';
 
-export class QuickView extends Component {
+class QuickViewsComponent extends Component {
+
+	static propTypes = {
+		disabled: PropTypes.bool,
+		onClick: PropTypes.func,
+		quickViews: PropTypes.shape({
+			columns: PropTypes.arrayOf(PropTypes.string),
+			name: PropTypes.string,
+		})
+	}
+
+	static defaultProps = {
+		quickViews: []
+	}
+
+	constructor(props) {
+		super(props);
+
+		// @btnActive: true when the display columns button
+		// 	is active; false otherwise; used to highlight button
+		this.state = {
+			btnActive: false
+		};
+	}
 
 	onClick = () => {
-		this.props.onClick(this.props.view.columns);
+		this.setState({ btnActive: !this.state.btnActive });
+	}
+
+	handleClickOutside = (event) => {
+		this.setState({ btnActive: false });
+	}
+
+	onViewClick = (columns) => {
+		this.props.onClick(columns);
 	}
 	
 	render() {
-		const { disabled, view } = this.props;
+		const { disabled, quickViews } = this.props;
+		const { btnActive } = this.state;
+
+		const btnClasses = classNames({
+			'btn-table': true,
+			'active': btnActive
+		});
 
 		return (
-			<span 
-				data-for="table-tooltip"
-				data-tip={view.tip}
-			>
-				<button
-					className="btn-table"
-					onClick={this.onClick}
-					type="button"
-					disabled={disabled}
-				>
-					<i className={view.icon} />
-				</button>
-			</span>
+			<Tether
+				attachment="top right"
+				targetAttachment="bottom right"
+				constraints={[{ to: 'scrollParent' }]}
+				style={{zIndex: 10}}
+				renderTarget={ref => (
+					<span
+						data-for="table-tooltip"
+						data-tip="Quickviews"
+						ref={ref}
+					>
+						<button
+							className={btnClasses}
+							onClick={this.onClick}
+							type="button"
+							disabled={disabled}
+						>
+							<i className="fal fa-list" />
+						</button>
+					</span>
+				)}
+				renderElement={ref => (
+					btnActive && (
+						<ul
+							className="table-header-columns-ul ignore-react-onclickoutside"
+							ref={ref}
+						>
+							{ quickViews.map(view => (
+								<li
+									className="table-header-columns-li table-quickview"
+									key={view.name}
+									onClick={() => this.onViewClick(view.columns)}
+								>
+									<i className="far fa-eye" />
+									{view.name}
+								</li>
+							))}
+						</ul>
+					)
+				)}
+			/>
 	       );
 	}
 };
 
-QuickView.propTypes = {
-	disabled: PropTypes.bool,
-	view: PropTypes.object
-};
-
-QuickView.defaultProps = {
-	view: {}
-};
+export const QuickViews = onClickOutside(QuickViewsComponent);

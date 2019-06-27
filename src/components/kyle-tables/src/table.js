@@ -333,17 +333,13 @@ export class Table extends Component {
 	// @colIds(object): columns that are to be displayed; if it is
 	// 	to be displayed, it will have a field entry
 	_onQuickViewColChange = (colIds) => {
-		const newModel = Object.assign({}, this.state.model);
-		const modelColIds = Object.keys(this.state.model);
+		const columns = this.state.columns.slice();
 
-		modelColIds.forEach(colId => {
-			newModel[colId].display = !!colIds[colId] || false;
+		columns.forEach(col => {
+			col.display = colIds.includes(col.id);
 		});
 
-		this.setState({
-			columns: convertModel(newModel),
-			model: newModel
-		});
+		this.setState({ columns });
 	}
 
 	// update when an input text goes out of focus
@@ -450,7 +446,7 @@ export class Table extends Component {
 			.map(col => ({
 				id: col.id,
 				category: col.category,
-				display: col.display
+				display: col.display !== false
 			}))
 			.sort((col1, col2) => {
 				if (col1.category < col2.category) return -1;

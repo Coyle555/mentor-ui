@@ -10,7 +10,7 @@ import { CustomButton } from './buttons/customButton';
 import { DeleteRecords } from './buttons/deleteRecords';
 import { EditRecords } from './buttons/editRecords';
 import { ExportCSV } from './buttons/exportCSV';
-import { QuickView } from './buttons/quickView';
+import { QuickViews } from './buttons/quickView';
 import { ViewColumns } from './buttons/viewColumns';
 
 export class Toolbar extends Component {
@@ -125,19 +125,11 @@ export class Toolbar extends Component {
 		return (
 			<Fragment>
 				{ quickViews.length > 0 &&
-					<Fragment>
-						<div className="table-header-icon m-r-sm">
-							{ quickViews.map((view, i) => (
-								<QuickView
-									view={view}
-									onClick={onQuickViewColChange}
-									disabled={loading}
-									key={i}
-								/>
-							))}
-						</div>
-						<span className="table-header-icon-divider m-r-md" />
-					</Fragment>
+					<QuickViews
+						disabled={loading}
+						onClick={onQuickViewColChange}
+						quickViews={quickViews}
+					/>
 				}
 				{ customToolbarButtons.map(btn => (
 					<CustomButton

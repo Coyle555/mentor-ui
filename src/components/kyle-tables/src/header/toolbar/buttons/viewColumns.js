@@ -83,7 +83,7 @@ class ViewColumnsComponent extends Component {
 										name={col.id}
 										onChange={onDisplayColChange}
 									/>
-									<div className="state p-primary">
+									<div className="state p-info">
 										<label htmlFor={col.category}>
 											{col.category}
 										</label>

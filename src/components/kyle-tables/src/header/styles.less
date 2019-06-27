@@ -13,10 +13,6 @@
 	flex: 1;
 }
 
-.table-header-icon {
-	display: inline;
-}
-
 .table-header-toolbar {
 	line-height: 40px;
 }
@@ -34,15 +30,6 @@
 	.btn-table {
 		margin: 0 10px;
 	}
-}
-
-.table-header-icon-divider {
-	display: inline-block;
-	width: 1px;
-	height: 35px;
-	border-right: 1px solid grey;
-	box-sizing: border-box;
-	margin-bottom: -4px;
 }
 
 .table-header-delete-warning-arrow {
@@ -88,4 +75,18 @@
 	margin: 4px;
 	font-weight: normal;
 	user-select: none;
+	font-size: 1rem;
+}
+
+.table-quickview {
+	cursor: pointer;
+	margin: 7px 0;
+
+	&:hover {
+		color: @green-secondary;
+	}
+
+	& > i {
+		margin-right: 4px;
+	}
 }
