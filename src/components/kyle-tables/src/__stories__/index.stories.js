@@ -15,16 +15,21 @@ const columns = [
 		type: 'string',
 	},
 	{
+		category: 'DateTime',
+		id: 'datetime',
+		type: 'datetime'
+	},
+	{
 		category: 'Date',
 		id: 'date',
-		type: 'datetime'
+		type: 'date'
 	}
 ];
 
 const data = [
-	{ num: 3, desc: 'Test desc', date: new Date() },
+	{ num: 3, desc: 'Test desc', datetime: new Date() },
 	{ num: 31, desc: 'Another desc', date: new Date() },
-	{ num: 938, desc: 'Foo bar', date: new Date() }
+	{ num: 938, desc: 'Foo bar' }
 ];
 
 storiesOf('Table', module)

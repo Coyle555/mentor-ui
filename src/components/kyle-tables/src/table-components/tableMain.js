@@ -20,7 +20,6 @@ export const TableMain = ({
 	extraColumns,
 	generateCustomFilter,
 	id,
-	model,
 	numRowsSelected,
 	pageProperties,
 	recordProperties,
@@ -30,7 +29,7 @@ export const TableMain = ({
 	_onRowSelect,
 	_onRowSelectAll
 }) => {
-	const classList = classNames({
+	const tableClass = classNames({
 		'table-main': true,
 		[customClasses.table]: !!customClasses.table
 	});
@@ -44,7 +43,7 @@ export const TableMain = ({
 		>
 			<div className="table-content">
 				{ pageProperties.recordCount > 0
-					? <table className={classList} id={id}>
+					? <table className={tableClass} id={id}>
 						<TableHeader
 							allowSelection={rowProperties.allowSelection}
 							allRowsSelected={numRowsSelected === rowProperties.data.length}
@@ -70,7 +69,6 @@ export const TableMain = ({
 							expandEditable={rowProperties.expandEditable}
 							expandable={expandable}
 							generateCustomFilter={rowProperties.generateCustomFilter}
-							model={model}
 							portalRef={portalRef.current}
 							rowData={rowProperties.data}
 							selectedRows={selectedRows}
@@ -102,7 +100,6 @@ export const TableMain = ({
 
 TableMain.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
-	model: PropTypes.object,
 	dragProperties: PropTypes.shape({
 		draggable: PropTypes.oneOfType([
 			PropTypes.bool,

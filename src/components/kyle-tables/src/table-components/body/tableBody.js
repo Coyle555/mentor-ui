@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { TableRow } from './tableRow';
+import './styles.less';
 
 export class TableBody extends Component {
 
@@ -23,7 +24,6 @@ export class TableBody extends Component {
 				PropTypes.object
 			])
 		}),
-		model: PropTypes.object,
 		rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
 		selectedRows: PropTypes.object,
 		_onBlur: PropTypes.func,
@@ -77,7 +77,6 @@ export class TableBody extends Component {
 			ExpandComponent,
 			extraColumns,
 			generateCustomFilter,
-			model,
 			portalRef,
 			selectedRows,
 			uploadFileCb,
@@ -109,7 +108,6 @@ export class TableBody extends Component {
 					extraColumns={extraColumns}
 					generateCustomFilter={generateCustomFilter}
 					key={row.id}
-					model={model}
 					onOptionMatch={_onOptionMatch}
 					onBlur={_onBlur}
 					onColorChange={_onColorChange}

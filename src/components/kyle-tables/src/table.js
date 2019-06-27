@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash';
 import { Header } from './header';
 import { TableMain } from './table-components/tableMain';
 import { Loading } from './Loading';
-import { convertModel } from './utils/utils';
 import InsertForm from 'insert-popup-form';
 import { asyncFilter } from 'mentor-inputs';
 
@@ -78,7 +77,6 @@ export class Table extends Component {
 		insertable: PropTypes.bool,
 		insertCb: PropTypes.func,
 		loading: PropTypes.bool,
-		model: PropTypes.object,
 		multipleInsertion: PropTypes.bool,
 		pagination: PropTypes.bool,
 		queryDisabled: PropTypes.bool,
@@ -135,7 +133,6 @@ export class Table extends Component {
 		initInsertData: null,
 		insertable: true,
 		insertCb: null,
-		model: {},
 		multipleInsertion: true,
 		pagination: true,
 		queryDisabled: false,
@@ -158,19 +155,14 @@ export class Table extends Component {
 		// @insertMode(bool) - toggle for insertion mode of table
 		// @insertType(string) - type of insertion to use when
 		// 	inserting records; either single or multiple
-		// @model(Object) - template object describing how to render
-		// 	the table
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
 			customColumns: this.props.customColumns,
-			columns: this.props.columns.length > 0
-				? cloneDeep(this.props.columns)
-				: convertModel(this.props.model),
+			columns: cloneDeep(this.props.columns),
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
-			model: this.props.model,
 			numRowsSelected: 0,
 			selectedRows: {}
 		};
@@ -202,22 +194,8 @@ export class Table extends Component {
 			});
 		}
 
-		if (this.props.model !== nextProps.model) {
-			this.setState({ model: nextProps.model });
-		}
-
 		if (this.props.columns !== nextProps.columns) {
-			let newColumns = nextProps.columns;
-
-			// convert model if no columns were passed in
-			if (!newColumns) {
-				newColumns = convertModel(nextProps.model);
-			}
-
-			this.setState({
-				model: nextProps.model,
-				columns: newColumns,
-			});
+			this.setState({ columns: cloneDeep(nextProps.columns) });
 		}
 	}
 
@@ -330,14 +308,12 @@ export class Table extends Component {
 	_onDisplayColChange = (event) => {
 		const colId = event.target.name;
 		const isChecked = event.target.checked;
-		const model = Object.assign({}, this.state.model);
 		const columns = this.state.columns.slice();
 		const colIndex = columns.findIndex(col => col.id === colId);
 
-		model[colId].display = isChecked;
 		columns[colIndex].display = isChecked;
 
-		this.setState({ model, columns });
+		this.setState({ columns });
 
 		if (typeof this.props.onDisplayColChange === 'function') {
 			const displayCols = [];
@@ -556,7 +532,6 @@ export class Table extends Component {
 					})}
 					customClasses={this.props.customClasses}
 					id={this.props.id}
-					model={this.state.model}
 					expandable={!!this.props.ExpandComponent}
 					extraColumns={this.props.extraColumns}
 					rowProperties={{

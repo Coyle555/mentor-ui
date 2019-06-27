@@ -30,7 +30,6 @@ export class TableRow extends PureComponent {
 		editMode: PropTypes.bool,
 		expandable: PropTypes.bool,
 		expanded: PropTypes.bool,
-		model: PropTypes.object,
 		onBlur: PropTypes.func,
 		onOptionMatch: PropTypes.func,
 		rowSelected: PropTypes.bool,
@@ -48,7 +47,6 @@ export class TableRow extends PureComponent {
 		editMode: false,
 		expandable: false,
 		extraColumns: [],
-		model: {},
 		row: {}
 	};
 
@@ -88,7 +86,6 @@ export class TableRow extends PureComponent {
 			expandable,
 			expanded,
 			extraColumns,
-			model,
 			onBlur,
 			onOptionMatch,
 			onColorChange,
@@ -154,11 +151,7 @@ export class TableRow extends PureComponent {
 						editMode={editMode}
 						file={col.file}
 						key={col.id}
-						model={model}
-						multiline={model[col.id]
-							? model[col.id].multiline
-							: undefined
-						}
+						multiline={!!col.multiline}
 						onBlur={onBlur}
 						onOptionMatch={onOptionMatch}
 						onColorChange={onColorChange}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { TableHeaderRow } from './tableHeaderRow';
+import './styles.less';
 
 export const TableHeader = ({
 	allowSelection,

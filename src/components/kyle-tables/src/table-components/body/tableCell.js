@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { convertToTimeZone } from 'date-fns-timezone';
 import classNames from 'classnames';
 
 import { convertCellToString } from '../../utils/utils';
@@ -20,11 +20,13 @@ export const Cell = ({
 	cellOptions,
 	cellType,
 	colId,
+	color,
 	customClasses,
 	customColumn,
 	editMode,
 	file,
-	model,
+	image,
+	lookup,
 	multiline,
 	onBlur,
 	onColorChange,
@@ -61,11 +63,11 @@ export const Cell = ({
 	const _origValue = value;
 	let cell;
 	let title;
-	
-	if (typeof value !== 'object'
-		&& (model[colId] && !model[colId].image)
-		&& !!value) {
 
+	// convert different data types to the proper string
+	value = convertCellToString(value, type);
+	
+	if (typeof value !== 'object' && !image && !!value) {
 		title = value;
 	}
 
@@ -81,36 +83,43 @@ export const Cell = ({
 		}
 	}
 
-	// convert different data types to the proper string
-	value = convertCellToString(value);
-
 	// determine the type of cell to render based on column data
 	// no edit box if column is not in edit mode or updatable or
 	// disable column is enabled and column isn't editable so just display value
 	if (!rowSelected || !editMode || updatable === false || multiline) {
 
-		if (model[colId] && model[colId].image && !!value) {
+		if (!!image && !!value) {
 
 			cell = <img src={value} style={{ maxWidth: '50px' }} />;
 
 		} else if (type === 'datetime' && Date.parse(value)) {
 
-			cell = (
-				<Fragment>
-					<FormattedDate
-						value={value}
-						year="numeric"
-						month="long"
-						day="numeric"
-					/>
-					{' - '}
-					<FormattedTime
-						value={value}
-						hour="numeric"
-						minute="numeric"
-					/>
-				</Fragment>
-			);
+			const date = Date.parse(new Date(value));
+			const region = new Intl.DateTimeFormat().resolvedOptions();
+			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric'
+			};
+
+			cell = new Intl.DateTimeFormat('default', options).format(convertedDate);
+
+		} else if (type === 'date' && Date.parse(value)) {
+
+			const date = Date.parse(new Date(value));
+			const region = new Intl.DateTimeFormat().resolvedOptions();
+			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			};
+
+			cell = new Intl.DateTimeFormat('default', options).format(convertedDate);
+
 		} else {
 			cell = value;
 		}
@@ -132,7 +141,7 @@ export const Cell = ({
 		);
 
 	// add a delete button to images in edit mode
-	} else if (model[colId] && model[colId].image && !!value) {
+	} else if (!!image && !!value) {
 		cell = (
 			<EditImageCell
 				colId={colId}
@@ -142,7 +151,7 @@ export const Cell = ({
 			/>
 		);
 	// color picker cell
-	} else if (model[colId] && model[colId].color) {
+	} else if (!!color) {
 		cell = (
 			<EditColorPicker
 				colId={colId}
@@ -160,13 +169,13 @@ export const Cell = ({
 				uploadFileCb={uploadFileCb}
 			/>
 		);
-	} else if (model[colId] && model[colId].lookup) {
+	} else if (!!lookup) {
 
 		cell = (
 			<AsyncDropdownCell 
 				colId={colId}
 				inputClass={editInputClass}
-				lookup={model[colId].lookup}
+				lookup={lookup}
 				onBlur={onBlur}
 				required={required}
 				rowId={rowId}
@@ -252,7 +261,6 @@ Cell.propTypes = {
 	customClasses: PropTypes.object,
 	customColumn: PropTypes.func,
 	editMode: PropTypes.bool,
-	model: PropTypes.object,
 	onBlur: PropTypes.func,
 	onOptionMatch: PropTypes.func,
 	row: PropTypes.object,
@@ -268,6 +276,5 @@ Cell.propTypes = {
 };
 
 Cell.defaultProps = {
-	customClasses: {},
-	model: {}
+	customClasses: {}
 };
