@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { storiesOf, action } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
+import { action } from 'storybook-utils';
 
 import { Table } from '../index';
 
@@ -66,7 +67,20 @@ const data = [
 		object: { id: 'test', name: 'Test' },
 		num: 938,
 		string: 'Foo bar',
-	}
+	},
+	{
+		date: null,
+		float: .5,
+		id: 'row4',
+		string: 'bar',
+	},
+	{
+		date: null,
+		float: .5,
+		id: 'row5',
+		object: { id: 'abc', name: 'ABC' },
+		num: 12,
+	},
 ];
 
 const quickViews = [
@@ -74,7 +88,6 @@ const quickViews = [
 	{ name: 'Quickview 2', columns: ['id', 'string', 'datetime'] },
 	{ name: 'Quickview 3', columns: ['float', 'num'] },
 ];
-	
 
 storiesOf('Table', module)
 	.add('Basic table', () => (
@@ -82,8 +95,15 @@ storiesOf('Table', module)
 			columns={columns}
 			currentPage={1}
 			data={data}
-			pageSize={25}
+			handleTableChange={() => {}}
+			deleteCb={action('onDeleteClick')}
+			pageSize={5}
 			quickViews={quickViews}
 			recordCount={data.length}
+			sortId="string"
+			sortDir="ASC"
 		/>
+	))
+	.add('Loading table', () => (
+		<Table loading={true} />
 	));

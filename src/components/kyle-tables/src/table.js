@@ -274,16 +274,8 @@ export class Table extends Component {
 		const { selectedRows } = this.state;
 
 		if (typeof deleteCb === 'function') {
-			const rowIds = [];
 
-			// only add row ids that user has selected
-			Object.keys(selectedRows).forEach(rowId => {
-				if (!!selectedRows[rowId]) {
-					rowIds.push(rowId);
-				}
-			});
-
-			deleteCb(rowIds);
+			deleteCb(Object.keys(selectedRows));
 
 			this.setState({
 				numRowsSelected: 0,
@@ -416,7 +408,9 @@ export class Table extends Component {
 		const newSelectedRows = {};
 
 		if (this.allRowsSelected) {
-			data.forEach(row => { newSelectedRows[row.id] = row; });
+			data.forEach(row => {
+				newSelectedRows[row.id] = row;
+			});
 		}
 
 		this.setState({

@@ -25,10 +25,8 @@ export class TableHeaderCell extends Component {
 		Stickyfill.add(this.headerCellRef);
 	}
 
-	_onSortClick = (event) => {
-		if (typeof this.props.onClick === 'function') {
-			this.props.onClick(this.props.id);
-		}
+	_onSortClick = () => {
+		this.props.onClick(this.props.id);
 	}
 
 	render() {
@@ -44,12 +42,9 @@ export class TableHeaderCell extends Component {
 				className={classList}
 				ref={ref => this.headerCellRef = ref}
 			>
-				<div
-					className="apm-cursor-p"
-					onClick={this._onSortClick}
-				>
+				<span onClick={this._onSortClick}>
 					{title} {sorted && sortIcon}
-				</div>
+				</span>
 			</th>
 		);
 	}

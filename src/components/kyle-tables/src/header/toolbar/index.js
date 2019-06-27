@@ -77,24 +77,29 @@ export class Toolbar extends Component {
 				targetAttachment="bottom right"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{ zIndex: 4 }}
-			>
-				<button
-					className={collapseBtnClasses}
-					disabled={loading}
-					onClick={this.toggleCollapsedMenu}
-					type="button"
-				>
-					<i className="far fa-list-ul" />
-				</button>
-				{ collapseMenuOpen &&
-					<div
-						className="table-header-collapsed-menu"
-						data-testid="collapsedMenu"
+				renderTarget={ref => (
+					<button
+						className={collapseBtnClasses}
+						disabled={loading}
+						onClick={this.toggleCollapsedMenu}
+						ref={ref}
+						type="button"
 					>
-						{ this.renderButtons() }
-					</div>
-				}
-			</Tether>
+						<i className="far fa-list-ul" />
+					</button>
+				)}
+				renderElement={ref => (
+					collapseMenuOpen && (
+						<div
+							className="table-header-collapsed-menu"
+							data-testid="collapsedMenu"
+							ref={ref}
+						>
+							{ this.renderButtons() }
+						</div>
+					)
+				)}
+			/>
 		);
 	}
 
@@ -155,13 +160,6 @@ export class Toolbar extends Component {
 						disabled={loading}
 					/>
 				}
-				{ viewColumns && 
-					<ViewColumns
-						disabled={loading}
-						onDisplayColChange={onDisplayColChange}
-						viewColumns={columns}
-					/>
-				}
 				{ editable &&
 					<EditRecords
 						disabled={loading}
@@ -174,6 +172,13 @@ export class Toolbar extends Component {
 						disabled={loading}
 						numRowsSelected={numRowsSelected}
 						onDeleteClick={onDeleteClick}
+					/>
+				}
+				{ viewColumns && 
+					<ViewColumns
+						disabled={loading}
+						onDisplayColChange={onDisplayColChange}
+						viewColumns={columns}
 					/>
 				}
 				{ !!csvURL &&
