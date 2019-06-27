@@ -23,4 +23,33 @@ storiesOf('Structured Query', module)
 				options={options}
 			/>
 		);
+	})
+	.add('Enumerated options', () => {
+		const options = [
+			{ id: 'foo', category: 'Foo', options: ['Test', 'Apple', 'Orange'] }
+		];
+
+		return (
+			<StructuredQuery
+				exportSearch={exportSearch}
+				onTokenAdd={onTokenAdd}
+				onTokenRemove={onTokenRemove}
+				options={options}
+			/>
+		);
+	})
+	.add('Datepicker', () => {
+		const options = [
+			{ id: 'foo', category: 'DateTime', type: 'datetime' },
+			{ id: 'bar', category: 'Date', type: 'date' }
+		];
+
+		return (
+			<StructuredQuery
+				exportSearch={exportSearch}
+				onTokenAdd={onTokenAdd}
+				onTokenRemove={onTokenRemove}
+				options={options}
+			/>
+		);
 	});

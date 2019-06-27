@@ -49,6 +49,7 @@
 		width: 100%;
 		margin: 3px;
 		padding: 5px;
+		cursor: text;
 
 		.filter-category,
 		.filter-operator {
@@ -56,6 +57,7 @@
 			font-weight: bold;
 			margin-right: 5px;
 			color: @blue-primary;
+			user-select: none;
 		}
 
 		> .typeahead {
@@ -69,16 +71,14 @@
 				padding: 0px;
 				border: medium none;
 				border-radius: 3px;
-				width: 200px;
-				max-height: 200px;
-				overflow-y: auto;
+				max-width: 200px;
 				box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
 
 				> .header {
 					background-color: #9bcb52;
 					color: #ffffff;
 					font-weight: bold;
-					padding:5px;
+					padding: 5px;
 				}
 
 				> ul {
@@ -88,6 +88,7 @@
 					width: 200px;
 					margin: 0;
 					padding: 0;
+					overflow-y: auto;
 
 					> li {
 						border-bottom: 1px solid #ccc;
@@ -101,9 +102,15 @@
 
 							&:hover {
 								text-decoration: none;
-								background-color: #e4f1cf;
-								color: #313541;
+								background-color: @green-light;
+								color: @charcoal;
 							}
+						}
+
+						&.hover {
+							text-decoration: none;
+							background-color: @green-light;
+							color: @charcoal;
 						}
 					}
 				}

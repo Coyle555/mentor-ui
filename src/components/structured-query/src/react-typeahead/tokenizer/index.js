@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
 import { Typeahead } from '../typeahead/typeahead';
-import { keyEvent as KeyEvent } from 'utils';
+import { keyEvent } from 'utils';
 import { ActiveFilters } from './activeFilters';
 import {
 	_getCategoryDataType,
@@ -15,13 +15,7 @@ import {
 	_isDuplicateToken,
 	validateToken
 } from './utils/utils';
-import {
-	ALL_OPERATIONS,
-	STRING_OPERATIONS,
-	NUM_DATE_OPERATIONS,
-	ENUM_OPERATIONS,
-	ASYNC_OPERATIONS
-} from './constants';
+import { ALL_OPERATIONS } from './constants';
 
 // A typeahead that, when an option is selected replaces the text entry
 // widget with a renderable 'token' that can be deleted by pressing
@@ -85,7 +79,7 @@ export class Tokenizer extends Component {
 	// Handle removing a token from the input box when user hits backspace
 	_onKeyDown = (event, value) => {
 		// only care about backspaces for removing token parts
-		if (event.keyCode !== KeyEvent.DOM_VK_BACK_SPACE || value) {
+		if (event.keyCode !== keyEvent.DOM_VK_BACK_SPACE || value) {
 			return;
 		}
 

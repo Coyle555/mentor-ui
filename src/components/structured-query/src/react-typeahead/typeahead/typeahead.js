@@ -210,12 +210,13 @@ export class TypeaheadClass extends Component {
 		let handler = this.eventMap(event);
 
 		// handle value completion if there are no options
-		if ((event.keyCode === KeyEvent.DOM_VK_RETURN
-			|| event.keyCode === KeyEvent.DOM_VK_ENTER)
+		if ((event.keyCode === keyEvent.DOM_VK_RETURN
+			|| event.keyCode === keyEvent.DOM_VK_ENTER)
 			&& this.props.options.length === 0
 			&& !!this.state.value) {
 			
 			this._onOptionSelected(this.state.value);
+			return;
 		}
 
 		// if there are no visible elements, don't perform selected
@@ -304,7 +305,7 @@ export class TypeaheadClass extends Component {
 		}
 
 		// handle special case for date time querying
-		if (this.props.datatype === 'datetime') {
+		if (this.props.datatype === 'datetime' || this.props.datatype === 'date') {
 			return (
 				<DatePicker
 					clearInput={this.clearDatepickerInput}

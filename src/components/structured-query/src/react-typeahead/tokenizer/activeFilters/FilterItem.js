@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedTime } from 'react-intl';
+import { convertToTimeZone } from 'date-fns-timezone';
 
 export class FilterItem extends Component {
 
@@ -25,34 +25,39 @@ export class FilterItem extends Component {
 
 	renderValue = (val) => {
 		if (this.props.type === 'datetime') {
+
 			const date = Date.parse(new Date(val));
+			const region = new Intl.DateTimeFormat().resolvedOptions();
+			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric'
+			};
 
 			return (
-				<Fragment>
-					<FormattedDate
-						value={date}
-						year="numeric"
-						month="long"
-						day="numeric"
-					/>
-					{' - '}
-					<FormattedTime
-						value={date}
-						hour="numeric"
-						minute="numeric"
-					/>
-				</Fragment>
+				<span>
+					{ new Intl.DateTimeFormat('default', options).format(convertedDate) }
+				</span>
 			);
+
 		} else if (this.props.type === 'date') {
-			const date = new Date(val);
+
+			const date = Date.parse(new Date(val));
+			const region = new Intl.DateTimeFormat().resolvedOptions();
+			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			};
 
 			return (
-				<FormattedDate
-					value={date}
-					year="numeric"
-					month="long"
-					day="numeric"
-				/>
+				<span>
+					{ new Intl.DateTimeFormat('default', options).format(convertedDate) }
+				</span>
 			);
 		}
 
