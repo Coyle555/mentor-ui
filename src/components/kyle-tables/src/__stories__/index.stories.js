@@ -10,6 +10,11 @@ const columns = [
 		type: 'integer',
 	},
 	{
+		category: 'Float',
+		id: 'float',
+		type: 'float'
+	},
+	{
 		category: 'Description',
 		id: 'desc',
 		type: 'string',
@@ -27,9 +32,9 @@ const columns = [
 ];
 
 const data = [
-	{ num: 3, desc: 'Test desc', datetime: new Date() },
-	{ num: 31, desc: 'Another desc', date: new Date() },
-	{ num: 938, desc: 'Foo bar' }
+	{ num: 3, float: 13.5, desc: 'Test desc', datetime: new Date() },
+	{ num: 31, float: 5, desc: 'Another desc', date: new Date() },
+	{ num: 938, float: .5, desc: 'Foo bar' }
 ];
 
 storiesOf('Table', module)
