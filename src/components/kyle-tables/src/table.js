@@ -41,9 +41,10 @@ export class Table extends Component {
 		customColumns: PropTypes.object,
 		customLayout: PropTypes.func,
 		customToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
-			tip: PropTypes.string.isRequired,
 			icon: PropTypes.element.isRequired,
-			onClick: PropTypes.func.isRequired
+			onClick: PropTypes.func.isRequired,
+			tip: PropTypes.string.isRequired,
+			validation: PropTypes.func
 		})),
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,

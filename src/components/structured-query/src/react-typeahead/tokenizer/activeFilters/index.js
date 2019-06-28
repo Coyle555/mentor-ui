@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tether from 'react-tether';
 import onClickOutside from 'react-onclickoutside';
+import classNames from 'classnames';
 
 import { FilterItem } from './FilterItem';
 
@@ -90,6 +91,11 @@ export class ActiveFiltersClass extends Component {
 		const { searchTokens } = this.props;
 		const { filtersActive } = this.state;
 
+		const activeFilterClasses = classNames({
+			'input-group-addon left-addon active-filter-container': true,
+			'active-filter-enabled': searchTokens.length > 0
+		});
+
 		return (
 			<Tether
 				attachment="top left"
@@ -98,7 +104,7 @@ export class ActiveFiltersClass extends Component {
 				style={{zIndex: 4}}
 				renderTarget={ref => (
 					<span
-						className="input-group-addon left-addon"
+						className={activeFilterClasses}
 						data-for="structured-query-tooltip"
 						data-tip="View Filters"
 						onClick={this.toggleFilterList}
@@ -107,8 +113,6 @@ export class ActiveFiltersClass extends Component {
 							background: searchTokens.length === 0
 								? 'lightgrey'
 								: 'white',
-							borderRadius: 0,
-							position: 'relative',
 							cursor: searchTokens.length === 0
 								? 'not-allowed'
 								: 'pointer'

@@ -93,7 +93,7 @@ export const Cell = ({
 
 		} else if (!!file && !!value) {
 
-			cell = <a download href={value}>{value}</a>;
+			cell = <a download={true} href={value}>{value}</a>;
 
 		} else if (!!color && !!value) {
 

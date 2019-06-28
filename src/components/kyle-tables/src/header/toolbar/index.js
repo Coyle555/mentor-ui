@@ -129,16 +129,8 @@ export class Toolbar extends Component {
 
 		return (
 			<Fragment>
-				{ quickViews.length > 0 &&
-					<QuickViews
-						disabled={loading}
-						onClick={onQuickViewColChange}
-						quickViews={quickViews}
-					/>
-				}
 				{ customToolbarButtons.map(btn => (
 					<CustomButton
-						className={btn.className || "btn-table"}
 						disabled={loading}
 						icon={btn.icon}
 						key={btn.tip}
@@ -148,6 +140,13 @@ export class Toolbar extends Component {
 						validation={btn.validation}
 					/>
 				))}
+				{ quickViews.length > 0 &&
+					<QuickViews
+						disabled={loading}
+						onClick={onQuickViewColChange}
+						quickViews={quickViews}
+					/>
+				}
 				{ insertable && singleInsertion &&
 					<AddSingleRecord
 						onClick={onInsertClick}

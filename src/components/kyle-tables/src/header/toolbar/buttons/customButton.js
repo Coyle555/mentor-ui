@@ -40,7 +40,7 @@ export class CustomButton extends PureComponent {
 				data-tip={tip}
 			>
 				<button
-					className={className}
+					className="btn-table"
 					disabled={isDisabled}
 					onClick={this.onClick}
 					type="button"

@@ -55,7 +55,10 @@ export class Header extends Component {
 					ref={ref => this.headerRef = ref}
 				>
 					<div className="table-header-filter">
-						<StructuredQuery {...filter} />
+						<StructuredQuery
+							{...filter}
+							customClasses={{ results: 'results-zindex' }}
+						/>
 					</div>
 					<Toolbar
 						{...toolbar}

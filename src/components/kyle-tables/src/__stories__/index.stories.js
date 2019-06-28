@@ -116,11 +116,19 @@ const quickViews = [
 	{ name: 'Quickview 3', columns: ['float', 'num'] },
 ];
 
+const customToolbarButtons = [{
+	icon: <i className="fal fa-acorn" />,
+	onClick: action('customToolbarButtonClick'),
+	tip: 'Custom Button',
+}];
+
 storiesOf('Table', module)
 	.add('Basic table', () => (
 		<Table
 			columns={columns}
+			csvURL="www.duckduckgo.com"
 			currentPage={1}
+			customToolbarButtons={customToolbarButtons}
 			data={data}
 			deleteCb={action('onDeleteClick')}
 			handleTableChange={action('handleTableChange')}
