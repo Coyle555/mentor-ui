@@ -35,7 +35,7 @@ export const AsyncDropdown = ({ route, ...selectProps }) => {
 
 
 	if (loading) {
-		return  <i className="fas fa-spinner fa-spin"/>;
+		return <i className="fas fa-spinner fa-spin"/>;
 	}
 
 	return (
@@ -57,8 +57,6 @@ AsyncDropdown.propTypes = {
 
 AsyncDropdown.defaultProps = {
 	getOptionValue: (opt) => {
-		return opt && typeof opt === 'object'
-			? opt.id
-			: opt
+		return opt && typeof opt === 'object' ? opt.id : opt
 	}
 }

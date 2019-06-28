@@ -95,6 +95,16 @@ export const Cell = ({
 
 			cell = <a download href={value}>{value}</a>;
 
+		} else if (!!color && !!value) {
+
+			cell = <div style={{
+				border: '1.5px solid black',
+				borderRadius: '50%',
+				backgroundColor: value,
+				height: '16px',
+				width: '16px'
+			}} />;
+
 		} else {
 			cell = value;
 		}
@@ -135,7 +145,7 @@ export const Cell = ({
 				rowId={rowId}
 			/>
 		);
-	// file dropzone cell
+	// file/image dropzone cell
 	} else if (!!file || !!image) {
 		cell = (
 			<EditDropzoneCell

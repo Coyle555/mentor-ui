@@ -83,6 +83,7 @@ const data = [
 		num: 31,
 		object: { id: 'apple', name: 'Apple' },
 		string: 'Another desc that is going to be really long. The quick brown fox jumped over the lazy dog.',
+		color: '#ccc'
 	},
 	{
 		date: null,

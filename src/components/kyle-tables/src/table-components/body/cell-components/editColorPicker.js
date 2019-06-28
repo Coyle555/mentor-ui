@@ -33,7 +33,6 @@ export class EditColorPicker extends PureComponent {
 
 	render() {
 		const { color } = this.state;
-		console.log('color picker');
 
 		return (
 			<SliderPicker
