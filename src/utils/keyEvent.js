@@ -20,7 +20,3 @@ events.DOM_VK_RIGHT = events.DOM_VK_RIGHT || 39;
 events.DOM_VK_DOWN = events.DOM_VK_DOWN || 40;
 
 export const KeyEvent = events;
-
-
-
-

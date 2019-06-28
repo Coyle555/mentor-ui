@@ -3,136 +3,194 @@
 .filter-tokenizer {
 	border: 1px solid #ccc;
 	border-radius: 8px;
-	color: @mentorBlue;
 	background: #fff;
-	font-size: 90%;
 	word-break: break-all;
 	padding-right: 0;
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	font-family: Lato, sans-serif;
+	font-weight: 400;
+	font-size: 90%;
+
+	> .input-group-addon {
+		border: 0px;
+		background: transparent;
+		width: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	> .first-addon {
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+	}
+
+	> .left-addon {
+		border-right: 1px solid #ccc;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	> .right-addon {
+		border-left: 1px solid #ccc;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	> .cursor-pointer {
+		cursor: pointer;
+	}
+
+	> .filter-input-group {
+		border: 0px;
+		border-radius: 2px;
+		width: 100%;
+		margin: 3px;
+		padding: 5px;
+		cursor: text;
+
+		.filter-category,
+		.filter-operator {
+			float: left;
+			font-weight: bold;
+			margin-right: 5px;
+			color: @blue-primary;
+			user-select: none;
+		}
+
+		> .typeahead {
+			overflow: auto;
+
+			> .typeahead-selector {
+				z-index: @extra_zIndex;
+				position: absolute;
+				list-style: none;
+				margin: 0px;
+				padding: 0px;
+				border: medium none;
+				border-radius: 3px;
+				max-width: 200px;
+				box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+
+				> .header {
+					background-color: #9bcb52;
+					color: #ffffff;
+					font-weight: bold;
+					padding: 5px;
+				}
+
+				> ul {
+					list-style: none;
+					overflow-y: auto;
+					max-height: 200px;
+					width: 200px;
+					margin: 0;
+					padding: 0;
+					overflow-y: auto;
+
+					> li {
+						border-bottom: 1px solid #ccc;
+						background: white;
+						cursor: pointer;
+
+						> a {
+							color: #000;
+							padding: 5px;
+							display: block;
+
+							&:hover {
+								text-decoration: none;
+								background-color: @green-light;
+								color: @charcoal;
+							}
+						}
+
+						&.hover {
+							text-decoration: none;
+							background-color: @green-light;
+							color: @charcoal;
+						}
+					}
+				}
+			}
+
+			> input {
+				outline: 0;
+				border: 0px;
+				background: white;
+			}
+		}
+	}
 }
 
-.filter-tokenizer .input-group-addon {
-	border: 0px;
-	background: transparent;
-	width: 50px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.filter-tokenizer .left-addon {
-	border-right: 1px solid #ccc;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
-
-.filter-tokenizer .right-addon {
-	border-left: 1px solid #ccc;
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-.filter-tokenizer .cursor-pointer {
-	cursor: pointer;
-}
-
-.filter-tokenizer .token-collection {
-	cursor: text;
-  width: 100%;
-  max-height: 46px;
-}
-
-.filter-tokenizer .typeahead {
-	overflow:auto;
-	display:block;
-}
-
-.filter-tokenizer .typeahead-token {
-	display: inline-block;
-	float: left;
-	border: 1.3px solid #8dc63f;
-	border-radius: 5px;
-	background-color: #e4f1cf;
-	margin: 3px;
-	padding: 5px;
-	font-weight: bold;
-	user-select: none;
-	cursor: default;
-}
-
-.filter-tokenizer .typeahead-token .typeahead-token-close {
-	margin-left: 5px;
-	color: #be1717;
-}
-
-.filter-input-group {
-	border: 0px;
-	border-radius: 2px;
-	overflow: auto;
-	display: inline-block;
-	float: left;
-	margin: 3px;
-	padding: 5px;
-}
-
-.filter-input-group .filter-category,
-.filter-input-group .filter-operator,
-.filter-input-group .filter-value {
-	overflow:auto;
-	display: block;
-	float:left;
-	font-weight: bold;
-	margin-right: 5px;
-}
-
-.filter-tokenizer .typeahead input {
-	outline:0;
-	border:0px;
-	width:100%;
-}
-
-.filter-tokenizer .typeahead input:focus { outline:0; }
-
-.filter-tokenizer ul.typeahead-selector {
-	z-index: @extra_zIndex;
-	position: absolute;
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
+.active-filters-list {
+	background: @white;
 	border: medium none;
 	border-radius: 3px;
-	width: 200px;
-	max-height: 200px;
-	overflow-y: auto;
 	box-shadow: 0 0 3px rgba(86, 96, 117, 0.7);
+	font-size: 12px;
+	text-shadow: none;
+	padding: 0 4px;
+	margin-top: 5px;
+	z-index: 4;
+	font-size: 16px;
+	border-collapse: collapse;
+	color: @charcoal;
+
+	> thead > tr > td {
+		padding: 10px;
+		border-bottom: 1px solid @steel-blue;
+		font-weight: bold;
+
+		> .clear-all-filters {
+			background: none;
+			outline: none;
+			border: none;
+			color: @ketchup;
+			font-weight: normal;
+			cursor: pointer;
+		}
+	}
+
+	> tbody > tr {
+		&:nth-child(odd) {
+			background: @soft-white;
+		}
+
+		> td {
+			padding: 10px;
+
+			> .clear-filter {
+				background: none;
+				outline: none;
+				border: none;
+				color: @ketchup;
+				cursor: pointer;
+			}
+		}
+
+		> .filter-value {
+			color: @green-secondary;
+		}
+	}
 }
 
-.filter-tokenizer ul.typeahead-selector li {
-	border-bottom: 1px solid #ccc;
-	background: white;
-}
-
-.filter-tokenizer ul.typeahead-selector li.header {
-	background-color: #9bcb52;
-	color: #ffffff;
-	font-weight: bold;
-	padding:5px;
-}
-
-
-.filter-tokenizer ul.typeahead-selector li a {
-	color: #000;
-	padding: 5px;
-	width: 100%;
-	display: block;
-}
-
-.filter-tokenizer ul.typeahead-selector li a:hover, .filter-tokenizer ul.typeahead-selector .hover a {
-	text-decoration: none;
-	background-color: #e4f1cf;
-	color: #313541;
+.active-filter-count {
+	position: absolute;
+	top: 2.5px;
+	right: 6px;
+	font-size: 10px;
+	background: @green-primary;
+	padding: 2.5px;
+	border-radius: 10px;
+	min-width: 10px;
+	height: 10px;
+	color: white;
+	display: inline-block;
+	user-select: none;
+	text-align: center;
 }
 
 .filter-disabled {

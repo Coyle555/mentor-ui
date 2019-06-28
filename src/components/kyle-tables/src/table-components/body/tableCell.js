@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedTime } from 'react-intl';
 import classNames from 'classnames';
 
 import { convertCellToString } from '../../utils/utils';
@@ -10,7 +9,6 @@ import { EditInputCell } from './cell-components/editInputCell';
 import { EditDropzoneCell } from './cell-components/editDropzoneCell';
 import { EditImageCell } from './cell-components/editImageCell';
 import { EditTableInputCell } from './cell-components/editTableInputCell';
-import { TokenCell } from './cell-components/tokenCell';
 import { TableListFilter } from './cell-components/listFilter';
 import { TableDatePicker } from './cell-components/datePicker';
 import { SelectCell } from './cell-components/selectCell';
@@ -21,24 +19,24 @@ export const Cell = ({
 	cellOptions,
 	cellType,
 	colId,
+	color,
 	customClasses,
 	customColumn,
 	editMode,
 	file,
-	model,
+	image,
+	lookup,
 	multiline,
 	onBlur,
 	onColorChange,
 	onOptionMatch,
 	onDeleteImageClick,
-	onDeleteTokenClick,
 	portalRef,
 	required,
 	row,
 	rowId,
 	rowSelected,
 	tableOnInsert,
-	tokenize,
 	type,
 	updatable,
 	uploadFileCb,
@@ -64,11 +62,11 @@ export const Cell = ({
 	const _origValue = value;
 	let cell;
 	let title;
-	
-	if (typeof value !== 'object'
-		&& (model[colId] && !model[colId].image)
-		&& !!value) {
 
+	// convert different data types to the proper string
+	value = convertCellToString(value, type);
+	
+	if (!image && !!value) {
 		title = value;
 	}
 
@@ -84,66 +82,15 @@ export const Cell = ({
 		}
 	}
 
-	// cell is an array so tokenize
-	if (tokenize) {
-		if (!Array.isArray(value)) {
-			value = [];
-		}
-
-		// create all the tokens
-		cell = value.map((val, i) => (
-			<TokenCell
-				colId={colId}
-				editMode={editMode && rowSelected && updatable !== false}
-				key={typeof val === 'object'
-					? rowId + val.id
-					: rowId + val
-				}
-				onClick={onDeleteTokenClick}
-				rowId={rowId}
-				rowSelected={rowSelected}
-				token={val}
-			/>
-		));
-
-		return (
-			<td className="table-cell-view">
-				{cell}
-			</td>
-		);
-	}
-
-	// convert different data types to the proper string
-	value = convertCellToString(value);
-
 	// determine the type of cell to render based on column data
-	// Token cell if its an array of objects
 	// no edit box if column is not in edit mode or updatable or
 	// disable column is enabled and column isn't editable so just display value
 	if (!rowSelected || !editMode || updatable === false || multiline) {
 
-		if (model[colId] && model[colId].image && !!value) {
+		if (!!image && !!value) {
 
 			cell = <img src={value} style={{ maxWidth: '50px' }} />;
 
-		} else if (type === 'datetime' && Date.parse(value)) {
-
-			cell = (
-				<Fragment>
-					<FormattedDate
-						value={value}
-						year="numeric"
-						month="long"
-						day="numeric"
-					/>
-					{' - '}
-					<FormattedTime
-						value={value}
-						hour="numeric"
-						minute="numeric"
-					/>
-				</Fragment>
-			);
 		} else {
 			cell = value;
 		}
@@ -165,7 +112,7 @@ export const Cell = ({
 		);
 
 	// add a delete button to images in edit mode
-	} else if (model[colId] && model[colId].image && !!value) {
+	} else if (!!image && !!value) {
 		cell = (
 			<EditImageCell
 				colId={colId}
@@ -175,7 +122,7 @@ export const Cell = ({
 			/>
 		);
 	// color picker cell
-	} else if (model[colId] && model[colId].color) {
+	} else if (!!color) {
 		cell = (
 			<EditColorPicker
 				colId={colId}
@@ -193,13 +140,13 @@ export const Cell = ({
 				uploadFileCb={uploadFileCb}
 			/>
 		);
-	} else if (model[colId] && model[colId].lookup) {
+	} else if (!!lookup) {
 
 		cell = (
 			<AsyncDropdownCell 
 				colId={colId}
 				inputClass={editInputClass}
-				lookup={model[colId].lookup}
+				lookup={lookup}
 				onBlur={onBlur}
 				required={required}
 				rowId={rowId}
@@ -285,7 +232,6 @@ Cell.propTypes = {
 	customClasses: PropTypes.object,
 	customColumn: PropTypes.func,
 	editMode: PropTypes.bool,
-	model: PropTypes.object,
 	onBlur: PropTypes.func,
 	onOptionMatch: PropTypes.func,
 	row: PropTypes.object,
@@ -301,6 +247,5 @@ Cell.propTypes = {
 };
 
 Cell.defaultProps = {
-	customClasses: {},
-	model: {}
+	customClasses: {}
 };

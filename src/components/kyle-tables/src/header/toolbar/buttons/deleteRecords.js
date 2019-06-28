@@ -2,26 +2,6 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Tether from 'react-tether';
 
-export const DeleteWarning = ({numRowsSelected = 0, onDeleteClick}) => (
-	<Fragment>
-		<div className="table-header-delete-warning-arrow" />
-		<div className="table-header-delete-warning">
-			<p>
-				Delete {numRowsSelected} {numRowsSelected > 1
-					? 'records?'
-					: 'record?'}
-			</p>
-			<button
-				className="btn btn-danger btn-sm btn-block"
-				onClick={onDeleteClick}
-				type="button"
-			>
-				Yes
-			</button>
-		</div>
-	</Fragment>
-);
-
 export class DeleteRecords extends PureComponent {
 
 	static propTypes = {
@@ -64,27 +44,43 @@ export class DeleteRecords extends PureComponent {
 				targetAttachment="bottom center"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{ zIndex: 4 }}
-			>
-				<span 
-					data-for="table-tooltip"
-					data-tip="Delete Rows"
-				>
-					<button
-						className="btn-table"
-						disabled={numRowsSelected === 0}
-						onClick={this.onDeleteWarnToggle}
-						type="button"
+				renderTarget={ref => (
+					<span 
+						data-for="table-tooltip"
+						data-tip="Delete Rows"
+						ref={ref}
 					>
-						<i className="fal fa-trash-alt" />
-					</button>
-				</span>
-				{ deleteWarning && 
-					<DeleteWarning
-						numRowsSelected={numRowsSelected}
-						onDeleteClick={this.onDeleteClick}
-					/>
-				}
-			</Tether>
+						<button
+							className="btn-table"
+							disabled={numRowsSelected === 0}
+							onClick={this.onDeleteWarnToggle}
+							type="button"
+						>
+							<i className="fal fa-trash-alt" />
+						</button>
+					</span>
+				)}
+				renderElement={ref => (
+					deleteWarning && 
+						<div ref={ref}>
+							<div className="table-header-delete-warning-arrow" />
+							<div className="table-header-delete-warning">
+								<p>
+									Delete {numRowsSelected} {numRowsSelected > 1
+										? 'records?'
+										: 'record?'}
+								</p>
+								<button
+									className="btn btn-danger btn-sm btn-block"
+									onClick={this.onDeleteClick}
+									type="button"
+								>
+									Yes
+								</button>
+							</div>
+						</div>
+				)}
+			/>
 		);
 	}
 }

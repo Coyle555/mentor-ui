@@ -30,10 +30,8 @@ export class TableRow extends PureComponent {
 		editMode: PropTypes.bool,
 		expandable: PropTypes.bool,
 		expanded: PropTypes.bool,
-		model: PropTypes.object,
 		onBlur: PropTypes.func,
 		onOptionMatch: PropTypes.func,
-		onDeleteTokenClick: PropTypes.func,
 		rowSelected: PropTypes.bool,
 		row: PropTypes.object,
 		rowId: PropTypes.string,
@@ -49,7 +47,6 @@ export class TableRow extends PureComponent {
 		editMode: false,
 		expandable: false,
 		extraColumns: [],
-		model: {},
 		row: {}
 	};
 
@@ -89,13 +86,10 @@ export class TableRow extends PureComponent {
 			expandable,
 			expanded,
 			extraColumns,
-			model,
 			onBlur,
 			onOptionMatch,
 			onColorChange,
 			onDeleteImageClick,
-			onDeleteTokenClick,
-			onInsertTokenClick,
 			portalRef,
 			selectedRows,
 			rowSelected,
@@ -157,17 +151,11 @@ export class TableRow extends PureComponent {
 						editMode={editMode}
 						file={col.file}
 						key={col.id}
-						model={model}
-						multiline={model[col.id]
-							? model[col.id].multiline
-							: undefined
-						}
+						multiline={!!col.multiline}
 						onBlur={onBlur}
 						onOptionMatch={onOptionMatch}
 						onColorChange={onColorChange}
 						onDeleteImageClick={onDeleteImageClick}
-						onDeleteTokenClick={onDeleteTokenClick}
-						onInsertTokenClick={onInsertTokenClick}
 						portalRef={portalRef}
 						required={col.required}
 						row={row}

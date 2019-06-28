@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Tokenizer } from './tokenizer/index';
+import './structured-filter.less';
 
-export class StructuredFilter extends Component {
+export class StructuredQuery extends Component {
 
 	static propTypes = {
 		onTokenAdd: PropTypes.func,

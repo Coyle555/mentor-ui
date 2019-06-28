@@ -8,12 +8,10 @@ export const TypeaheadOption = ({ active, customClasses, onClick, option }) => {
 
 	let listItemClasses = classNames({
 		'hover': active,
-		'filter-tokenizer-list__item': true,
 		[customClasses.listItem]: !!customClasses.listItem
 	});
 
 	let linkClasses = classNames({
-		'typeahead-option filter-tokenizer-list__item': true,
 		[customClasses.listAnchor]: !!customClasses.listAnchor
 	});
 

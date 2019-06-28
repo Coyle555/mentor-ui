@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash';
 import { Header } from './header';
 import { TableMain } from './table-components/tableMain';
 import { Loading } from './Loading';
-import { convertModel } from './utils/utils';
 import InsertForm from 'insert-popup-form';
 import { asyncFilter } from 'mentor-inputs';
 
@@ -49,7 +48,6 @@ export class Table extends Component {
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,
 		deleteCb: PropTypes.func,
-		deleteTokenCb: PropTypes.func,
 		displayCols: PropTypes.arrayOf(PropTypes.string),
 		draggable: PropTypes.shape({
 			dragType: PropTypes.string,
@@ -79,7 +77,6 @@ export class Table extends Component {
 		insertable: PropTypes.bool,
 		insertCb: PropTypes.func,
 		loading: PropTypes.bool,
-		model: PropTypes.object,
 		multipleInsertion: PropTypes.bool,
 		pagination: PropTypes.bool,
 		queryDisabled: PropTypes.bool,
@@ -117,8 +114,8 @@ export class Table extends Component {
 		customLayout: null,
 		currentPage: DEFAULT_PAGE,
 		data: [],
+		deletable: true,
 		deleteCb: null,
-		deleteTokenCb: null,
 		displayCols: [],
 		draggable: null,
 		dropType: '',
@@ -136,7 +133,6 @@ export class Table extends Component {
 		initInsertData: null,
 		insertable: true,
 		insertCb: null,
-		model: {},
 		multipleInsertion: true,
 		pagination: true,
 		queryDisabled: false,
@@ -159,19 +155,14 @@ export class Table extends Component {
 		// @insertMode(bool) - toggle for insertion mode of table
 		// @insertType(string) - type of insertion to use when
 		// 	inserting records; either single or multiple
-		// @model(Object) - template object describing how to render
-		// 	the table
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
 			customColumns: this.props.customColumns,
-			columns: this.props.columns.length > 0
-				? cloneDeep(this.props.columns)
-				: convertModel(this.props.model),
+			columns: cloneDeep(this.props.columns),
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
-			model: this.props.model,
 			numRowsSelected: 0,
 			selectedRows: {}
 		};
@@ -203,22 +194,8 @@ export class Table extends Component {
 			});
 		}
 
-		if (this.props.model !== nextProps.model) {
-			this.setState({ model: nextProps.model });
-		}
-
 		if (this.props.columns !== nextProps.columns) {
-			let newColumns = nextProps.columns;
-
-			// convert model if no columns were passed in
-			if (!newColumns) {
-				newColumns = convertModel(nextProps.model);
-			}
-
-			this.setState({
-				model: nextProps.model,
-				columns: newColumns,
-			});
+			this.setState({ columns: cloneDeep(nextProps.columns) });
 		}
 	}
 
@@ -264,9 +241,6 @@ export class Table extends Component {
 			sortId, sortDir, this.props.filters);
 	}
 
-	// When a user enters or removes a token into the structured filter
-	// search, retrieve the updated data
-	// filter resets to page 1 on a token add/remove
 	// @filters([object]) - list of objects describing each filter to apply
 	_loadFilterChange = (filters) => {
 		this.props.handleTableChange(this.props.pageSize, DEFAULT_PAGE,
@@ -294,15 +268,6 @@ export class Table extends Component {
 		});
 	}
 
-	// handle inserting a new token into a cell
-	_onInsertTokenClick = (rowId, colId, token) => {
-		const { insertTokenCb } = this.props;
-
-		if (typeof insertTokenCb === 'function') {
-			insertTokenCb(rowId, colId, token);
-		}
-	}
-
 	// user deletes row(s)
 	_onDeleteClick = () => {
 		const { deleteCb } = this.props;
@@ -327,15 +292,6 @@ export class Table extends Component {
 		}
 	}
 
-	// handle deletion when user deletes a token in a row
-	_onDeleteTokenClick = (rowId, colId, token) => {
-		const { deleteTokenCb } = this.props;
-
-		if (typeof deleteTokenCb === 'function') {
-			deleteTokenCb(rowId , colId, token);
-		}
-	}
-
 	// handle deletion when user deletes an image
 	_onDeleteImageClick = (rowId, colId) => {
 		const { updateCb } = this.props;
@@ -352,14 +308,12 @@ export class Table extends Component {
 	_onDisplayColChange = (event) => {
 		const colId = event.target.name;
 		const isChecked = event.target.checked;
-		const model = Object.assign({}, this.state.model);
 		const columns = this.state.columns.slice();
 		const colIndex = columns.findIndex(col => col.id === colId);
 
-		model[colId].display = isChecked;
 		columns[colIndex].display = isChecked;
 
-		this.setState({ model, columns });
+		this.setState({ columns });
 
 		if (typeof this.props.onDisplayColChange === 'function') {
 			const displayCols = [];
@@ -379,17 +333,13 @@ export class Table extends Component {
 	// @colIds(object): columns that are to be displayed; if it is
 	// 	to be displayed, it will have a field entry
 	_onQuickViewColChange = (colIds) => {
-		const newModel = Object.assign({}, this.state.model);
-		const modelColIds = Object.keys(this.state.model);
+		const columns = this.state.columns.slice();
 
-		modelColIds.forEach(colId => {
-			newModel[colId].display = !!colIds[colId] || false;
+		columns.forEach(col => {
+			col.display = colIds.includes(col.id);
 		});
 
-		this.setState({
-			columns: convertModel(newModel),
-			model: newModel
-		});
+		this.setState({ columns });
 	}
 
 	// update when an input text goes out of focus
@@ -492,11 +442,11 @@ export class Table extends Component {
 	}
 
 	prepColumnsForHeader = (columns) => {
-		return columns.filter(col => !!col.category && !col.hidden)
+		return columns.filter(col => !!col.category)
 			.map(col => ({
 				id: col.id,
 				category: col.category,
-				display: col.display
+				display: col.display !== false
 			}))
 			.sort((col1, col2) => {
 				if (col1.category < col2.category) return -1;
@@ -578,7 +528,6 @@ export class Table extends Component {
 					})}
 					customClasses={this.props.customClasses}
 					id={this.props.id}
-					model={this.state.model}
 					expandable={!!this.props.ExpandComponent}
 					extraColumns={this.props.extraColumns}
 					rowProperties={{
@@ -593,8 +542,6 @@ export class Table extends Component {
 						_editOnOptionMatch: this._onOptionMatch,
 						_editOnColorChange: this._onBlur,
 						_editOnDeleteImageClick: this._onDeleteImageClick,
-						_editOnDeleteTokenClick: this._onDeleteTokenClick,
-						_editOnInsertTokenClick: this._onInsertTokenClick,
 					}}
 					recordProperties={recordProperties}
 					dragProperties={{
