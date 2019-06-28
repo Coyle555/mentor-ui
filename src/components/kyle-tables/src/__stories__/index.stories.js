@@ -117,6 +117,7 @@ storiesOf('Table', module)
 			sortId="string"
 			sortDir="ASC"
 			updateCb={action('updateCb')}
+			uploadFileCb={action('uploadFileCb')}
 		/>
 	))
 	.add('Loading table', () => (

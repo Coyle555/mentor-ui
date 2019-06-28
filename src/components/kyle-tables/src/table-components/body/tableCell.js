@@ -132,10 +132,10 @@ export const Cell = ({
 			/>
 		);
 	// file dropzone cell
-	} else if (file) {
+	} else if (!!file || !!image) {
 		cell = (
 			<EditDropzoneCell
-				path={file.path}
+				colId={colId}
 				rowId={rowId}
 				uploadFileCb={uploadFileCb}
 			/>

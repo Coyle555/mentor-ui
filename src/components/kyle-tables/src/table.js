@@ -374,11 +374,11 @@ export class Table extends Component {
 		}
 	}
 
-	_uploadFileCb = (rowId, path, files) => {
+	_uploadFileCb = (rowId, colId, files) => {
 		const { uploadFileCb } = this.props;
 
 		if (typeof uploadFileCb === 'function') {
-			uploadFileCb(rowId, path, files);
+			uploadFileCb(rowId, colId, files);
 		}
 	}
 
