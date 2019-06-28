@@ -7,14 +7,14 @@ import PropTypes from 'prop-types';
 
 import { Calendar } from '../Calendar';
 import { Time } from '../Time';
-import { TabNav } from '../TabNav';
+import { TabNav } from 'components/TabNav';
+import { Hamburger } from 'components/Hamburger';
 import {
 	OptionalControl
 } from './components/OptionalControl';
 import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
-import * as utils from './utils';
 
 const tabDisabled = {
 	cursor: 'default',
@@ -61,9 +61,11 @@ export function DatePicker(props) {
 
 	return (
 		<div className={cc()}>
+			<Hamburger />
+			{/*
 			<div className={cc('optional-controls')}>
 				<div className={cc('optional-controls-main')}>
-					{ utils.isCallbackValid(saveDate) ||
+					{ isCallbackValid(saveDate) &&
 						<OptionalControl
 							onClick={saveDate}
 							iconClass='fal fa-save'
@@ -71,7 +73,7 @@ export function DatePicker(props) {
 							Save
 						</OptionalControl>
 					}
-					{ utils.isCallbackValid(clearInput) &&
+					{ isCallbackValid(clearInput) &&
 						<OptionalControl
 							onClick={clearInput}
 							iconClass='fal fa-empty-set'
@@ -80,7 +82,7 @@ export function DatePicker(props) {
 						</OptionalControl>
 					}
 				</div>
-				{ utils.isCallbackValid(handleClose) &&
+				{ isCallbackValid(handleClose) &&
 					<OptionalControl
 						onClick={saveDate}
 						iconClass='fal fa-times'
@@ -88,44 +90,43 @@ export function DatePicker(props) {
 					/>
 				}
 			</div>
+			*/}
 			<TabNav
 				className={cc('nav')}
 				tabs={TAB_OPTIONS}
 				activeTab={activeTab}
 				onClick={onTabClick(setActiveTab)}
 			/>
-			<div className="tabs">
-				{ !dateDisabled &&
-					<Calendar
-						className={cn(
-							'tab',
-							{ 'is-active': activeTab === TAB_LABELS.date }
-						)}
-						maxDate={maxDate}
-						minDate={minDate}
-						moment={m}
-						onChange={onChange}
-					/>
-				}
-				{ !timeDisabled && activeTab === TAB_LABELS.time &&
-					<Time
-						minHour={minHour}
-						maxHour={maxHour}
-						minMinute={minMinute}
-						maxMinute={maxMinute}
-						moment={m}
-						onChange={onChange}
-					/>
-				}
-			</div>
+			{ !dateDisabled && activeTab === TAB_LABELS.date &&
+				<Calendar
+					maxDate={maxDate}
+					minDate={minDate}
+					moment={m}
+					onChange={onChange}
+				/>
+			}
+			{ !timeDisabled && activeTab === TAB_LABELS.time &&
+				<Time
+					minHour={minHour}
+					maxHour={maxHour}
+					minMinute={minMinute}
+					maxMinute={maxMinute}
+					moment={m}
+					onChange={onChange}
+				/>
+			}
 		</div>
 	);
 };
 
-function onTabClick(setActiveTab) {
+export function onTabClick(setActiveTab) {
 	return (label) => {
 		setActiveTab(label);
 	};
+};
+
+export const isCallbackValid = (callback) => {
+	return typeof callback === 'function';
 };
 
 DatePicker.propTypes = {

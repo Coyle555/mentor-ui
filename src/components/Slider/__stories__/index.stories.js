@@ -20,7 +20,6 @@ storiesOf('Slider', module)
 	)
 	.add('general', () =>
 		<Slider
-			className="u-slider-time"
 			onChange={() => {}}
 		/>
 	)
