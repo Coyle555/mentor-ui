@@ -19,6 +19,7 @@ export function TabNav(props) {
 		return tabs.map(tData => {
 			return (
 			<button
+				key={tData.label + 'apm'}
 				className={cn(
 					cc('tab'),
 				 { [cc('tab-is-active')] : tData.label === activeTab },
@@ -46,7 +47,6 @@ export function TabNav(props) {
 
 function handleTabClick(onClick, label) {
 	return (event) => {
-		console.log('clicked', onClick, label);
 		onClick(label);
 	}
 }
