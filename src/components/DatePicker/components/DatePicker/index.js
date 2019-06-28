@@ -62,7 +62,7 @@ export function DatePicker(props) {
 		<div className={cc()}>
 			<div className={cc('optional-controls')}>
 				<div className={cc('optional-controls-main')}>
-					{ isCallbackValid(saveDate) ||
+					{ isCallbackValid(saveDate) &&
 						<OptionalControl
 							onClick={saveDate}
 							iconClass='fal fa-save'

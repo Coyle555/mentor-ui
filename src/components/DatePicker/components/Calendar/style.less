@@ -1,3 +1,5 @@
+@import '~mentor-ui-constants';
+
 @color-gray: gray;
 @color-gray-40: lightgray;
 @color-gray-60: darkgray;
@@ -5,7 +7,7 @@
 @color-white: white;
 @cover_zIndex: 1000;
 
-.m-calendar {
+.APMCalendar {
 	display: inline-block;
 
 	table {
@@ -43,18 +45,13 @@
 		}
 	}
 
-	.current-day {
-		color: @color-blue;
-		font-weight: bold;
-	}
-
-	.disabled-day {
+	&-disabled-day {
 		background-color: @color-gray;
 		color: @color-gray-40;
 		cursor: not-allowed;
 		opacity: .4;
 
-		&.current-day {
+		.APMCalendar-current-day {
 			color: @color-blue;
 
 			&:hover {
@@ -69,8 +66,8 @@
 		}
 	}
 
-	.prev-month,
-	.next-month {
+	&-prev-month,
+	&-next-month {
 		color: @color-gray-60;
 
 		&-disabled {
@@ -78,7 +75,7 @@
 		}
 	}
 
-	.toolbar {
+	&-toolbar {
 		line-height: 30px;
 		color: @color-blue;
 		text-align: center;
@@ -105,15 +102,15 @@
 			cursor: not-allowed;
 		}
 
-		.prev-month {
+		.APMCalendar-prev-month {
 			float: left;
 		}
 
-		.next-month {
+		.APMCalendar-next-month {
 			float: right;
 		}
 
-		.current-date {
+		.APMCalendar-current-date {
 			color: @color-blue;
 		}
 	}

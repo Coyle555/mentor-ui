@@ -1,7 +1,8 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 import { range, chunk } from 'lodash';
+import { composeNamespace } from 'compose-namespace';
 
 import { CalendarDay } from '../CalendarDay';
 
@@ -42,7 +43,6 @@ export function nextMonthShouldBeDisabled(currentMoment, maxDate) {
 }
 
 export class Calendar extends Component {
-
 	constructor(props) {
 		super(props);
 
@@ -110,14 +110,26 @@ export class Calendar extends Component {
 	}
 
 	render() {
-		const { maxDate, minDate } = this.props;
+		const {
+			maxDate,
+			minDate,
+			className,
+			moment,
+		} = this.props;
+
 		const {
 			nextMonthShouldBeDisabled,
-			prevMonthShouldBeDisabled
+			prevMonthShouldBeDisabled,
 		} = this.state;
-		const m = this.props.moment;
+
+		const m = moment;
 		const currentDate = m.date();
-		const d1 = m.clone().subtract(1, 'month').endOf('month').date();
+		const d1 = m
+			.clone()
+			.subtract(1, 'month')
+			.endOf('month')
+			.date();
+
 		const d2 = m.clone().date(1).day();
 		const d3 = m.clone().endOf('month').date();
 		const days = [].concat(
@@ -126,18 +138,22 @@ export class Calendar extends Component {
 			range(1, 42 - d3 - d2 + 1)
 		);
 
-		const prevMonthButtonClasses = cx({
-			'prev-month': true,
-			'prev-month-disabled': prevMonthShouldBeDisabled
-		});
-		const nextMonthButtonClasses = cx({
-			'next-month': true,
-			'next-month-disabled': nextMonthShouldBeDisabled
+		const cc = composeNamespace('APMCalendar', className);
+
+		const prevMonthButtonClasses = cn({
+			[cc('prev-month')]: true,
+			[cc('prev-month-disabled')]: prevMonthShouldBeDisabled
 		});
 
+		const nextMonthButtonClasses = cn({
+			[cc('next-month')]: true,
+			[cc('next-month-disabled')]: nextMonthShouldBeDisabled,
+		});
+
+
 		return (
-			<div className={cx('m-calendar', this.props.className)}>
-				<div className="toolbar">
+			<div className={cc()}>
+				<div className={cc('toolbar')}>
 					<button
 						type="button"
 						className={prevMonthButtonClasses}
@@ -153,7 +169,9 @@ export class Calendar extends Component {
 							}}
 						/>
 					</button>
-					<span className="current-date">{m.format('MMMM YYYY')}</span>
+					<span className={cc('current-date')}>
+						{m.format('MMMM YYYY')}
+					</span>
 					<button
 						type="button"
 						className={nextMonthButtonClasses}
