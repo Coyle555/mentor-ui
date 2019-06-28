@@ -91,6 +91,10 @@ export const Cell = ({
 
 			cell = <img src={value} style={{ maxWidth: '50px' }} />;
 
+		} else if (!!file && !!value) {
+
+			cell = <a download href={value}>{value}</a>;
+
 		} else {
 			cell = value;
 		}

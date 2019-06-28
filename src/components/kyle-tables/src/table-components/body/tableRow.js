@@ -146,6 +146,7 @@ export class TableRow extends PureComponent {
 						cellOptions={col.options}
 						cellType={col.type}
 						colId={col.id}
+						color={col.color}
 						customClasses={customClasses}
 						customColumn={customColumns[col.id]}
 						editMode={editMode}

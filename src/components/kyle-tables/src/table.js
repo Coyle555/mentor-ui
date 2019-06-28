@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
@@ -589,10 +589,6 @@ export class Table extends Component {
 			);
 		}
 
-		if (typeof this.props.customLayout === 'function') {
-			return this.props.customLayout(HeaderComponent, TableComponent);
-		}
-
 		const containerClasses = classNames({
 			'table-container': true,
 			[customClasses.container]: !!customClasses.container
@@ -600,8 +596,13 @@ export class Table extends Component {
 
 		return (
 			<div className={containerClasses}>
-				{ HeaderComponent }
-				{ TableComponent }
+				{ typeof this.props.customLayout === 'function'
+					? this.props.customLayout(HeaderComponent, TableComponent)
+					: <Fragment>
+						{ HeaderComponent }
+						{ TableComponent }
+					</Fragment>
+				}
 			</div>
 	       );
 	}

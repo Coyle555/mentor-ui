@@ -21,30 +21,25 @@ export class EditDropzoneCell extends PureComponent {
 	render() {
 		return (
 			<Dropzone onDrop={this.onDrop}>
-				{({ getRootProps, getInputProps }) => {
-					console.log(getRootProps);
-					console.log(getInputProps);
-
-					return (
-						<div
-							{...getRootProps({
-								style: {
-									width: '100%',
-									display: 'block',
-									textAlign: 'center',
-									border: '2px dashed darkgrey',
-									borderRadius: '5px',
-									backgroundColor: 'lightgrey',
-									boxSizing: 'border-box',
-									outline: 'none'
-								}
-							})}
-						>
-							<input {...getInputProps()} />
-							<p className="no-margins">Drop File</p>
-						</div>
-					);
-				}}
+				{({ getRootProps, getInputProps }) => (
+					<div
+						{...getRootProps({
+							style: {
+								width: '100%',
+								display: 'block',
+								textAlign: 'center',
+								border: '2px dashed darkgrey',
+								borderRadius: '5px',
+								backgroundColor: 'lightgrey',
+								boxSizing: 'border-box',
+								outline: 'none'
+							}
+						})}
+					>
+						<input {...getInputProps()} />
+						<p className="no-margins">Drop File</p>
+					</div>
+				)}
 			</Dropzone>
 		)
 	}
