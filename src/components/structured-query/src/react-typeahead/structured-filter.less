@@ -15,11 +15,22 @@
 
 	> .input-group-addon {
 		border: 0px;
-		background: transparent;
 		width: 50px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	> .export-search {
+		.filter-tokenizer > .input-group-addon();
+		background: lightgrey;
+		cursor: not-allowed;
+	}
+
+	> .export-search-enabled {
+		background: white;
+		color: @charcoal;
+		cursor: pointer;
 	}
 
 	> .first-addon {
@@ -126,12 +137,13 @@
 }
 
 .active-filter-enabled {
-	background: white;
+	background: white !important;
 	color: @charcoal;
-	cursor: pointer;
+	cursor: pointer !important;
 }
 
 .active-filter-container {
+	.filter-tokenizer > .input-group-addon();
 	background: lightgrey;
 	border-radius: 0;
 	cursor: not-allowed;

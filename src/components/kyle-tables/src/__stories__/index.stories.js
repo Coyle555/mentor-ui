@@ -122,6 +122,8 @@ const customToolbarButtons = [{
 	tip: 'Custom Button',
 }];
 
+const filters = [{ category: 'Color', id: 'color', operator: 'equals', value: 'white' }];
+
 storiesOf('Table', module)
 	.add('Basic table', () => (
 		<Table
@@ -131,6 +133,8 @@ storiesOf('Table', module)
 			customToolbarButtons={customToolbarButtons}
 			data={data}
 			deleteCb={action('onDeleteClick')}
+			exportTable={action('exportTable')}
+			filters={filters}
 			handleTableChange={action('handleTableChange')}
 			onDisplayColChange={action('onDisplayColChange')}
 			pageSize={5}

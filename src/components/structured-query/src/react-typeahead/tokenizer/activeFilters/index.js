@@ -92,7 +92,7 @@ export class ActiveFiltersClass extends Component {
 		const { filtersActive } = this.state;
 
 		const activeFilterClasses = classNames({
-			'input-group-addon left-addon active-filter-container': true,
+			'left-addon active-filter-container': true,
 			'active-filter-enabled': searchTokens.length > 0
 		});
 
@@ -109,14 +109,6 @@ export class ActiveFiltersClass extends Component {
 						data-tip="View Filters"
 						onClick={this.toggleFilterList}
 						ref={ref}
-						style={{
-							background: searchTokens.length === 0
-								? 'lightgrey'
-								: 'white',
-							cursor: searchTokens.length === 0
-								? 'not-allowed'
-								: 'pointer'
-						}}
 					>
 						<i className="far fa-list" />
 						<span className="active-filter-count">

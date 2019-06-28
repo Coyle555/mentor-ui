@@ -60,7 +60,6 @@ export class Table extends Component {
 			editDragType: PropTypes.string,
 			editDragCb: PropTypes.func
 		}),
-		enableQueryOnClick: PropTypes.bool,
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		extraColumns: PropTypes.arrayOf(
@@ -72,7 +71,6 @@ export class Table extends Component {
 		),
 		formFields: PropTypes.arrayOf(PropTypes.object),
 		generateCustomFilter: PropTypes.func,
-		getFiles: PropTypes.bool,
 		id: PropTypes.string.isRequired,
 		initInsertData: PropTypes.object,
 		insertable: PropTypes.bool,
@@ -83,11 +81,9 @@ export class Table extends Component {
 		queryDisabled: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
-		selectRecordCount: PropTypes.bool,
 		singleInsertion: PropTypes.bool,
 		sortDir: PropTypes.oneOf(['ASC', 'DESC']),
 		sortId: PropTypes.string,
-		tooltipPlace: PropTypes.string,
 		updateCb: PropTypes.func,
 		uploadFileCb: PropTypes.func,
 		viewColumns: PropTypes.bool
@@ -122,14 +118,11 @@ export class Table extends Component {
 		dropType: '',
 		editable: true,
 		editDraggable: null,
-		enableQueryOnClick: false,
 		ExpandComponent: null,
 		exportTable: null,
 		extraColumns: [],
 		filters: [],
 		formFields: null,
-		generateCustomFilters: null,
-		getFiles: true,
 		id: '',
 		initInsertData: null,
 		insertable: true,
@@ -138,9 +131,7 @@ export class Table extends Component {
 		pagination: true,
 		queryDisabled: false,
 		quickViews: [],
-		selectRecordCount: true,
 		singleInsertion: true,
-		tooltipPlace: 'top',
 		updateCb: null,
 		uploadFileCb: null,
 		viewColumns: true
@@ -328,19 +319,9 @@ export class Table extends Component {
 
 		columns[colIndex].display = isChecked;
 
-		this.setState({ columns });
-
-		if (typeof this.props.onDisplayColChange === 'function') {
-			const displayCols = [];
-
-			columns.forEach(col => {
-				if (col.display !== false) {
-					displayCols.push(col.id);
-				}
-			});
-
-			this.props.onDisplayColChange(displayCols);
-		}
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
 	}
 
 
@@ -354,15 +335,31 @@ export class Table extends Component {
 			col.display = colIds.includes(col.id);
 		});
 
-		this.setState({ columns });
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
+	}
+
+	afterColDisplayChange = () => {
+		if (typeof this.props.onDisplayColChange === 'function') {
+			const displayCols = [];
+
+			this.state.columns.forEach(col => {
+				if (col.display !== false) {
+					displayCols.push(col.id);
+				}
+			});
+
+			this.props.onDisplayColChange(displayCols);
+		}
 	}
 
 	// update when an input text goes out of focus
-	_onBlur = (rowId, updateData) => {
+	_onBlur = (rowId, colId, value) => {
 		const { updateCb } = this.props;
 
 		if (typeof updateCb === 'function') {
-			updateCb(rowId, updateData);
+			updateCb(rowId, colId, value);
 		}
 	}
 
@@ -491,11 +488,12 @@ export class Table extends Component {
 			}
 		});
 
+		console.log(this.props.filters)
+
 		const HeaderComponent = (
 			<Header
 				filter={{
 					disabled: this.props.queryDisabled,
-					enableQueryOnClick: this.props.enableQueryOnClick,
 					exportSearch: typeof this.props.exportTable === 'function'
 						? this.exportTableInsert
 						: null,
@@ -512,7 +510,6 @@ export class Table extends Component {
 					editable: this.props.editable,
 					editMode: this.state.editMode,
 					excelURL: this.props.excelURL,
-					getFiles: this.props.getFiles,
 					tableId: this.props.id,
 					insertable: this.props.insertable,
 					loading: this.props.loading,
@@ -527,7 +524,6 @@ export class Table extends Component {
 					quickViews: this.props.quickViews,
 					selectedRows: this.state.selectedRows,
 					singleInsertion: this.props.singleInsertion,
-					tooltipPlace: this.props.tooltipPlace,
 					viewColumns: this.props.viewColumns,
 				}}
 			/>

@@ -28,7 +28,7 @@ export class EditColorPicker extends PureComponent {
 		const { onColorChange, colId, rowId } = this.props;
 
 		this.setState({ color });
-		this.props.onColorChange(rowId, { [colId]: color.hex });
+		this.props.onColorChange(rowId, colId, color.hex);
 	}
 
 	render() {

@@ -89,7 +89,7 @@ export const Cell = ({
 
 		if (!!image && !!value) {
 
-			cell = <img src={value} style={{ maxWidth: '50px' }} />;
+			cell = <img className="table-image-cell" src={value} />;
 
 		} else if (!!file && !!value) {
 
