@@ -150,6 +150,7 @@ export class TableRow extends PureComponent {
 						customColumn={customColumns[col.id]}
 						editMode={editMode}
 						file={col.file}
+						image={col.image}
 						key={col.id}
 						multiline={!!col.multiline}
 						onBlur={onBlur}

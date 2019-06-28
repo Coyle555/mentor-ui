@@ -65,13 +65,13 @@ export class DeleteRecords extends PureComponent {
 						<div ref={ref}>
 							<div className="table-header-delete-warning-arrow" />
 							<div className="table-header-delete-warning">
-								<p>
+								<p className="table-header-delete-label">
 									Delete {numRowsSelected} {numRowsSelected > 1
 										? 'records?'
 										: 'record?'}
 								</p>
 								<button
-									className="btn btn-danger btn-sm btn-block"
+									className="table-header-delete-btn"
 									onClick={this.onDeleteClick}
 									type="button"
 								>

@@ -85,7 +85,7 @@ export class Toolbar extends Component {
 						ref={ref}
 						type="button"
 					>
-						<i className="far fa-list-ul" />
+						<i className="fal fa-list" />
 					</button>
 				)}
 				renderElement={ref => (

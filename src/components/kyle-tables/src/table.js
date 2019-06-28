@@ -201,24 +201,36 @@ export class Table extends Component {
 
 	// Retrieve next page of records
 	_loadNextPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage + 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage + 1,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Retrieve previous page of records
 	_loadPrevPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage - 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage - 1, 
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records with the page given by user
 	// @pageNum(number) - Page number to load
 	_loadGetPage = (pageNum) => {
-		this.props.handleTableChange(this.props.pageSize,
-			pageNum, this.props.sortId, this.props.sortDir,
-			this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: pageNum, 
+			sortId: this.props.sortId, 
+			sortDir: this.props.sortDir,
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records properly sorted by a column
@@ -237,14 +249,24 @@ export class Table extends Component {
 			sortDir = sortMap.ASC;
 		}
 
-		this.props.handleTableChange(this.props.pageSize, this.props.currentPage, 
-			sortId, sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize, 
+			currentPage: this.props.currentPage, 
+			sortId,
+			sortDir,
+			filters: this.props.filters
+		});
 	}
 
 	// @filters([object]) - list of objects describing each filter to apply
 	_loadFilterChange = (filters) => {
-		this.props.handleTableChange(this.props.pageSize, DEFAULT_PAGE,
-			this.props.sortId, this.props.sortDir, filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: DEFAULT_PAGE,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir,
+			filters
+		});
 	}
 
 	exportTableInsert = () => {

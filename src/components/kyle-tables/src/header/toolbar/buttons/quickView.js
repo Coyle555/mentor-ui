@@ -9,10 +9,10 @@ class QuickViewsComponent extends Component {
 	static propTypes = {
 		disabled: PropTypes.bool,
 		onClick: PropTypes.func,
-		quickViews: PropTypes.shape({
+		quickViews: PropTypes.arrayOf(PropTypes.shape({
 			columns: PropTypes.arrayOf(PropTypes.string),
 			name: PropTypes.string,
-		})
+		}))
 	}
 
 	static defaultProps = {
@@ -68,7 +68,7 @@ class QuickViewsComponent extends Component {
 							type="button"
 							disabled={disabled}
 						>
-							<i className="fal fa-list" />
+							<i className="fal fa-clipboard-list" />
 						</button>
 					</span>
 				)}

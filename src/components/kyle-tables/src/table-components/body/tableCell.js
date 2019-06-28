@@ -183,7 +183,7 @@ export const Cell = ({
 				value={value}
 			/>
 		);
-	} else if (type === 'datetime') {
+	} else if (type === 'datetime' || type === 'date') {
 		cell = (
 			<TableDatePicker
 				inputClass={editInputClass}
