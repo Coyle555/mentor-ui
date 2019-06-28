@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionalControl component Should default render 1`] = `
+<div>
+  <button
+    class="APMOptionalControl"
+  >
+    <i
+      class="APMOptionalControl-icon fal fa-home"
+    />
+  </button>
+</div>
+`;
+
+exports[`OptionalControl component Should render a child string 1`] = `
+<div>
+  <button
+    class="APMOptionalControl"
+  >
+    <i
+      class="APMOptionalControl-icon APMOptionalControl-icon-rm fal fa-home"
+    />
+    Meditation
+  </button>
+</div>
+`;
+
+exports[`OptionalControl component Should render overriding className 1`] = `
+<div>
+  <button
+    class="APMOptionalControl monosacharides"
+  >
+    <i
+      class=" APMOptionalControl-icon monosacharides-icon fal fa-home"
+    />
+  </button>
+</div>
+`;

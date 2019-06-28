@@ -5,7 +5,6 @@ import cn from 'classnames';
 import './style.less';
 
 export const Hamburger = ({ isOpen }) => {
-	
 	return (
 		<button className="APMHamburger">
 			<div className={
