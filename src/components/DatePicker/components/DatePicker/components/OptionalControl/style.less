@@ -1,10 +1,12 @@
 @import '~mentor-ui-constants';
 
 .APMOptionalControl {
-	border: 1px solid @blue-primary;
+	border: 1px solid @steel-blue;
 	border-radius: 3px;
 	margin-right: 12px;
-	transition: all .1s ease;
+	font-size: 12px;
+	padding: 6px 15px;
+	transition: hover .1s ease;
 
 	&-icon {
 		&-rm {
@@ -17,7 +19,13 @@
 	}
 
 	&:hover {
-		color: blue;
 		cursor: pointer;
+		opacity: .8;
+	}
+
+	&:active {
+		color: @white;
+		background-color: @blue-gray-dark;
+		border-color: @blue-gray-dark;
 	}
 }

@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Calendar } from '../Calendar';
 import { Time } from '../Time';
 import { TabNav } from 'components/TabNav';
-import { Hamburger } from 'components/Hamburger';
 import {
 	OptionalControl
 } from './components/OptionalControl';
@@ -61,11 +60,9 @@ export function DatePicker(props) {
 
 	return (
 		<div className={cc()}>
-			<Hamburger />
-			{/*
 			<div className={cc('optional-controls')}>
 				<div className={cc('optional-controls-main')}>
-					{ isCallbackValid(saveDate) &&
+					{ isCallbackValid(saveDate) ||
 						<OptionalControl
 							onClick={saveDate}
 							iconClass='fal fa-save'
@@ -90,7 +87,6 @@ export function DatePicker(props) {
 					/>
 				}
 			</div>
-			*/}
 			<TabNav
 				className={cc('nav')}
 				tabs={TAB_OPTIONS}
