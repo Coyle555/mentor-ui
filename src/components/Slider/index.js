@@ -10,8 +10,8 @@ import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
-const KNOB_SIZE = 38;
-const BORDER_OFFSET = 2;
+export const KNOB_SIZE = 38;
+export const BORDER_OFFSET = 2;
 
 export const Slider = (props) => {
 	const {
@@ -30,7 +30,8 @@ export const Slider = (props) => {
 	const sliderRef = useRef();
 
 	useEffect(() => {
-		onChange(percentage);
+		if (onChange)
+			onChange(percentage);
 	}, [percentage]);
 
 	useLayoutEffect(() => {
@@ -99,6 +100,7 @@ export const Slider = (props) => {
 			/>
 			<div
 				className={cc('handle')}
+				data-testid="slider-handle"
 				ref={handleRef}
 				onMouseDown={handleGrab}
 				onMouseUp={handleRelease}
@@ -128,11 +130,11 @@ export function calcHandlePos(
 };
 
 export function getHandleStyle(pos, operator, offset) {
-	return `calc(${pos}% ${operator}  ${offset}px)`
+	return `calc(${pos}% ${operator} ${offset}px)`
 }
 
 export function getValueWidthStyle(pos, knobSize) {
-	return `calc(${pos}% + ${KNOB_SIZE / 2}px)`
+	return `calc(${pos}% + ${knobSize / 2}px)`
 }
 
 export function normalizer(value, min, max) {
@@ -154,7 +156,7 @@ export function onMove(
 
 	const x =  mouseX - sliderX - knobSize / 2;
 
-	const newPercentage = Math.round(normalizer(
+	const newPercentage = Math.floor(normalizer(
 		x / sliderWidth * 100,
 		0,
 		100,

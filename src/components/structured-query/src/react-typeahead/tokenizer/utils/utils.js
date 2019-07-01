@@ -52,6 +52,7 @@ export function _getOptionsForTypeahead(options = [], token = {}) {
 			case 'integer':
 			case 'float':
 			case 'datetime':
+			case 'date':
 				return NUM_DATE_OPERATIONS;
 			case 'async':
 				return ASYNC_OPERATIONS;

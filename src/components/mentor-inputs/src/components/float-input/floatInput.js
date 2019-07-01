@@ -14,7 +14,7 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	const inputClasses = classNames('apm-mi-form-control', props.className);
 
 	const step = useMemo(() => {
-		if (isNaN(precision)) return '0.00005';
+		if (isNaN(precision)) return '0.05';
 		let str = '0.';
 		for (let i = 0; i < precision - 1; i++) {
 			str += '0'

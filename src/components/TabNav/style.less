@@ -1,0 +1,62 @@
+@import '~mentor-ui-constants';
+
+.APMTabNav {
+	&-container {
+		display: flex;
+		width: 100%;
+	}
+
+	&-tab {
+		width: 100%;
+		padding: 12px;
+		cursor: pointer;
+		border: 1px solid @steel-blue;
+		font-size: 16px;
+		background-color: @steel-blue;
+		color: @white;
+		transition: hover .1s ease;
+
+		&-icon {
+			font-size: 16px;
+			margin-right: 6px;
+			color: @white;
+		}
+
+		&-is-active {
+			background-color: @white;
+			color: @blue-primary;
+
+			.APMTabNav-tab-icon {
+				color: @blue-primary;
+			}
+		}
+
+		&:focus {
+			outline: none;
+		}
+
+		&:first-child {
+			border-top-left-radius: 3px;
+			border-bottom-left-radius: 3px;
+		}
+
+		&:last-child {
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+		}
+
+		&:hover {
+			opacity: .8;
+		}
+
+		&:active {
+			color: @white;
+			background-color: @blue-gray-dark;
+			border-color: @blue-gray-dark;
+
+			.APMTabNav-tab-icon {
+				color: @white;
+			}
+		}
+	}
+}

@@ -21,30 +21,17 @@ export const PageDropdown = ({ currentPage, onChange, pageSize, recordCount }) =
 	}
 
 	return (
-		<div className="form-inline">
-			<div className="form-group">
-				<label>Page number: </label>
-				<div className="input-group">
-					<IntegerInput
-						className="m-l-sm m-r-xs"
-						data-testid="pagedropdown"
-						max={maxPage}
-						min={1}
-						name="page-dropdown"
-						onBlur={_onBlur}
-						value={currentPage}
-					/>
-					<div
-						className="input-group-addon"
-						style={{
-							backgroundColor: 'transparent',
-							border: 'none'
-						}}
-					>
-						of {maxPage}
-					</div>
-				</div>					
-			</div>
+		<div className="page-dropdown">
+			<IntegerInput
+				className="page-dropdown-input"
+				data-testid="pagedropdown"
+				max={maxPage}
+				min={1}
+				name="page-dropdown"
+				onBlur={_onBlur}
+				value={currentPage}
+			/>
+			of {maxPage} pages
 		</div>
 	);
 

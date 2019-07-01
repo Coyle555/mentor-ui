@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ChromePicker } from 'react-color';
+import { SliderPicker } from 'react-color';
 
 export class EditColorPicker extends PureComponent {
 
@@ -28,14 +28,14 @@ export class EditColorPicker extends PureComponent {
 		const { onColorChange, colId, rowId } = this.props;
 
 		this.setState({ color });
-		this.props.onColorChange(rowId, { [colId]: color.hex });
+		this.props.onColorChange(rowId, colId, color.hex);
 	}
 
 	render() {
 		const { color } = this.state;
 
 		return (
-			<ChromePicker
+			<SliderPicker
 				color={color}
 				disableAlpha={true}
 				onChangeComplete={this.onColorChange}

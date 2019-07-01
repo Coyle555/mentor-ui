@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash';
 import { Header } from './header';
 import { TableMain } from './table-components/tableMain';
 import { Loading } from './Loading';
-import { convertModel } from './utils/utils';
 import InsertForm from 'insert-popup-form';
 import { asyncFilter } from 'mentor-inputs';
 
@@ -42,14 +41,14 @@ export class Table extends Component {
 		customColumns: PropTypes.object,
 		customLayout: PropTypes.func,
 		customToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
-			tip: PropTypes.string.isRequired,
 			icon: PropTypes.element.isRequired,
-			onClick: PropTypes.func.isRequired
+			onClick: PropTypes.func.isRequired,
+			tip: PropTypes.string.isRequired,
+			validation: PropTypes.func
 		})),
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,
 		deleteCb: PropTypes.func,
-		deleteTokenCb: PropTypes.func,
 		displayCols: PropTypes.arrayOf(PropTypes.string),
 		draggable: PropTypes.shape({
 			dragType: PropTypes.string,
@@ -61,7 +60,6 @@ export class Table extends Component {
 			editDragType: PropTypes.string,
 			editDragCb: PropTypes.func
 		}),
-		enableQueryOnClick: PropTypes.bool,
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		extraColumns: PropTypes.arrayOf(
@@ -73,23 +71,19 @@ export class Table extends Component {
 		),
 		formFields: PropTypes.arrayOf(PropTypes.object),
 		generateCustomFilter: PropTypes.func,
-		getFiles: PropTypes.bool,
 		id: PropTypes.string.isRequired,
 		initInsertData: PropTypes.object,
 		insertable: PropTypes.bool,
 		insertCb: PropTypes.func,
 		loading: PropTypes.bool,
-		model: PropTypes.object,
 		multipleInsertion: PropTypes.bool,
 		pagination: PropTypes.bool,
 		queryDisabled: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
-		selectRecordCount: PropTypes.bool,
 		singleInsertion: PropTypes.bool,
 		sortDir: PropTypes.oneOf(['ASC', 'DESC']),
 		sortId: PropTypes.string,
-		tooltipPlace: PropTypes.string,
 		updateCb: PropTypes.func,
 		uploadFileCb: PropTypes.func,
 		viewColumns: PropTypes.bool
@@ -117,33 +111,27 @@ export class Table extends Component {
 		customLayout: null,
 		currentPage: DEFAULT_PAGE,
 		data: [],
+		deletable: true,
 		deleteCb: null,
-		deleteTokenCb: null,
 		displayCols: [],
 		draggable: null,
 		dropType: '',
 		editable: true,
 		editDraggable: null,
-		enableQueryOnClick: false,
 		ExpandComponent: null,
 		exportTable: null,
 		extraColumns: [],
 		filters: [],
 		formFields: null,
-		generateCustomFilters: null,
-		getFiles: true,
 		id: '',
 		initInsertData: null,
 		insertable: true,
 		insertCb: null,
-		model: {},
 		multipleInsertion: true,
 		pagination: true,
 		queryDisabled: false,
 		quickViews: [],
-		selectRecordCount: true,
 		singleInsertion: true,
-		tooltipPlace: 'top',
 		updateCb: null,
 		uploadFileCb: null,
 		viewColumns: true
@@ -159,19 +147,14 @@ export class Table extends Component {
 		// @insertMode(bool) - toggle for insertion mode of table
 		// @insertType(string) - type of insertion to use when
 		// 	inserting records; either single or multiple
-		// @model(Object) - template object describing how to render
-		// 	the table
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
 			customColumns: this.props.customColumns,
-			columns: this.props.columns.length > 0
-				? cloneDeep(this.props.columns)
-				: convertModel(this.props.model),
+			columns: cloneDeep(this.props.columns),
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
-			model: this.props.model,
 			numRowsSelected: 0,
 			selectedRows: {}
 		};
@@ -203,45 +186,43 @@ export class Table extends Component {
 			});
 		}
 
-		if (this.props.model !== nextProps.model) {
-			this.setState({ model: nextProps.model });
-		}
-
 		if (this.props.columns !== nextProps.columns) {
-			let newColumns = nextProps.columns;
-
-			// convert model if no columns were passed in
-			if (!newColumns) {
-				newColumns = convertModel(nextProps.model);
-			}
-
-			this.setState({
-				model: nextProps.model,
-				columns: newColumns,
-			});
+			this.setState({ columns: cloneDeep(nextProps.columns) });
 		}
 	}
 
 	// Retrieve next page of records
 	_loadNextPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage + 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage + 1,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Retrieve previous page of records
 	_loadPrevPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage - 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage - 1, 
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records with the page given by user
 	// @pageNum(number) - Page number to load
 	_loadGetPage = (pageNum) => {
-		this.props.handleTableChange(this.props.pageSize,
-			pageNum, this.props.sortId, this.props.sortDir,
-			this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: pageNum, 
+			sortId: this.props.sortId, 
+			sortDir: this.props.sortDir,
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records properly sorted by a column
@@ -260,17 +241,24 @@ export class Table extends Component {
 			sortDir = sortMap.ASC;
 		}
 
-		this.props.handleTableChange(this.props.pageSize, this.props.currentPage, 
-			sortId, sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize, 
+			currentPage: this.props.currentPage, 
+			sortId,
+			sortDir,
+			filters: this.props.filters
+		});
 	}
 
-	// When a user enters or removes a token into the structured filter
-	// search, retrieve the updated data
-	// filter resets to page 1 on a token add/remove
 	// @filters([object]) - list of objects describing each filter to apply
 	_loadFilterChange = (filters) => {
-		this.props.handleTableChange(this.props.pageSize, DEFAULT_PAGE,
-			this.props.sortId, this.props.sortDir, filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: DEFAULT_PAGE,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir,
+			filters
+		});
 	}
 
 	exportTableInsert = () => {
@@ -294,45 +282,19 @@ export class Table extends Component {
 		});
 	}
 
-	// handle inserting a new token into a cell
-	_onInsertTokenClick = (rowId, colId, token) => {
-		const { insertTokenCb } = this.props;
-
-		if (typeof insertTokenCb === 'function') {
-			insertTokenCb(rowId, colId, token);
-		}
-	}
-
 	// user deletes row(s)
 	_onDeleteClick = () => {
 		const { deleteCb } = this.props;
 		const { selectedRows } = this.state;
 
 		if (typeof deleteCb === 'function') {
-			const rowIds = [];
 
-			// only add row ids that user has selected
-			Object.keys(selectedRows).forEach(rowId => {
-				if (!!selectedRows[rowId]) {
-					rowIds.push(rowId);
-				}
-			});
-
-			deleteCb(rowIds);
+			deleteCb(Object.keys(selectedRows));
 
 			this.setState({
 				numRowsSelected: 0,
 				selectedRows: {}
 			});
-		}
-	}
-
-	// handle deletion when user deletes a token in a row
-	_onDeleteTokenClick = (rowId, colId, token) => {
-		const { deleteTokenCb } = this.props;
-
-		if (typeof deleteTokenCb === 'function') {
-			deleteTokenCb(rowId , colId, token);
 		}
 	}
 
@@ -352,19 +314,37 @@ export class Table extends Component {
 	_onDisplayColChange = (event) => {
 		const colId = event.target.name;
 		const isChecked = event.target.checked;
-		const model = Object.assign({}, this.state.model);
 		const columns = this.state.columns.slice();
 		const colIndex = columns.findIndex(col => col.id === colId);
 
-		model[colId].display = isChecked;
 		columns[colIndex].display = isChecked;
 
-		this.setState({ model, columns });
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
+	}
 
+
+	// Show a quick view of preset columns
+	// @colIds(object): columns that are to be displayed; if it is
+	// 	to be displayed, it will have a field entry
+	_onQuickViewColChange = (colIds) => {
+		const columns = this.state.columns.slice();
+
+		columns.forEach(col => {
+			col.display = colIds.includes(col.id);
+		});
+
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
+	}
+
+	afterColDisplayChange = () => {
 		if (typeof this.props.onDisplayColChange === 'function') {
 			const displayCols = [];
 
-			columns.forEach(col => {
+			this.state.columns.forEach(col => {
 				if (col.display !== false) {
 					displayCols.push(col.id);
 				}
@@ -374,30 +354,12 @@ export class Table extends Component {
 		}
 	}
 
-
-	// Show a quick view of preset columns
-	// @colIds(object): columns that are to be displayed; if it is
-	// 	to be displayed, it will have a field entry
-	_onQuickViewColChange = (colIds) => {
-		const newModel = Object.assign({}, this.state.model);
-		const modelColIds = Object.keys(this.state.model);
-
-		modelColIds.forEach(colId => {
-			newModel[colId].display = !!colIds[colId] || false;
-		});
-
-		this.setState({
-			columns: convertModel(newModel),
-			model: newModel
-		});
-	}
-
 	// update when an input text goes out of focus
-	_onBlur = (rowId, updateData) => {
+	_onBlur = (rowId, colId, value) => {
 		const { updateCb } = this.props;
 
 		if (typeof updateCb === 'function') {
-			updateCb(rowId, updateData);
+			updateCb(rowId, colId, value);
 		}
 	}
 
@@ -410,11 +372,11 @@ export class Table extends Component {
 		}
 	}
 
-	_uploadFileCb = (rowId, path, files) => {
+	_uploadFileCb = (rowId, colId, files) => {
 		const { uploadFileCb } = this.props;
 
 		if (typeof uploadFileCb === 'function') {
-			uploadFileCb(rowId, path, files);
+			uploadFileCb(rowId, colId, files);
 		}
 	}
 
@@ -466,7 +428,9 @@ export class Table extends Component {
 		const newSelectedRows = {};
 
 		if (this.allRowsSelected) {
-			data.forEach(row => { newSelectedRows[row.id] = row; });
+			data.forEach(row => {
+				newSelectedRows[row.id] = row;
+			});
 		}
 
 		this.setState({
@@ -492,11 +456,11 @@ export class Table extends Component {
 	}
 
 	prepColumnsForHeader = (columns) => {
-		return columns.filter(col => !!col.category && !col.hidden)
+		return columns.filter(col => !!col.category)
 			.map(col => ({
 				id: col.id,
 				category: col.category,
-				display: col.display
+				display: col.display !== false
 			}))
 			.sort((col1, col2) => {
 				if (col1.category < col2.category) return -1;
@@ -524,11 +488,12 @@ export class Table extends Component {
 			}
 		});
 
+		console.log(this.props.filters)
+
 		const HeaderComponent = (
 			<Header
 				filter={{
 					disabled: this.props.queryDisabled,
-					enableQueryOnClick: this.props.enableQueryOnClick,
 					exportSearch: typeof this.props.exportTable === 'function'
 						? this.exportTableInsert
 						: null,
@@ -545,7 +510,6 @@ export class Table extends Component {
 					editable: this.props.editable,
 					editMode: this.state.editMode,
 					excelURL: this.props.excelURL,
-					getFiles: this.props.getFiles,
 					tableId: this.props.id,
 					insertable: this.props.insertable,
 					loading: this.props.loading,
@@ -560,7 +524,6 @@ export class Table extends Component {
 					quickViews: this.props.quickViews,
 					selectedRows: this.state.selectedRows,
 					singleInsertion: this.props.singleInsertion,
-					tooltipPlace: this.props.tooltipPlace,
 					viewColumns: this.props.viewColumns,
 				}}
 			/>
@@ -578,7 +541,6 @@ export class Table extends Component {
 					})}
 					customClasses={this.props.customClasses}
 					id={this.props.id}
-					model={this.state.model}
 					expandable={!!this.props.ExpandComponent}
 					extraColumns={this.props.extraColumns}
 					rowProperties={{
@@ -593,8 +555,6 @@ export class Table extends Component {
 						_editOnOptionMatch: this._onOptionMatch,
 						_editOnColorChange: this._onBlur,
 						_editOnDeleteImageClick: this._onDeleteImageClick,
-						_editOnDeleteTokenClick: this._onDeleteTokenClick,
-						_editOnInsertTokenClick: this._onInsertTokenClick,
 					}}
 					recordProperties={recordProperties}
 					dragProperties={{
@@ -626,10 +586,6 @@ export class Table extends Component {
 			);
 		}
 
-		if (typeof this.props.customLayout === 'function') {
-			return this.props.customLayout(HeaderComponent, TableComponent);
-		}
-
 		const containerClasses = classNames({
 			'table-container': true,
 			[customClasses.container]: !!customClasses.container
@@ -637,8 +593,13 @@ export class Table extends Component {
 
 		return (
 			<div className={containerClasses}>
-				{ HeaderComponent }
-				{ TableComponent }
+				{ typeof this.props.customLayout === 'function'
+					? this.props.customLayout(HeaderComponent, TableComponent)
+					: <Fragment>
+						{ HeaderComponent }
+						{ TableComponent }
+					</Fragment>
+				}
 			</div>
 	       );
 	}

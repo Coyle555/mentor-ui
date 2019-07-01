@@ -12,24 +12,8 @@ export const Time = (props) => {
     const {
 		className,
 		moment,
-		minHour,
-		maxHour,
 		onChange,
     } = props;
-
-	const changeHours = percentage => {
-		const hours = calcHoursFromPercentage(percentage);
-
-		moment.hours(hours);
-		onChange(moment);
-	};
-
-	const changeMinutes = percentage => {
-		const minutes = calcMinutesFromPercentage(percentage);
-
-		moment.minutes(minutes);
-		onChange(moment);
-	};
 
     const cc = composeNamespace('APMTime', className);
 
@@ -38,50 +22,111 @@ export const Time = (props) => {
 			cc(),
 			className,
 		)}>
-			<div className={cc('showtime')}>
-				<span className={cc('time')}>
-					{moment.format('HH')}
-				</span>
-				<span className={cc('separater')}>
-					:
-				</span>
-				<span className={cc('time')}>
-					{moment.format('mm')}
-				</span>
+			<div className={cc('display')}>
+				<div className={cc('display-panel')}>
+					<div className={cc('display-panel-label')}>
+						<span
+							className={cc('display-panel-number')}>
+							{moment.format('HH')}
+						</span>
+						<span
+							className={cc('display-panel-letter')}>
+							h
+						</span>
+					</div>
+				</div>
+				<div className={cc('separator')}>
+					<div className={cc('separator-stroke')} />
+					<div className={cc('separator-stroke')} />
+				</div>
+				<div className={cc('display-panel')}>
+					<div className={cc('display-panel-label')}>
+						<span
+							className={cc('display-panel-number')}>
+							{moment.format('mm')}
+						</span>
+						<span
+							className={cc('display-panel-letter')}>
+							m
+						</span>
+					</div>
+				</div>
 			</div>
 			<div className={cc('sliders')}>
-				<div className={cc('time-text')}>
-					Hours:
+				<div className={cc('slider')}>
+					<div className={cc('slider-label')}>
+						Hours
+					</div>
+					<Slider
+						onChange={changeHours(
+							moment,
+							onChange,
+							calcDx,
+						)}
+						defaultPercentage={calcDx(
+							moment.hours(),
+							24,
+							100,
+						)}
+					/>
 				</div>
-				<Slider
-					onChange={changeHours}
-				/>
-				<div className={cc("time-text")}>
-					Minutes:
+				<div className={cc('slider')}>
+					<div className={cc('slider-label')}>
+						Minutes
+					</div>
+					<Slider
+						onChange={changeMinutes(
+							moment,
+							onChange,
+							calcDx,
+						)}
+						defaultPercentage={calcDx(
+							moment.minutes(),
+							60,
+							100,
+						)}
+					/>
 				</div>
-				<Slider
-					onChange={changeMinutes}
-				/>
 			</div>
 		</div>
 	);
 };
 
-function calcHoursFromPercentage(percentage) {
-	const dec = percentage / 100
-	return dec * 23
-}
+// transform minutes to a percentage
+// or visa-versa
+export function calcDx(x, y, dy) {
+	const dec = x / y;
+	return Math.round(dec * dy);
+};
 
-function calcMinutesFromPercentage(percentage) {
-	const dec = percentage / 100
-	return dec * 59
-}
+export function changeHours(
+	moment,
+	onChange,
+	calcDx,
+) {
+	return (percentage) => {
+		const hours = calcDx(percentage, 100, 24);
+
+		moment.hours(hours);
+		onChange(moment);
+	}
+};
+
+export function changeMinutes(
+	moment,
+	onChange,
+	calcDx,
+) {
+	return (percentage) => {
+		const minutes = calcDx(percentage, 100, 59);;
+
+		moment.minutes(minutes);
+		onChange(moment);
+	}
+};
 
 Time.propTypes = {
 	className: PropTypes.string,
 	moment: PropTypes.object.isRequired,
-	minHour: PropTypes.number,
-	maxHour: PropTypes.number,
-	display: PropTypes.boolean,
-	onChange: PropTypes.func,
+	onChange: PropTypes.func.isRequired,
 }

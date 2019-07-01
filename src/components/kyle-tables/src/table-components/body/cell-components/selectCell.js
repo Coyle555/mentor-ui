@@ -20,18 +20,11 @@ export class SelectCell extends Component {
 	}
 
 	_onBlur = (error, value, name) => {
-		const updateData = { [name]: value };
-		this.props.onBlur(this.props.rowId, updateData);
+		this.props.onBlur(this.props.rowId, name, value);
 	}
 
 	render() {
-		const {
-			colId,
-			inputClass,
-			options,
-			required,
-			value
-		} = this.props;
+		const { colId, inputClass, options, required, value } = this.props;
 
 		return (
 			<SelectInput

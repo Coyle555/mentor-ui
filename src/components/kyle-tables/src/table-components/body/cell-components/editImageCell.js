@@ -11,7 +11,6 @@ export class EditImageCell extends PureComponent {
 	}
 
 	onDeleteClick = (event) => {
-		event.stopPropagation();
 		const { colId, onDeleteClick, rowId } = this.props;
 
 		onDeleteClick(rowId, colId);
@@ -22,9 +21,9 @@ export class EditImageCell extends PureComponent {
 
 		return (
 			<Fragment>
-				<img src={value} style={{ maxWidth: '50px' }} />
+				<img className="table-image-cell" src={value} />
 				<i
-					className="fa fa-times table-cell-edit-image apm-cursor-p"
+					className="fa fa-times table-cell-edit-image"
 					data-testid="table-image-delete"
 					onClick={this.onDeleteClick}
 				/>

@@ -46,7 +46,6 @@ export class AsyncDropdownCell extends Component {
 				route={lookup.route}
 				required={required}
 				value={value}
-				
 			/>
 		);
 	}

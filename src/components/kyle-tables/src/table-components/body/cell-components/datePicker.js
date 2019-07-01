@@ -79,7 +79,8 @@ export class TableDatePicker extends PureComponent {
 
 		return (
 			<div ref={ref => this.wrapperRef = ref}>
-				<DatePicker
+				<input />
+				{/*<DatePicker
 					className={inputClass}
 					name={name}
 					onBlur={this._onBlur}
@@ -94,7 +95,7 @@ export class TableDatePicker extends PureComponent {
 					portalRef={portalRef}
 					required={required}
 					value={value}
-				/>
+				/>*/}
 			</div>
 		);
 	}

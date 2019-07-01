@@ -1,25 +1,18 @@
-@color-gray: gray;
-@color-blue: blue;
-
-.im-btn {
-	display: inline-block;
-	background-color: #ffffff;
-	border: 0;
-	outline: 0;
-	cursor: pointer;
-	line-height: 1;
-
-	&:before {
-		margin-right: 6px;
-	}
-}
+@import '~mentor-ui-constants';
 
 .APMDatePicker {
 	display: inline-block;
 	width: 330px;
 	padding: 18px;
 	border-radius: 3px;
-	border: 1px solid @color-gray;
+	border-top: 1px solid @steel-blue;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+
+	&-nav {
+		&-container {
+			margin-bottom: 36px;
+		}
+	}
 
 	&-optional-controls {
 		display: flex;
@@ -29,62 +22,5 @@
 		&-orphan {
 			margin-right: 0;
 		}
-	}
-
-	&-options {
-		width: 100%;
-		display: inline-block;
-		margin-bottom: 24px;
-
-		button {
-			float: left;
-			width: 50%;
-			color: @color-blue;
-			text-align: center;
-			font-size: 16px;
-			padding: 7px;
-			border: 1px solid @color-blue;
-			border-radius: 3px;
-
-			&:first-child {
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
-			}
-
-			&:last-child {
-				border-top-left-radius: 0;
-				border-bottom-left-radius: 0;
-			}
-
-			&.is-active {
-				color: #ffffff;
-				background-color: @color-blue;
-			}
-		}
-	}
-
-	.tab {
-		display: none;
-		height: auto;
-
-		&.is-active {
-			display: block;
-		}
-	}
-
-	.tabs {
-		margin-bottom: 11px;
-	}
-
-	.btn-save {
-		display: block;
-		margin-top: 30px;
-		width: 100%;
-		background-color: @color-blue;
-		padding: 12px 0;
-		text-align: center;
-		color: #ffffff;
-		font-size: 16px;
-		border-radius: 3px;
 	}
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Tether from 'react-tether';
 import onClickOutside from 'react-onclickoutside';
+import classNames from 'classnames';
 
 import { FilterItem } from './FilterItem';
 
@@ -41,7 +42,7 @@ export class ActiveFiltersClass extends Component {
 		this.setState({ filtersActive: false });
 	}
 
-	renderFilters = () => {
+	renderFilters = (ref) => {
 		const { clearSearch, disabled, onRemove, searchTokens } = this.props;
 
 		if (searchTokens.length === 0) {
@@ -49,7 +50,10 @@ export class ActiveFiltersClass extends Component {
 		}
 
 		return (
-			<table className="active-filters-list ignore-react-onclickoutside">
+			<table
+				className="active-filters-list ignore-react-onclickoutside"
+				ref={ref}
+			>
 				<thead>
 					<tr>
 						<td>Field</td>
@@ -57,13 +61,12 @@ export class ActiveFiltersClass extends Component {
 						<td>Value</td>
 						<td>
 							{ !disabled &&
-								<button
+								<a
 									className="clear-all-filters"
 									onClick={clearSearch}
-									type="button"
 								>
 									Clear All
-								</button>
+								</a>
 							}
 						</td>
 					</tr>
@@ -88,36 +91,37 @@ export class ActiveFiltersClass extends Component {
 		const { searchTokens } = this.props;
 		const { filtersActive } = this.state;
 
+		const activeFilterClasses = classNames({
+			'left-addon active-filter-container': true,
+			'active-filter-enabled': searchTokens.length > 0
+		});
+
 		return (
 			<Tether
 				attachment="top left"
 				targetAttachment="bottom left"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{zIndex: 4}}
-			>
-				<span
-					className="input-group-addon left-addon"
-					data-for="structured-query-tooltip"
-					data-tip="View Filters"
-					onClick={this.toggleFilterList}
-					style={{
-						background: searchTokens.length === 0
-							? 'lightgrey'
-							: 'white',
-						borderRadius: 0,
-						position: 'relative',
-						cursor: searchTokens.length === 0
-							? 'not-allowed'
-							: 'pointer'
-					}}
-				>
-					<i className="far fa-list" />
-					<span className="active-filter-count">
-						{searchTokens.length}
+				renderTarget={ref => (
+					<span
+						className={activeFilterClasses}
+						data-for="structured-query-tooltip"
+						data-tip="View Filters"
+						onClick={this.toggleFilterList}
+						ref={ref}
+					>
+						<i className="far fa-list" />
+						<span className="active-filter-count">
+							{searchTokens.length}
+						</span>
 					</span>
-				</span>
-				{ filtersActive && this.renderFilters() }
-			</Tether>
+				)}
+				renderElement={ref => (
+					filtersActive
+						? this.renderFilters(ref)
+						: null
+				)}
+			/>
 		);
 	}
 };

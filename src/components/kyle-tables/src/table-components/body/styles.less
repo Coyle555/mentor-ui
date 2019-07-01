@@ -6,51 +6,6 @@
 	border-left: 1px solid #667587;
 }
 
-.table-checkbox {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 10px;
-	padding: 0;
-	width: 22px;
-	height: 22px;
-	background: url('./green.png') no-repeat;
-	border: none;
-	cursor: pointer;
-	background-position: 0 0;
-
-	&:hover {
-		background-position: -24px 0;
-	}
-}
-
-.table-checkbox.checked {
-	background-position: -48px 0;
-}
-
-.table-checkbox.disabled {
-	background-position: -72px 0;
-	cursor: not-allowed;
-}
-
-.table-checkbox.checked.disabled {
-	background-position: -96px 0;
-}
-
-.table-checkbox > .checkbox-helper {
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	display: block;
-	width: 100%;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
-	background: #fff;
-	border: 0px;
-	opacity: 0;
-	text-decoration: none;
-}
-
 .table-cell-view {
 	max-width: 0;
 	border-top: 1px solid @tdBorderColor;
@@ -71,7 +26,7 @@
 	border-left: 1px solid #667587;
 }
 
-.table-row:last-child .table-cell-view{
+.table-row:last-child .table-cell-view {
 	border-bottom: 1px solid @tdBorderColor;
 }
 
@@ -127,7 +82,7 @@
 }
 
 .table-row {
-	color: #313541;
+	color: @charcoal;
 }
 
 .table-row:nth-child(odd) {
@@ -139,11 +94,10 @@
 }
 
 .table-row-selected {
-	background: #e4f1cf !important;
+	background: @green-light !important;
 }
 
 .table-cell-edit-input {
-	height: 40px;
 	width: 100%;
 }
 
@@ -200,6 +154,8 @@
 
 .table-cell-edit-image {
 	vertical-align: top;
+	color: @error;
+	cursor: pointer;
 }
 
 .table-expand-cell {
@@ -231,6 +187,7 @@
 	opacity: 0.8;
 	margin: 0 10px;
 	color: white;
+	cursor: pointer;
 
 	&:hover {
 		opacity: 1;
@@ -243,33 +200,15 @@
 	}
 
 	&:active {
-		color: #8dc63f
+		color: @green-primary;
 	}
 
 	&[disabled] {
-		color: #be1717;
+		color: @error;
 		cursor: not-allowed;
 	}
 }
 
-.table-token {
-	background-color: #2e667e;
-	color: white;
-	margin-bottom: 5px;
-	margin-right: 5px;
-	font-size: 11px;
-	font-weight: 400;
-	padding: 4px 6px;
-	text-shadow: none;
-	display: inline-block;
-	min-width: 10px;
-	line-height: 1;
-	text-align: center;
-	white-space: nowrap;
-	border-radius: 10px;
-
-	.token-delete {
-		cursor: pointer;
-		margin-left: 5px;
-	}
+.table-image-cell {
+	max-width: 50px;
 }

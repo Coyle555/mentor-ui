@@ -37,15 +37,14 @@ export class EditInputCell extends PureComponent {
 
 		// add an epsilon check to deal with floating point arithmetic
 		// to make sure a change in float input is large enough to update
-		if (this.props.type === 'float' &&
-			Math.abs(value - this.origValue) < EPSILON) {
+		if (this.props.type === 'float'
+			&& Math.abs(value - this.origValue) < EPSILON) {
 
 			return;
 		}
 
 		this.origValue = value;
-		const updateData = { [name]: value };
-		this.props.onBlur(this.props.rowId, updateData);
+		this.props.onBlur(this.props.rowId, name, value);
 	}
 
 	render() {
