@@ -4,7 +4,8 @@ import cn from 'classnames';
 import { range, chunk } from 'lodash';
 import { composeNamespace } from 'compose-namespace';
 
-import { CalendarDay } from '../CalendarDay';
+import { CalendarDay } from './components/CalendarDay';
+import { CalendarControls } from './components/CalendarControls';
 
 import './style.less';
 
@@ -140,59 +141,25 @@ export class Calendar extends Component {
 
 		const cc = composeNamespace('APMCalendar', className);
 
-		const prevMonthButtonClasses = cn({
-			[cc('prev-month')]: true,
-			[cc('prev-month-disabled')]: prevMonthShouldBeDisabled
-		});
-
-		const nextMonthButtonClasses = cn({
-			[cc('next-month')]: true,
-			[cc('next-month-disabled')]: nextMonthShouldBeDisabled,
-		});
-
-
 		return (
 			<div className={cc()}>
-				<div className={cc('toolbar')}>
-					<button
-						type="button"
-						className={prevMonthButtonClasses}
-						onClick={this.prevMonth}
-						disabled={prevMonthShouldBeDisabled}
-					>
-						<i
-							className="far fa-angle-left"
-							style={{
-								position: 'relative',
-								bottom: '1px',
-								right: '1px'
-							}}
-						/>
-					</button>
-					<span className={cc('current-date')}>
-						{m.format('MMMM YYYY')}
-					</span>
-					<button
-						type="button"
-						className={nextMonthButtonClasses}
-						onClick={this.nextMonth}
-						disabled={nextMonthShouldBeDisabled}
-					>
-						<i
-							className="far fa-angle-right"
-							style={{
-								position: 'relative',
-								bottom: '1px',
-								left: '1px'
-							}}
-						/>
-					</button>
-				</div>
-				<table>
+				<CalendarControls
+					title={m.format('MMMM YYYY')}
+					leftButtonOnClick={this.prevMonth}
+					leftButtonDisabled={nextMonthShouldBeDisabled}
+					rightButtonOnClick={this.nextMonth}
+					rightButtonDisabled={prevMonthShouldBeDisabled}
+				/>
+				<table className={cc('table')}>
 					<thead>
 						<tr>
 							{ DAYS.map(d => (
-								<td key={d}>{d}</td>
+								<td
+									key={d}
+									className={cc('table-heading')}
+								>
+									{d}
+								</td>
 							))}
 						</tr>
 					</thead>

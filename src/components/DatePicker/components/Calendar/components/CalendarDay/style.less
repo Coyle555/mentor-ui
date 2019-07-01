@@ -1,0 +1,51 @@
+@import '~mentor-ui-constants';
+
+.APMCalendarDay {
+	padding: 8px 0;
+	text-align: center;
+	cursor: pointer;
+	color: @blue-primary;
+	border: 1px solid @steel-blue;
+	transition: hover .1s ease;
+
+	&:hover {
+		background: @blue-gray-light;
+		/*border-color: @blue-gray-light;*/
+	}
+
+	&-current-day {
+		background-color: @blue-primary;
+		color: @white;
+		font-weight: bold;
+	}
+
+	&-disabled-day {
+		background-color: @steel-blue;
+		color: @blue-gray-light;
+		cursor: not-allowed;
+		opacity: .4;
+
+		&-current-day {
+			color: @blue-primary;
+
+			&:hover {
+				color: @blue-primary;
+			}
+		}
+
+		&:hover {
+			background-color: @steel-blue;
+			border-color: @steel-blue;
+			color: @blue-gray-light;
+		}
+	}
+
+	&-prev-month,
+	&-next-month {
+		color: @steel-blue;
+
+		&-disabled {
+			opacity: .4;
+		}
+	}
+}

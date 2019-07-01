@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { composeNamespace } from 'compose-namespace';
 import moment from 'moment';
 
 import './style.less';
@@ -119,7 +120,6 @@ function isDayDisabled(m, minDate, maxDate, offset, prevMonth, nextMonth) {
 }
 
 export class CalendarDay extends Component {
-
 	noOp = () => {
 		return null;
 	}
@@ -129,19 +129,16 @@ export class CalendarDay extends Component {
 	}
 
 	render() {
-		const { i, week, currentDate, currentMoment } = this.props;
+		const {
+			i,
+			week,
+			currentDate,
+			currentMoment,
+			className,
+		} = this.props;
+
 		const prevMonth = week === 0 && i > 7;
 		const nextMonth = week >= 4 && i <= 14;
-
-		/*const currentMomentCopy = moment(currentMoment);
-
-		if (prevMonth) {
-			currentMomentCopy.subtract(1, 'month');
-		}
-
-		if (nextMonth) {
-			currentMomentCopy.add(1, 'month');
-		}*/
 
 		const disabled = isDayDisabled(
 			currentMoment,
@@ -152,29 +149,30 @@ export class CalendarDay extends Component {
 			nextMonth
 		);
 
-		const cls = cx({
-			'prev-month': prevMonth,
-			'next-month': nextMonth,
-			'current-day': !prevMonth
-				&& !nextMonth
-				&& !disabled
-				&& i === currentDate,
-			'disabled-day': disabled
-		});
+		const cc = composeNamespace(
+			'APMCalendarDay',
+			className
+		);
 
-		if (disabled) {
-			return (
-				<td className={cls} onClick={this.noOp}>
-					{i}
-				</td>
-			);
-		} else {
-			return (
-				<td className={cls} onClick={this.onClick}>
-					{i}
-				</td>
-			);
-		}
+		return (
+			<td
+				className={cn(
+					cc(),
+				{   [cc('prev-month')]: prevMonth,
+					[cc('next-month')]: nextMonth,
+					[cc('current-day')]: !prevMonth
+						&& !nextMonth
+						&& !disabled
+						&& i === currentDate,
+					[cc('disabled-day')]: disabled },
+				)}
+				onClick={disabled
+					? this.noOp
+					: this.onClick
+			}>
+				{i}
+			</td>
+		);
 	}
 }
 
