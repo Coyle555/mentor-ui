@@ -1,11 +1,10 @@
 @import '~mentor-ui-constants';
 
 .APMHamburger {
+	padding: 18px 36px 14px 24px;
 	height: 60px;
-	width: 60px;
-	position: relative;
-	display: flex;
-	justify-content: center;
+	width: 100%;
+	max-width: 100px;
 	border: none;
 	background-color: white;
 	margin-top: -4px;
@@ -16,7 +15,6 @@
 		background-color: @steel-blue;
 		width: 18px;
 		transition: hover .1s ease;
-		position: relative;
 
 		&:before,
 		&:after {
@@ -25,17 +23,17 @@
 			width: 18px;
 			height: 2px;
 			background-color: @steel-blue;
-			left: 0;
+			left: 24px;
 			transition: all .1s ease;
 			transition: transform .2s ease;
 		}
 
 		&:before {
-			top: 5px;
+			top: 22px;
 		}
 
 		&:after {
-			bottom: 5px;
+			bottom: 22px;
 		}
 
 		&-open {
@@ -64,8 +62,6 @@
 	}
 
 	&:hover {
-		cursor: pointer;
-
 		.APMDropdown-menu-trigger-inner {
 			background-color: @blue-gray-dark;
 
