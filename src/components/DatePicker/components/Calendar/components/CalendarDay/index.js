@@ -158,8 +158,8 @@ export class CalendarDay extends Component {
 			<td
 				className={cn(
 					cc(),
-				{   [cc('prev-month')]: prevMonth,
-					[cc('next-month')]: nextMonth,
+				{   [cc('not-present-month')]: prevMonth
+						|| nextMonth,
 					[cc('current-day')]: !prevMonth
 						&& !nextMonth
 						&& !disabled

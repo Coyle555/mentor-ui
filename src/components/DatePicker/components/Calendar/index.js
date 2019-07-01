@@ -19,30 +19,6 @@ const DAYS = [
 	'Sat'
 ];
 
-export function prevMonthShouldBeDisabled(currentMoment, minDate) {
-	if (!minDate || moment(minDate).isAfter(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.subtract(1, 'month');
-	currentMomentCopy.endOf('month');
-
-	return currentMomentCopy.isBefore(minDate);
-}
-
-export function nextMonthShouldBeDisabled(currentMoment, maxDate) {
-	if (!maxDate || moment(maxDate).isBefore(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.add(1, 'month');
-	currentMomentCopy.startOf('month');
-
-	return currentMomentCopy.isAfter(maxDate);
-}
-
 export class Calendar extends Component {
 	constructor(props) {
 		super(props);
@@ -185,4 +161,34 @@ export class Calendar extends Component {
 			</div>
 		);
 	}
+}
+
+export function prevMonthShouldBeDisabled(
+	currentMoment,
+	minDate
+) {
+	if (!minDate || moment(minDate).isAfter(currentMoment)) {
+		return false;
+	}
+
+	const currentMomentCopy = moment(currentMoment);
+	currentMomentCopy.subtract(1, 'month');
+	currentMomentCopy.endOf('month');
+
+	return currentMomentCopy.isBefore(minDate);
+}
+
+export function nextMonthShouldBeDisabled(
+	currentMoment,
+	maxDate
+) {
+	if (!maxDate || moment(maxDate).isBefore(currentMoment)) {
+		return false;
+	}
+
+	const currentMomentCopy = moment(currentMoment);
+	currentMomentCopy.add(1, 'month');
+	currentMomentCopy.startOf('month');
+
+	return currentMomentCopy.isAfter(maxDate);
 }

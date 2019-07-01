@@ -9,8 +9,8 @@
 	transition: hover .1s ease;
 
 	&:hover {
-		background: @blue-gray-light;
-		/*border-color: @blue-gray-light;*/
+		background: @blue-primary;
+		color: @white;
 	}
 
 	&-current-day {
@@ -24,24 +24,10 @@
 		color: @blue-gray-light;
 		cursor: not-allowed;
 		opacity: .4;
-
-		&-current-day {
-			color: @blue-primary;
-
-			&:hover {
-				color: @blue-primary;
-			}
-		}
-
-		&:hover {
-			background-color: @steel-blue;
-			border-color: @steel-blue;
-			color: @blue-gray-light;
-		}
 	}
 
-	&-prev-month,
-	&-next-month {
+	&-not-present-month {
+		background-color: @blue-gray-light;
 		color: @steel-blue;
 
 		&-disabled {
