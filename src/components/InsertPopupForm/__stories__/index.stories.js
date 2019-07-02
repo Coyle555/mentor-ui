@@ -33,7 +33,8 @@ storiesOf('InsertPopupForm', module)
 				formFields={[
 					{
 						id: 'id',
-						category: 'Id'
+						category: 'Id',
+						required: true
 					}
 				]}
 			/>
