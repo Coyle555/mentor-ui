@@ -9,20 +9,27 @@ const DropdownTrigger = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext)
 
 	return (
-		<div
+		<span
 			className={props.className}
-			onClick={() => setIsOpen(!isOpen)}
+			onClick={!props.disabled 
+				? () => setIsOpen(!isOpen)  
+				: null
+			}
 		>
 				{ 
 					typeof props.render === 'function'
-						? props.render(isOpen) 
+						? props.render(isOpen, props.disabled) 
 						: props.children
 				}
-		</div>
+		</span>
 	);
 }
 
 DropdownTrigger.propTypes = {
+	/**
+		Disable onClick events
+	*/
+	disabled: PropTypes.bool,
 	/**
 		Renders the trigger's children dynamically via render props. 
 		The invoked function receives a single boolean argument that indicates whether or not 
