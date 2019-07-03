@@ -1,9 +1,11 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 import { range, chunk } from 'lodash';
+import { composeNamespace } from 'compose-namespace';
 
-import { CalendarDay } from '../CalendarDay';
+import { CalendarDay } from './components/CalendarDay';
+import { CalendarControls } from './components/CalendarControls';
 
 import './style.less';
 
@@ -17,32 +19,7 @@ const DAYS = [
 	'Sat'
 ];
 
-export function prevMonthShouldBeDisabled(currentMoment, minDate) {
-	if (!minDate || moment(minDate).isAfter(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.subtract(1, 'month');
-	currentMomentCopy.endOf('month');
-
-	return currentMomentCopy.isBefore(minDate);
-}
-
-export function nextMonthShouldBeDisabled(currentMoment, maxDate) {
-	if (!maxDate || moment(maxDate).isBefore(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.add(1, 'month');
-	currentMomentCopy.startOf('month');
-
-	return currentMomentCopy.isAfter(maxDate);
-}
-
 export class Calendar extends Component {
-
 	constructor(props) {
 		super(props);
 
@@ -110,14 +87,27 @@ export class Calendar extends Component {
 	}
 
 	render() {
-		const { maxDate, minDate } = this.props;
+		const {
+			className,
+			moment,
+		} = this.props;
+
+		const maxDate = '2019-08-01';
+		const minDate = '2019-06-01';
+
 		const {
 			nextMonthShouldBeDisabled,
-			prevMonthShouldBeDisabled
+			prevMonthShouldBeDisabled,
 		} = this.state;
-		const m = this.props.moment;
+
+		const m = moment;
 		const currentDate = m.date();
-		const d1 = m.clone().subtract(1, 'month').endOf('month').date();
+		const d1 = m
+			.clone()
+			.subtract(1, 'month')
+			.endOf('month')
+			.date();
+
 		const d2 = m.clone().date(1).day();
 		const d3 = m.clone().endOf('month').date();
 		const days = [].concat(
@@ -126,55 +116,27 @@ export class Calendar extends Component {
 			range(1, 42 - d3 - d2 + 1)
 		);
 
-		const prevMonthButtonClasses = cx({
-			'prev-month': true,
-			'prev-month-disabled': prevMonthShouldBeDisabled
-		});
-		const nextMonthButtonClasses = cx({
-			'next-month': true,
-			'next-month-disabled': nextMonthShouldBeDisabled
-		});
+		const cc = composeNamespace('APMCalendar', className);
 
 		return (
-			<div className={cx('m-calendar', this.props.className)}>
-				<div className="toolbar">
-					<button
-						type="button"
-						className={prevMonthButtonClasses}
-						onClick={this.prevMonth}
-						disabled={prevMonthShouldBeDisabled}
-					>
-						<i
-							className="far fa-angle-left"
-							style={{
-								position: 'relative',
-								bottom: '1px',
-								right: '1px'
-							}}
-						/>
-					</button>
-					<span className="current-date">{m.format('MMMM YYYY')}</span>
-					<button
-						type="button"
-						className={nextMonthButtonClasses}
-						onClick={this.nextMonth}
-						disabled={nextMonthShouldBeDisabled}
-					>
-						<i
-							className="far fa-angle-right"
-							style={{
-								position: 'relative',
-								bottom: '1px',
-								left: '1px'
-							}}
-						/>
-					</button>
-				</div>
-				<table>
+			<div className={cc()}>
+				<CalendarControls
+					title={m.format('MMMM YYYY')}
+					leftButtonOnClick={this.prevMonth}
+					leftButtonDisabled={nextMonthShouldBeDisabled}
+					rightButtonOnClick={this.nextMonth}
+					rightButtonDisabled={prevMonthShouldBeDisabled}
+				/>
+				<table className={cc('table')}>
 					<thead>
 						<tr>
 							{ DAYS.map(d => (
-								<td key={d}>{d}</td>
+								<td
+									key={d}
+									className={cc('table-heading')}
+								>
+									{d}
+								</td>
 							))}
 						</tr>
 					</thead>
@@ -184,7 +146,7 @@ export class Calendar extends Component {
 								{row.map(i =>
 									<CalendarDay
 										key={i}
-										i={i}
+										day={i}
 										currentDate={currentDate}
 										week={week}
 										onClick={this.selectDate}
@@ -200,4 +162,34 @@ export class Calendar extends Component {
 			</div>
 		);
 	}
+}
+
+export function prevMonthShouldBeDisabled(
+	currentMoment,
+	minDate
+) {
+	if (!minDate || moment(minDate).isAfter(currentMoment)) {
+		return false;
+	}
+
+	const currentMomentCopy = moment(currentMoment);
+	currentMomentCopy.subtract(1, 'month');
+	currentMomentCopy.endOf('month');
+
+	return currentMomentCopy.isBefore(minDate);
+}
+
+export function nextMonthShouldBeDisabled(
+	currentMoment,
+	maxDate
+) {
+	if (!maxDate || moment(maxDate).isBefore(currentMoment)) {
+		return false;
+	}
+
+	const currentMomentCopy = moment(currentMoment);
+	currentMomentCopy.add(1, 'month');
+	currentMomentCopy.startOf('month');
+
+	return currentMomentCopy.isAfter(maxDate);
 }

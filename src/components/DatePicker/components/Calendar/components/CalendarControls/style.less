@@ -1,0 +1,55 @@
+@import '~mentor-ui-constants';
+
+.APMCalendarControls {
+	&-container {
+		display: flex;
+		margin-bottom: 18px;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&-title {
+		color: @blue-gray-dark;
+		font-size: 16px;
+		margin-left: 11px;
+	}
+
+	&-button {
+		position: relative;
+		width: 38px;
+		height: 38px;
+		color: @blue-primary;
+		border: 1px solid @steel-blue;
+		border-radius: 50%;
+		background: @white;
+		font-size: 20px;
+		outline: 0;
+		z-index: @cover_zIndex;
+		cursor: pointer;
+
+		&-icon {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+		}
+
+		&-disabled {
+			opacity: .4;
+		}
+
+		&:first-child {
+			margin-right: 12px;
+		}
+
+		&:hover {
+			background-color: @steel-blue;
+			color: @white;
+		}
+
+		&:active {
+			background-color: @blue-gray-dark;
+			border-color: @blue-gray-dark;
+		}
+	}
+}
