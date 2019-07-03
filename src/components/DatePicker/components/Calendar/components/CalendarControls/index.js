@@ -25,10 +25,10 @@ export function CalendarControls(props) {
 			<div>
 				<button
 					type="button"
+					data-testid="left-button"
 					className={cn(
 						cc('button'),
-						cc('button-left'),
-					 { [cc('button-left-disabled')]: leftButtonDisabled }
+					 { [cc('button-disabled')]: leftButtonDisabled }
 					)}
 					onClick={leftButtonOnClick}
 					disabled={leftButtonDisabled}
@@ -40,10 +40,10 @@ export function CalendarControls(props) {
 				</button>
 				<button
 					type="button"
+					data-testid="right-button"
 					className={cn(
 						cc('button'),
-						cc('button-right'),
-					 { [cc('button-right-disabled')]: rightButtonDisabled }
+					 { [cc('button-disabled')]: rightButtonDisabled }
 					)}
 					onClick={rightButtonOnClick}
 					disabled={rightButtonDisabled}
@@ -57,3 +57,12 @@ export function CalendarControls(props) {
 		</div>
 	);
 };
+
+CalendarControls.propTypes = {
+	className: PropTypes.string,
+	leftButtonOnClick: PropTypes.func.isRequired,
+	leftButtonDisabled: PropTypes.bool,
+	rightButtonOnClick: PropTypes.func.isRequired,
+	rightButtonDisabled: PropTypes.bool,
+	title: PropTypes.string.isRequired,
+}
