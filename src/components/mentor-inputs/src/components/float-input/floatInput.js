@@ -13,15 +13,6 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	const inputState = useInputState({ validate, parse, ...props });
 	const inputClasses = classNames('apm-mi-form-control', props.className);
 
-	const step = useMemo(() => {
-		if (isNaN(precision)) return '0.00005';
-		let str = '0.';
-		for (let i = 0; i < precision - 1; i++) {
-			str += '0'
-		}
-		return str + '1';
-	}, [precision]);
-
 	function parse(value) {
 		if (isNaN(value)) {
 			//avoid passing NaN into input 
@@ -38,7 +29,7 @@ const FloatInput = ({ validation, precision, ...props }) => {
 			{...props}
 			{...inputState}
 			className={inputClasses}
-			step={step}
+			step="any"
 			type="number"
 		/>		
 	)
@@ -46,7 +37,7 @@ const FloatInput = ({ validation, precision, ...props }) => {
 
 
 function isFloat(value) {
-	if (value != 0 && !parseFloat(value)) return 'NONONONON'
+	if (value != 0 && !parseFloat(value)) return 'Please enter a decimal value';
 }
 export default FloatInput;
 

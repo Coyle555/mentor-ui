@@ -77,24 +77,29 @@ export class Toolbar extends Component {
 				targetAttachment="bottom right"
 				constraints={[{ to: 'scrollParent' }]}
 				style={{ zIndex: 4 }}
-			>
-				<button
-					className={collapseBtnClasses}
-					disabled={loading}
-					onClick={this.toggleCollapsedMenu}
-					type="button"
-				>
-					<i className="far fa-list-ul" />
-				</button>
-				{ collapseMenuOpen &&
-					<div
-						className="table-header-collapsed-menu"
-						data-testid="collapsedMenu"
+				renderTarget={ref => (
+					<button
+						className={collapseBtnClasses}
+						disabled={loading}
+						onClick={this.toggleCollapsedMenu}
+						ref={ref}
+						type="button"
 					>
-						{ this.renderButtons() }
-					</div>
-				}
-			</Tether>
+						<i className="fal fa-list" />
+					</button>
+				)}
+				renderElement={ref => (
+					collapseMenuOpen && (
+						<div
+							className="table-header-collapsed-menu"
+							data-testid="collapsedMenu"
+							ref={ref}
+						>
+							{ this.renderButtons() }
+						</div>
+					)
+				)}
+			/>
 		);
 	}
 
@@ -124,16 +129,8 @@ export class Toolbar extends Component {
 
 		return (
 			<Fragment>
-				{ quickViews.length > 0 &&
-					<QuickViews
-						disabled={loading}
-						onClick={onQuickViewColChange}
-						quickViews={quickViews}
-					/>
-				}
 				{ customToolbarButtons.map(btn => (
 					<CustomButton
-						className={btn.className || "btn-table"}
 						disabled={loading}
 						icon={btn.icon}
 						key={btn.tip}
@@ -143,6 +140,13 @@ export class Toolbar extends Component {
 						validation={btn.validation}
 					/>
 				))}
+				{ quickViews.length > 0 &&
+					<QuickViews
+						disabled={loading}
+						onClick={onQuickViewColChange}
+						quickViews={quickViews}
+					/>
+				}
 				{ insertable && singleInsertion &&
 					<AddSingleRecord
 						onClick={onInsertClick}
@@ -153,13 +157,6 @@ export class Toolbar extends Component {
 					<AddMultipleRecords
 						onClick={onInsertClick}
 						disabled={loading}
-					/>
-				}
-				{ viewColumns && 
-					<ViewColumns
-						disabled={loading}
-						onDisplayColChange={onDisplayColChange}
-						viewColumns={columns}
 					/>
 				}
 				{ editable &&
@@ -174,6 +171,13 @@ export class Toolbar extends Component {
 						disabled={loading}
 						numRowsSelected={numRowsSelected}
 						onDeleteClick={onDeleteClick}
+					/>
+				}
+				{ viewColumns && 
+					<ViewColumns
+						disabled={loading}
+						onDisplayColChange={onDisplayColChange}
+						viewColumns={columns}
 					/>
 				}
 				{ !!csvURL &&

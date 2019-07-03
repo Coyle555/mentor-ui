@@ -272,26 +272,18 @@ export class Tokenizer extends Component {
 			[customClasses.container]: !!customClasses.container
 		});
 
-		const searchWrapperClasses = classNames(
-			'input-group-addon left-addon first-addon',
-			{ 'cursor-pointer': typeof exportSearch === 'function' }
+		const exportSearchClasses = classNames(
+			'left-addon first-addon export-search',
+			{ 'export-search-enabled': typeof exportSearch === 'function' }
 		);
 
 		return (
 			<div className={filterClasses}>
 				<span
-					className={searchWrapperClasses}
+					className={exportSearchClasses}
 					data-for="structured-query-tooltip"
 					data-tip="Save Search"
 					onClick={this.exportSearch}
-					style={{
-						background: typeof exportSearch !== 'function'
-							? 'lightgrey'
-							: 'white',
-						cursor: typeof exportSearch !== 'function'
-							? 'not-allowed'
-							: 'pointer'
-					}}
 				>
 					<i className="fal fa-save" />
 				</span>

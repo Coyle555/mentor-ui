@@ -4,7 +4,7 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 import { withInfo } from '@storybook/addon-info';
 
-import Button from '../';
+import InsertPopupForm from '../';
 
 const optionsConfig = {
 	block: 'block',
@@ -22,26 +22,21 @@ const formatProps = (selectedOptions = []) =>
 	selectedOptions.reduce((obj, curr) => ({ ...obj, [curr]: true }), {});
 	
 
-storiesOf('Button', module)
+storiesOf('InsertPopupForm', module)
 	.addDecorator(withInfo)
 	.addDecorator(withKnobs)
 	.add('general', () => {
 		
 		const buttonText = text('children', 'Button Text');
 		return (
-			<Button 
-				block={boolean('block', false)}
-				disabled={boolean('disabled', false)}
-				isCapless={boolean('isCapless', false)}
-				isLight={boolean('isLight', false)}
-				isLeftEndCap={boolean('isLeftEndCap', false)}
-				isMini={boolean('isMini', false)}
-				isRightEndCap={boolean('isRightEndCap', false)}
-				isOutline={boolean('isOutline', false)}
-				medium={boolean('medium', false)}
-				onClick={action('onClick')}
-			>
-				{ buttonText }
-			</Button>
+			<InsertPopupForm 
+				formFields={[
+					{
+						id: 'id',
+						category: 'Id',
+						required: true
+					}
+				]}
+			/>
 		)
 })

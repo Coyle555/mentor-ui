@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
@@ -41,9 +41,10 @@ export class Table extends Component {
 		customColumns: PropTypes.object,
 		customLayout: PropTypes.func,
 		customToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
-			tip: PropTypes.string.isRequired,
 			icon: PropTypes.element.isRequired,
-			onClick: PropTypes.func.isRequired
+			onClick: PropTypes.func.isRequired,
+			tip: PropTypes.string.isRequired,
+			validation: PropTypes.func
 		})),
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,
@@ -59,7 +60,6 @@ export class Table extends Component {
 			editDragType: PropTypes.string,
 			editDragCb: PropTypes.func
 		}),
-		enableQueryOnClick: PropTypes.bool,
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		extraColumns: PropTypes.arrayOf(
@@ -71,7 +71,6 @@ export class Table extends Component {
 		),
 		formFields: PropTypes.arrayOf(PropTypes.object),
 		generateCustomFilter: PropTypes.func,
-		getFiles: PropTypes.bool,
 		id: PropTypes.string.isRequired,
 		initInsertData: PropTypes.object,
 		insertable: PropTypes.bool,
@@ -82,11 +81,9 @@ export class Table extends Component {
 		queryDisabled: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
-		selectRecordCount: PropTypes.bool,
 		singleInsertion: PropTypes.bool,
 		sortDir: PropTypes.oneOf(['ASC', 'DESC']),
 		sortId: PropTypes.string,
-		tooltipPlace: PropTypes.string,
 		updateCb: PropTypes.func,
 		uploadFileCb: PropTypes.func,
 		viewColumns: PropTypes.bool
@@ -121,14 +118,11 @@ export class Table extends Component {
 		dropType: '',
 		editable: true,
 		editDraggable: null,
-		enableQueryOnClick: false,
 		ExpandComponent: null,
 		exportTable: null,
 		extraColumns: [],
 		filters: [],
 		formFields: null,
-		generateCustomFilters: null,
-		getFiles: true,
 		id: '',
 		initInsertData: null,
 		insertable: true,
@@ -137,9 +131,7 @@ export class Table extends Component {
 		pagination: true,
 		queryDisabled: false,
 		quickViews: [],
-		selectRecordCount: true,
 		singleInsertion: true,
-		tooltipPlace: 'top',
 		updateCb: null,
 		uploadFileCb: null,
 		viewColumns: true
@@ -201,24 +193,36 @@ export class Table extends Component {
 
 	// Retrieve next page of records
 	_loadNextPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage + 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage + 1,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Retrieve previous page of records
 	_loadPrevPage = () => {
-		this.props.handleTableChange(this.props.pageSize,
-			this.props.currentPage - 1, this.props.sortId,
-			this.props.sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: this.props.currentPage - 1, 
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir, 
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records with the page given by user
 	// @pageNum(number) - Page number to load
 	_loadGetPage = (pageNum) => {
-		this.props.handleTableChange(this.props.pageSize,
-			pageNum, this.props.sortId, this.props.sortDir,
-			this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: pageNum, 
+			sortId: this.props.sortId, 
+			sortDir: this.props.sortDir,
+			filters: this.props.filters
+		});
 	}
 
 	// Load a page of records properly sorted by a column
@@ -237,14 +241,24 @@ export class Table extends Component {
 			sortDir = sortMap.ASC;
 		}
 
-		this.props.handleTableChange(this.props.pageSize, this.props.currentPage, 
-			sortId, sortDir, this.props.filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize, 
+			currentPage: this.props.currentPage, 
+			sortId,
+			sortDir,
+			filters: this.props.filters
+		});
 	}
 
 	// @filters([object]) - list of objects describing each filter to apply
 	_loadFilterChange = (filters) => {
-		this.props.handleTableChange(this.props.pageSize, DEFAULT_PAGE,
-			this.props.sortId, this.props.sortDir, filters);
+		this.props.handleTableChange({
+			pageSize: this.props.pageSize,
+			currentPage: DEFAULT_PAGE,
+			sortId: this.props.sortId,
+			sortDir: this.props.sortDir,
+			filters
+		});
 	}
 
 	exportTableInsert = () => {
@@ -274,16 +288,8 @@ export class Table extends Component {
 		const { selectedRows } = this.state;
 
 		if (typeof deleteCb === 'function') {
-			const rowIds = [];
 
-			// only add row ids that user has selected
-			Object.keys(selectedRows).forEach(rowId => {
-				if (!!selectedRows[rowId]) {
-					rowIds.push(rowId);
-				}
-			});
-
-			deleteCb(rowIds);
+			deleteCb(Object.keys(selectedRows));
 
 			this.setState({
 				numRowsSelected: 0,
@@ -313,19 +319,9 @@ export class Table extends Component {
 
 		columns[colIndex].display = isChecked;
 
-		this.setState({ columns });
-
-		if (typeof this.props.onDisplayColChange === 'function') {
-			const displayCols = [];
-
-			columns.forEach(col => {
-				if (col.display !== false) {
-					displayCols.push(col.id);
-				}
-			});
-
-			this.props.onDisplayColChange(displayCols);
-		}
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
 	}
 
 
@@ -339,15 +335,31 @@ export class Table extends Component {
 			col.display = colIds.includes(col.id);
 		});
 
-		this.setState({ columns });
+		this.setState({ columns }, () => {
+			this.afterColDisplayChange();
+		});
+	}
+
+	afterColDisplayChange = () => {
+		if (typeof this.props.onDisplayColChange === 'function') {
+			const displayCols = [];
+
+			this.state.columns.forEach(col => {
+				if (col.display !== false) {
+					displayCols.push(col.id);
+				}
+			});
+
+			this.props.onDisplayColChange(displayCols);
+		}
 	}
 
 	// update when an input text goes out of focus
-	_onBlur = (rowId, updateData) => {
+	_onBlur = (rowId, colId, value) => {
 		const { updateCb } = this.props;
 
 		if (typeof updateCb === 'function') {
-			updateCb(rowId, updateData);
+			updateCb(rowId, colId, value);
 		}
 	}
 
@@ -360,11 +372,11 @@ export class Table extends Component {
 		}
 	}
 
-	_uploadFileCb = (rowId, path, files) => {
+	_uploadFileCb = (rowId, colId, files) => {
 		const { uploadFileCb } = this.props;
 
 		if (typeof uploadFileCb === 'function') {
-			uploadFileCb(rowId, path, files);
+			uploadFileCb(rowId, colId, files);
 		}
 	}
 
@@ -416,7 +428,9 @@ export class Table extends Component {
 		const newSelectedRows = {};
 
 		if (this.allRowsSelected) {
-			data.forEach(row => { newSelectedRows[row.id] = row; });
+			data.forEach(row => {
+				newSelectedRows[row.id] = row;
+			});
 		}
 
 		this.setState({
@@ -474,11 +488,12 @@ export class Table extends Component {
 			}
 		});
 
+		console.log(this.props.filters)
+
 		const HeaderComponent = (
 			<Header
 				filter={{
 					disabled: this.props.queryDisabled,
-					enableQueryOnClick: this.props.enableQueryOnClick,
 					exportSearch: typeof this.props.exportTable === 'function'
 						? this.exportTableInsert
 						: null,
@@ -495,7 +510,6 @@ export class Table extends Component {
 					editable: this.props.editable,
 					editMode: this.state.editMode,
 					excelURL: this.props.excelURL,
-					getFiles: this.props.getFiles,
 					tableId: this.props.id,
 					insertable: this.props.insertable,
 					loading: this.props.loading,
@@ -510,7 +524,6 @@ export class Table extends Component {
 					quickViews: this.props.quickViews,
 					selectedRows: this.state.selectedRows,
 					singleInsertion: this.props.singleInsertion,
-					tooltipPlace: this.props.tooltipPlace,
 					viewColumns: this.props.viewColumns,
 				}}
 			/>
@@ -573,10 +586,6 @@ export class Table extends Component {
 			);
 		}
 
-		if (typeof this.props.customLayout === 'function') {
-			return this.props.customLayout(HeaderComponent, TableComponent);
-		}
-
 		const containerClasses = classNames({
 			'table-container': true,
 			[customClasses.container]: !!customClasses.container
@@ -584,8 +593,13 @@ export class Table extends Component {
 
 		return (
 			<div className={containerClasses}>
-				{ HeaderComponent }
-				{ TableComponent }
+				{ typeof this.props.customLayout === 'function'
+					? this.props.customLayout(HeaderComponent, TableComponent)
+					: <Fragment>
+						{ HeaderComponent }
+						{ TableComponent }
+					</Fragment>
+				}
 			</div>
 	       );
 	}

@@ -82,7 +82,7 @@
 }
 
 .table-row {
-	color: #313541;
+	color: @charcoal;
 }
 
 .table-row:nth-child(odd) {
@@ -94,11 +94,10 @@
 }
 
 .table-row-selected {
-	background: #e4f1cf !important;
+	background: @green-light !important;
 }
 
 .table-cell-edit-input {
-	height: 40px;
 	width: 100%;
 }
 
@@ -155,6 +154,8 @@
 
 .table-cell-edit-image {
 	vertical-align: top;
+	color: @error;
+	cursor: pointer;
 }
 
 .table-expand-cell {
@@ -206,4 +207,8 @@
 		color: @error;
 		cursor: not-allowed;
 	}
+}
+
+.table-image-cell {
+	max-width: 50px;
 }

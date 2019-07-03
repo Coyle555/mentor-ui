@@ -6,7 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "rm -rf ./dist && webpack && node ./bump",
+    "prepublishOnly": "rm -rf ./dist && webpack && node ./scripts/bump",
     "build-storybook": "build-storybook -c .storybook -o docs && cp ./README.md ./docs/index.md",
     "storybook": "start-storybook",
     "jest": "jest --testPathPattern=src/.*/__jest__/.*.test.js$ --setupFilesAfterEnv=./jest.setup.js --watch"

@@ -1,40 +1,46 @@
+@import '~mentor-ui-constants';
+
 .APM-errorpage {
 	max-width: 400px;
+	padding-top: 40px;
 	margin: 0 auto;
 	
 	h1 {
-		font-size: 120px;
-		margin-bottom: 10px;
-		letter-spacing: 5px;
+		font-size: 170px;
+		font-weight: 200;
+		line-height: 1.2;
+		margin: 0 auto;
+		font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color: @blue-gray-dark;
 	}
 	h3 {
-		margin-top: 5px;
+		margin: 5px auto;
+		font-weight: 600;
+		max-width: 80%;
+		font-family: 'Roboto';
+		color: @blue-gray-charcoal;
 	}
 	text-align: center;
-	-webkit-animation: fadeInDown 1s; /* Safari 4+ */
-	-moz-animation:    fadeInDown 1s; /* Fx 5+ */
-	-o-animation:      fadeInDown 1s; /* Opera 12+ */
-	animation:         fadeInDown 1s; /* IE 10+, Fx 29+ */
+	-webkit-animation: ERROR_PAGE_FADEIN .7s; /* Safari 4+ */
+	-moz-animation:    ERROR_PAGE_FADEIN .7s; /* Fx 5+ */
+	-o-animation:      ERROR_PAGE_FADEIN .7s; /* Opera 12+ */
+	animation:         ERROR_PAGE_FADEIN .7s; /* IE 10+, Fx 29+ */
 }
 
-@-webkit-keyframes FADEIN {
-  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
-  75%  { opacity: .8; transform: translate3d(0, 0, 0); }
+@-webkit-keyframes ERROR_PAGE_FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -30%, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0);}
 }
-@-moz-keyframes FADEIN {
-  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
-  75%  { opacity: .8; transform: translate3d(0, 0, 0); }
+@-moz-keyframes ERROR_PAGE_FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -30%, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0);}
 }
-@-o-keyframes FADEIN {
-  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
-  75%  { opacity: .8; transform: translate3d(0, 0, 0); }
+@-o-keyframes ERROR_PAGE_FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -30%, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0);}
 }
-@keyframes fadeInDown {
-  0%   { opacity: 0; transform: translate3d(0, -100%, 0); }
-  75%  { opacity: .8; transform: translate3d(0, 0, 0); }
+@keyframes ERROR_PAGE_FADEIN {
+  0%   { opacity: 0; transform: translate3d(0, -30%, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0);}
 }
 

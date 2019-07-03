@@ -8,7 +8,8 @@ const statusText = {
 	401: 'Unauthorized',
 	403: 'Forbidden',
 	404: 'Resource not found',
-	500: 'Server Error'
+	500: 'Server Error',
+	502: 'Forbidden Gateway'
 };
 
 export const ErrorPage = props => (

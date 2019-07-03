@@ -89,7 +89,21 @@ export const Cell = ({
 
 		if (!!image && !!value) {
 
-			cell = <img src={value} style={{ maxWidth: '50px' }} />;
+			cell = <img className="table-image-cell" src={value} />;
+
+		} else if (!!file && !!value) {
+
+			cell = <a download={true} href={value}>{value}</a>;
+
+		} else if (!!color && !!value) {
+
+			cell = <div style={{
+				border: '1.5px solid black',
+				borderRadius: '50%',
+				backgroundColor: value,
+				height: '16px',
+				width: '16px'
+			}} />;
 
 		} else {
 			cell = value;
@@ -131,11 +145,11 @@ export const Cell = ({
 				rowId={rowId}
 			/>
 		);
-	// file dropzone cell
-	} else if (file) {
+	// file/image dropzone cell
+	} else if (!!file || !!image) {
 		cell = (
 			<EditDropzoneCell
-				path={file.path}
+				colId={colId}
 				rowId={rowId}
 				uploadFileCb={uploadFileCb}
 			/>
@@ -183,7 +197,7 @@ export const Cell = ({
 				value={value}
 			/>
 		);
-	} else if (type === 'datetime') {
+	} else if (type === 'datetime' || type === 'date') {
 		cell = (
 			<TableDatePicker
 				inputClass={editInputClass}

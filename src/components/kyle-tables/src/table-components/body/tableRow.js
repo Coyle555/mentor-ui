@@ -146,10 +146,12 @@ export class TableRow extends PureComponent {
 						cellOptions={col.options}
 						cellType={col.type}
 						colId={col.id}
+						color={col.color}
 						customClasses={customClasses}
 						customColumn={customColumns[col.id]}
 						editMode={editMode}
 						file={col.file}
+						image={col.image}
 						key={col.id}
 						multiline={!!col.multiline}
 						onBlur={onBlur}

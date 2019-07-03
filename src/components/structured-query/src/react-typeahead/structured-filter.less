@@ -15,11 +15,22 @@
 
 	> .input-group-addon {
 		border: 0px;
-		background: transparent;
 		width: 50px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	> .export-search {
+		.filter-tokenizer > .input-group-addon();
+		background: lightgrey;
+		cursor: not-allowed;
+	}
+
+	> .export-search-enabled {
+		background: white;
+		color: @charcoal;
+		cursor: pointer;
 	}
 
 	> .first-addon {
@@ -64,7 +75,7 @@
 			overflow: auto;
 
 			> .typeahead-selector {
-				z-index: @extra_zIndex;
+				z-index: @coverAll_zIndex;
 				position: absolute;
 				list-style: none;
 				margin: 0px;
@@ -125,6 +136,36 @@
 	}
 }
 
+.active-filter-enabled {
+	background: white !important;
+	color: @charcoal;
+	cursor: pointer !important;
+}
+
+.active-filter-container {
+	.filter-tokenizer > .input-group-addon();
+	background: lightgrey;
+	border-radius: 0;
+	cursor: not-allowed;
+	position: relative;
+
+	> .active-filter-count {
+		position: absolute;
+		top: 2.5px;
+		right: 6px;
+		font-size: 10px;
+		background: @green-primary;
+		padding: 2.5px;
+		border-radius: 50%;
+		width: 15px;
+		height: 15px;
+		color: white;
+		display: inline-block;
+		user-select: none;
+		text-align: center;
+	}
+}
+
 .active-filters-list {
 	background: @white;
 	border: medium none;
@@ -175,22 +216,6 @@
 			color: @green-secondary;
 		}
 	}
-}
-
-.active-filter-count {
-	position: absolute;
-	top: 2.5px;
-	right: 6px;
-	font-size: 10px;
-	background: @green-primary;
-	padding: 2.5px;
-	border-radius: 10px;
-	min-width: 10px;
-	height: 10px;
-	color: white;
-	display: inline-block;
-	user-select: none;
-	text-align: center;
 }
 
 .filter-disabled {

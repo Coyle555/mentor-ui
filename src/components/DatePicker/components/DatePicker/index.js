@@ -147,6 +147,7 @@ DatePicker.defaultProps = {
 	maxHour: 23,
 	minMinute: 0,
 	maxMinute: 59,
+	moment: new moment(),
 	saveDate: null,
 	timeDisabled: false
 };
