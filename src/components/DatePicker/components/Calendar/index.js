@@ -88,11 +88,12 @@ export class Calendar extends Component {
 
 	render() {
 		const {
-			maxDate,
-			minDate,
 			className,
 			moment,
 		} = this.props;
+
+		const maxDate = '2019-08-01';
+		const minDate = '2019-06-01';
 
 		const {
 			nextMonthShouldBeDisabled,
@@ -145,7 +146,7 @@ export class Calendar extends Component {
 								{row.map(i =>
 									<CalendarDay
 										key={i}
-										i={i}
+										day={i}
 										currentDate={currentDate}
 										week={week}
 										onClick={this.selectDate}
