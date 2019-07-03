@@ -101,7 +101,7 @@ export class Calendar extends Component {
 		} = this.state;
 
 		const m = moment;
-		const currentDate = m.date();
+		const currentDay = m.date();
 		const d1 = m
 			.clone()
 			.subtract(1, 'month')
@@ -147,16 +147,18 @@ export class Calendar extends Component {
 									<CalendarDay
 										key={i}
 										day={i}
-										currentDate={currentDate}
+										currentDay={currentDay}
 										week={week}
 										onClick={this.selectDate}
 										currentMoment={m}
-										minDate={minDate}
-										maxDate={maxDate}
 									/>
 								)}
 							</tr>
 						)}
+									{/*
+										minDate={minDate}
+										maxDate={maxDate}
+										*/}
 					</tbody>
 				</table>
 			</div>
