@@ -29,9 +29,12 @@ const DropdownContent = props => {
 		}
 	}, []);
 
-	// make sure its completely visible on the viewport
+
 	useEffect(() => {
- 		if (!isOpen) return;
+ 		if (!isOpen) {
+ 			popper.current.destroy();
+ 			return;
+ 		}
 
  		const triggerEl = ref.current.previousSibling 
  			? ref.current.previousSibling
