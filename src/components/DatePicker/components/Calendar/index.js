@@ -1,5 +1,8 @@
+import React, {
+	useState,
+	useEffect,
+} from 'react';
 import moment from 'moment';
-import React, { Component } from 'react';
 import cn from 'classnames';
 import { range, chunk } from 'lodash';
 import { composeNamespace } from 'compose-namespace';
@@ -9,7 +12,7 @@ import { CalendarControls } from './components/CalendarControls';
 
 import './style.less';
 
-const DAYS = [
+const DAYS = Object.freeze([
 	'Sun',
 	'Mon',
 	'Tue',
@@ -17,149 +20,189 @@ const DAYS = [
 	'Thu',
 	'Fri',
 	'Sat'
-];
+]);
 
-export class Calendar extends Component {
-	constructor(props) {
-		super(props);
+export function Calendar(props) {
+	const {
+		className,
+		moment: m,
+		minDate,
+		maxDate,
+		onChange,
+	} = props;
 
-		this.state = {
-			currentTime: this.props.moment,
-			isPreviousMonthDisabled: false,
-			isNextMonthDisabled: false
-		};
+	const [days, setDays] = useState(getDays(m));
+	const [
+		isLeftButtonDisabled,
+		setIsLeftButtonDisabled,
+	] = useState(isPreviousMonthDisabled(m, minDate));
+
+	const [
+		isRightButtonDisabled,
+		setIsRightButtonDisabled,
+	] = useState(isNextMonthDisabled(m, maxDate));
+
+	/**
+	 * Set isRight / isLeftButtonDisabled state
+	 * when day state is modified.
+	 */
+	useEffect(() => {
+		if (isPreviousMonthDisabled(m, minDate))
+			setIsLeftButtonDisabled(true);
+		else if (isLeftButtonDisabled) {
+			setIsLeftButtonDisabled(false);
+		}
+
+		if (isNextMonthDisabled(m, maxDate))
+			setIsRightButtonDisabled(true);
+		else if (isRightButtonDisabled) {
+			setIsRightButtonDisabled(false);
+		}
+	}, [days]);
+
+	const currentDay = m.date();
+	const cc = composeNamespace('APMCalendar', className);
+
+	return (
+		<div className={cc()}>
+			<CalendarControls
+				title={m.format('MMMM YYYY')}
+				leftButtonOnClick={leftButtonCallback(
+					m,
+					minDate,
+					buttonCallback(m, getDays, setDays),
+				)}
+				leftButtonDisabled={isLeftButtonDisabled}
+				rightButtonOnClick={rightButtonCallback(
+					m,
+					maxDate,
+					buttonCallback(m, getDays, setDays),
+				)}
+				rightButtonDisabled={isRightButtonDisabled}
+			/>
+			<table className={cc('table')}>
+				<thead>
+					<tr>
+						{ DAYS.map(d => (
+							<td
+								key={d}
+								className={cc('table-heading')}
+							>
+								{d}
+							</td>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{ chunk(days, 7).map((row, week) =>
+						<tr key={week}>
+							{row.map(i =>
+								<CalendarDay
+									key={i}
+									day={i}
+									currentDay={currentDay}
+									week={week}
+									onClick={selectDate(
+										m,
+										onChange,
+									)}
+									currentMoment={m}
+									minDate={minDate}
+									maxDate={maxDate}
+								/>
+							)}
+						</tr>
+					)}
+				</tbody>
+			</table>
+		</div>
+	);
+};
+
+export function buttonCallback(
+	m,
+	getDays,
+	setDays
+) {
+	return () => {
+		setDays(getDays(m));
 	}
+}
 
-	componentDidMount() {
-		this.updateDisabledMonths();
-	}
+/**
+ * returns an array of integers representing the
+ * days in the month.
+ *
+ * m: moment instance
+ */
+export function getDays(m) {
+	const d1 = m
+		.clone()
+		.subtract(1, 'month')
+		.endOf('month')
+		.date();
 
-	selectDate = (i, w) => {
-		const prevMonth = w === 0 && i > 7;
-		const nextMonth = w >= 4 && i <= 14;
-		const m = this.props.moment;
+	const d2 = m.clone().date(1).day();
+	const d3 = m.clone().endOf('month').date();
+
+	return [].concat(
+		range(d1 - d2 + 1, d1 + 1),
+		range(1, d3 + 1),
+		range(1, 42 - d3 - d2 + 1)
+	);
+}
+
+export function	selectDate(
+	m, // moment object
+	callback,
+) {
+	return (day, week) => {
+		const prevMonth = week === 0 && day > 7;
+		const nextMonth = week >= 4 && day <= 14;
 
 		if (prevMonth) m.subtract(1, 'month');
 		if (nextMonth) m.add(1, 'month');
 
-		m.date(i);
-
-		this.props.onChange(m);
-		this.updateDisabledMonths();
+		m.date(day);
+		callback(m);
 	};
+};
 
-	updateDisabledMonths = () => {
-		const { minDate, maxDate } = this.props;
-		const { currentTime } = this.state;
+export function leftButtonCallback(
+	m, // moment object
+	minDate,
+	callback,
+) {
+	return (evt) => {
+		console.log('leftButtonClicked: ', m);
+		console.log('compare: ', m === moment);
+		evt.preventDefault();
 
-		this.setState({
-			isPreviousMonthDisabled: isPreviousMonthDisabled(currentTime, minDate),
-			isNextMonthDisabled: isNextMonthDisabled(currentTime, maxDate)
-		});
-	}
+		m.subtract(1, 'month');
 
-	prevMonth = e => {
-		e.preventDefault();
-		const momentCopy = this.props.moment;
-		const { minDate } = this.props;
-
-		momentCopy.subtract(1, 'month');
-
-		if (momentCopy.isBefore(minDate, 'day')) {
-			momentCopy.endOf('month');
+		if (m.isBefore(minDate, 'day')) {
+			m.endOf('month');
 		}
 
-		this.updateDisabledMonths();
+		callback();
 	}
+}
 
-	nextMonth = e => {
-		e.preventDefault();
-		const momentCopy = this.props.moment;
-		const { maxDate } = this.props;
+export function	rightButtonCallback(
+	m, // moment object
+	maxDate,
+	callback,
+) {
+	return (evt) => {
+		evt.preventDefault();
 
-		momentCopy.add(1, 'month');
+		m.add(1, 'month');
 
-		if (momentCopy.isAfter(maxDate, 'day')) {
-			momentCopy.startOf('month');
+		if (m.isAfter(maxDate, 'day')) {
+			m.startOf('month');
 		}
 
-		this.updateDisabledMonths();
-	}
-
-	render() {
-		const {
-			className,
-			moment,
-			minDate,
-			maxDate,
-		} = this.props;
-
-		const {
-			isNextMonthDisabled,
-			isPreviousMonthDisabled,
-		} = this.state;
-
-		const m = moment;
-		const currentDay = m.date();
-		const d1 = m
-			.clone()
-			.subtract(1, 'month')
-			.endOf('month')
-			.date();
-
-		const d2 = m.clone().date(1).day();
-		const d3 = m.clone().endOf('month').date();
-		const days = [].concat(
-			range(d1 - d2 + 1, d1 + 1),
-			range(1, d3 + 1),
-			range(1, 42 - d3 - d2 + 1)
-		);
-
-		const cc = composeNamespace('APMCalendar', className);
-
-		return (
-			<div className={cc()}>
-				<CalendarControls
-					title={m.format('MMMM YYYY')}
-					leftButtonOnClick={this.prevMonth}
-					leftButtonDisabled={isPreviousMonthDisabled}
-					rightButtonOnClick={this.nextMonth}
-					rightButtonDisabled={isNextMonthDisabled}
-				/>
-				<table className={cc('table')}>
-					<thead>
-						<tr>
-							{ DAYS.map(d => (
-								<td
-									key={d}
-									className={cc('table-heading')}
-								>
-									{d}
-								</td>
-							))}
-						</tr>
-					</thead>
-					<tbody>
-						{ chunk(days, 7).map((row, week) =>
-							<tr key={week}>
-								{row.map(i =>
-									<CalendarDay
-										key={i}
-										day={i}
-										currentDay={currentDay}
-										week={week}
-										onClick={this.selectDate}
-										currentMoment={m}
-										minDate={minDate}
-										maxDate={maxDate}
-									/>
-								)}
-							</tr>
-						)}
-					</tbody>
-				</table>
-			</div>
-		);
+		callback();
 	}
 }
 
