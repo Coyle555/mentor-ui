@@ -147,7 +147,7 @@ describe('Time component', () => {
 			it('Should call calcDx with percentage', () => {
 				handleHours(100);
 
-				expect(mockCalcDx).toHaveBeenCalledWith(100, 100, 24);
+				expect(mockCalcDx).toHaveBeenCalledWith(100, 100, 23);
 
 				clearMocks();
 			});

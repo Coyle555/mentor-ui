@@ -65,7 +65,7 @@ export const Time = (props) => {
 						)}
 						defaultPercentage={calcDx(
 							moment.hours(),
-							24,
+							23,
 							100,
 						)}
 					/>
@@ -105,7 +105,7 @@ export function changeHours(
 	calcDx,
 ) {
 	return (percentage) => {
-		const hours = calcDx(percentage, 100, 24);
+		const hours = calcDx(percentage, 100, 23);
 
 		moment.hours(hours);
 		onChange(moment);
