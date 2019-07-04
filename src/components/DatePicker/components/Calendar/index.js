@@ -2,6 +2,7 @@ import React, {
 	useState,
 	useEffect,
 } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import cn from 'classnames';
 import { range, chunk } from 'lodash';
@@ -64,19 +65,19 @@ export function Calendar(props) {
 	const cc = composeNamespace('APMCalendar', className);
 
 	return (
-		<div className={cc()}>
+		<div className={cc()} data-testid='calendar'>
 			<CalendarControls
 				title={m.format('MMMM YYYY')}
 				leftButtonOnClick={leftButtonCallback(
 					m,
 					minDate,
-					buttonCallback(m, getDays, setDays),
+					buttonCallback(m, setDays, getDays),
 				)}
 				leftButtonDisabled={isLeftButtonDisabled}
 				rightButtonOnClick={rightButtonCallback(
 					m,
 					maxDate,
-					buttonCallback(m, getDays, setDays),
+					buttonCallback(m, setDays, getDays),
 				)}
 				rightButtonDisabled={isRightButtonDisabled}
 			/>
@@ -119,10 +120,13 @@ export function Calendar(props) {
 	);
 };
 
+/**
+ * callback invoked by right / leftbuttonCallback functions
+ */
 export function buttonCallback(
 	m,
+	setDays,
 	getDays,
-	setDays
 ) {
 	return () => {
 		setDays(getDays(m));
@@ -146,9 +150,9 @@ export function getDays(m) {
 	const d3 = m.clone().endOf('month').date();
 
 	return [].concat(
-		range(d1 - d2 + 1, d1 + 1),
-		range(1, d3 + 1),
-		range(1, 42 - d3 - d2 + 1)
+		range(d1 - d2 + 1, d1 + 1), // previous month
+		range(1, d3 + 1), // current month
+		range(1, 42 - d3 - d2 + 1) // next month
 	);
 }
 
@@ -174,8 +178,6 @@ export function leftButtonCallback(
 	callback,
 ) {
 	return (evt) => {
-		console.log('leftButtonClicked: ', m);
-		console.log('compare: ', m === moment);
 		evt.preventDefault();
 
 		m.subtract(1, 'month');
@@ -222,4 +224,12 @@ export function isNextMonthDisabled(
 	if (!maxDate)
 		return false
 	return !currentMoment.isSameOrBefore(maxDate);
+}
+
+Calendar.propTypes = {
+	className: PropTypes.string,
+	moment: PropTypes.object.isRequired,
+	minDate: PropTypes.string,
+	maxDate: PropTypes.string,
+	onChange: PropTypes.func.isRequired,
 }
