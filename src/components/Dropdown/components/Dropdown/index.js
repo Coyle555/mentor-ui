@@ -7,6 +7,7 @@ import DropdownMenu from '../DropdownMenu';
 import DropdownContext from '../../utils/context';
 
 import '../../style.less';
+
 /** 
 	The container for the family of components that comprise the dropdown
 */
@@ -24,6 +25,9 @@ const Dropdown = props => {
 }
 
 Dropdown.propTypes = {
+	/**
+		Must contain a DropdownTrigger
+	*/
 	children(props) {
 		let hasTrigger, hasContent;
 

@@ -31,10 +31,8 @@ const DropdownContent = props => {
 
 
 	useEffect(() => {
- 		if (!isOpen) {
- 			popper.current.destroy();
- 			return;
- 		}
+ 		if (!isOpen) return;
+ 		
 
  		const triggerEl = ref.current.previousSibling 
  			? ref.current.previousSibling
