@@ -149,8 +149,7 @@ describe('Slider component', () => {
 				setPercentage,
 				knobSize,
 				normalizer,
-				event,
-			);
+			)(event);
 
 			expect(setPercentage).toBeCalledTimes(1);
 			setPercentage.mockClear();
@@ -162,8 +161,7 @@ describe('Slider component', () => {
 				setPercentage,
 				knobSize,
 				normalizer,
-				event,
-			);
+			)(event);
 
 			expect(setPercentage.mock.results[0].value)
 				.toEqual(38);

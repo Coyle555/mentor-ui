@@ -18,7 +18,11 @@ export const Slider = (props) => {
 		className,
 		onChange,
 		defaultPercentage,
+		//minPercentage,
+		//maxPercentage,
 	} = props;
+	const minPercentage = 20;
+	const maxPercentage = 80;
 
 	const [ percentage, setPercentage ] = useState(
 		defaultPercentage
@@ -43,12 +47,13 @@ export const Slider = (props) => {
 
 	const handleGrab = (event) => {
 		if (!handleGrabListener.current) {
-			handleGrabListener.current = onMove.bind(
-				null,
+			handleGrabListener.current = onMove(
 				sliderRect,
 				setPercentage,
 				KNOB_SIZE,
 				normalizer,
+				minPercentage,
+				maxPercentage,
 			);
 		}
 
@@ -148,21 +153,26 @@ export function onMove(
 	callback,
 	knobSize,
 	normalizer,
-	event,
+	minPercentage,
+	maxPercentage,
 ) {
-	const sliderX = sliderRect.x;
-	const sliderWidth = sliderRect.width - knobSize;
-	const mouseX = event.clientX;
+	return (event) => {
+		const sliderX = sliderRect.x;
+		const sliderWidth = sliderRect.width - knobSize;
+		const mouseX = event.clientX;
 
-	const x =  mouseX - sliderX - knobSize / 2;
+		const max = maxPercentage ? maxPercentage : 100;
+		const min = minPercentage ? minPercentage : 0;
+		const x =  mouseX - sliderX - knobSize / 2;
 
-	const newPercentage = Math.floor(normalizer(
-		x / sliderWidth * 100,
-		0,
-		100,
-	));
+		const newPercentage = Math.floor(normalizer(
+			x / sliderWidth * 100,
+			min,
+			max,
+		));
 
-	callback(newPercentage);
+		callback(newPercentage);
+	}
 }
 
 Slider.propTypes = {
