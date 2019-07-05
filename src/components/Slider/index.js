@@ -18,11 +18,9 @@ export const Slider = (props) => {
 		className,
 		onChange,
 		defaultPercentage,
-		//minPercentage,
-		//maxPercentage,
+		minPercentage = null,
+		maxPercentage = null,
 	} = props;
-	const minPercentage = 20;
-	const maxPercentage = 80;
 
 	const [ percentage, setPercentage ] = useState(
 		defaultPercentage
@@ -103,6 +101,12 @@ export const Slider = (props) => {
 				className={cc('value')}
 				style={styles.valueWidth}
 			/>
+			{ minPercentage &&
+				renderLeftConstraint(minPercentage, cc)
+			}
+			{ maxPercentage &&
+				renderRightConstraint(maxPercentage, cc)
+			}
 			<div
 				className={cc('handle')}
 				data-testid="slider-handle"
@@ -113,6 +117,30 @@ export const Slider = (props) => {
 				style={styles.handle}
 			/>
 		</div>
+	);
+};
+
+export function renderLeftConstraint(
+	widthPercentage,
+	cc,
+) {
+	return (
+		<div
+			className={cc('left-constraint')}
+			style={{ width: `${widthPercentage}%` }}
+		/>
+	);
+};
+
+export function renderRightConstraint(
+	widthPercentage,
+	cc,
+) {
+	return (
+		<div
+			className={cc('right-constraint')}
+			style={{ width: `${100 - widthPercentage}%` }}
+		/>
 	);
 };
 

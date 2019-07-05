@@ -12,8 +12,6 @@ import {
 	getValueWidthStyle,
 	normalizer,
 	onMove,
-	KNOB_SIZE,
-	BORDER_OFFSET,
 } from 'components/Slider';
 
 beforeEach(cleanup);
