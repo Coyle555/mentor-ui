@@ -4,6 +4,7 @@ import {
 	cleanup,
 	fireEvent,
 } from '@testing-library/react';
+import { composeNamespace } from 'compose-namespace';
 
 import {
 	Slider,
@@ -12,6 +13,8 @@ import {
 	getValueWidthStyle,
 	normalizer,
 	onMove,
+	renderRightConstraint,
+	renderLeftConstraint,
 } from 'components/Slider';
 
 beforeEach(cleanup);
@@ -28,6 +31,26 @@ describe('Slider component', () => {
 		const { container } = render(
 			<Slider
 				className={className}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with minPercentage', () => {
+		const { container } = render(
+			<Slider
+				minPercentage={10}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with maxPercentage', () => {
+		const { container } = render(
+			<Slider
+				maxPercentage={80}
 			/>
 		);
 
@@ -164,5 +187,63 @@ describe('Slider component', () => {
 			expect(setPercentage.mock.results[0].value)
 				.toEqual(38);
 		});
-	})
+	});
+
+	describe('renderRightConstraint', () => {
+		it('Should render a div with 100 - input width', () =>{
+			const width = 30;
+			const cc = composeNamespace('APMConstraint');
+
+			const { container } = render(
+				renderRightConstraint(width, cc)
+			);
+
+			expect(container.firstElementChild.style.width)
+				.toMatch(/70%/);
+		});
+
+		test('Rendered div should have right-constraint in className', () =>{
+			const width = 30;
+			const cc = composeNamespace('APMConstraint');
+
+			const { container } = render(
+				renderRightConstraint(width, cc)
+			);
+			const classes = JSON.stringify(container
+				.firstElementChild
+				.classList
+			)
+			expect(classes)
+				.toMatch(/right-constraint/);
+		});
+	});
+
+	describe('renderLeftConstraint', () => {
+		it('Should render a div with input width', () =>{
+			const width = 30;
+			const cc = composeNamespace('APMConstraint');
+
+			const { container } = render(
+				renderLeftConstraint(width, cc)
+			);
+
+			expect(container.firstElementChild.style.width)
+				.toMatch(/30%/);
+		});
+
+		test('Rendered div should have left-constraint in className', () =>{
+			const width = 30;
+			const cc = composeNamespace('APMConstraint');
+
+			const { container } = render(
+				renderRightConstraint(width, cc)
+			);
+			const classes = JSON.stringify(container
+				.firstElementChild
+				.classList
+			)
+			expect(classes)
+				.toMatch(/right-constraint/);
+		});
+	});
 });

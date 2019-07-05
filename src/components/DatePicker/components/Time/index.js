@@ -11,6 +11,10 @@ import './style.less';
 export const Time = (props) => {
     const {
 		className,
+		minHour,
+		maxHour,
+		minMinute,
+		maxMinute,
 		moment,
 		onChange,
     } = props;
@@ -58,6 +62,8 @@ export const Time = (props) => {
 						Hours
 					</div>
 					<Slider
+						minPercentage={calcDx(minHour, 23, 100)}
+						maxPercentage={calcDx(maxHour, 23, 100)}
 						onChange={changeHours(
 							moment,
 							onChange,
@@ -75,6 +81,8 @@ export const Time = (props) => {
 						Minutes
 					</div>
 					<Slider
+						minPercentage={calcDx(minMinute, 59, 100)}
+						maxPercentage={calcDx(maxMinute, 59, 100)}
 						onChange={changeMinutes(
 							moment,
 							onChange,
@@ -82,7 +90,7 @@ export const Time = (props) => {
 						)}
 						defaultPercentage={calcDx(
 							moment.minutes(),
-							60,
+							59,
 							100,
 						)}
 					/>
@@ -129,4 +137,8 @@ Time.propTypes = {
 	className: PropTypes.string,
 	moment: PropTypes.object.isRequired,
 	onChange: PropTypes.func.isRequired,
+	minHour: PropTypes.number,
+	maxHour: PropTypes.number,
+	minMinute: PropTypes.number,
+	maxMinute: PropTypes.number,
 }

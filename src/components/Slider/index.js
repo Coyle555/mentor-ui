@@ -18,12 +18,16 @@ export const Slider = (props) => {
 		className,
 		onChange,
 		defaultPercentage,
-		minPercentage = null,
-		maxPercentage = null,
+		minPercentage,
+		maxPercentage,
 	} = props;
 
 	const [ percentage, setPercentage ] = useState(
-		defaultPercentage
+		normalizer(
+			defaultPercentage,
+			minPercentage,
+			maxPercentage,
+		)
 	);
 	const [ sliderRect, setSliderRect ] = useState({ width: 0 });
 
@@ -124,6 +128,7 @@ export function renderLeftConstraint(
 	widthPercentage,
 	cc,
 ) {
+	if (widthPercentage === 0) return false
 	return (
 		<div
 			className={cc('left-constraint')}
@@ -136,6 +141,7 @@ export function renderRightConstraint(
 	widthPercentage,
 	cc,
 ) {
+	if (widthPercentage === 100) return false
 	return (
 		<div
 			className={cc('right-constraint')}
@@ -207,4 +213,6 @@ Slider.propTypes = {
 	className: PropTypes.string,
 	onChange: PropTypes.func,
 	defaultPercentage: PropTypes.number,
+	minPercentage: PropTypes.number,
+	maxPercentage: PropTypes.number,
 };

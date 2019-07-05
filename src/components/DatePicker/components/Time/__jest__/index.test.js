@@ -54,6 +54,69 @@ describe('Time component', () => {
 		expect(container).toMatchSnapshot();
 	});
 
+	it('Should match snapshot with minMinute prop', () => {
+		const { container } = render(
+			<Time
+				minMinute={10}
+				moment={m}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with maxMinute prop', () => {
+		const { container } = render(
+			<Time
+				maxMinute={10}
+				moment={m}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with minHour prop', () => {
+		const { container } = render(
+			<Time
+				minHour={10}
+				moment={m}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with maxHour prop', () => {
+		const { container } = render(
+			<Time
+				maxHour={10}
+				moment={m}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
+	it('Should match snapshot with all constraint props', () => {
+		const { container } = render(
+			<Time
+				maxHour={10}
+				minHour={0}
+				maxMinute={30}
+				maxMinute={5}
+				moment={m}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(container).toMatchSnapshot();
+	});
+
 	describe('Time methods', () => {
 		const mockMoment = {
 			hours: jest.fn((h) => h),
