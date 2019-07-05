@@ -216,8 +216,14 @@ class DatePickerContainer extends Component {
 					handleClose={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					clearInput={this.clearInput}
-					dateDisabled={this.props.type === 'time'}
-					timeDisabled={this.props.type === 'date'}
+					isDateDisabled={
+						this.props.type !== 'date'
+					 && this.props.type !== 'datetime'
+					}
+					isTimeDisabled={
+						this.props.type !== 'time'
+					 && this.props.type !== 'datetime'
+					}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
