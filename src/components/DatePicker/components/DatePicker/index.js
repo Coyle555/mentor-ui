@@ -54,7 +54,10 @@ export function DatePicker(props) {
 		onChange,
 	} = props;
 
-	const [activeTab, setActiveTab] = useState(TAB_LABELS.date);
+	const [activeTab, setActiveTab] = useState(isDateDisabled
+		? TAB_LABELS.time
+		: TAB_LABELS.date
+	);
 
 	const cc = composeNamespace('APMDatePicker', className);
 
@@ -99,7 +102,8 @@ export function DatePicker(props) {
 					onClick={onTabClick(setActiveTab)}
 				/>
 			}
-			{ !isDateDisabled && activeTab === TAB_LABELS.date &&
+			{ activeTab === TAB_LABELS.date && !isDateDisabled
+			&&
 				<Calendar
 					maxDate={maxDate}
 					minDate={minDate}
@@ -107,9 +111,7 @@ export function DatePicker(props) {
 					onChange={onChange}
 				/>
 			}
-			{ !isTimeDisabled
-			&& (activeTab === TAB_LABELS.time
-			|| isDateDisabled)
+			{ activeTab === TAB_LABELS.time && !isTimeDisabled
 			&&
 				<Time
 					minHour={minHour}
