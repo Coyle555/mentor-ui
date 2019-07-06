@@ -140,11 +140,15 @@ DatePicker.propTypes = {
 	clearInput: PropTypes.func,
 	isDateDisabled: PropTypes.bool,
 	handleClose: PropTypes.func,
+	minDate: PropTypes.string,
+	maxDate: PropTypes.string,
 	minHour: PropTypes.number,
 	maxHour: PropTypes.number,
 	minMinute: PropTypes.number,
 	maxMinute: PropTypes.number,
+	moment: PropTypes.object,
 	saveDate: PropTypes.func,
+	onChange: PropTypes.func,
 	isTimeDisabled: PropTypes.bool
 };
 

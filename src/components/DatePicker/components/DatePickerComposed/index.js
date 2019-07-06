@@ -216,14 +216,8 @@ class DatePickerContainer extends Component {
 					handleClose={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					clearInput={this.clearInput}
-					isDateDisabled={
-						this.props.type !== 'date'
-					 && this.props.type !== 'datetime'
-					}
-					isTimeDisabled={
-						this.props.type !== 'time'
-					 && this.props.type !== 'datetime'
-					}
+					isDateDisabled={this.props.type === 'time'}
+					isTimeDisabled={this.props.type === 'date'}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
@@ -231,8 +225,6 @@ class DatePickerContainer extends Component {
 					maxMinute={this.props.maxMinute}
 					minMinute={this.props.minMinute}
 					moment={this.moment}
-					nextMonthIcon="fa fa-angle-right"
-					prevMonthIcon="fa fa-angle-left"
 				/>
 			</div>
 		);
@@ -356,7 +348,7 @@ DatePickerContainer.defaultProps = {
 	onBlur: null,
 	onChange: null,
 	required: false,
-	type: 'datetime',
+	type: 'time',
 	value: ''
 }
 
