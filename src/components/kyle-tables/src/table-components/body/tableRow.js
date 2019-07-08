@@ -110,6 +110,7 @@ export class TableRow extends PureComponent {
 				{ expandable && 
 					<ExpandIcon
 						expanded={expanded}
+						lastBtn={rowButtons.length === 0}
 						onClick={this._onExpandClick}
 					/>
 				}

@@ -35,10 +35,17 @@ export const TableHeaderRow = ({
 	return (
 		<tr className={headerRowClasses}>
 			{ expandable &&
-				<th className="table-heading-cell table-expand-cell" /> }
+				<th className={classNames({
+					'table-heading-cell table-expand-cell': true,
+					'table-btn-border': rowButtons.length === 0
+				})} />
+			}
 			{ rowButtons.map((btn, i) => (
 				<th
-					className="table-heading-cell table-expand-cell"
+					className={classNames({
+						'table-heading-cell table-expand-cell': true,
+						'table-btn-border': rowButtons.length === i + 1
+					})}
 					key={`table-extra-col-${i}`}
 				/>
 			))}
