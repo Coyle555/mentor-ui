@@ -41,7 +41,7 @@ export function DatePicker(props) {
 		moment: m,
 		className,
 		clearInput,
-		dateDisabled,
+		isDateDisabled,
 		handleClose,
 		minDate,
 		maxDate,
@@ -50,19 +50,26 @@ export function DatePicker(props) {
 		minMinute,
 		maxMinute,
 		saveDate,
-		timeDisabled,
+		isTimeDisabled,
 		onChange,
 	} = props;
 
-	const [activeTab, setActiveTab] = useState(TAB_LABELS.date);
+	const [activeTab, setActiveTab] = useState(isDateDisabled
+		? TAB_LABELS.time
+		: TAB_LABELS.date
+	);
 
 	const cc = composeNamespace('APMDatePicker', className);
 
 	return (
 		<div className={cc()}>
-			<div className={cc('optional-controls')}>
+			<div className={cn(
+				cc('optional-controls'),
+			{ [cc('optional-controls-timer-spacer')]: isDateDisabled },
+			{ [cc('optional-controls-date-spacer')]: isTimeDisabled })
+			}>
 				<div className={cc('optional-controls-main')}>
-					{ isCallbackValid(saveDate) ||
+					{ isCallbackValid(saveDate) &&
 						<OptionalControl
 							onClick={saveDate}
 							iconClass='fal fa-save'
@@ -81,19 +88,22 @@ export function DatePicker(props) {
 				</div>
 				{ isCallbackValid(handleClose) &&
 					<OptionalControl
-						onClick={saveDate}
+						onClick={handleClose}
 						iconClass='fal fa-times'
 						className={cc('optional-controls-orphan')}
 					/>
 				}
 			</div>
-			<TabNav
-				className={cc('nav')}
-				tabs={TAB_OPTIONS}
-				activeTab={activeTab}
-				onClick={onTabClick(setActiveTab)}
-			/>
-			{ !dateDisabled && activeTab === TAB_LABELS.date &&
+			{ !isDateDisabled && !isTimeDisabled &&
+				<TabNav
+					className={cc('nav')}
+					tabs={TAB_OPTIONS}
+					activeTab={activeTab}
+					onClick={onTabClick(setActiveTab)}
+				/>
+			}
+			{ activeTab === TAB_LABELS.date && !isDateDisabled
+			&&
 				<Calendar
 					maxDate={maxDate}
 					minDate={minDate}
@@ -101,7 +111,8 @@ export function DatePicker(props) {
 					onChange={onChange}
 				/>
 			}
-			{ !timeDisabled && activeTab === TAB_LABELS.time &&
+			{ activeTab === TAB_LABELS.time && !isTimeDisabled
+			&&
 				<Time
 					minHour={minHour}
 					maxHour={maxHour}
@@ -129,17 +140,21 @@ DatePicker.propTypes = {
 	clearInput: PropTypes.func,
 	isDateDisabled: PropTypes.bool,
 	handleClose: PropTypes.func,
+	minDate: PropTypes.string,
+	maxDate: PropTypes.string,
 	minHour: PropTypes.number,
 	maxHour: PropTypes.number,
 	minMinute: PropTypes.number,
 	maxMinute: PropTypes.number,
+	moment: PropTypes.object,
 	saveDate: PropTypes.func,
+	onChange: PropTypes.func,
 	isTimeDisabled: PropTypes.bool
 };
 
 DatePicker.defaultProps = {
 	clearInput: null,
-	dateDisabled: false,
+	isDateDisabled: false,
 	handleClose: null,
 	minDate: null,
 	maxDate: null,
@@ -149,5 +164,5 @@ DatePicker.defaultProps = {
 	maxMinute: 59,
 	moment: new moment(),
 	saveDate: null,
-	timeDisabled: false
+	isTimeDisabled: false
 };

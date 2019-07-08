@@ -72,6 +72,8 @@ exports[`Time component Should default render 1`] = `
           <div
             class="APMSlider-value"
           />
+          NaN
+          NaN
           <div
             class="APMSlider-handle"
             data-testid="slider-handle"
@@ -92,6 +94,123 @@ exports[`Time component Should default render 1`] = `
         >
           <div
             class="APMSlider-value"
+          />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Time component Should match snapshot with all constraint props 1`] = `
+<div>
+  <div
+    class="APMTime"
+  >
+    <div
+      class="APMTime-display"
+    >
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            10
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            h
+          </span>
+        </div>
+      </div>
+      <div
+        class="APMTime-separator"
+      >
+        <div
+          class="APMTime-separator-stroke"
+        />
+        <div
+          class="APMTime-separator-stroke"
+        />
+      </div>
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            10
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            m
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="APMTime-sliders"
+    >
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Hours
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          0
+          <div
+            class="APMSlider-right-constraint"
+            style="width: 57%;"
+          />
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Minutes
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          <div
+            class="APMSlider-right-constraint"
+            style="width: 92%;"
           />
           <div
             class="APMSlider-handle"
@@ -177,6 +296,8 @@ exports[`Time component Should match snapshot with className 1`] = `
           <div
             class="APMSlider-value"
           />
+          NaN
+          NaN
           <div
             class="APMSlider-handle"
             data-testid="slider-handle"
@@ -198,6 +319,456 @@ exports[`Time component Should match snapshot with className 1`] = `
           <div
             class="APMSlider-value"
           />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Time component Should match snapshot with maxHour prop 1`] = `
+<div>
+  <div
+    class="APMTime"
+  >
+    <div
+      class="APMTime-display"
+    >
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            h
+          </span>
+        </div>
+      </div>
+      <div
+        class="APMTime-separator"
+      >
+        <div
+          class="APMTime-separator-stroke"
+        />
+        <div
+          class="APMTime-separator-stroke"
+        />
+      </div>
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            10
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            m
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="APMTime-sliders"
+    >
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Hours
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          <div
+            class="APMSlider-right-constraint"
+            style="width: 57%;"
+          />
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Minutes
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Time component Should match snapshot with maxMinute prop 1`] = `
+<div>
+  <div
+    class="APMTime"
+  >
+    <div
+      class="APMTime-display"
+    >
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            h
+          </span>
+        </div>
+      </div>
+      <div
+        class="APMTime-separator"
+      >
+        <div
+          class="APMTime-separator-stroke"
+        />
+        <div
+          class="APMTime-separator-stroke"
+        />
+      </div>
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            m
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="APMTime-sliders"
+    >
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Hours
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Minutes
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          <div
+            class="APMSlider-right-constraint"
+            style="width: 83%;"
+          />
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Time component Should match snapshot with minHour prop 1`] = `
+<div>
+  <div
+    class="APMTime"
+  >
+    <div
+      class="APMTime-display"
+    >
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            h
+          </span>
+        </div>
+      </div>
+      <div
+        class="APMTime-separator"
+      >
+        <div
+          class="APMTime-separator-stroke"
+        />
+        <div
+          class="APMTime-separator-stroke"
+        />
+      </div>
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            10
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            m
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="APMTime-sliders"
+    >
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Hours
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          <div
+            class="APMSlider-left-constraint"
+            style="width: 43%;"
+          />
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Minutes
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Time component Should match snapshot with minMinute prop 1`] = `
+<div>
+  <div
+    class="APMTime"
+  >
+    <div
+      class="APMTime-display"
+    >
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            h
+          </span>
+        </div>
+      </div>
+      <div
+        class="APMTime-separator"
+      >
+        <div
+          class="APMTime-separator-stroke"
+        />
+        <div
+          class="APMTime-separator-stroke"
+        />
+      </div>
+      <div
+        class="APMTime-display-panel"
+      >
+        <div
+          class="APMTime-display-panel-label"
+        >
+          <span
+            class="APMTime-display-panel-number"
+          >
+            12
+          </span>
+          <span
+            class="APMTime-display-panel-letter"
+          >
+            m
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="APMTime-sliders"
+    >
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Hours
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          NaN
+          NaN
+          <div
+            class="APMSlider-handle"
+            data-testid="slider-handle"
+            style="height: 38px; width: 38px;"
+          />
+        </div>
+      </div>
+      <div
+        class="APMTime-slider"
+      >
+        <div
+          class="APMTime-slider-label"
+        >
+          Minutes
+        </div>
+        <div
+          class="APMSlider"
+        >
+          <div
+            class="APMSlider-value"
+          />
+          <div
+            class="APMSlider-left-constraint"
+            style="width: 17%;"
+          />
+          NaN
           <div
             class="APMSlider-handle"
             data-testid="slider-handle"

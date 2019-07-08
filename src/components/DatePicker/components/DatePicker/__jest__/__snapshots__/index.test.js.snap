@@ -1,0 +1,439 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker Component Should match snapshot with base props 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match snapshot with clearInput prop 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      >
+        <div>
+          <button>
+            Clear
+          </button>
+          {"iconClass":"fal fa-empty-set"}
+        </div>
+      </div>
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match snapshot with handleClose prop 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+      <div>
+        <button />
+        {"iconClass":"fal fa-times","className":"APMDatePicker-optional-controls-orphan"}
+      </div>
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match snapshot with saveDate prop 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      >
+        <div>
+          <button>
+            Save
+          </button>
+          {"iconClass":"fal fa-save"}
+        </div>
+      </div>
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with all min /max props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":"9999-09-09","minDate":"0000-01-01","moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with maxDate / and minDate props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":"9999-01-01","minDate":"1999-01-01","moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with maxDate props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":"1999-01-01","minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with maxHour props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with maxMinute props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with min /maxHour props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with min /maxMinute props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with minDate props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":"1999-01-01","moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with minHour props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should match stapshot with minMinute props  1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div>
+      <button>
+        Date
+      </button>
+      {"className":"APMDatePicker-nav","tabs":[{"label":"Date","iconClass":"fal fa-calendar-alt"},{"label":"Time","iconClass":"fal fa-clock"}]}
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should render date component only 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-date-spacer"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div
+      data-testid="Calendar"
+    >
+      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DatePicker Component Should render time component only 1`] = `
+<div>
+  <div
+    class="APMDatePicker"
+  >
+    <div
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
+    >
+      <div
+        class="APMDatePicker-optional-controls-main"
+      />
+    </div>
+    <div
+      data-testid="Time"
+    >
+      {"minHour":0,"maxHour":23,"minMinute":0,"maxMinute":59,"moment":"1999-12-31T15:00:00.000Z"}
+    </div>
+  </div>
+</div>
+`;

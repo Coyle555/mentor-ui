@@ -56,10 +56,6 @@ class DatePickerContainer extends Component {
 		//window.addEventListener('resize', this.isPickerEnabled);
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log(prevProps, prevState);
-	}
-
 	componentWillReceiveProps(nextProps) {
 		if (this.state.value.toString() !== nextProps.value.toString()) {
 			let val = '';
@@ -220,8 +216,8 @@ class DatePickerContainer extends Component {
 					handleClose={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					clearInput={this.clearInput}
-					dateDisabled={this.props.type === 'time'}
-					timeDisabled={this.props.type === 'date'}
+					isDateDisabled={this.props.type === 'time'}
+					isTimeDisabled={this.props.type === 'date'}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
@@ -229,8 +225,6 @@ class DatePickerContainer extends Component {
 					maxMinute={this.props.maxMinute}
 					minMinute={this.props.minMinute}
 					moment={this.moment}
-					nextMonthIcon="fa fa-angle-right"
-					prevMonthIcon="fa fa-angle-left"
 				/>
 			</div>
 		);
@@ -354,7 +348,7 @@ DatePickerContainer.defaultProps = {
 	onBlur: null,
 	onChange: null,
 	required: false,
-	type: 'datetime',
+	type: 'time',
 	value: ''
 }
 
