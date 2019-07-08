@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { convertCellToString } from '../../utils/utils';
-import { AsyncDropdownCell } from './cell-components/asyncDropdownCell';
 import { EditColorPicker } from './cell-components/editColorPicker';
 import { EditInputCell } from './cell-components/editInputCell';
 import { EditDropzoneCell } from './cell-components/editDropzoneCell';
@@ -152,19 +151,6 @@ export const Cell = ({
 				colId={colId}
 				rowId={rowId}
 				uploadFileCb={uploadFileCb}
-			/>
-		);
-	} else if (!!lookup) {
-
-		cell = (
-			<AsyncDropdownCell 
-				colId={colId}
-				inputClass={editInputClass}
-				lookup={lookup}
-				onBlur={onBlur}
-				required={required}
-				rowId={rowId}
-				value={value}
 			/>
 		);
 
