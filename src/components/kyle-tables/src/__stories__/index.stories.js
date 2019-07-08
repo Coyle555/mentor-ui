@@ -62,6 +62,10 @@ const columns = [
 		category: 'Color',
 		id: 'color',
 		color: true
+	},
+	{
+		category: 'Custom Column',
+		id: 'customColumnId'
 	}
 ];
 
@@ -74,7 +78,8 @@ const data = [
 		string: 'Test desc',
 		options: 'Option2',
 		file: IMAGE,
-		color: '#fff'
+		color: '#fff',
+		customColumnId: 'custom 1'
 	},
 	{
 		date: new Date(),
@@ -83,7 +88,8 @@ const data = [
 		num: 31,
 		object: { id: 'apple', name: 'Apple' },
 		string: 'Another desc that is going to be really long. The quick brown fox jumped over the lazy dog.',
-		color: '#ccc'
+		color: '#ccc',
+		customColumnId: 'custom 2'
 	},
 	{
 		date: null,
@@ -92,7 +98,8 @@ const data = [
 		object: { id: 'test', name: 'Test' },
 		num: 938,
 		string: 'Foo bar',
-		options: 'Option3'
+		options: 'Option3',
+		customColumnId: 'custom 3'
 	},
 	{
 		date: null,
@@ -124,12 +131,19 @@ const customToolbarButtons = [{
 
 const filters = [{ category: 'Color', id: 'color', operator: 'equals', value: 'white' }];
 
+const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) =>
+	editMode && rowSelected
+		? null
+		: <span>Custom Column -- {value}</span>
+};
+
 storiesOf('Table', module)
 	.add('Basic table', () => (
 		<Table
 			columns={columns}
 			csvURL="www.duckduckgo.com"
 			currentPage={1}
+			customColumns={customColumns}
 			customToolbarButtons={customToolbarButtons}
 			data={data}
 			deleteCb={action('onDeleteClick')}
@@ -144,6 +158,55 @@ storiesOf('Table', module)
 			sortDir="ASC"
 			updateCb={action('updateCb')}
 			uploadFileCb={action('uploadFileCb')}
+		/>
+	))
+	.add('Expandable table', () => {
+		const ExpandComponent = (props) => <span>{JSON.stringify(props)}</span>;
+
+		return (
+			<Table
+				columns={[
+					{
+						category: 'Id',
+						id: 'id',
+						type: 'string',
+						display: false
+					},
+					{
+						category: 'String Col',
+						id: 'expand',
+						type: 'string',
+					}
+				]}
+				data={[{ id: '1', expand: 'test' }]}
+				ExpandComponent={<ExpandComponent />}
+				pageSize={5}
+				recordCount={1}
+			/>
+		);
+	})
+	.add('Row buttons', () => (
+		<Table
+			columns={[
+				{
+					category: 'Id',
+					id: 'id',
+					type: 'string',
+					display: false
+				},
+				{
+					category: 'String Col',
+					id: 'col',
+					type: 'string',
+				}
+			]}
+			data={[{ id: '1', col: 'test' }]}
+			pageSize={5}
+			recordCount={1}
+			rowButtons={[{
+				icon: <i className="fal fa-abacus" />,
+				onClick: action('extraColumnClick')
+			}]}
 		/>
 	))
 	.add('Loading table', () => (

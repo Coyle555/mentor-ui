@@ -46,7 +46,7 @@ export class TableRow extends PureComponent {
 		editDraggable: false,
 		editMode: false,
 		expandable: false,
-		extraColumns: [],
+		rowButtons: [],
 		row: {}
 	};
 
@@ -85,20 +85,20 @@ export class TableRow extends PureComponent {
 			editMode,
 			expandable,
 			expanded,
-			extraColumns,
 			onBlur,
 			onOptionMatch,
 			onColorChange,
 			onDeleteImageClick,
 			portalRef,
-			selectedRows,
+			rowButtons,
 			rowSelected,
 			row,
 			rowId,
+			selectedRows,
 			uploadFileCb,
 		} = this.props;
 
-		let rowClass = {
+		const rowClass = {
 			'table-row': true,
 			'table-row-selected': rowSelected,
 			[customClasses.tableRow]: !!customClasses.tableRow
@@ -113,20 +113,20 @@ export class TableRow extends PureComponent {
 						onClick={this._onExpandClick}
 					/>
 				}
-				{ extraColumns.map((col, i) => (
+				{ rowButtons.map((btn, i) => (
 					<td
-						className={classNames(
-							"table-cell-view text-center",
-							{ "apm-cursor-p": typeof col.onClick === 'function' }
-						)}
+						className={classNames({
+							'table-cell-view table-row-button': true,
+							'table-btn-border': rowButtons.length === i + 1
+						})}
 						key={`${rowId}-extra-${i}`}
-						onClick={this.onExtraColClick.bind(null, col.onClick)}
+						onClick={() => this.onExtraColClick(btn.onClick)}
 					>
-						{col.cell}
+						{btn.icon}
 					</td>
 				))}
 				{ allowSelection &&
-					<td className="table-cell-view table-cell-selector">
+					<td className="table-cell-view">
 						<div className="pretty p-icon">
 							<input
 								checked={!!rowSelected}

@@ -12,7 +12,7 @@ export const TableHeader = ({
 	customClasses,
 	editMode,
 	expandable,
-	extraColumns,
+	rowButtons,
 	sort,
 	_onRowSelectAll,
 	_onSort
@@ -30,7 +30,7 @@ export const TableHeader = ({
 				customClasses={customClasses}
 				editMode={editMode}
 				expandable={expandable}
-				extraColumns={extraColumns}
+				rowButtons={rowButtons}
 				sort={sort}
 				_onRowSelectAll={_onRowSelectAll}
 				_onSort={_onSort}

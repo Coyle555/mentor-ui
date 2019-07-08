@@ -17,12 +17,12 @@ export const TableMain = ({
 	dropType,
 	events,
 	expandable,
-	extraColumns,
 	generateCustomFilter,
 	id,
 	numRowsSelected,
 	pageProperties,
 	recordProperties,
+	rowButtons,
 	rowProperties,
 	selectedRows,
 	sort,
@@ -51,7 +51,7 @@ export const TableMain = ({
 							customClasses={customClasses}
 							editMode={rowProperties.editMode}
 							expandable={expandable}
-							extraColumns={extraColumns}
+							rowButtons={rowButtons}
 							sort={sort}
 							_onRowSelectAll={_onRowSelectAll}
 							_onSort={events.onSort}
@@ -64,7 +64,7 @@ export const TableMain = ({
 							dragProperties={dragProperties}
 							dropType={dropType}
 							editMode={rowProperties.editMode}
-							extraColumns={extraColumns}
+							rowButtons={rowButtons}
 							ExpandComponent={rowProperties.ExpandComponent}
 							expandEditable={rowProperties.expandEditable}
 							expandable={expandable}

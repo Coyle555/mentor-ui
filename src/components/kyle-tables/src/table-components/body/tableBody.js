@@ -12,7 +12,6 @@ export class TableBody extends Component {
 		customColumns: PropTypes.object,
 		editMode: PropTypes.bool,
 		expandable: PropTypes.bool,
-		extraColumns: PropTypes.array,
 		ExpandComponent: PropTypes.element,
 		dragProperties: PropTypes.shape({
 			draggable: PropTypes.oneOfType([
@@ -24,6 +23,7 @@ export class TableBody extends Component {
 				PropTypes.object
 			])
 		}),
+		rowButtons: PropTypes.arrayOf(PropTypes.object),
 		rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
 		selectedRows: PropTypes.object,
 		_onBlur: PropTypes.func,
@@ -39,7 +39,7 @@ export class TableBody extends Component {
 		},
 		dropType: '',
 		expandable: false,
-		extraColumns: [],
+		rowButtons: [],
 		rowData: [],
 		selectedRows: {}
 	}
@@ -75,9 +75,9 @@ export class TableBody extends Component {
 			customColumns,
 			expandable,
 			ExpandComponent,
-			extraColumns,
 			generateCustomFilter,
 			portalRef,
+			rowButtons,
 			selectedRows,
 			uploadFileCb,
 			_onBlur,
@@ -91,7 +91,6 @@ export class TableBody extends Component {
 
 		let rows = [];
 
-		// if not in edit mode and edit mode isn't being force toggled
 		rowData.forEach((row, i) => {
 			rows.push(
 				<TableRow
@@ -105,7 +104,7 @@ export class TableBody extends Component {
 					editMode={editMode}
 					expandable={expandable}
 					expanded={expandedRows[row.id]}
-					extraColumns={extraColumns}
+					rowButtons={rowButtons}
 					generateCustomFilter={generateCustomFilter}
 					key={row.id}
 					onOptionMatch={_onOptionMatch}
@@ -126,12 +125,12 @@ export class TableBody extends Component {
 			// if rows are expandable and the row is expanded
 			if (expandable && expandedRows[row.id]) {
 				rows.push(
-					<tr key={`${row.id}-${i}`}>
-						<td colSpan={extraColumns.length + 1} />
+					<tr key={`${row.id}-expand-${i}`}>
 						<td
-							colSpan={columns.length + 1}
-							style={{ borderLeft: '1px solid #667587' }}
-						>
+							className="table-row-expanded"
+							colSpan={rowButtons.length + 1}
+						/>
+						<td colSpan={columns.length + 1}>
 							{ React.cloneElement(
 								ExpandComponent,
 								{ row }
@@ -143,6 +142,7 @@ export class TableBody extends Component {
 		});
 
 		const classList = classNames({
+			'table-body': true,
 			[customClasses.tableBody]: !!customClasses.tableBody
 		});
 

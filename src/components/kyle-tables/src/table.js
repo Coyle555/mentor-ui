@@ -62,13 +62,6 @@ export class Table extends Component {
 		}),
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
-		extraColumns: PropTypes.arrayOf(
-			PropTypes.shape({
-				header: PropTypes.element,
-				cell: PropTypes.element,
-				onClick: PropTypes.func
-			})
-		),
 		formFields: PropTypes.arrayOf(PropTypes.object),
 		generateCustomFilter: PropTypes.func,
 		id: PropTypes.string.isRequired,
@@ -81,6 +74,12 @@ export class Table extends Component {
 		queryDisabled: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
+		rowButtons: PropTypes.arrayOf(
+			PropTypes.shape({
+				icon: PropTypes.element.isRequired,
+				onClick: PropTypes.func.isRequired
+			})
+		),
 		singleInsertion: PropTypes.bool,
 		sortDir: PropTypes.oneOf(['ASC', 'DESC']),
 		sortId: PropTypes.string,
@@ -120,7 +119,6 @@ export class Table extends Component {
 		editDraggable: null,
 		ExpandComponent: null,
 		exportTable: null,
-		extraColumns: [],
 		filters: [],
 		formFields: null,
 		id: '',
@@ -131,6 +129,7 @@ export class Table extends Component {
 		pagination: true,
 		queryDisabled: false,
 		quickViews: [],
+		rowButtons: [],
 		singleInsertion: true,
 		updateCb: null,
 		uploadFileCb: null,
@@ -142,7 +141,6 @@ export class Table extends Component {
 
 		this.allRowsSelected = false;
 
-		// @customColumns
 		// @editMode(bool) - toggle for edit mode of table
 		// @insertMode(bool) - toggle for insertion mode of table
 		// @insertType(string) - type of insertion to use when
@@ -150,7 +148,6 @@ export class Table extends Component {
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
-			customColumns: this.props.customColumns,
 			columns: cloneDeep(this.props.columns),
 			editMode: false,
 			insertMode: false,
@@ -542,7 +539,7 @@ export class Table extends Component {
 					customClasses={this.props.customClasses}
 					id={this.props.id}
 					expandable={!!this.props.ExpandComponent}
-					extraColumns={this.props.extraColumns}
+					rowButtons={this.props.rowButtons}
 					rowProperties={{
 						allowSelection: this.props.allowSelection,
 						customColumns: this.props.customColumns,

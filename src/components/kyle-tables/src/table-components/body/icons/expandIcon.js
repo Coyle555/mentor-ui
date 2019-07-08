@@ -2,16 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const ExpandIcon = ({expanded, onClick}) => {
+import './styles.less';
+
+export const ExpandIcon = ({ expanded, lastBtn, onClick }) => {
 	const iconClasses = classNames({
 		'fas': true,
 		'fa-caret-down': expanded,
 		'fa-caret-right': !expanded,
-		'fa-2x': true
+		'fa-2x': true,
+	});
+
+	const expandBtnClasses = classNames({
+		'table-expand-icon': true,
+		'table-btn-border': lastBtn
 	});
 
 	return (
-		<td onClick={onClick} className="table-expand-icon">
+		<td className={expandBtnClasses} onClick={onClick}>
 			<i className={iconClasses} />
 		</td>
 	);
@@ -19,9 +26,11 @@ export const ExpandIcon = ({expanded, onClick}) => {
 
 ExpandIcon.propTypes = {
 	expanded: PropTypes.bool.isRequired,
+	lastBtn: PropTypes.bool,
 	onClick: PropTypes.func.isRequired
 };
 
 ExpandIcon.defaultProps = {
 	expanded: false,
+	lastBtn: true
 };

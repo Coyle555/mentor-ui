@@ -15,7 +15,7 @@ export const TableHeaderRow = ({
 	customClasses,
 	editMode,
 	expandable,
-	extraColumns,
+	rowButtons,
 	sort,
 	_onRowSelectAll,
 	_onSort
@@ -36,11 +36,11 @@ export const TableHeaderRow = ({
 		<tr className={headerRowClasses}>
 			{ expandable &&
 				<th className="table-heading-cell table-expand-cell" /> }
-			{ extraColumns.map((col, i) => (
-				React.cloneElement(
-					col.header,
-					{ key: `table-extra-col-${i}` }
-				)
+			{ rowButtons.map((btn, i) => (
+				<th
+					className="table-heading-cell table-expand-cell"
+					key={`table-extra-col-${i}`}
+				/>
 			))}
 			{ allowSelection && 
 				<TableHeaderCheckboxCell
@@ -73,7 +73,7 @@ TableHeaderRow.propTypes = {
 	customClasses: PropTypes.object,
 	editMode: PropTypes.bool,
 	expandable: PropTypes.bool,
-	extraColumns: PropTypes.arrayOf(PropTypes.object),
+	rowButtons: PropTypes.arrayOf(PropTypes.object),
 	sort: PropTypes.shape({
 		id: PropTypes.string,
 		ascending: PropTypes.bool
@@ -85,6 +85,6 @@ TableHeaderRow.propTypes = {
 TableHeaderRow.defaultProps = {
 	cells: [],
 	customClasses: {},
-	extraColumns: [],
+	rowButtons: [],
 	sort: {}
 };

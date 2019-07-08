@@ -1,14 +1,12 @@
 @import '~mentor-ui-constants';
-@tdBorderColor: #dfe6ee;
 
 .table-checkbox-cell {
 	width: 40px;
-	border-left: 1px solid #667587;
 }
 
 .table-cell-view {
 	max-width: 0;
-	border-top: 1px solid @tdBorderColor;
+	border-top: 1px solid @blue-gray-light;
 	padding: 20px 8px;
 	word-wrap: break-word;
 	white-space: normal;
@@ -22,12 +20,23 @@
 	}
 }
 
-.table-cell-selector {
-	border-left: 1px solid #667587;
+.table-row-button {
+	text-align: center;
+	cursor: pointer;
 }
 
-.table-row:last-child .table-cell-view {
-	border-bottom: 1px solid @tdBorderColor;
+.table-btn-border {
+	border-right: 1px solid @gray-dark;
+}
+
+.table-body {
+	> tr > td.table-row-expanded {
+		border-right: 1px solid @gray-dark;
+	}
+
+	& tr:last-child td {
+		border-bottom: 1px solid @blue-gray-light;
+	}
 }
 
 .table-cell-droppable {
@@ -160,14 +169,6 @@
 
 .table-expand-cell {
 	width: 35px;
-}
-
-.table-expand-icon {
-	border-top: 1px solid rgb(231, 234, 236);
-	text-align: center;
-	box-sizing: border-box;
-	cursor: pointer;
-	color: @green-secondary;
 }
 
 .table-danger-btn {
