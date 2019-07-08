@@ -485,8 +485,6 @@ export class Table extends Component {
 			}
 		});
 
-		console.log(this.props.filters)
-
 		const HeaderComponent = (
 			<Header
 				filter={{
@@ -573,7 +571,7 @@ export class Table extends Component {
 					}}
 					sort={{
 						id: this.props.sortId,
-						ascending: this.sortDir === 'ASC'
+						ascending: this.props.sortDir === 'ASC'
 					}}
 					numRowsSelected={this.state.numRowsSelected}
 					selectedRows={this.state.selectedRows}

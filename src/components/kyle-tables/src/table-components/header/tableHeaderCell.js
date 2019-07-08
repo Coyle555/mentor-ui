@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Stickyfill from 'stickyfilljs';
 
+const SORT_ICONS = {
+	ascending: <i className="fas fa-sort-up" />,
+	descending: <i className="fas fa-sort-down" />,
+};
+
 export class TableHeaderCell extends Component {
 
 	static propTypes = {
@@ -30,7 +35,7 @@ export class TableHeaderCell extends Component {
 	}
 
 	render() {
-		const { customClasses, sortIcon, sorted, title } = this.props;
+		const { customClasses, sort, title } = this.props;
 
 		const classList = classNames({
 			'table-heading-cell': true,
@@ -43,7 +48,7 @@ export class TableHeaderCell extends Component {
 				ref={ref => this.headerCellRef = ref}
 			>
 				<span onClick={this._onSortClick}>
-					{title} {sorted && sortIcon}
+					{title} { sort && SORT_ICONS[sort] }
 				</span>
 			</th>
 		);

@@ -25,8 +25,6 @@ export const TableHeaderRow = ({
 		[customClasses.tableHeaderRow]: !!customClasses.tableHeaderRow
 	});
 
-	// used if the table is expandable since the expand column is 
-	// the last column
 	const headerCellClasses = classNames({
 		'table-heading-cell': true,
 		[customClasses.tableHeaderCell]: !!customClasses.tableHeaderCell
@@ -62,10 +60,12 @@ export const TableHeaderRow = ({
 					id={cell.id}
 					key={cell.category}
 					onClick={_onSort}
-					sorted={sort.id === cell.id}
-					sortIcon={sort.ascending
-						? sortAscendingIcon
-						: sortDescendingIcon}
+					sort={sort.id === cell.id
+						? sort.ascending
+							? 'ascending'
+							: 'descending'
+						: null
+					}
 					title={cell.category}
 				/>
 			))}
