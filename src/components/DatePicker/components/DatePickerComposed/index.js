@@ -161,6 +161,7 @@ class DatePickerContainer extends Component {
 	handleDateTimeChange = (value) => {
 		const { name, onChange, required, type } = this.props;
 
+		console.log('value: ', value);
 		this.setState({
 			hasError: !!required && !value,
 			value

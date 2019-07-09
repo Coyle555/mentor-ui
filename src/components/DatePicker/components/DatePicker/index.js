@@ -63,8 +63,9 @@ export function DatePicker(props) {
 		getInitialType(TYPES, type)
 	);
 
-
-	const [m, setM] = useState(moment ? moment : new Moment());
+	const [m, setM] = useState(moment
+		? moment
+		: new Moment().hour(0).minute(0));
 
 	const [isDateDisabled, isTimeDisabled] = getIsDisabled(
 		TYPES,
@@ -126,7 +127,9 @@ export function DatePicker(props) {
 					moment={m}
 					onChange={onChangeCallback(
 						onChange,
-						DEFAULT_FORMAT_MASKS[type],
+						isFormatValid(format, m)
+							? format
+							: DEFAULT_FORMAT_MASKS[type],
 						setM,
 					)}
 				/>
@@ -141,7 +144,9 @@ export function DatePicker(props) {
 					moment={m}
 					onChange={onChangeCallback(
 						onChange,
-						DEFAULT_FORMAT_MASKS[type],
+						isFormatValid(format, m)
+							? format
+							: DEFAULT_FORMAT_MASKS[type],
 						setM,
 					)}
 				/>
@@ -170,15 +175,21 @@ export function getInitialType(types, type) {
 	};
 };
 
+export function isFormatValid(format, m) { // m = moment
+	return typeof format === 'string'
+		&& m.format(format) !== format
+		&& format.match(/\d/) === null
+}
+
 export function onChangeCallback(
 	onChange,
 	mask,
 	setM,
 ) {
-	return (moment) => {
-		const value = moment.format(mask);
+	return (m) => { // m = moment
+		const value = m.format(mask);
 
-		setM(moment.clone());
+		setM(m.clone());
 		onChange(value);
 	}
 }
