@@ -1,7 +1,9 @@
 import cn from 'classnames';
-import moment from 'moment';
+import Moment from 'moment';
 import React, {
 	useState,
+	useRef,
+	useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,33 +17,37 @@ import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
-const tabDisabled = {
-	cursor: 'default',
-	width: '100%'
-};
-
-const TAB_LABELS = Object.freeze({
-	time: 'Time',
-	date: 'Date',
-})
+export const TYPES = Object.freeze({
+	time: 'time',
+	date: 'date',
+	datetime: 'datetime',
+});
 
 const TAB_OPTIONS = Object.freeze([
 	{
-		label: TAB_LABELS.date,
+		label: TYPES.date,
 		iconClass: 'fal fa-calendar-alt',
 	},
 	{
-		label: TAB_LABELS.time,
+		label: TYPES.time,
 		iconClass: 'fal fa-clock',
 	},
-])
+]);
+
+const DEFAULT_FORMAT_MASKS = Object.freeze({
+	[TYPES.datetime]: 'YYYY-MM-DD HH:mm',
+	[TYPES.date]: 'YYYY-MM-DD',
+	[TYPES.time]: 'HH:mm'
+});
+
 
 export function DatePicker(props) {
 	const {
-		moment: m,
 		className,
+		format,
+		type,
+		moment,
 		clearInput,
-		isDateDisabled,
 		handleClose,
 		minDate,
 		maxDate,
@@ -50,13 +56,19 @@ export function DatePicker(props) {
 		minMinute,
 		maxMinute,
 		saveDate,
-		isTimeDisabled,
 		onChange,
 	} = props;
 
-	const [activeTab, setActiveTab] = useState(isDateDisabled
-		? TAB_LABELS.time
-		: TAB_LABELS.date
+	const [activeTab, setActiveTab] = useState(
+		getInitialType(TYPES, type)
+	);
+
+
+	const [m, setM] = useState(moment ? moment : new Moment());
+
+	const [isDateDisabled, isTimeDisabled] = getIsDisabled(
+		TYPES,
+		type,
 	);
 
 	const cc = composeNamespace('APMDatePicker', className);
@@ -79,7 +91,11 @@ export function DatePicker(props) {
 					}
 					{ isCallbackValid(clearInput) &&
 						<OptionalControl
-							onClick={clearInput}
+							onClick={onClearCallback(
+								clearInput,
+								setM,
+								Moment,
+							)}
 							iconClass='fal fa-empty-set'
 						>
 							Clear
@@ -102,16 +118,20 @@ export function DatePicker(props) {
 					onClick={onTabClick(setActiveTab)}
 				/>
 			}
-			{ activeTab === TAB_LABELS.date && !isDateDisabled
+			{ activeTab === TYPES.date && !isDateDisabled
 			&&
 				<Calendar
 					maxDate={maxDate}
 					minDate={minDate}
 					moment={m}
-					onChange={onChange}
+					onChange={onChangeCallback(
+						onChange,
+						DEFAULT_FORMAT_MASKS[type],
+						setM,
+					)}
 				/>
 			}
-			{ activeTab === TAB_LABELS.time && !isTimeDisabled
+			{ activeTab === TYPES.time && !isTimeDisabled
 			&&
 				<Time
 					minHour={minHour}
@@ -119,11 +139,59 @@ export function DatePicker(props) {
 					minMinute={minMinute}
 					maxMinute={maxMinute}
 					moment={m}
-					onChange={onChange}
+					onChange={onChangeCallback(
+						onChange,
+						DEFAULT_FORMAT_MASKS[type],
+						setM,
+					)}
 				/>
 			}
 		</div>
 	);
+};
+
+const getIsDisabled = (types, type) => {
+	return [
+		type === TYPES.time,
+		type === TYPES.date,
+	]
+}
+
+export function getInitialType(types, type) {
+	switch (type) {
+		case types.datetime:
+			return types.date;
+		case types.date:
+			return types.date;
+		case types.time:
+			return types.time;
+		default:
+			return types.date;
+	};
+};
+
+export function onChangeCallback(
+	onChange,
+	mask,
+	setM,
+) {
+	return (moment) => {
+		const value = moment.format(mask);
+
+		setM(moment.clone());
+		onChange(value);
+	}
+}
+
+export function onClearCallback(
+	onClear,
+	setM,
+	Moment,
+) {
+	return () => {
+		onClear();
+		setM(new Moment());
+	}
 };
 
 export function onTabClick(setActiveTab) {
@@ -138,7 +206,6 @@ export const isCallbackValid = (callback) => {
 
 DatePicker.propTypes = {
 	clearInput: PropTypes.func,
-	isDateDisabled: PropTypes.bool,
 	handleClose: PropTypes.func,
 	minDate: PropTypes.string,
 	maxDate: PropTypes.string,
@@ -146,15 +213,13 @@ DatePicker.propTypes = {
 	maxHour: PropTypes.number,
 	minMinute: PropTypes.number,
 	maxMinute: PropTypes.number,
-	moment: PropTypes.object,
 	saveDate: PropTypes.func,
 	onChange: PropTypes.func,
-	isTimeDisabled: PropTypes.bool
+	type: PropTypes.string.isRequired,
 };
 
 DatePicker.defaultProps = {
 	clearInput: null,
-	isDateDisabled: false,
 	handleClose: null,
 	minDate: null,
 	maxDate: null,
@@ -162,7 +227,5 @@ DatePicker.defaultProps = {
 	maxHour: 23,
 	minMinute: 0,
 	maxMinute: 59,
-	moment: new moment(),
 	saveDate: null,
-	isTimeDisabled: false
 };

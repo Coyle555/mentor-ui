@@ -158,10 +158,8 @@ class DatePickerContainer extends Component {
 	}
 
 	// when user selects a date or time on the datetime picker
-	handleDateTimeChange = (newVal) => {
+	handleDateTimeChange = (value) => {
 		const { name, onChange, required, type } = this.props;
-		const mask = this.getDateFormat();
-		const value = newVal.format(mask);
 
 		this.setState({
 			hasError: !!required && !value,
@@ -169,9 +167,9 @@ class DatePickerContainer extends Component {
 		}, () => {
 			if (typeof onChange === 'function') {
 				onChange(false, value, name);
-			}
+			};
 		});
-	}
+	};
 
 	handleIconClick = (evt) => {
 		this.setState((prevState) => ({
@@ -216,8 +214,6 @@ class DatePickerContainer extends Component {
 					handleClose={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					clearInput={this.clearInput}
-					isDateDisabled={this.props.type === 'time'}
-					isTimeDisabled={this.props.type === 'date'}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
@@ -225,6 +221,7 @@ class DatePickerContainer extends Component {
 					maxMinute={this.props.maxMinute}
 					minMinute={this.props.minMinute}
 					moment={this.moment}
+					type={this.props.type}
 				/>
 			</div>
 		);
@@ -348,7 +345,7 @@ DatePickerContainer.defaultProps = {
 	onBlur: null,
 	onChange: null,
 	required: false,
-	type: 'time',
+	type: 'datetime',
 	value: ''
 }
 
