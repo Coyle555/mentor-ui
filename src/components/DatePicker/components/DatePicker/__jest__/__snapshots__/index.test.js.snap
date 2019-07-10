@@ -61,37 +61,6 @@ exports[`DatePicker Component Should match snapshot with clearInput prop 1`] = `
 </div>
 `;
 
-exports[`DatePicker Component Should match snapshot with handleClose prop 1`] = `
-<div>
-  <div
-    class="APMDatePicker"
-  >
-    <div
-      class="APMDatePicker-optional-controls"
-    >
-      <div
-        class="APMDatePicker-optional-controls-main"
-      />
-      <div>
-        <button />
-        {"iconClass":"fal fa-times","className":"APMDatePicker-optional-controls-orphan"}
-      </div>
-    </div>
-    <div>
-      <button>
-        date
-      </button>
-      {"className":"APMDatePicker-nav","tabs":[{"label":"date","iconClass":"fal fa-calendar-alt"},{"label":"time","iconClass":"fal fa-clock"}]}
-    </div>
-    <div
-      data-testid="Calendar"
-    >
-      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
-    </div>
-  </div>
-</div>
-`;
-
 exports[`DatePicker Component Should match snapshot with onCloseHandler prop 1`] = `
 <div>
   <div
@@ -124,40 +93,6 @@ exports[`DatePicker Component Should match snapshot with onCloseHandler prop 1`]
 `;
 
 exports[`DatePicker Component Should match snapshot with onSaveHandler prop 1`] = `
-<div>
-  <div
-    class="APMDatePicker"
-  >
-    <div
-      class="APMDatePicker-optional-controls"
-    >
-      <div
-        class="APMDatePicker-optional-controls-main"
-      >
-        <div>
-          <button>
-            Save
-          </button>
-          {"iconClass":"fal fa-save"}
-        </div>
-      </div>
-    </div>
-    <div>
-      <button>
-        date
-      </button>
-      {"className":"APMDatePicker-nav","tabs":[{"label":"date","iconClass":"fal fa-calendar-alt"},{"label":"time","iconClass":"fal fa-clock"}]}
-    </div>
-    <div
-      data-testid="Calendar"
-    >
-      {"maxDate":null,"minDate":null,"moment":"1999-12-31T15:00:00.000Z"}
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DatePicker Component Should match snapshot with saveDate prop 1`] = `
 <div>
   <div
     class="APMDatePicker"

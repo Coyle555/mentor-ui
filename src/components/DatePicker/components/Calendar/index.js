@@ -106,6 +106,11 @@ export function Calendar(props) {
 									onClick={selectDate(
 										m,
 										onChange,
+										buttonCallback(
+											m,
+											setDays,
+											getDays
+										),
 									)}
 									currentMoment={m}
 									minDate={minDate}
@@ -158,7 +163,8 @@ export function getDays(m) {
 
 export function	selectDate(
 	m, // moment object
-	callback,
+	onChange,
+	buttonCallback,
 ) {
 	return (day, week) => {
 		const prevMonth = week === 0 && day > 7;
@@ -168,7 +174,8 @@ export function	selectDate(
 		if (nextMonth) m.add(1, 'month');
 
 		m.date(day);
-		callback(m);
+		onChange(m);
+		buttonCallback();
 	};
 };
 

@@ -329,10 +329,30 @@ describe('Calendar Component', () => {
 				expect(typeof func === 'function').toBe(true);
 			});
 
-			test('Returned function should invoke callback', () => {
+			test('Returned function should invoke first callback', () => {
 				const m = getMoment();
 				const mockCallback = jest.fn(foo => 'bar');
-				const handler = selectDate(m, mockCallback);
+				const handler = selectDate(
+					m,
+					mockCallback,
+					() => {}
+				);
+
+				handler(10, 0);
+
+				expect(mockCallback).toHaveBeenCalledTimes(1);
+				expect(mockCallback.mock.results[0].value)
+					.toBe('bar');
+			});
+
+			test('Returned function should invoke second callback', () => {
+				const m = getMoment();
+				const mockCallback = jest.fn(foo => 'bar');
+				const handler = selectDate(
+					m,
+					() => {},
+					mockCallback,
+				);
 
 				handler(10, 0);
 
@@ -343,7 +363,11 @@ describe('Calendar Component', () => {
 
 			test('Should set the moment to the selected date if date is within current month', () => {
 				const m = getMoment();
-				const handler = selectDate(m, () => {});
+				const handler = selectDate(
+					m,
+					() => {},
+					() => {},
+				);
 
 				handler(4, 0);
 
@@ -353,7 +377,11 @@ describe('Calendar Component', () => {
 
 			test('Should subtract a month and set to input day if day is in previous month', () => {
 				const m = getMoment();
-				const handler = selectDate(m, () => {});
+				const handler = selectDate(
+					m,
+					() => {},
+					() => {},
+				);
 
 				handler(31, 0);
 
@@ -363,7 +391,11 @@ describe('Calendar Component', () => {
 
 			test('Should add a month and set to input day if day is in next month', () => {
 				const m = getMoment();
-				const handler = selectDate(m, () => {});
+				const handler = selectDate(
+					m,
+					() => {},
+					() => {},
+				);
 
 				handler(14, 4);
 
