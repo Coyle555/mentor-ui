@@ -47,15 +47,15 @@ export function DatePicker(props) {
 		format,
 		type,
 		moment,
-		clearInput,
-		handleClose,
+		onClearHandler,
+		onCloseHandler,
 		minDate,
 		maxDate,
 		minHour,
 		maxHour,
 		minMinute,
 		maxMinute,
-		saveDate,
+		onSaveHandler,
 		onChange,
 	} = props;
 
@@ -82,18 +82,18 @@ export function DatePicker(props) {
 			{ [cc('optional-controls-date-spacer')]: isTimeDisabled })
 			}>
 				<div className={cc('optional-controls-main')}>
-					{ isCallbackValid(saveDate) &&
+					{ isCallbackValid(onSaveHandler) &&
 						<OptionalControl
-							onClick={saveDate}
+							onClick={onSaveHandler}
 							iconClass='fal fa-save'
 						>
 							Save
 						</OptionalControl>
 					}
-					{ isCallbackValid(clearInput) &&
+					{ isCallbackValid(onClearHandler) &&
 						<OptionalControl
 							onClick={onClearCallback(
-								clearInput,
+								onClearHandler,
 								setM,
 								Moment,
 							)}
@@ -103,9 +103,9 @@ export function DatePicker(props) {
 						</OptionalControl>
 					}
 				</div>
-				{ isCallbackValid(handleClose) &&
+				{ isCallbackValid(onCloseHandler) &&
 					<OptionalControl
-						onClick={handleClose}
+						onClick={onCloseHandler}
 						iconClass='fal fa-times'
 						className={cc('optional-controls-orphan')}
 					/>
@@ -155,7 +155,7 @@ export function DatePicker(props) {
 	);
 };
 
-const getIsDisabled = (types, type) => {
+export function getIsDisabled(types, type) {
 	return [
 		type === TYPES.time,
 		type === TYPES.date,
@@ -216,27 +216,27 @@ export const isCallbackValid = (callback) => {
 };
 
 DatePicker.propTypes = {
-	clearInput: PropTypes.func,
-	handleClose: PropTypes.func,
+	onClearHandler: PropTypes.func,
+	onCloseHandler: PropTypes.func,
 	minDate: PropTypes.string,
 	maxDate: PropTypes.string,
 	minHour: PropTypes.number,
 	maxHour: PropTypes.number,
 	minMinute: PropTypes.number,
 	maxMinute: PropTypes.number,
-	saveDate: PropTypes.func,
+	onSaveHandler: PropTypes.func,
 	onChange: PropTypes.func,
 	type: PropTypes.string.isRequired,
 };
 
 DatePicker.defaultProps = {
-	clearInput: null,
-	handleClose: null,
+	onClearHandler: null,
+	onCloseHandler: null,
 	minDate: null,
 	maxDate: null,
 	minHour: 0,
 	maxHour: 23,
 	minMinute: 0,
 	maxMinute: 59,
-	saveDate: null,
+	onSaveHandler: null,
 };

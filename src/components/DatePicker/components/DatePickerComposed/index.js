@@ -212,9 +212,9 @@ class DatePickerContainer extends Component {
 			>
 
 				<DatePicker
-					handleClose={this.handleClose}
+					onCloseHandler={this.handleClose}
 					onChange={this.handleDateTimeChange}
-					clearInput={this.clearInput}
+					onClearHandler={this.clearInput}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
