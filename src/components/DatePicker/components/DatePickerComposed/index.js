@@ -231,7 +231,7 @@ class DatePickerContainer extends Component {
 					minHour={this.props.minHour}
 					maxMinute={this.props.maxMinute}
 					minMinute={this.props.minMinute}
-					moment={this.state.moment.clone()}
+					moment={this.state.moment}
 					type={this.props.type}
 				/>
 			</div>

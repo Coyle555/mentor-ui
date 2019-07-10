@@ -63,11 +63,11 @@ export function DatePicker(props) {
 		getInitialType(TYPES, type)
 	);
 
-	//console.log(Boolean(!!moment), moment)
 	const propsMomentRef = useRef(moment);
 	const [m, setM] = useState(moment
 		? moment.clone()
-		: new Moment().hour(0).minute(0));
+		: new Moment().hour(0).minute(0)
+	);
 
 	const [isDateDisabled, isTimeDisabled] = getIsDisabled(
 		TYPES,
@@ -76,13 +76,19 @@ export function DatePicker(props) {
 
 	const cc = composeNamespace('APMDatePicker', className);
 
-	//useEffect(() => {
-		//if (propsMomentRef.current !== moment
-			//&& moment instanceof Moment) {
-			//setM(moment)
-			//propsMomentRef.current = moment;
-		//}
-	//}, [moment]);
+	/**
+	 * Causes the DatePicker to rerender when a new moment
+	 * object is passed in. The use case for this is when
+	 * DatePicker should reflect an external input (see
+	 * DatePickerComposed).
+	 */
+	useEffect(() => {
+		if (propsMomentRef.current !== moment
+			&& moment instanceof Moment) {
+			setM(moment)
+			propsMomentRef.current = moment;
+		}
+	}, [moment]);
 
 	return (
 		<div className={cc()}>
