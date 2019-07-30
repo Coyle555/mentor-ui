@@ -141,6 +141,7 @@ export class Table extends Component {
 
 		this.allRowsSelected = false;
 
+		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
 		// @insertMode(bool) - toggle for insertion mode of table
 		// @insertType(string) - type of insertion to use when
@@ -600,19 +601,20 @@ export class Table extends Component {
 	}
 
 	render() {
-		const { insertMode } = this.state;
+		const { formFields, initInsertData } = this.props;
+		const { columns, insertMode, insertType } = this.state;
 
 		return (
 			<React.Fragment>
 				{ insertMode && 
 					<InsertForm
-						initInsertData={this.props.initInsertData}
-						formFields={!!this.props.formFields
-							? cloneDeep(this.props.formFields)
-							: cloneDeep(this.state.columns)}
+						initInsertData={initInsertData}
+						formFields={!!formFields
+							? cloneDeep(formFields.filter(field => field.insertable !== false)
+							: cloneDeep(columns.filter(col => col.insertable !== false)}
 						onDisable={this._onInsertClick}
 						onSubmit={this._onSubmitInsertion}
-						resetForm={this.state.insertType === 'multiple'}
+						resetForm={insertType === 'multiple'}
 					/>
 				}
 				{ this.renderLayout() }
