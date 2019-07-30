@@ -6,11 +6,11 @@ import { Time } from '../';
 
 const m = moment();
 
-storiesOf('DatePicker/Time', module)
-	.add('general', () =>
-		<Time
-			moment={m}
-			onChange={() => console.log('changed')}
-			display
-		/>
-	)
+//storiesOf('DatePicker/Time', module)
+	//.add('general', () =>
+		//<Time
+			//moment={m}
+			//onChange={() => console.log('changed')}
+			//display
+		///>
+	//)

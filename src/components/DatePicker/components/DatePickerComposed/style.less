@@ -1,6 +1,4 @@
-@coverAll_zIndex: 1000;
-@blue-primary: blue;
-@green-primary: green;
+@import '~mentor-ui-constants';
 
 .APMDatePickerComposed {
 	width: 100%;
@@ -15,11 +13,13 @@
 		padding: 0;
 
 		&-has-error {
-			border-color: #be1717;
+			border-color: @ketchup;
 		}
 
 		&-button {
 			color: @blue-primary;
+			background: transparent;
+			border: none;
 			border-right: 1px solid @blue-primary;
 			font-size: 14px;
 			font-weight: 400;
@@ -31,13 +31,13 @@
 
 			&-is-on {
 				color: white;
-				background-color: @blue-primary;
+				background: @blue-primary !important;
 				border-color: @blue-primary;
 			}
 
 			&-has-error {
-				color: #be1717;
-				border-color: #be1717;
+				color: @ketchup;
+				border-color: @ketchup;
 			}
 
 			&:hover {

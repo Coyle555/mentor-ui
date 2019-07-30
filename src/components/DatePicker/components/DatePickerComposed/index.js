@@ -23,19 +23,14 @@ class DatePickerContainer extends Component {
 		super(props);
 
 		const { required, value } = this.props;
-
-		let val = '';
 		const mask = this.getDateFormat();
-		let m = moment;
 
-		if (!moment(value).isValid()) {
-			this.moment = new moment(new Date(), mask);
-		} else {
-			this.moment = new moment(value, mask);
-			val = this.moment.format(mask);
-		}
+		const isValid = moment(value).isValid();
+		const firstMoment = isValid
+			? new moment(value, mask)
+			: new moment(new Date(), mask)
 
-		this.lastVal = val;
+		this.lastVal = firstMoment.format(mask);
 
 		// @showPicker(bool) - if the date picker popup is open
 		// @hasError(bool) - if there is an error with the users
@@ -45,10 +40,12 @@ class DatePickerContainer extends Component {
 		// @value(string) - current value in the input field
 		this.state = {
 			showPicker: this.props.autoFocus,
-			hasError: !!required & !val,
+			hasError: !!required & !isValid,
 			pickerEnabled: true,
-			value: val,
+			moment: firstMoment,
+			value: !isValid ? '' : firstMoment.format(mask),
 		};
+
 	}
 
 	componentDidMount() {
@@ -69,6 +66,11 @@ class DatePickerContainer extends Component {
 				value: val
 			});
 		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		//console.log('p: ', prevState.moment);
+		//console.log('n: ', this.state.moment);
 	}
 
 	componentWillUnmount() {
@@ -146,8 +148,16 @@ class DatePickerContainer extends Component {
 			? !this.validDate(value)
 			: !!required;
 
+		const isValidValue = this.validDate(value);
+
+		if (isValidValue) {
+			this.setState({
+				moment: new moment(value, mask)
+			})
+		}
+
 		this.setState({
-			pickerEnabled: !value.length > 0,
+			//pickerEnabled: !value.length > 0,
 			hasError,
 			value
 		}, () => {
@@ -158,10 +168,8 @@ class DatePickerContainer extends Component {
 	}
 
 	// when user selects a date or time on the datetime picker
-	handleDateTimeChange = (newVal) => {
+	handleDateTimeChange = (value) => {
 		const { name, onChange, required, type } = this.props;
-		const mask = this.getDateFormat();
-		const value = newVal.format(mask);
 
 		this.setState({
 			hasError: !!required && !value,
@@ -169,9 +177,9 @@ class DatePickerContainer extends Component {
 		}, () => {
 			if (typeof onChange === 'function') {
 				onChange(false, value, name);
-			}
+			};
 		});
-	}
+	};
 
 	handleIconClick = (evt) => {
 		this.setState((prevState) => ({
@@ -201,6 +209,7 @@ class DatePickerContainer extends Component {
 
 	renderPicker = (cc) => {
 		const { pickerStyle, portalRef } = this.props;
+		//console.log('renderPicker method - moment state: ', this.state.moment);
 
 		const picker = (
 			<div
@@ -213,18 +222,17 @@ class DatePickerContainer extends Component {
 			>
 
 				<DatePicker
-					handleClose={this.handleClose}
+					onCloseHandler={this.handleClose}
 					onChange={this.handleDateTimeChange}
-					clearInput={this.clearInput}
-					isDateDisabled={this.props.type === 'time'}
-					isTimeDisabled={this.props.type === 'date'}
+					onClearHandler={this.clearInput}
 					maxDate={this.props.maxDate}
 					minDate={this.props.minDate}
 					maxHour={this.props.maxHour}
 					minHour={this.props.minHour}
 					maxMinute={this.props.maxMinute}
 					minMinute={this.props.minMinute}
-					moment={this.moment}
+					moment={this.state.moment}
+					type={this.props.type}
 				/>
 			</div>
 		);
@@ -348,7 +356,7 @@ DatePickerContainer.defaultProps = {
 	onBlur: null,
 	onChange: null,
 	required: false,
-	type: 'time',
+	type: 'datetime',
 	value: ''
 }
 

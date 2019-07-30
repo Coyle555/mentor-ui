@@ -57,6 +57,12 @@ import {
 	DatePicker,
 	onTabClick,
 	isCallbackValid,
+	getIsDisabled,
+	getInitialType,
+	isFormatValid,
+	onChangeCallback,
+	onClearCallback,
+	TYPES,
 } from '../';
 
 beforeEach(cleanup);
@@ -115,33 +121,33 @@ describe('DatePicker Component', () => {
 			<DatePicker
 				moment={m}
 				onChange={() => {}}
-				clearInput={() => {}}
+				onClearHandler={() => {}}
 			/>
 		);
 
 		expect(container).toMatchSnapshot();
 	});
 
-	it('Should match snapshot with handleClose prop', () => {
+	it('Should match snapshot with onCloseHandler prop', () => {
 		const m = getMoment();
 		const { container } = render(
 			<DatePicker
 				moment={m}
 				onChange={() => {}}
-				handleClose={() => {}}
+				onCloseHandler={() => {}}
 			/>
 		);
 
 		expect(container).toMatchSnapshot();
 	});
 
-	it('Should match snapshot with saveDate prop', () => {
+	it('Should match snapshot with onSaveHandler prop', () => {
 		const m = getMoment();
 		const { container } = render(
 			<DatePicker
 				moment={m}
 				onChange={() => {}}
-				saveDate={() => {}}
+				onSaveHandler={() => {}}
 			/>
 		);
 
@@ -319,6 +325,130 @@ describe('DatePicker Component', () => {
 	});
 
 	describe('DatePicker methods', () => {
+		describe('getIsDisabled function', () => {
+			it('Should return an array containing two booleans', () => {
+				expect(
+					Array.isArray(
+						getIsDisabled(TYPES, 'date')
+					)
+				)
+					.toBe(true);
+			});
+		});
+
+		describe('getInitialType function', () => {
+			it('Should return date if invalid type', () => {
+				expect(getInitialType(TYPES, 'Godzilla'))
+					.toBe(TYPES.date);
+			});
+
+			it('Should return date if type is "datetime"', () => {
+				expect(getInitialType(TYPES, 'datetime'))
+					.toBe(TYPES.date);
+			});
+
+			it('Should return date if type is "date"', () => {
+				expect(getInitialType(TYPES, 'date'))
+					.toBe(TYPES.date);
+			});
+
+			it('Should return time if type is "time"', () => {
+				expect(getInitialType(TYPES, 'time'))
+					.toBe(TYPES.time);
+			});
+		});
+
+		describe('isFormatValid function', () => {
+			it('Should return false if format is not a string', () => {
+				const format = 123;
+				expect(isFormatValid(format)).toBe(false);
+			});
+
+			it('Should return false if format returned by date object is the same as input format', () => {
+				const m = getMoment();
+				const format = '-';
+				expect(isFormatValid(format, m)).toBe(false);
+			});
+
+			it('Should return false if there are any integers in format', () => {
+				const m = getMoment();
+				const format = '-dd-1234';
+				expect(isFormatValid(format, m)).toBe(false);
+			});
+		});
+
+		describe('onChangeCallback function', () => {
+			it('Should return a function', () => {
+				expect(typeof onChangeCallback(() => {}) === 'function').toBe(true);
+			});
+
+			it('Returned function should invoke setM with m.clone', () => {
+				const mask = '010101'
+				const mockSetM = jest.fn(() => {});
+				const mockMoment = {
+					format: jest.fn(baz => baz),
+					clone: jest.fn(foo => 'bar'),
+				}
+
+				onChangeCallback(
+					() => {},
+					mask,
+					mockSetM,
+				)(mockMoment);
+
+				expect(mockSetM).toHaveBeenCalledTimes(1);
+				expect(mockSetM).toHaveBeenCalledWith('bar');
+			});
+
+			it('Returned function should invoke onChange with mask', () => {
+				const mask = '010101'
+				const mockOnChange = jest.fn(() => {});
+				const mockMoment = {
+					format: jest.fn(baz => baz),
+					clone: jest.fn(foo => 'bar'),
+				}
+
+				onChangeCallback(
+					mockOnChange,
+					mask,
+					() => {},
+				)(mockMoment);
+
+				expect(mockOnChange).toHaveBeenCalledTimes(1);
+				expect(mockOnChange).toHaveBeenCalledWith(mask);
+			});
+		});
+
+		describe('onClearCallback function', () => {
+			it('Should return a function', () => {
+				expect(typeof onClearCallback(() => {}) === 'function').toBe(true);
+			});
+
+			it('Returned function should invoke first callback', () => {
+				const mockCallback = jest.fn(() => {});
+
+				onClearCallback(
+					mockCallback,
+					() => {},
+					Moment,
+				)();
+
+				expect(mockCallback).toHaveBeenCalledTimes(1);
+			});
+
+			it('Returned function should invoke second callback', () => {
+				const mockCallback = jest.fn(() => {});
+
+				onClearCallback(
+					() => {},
+					mockCallback,
+					Moment,
+				)();
+
+				expect(mockCallback).toHaveBeenCalledTimes(1);
+			});
+		});
+
 		describe('onTabClick function', () => {
 			it('Should return a function', () => {
 				expect(typeof onTabClick(() => {}) === 'function').toBe(true);
