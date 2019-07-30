@@ -48,7 +48,7 @@ export function convertCellToString(value, type) {
 		return convertDateTime(value);
 	} else if (type === 'date' && Date.parse(value)) {
 		return convertDate(value);
-	// handle objects with a name field
+	// default to name field for objects
 	} else if (valueType === 'object' && value.name) {
 		return value.name;
 	}

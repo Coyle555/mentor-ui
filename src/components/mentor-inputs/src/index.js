@@ -9,13 +9,10 @@ import ListFilterComponent from './components/list-filter/index';
 import SelectInputComponent from './components/select-input/selectInput';
 import TextInputComponent from './components/text-input/textInput';
 import TextareaInputComponent from './components/textarea-input/textareaInput';
-import TokenInputComponent from './components/token-input/tokenInput';
 import TableInputComponent from './components/table-input/index';
 import APMDropzoneComponent from './components/Dropzone';
 
 import { getMentorInput as getMentorInputFunc } from './utils/utils';
-import { asyncFilter as asyncFilterFunc } from './utils/asyncFilter';
-
 
 export const BooleanInput = BooleanInputComponent;
 // export const DatePicker = DatePickerComponent;
@@ -29,12 +26,10 @@ export const SelectInput = SelectInputComponent;
 export const TableInput = TableInputComponent;
 export const TextInput = TextInputComponent;
 export const TextareaInput = TextareaInputComponent;
-export const TokenInput = TokenInputComponent;
 export const APMDropzone = APMDropzoneComponent;
 
 export * from './components/mui-input/index';
 export * from './components/async-dropdown/index';
 export * from './hooks/index';
 
-export const asyncFilter = asyncFilterFunc;
 export const getMentorInput = getMentorInputFunc;

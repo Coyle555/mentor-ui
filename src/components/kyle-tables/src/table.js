@@ -300,7 +300,7 @@ export class Table extends Component {
 		const { updateCb } = this.props;
 
 		if (typeof updateCb === 'function') {
-			updateCb(rowId, { [colId]: null });
+			updateCb(rowId, colId, null);
 		}
 	}
 
@@ -365,7 +365,7 @@ export class Table extends Component {
 		const { updateCb } = this.props;
 
 		if (typeof updateCb === 'function') {
-			updateCb(rowId, { [colId]: option });
+			updateCb(rowId, colId, option);
 		}
 	}
 

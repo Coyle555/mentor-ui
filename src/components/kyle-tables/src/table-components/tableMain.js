@@ -42,7 +42,7 @@ export const TableMain = ({
 			ref={portalRef}
 		>
 			<div className="table-content">
-				{ pageProperties.recordCount > 0
+				{ pageProperties.recordCount > 0 && rowProperties.data.length > 0
 					? <table className={tableClass} id={id}>
 						<TableHeader
 							allowSelection={rowProperties.allowSelection}
