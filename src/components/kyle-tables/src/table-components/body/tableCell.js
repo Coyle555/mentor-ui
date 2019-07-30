@@ -11,7 +11,6 @@ import { EditTableInputCell } from './cell-components/editTableInputCell';
 import { TableListFilter } from './cell-components/listFilter';
 import { TableDatePicker } from './cell-components/datePicker';
 import { SelectCell } from './cell-components/selectCell';
-import { asyncFilter as customFilter } from 'mentor-inputs';
 
 export const Cell = ({
 	asyncFilter,
@@ -171,7 +170,7 @@ export const Cell = ({
 		cell = (
 			<TableListFilter
 				clearInputAfterMatch={false}
-				customFilter={customFilter(asyncFilter)}
+				customFilter={asyncFilter}
 				inputClass={editInputClass}
 				matchOnEmpty={!required}
 				name={colId}
@@ -220,7 +219,7 @@ export const Cell = ({
 };
 
 Cell.propTypes = {
-	asyncFilter: PropTypes.string,
+	asyncFilter: PropTypes.func,
 	cellClass: PropTypes.string,
 	cellOptions: PropTypes.arrayOf(
 		PropTypes.oneOfType([

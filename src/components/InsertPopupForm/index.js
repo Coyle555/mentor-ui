@@ -11,7 +11,6 @@ import {
 } from './components/index';
 
 import {
-	asyncFilter,
 	getMentorInput,
 	AsyncDropdown,
 	ListFilter,
@@ -34,7 +33,7 @@ export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
-			asyncFilter: PropTypes.string,
+			asyncFilter: PropTypes.func,
 			category: PropTypes.string,
 			collection: PropTypes.bool,
 			id: PropTypes.string.isRequired,
@@ -161,7 +160,7 @@ export default class InsertForm extends Component {
 				InputComponent = (
 					<ListFilter
 						{...mentorInputProps}
-						customFilter={asyncFilter(field.asyncFilter)}
+						customFilter={asyncFilter}
 						onMatch={this._handleOptionMatch}
 					/>
 				);

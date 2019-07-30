@@ -7,7 +7,6 @@ import { Header } from './header';
 import { TableMain } from './table-components/tableMain';
 import { Loading } from './Loading';
 import InsertForm from 'insert-popup-form';
-import { asyncFilter } from 'mentor-inputs';
 
 import './styles.less';
 
@@ -480,12 +479,6 @@ export class Table extends Component {
 		let filterOptions = cloneDeep(this.props.columns);
 		filterOptions = this.sortFilterOptions(filterOptions);
 
-		filterOptions.forEach(option => {
-			if (option.asyncFilter) {
-				option.asyncFilter = asyncFilter(option.asyncFilter);
-			}
-		});
-
 		const HeaderComponent = (
 			<Header
 				filter={{
@@ -610,8 +603,8 @@ export class Table extends Component {
 					<InsertForm
 						initInsertData={initInsertData}
 						formFields={!!formFields
-							? cloneDeep(formFields.filter(field => field.insertable !== false)
-							: cloneDeep(columns.filter(col => col.insertable !== false)}
+							? cloneDeep(formFields.filter(field => field.insertable !== false))
+							: cloneDeep(columns.filter(col => col.insertable !== false))}
 						onDisable={this._onInsertClick}
 						onSubmit={this._onSubmitInsertion}
 						resetForm={insertType === 'multiple'}

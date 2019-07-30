@@ -59,14 +59,6 @@ export class TableRow extends PureComponent {
 		this.props._onRowSelect(this.props.row);
 	}
 
-	generateCustomFilter = (col) => {
-		if (typeof this.props.generateCustomFilter === 'function') {
-			return this.props.generateCustomFilter(col, this.props.row);
-		}
-
-		return null;
-	}
-
 	onExtraColClick = (onClick) => {
 		if (typeof onClick === 'function') {
 			onClick(this.props.row);
@@ -143,7 +135,7 @@ export class TableRow extends PureComponent {
 				}
 				{ columns.map(col => (
 					<Cell
-						asyncFilter={this.generateCustomFilter(col)}
+						asyncFilter={col.asyncFilter}
 						cellOptions={col.options}
 						cellType={col.type}
 						colId={col.id}
