@@ -6,8 +6,7 @@ import {
 	Field,
 	Label,
 	Portal,
-	Stepper,
-	SelectedOption,
+	Stepper
 } from './components/index';
 
 import {
@@ -253,23 +252,6 @@ export default class InsertForm extends Component {
 		});
 	}
 
-	removeSelectedOption = (selectedOption) => {
-		const fieldId = this.getField().id;
-		const options = this.insertData[fieldId].options;
-		let newOptions;
-
-		if (typeof selectedOption === 'object') {
-			newOptions = options.filter(option => option.id !== selectedOption.id);
-		} else {
-			newOptions = options.filter(option => option !== selectedOption);
-		}
-
-		const error = this.getField().required && newOptions.length === 0;
-
-		this.insertData[fieldId].options = newOptions;
-		this.handleFieldError(error, fieldId);
-	}
-
 	// handle submitting insertion data to the backend
 	_onSubmit = () => {
 		if (Object.keys(this.state.fieldsWithError).length > 0) {
@@ -362,11 +344,11 @@ export default class InsertForm extends Component {
 	}
 
 	render() {
-		if (this.state.formModel.length === 0) {
+		const { currentInputLabel, fieldIndex, fieldsWithError, formModel, steps } = this.state;
+
+		if (formModel.length === 0) {
 			return null;
 		}
-
-		const { currentInputLabel, fieldIndex, fieldsWithError, steps } = this.state;
 
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
