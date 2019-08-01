@@ -12,7 +12,6 @@ import {
 
 import {
 	getMentorInput,
-	AsyncDropdown,
 	ListFilter,
 	TableInput,
 	TextareaInput,
@@ -23,7 +22,6 @@ import { keyEvent as KeyEvent } from 'utils';
 
 import './styles/form.less';
 
-const TABLE_INPUT_RE = /^\/(\w+)/;
 
 // Insert form pops up a transparent background with a form that asks one
 // question at a time based on the formFields inputted. Once an input is
@@ -35,11 +33,9 @@ export default class InsertForm extends Component {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
 			asyncFilter: PropTypes.func,
 			category: PropTypes.string,
-			collection: PropTypes.bool,
 			id: PropTypes.string.isRequired,
 			options: PropTypes.arrayOf(PropTypes.string),
 			required: PropTypes.bool,
-			tokenize: PropTypes.bool,
 			type: PropTypes.string
 		})).isRequired,
 		initInsertData: PropTypes.object,
@@ -115,15 +111,12 @@ export default class InsertForm extends Component {
 		const newFieldsWithError = {};
 		const newSteps = [];
 
-		// grab only insertable fields for the form
-		let formModel = formFields.filter(field => field.insertable !== false);
-
 		let InputComponent = null;
 		let MentorInput = null;
 		let mentorInputProps = {};
 
 		// initialize insert data
-		formModel.forEach((field, i) => {
+		formFields.forEach((field, i) => {
 			mentorInputProps = {
 				autoFocus: true,
 				className: 'form-input',
@@ -133,8 +126,7 @@ export default class InsertForm extends Component {
 				onChange: this._handleInputChange,
 				onKeyDown: this.onKeyDown,
 				required: field.required,
-				value: '',
-				validation: this.validateField
+				value: ''
 			};
 			
 			if (!!field.options) {
@@ -145,30 +137,8 @@ export default class InsertForm extends Component {
 						options={field.options}
 					/>
 				);
-			} else if (field.lookup) {
 
-				InputComponent = (
-					<AsyncDropdown
-						{...mentorInputProps}
-						{...field.lookup}
-					/>
-				);
-
-			} else if ((!!field.asyncFilter || field.type === 'listfilter') && !field.tableOnInsert) {
-				delete mentorInputProps.onBlur;
-
-				InputComponent = (
-					<ListFilter
-						{...mentorInputProps}
-						customFilter={asyncFilter}
-						onMatch={this._handleOptionMatch}
-					/>
-				);
-			} else if (field.multiline) {
-
-				InputComponent = <TextareaInput {...mentorInputProps} />;
-
-			} else if (!!field.tableOnInsert) {
+			/*} else if (!!field.tableOnInsert) {
 
 				InputComponent = (
 					<TableInput
@@ -176,40 +146,32 @@ export default class InsertForm extends Component {
 						apiInfo={field.tableOnInsert}
 						onSelectData={this._handleOptionMatch}
 					/>
+				);*/
+
+			} else if (!!field.customFilter || field.type === 'listfilter') {
+				delete mentorInputProps.onBlur;
+
+				InputComponent = (
+					<ListFilter
+						{...mentorInputProps}
+						customFilter={customFilter}
+						onMatch={this._handleOptionMatch}
+					/>
 				);
+			} else if (field.multiline) {
+
+				InputComponent = <TextareaInput {...mentorInputProps} />;
 
 			} else {
 				MentorInput = getMentorInput(field.type);
 
-				InputComponent = (
-					<MentorInput
-						{...mentorInputProps}
-						onKeyUp={field.tokenize
-							? this._handleTokenizeKeyUp
-							: undefined
-						}
-					/>
-				);
+				InputComponent = <MentorInput {...mentorInputProps} />;
 			}
 
 			this.insertData[field.id] = '';	// initialize insert data
 
 			if (field.required) {
 				newFieldsWithError[field.id] = true;
-			}
-
-			// initialize token fields
-			if (field.collection || field.tokenize) {
-				this.insertData[field.id] = {
-					options: [],
-					value: ''
-				};
-
-				// handle any initial data passed in for collections/tokens
-				if (initInsertData[field.id]) {
-					this.insertData[field.id].value = initInsertData[field.id];
-					delete initInsertData[field.id];
-				}
 			}
 
 			newSteps.push({
@@ -225,8 +187,8 @@ export default class InsertForm extends Component {
 		this.insertData = Object.assign({}, this.insertData, initInsertData);
 
 		this.setState({
-			currentInputLabel: formModel[0]
-				? formModel[0].category
+			currentInputLabel: formFields.length > 0
+				? formFields[0].category
 				: '',
 			fieldIndex: 0,
 			fieldsWithError: newFieldsWithError,
@@ -241,11 +203,6 @@ export default class InsertForm extends Component {
 		return formModel[fieldIndex];
 	}
 
-	// tokenized fields have a list of tokens rendered above the input field
-	isFieldTokenized = () => {
-		return this.getField().collection || this.getField().tokenize;
-	}
-
 	// handle input after user changes an input form, add new
 	// value to current insert data object
 	// @error(bool) - true if the field has an error via validation; false 
@@ -253,27 +210,8 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
-		let fieldError = false;
-		console.log({ error, newValue, fieldId });
-		this.insertData[fieldId] = this.insertData[fieldId] || { options: [] };
-		
-		if (this.isFieldTokenized()) {
-			console.log('tokenized');
-			this.insertData[fieldId].value = newValue;
-
-			// need to handle tokenized field error handling
-			// differently than the other inputs
-			if (this.insertData[fieldId].options.length === 0
-				&& this.getField().required) {
-
-				fieldError = true;
-			}
-		} else {
-			this.insertData[fieldId] = newValue;
-			fieldError = error;
-		}
-
-		this.handleFieldError(fieldError, fieldId);
+		this.insertData[fieldId] = newValue;
+		this.handleFieldError(error, fieldId);
 	}
 
 	// handle input after user blurs an input form, add new
@@ -283,74 +221,15 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputBlur = (error, newValue, fieldId) => {
-		let fieldError = false;
-
-		if (this.isFieldTokenized()) {
-
-			this.insertData[fieldId] = this.insertData[fieldId] || {};
-			this.insertData[fieldId].value = newValue;
-
-			// need to handle tokenized field error handling
-			// differently than the other inputs
-			if (this.insertData[fieldId].options.length === 0 && this.getField().required) {
-
-				fieldError = true;
-			}
-		} else {
-			this.insertData[fieldId] = newValue;
-			fieldError = error;
-		}
-
-		this.handleFieldError(fieldError, fieldId);
-	}
-
-	// adding a new token to a tokenized form field
-	_handleTokenizeKeyUp = (event) => {
-		if (event.keyCode === KeyEvent.DOM_VK_ENTER ||
-			event.keyCode === KeyEvent.DOM_VK_RETURN) {
-
-			const fieldId = this.getField().id;
-			const value = event.target.value;
-			const index = this.insertData[fieldId].options.findIndex(option => {
-				return option === value
-			});
-
-			// no value in input field or value exists in the options
-			if (!value || index > -1) return;
-
-			this.insertData[fieldId].options.push(value);
-			this.insertData[fieldId].value = '';
-
-			this.handleFieldError(false, fieldId);
-		}
+		this.insertData[fieldId] = newValue;
+		this.handleFieldError(error, fieldId);
 	}
 
 	// handle matches in list filter for options
 	// @option(string|object) - option that was matched
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
-		// add to list of values if it is a collection field
-		if (this.getField().collection) {
-			const currentInsertData = this.insertData[fieldId].options;
-
-			const index = currentInsertData.findIndex(element => {
-				if (typeof element === 'object') {
-					return element.id === option.id
-				} else {
-					return element === option
-				}
-			});
-
-			// do nothing if value is already in list
-			if (index !== -1) return;
-
-			this.insertData[fieldId].options.push(option);
-			this.insertData[fieldId].value = '';
-		// otherwise, it's just a singular value for that field
-		} else {
-			this.insertData[fieldId] = option; 
-		}
-
+		this.insertData[fieldId] = option; 
 		this.handleFieldError(false, fieldId);
 	}
 
@@ -420,29 +299,16 @@ export default class InsertForm extends Component {
 
 	// resets a form to original state
 	resetForm() {
+		const { initInsertData } = this.props;
 		const { formModel } = this.state;
 		const newIndex = 0;
-		const initInsertData = Object.assign({}, this.props.initInsertData);
-		this.insertData = {};
-
-		// handle any initial data passed in for collections/tokens
-		formModel.forEach(field => {
-			if ((field.collection || field.tokenize) && initInsertData[field.id]) {
-				this.insertData[field.id] = {
-					options: [],
-					value: initInsertData[field.id]
-				};
-
-				delete initInsertData[field.id];
-			}
-		});
-
+		
 		// initial data passed in to load into the form
 		this.insertData = Object.assign({}, this.insertData, initInsertData);
 
 		this.setState({
 			fieldIndex: newIndex,
-			currentInputLabel: this.state.formModel[newIndex].category
+			currentInputLabel: formModel[newIndex].category
 		});
 	}
 
@@ -495,31 +361,6 @@ export default class InsertForm extends Component {
 		});
 	}
 
-	// show selected options to user if the value is an array of options
-	renderSelectedOptions = () => {
-		// ignore if not a list of collected values
-		if (!this.isFieldTokenized()) return;
-
-		const fieldId = this.getField().id;
-		const options = this.insertData[fieldId].options || [];
-
-		return options.map((option, i) => (
-			<SelectedOption
-				key={i}
-				onClick={this.removeSelectedOption}
-				option={option}
-			/>
-		));
-	}
-
-	validateField = (value, name) => {
-		const fieldId = this.getField().id;
-
-		return this.isFieldTokenized()
-			&& this.insertData[fieldId].options.length === 0
-			&& this.getField().required;
-	}
-
 	render() {
 		if (this.state.formModel.length === 0) {
 			return null;
@@ -531,12 +372,6 @@ export default class InsertForm extends Component {
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const fieldId = this.getField().id;
 
-		let fieldValue = this.insertData[fieldId];
-		
-		if (this.isFieldTokenized()) {
-			fieldValue = this.insertData[fieldId].value;
-		}
-
 		return (
 			<Portal>
 				<div className="insert-popup-overlay">
@@ -547,9 +382,6 @@ export default class InsertForm extends Component {
 								data-testid="disable-form"
 								onClick={this.onDisable}
 							/>
-						</div>
-						<div className="selected-options">
-							{this.renderSelectedOptions()}
 						</div>
 						<div className="layout">
 							<div className="form">
@@ -565,7 +397,7 @@ export default class InsertForm extends Component {
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={this.getField().InputComponent}
-									value={fieldValue}
+									value={this.insertData[fieldId]}
 									_onSubmit={this._onSubmit}
 
 								/>

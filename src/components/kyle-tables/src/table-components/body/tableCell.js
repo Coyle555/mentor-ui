@@ -23,7 +23,6 @@ export const Cell = ({
 	editMode,
 	file,
 	image,
-	lookup,
 	multiline,
 	onBlur,
 	onColorChange,
