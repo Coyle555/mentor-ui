@@ -2,22 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import {
-	Field,
-	Label,
-	Portal,
-	Stepper
-} from './components/index';
-
-import {
-	getMentorInput,
-	ListFilter,
-	TableInput,
-	TextareaInput,
-	SelectInput
-} from 'mentor-inputs';
-
+import { Field, Label, Portal, Stepper } from './components/index';
 import { keyEvent as KeyEvent } from 'utils';
+import { getInputComponent } from './utils/getInputComponent';
 
 import './styles/form.less';
 
@@ -30,8 +17,8 @@ export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
-			asyncFilter: PropTypes.func,
 			category: PropTypes.string,
+			filter: PropTypes.func,
 			id: PropTypes.string.isRequired,
 			options: PropTypes.arrayOf(PropTypes.string),
 			required: PropTypes.bool,
@@ -39,7 +26,8 @@ export default class InsertForm extends Component {
 		})).isRequired,
 		initInsertData: PropTypes.object,
 		onDisable: PropTypes.func,
-		onSubmit: PropTypes.func
+		onSubmit: PropTypes.func,
+		resetForm: PropTypes.bool
 	}
 
 	static defaultProps = {
@@ -88,13 +76,16 @@ export default class InsertForm extends Component {
 
 	onKeyDown = (event) => {
 		if (event.keyCode === KeyEvent.DOM_VK_TAB) {
+			const { fieldIndex, formModel } = this.state;
 			event.preventDefault();
 			event.stopPropagation();
 
 			if (event.shiftKey) {
 				this.handleGoingLeft();
-			} else {
+			} else if (fieldIndex + 1 < formModel.length) {
 				this.handleGoingRight();
+			} else {
+				this._onSubmit();
 			}
 		} else if (event.keyCode === KeyEvent.DOM_VK_ESCAPE) {
 			this.onDisable();
@@ -112,11 +103,11 @@ export default class InsertForm extends Component {
 
 		let InputComponent = null;
 		let MentorInput = null;
-		let mentorInputProps = {};
+		let inputProps = {};
 
 		// initialize insert data
-		formFields.forEach((field, i) => {
-			mentorInputProps = {
+		formFields.forEach(field => {
+			inputProps = {
 				autoFocus: true,
 				className: 'form-input',
 				key: field.id,
@@ -127,46 +118,9 @@ export default class InsertForm extends Component {
 				required: field.required,
 				value: ''
 			};
+
+			InputComponent = getInputComponent(field, inputProps);
 			
-			if (!!field.options) {
-
-				InputComponent = (
-					<SelectInput
-						{...mentorInputProps}
-						options={field.options}
-					/>
-				);
-
-			/*} else if (!!field.tableOnInsert) {
-
-				InputComponent = (
-					<TableInput
-						{...mentorInputProps}
-						apiInfo={field.tableOnInsert}
-						onSelectData={this._handleOptionMatch}
-					/>
-				);*/
-
-			} else if (!!field.customFilter || field.type === 'listfilter') {
-				delete mentorInputProps.onBlur;
-
-				InputComponent = (
-					<ListFilter
-						{...mentorInputProps}
-						customFilter={customFilter}
-						onMatch={this._handleOptionMatch}
-					/>
-				);
-			} else if (field.multiline) {
-
-				InputComponent = <TextareaInput {...mentorInputProps} />;
-
-			} else {
-				MentorInput = getMentorInput(field.type);
-
-				InputComponent = <MentorInput {...mentorInputProps} />;
-			}
-
 			this.insertData[field.id] = '';	// initialize insert data
 
 			if (field.required) {
