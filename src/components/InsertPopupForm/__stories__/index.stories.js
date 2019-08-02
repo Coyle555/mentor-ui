@@ -14,10 +14,12 @@ storiesOf('InsertPopupForm', module)
 		return (
 			<InsertPopupForm 
 				formFields={[
-					{ id: 'text', category: 'Text Input' },
-					{ id: 'requiredText', category: 'Required Text Input', required: true },
-					{ id: 'multiline', category: 'Multiline Text Input', multiline: true },
+					{ id: 'text', label: 'Text Input' },
+					{ id: 'requiredText', label: 'Required Text Input', required: true },
+					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 				]}
+				onDisable={action('onDisable')}
 				onSubmit={action('onSubmit')}
 			/>
 		)
@@ -26,15 +28,29 @@ storiesOf('InsertPopupForm', module)
 		return (
 			<InsertPopupForm 
 				formFields={[
-					{ id: 'text', category: 'Text Input' },
-					{ id: 'requiredText', category: 'Required Text Input', required: true },
-					{ id: 'multiline', category: 'Multiline Text Input', multiline: true },
+					{ id: 'text', label: 'Text Input' },
+					{ id: 'requiredText', label: 'Required Text Input', required: true },
+					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
 				]}
 				initInsertData={{
 					text: 'Initial',
-					requiredText: 'Initial on required'
+					requiredText: 'Initial on required',
+					extra: 'Not in form fields'
 				}}
 				onSubmit={action('onSubmit')}
+			/>
+		)
+	})
+	.add('Reset form', () => {
+		return (
+			<InsertPopupForm 
+				formFields={[
+					{ id: 'text', label: 'Text Input' },
+					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+				]}
+				onSubmit={action('onSubmit')}
+				resetForm={true}
 			/>
 		)
 	})

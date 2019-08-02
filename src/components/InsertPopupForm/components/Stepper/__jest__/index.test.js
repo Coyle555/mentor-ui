@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stepper } from '../stepper';
+import { Stepper } from '../index';
 import renderer from 'react-test-renderer';
 
 test('Default render of a stepper', () => {

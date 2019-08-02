@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Getting a default input 1`] = `
+<Unknown
+  id="default"
+/>
+`;
+
+exports[`Getting a list filter input w/ a custom filter 1`] = `
+<ListFilter
+  customFilter="/filter"
+  id="foo"
+/>
+`;
+
+exports[`Getting a list filter input w/ a list filter type 1`] = `
+<ListFilter
+  id="foo"
+/>
+`;
+
+exports[`Getting a multiline input 1`] = `
+<TextareaInput
+  id="multi"
+/>
+`;
+
+exports[`Getting a select input 1`] = `
+<SelectInput
+  id="baz"
+  options={
+    Array [
+      "foo",
+      "bar",
+    ]
+  }
+/>
+`;

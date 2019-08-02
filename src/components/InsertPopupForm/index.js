@@ -17,9 +17,10 @@ export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
-			category: PropTypes.string,
 			filter: PropTypes.func,
 			id: PropTypes.string.isRequired,
+			label: PropTypes.string.isRequired,
+			multiline: PropTypes.bool,
 			options: PropTypes.arrayOf(PropTypes.string),
 			required: PropTypes.bool,
 			type: PropTypes.string
@@ -115,6 +116,7 @@ export default class InsertForm extends Component {
 				onBlur: this._handleInputBlur,
 				onChange: this._handleInputChange,
 				onKeyDown: this.onKeyDown,
+				onMatch: this._handleOptionMatch,
 				required: field.required,
 				value: ''
 			};
@@ -123,25 +125,27 @@ export default class InsertForm extends Component {
 			
 			this.insertData[field.id] = '';	// initialize insert data
 
-			if (field.required) {
+			if (field.required && !initInsertData[field.id]) {
 				newFieldsWithError[field.id] = true;
 			}
 
 			newSteps.push({
 				id: field.id,
-				title: field.category,
-				error: !!field.required
+				title: field.label,
+				error: !!field.required && !initInsertData[field.id]
 			});
 
 			newFormModel.push(Object.assign({}, field, { InputComponent }));
 		});
 
 		// initial data passed in to load into the form
-		this.insertData = Object.assign({}, this.insertData, initInsertData);
+		Object.keys(initInsertData).forEach(key => {
+			this.insertData[key] = initInsertData[key];
+		});
 
 		this.setState({
 			currentInputLabel: formFields.length > 0
-				? formFields[0].category
+				? formFields[0].label
 				: '',
 			fieldIndex: 0,
 			fieldsWithError: newFieldsWithError,
@@ -239,12 +243,17 @@ export default class InsertForm extends Component {
 		const { formModel } = this.state;
 		const newIndex = 0;
 		
-		// initial data passed in to load into the form
-		this.insertData = Object.assign({}, this.insertData, initInsertData);
+		Object.keys(this.insertData).forEach(field => {
+			this.insertData[field] = '';
+		});
+
+		Object.keys(initInsertData).forEach(field => {
+			this.insertData[field] = initInsertData[field];
+		});
 
 		this.setState({
 			fieldIndex: newIndex,
-			currentInputLabel: formModel[newIndex].category
+			currentInputLabel: formModel[newIndex].label
 		});
 	}
 
@@ -261,7 +270,7 @@ export default class InsertForm extends Component {
 
 			this.setState({
 				fieldIndex: newIndex,
-				currentInputLabel: formModel[newIndex].category
+				currentInputLabel: formModel[newIndex].label
 			});
 		}
 	}
@@ -275,7 +284,7 @@ export default class InsertForm extends Component {
 		if (newIndex < 0) return;
 
 		this.setState({
-			currentInputLabel: formModel[newIndex].category,
+			currentInputLabel: formModel[newIndex].label,
 			fieldIndex: newIndex
 		});
 	}
@@ -292,7 +301,7 @@ export default class InsertForm extends Component {
 		if (fieldIndex === index) return;
 
 		this.setState({
-			currentInputLabel: formModel[index].category,
+			currentInputLabel: formModel[index].label,
 			fieldIndex: index
 		});
 	}

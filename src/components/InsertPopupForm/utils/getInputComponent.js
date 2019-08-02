@@ -9,6 +9,7 @@ import {
 
 export function getInputComponent(field, props) {
 	if (!!field.options) {
+		delete props.onMatch;
 
 		return (
 			<SelectInput
@@ -27,21 +28,22 @@ export function getInputComponent(field, props) {
 			/>
 		);*/
 
-	} else if (!!field.customFilter || field.type === 'listfilter') {
+	} else if (!!field.filter || field.type === 'listfilter') {
 		delete props.onBlur;
 
 		return (
 			<ListFilter
 				{...props}
-				customFilter={filter}
-				onMatch={this._handleOptionMatch}
+				customFilter={field.filter}
 			/>
 		);
 	} else if (field.multiline) {
+		delete props.onMatch;
 
 		return <TextareaInput {...props} />;
 
 	} else {
+		delete props.onMatch;
 		const Input = getMentorInput(field.type);
 
 		return <Input {...props} />;
