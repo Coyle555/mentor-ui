@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-class ListFilterItem extends Component {
+export class ListFilterItem extends Component {
 
 	static propTypes = {
 		CustomListItem: PropTypes.func,
@@ -54,11 +54,9 @@ class ListFilterItem extends Component {
 			>
 				{ typeof CustomListItem === 'function' && React.isValidElement(<CustomListItem />) 
 					? <CustomListItem option={option} />
-					: !!option && typeof option === 'object' ? option.name : option
+					: option
 				}
 			</li>
 		);
 	}
 }
-
-export default ListFilterItem;

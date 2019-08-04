@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from '@testing-library/react';
 
 test('Default render of the field', () => {
 	const tree = renderer.create(<Field />).toJSON();

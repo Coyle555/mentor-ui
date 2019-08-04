@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import '../../styles/index.less';
-import ListFilter from './listFilter';
+import ListFilter from './components/ListFilter';
 
 export class ListFilterLayer extends Component {
 

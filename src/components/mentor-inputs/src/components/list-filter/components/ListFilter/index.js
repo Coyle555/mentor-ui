@@ -5,8 +5,8 @@ import fuzzy from 'fuzzy';
 import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 
-import Spinner from './Spinner';
-import ListFilterItem from './listFilterItem';
+import { Spinner } from '../Spinner';
+import { ListFilterItem } from '../ListFilterItem';
 import KeyEvent from './keyEvents';
 
 // keycodes to handle for matching against the list

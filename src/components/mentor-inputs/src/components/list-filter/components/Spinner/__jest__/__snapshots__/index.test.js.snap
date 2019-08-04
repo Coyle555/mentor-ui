@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of spinner 1`] = `
+<i
+  className="far fa-spinner apm-spinner "
+/>
+`;
+
+exports[`Render of spinner with a custom class 1`] = `
+<i
+  className="far fa-spinner apm-spinner foo"
+/>
+`;

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a list filter item 1`] = `
+<li
+  className="apm-list-filter-menu-li"
+  onClick={[Function]}
+  onMouseOver={[Function]}
+/>
+`;
+
+exports[`Render of a list filter item with a custom class 1`] = `
+<li
+  className="apm-list-filter-menu-li foo"
+  onClick={[Function]}
+  onMouseOver={[Function]}
+/>
+`;
+
+exports[`Rendering a list filter item with a custom component 1`] = `
+<li
+  className="apm-list-filter-menu-li"
+  onClick={[Function]}
+  onMouseOver={[Function]}
+>
+  <div>
+    {"option":"foo"}
+  </div>
+</li>
+`;
