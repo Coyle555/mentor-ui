@@ -8,7 +8,7 @@ import { composeClass } from 'utils/composeClass';
 */
 const DropdownMenuItem = props => {
 	const { className, children, iconClass, ...rest } = props;
-  const cc = composeClass('APMDropdown', className);
+	const cc = composeClass('APMDropdown', className);
 
 	return (
 		<a
@@ -26,15 +26,15 @@ DropdownMenuItem.propTypes = {
 		Additional class names for the <a> element
 	*/
 	className: PropTypes.string,
-	/** 
+	/**
 		An href attribute for the <a /> element
 	*/
 	href: PropTypes.string,
 	/**
-		A FontAwesome class name for the icon to the left of the achor tag's child content 
+		A FontAwesome class name for the icon to the left of the achor tag's child content
 	*/
 	iconClass: PropTypes.string,
-	/** 
+	/**
 		An onClick function for the link
 	*/
 	onClick: PropTypes.func,

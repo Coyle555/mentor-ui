@@ -7,16 +7,17 @@ import DropdownContext from '../../utils/context';
 */
 const DropdownTrigger = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext)
+	const { className, children, render } = props;
 
 	return (
 		<div
-			className={props.className}
+			className={className}
 			onClick={() => setIsOpen(!isOpen)}
 		>
-				{ 
-					typeof props.render === 'function'
-						? props.render(isOpen) 
-						: props.children
+				{
+					typeof render === 'function'
+						? render(isOpen)
+						: children
 				}
 		</div>
 	);
@@ -24,8 +25,8 @@ const DropdownTrigger = props => {
 
 DropdownTrigger.propTypes = {
 	/**
-		Renders the trigger's children dynamically via render props. 
-		The invoked function receives a single boolean argument that indicates whether or not 
+		Renders the trigger's children dynamically via render props.
+		The invoked function receives a single boolean argument that indicates whether or not
 		the Dropdown is currently displaying it's content. If no render prop is passed in,
 		props.children will display
 	*/

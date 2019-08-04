@@ -34,11 +34,11 @@ const DropdownContent = props => {
 		if (content.right > maxWidth) {
 			ref.current.style.left = (maxWidth - content.right - 18) + 'px';
 
-		// clipped on left side of screen	
+		// clipped on left side of screen
 		} else if (content.left < 0) {
 
 			ref.current.style.left = '0px';
-		
+
 		} else {
 			// TODO - center it around the Dropdown trigger (or maybe allow user to pass in position prop)
 		}
@@ -51,12 +51,9 @@ const DropdownContent = props => {
 		evt.stopPropagation();
 	}
 
-	const className = cn('APMDropdown-content', 
-		{ [props.className]: props.className });
-
 	return (
 		<div
-			className={className}
+			className={cn('APMDropdown-content', className)}
 			onClick={handleOnClick}
 			ref={ref}
 			style={props.style}
