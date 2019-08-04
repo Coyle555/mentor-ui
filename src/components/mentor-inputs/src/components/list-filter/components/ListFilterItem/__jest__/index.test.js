@@ -6,13 +6,13 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 afterEach(cleanup);
 
 test('Default render of a list filter item', () => {
-	const tree = renderer.create(<ListFilterItem />);
+	const tree = renderer.create(<ListFilterItem />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
 test('Render of a list filter item with a custom class', () => {
-	const tree = renderer.create(<ListFilterItem listClasses={{ item: 'foo' }} />);
+	const tree = renderer.create(<ListFilterItem listClasses={{ item: 'foo' }} />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
@@ -22,7 +22,7 @@ test('Rendering a list filter item with a custom component', () => {
 
 	const tree = renderer.create(
 		<ListFilterItem CustomListItem={CustomComponent} option="foo" />
-	);
+	).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });

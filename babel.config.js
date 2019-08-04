@@ -24,6 +24,7 @@ module.exports = {
 				}
 			}
 		],
+		'@babel/transform-runtime'
 	],
 	presets: [
 		babelEnv,

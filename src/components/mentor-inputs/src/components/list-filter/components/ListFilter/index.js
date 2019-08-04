@@ -23,7 +23,7 @@ const NAVIGATION_KEYS = {
 };
 
 // list filter takes a list of options and filters on them as the user types
-export class ListFilter extends Component {
+export class ListFilterComponent extends Component {
 
 	static propTypes = {
 		autoFocus: PropTypes.bool,
@@ -560,4 +560,4 @@ export class ListFilter extends Component {
 	}
 }
 
-export default onClickOutside(ListFilter);
+export const ListFilter = onClickOutside(ListFilterComponent);
