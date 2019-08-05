@@ -331,12 +331,11 @@ describe('List filter onChange event', () => {
 	});
 
 	describe('Matching on empty', () => {
-		test('Match on empty with onMatch handler', async () => {
+		test('Matching on empty with onMatch handler', async () => {
 			const onMatch = jest.fn();
 			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					matchOnEmpty={true}
 					name="inputName"
 					onMatch={onMatch}
 					options={options}
@@ -349,14 +348,13 @@ describe('List filter onChange event', () => {
 			expect(onMatch).toHaveBeenCalledWith('', 'inputName');
 		});
 
-		test('Match on empty with required, onChange handler, and onMatch handler', async () => {
+		test('Matching on empty with required, onChange handler, and onMatch handler', async () => {
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
 			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					matchOnEmpty={true}
 					name="inputName"
 					onChange={onChange}
 					onMatch={onMatch}
@@ -371,14 +369,13 @@ describe('List filter onChange event', () => {
 			expect(onChange).toHaveBeenCalledWith(true, '', 'inputName');
 		});
 
-		test('Match on empty with when previous match was empty', async () => {
+		test('Matching on empty with when previous match was empty', async () => {
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
 			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					matchOnEmpty={true}
 					name="inputName"
 					onChange={onChange}
 					onMatch={onMatch}
@@ -510,7 +507,7 @@ describe('Custom filtering on a list filter', () => {
 	});
 
 	describe('Matching on empty event with a custom filter', () => {
-		test('On match event with a custom filter and match on empty', async () => {
+		test('On match event with a custom filter and matching on empty', async () => {
 			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
 			const onMatch = jest.fn();
 
@@ -518,7 +515,6 @@ describe('Custom filtering on a list filter', () => {
 				<ListFilter
 					autoFocus={true}
 					filter={filter}
-					matchOnEmpty={true}
 					name="inputName"
 					onMatch={onMatch}
 					role="test"

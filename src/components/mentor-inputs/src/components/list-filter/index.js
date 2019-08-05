@@ -39,7 +39,6 @@ export class ListFilter extends Component {
 			container: PropTypes.object,
 			item: PropTypes.object
 		}),
-		matchOnEmpty: PropTypes.bool,
 		name: PropTypes.string,
 		onChange: PropTypes.func,
 		onMatch: PropTypes.func,
@@ -61,7 +60,6 @@ export class ListFilter extends Component {
 			container: {},
 			item: {}
 		},
-		matchOnEmpty: false,
 		name: '',
 		onChange: null,
 		onMatch: null,
@@ -105,7 +103,9 @@ export class ListFilter extends Component {
 		let newOptions = options;
 
 		if (typeof filter === 'function') {
+			this.lastMatchedVal = value;
 			this.customFilterMatches(value);
+
 			return;
 		}
 
@@ -136,6 +136,7 @@ export class ListFilter extends Component {
 			let value = nextProps.value;
 			
 			if (typeof filter === 'function') {
+				this.lastMatchedVal = value;
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
 				});
@@ -182,7 +183,7 @@ export class ListFilter extends Component {
 	}
 
 	checkForError = (value, options = [], required) => {
-		const { name, matchOnEmpty, validation } = this.props;
+		const { name, validation } = this.props;
 
 		let hasError = !value && !!required;
 		const validInput = options.find(option => option === value);
@@ -251,7 +252,7 @@ export class ListFilter extends Component {
 	}
 
 	loadfilterOptions = (value, newOptions) => {
-		const { name, matchOnEmpty, onChange, onMatch, required } = this.props;
+		const { name, onChange, onMatch, required } = this.props;
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -261,21 +262,13 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			// fire onMatch if the value matches an option in the list
-			if (!!value
-				&& typeof onMatch === 'function'
+			if (typeof onMatch === 'function'
 				&& !this.state.hasError
 				&& value !== this.lastMatchedVal) {
 
 				onMatch(value, name);
 				this.lastMatchedVal = value;
 
-			} else if (!value
-				&& matchOnEmpty
-				&& !this.state.hasError
-				&& this.lastMatchedVal !== '') {
-
-				onMatch('', name);
-				this.lastMatchedVal = '';
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			}
@@ -375,7 +368,6 @@ export class ListFilter extends Component {
 	onChange = (event) => {
 		const {
 			filter, 
-			matchOnEmpty,
 			name,
 			onChange,
 			onMatch,
@@ -412,14 +404,6 @@ export class ListFilter extends Component {
 				onMatch(value, name);
 				this.lastMatchedVal = value;
 
-			// if input is empty and matches are triggered on empty matches
-			} else if (!value
-				&& matchOnEmpty
-				&& !this.state.hasError
-				&& this.lastMatchedVal !== '') {
-
-				onMatch('', name);
-				this.lastMatchedVal = '';
 			// otherwise it was just a change event w/ no match
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
@@ -517,7 +501,6 @@ export class ListFilter extends Component {
 			filter,
 			listClasses,
 			listStyle,
-			matchOnEmpty,
 			name,
 			onMatch,
 			options,
