@@ -8,6 +8,8 @@ const DropdownContent = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext);
 	const ref = useRef(null);
 
+	const { children, style, className } = props;
+
 	const onClickOutside = (evt) => {
 		if (!ref.current) return;
 		const triggerWrapper = evt.target.closest('div.APMDropdown');
@@ -56,9 +58,9 @@ const DropdownContent = props => {
 			className={cn('APMDropdown-content', className)}
 			onClick={handleOnClick}
 			ref={ref}
-			style={props.style}
+			style={style}
 		>
-			{ props.children }
+			{ children }
 		</div>
 	)
 }
