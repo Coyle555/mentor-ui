@@ -373,7 +373,7 @@ export class ListFilterComponent extends Component {
 			required
 		} = this.props;
 
-		let value = event.target.value;
+		const value = event.target.value;
 
 		if (typeof filter === 'function') {
 			this.setState({ value }, () => {
@@ -383,7 +383,7 @@ export class ListFilterComponent extends Component {
 			return;
 		}
 
-		let newOptions = !value
+		const newOptions = !value
 			? options
 			: this.filterMatches(value, options);
 
@@ -534,7 +534,6 @@ export class ListFilterComponent extends Component {
 					autoComplete="off"
 					className={inputClasses}
 					disabled={disabled}
-					//name={name} 
 					onChange={this.onChange}
 					onFocus={this.onFocus}
 					onKeyDown={this.onKeyDown}

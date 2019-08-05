@@ -210,3 +210,332 @@ describe('Focusing on the list filter', () => {
 		expect(filter).toHaveBeenCalledWith('foo');
 	});
 });
+
+describe('List filter onChange event', () => {
+	const options = ['foo', 'bar', 'baz'];
+
+	describe('On change event as user types', () => {
+		test('User types partial match', async () => {
+			const onChange = jest.fn();
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onChange={onChange}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			expect(onChange).toHaveBeenCalledWith(true, 'b', 'inputName');
+
+			await wait(() => {
+				expect(queryByText('foo')).toBeNull();
+				expect(queryByText('bar')).toBeTruthy();
+				expect(queryByText('baz')).toBeTruthy();
+			});
+		});
+
+		test('User types complete match with onChange handler', async () => {
+			const onChange = jest.fn();
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onChange={onChange}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			expect(onChange).toHaveBeenCalledWith(false, 'bar', 'inputName');
+
+			await wait(() => {
+				expect(queryByText('bar')).toBeTruthy();
+			});
+		});
+
+		test('On change event with a custom filter', async () => {
+			const filter = jest.fn(value => Promise.resolve([value]));
+
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			expect(filter).toHaveBeenCalledWith('b');
+		});
+	});
+
+	describe('User types a match', () => {
+		test('User types complete match with onMatch handler', async () => {
+			const onMatch = jest.fn();
+			const { container, getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			expect(onMatch).toHaveBeenCalledWith('bar', 'inputName');
+		});
+
+		test('User types match that was a previous match', async () => {
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+			const { container, getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					options={options}
+					role="test"
+					value="bar"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			expect(onChange).toHaveBeenCalledWith(false, 'bar', 'inputName');
+		});
+	});
+
+	describe('Matching on empty', () => {
+		test('Match on empty with onMatch handler', async () => {
+			const onMatch = jest.fn();
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					matchOnEmpty={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+					value="foo"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: '' } });
+			expect(onMatch).toHaveBeenCalledWith('', 'inputName');
+		});
+
+		test('Match on empty with required, onChange handler, and onMatch handler', async () => {
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					matchOnEmpty={true}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					options={options}
+					required={true}
+					role="test"
+					value="foo"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: '' } });
+			expect(onChange).toHaveBeenCalledWith(true, '', 'inputName');
+		});
+
+		test('Match on empty with when previous match was empty', async () => {
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					matchOnEmpty={true}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			fireEvent.change(getByRole('test'), { target: { value: '' } });
+			expect(onChange).toHaveBeenCalledWith(false, '', 'inputName');
+		});
+	});
+});
+
+describe('Custom filtering on a list filter', () => {
+
+	describe('Change events with a custom filter', () => {
+		test('On change event with a custom filter and valid value', async () => {
+			const filter = jest.fn(value => Promise.resolve([value]));
+			const onChange = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onChange={onChange}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			expect(filter).toHaveBeenCalledWith('b');
+
+			await wait(() => {
+				expect(onChange).toHaveBeenCalledWith(false, 'b', 'inputName');
+			});
+		});
+
+		test('On change event with a custom filter and invalid value', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onChange = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onChange={onChange}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+
+			await wait(() => {
+				expect(onChange).toHaveBeenCalledWith(true, 'b', 'inputName');
+			});
+		});
+	});
+
+	describe('Match events with a custom filter', () => {
+		test('On match event with a custom filter', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onMatch={onMatch}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('bar', 'inputName');
+			});
+		});
+
+		test('On match event with a custom filter and invalid value', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			await wait(() => {
+				expect(onChange).toHaveBeenCalledWith(true, 'b', 'inputName');
+			});
+		});
+
+		test('Last matched value gets matched again', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					role="test"
+					value="foo"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			fireEvent.change(getByRole('test'), { target: { value: 'foo' } });
+			await wait(() => {
+				expect(onChange).toHaveBeenCalledWith(false, 'foo', 'inputName');
+			});
+		});
+	});
+
+	describe('Matching on empty event with a custom filter', () => {
+		test('On match event with a custom filter and match on empty', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					matchOnEmpty={true}
+					name="inputName"
+					onMatch={onMatch}
+					role="test"
+					value="bar"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: '' } });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('', 'inputName');
+			});
+		});
+
+		test('Last matched value was empty', async () => {
+			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const onChange = jest.fn();
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onChange={onChange}
+					onMatch={onMatch}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'ba' } });
+			fireEvent.change(getByRole('test'), { target: { value: '' } });
+			await wait(() => {
+				expect(onChange).toHaveBeenCalledWith(false, '', 'inputName');
+			});
+		});
+	});
+});
