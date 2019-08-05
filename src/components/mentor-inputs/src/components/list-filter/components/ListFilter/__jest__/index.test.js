@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListFilter } from '../index';
+import KeyEvent from '../keyEvents';
 import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
@@ -535,6 +536,150 @@ describe('Custom filtering on a list filter', () => {
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
 			await wait(() => {
 				expect(onChange).toHaveBeenCalledWith(false, '', 'inputName');
+			});
+		});
+	});
+});
+
+describe('List filter onKeyDown event', () => {
+	const options = ['foo', 'bar', 'baz'];
+
+	describe('Auto complete key down event', () => {
+		test('Auto complete with enter', async () => {
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
+			});
+		});
+
+		test('Auto complete with return', async () => {
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_RETURN });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
+			});
+		});
+
+		test('Auto complete with a custom filter', async () => {
+			const filter = jest.fn(value => Promise.resolve([value]));
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			expect(filter).toHaveBeenCalledWith('foo');
+		});
+	});
+
+	describe('Navigation key down event', () => {
+		test('Auto complete with a selected option via going down navigation', async () => {
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_DOWN });
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_DOWN });
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_UP });
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
+			});
+		});
+
+		test('Auto complete with a selected option via going up navigation', async () => {
+			const onMatch = jest.fn();
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_UP });
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
+			});
+		});
+	});
+
+	describe('Closing the options menu keydown event', () => {
+		test('Closing options menu with escape', async () => {
+			const { queryByText, getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			await wait(async () => {
+				expect(queryByText('foo')).toBeTruthy();
+
+				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ESCAPE });
+				await wait(() => {
+					expect(queryByText('foo')).toBeNull();
+				});
+			});
+		});
+
+		test('Closing options menu with tab', async () => {
+			const { queryByText, getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			await wait(async () => {
+				expect(queryByText('foo')).toBeTruthy();
+
+				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_TAB });
+				await wait(() => {
+					expect(queryByText('foo')).toBeNull();
+				});
 			});
 		});
 	});

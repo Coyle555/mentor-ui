@@ -291,7 +291,7 @@ export class ListFilterComponent extends Component {
 		// escape closes options
 		} else if (this.state.focused
 			&& (event.keyCode === KeyEvent.DOM_VK_ESCAPE
-				|| event.keyCode == KeyEvent.DOM_VK_TAB)) {
+				|| event.keyCode === KeyEvent.DOM_VK_TAB)) {
 
 			this.setState({ focused: false });
 		}
