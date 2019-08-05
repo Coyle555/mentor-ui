@@ -22,15 +22,15 @@ const NAVIGATION_KEYS = {
 	[KeyEvent.DOM_VK_DOWN] : true
 };
 
-// list filter takes a list of options and filters on them as the user types
+// list filter takes a list of options and filters them as the user types
 export class ListFilterComponent extends Component {
 
 	static propTypes = {
 		autoFocus: PropTypes.bool,
 		className: PropTypes.string,
-		customFilter: PropTypes.func,
 		CustomListItem: PropTypes.func,
 		disabled: PropTypes.bool,
+		filter: PropTypes.func,
 		listClasses: PropTypes.shape({
 			container: PropTypes.string,
 			item: PropTypes.string
@@ -52,9 +52,9 @@ export class ListFilterComponent extends Component {
 	static defaultProps = {
 		autoFocus: false,
 		className: '',
-		customFilter: null,
 		CustomListItem: null,
 		disabled: false,
+		filter: null,
 		listClasses: {},
 		listStyle: {
 			container: {},
@@ -98,7 +98,7 @@ export class ListFilterComponent extends Component {
 
 	componentDidMount() {
 		const {
-			customFilter,
+			filter,
 			name,
 			onMatch,
 			options,
@@ -108,7 +108,7 @@ export class ListFilterComponent extends Component {
 		let value = this.state.value;
 		let newOptions = options;
 
-		if (typeof customFilter === 'function') {
+		if (typeof filter === 'function') {
 			this.customFilterMatches(value);
 			return;
 		}
@@ -128,12 +128,12 @@ export class ListFilterComponent extends Component {
 	componentWillReceiveProps(nextProps) {
 		// if new value passed in, refilter list and check for error
 		if (!!nextProps.value && this.state.value !== nextProps.value) {
-			const { customFilter, name, required } = this.props;
+			const { filter, name, required } = this.props;
 
 			let options = this.props.options;
 			let value = nextProps.value;
 			
-			if (typeof customFilter === 'function') {
+			if (typeof filter === 'function') {
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
 				});
@@ -144,7 +144,7 @@ export class ListFilterComponent extends Component {
 			// new list of options passed in with value
 			if (!!nextProps.options
 				&& this.props.options !== nextProps.options
-				&& !customFilter) {
+				&& !filter) {
 
 				options = nextProps.options
 			}
@@ -165,7 +165,7 @@ export class ListFilterComponent extends Component {
 				value
 			});
 		// new list of options were passed in
-		} else if (this.props.options !== nextProps.options && !this.props.customFilter) {
+		} else if (this.props.options !== nextProps.options && !this.props.filter) {
 			const { required } = this.props;
 			const { value } = this.state;
 			const newOptions = this.filterMatches(value, nextProps.options);
@@ -193,7 +193,7 @@ export class ListFilterComponent extends Component {
 	}
 
 	onFocus = (event) => {
-		if (typeof this.props.customFilter === 'function') {
+		if (typeof this.props.filter === 'function') {
 			this.customFilterMatches(this.state.value);
 		}
 
@@ -231,14 +231,14 @@ export class ListFilterComponent extends Component {
 			value
 		}, () => {
 			new Promise((resolve, reject) => {
-				resolve(this.props.customFilter(value));
+				resolve(this.props.filter(value));
 			}).then(newOptions => {
-				this.loadCustomFilterOptions(value, newOptions);
+				this.loadfilterOptions(value, newOptions);
 			});
 		});
 	}
 
-	loadCustomFilterOptions = (value, newOptions) => {
+	loadfilterOptions = (value, newOptions) => {
 		const { name, matchOnEmpty, onChange, onMatch, required } = this.props;
 
 		this.setState({
@@ -305,7 +305,7 @@ export class ListFilterComponent extends Component {
 
 	// auto complete fires when enter is hit; will always be a valid input
 	autoCompleteKeyDown = () => {
-		const { customFilter, onChange, onMatch, name } = this.props;
+		const { filter, onChange, onMatch, name } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
 		let option;
@@ -320,7 +320,7 @@ export class ListFilterComponent extends Component {
 			return;
 		}
 
-		if (typeof customFilter === 'function') {
+		if (typeof filter === 'function') {
 			this.setState({ value: option }, () => {
 				this.customFilterMatches(option);
 			});
@@ -362,7 +362,7 @@ export class ListFilterComponent extends Component {
 	// handle a change in the input
 	onChange = (event) => {
 		const {
-			customFilter, 
+			filter, 
 			matchOnEmpty,
 			name,
 			onChange,
@@ -373,7 +373,7 @@ export class ListFilterComponent extends Component {
 
 		let value = event.target.value;
 
-		if (typeof customFilter === 'function') {
+		if (typeof filter === 'function') {
 			this.setState({ value }, () => {
 				this.customFilterMatches(value);
 			});
@@ -423,9 +423,9 @@ export class ListFilterComponent extends Component {
 	// handle a user clicking an option in the list with the mouse
 	// @selectedOption(string|object) - the option the user clicked on
 	onListItemClick = (selectedOption) => {
-		const { customFilter, name, onMatch, options } = this.props;
+		const { filter, name, onMatch, options } = this.props;
 
-		if (typeof customFilter === 'function') {
+		if (typeof filter === 'function') {
 			this.setState({ value: selectedOption }, () => {
 				this.customFilterMatches(selectedOption);
 			});
@@ -497,12 +497,12 @@ export class ListFilterComponent extends Component {
 
 	render() {
 		const { 
-			customFilter,
 			CustomListItem,
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,
 			eventTypes,
+			filter,
 			listClasses,
 			listStyle,
 			matchOnEmpty,

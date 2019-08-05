@@ -1,5 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`List filter receiving new props New list of options 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="apm-mi-form-control apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value=""
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      new
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      options
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      list
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`Mounting a list filter List of options 1`] = `
 <div
   className="apm-mi-container"
@@ -83,6 +131,142 @@ exports[`Mounting a list filter List of options with an initial value 1`] = `
       style={Object {}}
     >
       baz
+    </li>
+  </ul>
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Required with no value 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value=""
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      foo
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Mounting a list filter Required with partial value 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="b"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Required with valid value 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="apm-mi-form-control apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
     </li>
   </ul>
   <span
