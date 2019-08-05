@@ -19,6 +19,22 @@ describe('Renders of list filters', () => {
 
 		expect(tree).toMatchSnapshot();
 	});
+
+	test('Render with a custom list container css class', () => {
+		const tree = renderer.create(
+			<ListFilter autoFocus={true} listClasses={{ container: 'container' }} />
+		).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
+
+	test('Render with a custom list container style', () => {
+		const tree = renderer.create(
+			<ListFilter autoFocus={true} listStyle={{ container: { width: 10 } }} />
+		).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
 });
 
 describe('Mounting a list filter', () => {
@@ -681,6 +697,65 @@ describe('List filter onKeyDown event', () => {
 					expect(queryByText('foo')).toBeNull();
 				});
 			});
+		});
+	});
+});
+
+describe('Handling list item events', () => {
+	const options = ['foo', 'bar', 'baz'];
+
+	describe('Mouse over event', () => {
+		test('Mouse over list item', async () => {
+			const onMatch = jest.fn();
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+					role="test"
+				/>
+			);
+			
+			fireEvent.mouseOver(queryByText('baz'));
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
+			});
+		});
+	});
+
+	describe('Click event', () => {
+		test('Clicking a list item', async () => {
+			const onMatch = jest.fn();
+			const { queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={options}
+				/>
+			);
+			
+			fireEvent.click(queryByText('baz'));
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
+			});
+		});
+
+		test('Clicking a list item with a custom filter', async () => {
+			const filter = jest.fn();
+			const { queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					options={options}
+				/>
+			);
+			
+			fireEvent.click(queryByText('baz'));
+			expect(filter).toHaveBeenCalledWith('baz');
 		});
 	});
 });

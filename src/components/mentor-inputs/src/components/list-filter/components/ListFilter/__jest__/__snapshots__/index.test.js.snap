@@ -484,3 +484,53 @@ exports[`Renders of list filters Render with a custom css class 1`] = `
   />
 </div>
 `;
+
+exports[`Renders of list filters Render with a custom list container css class 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="apm-mi-form-control apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value=""
+  />
+  <ul
+    className="apm-list-filter-menu-ul container ignore-react-onclickoutside"
+    style={Object {}}
+  />
+</div>
+`;
+
+exports[`Renders of list filters Render with a custom list container style 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="apm-mi-form-control apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value=""
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={
+      Object {
+        "width": 10,
+      }
+    }
+  />
+</div>
+`;
