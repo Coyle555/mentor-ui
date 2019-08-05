@@ -64,6 +64,7 @@ describe('Mounting a list filter', () => {
 		);
 
 		expect(filter).toHaveBeenCalledWith('foo');
+		expect(tree.getInstance().lastMatchedVal).toBe('foo');
 	});
 
 	test('Required with no value', async () => {
@@ -164,6 +165,7 @@ describe('List filter receiving new props', () => {
 
 			await wait(() => {
 				expect(filter).toHaveBeenCalledWith('list');
+				expect(tree.getInstance().lastMatchedVal).toBe('list');
 			});
 		});
 	});
@@ -217,14 +219,14 @@ describe('Focusing on the list filter', () => {
 		});
 	});
 
-	test('List filter focus with a custom filter', async () => {
-		const filter = jest.fn(value => Promise.resolve([value]));
+	test('List filter focus with an onFocus event handler', async () => {
+		const onFocus = jest.fn();
 		const { getByRole } = render(
-			<ListFilter filter={filter} options={options} role="test" value="foo" />
+			<ListFilter onFocus={onFocus} options={options} role="test" />
 		);
 
 		fireEvent.focus(getByRole('test'));
-		expect(filter).toHaveBeenCalledWith('foo');
+		expect(onFocus).toHaveBeenCalled();
 	});
 });
 

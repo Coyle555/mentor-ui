@@ -198,10 +198,6 @@ export class ListFilter extends Component {
 	}
 
 	onFocus = (event) => {
-		if (typeof this.props.filter === 'function') {
-			this.customFilterMatches(this.state.value);
-		}
-
 		this.setState({
 			focused: true
 		}, () => {

@@ -8,6 +8,7 @@ storiesOf('Inputs/ListFilterInput', module)
 	.addWithJSX('General', () => {
 		return (
 			<ListFilterInput
+				name="listFilter"
 				onChange={action('onChange')}
 				onMatch={action('onMatch')}
 				options={['foo', 'bar', 'baz']}
@@ -17,10 +18,25 @@ storiesOf('Inputs/ListFilterInput', module)
 	.addWithJSX('Required', () => {
 		return (
 			<ListFilterInput
+				name="listFilter"
 				onChange={action('onChange')}
 				onMatch={action('onMatch')}
 				options={['foo', 'bar', 'baz']}
 				required={true}
+			/>
+		)
+	})
+	.addWithJSX('Custom filtering', () => {
+		const filter = (val) => {
+			return val.split('');
+		}
+
+		return (
+			<ListFilterInput
+				name="listFilter"
+				filter={filter}
+				onChange={action('onChange')}
+				onMatch={action('onMatch')}
 			/>
 		)
 	})
