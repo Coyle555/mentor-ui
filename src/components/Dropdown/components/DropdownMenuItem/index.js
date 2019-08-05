@@ -1,18 +1,37 @@
-import React from 'react';
+import React, {
+	useContext,
+} from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { composeClass } from 'utils/composeClass';
+
+import DropdownContext from '../../utils/context';
 
 /**
 	A single menu item link for a DropdownMenu
 */
 const DropdownMenuItem = props => {
-	const { className, children, iconClass, ...rest } = props;
+	const {
+		className,
+		children,
+		iconClass,
+		onClick,
+		closeOnClick,
+		...rest
+	} = props;
+
+	const [isOpen, setIsOpen] = useContext(DropdownContext);
+	const setIsOpenFalse = setIsOpenWrapper(false, setIsOpen);
 	const cc = composeClass('APMDropdown', className);
 
 	return (
 		<a
 			className={cc('menu-item')}
+			onClick={onClickHandler(
+				onClick,
+				closeOnClick,
+				setIsOpenFalse,
+			)}
 			{...rest}
 		>
 			<i className={cn(cc('menu-item-icon'), iconClass)} />
@@ -20,6 +39,21 @@ const DropdownMenuItem = props => {
 		</a>
 	);
 }
+
+function setIsOpenWrapper(bool, setIsOpen) {
+	return () => {
+		setIsOpen(bool);
+	};
+};
+
+function onClickHandler(onClick, closeOnClick, setIsOpenFalse) {
+	return (event) => {
+		onClick(event);
+
+		if (closeOnClick)
+			setIsOpenFalse();
+	};
+};
 
 DropdownMenuItem.propTypes = {
 	/**
@@ -37,7 +71,7 @@ DropdownMenuItem.propTypes = {
 	/**
 		An onClick function for the link
 	*/
-	onClick: PropTypes.func,
+	onClick: PropTypes.func.isRequired,
 	/**
 		Additional styling for the anchor tag
 	*/
