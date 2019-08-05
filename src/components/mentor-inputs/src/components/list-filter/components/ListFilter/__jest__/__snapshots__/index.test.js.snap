@@ -70,10 +70,11 @@ exports[`List filter receiving new props Passing in new options New options pass
   />
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -110,10 +111,11 @@ exports[`List filter receiving new props Passing in new value New list of option
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -158,10 +160,11 @@ exports[`List filter receiving new props Passing in new value New value passed i
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -206,10 +209,11 @@ exports[`List filter receiving new props Passing in new value Required with a ne
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -302,10 +306,11 @@ exports[`Mounting a list filter List of options with an initial value 1`] = `
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -398,10 +403,11 @@ exports[`Mounting a list filter Required with partial value 1`] = `
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>
@@ -438,10 +444,11 @@ exports[`Mounting a list filter Required with valid value 1`] = `
   </ul>
   <span
     className="apm-mi-clear-input"
+    data-testid="clear-input"
     onClick={[Function]}
   >
     <i
-      className="fa fa-times"
+      className="far fa-times"
     />
   </span>
 </div>

@@ -44,6 +44,7 @@ export class ListFilterComponent extends Component {
 		onChange: PropTypes.func,
 		onMatch: PropTypes.func,
 		options: PropTypes.arrayOf(PropTypes.string),
+		parse: PropTypes.func,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
 		value: PropTypes.string
@@ -65,6 +66,7 @@ export class ListFilterComponent extends Component {
 		onChange: null,
 		onMatch: null,
 		options: [],
+		parse: null,
 		required: false,
 		validation: null,
 		value: ''
@@ -221,9 +223,13 @@ export class ListFilterComponent extends Component {
 	// @return - returns the new list of options available
 	// 	can be a list of strings or objects
 	filterMatches = (value, options = []) => {
-		const newOptions = fuzzy.filter(value, options); 
+		let newOptions = fuzzy.filter(value, options).map(option => option.original);
 
-		return newOptions.map(option => option.original);
+		if (typeof this.props.parse === 'function') {
+			newOptions = newOptions.map(val => this.props.parse(val));
+		}
+
+		return newOptions;
 	}
 
 	// @value(string): value to filter against
@@ -235,6 +241,10 @@ export class ListFilterComponent extends Component {
 			new Promise((resolve, reject) => {
 				resolve(this.props.filter(value));
 			}).then(newOptions => {
+				if (typeof this.props.parse === 'function') {
+					newOptions = newOptions.map(val => this.props.parse(val));
+				}
+
 				this.loadfilterOptions(value, newOptions);
 			});
 		});
@@ -512,6 +522,7 @@ export class ListFilterComponent extends Component {
 			onMatch,
 			options,
 			outsideClickIgnoreClass,
+			parse,
 			portalRef,
 			preventDefault,
 			required,
@@ -551,9 +562,10 @@ export class ListFilterComponent extends Component {
 				{ !!value && !loadingFilter && !disabled &&
 					<span
 						className="apm-mi-clear-input"
+						data-testid="clear-input"
 						onClick={this.clearInput}
 					>
-						<i className="fa fa-times" />
+						<i className="far fa-times" />
 					</span>
 				}
 			</div>

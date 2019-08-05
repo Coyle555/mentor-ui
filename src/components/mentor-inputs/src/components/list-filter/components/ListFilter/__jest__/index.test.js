@@ -759,3 +759,81 @@ describe('Handling list item events', () => {
 		});
 	});
 });
+
+describe('Filtering with a parse function', () => {
+	describe('Default filtering', () => {
+		test('Parse function with the default fuzzy filter', () => {
+			const parse = jest.fn();
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					parse={parse}
+					options={['foo', 'bar', 'baz']}
+					role="test"
+				/>
+			);
+
+			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
+			expect(parse).toHaveBeenNthCalledWith(1, 'bar');
+			expect(parse).toHaveBeenNthCalledWith(2, 'baz');
+		});
+	});
+
+	describe('Custom filtering', () => {
+		test('Parse function with a custom filter', async () => {
+			const filter = jest.fn(val => Promise.resolve([
+				{ id: 'foo', name: 'Foo' },
+				{ id: 'bar', name: 'Bar' },
+				{ id: 'baz', name: 'Baz' }
+			]));
+			const parse = jest.fn(val => val.name);
+			const { getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					parse={parse}
+					role="test"
+				/>
+			);
+
+			fireEvent.change(getByRole('test'), { target: { value: 'f' } });
+
+			await wait(() => {
+				expect(parse).toHaveBeenNthCalledWith(1, { id: 'foo', name: 'Foo' });
+				expect(parse).toHaveBeenNthCalledWith(2, { id: 'bar', name: 'Bar' });
+				expect(parse).toHaveBeenNthCalledWith(3, { id: 'baz', name: 'Baz' });
+
+				expect(queryByText('Foo')).toBeTruthy();
+				expect(queryByText('Bar')).toBeTruthy();
+				expect(queryByText('Baz')).toBeTruthy();
+			});
+		});
+	});
+});
+
+describe('Clearing input', () => {
+	test('Clear input icon click', async () => {
+		const { getByRole, getByTestId, queryByText } = render(
+			<ListFilter
+				autoFocus={true}
+				options={['foo', 'bar', 'baz']}
+				role="test"
+			/>
+		);
+
+		fireEvent.change(getByRole('test'), { target: { value: 'foo' } });
+		await wait(async () => {
+			expect(queryByText('foo')).toBeTruthy();
+			expect(queryByText('bar')).toBeNull();
+			expect(queryByText('baz')).toBeNull();
+
+			fireEvent.click(getByTestId('clear-input'));
+
+			await wait(() => {
+				expect(queryByText('foo')).toBeTruthy();
+				expect(queryByText('bar')).toBeTruthy();
+				expect(queryByText('baz')).toBeTruthy();
+			});
+		});
+	});
+});
