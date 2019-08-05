@@ -11,7 +11,7 @@ describe('Renders of list filters', () => {
 		const tree = renderer.create(<ListFilter />);
 
 		expect(tree.toJSON()).toMatchSnapshot();
-		expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('');
+		expect(tree.getInstance().lastMatchedVal).toBe('');
 	});
 
 	test('Render with a custom css class', () => {
@@ -93,7 +93,7 @@ describe('Mounting a list filter', () => {
 
 		await wait(() => {
 			expect(tree.toJSON()).toMatchSnapshot();
-			expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('bar');
+			expect(tree.getInstance().lastMatchedVal).toBe('bar');
 		});
 	});
 
@@ -142,7 +142,7 @@ describe('List filter receiving new props', () => {
 			tree.update(<ListFilter value="bar" />);
 
 			await wait(() => {
-				expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('bar');
+				expect(tree.getInstance().lastMatchedVal).toBe('bar');
 			});
 		});
 
@@ -185,7 +185,7 @@ describe('List filter receiving new props', () => {
 			tree.update(<ListFilter options={newOptions} value="list" />);
 
 			await wait(() => {
-				expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('list');
+				expect(tree.getInstance().lastMatchedVal).toBe('list');
 			});
 		});
 
