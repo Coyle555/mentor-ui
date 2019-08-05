@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`List filter receiving new props New list of options 1`] = `
+exports[`List filter receiving new props Passing in new options New list of options 1`] = `
 <div
   className="apm-mi-container"
 >
@@ -45,6 +45,173 @@ exports[`List filter receiving new props New list of options 1`] = `
       list
     </li>
   </ul>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new options New options passed in that invalidate the current value 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="foo"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  />
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value New list of options with a value 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="op"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      options
+    </li>
+  </ul>
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value New value passed in 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="b"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value Required with a new invalid value passed in 1`] = `
+<div
+  className="apm-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="apm-mi-form-control apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    type="text"
+    value="b"
+  />
+  <ul
+    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="apm-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="apm-mi-clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-times"
+    />
+  </span>
 </div>
 `;
 

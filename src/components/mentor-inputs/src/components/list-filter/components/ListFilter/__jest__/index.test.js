@@ -7,9 +7,10 @@ afterEach(cleanup);
 
 describe('Renders of list filters', () => {
 	test('Default render of list filter', () => {
-		const tree = renderer.create(<ListFilter />).toJSON();
+		const tree = renderer.create(<ListFilter />);
 
-		expect(tree).toMatchSnapshot();
+		expect(tree.toJSON()).toMatchSnapshot();
+		expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('');
 	});
 
 	test('Render with a custom css class', () => {
@@ -75,6 +76,7 @@ describe('Mounting a list filter', () => {
 
 		await wait(() => {
 			expect(tree.toJSON()).toMatchSnapshot();
+			expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('bar');
 		});
 	});
 
@@ -99,13 +101,112 @@ describe('List filter receiving new props', () => {
 	const options = ['foo', 'bar', 'baz'];
 	const newOptions = ['new', 'options', 'list'];
 
-	test('New list of options', async () => {
-		const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
-		tree.update(<ListFilter options={newOptions} />);
+	describe('Passing in new value', () => {
+		test('New value passed in', async () => {
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
+			tree.update(<ListFilter value="b" />);
 
-		await wait(async () => {
-			expect(tree.toJSON()).toMatchSnapshot();
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('New list of options with a value', async () => {
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
+			tree.update(<ListFilter options={newOptions} value="op" />);
+
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('New valid value passed in', async () => {
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
+			tree.update(<ListFilter value="bar" />);
+
+			await wait(() => {
+				expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('bar');
+			});
+		});
+
+		test('Required with a new invalid value passed in', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} required={true} />
+			);
+			tree.update(<ListFilter value="b" />);
+
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('Custom filter with a new value and options list', async () => {
+			const filter = jest.fn((value) => Promise.resolve([value]));
+			const tree = renderer.create(<ListFilter filter={filter} options={options} />);
+			tree.update(<ListFilter filter={filter} options={newOptions} value="list" />);
+
+			await wait(() => {
+				expect(filter).toHaveBeenCalledWith('list');
+			});
 		});
 	});
 
+	describe('Passing in new options', () => {
+		test('New list of options', async () => {
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
+			tree.update(<ListFilter options={newOptions} />);
+
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('Valid value with new options passed in', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} value="list" />
+			);
+			tree.update(<ListFilter options={newOptions} value="list" />);
+
+			await wait(() => {
+				expect(tree.getInstance().instanceRef.lastMatchedVal).toBe('list');
+			});
+		});
+
+		test('New options passed in that invalidate the current value', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} value="foo" />
+			);
+			tree.update(<ListFilter options={newOptions} value="foo" />);
+
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+	});
+});
+
+describe('Focusing on the list filter', () => {
+	const options = ['foo', 'bar', 'baz'];
+
+	test('List filter focus', async () => {
+		const { getByRole, getByText } = render(<ListFilter options={options} role="test" />);
+
+		fireEvent.focus(getByRole('test'));
+
+		await wait(() => {
+			expect(getByText('foo')).toBeTruthy();
+			expect(getByText('bar')).toBeTruthy();
+			expect(getByText('baz')).toBeTruthy();
+		});
+	});
+
+	test('List filter focus with a custom filter', async () => {
+		const filter = jest.fn(value => Promise.resolve([value]));
+		const { getByRole } = render(
+			<ListFilter filter={filter} options={options} role="test" value="foo" />
+		);
+
+		fireEvent.focus(getByRole('test'));
+		expect(filter).toHaveBeenCalledWith('foo');
+	});
 });

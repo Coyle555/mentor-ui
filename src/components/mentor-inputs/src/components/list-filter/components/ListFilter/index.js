@@ -75,7 +75,7 @@ export class ListFilterComponent extends Component {
 
 		const { required, value } = this.props;
 
-		this.lastMatchedVal = value;
+		this.lastMatchedVal = '';
 
 		// @focused: true when the input box is focused; false otherwise
 		// @hasError: true when the list filter has an error due to a 
@@ -97,13 +97,7 @@ export class ListFilterComponent extends Component {
 	}
 
 	componentDidMount() {
-		const {
-			filter,
-			name,
-			onMatch,
-			options,
-			required
-		} = this.props;
+		const { filter, name, onMatch, options, required } = this.props;
 
 		let value = this.state.value;
 		let newOptions = options;
@@ -116,6 +110,12 @@ export class ListFilterComponent extends Component {
 		// initialize options list if given an initial value
 		if (!!value) {
 			newOptions = this.filterMatches(value, options);
+		}
+
+		const hasError = this.checkForError(value, options, required);
+
+		if (!hasError) {
+			this.lastMatchedVal = value;
 		}
 
 		this.setState({
@@ -142,10 +142,7 @@ export class ListFilterComponent extends Component {
 			}
 
 			// new list of options passed in with value
-			if (!!nextProps.options
-				&& this.props.options !== nextProps.options
-				&& !filter) {
-
+			if (nextProps.options.length > 0 && this.props.options !== nextProps.options) {
 				options = nextProps.options
 			}
 
@@ -153,7 +150,7 @@ export class ListFilterComponent extends Component {
 				options = this.filterMatches(value, options);
 			}
 
-			let hasError = this.checkForError(value, options, required);
+			const hasError = this.checkForError(value, options, required);
 
 			if (!hasError) {
 				this.lastMatchedVal = value;
@@ -169,9 +166,14 @@ export class ListFilterComponent extends Component {
 			const { required } = this.props;
 			const { value } = this.state;
 			const newOptions = this.filterMatches(value, nextProps.options);
+			const hasError = this.checkForError(value, newOptions, required);
+
+			if (!hasError) {
+				this.lastMatchedVal = value;
+			}
 			
 			this.setState({
-				hasError: this.checkForError(value, newOptions, required),
+				hasError,
 				options: newOptions
 			});
 		}
