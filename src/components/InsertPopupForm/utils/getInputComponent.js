@@ -8,7 +8,18 @@ import {
 } from 'mentor-inputs';
 
 export function getInputComponent(field, props) {
-	if (!!field.options) {
+	if (!!field.filter || field.type === 'listfilter') {
+		delete props.onBlur;
+
+		return (
+			<ListFilter
+				{...props}
+				filter={field.filter}
+				options={field.options}
+			/>
+		);
+
+	} else if (!!field.options) {
 		delete props.onMatch;
 
 		return (
@@ -28,15 +39,6 @@ export function getInputComponent(field, props) {
 			/>
 		);*/
 
-	} else if (!!field.filter || field.type === 'listfilter') {
-		delete props.onBlur;
-
-		return (
-			<ListFilter
-				{...props}
-				customFilter={field.filter}
-			/>
-		);
 	} else if (field.multiline) {
 		delete props.onMatch;
 

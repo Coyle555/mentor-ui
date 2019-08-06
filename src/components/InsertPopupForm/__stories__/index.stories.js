@@ -18,6 +18,8 @@ storiesOf('InsertPopupForm', module)
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
+					{ id: 'listfilter2', label: 'List Filter w/ Filter', filter: (val) => val.split('') },
 				]}
 				onDisable={action('onDisable')}
 				onSubmit={action('onSubmit')}

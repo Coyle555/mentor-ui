@@ -323,7 +323,7 @@ export default class InsertForm extends Component {
 					<div className="insert-popup-container">
 						<div className="close-form">
 							<i
-								className="fa fa-2x fa-times apm-cursor-p apm-color-red"
+								className="far fa-2x fa-times apm-cursor-p apm-color-red"
 								data-testid="disable-form"
 								onClick={this.onDisable}
 							/>

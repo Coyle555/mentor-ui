@@ -16,6 +16,10 @@ test('Getting a select input', () => {
 
 test('Getting a list filter input w/ a custom filter', () => {
 	expect(getInputComponent({ filter: '/filter' }, { id: 'foo' })).toMatchSnapshot();
+	expect(getInputComponent(
+		{ options: ['foo', 'bar', 'baz'], type: 'listfilter' },
+		{ id: 'foo' })
+	).toMatchSnapshot();
 });
 
 test('Getting a list filter input w/ a list filter type', () => {
