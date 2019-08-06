@@ -1,3 +1,524 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rendering the insert form Default render of the insert form 1`] = `null`;
+
+exports[`Rendering the insert form Rendering a required field that has data 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Bar
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            >
+              <label
+                className="required-input"
+              >
+                Required
+              </label>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="apm-mi-form-control form-input"
+                data-testid="field-input"
+                name="foo"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                required={true}
+                type="text"
+                value="test"
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn nav-btn-submit"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-check fa-2x"
+                />
+                <br />
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-active"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-active-title"
+                >
+                  Bar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering the insert form Rendering a required field that has no data 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Bar
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            >
+              <label
+                className="required-input"
+              >
+                Required
+              </label>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="apm-mi-form-control form-input"
+                data-testid="field-input"
+                name="foo"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            />
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-error"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-error-title"
+                >
+                  Bar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering the insert form Rendering with a list of fields 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Bar
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            />
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="apm-mi-form-control form-input"
+                data-testid="field-input"
+                name="foo"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-chevron-right fa-2x"
+                />
+                <br />
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-active"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-active-title"
+                >
+                  Bar
+                </div>
+                <div
+                  className="stepper-step-right-bar stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-default"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-default-title"
+                >
+                  Baz
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-default"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering the insert form Rendering with a submit button 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Bar
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            />
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="apm-mi-form-control form-input"
+                data-testid="field-input"
+                name="foo"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn nav-btn-submit"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-check fa-2x"
+                />
+                <br />
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-active"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-active-title"
+                >
+                  Bar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

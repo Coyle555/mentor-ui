@@ -8,7 +8,7 @@ exports[`Default render of insert form label 1`] = `
     className="col-2"
   />
   <div
-    className="col-4"
+    className="col-7"
   >
     <label
       className="label"
@@ -17,7 +17,7 @@ exports[`Default render of insert form label 1`] = `
     </label>
   </div>
   <div
-    className="col-4 text-right"
+    className="col-1 text-right"
   />
 </div>
 `;
@@ -30,7 +30,7 @@ exports[`Render with a custom label 1`] = `
     className="col-2"
   />
   <div
-    className="col-4"
+    className="col-7"
   >
     <label
       className="label"
@@ -39,7 +39,7 @@ exports[`Render with a custom label 1`] = `
     </label>
   </div>
   <div
-    className="col-4 text-right"
+    className="col-1 text-right"
   />
 </div>
 `;
@@ -52,7 +52,7 @@ exports[`Render with a required label 1`] = `
     className="col-2"
   />
   <div
-    className="col-4"
+    className="col-7"
   >
     <label
       className="label"
@@ -61,7 +61,7 @@ exports[`Render with a required label 1`] = `
     </label>
   </div>
   <div
-    className="col-4 text-right"
+    className="col-1 text-right"
   >
     <label
       className="required-input"

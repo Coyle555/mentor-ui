@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Field, Label, Portal, Stepper } from './components/index';
+import { Field, Label, Stepper } from './components/index';
+import { Portal } from './components/Portal';
 import { keyEvent as KeyEvent } from 'utils';
 import { getInputComponent } from './utils/getInputComponent';
 
