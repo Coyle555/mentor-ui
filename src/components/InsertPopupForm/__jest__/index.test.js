@@ -5,7 +5,7 @@ jest.mock('../components/Portal', () => {
 import React from 'react';
 import InsertForm from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
 const TAB_KEYSTROKE = 9;
 const ESCAPE_KEYSTROKE = 27;
@@ -186,7 +186,7 @@ describe('Submitting an insert form', () => {
 			const onSubmit = jest.fn();
 			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 
-			const { baseElement, getByTestId, getByText } = render(
+			const { baseElement, getByTestId } = render(
 				<InsertForm
 					formFields={formFields}
 					onSubmit={onSubmit}
@@ -210,5 +210,46 @@ describe('Initializing the form with data', () => {
 
 
 		expect(getByTestId('field-input').value).toBe('Test');
+	});
+});
+
+describe('Form stepper interaction', () => {
+	test('Clicking on a stepper step', async () => {
+		const formFields = [
+			{ label: 'Foo', id: 'foo', type: 'string' },
+			{ label: 'Bar', id: 'bar', type: 'string' },
+			{ label: 'Baz', id: 'baz', type: 'string' }
+		];
+
+		const { getByText, getAllByText } = render(<InsertForm formFields={formFields} />);
+
+		expect(getAllByText('Foo')).toHaveLength(2);
+		// click the second step
+		fireEvent.click(getByText('2'));
+
+		await wait(() => {
+			expect(getAllByText('Foo')).toHaveLength(1);
+			expect(getAllByText('Bar')).toHaveLength(2);
+		});
+	});
+
+	test('Clicking on the currently active step on the stepper', async () => {
+		const formFields = [
+			{ label: 'Foo', id: 'foo', type: 'string' },
+			{ label: 'Bar', id: 'bar', type: 'string' },
+			{ label: 'Baz', id: 'baz', type: 'string' }
+		];
+
+		const { getByText, getAllByText } = render(<InsertForm formFields={formFields} />);
+
+		expect(getAllByText('Foo')).toHaveLength(2);
+		expect(getAllByText('Bar')).toHaveLength(1);
+		// click the second step
+		fireEvent.click(getByText('1'));
+
+		await wait(() => {
+			expect(getAllByText('Foo')).toHaveLength(2);
+			expect(getAllByText('Bar')).toHaveLength(1);
+		});
 	});
 });
