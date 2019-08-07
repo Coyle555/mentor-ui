@@ -16,6 +16,7 @@ import {
 	validateToken
 } from './utils/utils';
 import { ALL_OPERATIONS } from './constants';
+import './styles/structured-filter.less';
 
 // A typeahead that, when an option is selected replaces the text entry
 // widget with a renderable 'token' that can be deleted by pressing
