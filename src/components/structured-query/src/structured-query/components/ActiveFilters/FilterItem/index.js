@@ -10,7 +10,6 @@ export class FilterItem extends Component {
 			operator: PropTypes.string,
 			value: PropTypes.string
 		}),
-		disabled: PropTypes.bool,
 		onRemove: PropTypes.func,
 		type: PropTypes.oneOf(['date', 'datetime'])
 	}
@@ -65,7 +64,7 @@ export class FilterItem extends Component {
 	}
 
 	render() {
-		const { children, disabled } = this.props;
+		const { children, } = this.props;
 
 		return (
 			<tr>
@@ -75,14 +74,12 @@ export class FilterItem extends Component {
 					{this.renderValue(children.value)}
 				</td>
 				<td>
-					{ !disabled &&
-						<a
-							className="clear-filter"
-							onClick={this.onRemove}
-						>
-							Clear
-						</a>
-					}
+					<a
+						className="clear-filter"
+						onClick={this.onRemove}
+					>
+						Clear
+					</a>
 				</td>
 			</tr>
 		);

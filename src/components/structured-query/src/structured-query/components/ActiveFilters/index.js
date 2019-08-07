@@ -6,11 +6,10 @@ import classNames from 'classnames';
 
 import { FilterItem } from './FilterItem';
 
-export class ActiveFiltersClass extends Component {
+export class ActiveFiltersComponent extends Component {
 
 	static propTypes = {
 		clearSearch: PropTypes.func,
-		disabled: PropTypes.bool,
 		onRemove: PropTypes.func,
 		searchTokens: PropTypes.arrayOf(PropTypes.shape({
 			category: PropTypes.string,
@@ -43,7 +42,7 @@ export class ActiveFiltersClass extends Component {
 	}
 
 	renderFilters = (ref) => {
-		const { clearSearch, disabled, onRemove, searchTokens } = this.props;
+		const { clearSearch, onRemove, searchTokens } = this.props;
 
 		if (searchTokens.length === 0) {
 			return null;
@@ -60,21 +59,18 @@ export class ActiveFiltersClass extends Component {
 						<td>Operator</td>
 						<td>Value</td>
 						<td>
-							{ !disabled &&
-								<a
-									className="clear-all-filters"
-									onClick={clearSearch}
-								>
-									Clear All
-								</a>
-							}
+							<a
+								className="clear-all-filters"
+								onClick={clearSearch}
+							>
+								Clear All
+							</a>
 						</td>
 					</tr>
 				</thead>
 				<tbody>
 					{ searchTokens.map(token => (
 						<FilterItem
-							disabled={disabled}
 							key={token.id + token.operator + token.value}
 							onRemove={onRemove}
 							type={token.type}
@@ -126,4 +122,4 @@ export class ActiveFiltersClass extends Component {
 	}
 };
 
-export const ActiveFilters = onClickOutside(ActiveFiltersClass);
+export const ActiveFilters = onClickOutside(ActiveFiltersComponent);

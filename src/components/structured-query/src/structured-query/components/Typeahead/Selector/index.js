@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { TypeaheadOption } from './option';
+import { TypeaheadOption } from './Option';
 
 // Typeahead selector is the menu that holds the header
 // of the current category and also holds all

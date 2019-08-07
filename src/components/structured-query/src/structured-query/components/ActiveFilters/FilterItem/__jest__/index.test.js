@@ -6,9 +6,9 @@ jest.mock('react-intl', () => {
 });
 
 import React from 'react';
-import { FilterItem } from '../FilterItem';
+import { FilterItem } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -21,16 +21,6 @@ test('Rendering default filter item', () => {
 test('Filter item with child object', () => {
 	const tree = renderer.create(
 		<FilterItem>{{ category: 'Foo', operator: 'Bar', value: 'Baz' }}</FilterItem>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Filter item that is disabled', () => {
-	const tree = renderer.create(
-		<FilterItem disabled={true}>
-			{{ category: 'Foo', operator: 'Bar', value: 'Baz' }}
-		</FilterItem>
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();

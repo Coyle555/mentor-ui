@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
-import { Typeahead } from '../typeahead/typeahead';
+import { Typeahead } from './components/Typeahead';
 import { keyEvent } from 'utils';
-import { ActiveFilters } from './activeFilters';
+import { ActiveFilters } from './components/ActiveFilters';
 import {
 	_getCategoryDataType,
 	_getCategoryOptions,
@@ -21,7 +21,7 @@ import './styles/structured-filter.less';
 // A typeahead that, when an option is selected replaces the text entry
 // widget with a renderable 'token' that can be deleted by pressing
 // backspace on the beginning of the line
-export class Tokenizer extends Component {
+export class StructuredQuery extends Component {
 
 	static defaultProps = {
 		// options is an array of objects with fields of

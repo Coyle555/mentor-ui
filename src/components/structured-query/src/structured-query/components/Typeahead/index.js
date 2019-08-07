@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import moment from 'moment';
 import onClickOutside from 'react-onclickoutside';
 
-import { TypeaheadSelector } from './selector';
-import { DatePicker } from '../datepicker/datepicker';
+import { TypeaheadSelector } from './Selector';
+import { DatePicker } from './Datepicker';
 import { keyEvent } from 'utils';
 
 // Typeahead an auto-completion text input

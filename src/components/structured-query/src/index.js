@@ -1,3 +1,3 @@
-import { StructuredQuery } from './react-typeahead/index';
+import { StructuredQuery } from './structured-query';
 
 export default StructuredQuery;
