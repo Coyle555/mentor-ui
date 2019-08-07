@@ -40,78 +40,96 @@ describe('Renders of list filters', () => {
 describe('Mounting a list filter', () => {
 	const options = ['foo', 'bar', 'baz'];
 
-	test('List of options', async () => {
-		const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
+	describe('Mounting a non required input', () => {
+		test('List of options', async () => {
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 
-		await wait(() => {
-			expect(tree.toJSON()).toMatchSnapshot();
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('List of options with an initial value', async () => { 
+			const tree = renderer.create(<ListFilter autoFocus={true} options={options} value="b" />);
+
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
+
+		test('Mount list of options with a custom filter', async () => {
+			const filter = jest.fn((value) => Promise.resolve([value]));
+
+			const tree = renderer.create(
+				<ListFilter filter={filter} options={options} value="foo" />
+			);
+
+			expect(filter).toHaveBeenCalledWith('foo');
+			expect(tree.getInstance().lastMatchedVal).toBe('foo');
+		});
+
+		test('Options with a parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const tree = renderer.create(
+				<ListFilter
+					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+					parse={parse}
+				/>
+			);
+
+			expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
+			expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
 		});
 	});
 
-	test('List of options with an initial value', async () => { 
-		const tree = renderer.create(<ListFilter autoFocus={true} options={options} value="b" />);
+	describe('Mounting with a required input', () => {
+		test('Required with no value', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} required={true} />
+			);
 
-		await wait(() => {
-			expect(tree.toJSON()).toMatchSnapshot();
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
 		});
-	});
 
-	test('Mount list of options with a custom filter', async () => {
-		const filter = jest.fn((value) => Promise.resolve([value]));
+		test('Required with partial value', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} required={true} value="b" />
+			);
 
-		const tree = renderer.create(
-			<ListFilter filter={filter} options={options} value="foo" />
-		);
-
-		expect(filter).toHaveBeenCalledWith('foo');
-		expect(tree.getInstance().lastMatchedVal).toBe('foo');
-	});
-
-	test('Required with no value', async () => {
-		const tree = renderer.create(
-			<ListFilter autoFocus={true} options={options} required={true} />
-		);
-
-		await wait(() => {
-			expect(tree.toJSON()).toMatchSnapshot();
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
 		});
-	});
 
-	test('Required with partial value', async () => {
-		const tree = renderer.create(
-			<ListFilter autoFocus={true} options={options} required={true} value="b" />
-		);
+		test('Required with valid value', async () => {
+			const tree = renderer.create(
+				<ListFilter autoFocus={true} options={options} required={true} value="bar" />
+			);
 
-		await wait(() => {
-			expect(tree.toJSON()).toMatchSnapshot();
+			await wait(() => {
+				expect(tree.toJSON()).toMatchSnapshot();
+				expect(tree.getInstance().lastMatchedVal).toBe('bar');
+			});
 		});
-	});
 
-	test('Required with valid value', async () => {
-		const tree = renderer.create(
-			<ListFilter autoFocus={true} options={options} required={true} value="bar" />
-		);
+		test('Required with custom validation', async () => {
+			const validation = jest.fn();
+			const tree = renderer.create(
+				<ListFilter
+					autoFocus={true}
+					name="test"
+					options={options}
+					required={true}
+					validation={validation}
+					value="bar"
+				/>
+			);
 
-		await wait(() => {
-			expect(tree.toJSON()).toMatchSnapshot();
-			expect(tree.getInstance().lastMatchedVal).toBe('bar');
+			expect(validation).toHaveBeenCalledWith('bar', 'test', ['bar']);
 		});
-	});
-
-	test('Required with custom validation', async () => {
-		const validation = jest.fn();
-		const tree = renderer.create(
-			<ListFilter
-				autoFocus={true}
-				name="test"
-				options={options}
-				required={true}
-				validation={validation}
-				value="bar"
-			/>
-		);
-
-		expect(validation).toHaveBeenCalledWith('bar', 'test', ['bar']);
 	});
 });
 
@@ -168,6 +186,17 @@ describe('List filter receiving new props', () => {
 				expect(tree.getInstance().lastMatchedVal).toBe('list');
 			});
 		});
+
+		test('New list of options and new value with a parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const tree = renderer.create(
+				<ListFilter options={[{ name: 'foo' }]} parse={parse} value="foo" />);
+			tree.update(<ListFilter options={[{ name: 'bar' }, { name: 'baz' }]} value="bar" />);
+
+			// called second and third since it was called with foo on mount
+			expect(parse).toHaveBeenNthCalledWith(3, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(4, { name: 'baz' });
+		});
 	});
 
 	describe('Passing in new options', () => {
@@ -178,6 +207,16 @@ describe('List filter receiving new props', () => {
 			await wait(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
+		});
+
+		test('New list of options with a parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const tree = renderer.create(<ListFilter options={[{ name: 'foo' }]} parse={parse} />);
+			tree.update(<ListFilter options={[{ name: 'bar' }, { name: 'baz' }]} />);
+
+			// called second and third since it was called with foo on construction and mount
+			expect(parse).toHaveBeenNthCalledWith(3, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(4, { name: 'baz' });
 		});
 
 		test('Valid value with new options passed in', async () => {
@@ -236,12 +275,14 @@ describe('List filter onChange event', () => {
 	describe('On change event as user types', () => {
 		test('User types partial match', async () => {
 			const onChange = jest.fn();
-			const { getByRole, queryByText } = render(
+			const parse = jest.fn(val => val.name);
+			const { debug, getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
 					onChange={onChange}
-					options={options}
+					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+					parse={parse}
 					role="test"
 				/>
 			);
@@ -253,6 +294,9 @@ describe('List filter onChange event', () => {
 				expect(queryByText('foo')).toBeNull();
 				expect(queryByText('bar')).toBeTruthy();
 				expect(queryByText('baz')).toBeTruthy();
+				expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
+				expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
+				expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
 			});
 		});
 
@@ -578,6 +622,26 @@ describe('List filter onKeyDown event', () => {
 			});
 		});
 
+		test('Auto complete with enter and parsing function', async () => {
+			const parse = jest.fn(val => val.name);
+
+			const { getByRole } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					options={[{ name: 'foo' }, { name: 'bar' }]}
+					parse={parse}
+					role="test"
+				/>
+			);
+			
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await wait(() => {
+				expect(parse).toHaveBeenNthCalledWith(3, { name: 'foo' });
+				expect(parse).toHaveBeenNthCalledWith(4, { name: 'bar' });
+			});
+		});
+
 		test('Auto complete with return', async () => {
 			const onMatch = jest.fn();
 
@@ -741,6 +805,25 @@ describe('Handling list item events', () => {
 			});
 		});
 
+		test('Clicking a list item with parse', async () => {
+			const parse = jest.fn(val => val.name);
+			const { queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+					parse={parse}
+				/>
+			);
+			
+			fireEvent.click(queryByText('baz'));
+			await wait(() => {
+				expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
+				expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
+				expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
+			});
+		});
+
 		test('Clicking a list item with a custom filter', async () => {
 			const filter = jest.fn();
 			const { queryByText } = render(
@@ -761,7 +844,7 @@ describe('Handling list item events', () => {
 describe('Filtering with a parse function', () => {
 	describe('Default filtering', () => {
 		test('Parse function with the default fuzzy filter', () => {
-			const parse = jest.fn();
+			const parse = jest.fn(val => val);
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
@@ -772,8 +855,9 @@ describe('Filtering with a parse function', () => {
 			);
 
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
-			expect(parse).toHaveBeenNthCalledWith(1, 'bar');
-			expect(parse).toHaveBeenNthCalledWith(2, 'baz');
+			expect(parse).toHaveBeenNthCalledWith(4, 'foo');
+			expect(parse).toHaveBeenNthCalledWith(5, 'bar');
+			expect(parse).toHaveBeenNthCalledWith(6, 'baz');
 		});
 	});
 
@@ -797,9 +881,9 @@ describe('Filtering with a parse function', () => {
 			fireEvent.change(getByRole('test'), { target: { value: 'f' } });
 
 			await wait(() => {
-				expect(parse).toHaveBeenNthCalledWith(1, { id: 'foo', name: 'Foo' });
-				expect(parse).toHaveBeenNthCalledWith(2, { id: 'bar', name: 'Bar' });
-				expect(parse).toHaveBeenNthCalledWith(3, { id: 'baz', name: 'Baz' });
+				expect(parse).toHaveBeenNthCalledWith(4, { id: 'foo', name: 'Foo' });
+				expect(parse).toHaveBeenNthCalledWith(5, { id: 'bar', name: 'Bar' });
+				expect(parse).toHaveBeenNthCalledWith(6, { id: 'baz', name: 'Baz' });
 
 				expect(queryByText('Foo')).toBeTruthy();
 				expect(queryByText('Bar')).toBeTruthy();

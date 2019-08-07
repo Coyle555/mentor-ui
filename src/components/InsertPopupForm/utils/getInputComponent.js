@@ -16,6 +16,7 @@ export function getInputComponent(field, props) {
 				{...props}
 				filter={field.filter}
 				options={field.options}
+				parse={field.parse}
 			/>
 		);
 

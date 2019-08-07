@@ -42,7 +42,7 @@ export class ListFilter extends Component {
 		name: PropTypes.string,
 		onChange: PropTypes.func,
 		onMatch: PropTypes.func,
-		options: PropTypes.arrayOf(PropTypes.string),
+		options: PropTypes.array,
 		parse: PropTypes.func,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
@@ -90,17 +90,15 @@ export class ListFilter extends Component {
 			focused: !!this.props.autoFocus,
 			hasError: false,
 			loadingFilter: false,
-			options: this.props.options,
+			options: this.parseOptions(this.props.options),
 			selectedOptionIndex: -1,
 			value
 		};
 	}
 
 	componentDidMount() {
-		const { filter, name, onMatch, options, required } = this.props;
+		const { filter, name, onMatch, options, parse, required } = this.props;
 		const { value } = this.state;
-
-		let newOptions = options;
 
 		if (typeof filter === 'function') {
 			this.lastMatchedVal = value;
@@ -109,9 +107,11 @@ export class ListFilter extends Component {
 			return;
 		}
 
+		let newOptions = this.parseOptions(options);
+
 		// initialize options list if given an initial value
 		if (!!value) {
-			newOptions = this.filterMatches(value, options);
+			newOptions = this.filterMatches(value, newOptions);
 		}
 
 		const hasError = this.checkForError(value, newOptions, required);
@@ -130,11 +130,9 @@ export class ListFilter extends Component {
 	componentWillReceiveProps(nextProps) {
 		// if new value passed in, refilter list and check for error
 		if (!!nextProps.value && this.state.value !== nextProps.value) {
-			const { filter, name, required } = this.props;
+			const { filter, name, parse, required } = this.props;
+			const { value } = nextProps;
 
-			let options = this.props.options;
-			let value = nextProps.value;
-			
 			if (typeof filter === 'function') {
 				this.lastMatchedVal = value;
 				this.setState({ value }, () => {
@@ -143,11 +141,10 @@ export class ListFilter extends Component {
 
 				return;
 			}
-
 			// new list of options passed in with value
-			if (nextProps.options.length > 0 && this.props.options !== nextProps.options) {
-				options = nextProps.options
-			}
+			let options = nextProps.options.length > 0 && this.props.options !== nextProps.options
+				? this.parseOptions(nextProps.options)
+				: this.parseOptions(this.props.options);
 
 			if (!!value) {
 				options = this.filterMatches(value, options);
@@ -168,7 +165,10 @@ export class ListFilter extends Component {
 		} else if (this.props.options !== nextProps.options && !this.props.filter) {
 			const { required } = this.props;
 			const { value } = this.state;
-			const newOptions = this.filterMatches(value, nextProps.options);
+
+			let newOptions = this.parseOptions(nextProps.options);
+			newOptions = this.filterMatches(value, newOptions);
+
 			const hasError = this.checkForError(value, newOptions, required);
 
 			if (!hasError) {
@@ -180,6 +180,12 @@ export class ListFilter extends Component {
 				options: newOptions
 			});
 		}
+	}
+
+	parseOptions = (options) => {
+		return typeof this.props.parse === 'function'
+			? options.map(val => this.props.parse(val))
+			: options;
 	}
 
 	checkForError = (value, options = [], required) => {
@@ -220,13 +226,7 @@ export class ListFilter extends Component {
 	// @return - returns the new list of options available
 	// 	can be a list of strings or objects
 	filterMatches = (value, options = []) => {
-		let newOptions = fuzzy.filter(value, options).map(option => option.original);
-
-		if (typeof this.props.parse === 'function') {
-			newOptions = newOptions.map(val => this.props.parse(val));
-		}
-
-		return newOptions;
+		return fuzzy.filter(value, options).map(option => option.original);
 	}
 
 	// @value(string): value to filter against
@@ -329,7 +329,8 @@ export class ListFilter extends Component {
 			return;
 		}
 
-		const newOptions = this.filterMatches(option, this.props.options);
+		let newOptions = this.parseOptions(this.props.options);
+		newOptions = this.filterMatches(option, newOptions);
 
 		this.setState({
 			focused: false,
@@ -381,9 +382,11 @@ export class ListFilter extends Component {
 			return;
 		}
 
-		const newOptions = !value
-			? options
-			: this.filterMatches(value, options);
+		let newOptions = this.parseOptions(options);
+
+		if (!!value) {
+			newOptions = this.filterMatches(value, newOptions);
+		}
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -425,9 +428,12 @@ export class ListFilter extends Component {
 			return;
 		}
 
+		let newOptions = this.parseOptions(options);
+		newOptions = this.filterMatches(selectedOption, newOptions);
+
 		this.setState({
 			hasError: false,
-			options: this.filterMatches(selectedOption, options),
+			options: newOptions,
 			selectedOptionIndex: -1,
 			value: selectedOption
 		}, () => {

@@ -219,7 +219,7 @@ exports[`List filter receiving new props Passing in new value Required with a ne
 </div>
 `;
 
-exports[`Mounting a list filter List of options 1`] = `
+exports[`Mounting a list filter Mounting a non required input List of options 1`] = `
 <div
   className="apm-mi-container"
 >
@@ -267,7 +267,7 @@ exports[`Mounting a list filter List of options 1`] = `
 </div>
 `;
 
-exports[`Mounting a list filter List of options with an initial value 1`] = `
+exports[`Mounting a list filter Mounting a non required input List of options with an initial value 1`] = `
 <div
   className="apm-mi-container"
 >
@@ -316,7 +316,7 @@ exports[`Mounting a list filter List of options with an initial value 1`] = `
 </div>
 `;
 
-exports[`Mounting a list filter Required with no value 1`] = `
+exports[`Mounting a list filter Mounting with a required input Required with no value 1`] = `
 <div
   className="apm-mi-container"
 >
@@ -364,7 +364,7 @@ exports[`Mounting a list filter Required with no value 1`] = `
 </div>
 `;
 
-exports[`Mounting a list filter Required with partial value 1`] = `
+exports[`Mounting a list filter Mounting with a required input Required with partial value 1`] = `
 <div
   className="apm-mi-container"
 >
@@ -413,7 +413,7 @@ exports[`Mounting a list filter Required with partial value 1`] = `
 </div>
 `;
 
-exports[`Mounting a list filter Required with valid value 1`] = `
+exports[`Mounting a list filter Mounting with a required input Required with valid value 1`] = `
 <div
   className="apm-mi-container"
 >
