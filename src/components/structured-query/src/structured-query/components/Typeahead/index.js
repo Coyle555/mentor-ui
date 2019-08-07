@@ -13,13 +13,12 @@ import { keyEvent } from 'utils';
 //
 // Renders a text input that shows options nearby that you can
 // use the keyboard or mouse to select.
-export class TypeaheadClass extends Component {
+export class TypeaheadComponent extends Component {
 
 	static propTypes = {
 		addTokenForValue: PropTypes.func,
 		customClasses: PropTypes.object,
 		datatype: PropTypes.string,
-		disabled: PropTypes.bool,
 		header: PropTypes.string,
 		onKeyDown: PropTypes.func,
 		options: PropTypes.oneOfType([
@@ -32,7 +31,6 @@ export class TypeaheadClass extends Component {
 		addTokenForValue: null,
 		customClasses: {},
 		datatype: 'text',
-		disabled: false,
 		header: 'Field',
 		onKeyDown: null,
 		options: []
@@ -269,8 +267,6 @@ export class TypeaheadClass extends Component {
 	}
 
 	_focusTypeahead = () => {
-		if (this.props.disabled) return;
-
 		this.inputRef.focus();
 		this.setState({ focused: true });
 	}
@@ -335,7 +331,7 @@ export class TypeaheadClass extends Component {
 	}
 
 	render() {
-		const { category, customClasses, disabled, operator } = this.props;
+		const { category, customClasses, operator } = this.props;
 
 		let inputClassList = classNames({
 			[customClasses.input]: !!customClasses.input
@@ -355,7 +351,6 @@ export class TypeaheadClass extends Component {
 				<div className="typeahead">
 					<input
 						className={inputClassList}
-						disabled={disabled}
 						onChange={this._onTextEntryUpdated}
 						onKeyDown={this._onKeyDown}
 						ref={ref => this.inputRef = ref}
@@ -369,4 +364,4 @@ export class TypeaheadClass extends Component {
 	}
 }
 
-export const Typeahead = onClickOutside(TypeaheadClass);
+export const Typeahead = onClickOutside(TypeaheadComponent);

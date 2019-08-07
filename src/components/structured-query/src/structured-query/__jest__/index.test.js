@@ -1,46 +1,40 @@
 jest.mock('react-tooltip', () => (props) => <div>{JSON.stringify(props)}</div>);
 
 import React from 'react';
-import { Tokenizer } from '../index';
-import { KeyEvent } from '../../keyevent/keyevent';
+import { StructuredQuery } from '../index';
+import { keyEvent } from 'utils';
 import { ALL_OPERATIONS } from '../constants';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 
-describe('Render states of the tokenizer', () => {
+describe('Render states of the StructuredQuery', () => {
 	
 	test('Default render', () => {
-		const tree = renderer.create(<Tokenizer />).toJSON();
-
-		expect(tree).toMatchSnapshot();
-	});
-
-	test('Disabled filter', () => {
-		const tree = renderer.create(<Tokenizer disabled={true} />).toJSON();
+		const tree = renderer.create(<StructuredQuery />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 
 	test('Custom container class', () => {
-		const tree = renderer.create(<Tokenizer customClasses={{ container: 'foo' }} />).toJSON();
+		const tree = renderer.create(<StructuredQuery customClasses={{ container: 'foo' }} />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 
 	test('Export search callback', () => {
-		const tree = renderer.create(<Tokenizer exportSearch={() => {}} />).toJSON();
+		const tree = renderer.create(<StructuredQuery exportSearch={() => {}} />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 });
 
-describe('Initial tokens in tokenizer', () => {
+describe('Initial tokens in StructuredQuery', () => {
 
 	test('Initial tokens on mount', () => {
 		const instance = renderer.create(
-			<Tokenizer initTokens={[
+			<StructuredQuery initTokens={[
 				{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
 				{ id: 'baz', category: 'Baz', operator: 'is empty' }
 			]} />
@@ -54,13 +48,13 @@ describe('Initial tokens in tokenizer', () => {
 	
 	test('New tokens passed in', () => {
 		const render = renderer.create(
-			<Tokenizer initTokens={[
+			<StructuredQuery initTokens={[
 				{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
 			]} />
 		);
 
 		render.update(
-			<Tokenizer initTokens={[
+			<StructuredQuery initTokens={[
 				{ id: 'baz', category: 'Baz', operator: 'is empty' }
 			]} />
 		);
@@ -72,7 +66,7 @@ describe('Initial tokens in tokenizer', () => {
 	
 	test('Invalid tokens on mount', () => {
 		const instance = renderer.create(
-			<Tokenizer initTokens={[
+			<StructuredQuery initTokens={[
 				{ category: 'Foo', operator: 'equals', value: 'bar' },
 				{ id: 'baz', category: 'Baz', operator: 'equals' }
 			]} />
@@ -82,13 +76,13 @@ describe('Initial tokens in tokenizer', () => {
 	});
 });
 
-describe('Clearing search in the tokenizer', () => {
+describe('Clearing search in the StructuredQuery', () => {
 
 	test('Clear search', () => {
 		const onTokenRemove = jest.fn();
 
 		const instance = renderer.create(
-			<Tokenizer
+			<StructuredQuery
 				initTokens={[{
 					id: 'foo',
 					category: 'Foo',
@@ -105,13 +99,13 @@ describe('Clearing search in the tokenizer', () => {
 	});
 });
 
-describe('Exporting search in the tokenizer', () => {
+describe('Exporting search in the StructuredQuery', () => {
 
 	test('Export search', () => {
 		const exportSearch = jest.fn();
 
 		const instance = renderer.create(
-			<Tokenizer
+			<StructuredQuery
 				exportSearch={exportSearch}
 				initTokens={[{
 					id: 'foo',
@@ -135,23 +129,23 @@ describe('Exporting search in the tokenizer', () => {
 describe('Handling key down events', () => {
 
 	test('A non backspace key down event', () => {
-		const instance = renderer.create(<Tokenizer />).getInstance();
+		const instance = renderer.create(<StructuredQuery />).getInstance();
 
 		expect(instance._onKeyDown({ keyCode: 90 })).toBe(undefined);
 	});
 
 	test('A key down event with a value existing', () => {
-		const instance = renderer.create(<Tokenizer />).getInstance();
+		const instance = renderer.create(<StructuredQuery />).getInstance();
 
-		expect(instance._onKeyDown({ keyCode: KeyEvent.DOM_VK_BACK_SPACE }, 'test')).toBe(undefined);
+		expect(instance._onKeyDown({ keyCode: keyEvent.DOM_VK_BACK_SPACE }, 'test')).toBe(undefined);
 	});
 
 	test('Removing operator using backspace', () => {
-		const instance = renderer.create(<Tokenizer />).getInstance();
+		const instance = renderer.create(<StructuredQuery />).getInstance();
 
 		instance.state.nextToken = { id: 'foo', category: 'Foo', operator: 'equals', value: 'foo' };
 		instance._onKeyDown({
-			keyCode: KeyEvent.DOM_VK_BACK_SPACE,
+			keyCode: keyEvent.DOM_VK_BACK_SPACE,
 			preventDefault: jest.fn()
 		});
 
@@ -164,11 +158,11 @@ describe('Handling key down events', () => {
 	});
 
 	test('Removing category using backspace', () => {
-		const instance = renderer.create(<Tokenizer />).getInstance();
+		const instance = renderer.create(<StructuredQuery />).getInstance();
 
 		instance.state.nextToken = { id: 'foo', category: 'Foo', operator: '', value: '' };
 		instance._onKeyDown({
-			keyCode: KeyEvent.DOM_VK_BACK_SPACE,
+			keyCode: keyEvent.DOM_VK_BACK_SPACE,
 			preventDefault: jest.fn()
 		});
 
@@ -189,7 +183,7 @@ describe('Adding a field to a token', () => {
 	];
 	
 	test('Adding a category to a token', () => {
-		const instance = renderer.create(<Tokenizer options={options} />).getInstance();
+		const instance = renderer.create(<StructuredQuery options={options} />).getInstance();
 
 		instance._addTokenForValue('Foo');
 		expect(instance.state.nextToken).toEqual({
@@ -202,7 +196,7 @@ describe('Adding a field to a token', () => {
 	});
 
 	test('Adding an equals operator to a token', () => {
-		const instance = renderer.create(<Tokenizer options={options} />).getInstance();
+		const instance = renderer.create(<StructuredQuery options={options} />).getInstance();
 
 		instance._addTokenForValue('Foo');
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
@@ -218,7 +212,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a is empty operator to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<Tokenizer onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -252,7 +246,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a is not empty operator to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<Tokenizer onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -286,7 +280,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a value to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<Tokenizer onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -325,17 +319,9 @@ describe('Removing a token', () => {
 		{ id: 'baz', category: 'Baz', operator: 'is empty' }
 	];
 
-	test('Disabled filter', () => {
-		const instance = renderer.create(
-			<Tokenizer disabled={true} initTokens={initTokens} />
-		).getInstance();
-
-		expect(instance._removeTokenForValue()).toBe(undefined);
-	});
-
 	test('Token not found', () => {
 		const instance = renderer.create(
-			<Tokenizer initTokens={initTokens} />
+			<StructuredQuery initTokens={initTokens} />
 		).getInstance();
 
 		expect(instance._removeTokenForValue({})).toBe(undefined);
@@ -345,7 +331,7 @@ describe('Removing a token', () => {
 		const onTokenRemove = jest.fn();
 
 		const instance = renderer.create(
-			<Tokenizer initTokens={initTokens} onTokenRemove={onTokenRemove} />
+			<StructuredQuery initTokens={initTokens} onTokenRemove={onTokenRemove} />
 		).getInstance();
 
 		instance._removeTokenForValue(initTokens[1]);

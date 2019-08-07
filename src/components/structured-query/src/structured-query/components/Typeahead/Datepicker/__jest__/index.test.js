@@ -2,12 +2,12 @@ jest.mock('moment', () => {
 	return () => ({ format: jest.fn((format) => format) });
 });
 
-jest.mock('../../../../mentor-inputs/src/datepicker/input-moment/input-moment', () => {
-	return (props) => <div>{JSON.stringify(props)}</div>;
+jest.mock('components/DatePicker', () => {
+	return { DatePicker: (props) => <div>{JSON.stringify(props)}</div> };
 });
 
 import React from 'react';
-import { DatePicker } from '../datepicker';
+import { DatePicker } from '../index';
 import renderer from 'react-test-renderer';
 
 test('Default render of datepicker', () => {

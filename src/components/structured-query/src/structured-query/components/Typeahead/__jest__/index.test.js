@@ -1,11 +1,11 @@
-jest.mock('../../datepicker/datepicker', () => {
+jest.mock('../Datepicker', () => {
 	return { DatePicker: (props) => <div>Datepicker: {JSON.stringify(props)}</div> };
 });
 
 import React from 'react';
-import { TypeaheadClass } from '../typeahead';
+import { TypeaheadComponent } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from 'react-testing-library';
+import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -22,31 +22,25 @@ const keyCodes = {
 describe('Rendering states of typeahead', () => {
 
 	test('Default render', () => {
-		const tree = renderer.create(<TypeaheadClass />).toJSON();
+		const tree = renderer.create(<TypeaheadComponent />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 
 	test('Custom class render', () => {
-		const tree = renderer.create(<TypeaheadClass customClasses={{ input: 'foo' }} />).toJSON();
+		const tree = renderer.create(<TypeaheadComponent customClasses={{ input: 'foo' }} />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 
 	test('Category label render', () => {
-		const tree = renderer.create(<TypeaheadClass category="foo" />).toJSON();
+		const tree = renderer.create(<TypeaheadComponent category="foo" />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
 
 	test('Operator label render', () => {
-		const tree = renderer.create(<TypeaheadClass operator="bar" />).toJSON();
-
-		expect(tree).toMatchSnapshot();
-	});
-
-	test('Disabled input', () => {
-		const tree = renderer.create(<TypeaheadClass disabled={true} />).toJSON();
+		const tree = renderer.create(<TypeaheadComponent operator="bar" />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
@@ -55,7 +49,7 @@ describe('Rendering states of typeahead', () => {
 describe('Typeahead with a list of options', () => {
 	
 	test('List of string options', async () => {
-		const { container } = await render(<TypeaheadClass options={['foo', 'bar', 'baz']} />);
+		const { container } = await render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.click(container.querySelector('input'));
 		expect(container).toMatchSnapshot();
@@ -63,7 +57,7 @@ describe('Typeahead with a list of options', () => {
 
 	test('Options that are generated from a function', async () => {
 		const options = jest.fn(() => (['1', '2', '3']));
-		const { container } = await render(<TypeaheadClass options={options} />);
+		const { container } = await render(<TypeaheadComponent options={options} />);
 
 		fireEvent.click(container.querySelector('input'));
 		expect(container).toMatchSnapshot();
@@ -75,26 +69,26 @@ describe('Typeahead with a list of options', () => {
 			getByText,
 			queryByText,
 			rerender
-		} = await render(<TypeaheadClass options={['a', 'b', 'c']} />);
+		} = await render(<TypeaheadComponent options={['a', 'b', 'c']} />);
 
 		fireEvent.click(container.querySelector('input'));
 		expect(getByText('a')).toBeTruthy();
 
-		await rerender(<TypeaheadClass options={['d', 'e', 'f']} />);
+		await rerender(<TypeaheadComponent options={['d', 'e', 'f']} />);
 		fireEvent.click(container.querySelector('input'));
 		expect(queryByText('a')).toBeFalsy();
 		expect(getByText('d')).toBeTruthy();
 	});
 
 	test('Empty list of options', async () => {
-		const { container } = await render(<TypeaheadClass options={[]} />);
+		const { container } = await render(<TypeaheadComponent options={[]} />);
 
 		fireEvent.click(container.querySelector('input'));
 		expect(container).toMatchSnapshot();
 	});
 
 	test('Datepicker instead of a list of options', async () => {
-		const { container } = await render(<TypeaheadClass datatype="datetime" />);
+		const { container } = await render(<TypeaheadComponent datatype="datetime" />);
 
 		fireEvent.click(container.querySelector('input'));
 		expect(container).toMatchSnapshot();
@@ -104,7 +98,7 @@ describe('Typeahead with a list of options', () => {
 describe('Updating the list of options', () => {
 
 	test('Filtering a list of string options', async () => {
-		const { container, queryByText } = render(<TypeaheadClass options={['foo', 'bar', 'baz']} />);
+		const { container, queryByText } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.click(container.querySelector('input'));
 		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
@@ -125,7 +119,7 @@ describe('Updating the list of options', () => {
 			return ['banana'];
 		});
 
-		const { container, queryByText } = render(<TypeaheadClass options={options} />);
+		const { container, queryByText } = render(<TypeaheadComponent options={options} />);
 
 		fireEvent.click(container.querySelector('input'));
 		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
@@ -142,7 +136,7 @@ describe('Updating the list of options', () => {
 describe('Handling key events', () => {
 	
 	test('Escape keystroke', async () => {
-		const { container } = render(<TypeaheadClass options={['foo', 'bar', 'baz']} />);
+		const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.click(container.querySelector('input'));
 
@@ -157,7 +151,7 @@ describe('Handling key events', () => {
 	});
 
 	test('Going down keystroke', async () => {
-		const { container } = render(<TypeaheadClass options={['foo', 'bar', 'baz']} />);
+		const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.click(container.querySelector('input'));
 
@@ -171,7 +165,7 @@ describe('Handling key events', () => {
 	});
 
 	test('Going up keystroke', async () => {
-		const { container } = render(<TypeaheadClass options={['foo', 'bar', 'baz']} />);
+		const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.click(container.querySelector('input'));
 
@@ -185,7 +179,7 @@ describe('Handling key events', () => {
 	});
 
 	test('Going up/down keystroke with no options', async () => {
-		const { container } = render(<TypeaheadClass options={[]} />);
+		const { container } = render(<TypeaheadComponent options={[]} />);
 
 		fireEvent.click(container.querySelector('input'));
 
@@ -201,7 +195,7 @@ describe('Handling key events', () => {
 	test('Enter keystroke on default option', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={['foo', 'bar', 'baz']}
 			/>
@@ -221,7 +215,7 @@ describe('Handling key events', () => {
 	test('Enter keystroke on a selected option', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={['foo', 'bar', 'baz']}
 			/>
@@ -243,7 +237,7 @@ describe('Handling key events', () => {
 	test('Enter keystroke with no options', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={[]}
 			/>
@@ -263,7 +257,7 @@ describe('Handling key events', () => {
 	test('Return keystroke on default option', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={['foo', 'bar', 'baz']}
 			/>
@@ -283,7 +277,7 @@ describe('Handling key events', () => {
 	test('Enter keystroke on a selected option', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={['foo', 'bar', 'baz']}
 			/>
@@ -305,7 +299,7 @@ describe('Handling key events', () => {
 	test('Return keystroke with no options', async () => {
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				options={[]}
 			/>
@@ -326,7 +320,7 @@ describe('Handling key events', () => {
 	test('Keystroke that is not handled by an event handler', async () => {
 		const onKeyDown = jest.fn();
 		const instance = renderer.create(
-			<TypeaheadClass
+			<TypeaheadComponent
 				onKeyDown={onKeyDown}
 				options={['foo', 'bar', 'baz']}
 			/>
@@ -341,7 +335,7 @@ describe('Handling key events', () => {
 		const date = '1995-12-17T05:00:00.000Z';
 		const addTokenForValue = jest.fn();
 		const { container } = render(
-			<TypeaheadClass
+			<TypeaheadComponent
 				addTokenForValue={addTokenForValue}
 				datatype="datetime"
 				options={[]}
@@ -363,7 +357,7 @@ describe('Handling key events', () => {
 describe('Date handling functionality', () => {
 
 	test('Handle date picker close', () => {
-		const instance = renderer.create(<TypeaheadClass />).getInstance();
+		const instance = renderer.create(<TypeaheadComponent />).getInstance();
 
 		instance.state.focused = true;
 		instance.handleDatepickerClose({ stopPropagation: jest.fn() });
@@ -371,7 +365,7 @@ describe('Date handling functionality', () => {
 	});
 
 	test('Clear date picker input', () => {
-		const instance = renderer.create(<TypeaheadClass />).getInstance();
+		const instance = renderer.create(<TypeaheadComponent />).getInstance();
 
 		instance.state.value = 'test';
 		instance.clearDatepickerInput();
@@ -381,7 +375,7 @@ describe('Date handling functionality', () => {
 	test('Save date picker input', () => {
 		const addTokenForValue = jest.fn();
 		const instance = renderer.create(
-			<TypeaheadClass addTokenForValue={addTokenForValue} />
+			<TypeaheadComponent addTokenForValue={addTokenForValue} />
 		).getInstance();
 
 		instance.state.value = 'test';
@@ -395,7 +389,7 @@ describe('Date handling functionality', () => {
 describe('On click outside -- 3rd party lib method', () => {
 
 	test('Handle clicking outside input', () => {
-		const instance = renderer.create(<TypeaheadClass />).getInstance();
+		const instance = renderer.create(<TypeaheadComponent />).getInstance();
 
 		instance.state.focused = true;
 		instance.state.selectedOptionIndex = 5;

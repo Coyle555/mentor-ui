@@ -1,7 +1,7 @@
 import React from 'react'
-import { TypeaheadOption } from '../option';
+import { TypeaheadOption } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

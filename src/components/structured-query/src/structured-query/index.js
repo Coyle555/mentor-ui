@@ -29,12 +29,10 @@ export class StructuredQuery extends Component {
 		options: [],
 		customClasses: {},
 		initTokens: [],
-		disabled: false,
 		exportSearch: null
 	}
 
 	static propTypes = {
-		disabled: PropTypes.bool,
 		exportSearch: PropTypes.func,
 		options: PropTypes.arrayOf(PropTypes.shape({
 			category: PropTypes.string,
@@ -222,11 +220,6 @@ export class StructuredQuery extends Component {
 	// Remove a token from the search tokens
 	_removeTokenForValue = (value) => {
 		const { onTokenRemove } = this.props;
-		// dont allow removal of tokens if querying is disabled
-		if (this.props.disabled) {
-			return;
-		}
-
 		const index = this.state.searchTokens.indexOf(value);
 
 		// return nothing if object not found
@@ -264,12 +257,11 @@ export class StructuredQuery extends Component {
 	}
 
 	render() {
-		const { customClasses, disabled, exportSearch, options } = this.props;
+		const { customClasses, exportSearch, options } = this.props;
 		const { nextToken, searchTokens } = this.state;
 
 		const filterClasses = classNames({
 			'filter-tokenizer': true,
-			'filter-disabled': disabled,
 			[customClasses.container]: !!customClasses.container
 		});
 
@@ -290,7 +282,6 @@ export class StructuredQuery extends Component {
 				</span>
 				<ActiveFilters 
 					clearSearch={this.clearSearch}
-					disabled={disabled}
 					onRemove={this._removeTokenForValue}
 					searchTokens={searchTokens}
 				/>
@@ -299,7 +290,6 @@ export class StructuredQuery extends Component {
 					category={nextToken.category}
 					customClasses={customClasses}
 					datatype={_getInputDatatype(nextToken, options)}
-					disabled={disabled}
 					header={_getHeader(nextToken)}
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
