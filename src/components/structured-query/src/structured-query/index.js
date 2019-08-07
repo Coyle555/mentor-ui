@@ -16,31 +16,28 @@ import {
 import { ALL_OPERATIONS } from './constants';
 import './styles/structured-filter.less';
 
-// A typeahead that, when an option is selected replaces the text entry
-// widget with a renderable 'token' that can be deleted by pressing
-// backspace on the beginning of the line
 export class StructuredQuery extends Component {
 
 	static defaultProps = {
 		// options is an array of objects with fields of
 		// id, label, type
-		options: [],
 		customClasses: {},
+		exportSearch: null,
 		initTokens: [],
-		exportSearch: null
+		options: [],
 	}
 
 	static propTypes = {
 		exportSearch: PropTypes.func,
-		options: PropTypes.arrayOf(PropTypes.shape({
-			label: PropTypes.string,
-			id: PropTypes.string.isRequired,
-			type: PropTypes.string
-		})),
 		customClasses: PropTypes.object,
+		initTokens: PropTypes.arrayOf(PropTypes.object),
 		onTokenAdd: PropTypes.func,
 		onTokenRemove: PropTypes.func,
-		initTokens: PropTypes.arrayOf(PropTypes.object)
+		options: PropTypes.arrayOf(PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			label: PropTypes.string,
+			type: PropTypes.string
+		})),
 	}
 
 	constructor(props) {
@@ -255,7 +252,7 @@ export class StructuredQuery extends Component {
 	}
 
 	render() {
-		const { customClasses, exportSearch, options } = this.props;
+		const { customClasses, exportSearch, options, parse } = this.props;
 		const { nextToken, searchTokens } = this.state;
 
 		const filterClasses = classNames({
@@ -292,6 +289,7 @@ export class StructuredQuery extends Component {
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
 					options={_getOptionsForTypeahead(options, nextToken)}
+					parse={parse}
 				/>
 				{/*<span className="input-group-addon right-addon">
 					<i className="far fa-search" />

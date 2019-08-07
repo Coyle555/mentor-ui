@@ -21,10 +21,9 @@ export class TypeaheadComponent extends Component {
 		datatype: PropTypes.string,
 		header: PropTypes.string,
 		onKeyDown: PropTypes.func,
-		options: PropTypes.oneOfType([
-			PropTypes.arrayOf(PropTypes.string),
-			PropTypes.func
-		])
+		operator: PropTypes.string,
+		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+		parse: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -33,21 +32,22 @@ export class TypeaheadComponent extends Component {
 		datatype: 'text',
 		header: 'Field',
 		onKeyDown: null,
-		options: []
+		options: [],
+		parse: null
 	}
 
 	constructor(props) {
 		super(props);
 
 		// @focused: form is focused by user
-		// @visible: currently visible set of options
+		// @visibleOptions: currently visible set of options
 		// @selectedOptionIndex: index of the option the user
 		// 	currently has selected
 		// @value: current value used to filter options
 		this.state = {
 			focused: false,
 			selectedOptionIndex: -1,
-			visible: [],
+			visibleOptions: [],
 			value: ''
 		};
 	}
@@ -76,7 +76,11 @@ export class TypeaheadComponent extends Component {
 				resolve(options);
 			}
 		}).then(visibleOptions => {
-			this.setState({ visible: visibleOptions });
+			if (typeof this.props.parse === 'function') {
+				visibleOptions = visibleOptions.map(val => this.props.parse(val));
+			}
+
+			this.setState({ visibleOptions });
 		});
 	}
 
@@ -102,7 +106,7 @@ export class TypeaheadComponent extends Component {
 		this.setState({
 			selectedOptionIndex: -1,
 			value: '',
-			visible: []
+			visibleOptions: []
 		});
 
 		if (typeof this.props.addTokenForValue === 'function') {
@@ -122,7 +126,7 @@ export class TypeaheadComponent extends Component {
 			this.setState({
 				selectedOptionIndex: -1,
 				value,
-				visible: options
+				visibleOptions: options
 			});
 		});
 	}
@@ -166,8 +170,8 @@ export class TypeaheadComponent extends Component {
 		// pass the first visible option in the list for tab 
 		// completion if no selected option
 		let option = this.state.selectedOptionIndex >= 0
-			? this.state.visible[this.state.selectedOptionIndex]
-			: this.state.visible[0];
+			? this.state.visibleOptions[this.state.selectedOptionIndex]
+			: this.state.visibleOptions[0];
 	
 		this._onOptionSelected(option);
 	}*/
@@ -190,12 +194,12 @@ export class TypeaheadComponent extends Component {
 	_onEnter(event) {
 		if (this.loadingOptions) return;
 
-		const { selectedOptionIndex, visible } = this.state;
+		const { selectedOptionIndex, visibleOptions } = this.state;
 
 		if (selectedOptionIndex >= 0) {
-			this._onOptionSelected(visible[selectedOptionIndex]);
-		} else if (this.state.visible.length > 0) {
-			this._onOptionSelected(visible[0]);
+			this._onOptionSelected(visibleOptions[selectedOptionIndex]);
+		} else if (visibleOptions.length > 0) {
+			this._onOptionSelected(visibleOptions[0]);
 		}
 	}
 
@@ -203,7 +207,7 @@ export class TypeaheadComponent extends Component {
 	// @event: key pressed by user
 	_onKeyDown = (event) => {
 		const { onKeyDown } = this.props;
-		const { value, visible } = this.state;
+		const { value, visibleOptions } = this.state;
 
 		let handler = this.eventMap(event);
 
@@ -219,7 +223,7 @@ export class TypeaheadComponent extends Component {
 
 		// if there are no visible elements, don't perform selected
 		// navigation or autocompletion
-		if (!handler || visible.length === 0) {
+		if (!handler || visibleOptions.length === 0) {
 			if (typeof onKeyDown === 'function') {
 				onKeyDown(event, value);
 			}
@@ -237,8 +241,9 @@ export class TypeaheadComponent extends Component {
 	// Move the selected option up or down depending on keystroke
 	// @delta: direction in which to move
 	_nav(delta) {
+		const { visibleOptions } = this.state;
 		// no visible options to move to
-		if (!this.state.visible.length) {
+		if (visibleOptions.length === 0) {
 			return;
 		}
 
@@ -247,12 +252,12 @@ export class TypeaheadComponent extends Component {
 		// wrap around to end or start if user goes past start 
 		// or end of list
 		if (newIndex < 0) {
-			newIndex = this.state.visible.length - 1;
-		} else if (newIndex >= this.state.visible.length) {
-			newIndex -= this.state.visible.length;
+			newIndex = visibleOptions.length - 1;
+		} else if (newIndex >= visibleOptions.length) {
+			newIndex -= visibleOptions.length;
 		}
 
-		let newSelection = this.state.visible[newIndex];
+		let newSelection = visibleOptions[newIndex];
 		this.setState({ selectedOptionIndex: newIndex });
 	}
 
@@ -315,14 +320,14 @@ export class TypeaheadComponent extends Component {
 
 		// there are no typeahead/autocomplete suggestions, 
 		// so render nothing
-		if (!this.state.visible.length) {
+		if (!this.state.visibleOptions.length) {
 			return null;
 		}
 
 		return (
 			<TypeaheadSelector
 				customClasses={this.props.customClasses}
-				options={this.state.visible}
+				options={this.state.visibleOptions}
 				header={this.props.header}
 				onOptionSelected={this._onOptionSelected}
 				selectedOptionIndex={this.state.selectedOptionIndex}

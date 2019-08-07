@@ -55,12 +55,44 @@ describe('Typeahead with a list of options', () => {
 		expect(container).toMatchSnapshot();
 	});
 
+	test('List of options with a parse func', async () => {
+		const parse = jest.fn(val => val.name);
+		const { container } = await render(
+			<TypeaheadComponent
+				options={[
+					{ name: 'foo' },
+					{ name: 'bar' },
+					{ name: 'baz' }
+				]}
+				parse={parse}
+			/>
+		);
+
+		fireEvent.click(container.querySelector('input'));
+		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
+		expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
+		expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
+	});
+
 	test('Options that are generated from a function', async () => {
 		const options = jest.fn(() => (['1', '2', '3']));
 		const { container } = await render(<TypeaheadComponent options={options} />);
 
 		fireEvent.click(container.querySelector('input'));
+		expect(options).toHaveBeenCalledWith('');
 		expect(container).toMatchSnapshot();
+	});
+
+	test('Options that are generated from a function and a parse func', async () => {
+		const parse = jest.fn(val => val.name);
+		const options = jest.fn(() => ([{ name: '1' }, { name: '2' }, { name: '3' }]));
+		const { container } = await render(<TypeaheadComponent options={options} parse={parse} />);
+
+		fireEvent.click(container.querySelector('input'));
+		expect(options).toHaveBeenCalledWith('');
+		expect(parse).toHaveBeenNthCalledWith(1, { name: '1' });
+		expect(parse).toHaveBeenNthCalledWith(2, { name: '2' });
+		expect(parse).toHaveBeenNthCalledWith(3, { name: '3' });
 	});
 
 	test('New list of options passed down', async () => {
@@ -95,7 +127,49 @@ describe('Typeahead with a list of options', () => {
 	});
 });
 
-describe('Updating the list of options', () => {
+describe('Sending new options to the typeahead', () => {
+	test('New list of options with a parse func', async () => {
+		const parse = jest.fn(val => val.name);
+		const { container, rerender } = await render(
+			<TypeaheadComponent options={[]} parse={parse} />
+		);
+
+		await rerender(
+			<TypeaheadComponent
+				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+				parse={parse}
+			/>
+		);
+
+		fireEvent.click(container.querySelector('input'));
+		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
+		expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
+		expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
+	});
+
+	test('New list of options that are generated from a function and a parse func', async () => {
+		const parse = jest.fn(val => val.name);
+		const options = jest.fn(() => ([{ name: '1' }]));
+		const { container, rerender } = await render(
+			<TypeaheadComponent options={options} parse={parse} />
+		);
+
+		await rerender(
+			<TypeaheadComponent
+				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+				parse={parse}
+			/>
+		);
+
+		fireEvent.click(container.querySelector('input'));
+		expect(options).toHaveBeenCalledWith('');
+		expect(parse).toHaveBeenNthCalledWith(2, { name: 'foo' });
+		expect(parse).toHaveBeenNthCalledWith(3, { name: 'bar' });
+		expect(parse).toHaveBeenNthCalledWith(4, { name: 'baz' });
+	});
+});
+
+describe('Updating the list of options as a user types', () => {
 
 	test('Filtering a list of string options', async () => {
 		const { container, queryByText } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);

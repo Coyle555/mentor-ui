@@ -428,7 +428,7 @@ exports[`Typeahead with a list of options Options that are generated from a func
 </div>
 `;
 
-exports[`Updating the list of options Filtering a list of options with a function 1`] = `
+exports[`Updating the list of options as a user types Filtering a list of options with a function 1`] = `
 <div>
   <div
     class="filter-input-group"
@@ -472,7 +472,7 @@ exports[`Updating the list of options Filtering a list of options with a functio
 </div>
 `;
 
-exports[`Updating the list of options Filtering a list of string options 1`] = `
+exports[`Updating the list of options as a user types Filtering a list of string options 1`] = `
 <div>
   <div
     class="filter-input-group"
