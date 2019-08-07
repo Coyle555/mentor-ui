@@ -6,7 +6,7 @@ export class FilterItem extends Component {
 
 	static propTypes = {
 		children: PropTypes.shape({
-			category: PropTypes.string,
+			label: PropTypes.string,
 			operator: PropTypes.string,
 			value: PropTypes.string
 		}),
@@ -68,7 +68,7 @@ export class FilterItem extends Component {
 
 		return (
 			<tr>
-				<td>{children.category}</td>
+				<td>{children.label}</td>
 				<td>{children.operator}</td>
 				<td className="filter-value">
 					{this.renderValue(children.value)}

@@ -10,7 +10,7 @@ import {
 export function validateToken(token) {
 	if (typeof token !== 'object'
 		|| !token.id
-		|| !token.category
+		|| !token.label
 		|| !token.operator) {
 
 		return false;
@@ -34,14 +34,14 @@ export function validateToken(token) {
 
 // Get the options available based on where the user is in the query
 export function _getOptionsForTypeahead(options = [], token = {}) {
-	if (!token.category) {
+	if (!token.label) {
 
-		return options.map(option => option.category);
+		return options.map(option => option.label);
 
 	} else if (!token.operator) {
-		let categoryType = _getCategoryDataType(options, token.id);
+		let labelType = _getLabelDataType(options, token.id);
 
-		switch (categoryType) {
+		switch (labelType) {
 			case 'string':
 			case 'text':
 			case 'email':
@@ -60,53 +60,53 @@ export function _getOptionsForTypeahead(options = [], token = {}) {
 				return [];
 		}
 	} else {
-		return _getCategoryOptions(options, token.id);
+		return _getLabelOptions(options, token.id);
 	}
 }
 
 
-// Get the data type of a category
+// Get the data type of a label
 // defaults to string if an error occurs
-export function	_getCategoryDataType(options, id) {
-	let category = options.find(option => {
+export function	_getLabelDataType(options, id) {
+	let label = options.find(option => {
 		return option.id === id;
 	});
 
-	if (!category) {
+	if (!label) {
 		return 'string';
 	}
 
-	if (!!category.options) {
+	if (!!label.options) {
 		return 'enumoptions';
-	} else if (!!category.asyncFilter) {
+	} else if (!!label.asyncFilter) {
 		return 'async';
 	} else {
-		return category.type || 'string';
+		return label.type || 'string';
 	}
 }
 
 // Get the available options(enum) if any were passed in with the 
 // options object
-export function _getCategoryOptions(options = [], id) {
-	let category = options.find(option => {
+export function _getLabelOptions(options = [], id) {
+	let label = options.find(option => {
 		return option.id === id;
 	});
 
-	if (!category) {
+	if (!label) {
 		return [];
 	}
 	
 	// default case for boolean data types
-	if (category.type === 'boolean' && !category.options) {
+	if (label.type === 'boolean' && !label.options) {
 		return ['True', 'False'];
 	}
 
-	return category.options;
+	return label.options;
 }
 
 // gets the next header to display over the selectable list of options
 export function _getHeader(nextToken = {}) {
-	if (nextToken.category === '') {
+	if (nextToken.label === '') {
 		return 'Field';
 	} else if (nextToken.operator === '') {
 		return 'Operator';
@@ -115,12 +115,12 @@ export function _getHeader(nextToken = {}) {
 	}
 }
 
-// Get the input data type after a user selects a category and operation
+// Get the input data type after a user selects a label and operation
 // Used to render possible operations on that data
-// Renders to string if category and operator have been selected
+// Renders to string if label and operator have been selected
 export function _getInputDatatype(token, options) {
-	if (!!token.category && !!token.operator) {
-		return _getCategoryDataType(options, token.id);
+	if (!!token.label && !!token.operator) {
+		return _getLabelDataType(options, token.id);
 	}
 
 	return 'string';
@@ -129,7 +129,7 @@ export function _getInputDatatype(token, options) {
 // Check a token against the current list of tokens for duplicates
 export function _isDuplicateToken(tokens, newToken) {
 	return tokens.some(token => {
-		return token.category === newToken.category &&
+		return token.label === newToken.label &&
 			token.operator === newToken.operator &&
 			token.value === newToken.value
 	}, this);

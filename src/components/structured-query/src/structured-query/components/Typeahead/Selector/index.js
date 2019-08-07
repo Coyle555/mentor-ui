@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { TypeaheadOption } from './Option';
 
 // Typeahead selector is the menu that holds the header
-// of the current category and also holds all
-// currently viewable options in category
+// of the current label and also holds all
+// currently viewable options in label
 export class TypeaheadSelector extends Component {
 
 	static propTypes = {

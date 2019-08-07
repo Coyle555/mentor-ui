@@ -12,7 +12,7 @@ export class ActiveFiltersComponent extends Component {
 		clearSearch: PropTypes.func,
 		onRemove: PropTypes.func,
 		searchTokens: PropTypes.arrayOf(PropTypes.shape({
-			category: PropTypes.string,
+			label: PropTypes.string,
 			id: PropTypes.string,
 			operator: PropTypes.string,
 			value: PropTypes.string

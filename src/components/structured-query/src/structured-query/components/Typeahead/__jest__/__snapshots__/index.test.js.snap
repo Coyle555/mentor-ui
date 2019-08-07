@@ -148,33 +148,6 @@ exports[`Handling key events Going up/down keystroke with no options 1`] = `
 </div>
 `;
 
-exports[`Rendering states of typeahead Category label render 1`] = `
-<div
-  className="filter-input-group"
-  onClick={[Function]}
->
-  <div
-    className="filter-category"
-  >
-    foo
-  </div>
-  <div
-    className="filter-operator"
-  />
-  <div
-    className="typeahead"
-  >
-    <input
-      className=""
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      type="text"
-      value=""
-    />
-  </div>
-</div>
-`;
-
 exports[`Rendering states of typeahead Custom class render 1`] = `
 <div
   className="filter-input-group"
@@ -208,6 +181,33 @@ exports[`Rendering states of typeahead Default render 1`] = `
   <div
     className="filter-category"
   />
+  <div
+    className="filter-operator"
+  />
+  <div
+    className="typeahead"
+  >
+    <input
+      className=""
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Rendering states of typeahead Label render 1`] = `
+<div
+  className="filter-input-group"
+  onClick={[Function]}
+>
+  <div
+    className="filter-category"
+  >
+    foo
+  </div>
   <div
     className="filter-operator"
   />

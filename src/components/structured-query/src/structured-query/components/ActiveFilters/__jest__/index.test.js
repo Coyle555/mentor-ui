@@ -14,7 +14,7 @@ describe('Rendering active filters', () => {
 
 	test('Some search tokens passed in', () => {
 		const tree = renderer.create(
-			<ActiveFiltersComponent searchTokens={[{ id: 'foo', category: 'Foo' }]} />
+			<ActiveFiltersComponent searchTokens={[{ id: 'foo', label: 'Foo' }]} />
 		).toJSON();
 
 		expect(tree).toMatchSnapshot();
@@ -24,7 +24,7 @@ describe('Rendering active filters', () => {
 		const { container, queryByText } = render(
 			<ActiveFiltersComponent searchTokens={[{
 				id: 'foo',
-				category: 'Foo',
+				label: 'Foo',
 				value: 'value'
 			}]} />);
 

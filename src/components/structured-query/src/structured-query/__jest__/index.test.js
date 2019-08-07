@@ -35,40 +35,40 @@ describe('Initial tokens in StructuredQuery', () => {
 	test('Initial tokens on mount', () => {
 		const instance = renderer.create(
 			<StructuredQuery initTokens={[
-				{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
-				{ id: 'baz', category: 'Baz', operator: 'is empty' }
+				{ id: 'foo', label: 'Foo', operator: 'equals', value: 'bar' },
+				{ id: 'baz', label: 'Baz', operator: 'is empty' }
 			]} />
 		).getInstance();
 
 		expect(instance.state.searchTokens).toEqual([
-			{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
-			{ id: 'baz', category: 'Baz', operator: 'is empty' }
+			{ id: 'foo', label: 'Foo', operator: 'equals', value: 'bar' },
+			{ id: 'baz', label: 'Baz', operator: 'is empty' }
 		]);
 	});
 	
 	test('New tokens passed in', () => {
 		const render = renderer.create(
 			<StructuredQuery initTokens={[
-				{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
+				{ id: 'foo', label: 'Foo', operator: 'equals', value: 'bar' },
 			]} />
 		);
 
 		render.update(
 			<StructuredQuery initTokens={[
-				{ id: 'baz', category: 'Baz', operator: 'is empty' }
+				{ id: 'baz', label: 'Baz', operator: 'is empty' }
 			]} />
 		);
 
 		expect(render.getInstance().state.searchTokens).toEqual([
-			{ id: 'baz', category: 'Baz', operator: 'is empty' }
+			{ id: 'baz', label: 'Baz', operator: 'is empty' }
 		]);
 	});
 	
 	test('Invalid tokens on mount', () => {
 		const instance = renderer.create(
 			<StructuredQuery initTokens={[
-				{ category: 'Foo', operator: 'equals', value: 'bar' },
-				{ id: 'baz', category: 'Baz', operator: 'equals' }
+				{ label: 'Foo', operator: 'equals', value: 'bar' },
+				{ id: 'baz', label: 'Baz', operator: 'equals' }
 			]} />
 		).getInstance();
 
@@ -85,7 +85,7 @@ describe('Clearing search in the StructuredQuery', () => {
 			<StructuredQuery
 				initTokens={[{
 					id: 'foo',
-					category: 'Foo',
+					label: 'Foo',
 					operator: 'equals',
 					value: 'bar'
 				}]}
@@ -109,7 +109,7 @@ describe('Exporting search in the StructuredQuery', () => {
 				exportSearch={exportSearch}
 				initTokens={[{
 					id: 'foo',
-					category: 'Foo',
+					label: 'Foo',
 					operator: 'equals',
 					value: 'bar'
 				}]}
@@ -119,7 +119,7 @@ describe('Exporting search in the StructuredQuery', () => {
 		instance.exportSearch();
 		expect(exportSearch).toHaveBeenCalledWith([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: 'equals',
 			value: 'bar'
 		}]);
@@ -143,7 +143,7 @@ describe('Handling key down events', () => {
 	test('Removing operator using backspace', () => {
 		const instance = renderer.create(<StructuredQuery />).getInstance();
 
-		instance.state.nextToken = { id: 'foo', category: 'Foo', operator: 'equals', value: 'foo' };
+		instance.state.nextToken = { id: 'foo', label: 'Foo', operator: 'equals', value: 'foo' };
 		instance._onKeyDown({
 			keyCode: keyEvent.DOM_VK_BACK_SPACE,
 			preventDefault: jest.fn()
@@ -151,16 +151,16 @@ describe('Handling key down events', () => {
 
 		expect(instance.state.nextToken).toEqual({
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: '',
 			value: ''
 		});
 	});
 
-	test('Removing category using backspace', () => {
+	test('Removing label using backspace', () => {
 		const instance = renderer.create(<StructuredQuery />).getInstance();
 
-		instance.state.nextToken = { id: 'foo', category: 'Foo', operator: '', value: '' };
+		instance.state.nextToken = { id: 'foo', label: 'Foo', operator: '', value: '' };
 		instance._onKeyDown({
 			keyCode: keyEvent.DOM_VK_BACK_SPACE,
 			preventDefault: jest.fn()
@@ -168,7 +168,7 @@ describe('Handling key down events', () => {
 
 		expect(instance.state.nextToken).toEqual({
 			id: '',
-			category: '',
+			label: '',
 			operator: '',
 			type: '',
 			value: ''
@@ -178,17 +178,17 @@ describe('Handling key down events', () => {
 
 describe('Adding a field to a token', () => {
 	const options = [
-		{ id: 'foo', category: 'Foo', type: 'string' },
-		{ id: 'bar', category: 'Bar', type: 'string' }
+		{ id: 'foo', label: 'Foo', type: 'string' },
+		{ id: 'bar', label: 'Bar', type: 'string' }
 	];
 	
-	test('Adding a category to a token', () => {
+	test('Adding a label to a token', () => {
 		const instance = renderer.create(<StructuredQuery options={options} />).getInstance();
 
 		instance._addTokenForValue('Foo');
 		expect(instance.state.nextToken).toEqual({
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: '',
 			type: 'string',
 			value: ''
@@ -202,7 +202,7 @@ describe('Adding a field to a token', () => {
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
 		expect(instance.state.nextToken).toEqual({
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.EQUALS,
 			type: 'string',
 			value: ''
@@ -220,7 +220,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.nextToken).toEqual({
 			id: '',
-			category: '',
+			label: '',
 			operator: '',
 			type: '',
 			value: ''
@@ -228,7 +228,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.searchTokens).toEqual([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.IS_EMPTY,
 			type: 'string',
 			value: ''
@@ -236,7 +236,7 @@ describe('Adding a field to a token', () => {
 
 		expect(onTokenAdd).toHaveBeenCalledWith([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.IS_EMPTY,
 			type: 'string',
 			value: ''
@@ -254,7 +254,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.nextToken).toEqual({
 			id: '',
-			category: '',
+			label: '',
 			operator: '',
 			type: '',
 			value: ''
@@ -262,7 +262,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.searchTokens).toEqual([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.IS_NOT_EMPTY,
 			type: 'string',
 			value: ''
@@ -270,7 +270,7 @@ describe('Adding a field to a token', () => {
 
 		expect(onTokenAdd).toHaveBeenCalledWith([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.IS_NOT_EMPTY,
 			type: 'string',
 			value: ''
@@ -289,7 +289,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.nextToken).toEqual({
 			id: '',
-			category: '',
+			label: '',
 			operator: '',
 			type: '',
 			value: ''
@@ -297,7 +297,7 @@ describe('Adding a field to a token', () => {
 
 		expect(instance.state.searchTokens).toEqual([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.EQUALS,
 			type: 'string',
 			value: 'testVal'
@@ -305,7 +305,7 @@ describe('Adding a field to a token', () => {
 
 		expect(onTokenAdd).toHaveBeenCalledWith([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: ALL_OPERATIONS.EQUALS,
 			type: 'string',
 			value: 'testVal'
@@ -315,8 +315,8 @@ describe('Adding a field to a token', () => {
 
 describe('Removing a token', () => {
 	const initTokens = [
-		{ id: 'foo', category: 'Foo', operator: 'equals', value: 'bar' },
-		{ id: 'baz', category: 'Baz', operator: 'is empty' }
+		{ id: 'foo', label: 'Foo', operator: 'equals', value: 'bar' },
+		{ id: 'baz', label: 'Baz', operator: 'is empty' }
 	];
 
 	test('Token not found', () => {
@@ -337,14 +337,14 @@ describe('Removing a token', () => {
 		instance._removeTokenForValue(initTokens[1]);
 		expect(instance.state.searchTokens).toEqual([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: 'equals',
 			value: 'bar'
 		}]);
 
 		expect(onTokenRemove).toHaveBeenCalledWith([{
 			id: 'foo',
-			category: 'Foo',
+			label: 'Foo',
 			operator: 'equals',
 			value: 'bar'
 		}]);

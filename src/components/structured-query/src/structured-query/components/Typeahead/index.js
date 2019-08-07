@@ -292,8 +292,8 @@ export class TypeaheadComponent extends Component {
 		this.setState({ value: '' });
 	}
 
-	// This will show the user the header of the category and the
-	// options depending on the category of the search he is in and 
+	// This will show the user the header of the label and the
+	// options depending on the label of the search he is in and 
 	// what he has entered
 	_renderIncrementalSearchResults() {
 		if (!this.state.focused) {
@@ -331,7 +331,7 @@ export class TypeaheadComponent extends Component {
 	}
 
 	render() {
-		const { category, customClasses, operator } = this.props;
+		const { customClasses, label, operator } = this.props;
 
 		let inputClassList = classNames({
 			[customClasses.input]: !!customClasses.input
@@ -343,7 +343,7 @@ export class TypeaheadComponent extends Component {
 				onClick={this._focusTypeahead}
 			>
 				<div className="filter-category">
-					{category}
+					{label}
 				</div>
 				<div className="filter-operator">
 					{operator}

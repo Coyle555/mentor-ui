@@ -20,7 +20,7 @@ test('Rendering default filter item', () => {
 
 test('Filter item with child object', () => {
 	const tree = renderer.create(
-		<FilterItem>{{ category: 'Foo', operator: 'Bar', value: 'Baz' }}</FilterItem>
+		<FilterItem>{{ label: 'Foo', operator: 'Bar', value: 'Baz' }}</FilterItem>
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();
@@ -29,7 +29,7 @@ test('Filter item with child object', () => {
 test('Filter item of type datetime', () => {
 	const tree = renderer.create(
 		<FilterItem type="datetime">
-			{{ category: 'Foo', operator: 'Bar', value: '1995-10-22' }}
+			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22' }}
 		</FilterItem>
 	).toJSON();
 
@@ -39,7 +39,7 @@ test('Filter item of type datetime', () => {
 test('Filter item of type date', () => {
 	const tree = renderer.create(
 		<FilterItem type="date">
-			{{ category: 'Foo', operator: 'Bar', value: '1995-10-22' }}
+			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22' }}
 		</FilterItem>
 	).toJSON();
 
@@ -52,11 +52,11 @@ test('On remove click callback', () => {
 
 	const { getByText } = render(
 		<FilterItem onRemove={onRemove}>
-			{{ category: 'Foo', operator: 'Bar', value: 'Baz' }}
+			{{ label: 'Foo', operator: 'Bar', value: 'Baz' }}
 		</FilterItem>,
 		{ container: document.body.appendChild(tbody) }
 	);
 
 	fireEvent.click(getByText('Clear'));
-	expect(onRemove).toHaveBeenCalledWith({ category: 'Foo', operator: 'Bar', value: 'Baz' });
+	expect(onRemove).toHaveBeenCalledWith({ label: 'Foo', operator: 'Bar', value: 'Baz' });
 });

@@ -7,8 +7,6 @@ import { Typeahead } from './components/Typeahead';
 import { keyEvent } from 'utils';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
-	_getCategoryDataType,
-	_getCategoryOptions,
 	_getHeader,
 	_getInputDatatype,
 	_getOptionsForTypeahead,
@@ -25,7 +23,7 @@ export class StructuredQuery extends Component {
 
 	static defaultProps = {
 		// options is an array of objects with fields of
-		// id, category, type
+		// id, label, type
 		options: [],
 		customClasses: {},
 		initTokens: [],
@@ -35,7 +33,7 @@ export class StructuredQuery extends Component {
 	static propTypes = {
 		exportSearch: PropTypes.func,
 		options: PropTypes.arrayOf(PropTypes.shape({
-			category: PropTypes.string,
+			label: PropTypes.string,
 			id: PropTypes.string.isRequired,
 			type: PropTypes.string
 		})),
@@ -49,19 +47,19 @@ export class StructuredQuery extends Component {
 		super(props);
 
 		// @searchTokens - holds all user generated tokens to search with
-		// 	Ex: [{category: 'id', operator: '=', value: '123'}, ...]
+		// 	Ex: [{label: 'id', operator: '=', value: '123'}, ...]
 		// @nextToken - holds the next token to be added to the search 
 		// 		tokens which are used for filtering -- 
 		// 		contains:
 		// 			@id - id for back end retrieval
-		// 			@category - which field to search in
+		// 			@label - which field to search in
 		//	 		@operator - the operator to apply to the field
 		//	 		@value - the value to search for
 		this.state = {
 			searchTokens: this.props.initTokens.filter(validateToken),
 			nextToken: {
 				id: '',
-				category: '',
+				label: '',
 				operator: '',
 				type: '',
 				value: ''
@@ -93,11 +91,11 @@ export class StructuredQuery extends Component {
 					{ operator: '', value: '' }
 				)
 			});
-		} else if (!!this.state.nextToken.category) {
+		} else if (!!this.state.nextToken.label) {
 			this.setState({
 				nextToken: {
 					id: '',
-					category: '',
+					label: '',
 					operator: '',
 					type: '',
 					value: ''
@@ -109,7 +107,7 @@ export class StructuredQuery extends Component {
 	// Add a token to the users current query
 	// One of three things can happen when a user selects something
 	// 
-	// 1. The category is selected so add category name to the typeahead component
+	// 1. The label is selected so add label name to the typeahead component
 	// 2. The operator is selected so add an operator to the typeahead component
 	// 3. The value has been added so add a token to the searchTokens, retrieve
 	// 	the new data from the backend, and re-render
@@ -118,9 +116,9 @@ export class StructuredQuery extends Component {
 	_addTokenForValue = (value) => {
 		const { nextToken, searchTokens } = this.state;
 
-		// Handle attaching a category to input
-		if (this.state.nextToken.category === '') {
-			this._addCategoryToNewToken(value);
+		// Handle attaching a label to input
+		if (this.state.nextToken.label === '') {
+			this._addlabelToNewToken(value);
 			return;
 		}
 
@@ -138,16 +136,16 @@ export class StructuredQuery extends Component {
 		}
 	}
 	
-	// Add a category to the new token
-	_addCategoryToNewToken(value) {
+	// Add a label to the new token
+	_addlabelToNewToken(value) {
 		let option = this.props.options.find(option => {
-			return option.category === value;
+			return option.label === value;
 		});
 
 		const newToken = Object.assign({},
 				this.state.nextToken,
 				{
-					category: value,
+					label: value,
 					id: option.id,
 					type: option.type
 				});
@@ -172,7 +170,7 @@ export class StructuredQuery extends Component {
 			this.setState({
 				nextToken: {
 					id: '',
-					category: '',
+					label: '',
 					operator: '',
 					type: '',
 					value: ''
@@ -204,7 +202,7 @@ export class StructuredQuery extends Component {
 		this.setState({
 			nextToken: {
 				id: '',
-				category: '',
+				label: '',
 				operator: '',
 				type: '',
 				value: ''
@@ -287,7 +285,7 @@ export class StructuredQuery extends Component {
 				/>
 				<Typeahead
 					addTokenForValue={this._addTokenForValue}
-					category={nextToken.category}
+					label={nextToken.label}
 					customClasses={customClasses}
 					datatype={_getInputDatatype(nextToken, options)}
 					header={_getHeader(nextToken)}

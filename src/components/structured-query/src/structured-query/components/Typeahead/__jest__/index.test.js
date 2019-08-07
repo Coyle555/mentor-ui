@@ -33,8 +33,8 @@ describe('Rendering states of typeahead', () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Category label render', () => {
-		const tree = renderer.create(<TypeaheadComponent category="foo" />).toJSON();
+	test('Label render', () => {
+		const tree = renderer.create(<TypeaheadComponent label="foo" />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
