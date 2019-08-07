@@ -184,14 +184,24 @@ describe('Updating the list of options as a user types', () => {
 		});
 	});
 
-	test('Filtering a list of options with a function', async () => {
-		const options = jest.fn((val) => {
-			if (val === 'b') {
-				return ['apple'];
-			}
+	test('Filtering a list of string options with a parse', async () => {
+		const parse = jest.fn(val => val === 'a' ? 'alpha' : val)
+		const { container, queryByText } = render(
+			<TypeaheadComponent options={['foo', 'bar', 'baz']} parse={parse} />
+		);
 
-			return ['banana'];
+		fireEvent.click(container.querySelector('input'));
+		fireEvent.change(container.querySelector('input'), { target: { value: 'a' } });
+
+		await wait(() => {
+			expect(parse).toHaveBeenNthCalledWith(4, 'foo');
+			expect(parse).toHaveBeenNthCalledWith(5, 'bar');
+			expect(parse).toHaveBeenNthCalledWith(6, 'baz');
 		});
+	});
+
+	test('Filtering a list of options with a function', async () => {
+		const options = jest.fn((val) => val === 'b' ? ['banana'] : ['apple']);
 
 		const { container, queryByText } = render(<TypeaheadComponent options={options} />);
 
@@ -199,10 +209,25 @@ describe('Updating the list of options as a user types', () => {
 		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
 
 		await wait(() => {
-			expect(queryByText('banana')).toBeFalsy();
-			expect(queryByText('apple')).toBeTruthy();
+			expect(queryByText('apple')).toBeFalsy();
+			expect(queryByText('banana')).toBeTruthy();
 			expect(container.querySelector('ul').children.length).toBe(1);
 			expect(container).toMatchSnapshot();
+		});
+	});
+
+	test('Filtering a list of options with a function and a parse', async () => {
+		const parse = jest.fn(val => val.name);
+		const options = jest.fn(val => val === 'b' ? ['banana'] : ['apple']);
+		const { container, queryByText } = render(
+			<TypeaheadComponent options={options} parse={parse} />);
+
+		fireEvent.click(container.querySelector('input'));
+		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
+
+		await wait(() => {
+			expect(parse).toHaveBeenNthCalledWith(1, 'apple');
+			expect(parse).toHaveBeenNthCalledWith(2, 'banana');
 		});
 	});
 });

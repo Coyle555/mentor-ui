@@ -116,31 +116,33 @@ export class TypeaheadComponent extends Component {
 
 	// As the user enters keystrokes fuzzy match against current options
 	_onTextEntryUpdated = (event) => {
+		let { options, parse } = this.props;
 		let value = event.target.value;
 
 		new Promise((resolve, reject) => {
-			resolve(this.getOptionsForValue(value, this.props.options))
-		}).then(options => {
+			this.loadingOptions = true;
+
+			if (typeof options === 'function') {
+				resolve(options(value));
+			} else {
+				if (typeof parse === 'function') {
+					options = options.map(val => parse(val));
+				}
+
+				resolve(fuzzy.filter(value, options).map(res => res.original));
+			}
+		}).then(visibleOptions => {
 			this.loadingOptions = false;
+
+			if (typeof options === 'function' && typeof parse === 'function') {
+				visibleOptions = visibleOptions.map(val => parse(val));
+			}
 
 			this.setState({
 				selectedOptionIndex: -1,
 				value,
-				visibleOptions: options
+				visibleOptions
 			});
-		});
-	}
-
-	// Updates the available options as the user inputs keystrokes
-	getOptionsForValue(value, options) {
-		this.loadingOptions = true;
-
-		return new Promise((resolve, reject) => {
-			if (typeof this.props.options === 'function') {
-				resolve(this.props.options(value));
-			} else {
-				resolve(fuzzy.filter(value, options).map(res => res.original));
-			}
 		});
 	}
 
