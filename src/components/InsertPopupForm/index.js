@@ -22,7 +22,7 @@ export default class InsertForm extends Component {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
 			multiline: PropTypes.bool,
-			options: PropTypes.arrayOf(PropTypes.string),
+			options: PropTypes.array,
 			required: PropTypes.bool,
 			type: PropTypes.string
 		})).isRequired,
@@ -218,19 +218,7 @@ export default class InsertForm extends Component {
 		}
 
 		if (typeof this.props.onSubmit === 'function') {
-			const data = Object.keys(this.insertData).reduce((acc, val) => {
-				if (typeof this.insertData[val] === 'object'
-					&& this.insertData[val].options) {
-
-					acc[val] = this.insertData[val].options;
-				} else {
-					acc[val] = this.insertData[val];
-				}
-
-				return acc;
-			}, {});
-
-			this.props.onSubmit(data);
+			this.props.onSubmit(this.insertData);
 		}
 
 		if (this.props.resetForm) {

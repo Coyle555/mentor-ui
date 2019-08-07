@@ -81,6 +81,19 @@ describe('Mounting a list filter', () => {
 			expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
 			expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
 		});
+
+		test('Options with a parse function and initial value', async () => {
+			const parse = jest.fn(val => val.name);
+			const tree = renderer.create(
+				<ListFilter
+					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+					parse={parse}
+					value={{ name: 'bar' }}
+				/>
+			);
+
+			expect(parse).toHaveBeenNthCalledWith(1, { name: 'bar' });
+		});
 	});
 
 	describe('Mounting with a required input', () => {
@@ -190,12 +203,23 @@ describe('List filter receiving new props', () => {
 		test('New list of options and new value with a parse function', async () => {
 			const parse = jest.fn(val => val.name);
 			const tree = renderer.create(
-				<ListFilter options={[{ name: 'foo' }]} parse={parse} value="foo" />);
-			tree.update(<ListFilter options={[{ name: 'bar' }, { name: 'baz' }]} value="bar" />);
+				<ListFilter
+					options={[{ name: 'foo' }]}
+					parse={parse}
+					value={{ name: 'foo' }}
+				/>
+			);
+			tree.update(
+				<ListFilter
+					options={[{ name: 'bar' }, { name: 'baz' }]}
+					value={{ name: 'bar' }}
+				/>
+			);
 
-			// called second and third since it was called with foo on mount
-			expect(parse).toHaveBeenNthCalledWith(3, { name: 'bar' });
-			expect(parse).toHaveBeenNthCalledWith(4, { name: 'baz' });
+			// called after foo on construction and mount
+			expect(parse).toHaveBeenNthCalledWith(4, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
 		});
 	});
 
@@ -353,6 +377,24 @@ describe('List filter onChange event', () => {
 			
 			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
 			expect(onMatch).toHaveBeenCalledWith('bar', 'inputName');
+		});
+
+		test('User types complete match with onMatch handler and parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const onMatch = jest.fn();
+			const { container, getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={onMatch}
+					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+					parse={parse}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			expect(onMatch).toHaveBeenCalledWith({ name: 'bar' }, 'inputName');
 		});
 
 		test('User types match that was a previous match', async () => {

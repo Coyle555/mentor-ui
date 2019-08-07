@@ -46,7 +46,7 @@ export class ListFilter extends Component {
 		parse: PropTypes.func,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
-		value: PropTypes.string
+		value: PropTypes.any
 	}
 
 	static defaultProps = {
@@ -73,7 +73,8 @@ export class ListFilter extends Component {
 	constructor(props) {
 		super(props);
 
-		const { required, value } = this.props;
+		const { parse, value } = this.props;
+		const initValue = !!value && typeof parse === 'function' ? parse(value) : value;
 
 		this.lastMatchedVal = '';
 
@@ -92,7 +93,7 @@ export class ListFilter extends Component {
 			loadingFilter: false,
 			options: this.parseOptions(this.props.options),
 			selectedOptionIndex: -1,
-			value
+			value: initValue
 		};
 	}
 
@@ -131,7 +132,10 @@ export class ListFilter extends Component {
 		// if new value passed in, refilter list and check for error
 		if (!!nextProps.value && this.state.value !== nextProps.value) {
 			const { filter, name, parse, required } = this.props;
-			const { value } = nextProps;
+
+			const value = !!nextProps.value && typeof parse === 'function'
+				? parse(nextProps.value)
+				: nextProps.value;
 
 			if (typeof filter === 'function') {
 				this.lastMatchedVal = value;
@@ -141,6 +145,7 @@ export class ListFilter extends Component {
 
 				return;
 			}
+
 			// new list of options passed in with value
 			let options = nextProps.options.length > 0 && this.props.options !== nextProps.options
 				? this.parseOptions(nextProps.options)
@@ -262,8 +267,7 @@ export class ListFilter extends Component {
 				&& !this.state.hasError
 				&& value !== this.lastMatchedVal) {
 
-				onMatch(value, name);
-				this.lastMatchedVal = value;
+				this.onMatch(value);
 
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
@@ -340,8 +344,7 @@ export class ListFilter extends Component {
 			value: option
 		}, () => {
 			if (typeof onMatch === 'function' && this.lastMatchedVal !== option) {
-				onMatch(option, name);
-				this.lastMatchedVal = option;
+				this.onMatch(option);
 			}
 		});
 	}
@@ -400,14 +403,24 @@ export class ListFilter extends Component {
 				&& !this.state.hasError
 				&& this.lastMatchedVal !== value) {
 
-				onMatch(value, name);
-				this.lastMatchedVal = value;
+				this.onMatch(value);
 
 			// otherwise it was just a change event w/ no match
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			}
 		});
+	}
+
+	onMatch = (value) => {
+		const { name, onMatch, options, parse } = this.props;
+
+		const matchedValue = typeof parse === 'function'
+			? options.find(option => parse(option) === value)
+			: value;
+
+		onMatch(matchedValue, name);
+		this.lastMatchedVal = value;
 	}
 
 	clearInput = () => {
@@ -438,8 +451,7 @@ export class ListFilter extends Component {
 			value: selectedOption
 		}, () => {
 			if (typeof onMatch === 'function' && this.lastMatchedVal !== selectedOption) {
-				onMatch(selectedOption, name);
-				this.lastMatchedVal = selectedOption;
+				this.onMatch(selectedOption);
 			}
 		});
 	}
