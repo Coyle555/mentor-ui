@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table } from '../table';
 import renderer from 'react-test-renderer';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

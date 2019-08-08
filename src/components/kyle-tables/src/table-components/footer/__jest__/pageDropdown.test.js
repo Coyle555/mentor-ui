@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageDropdown } from '../pageDropdown';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, act, getByTestId, waitForElement } from 'react-testing-library';
+import { cleanup, fireEvent, render, act, getByTestId, waitForElement } from '@testing-library/react';
 
 afterEach(cleanup);
 

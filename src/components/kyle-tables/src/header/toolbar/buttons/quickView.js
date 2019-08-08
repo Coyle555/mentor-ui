@@ -40,7 +40,7 @@ class QuickViewsComponent extends Component {
 	onViewClick = (columns) => {
 		this.props.onClick(columns);
 	}
-	
+
 	render() {
 		const { disabled, quickViews } = this.props;
 		const { btnActive } = this.state;

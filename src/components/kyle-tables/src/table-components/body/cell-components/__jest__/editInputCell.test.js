@@ -5,7 +5,7 @@ jest.mock('mentor-inputs', () => {
 import React from 'react';
 import { EditInputCell } from '../editInputCell';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

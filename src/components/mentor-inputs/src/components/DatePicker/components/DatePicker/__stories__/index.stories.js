@@ -8,7 +8,7 @@ import {
 	TYPES,
 } from '../';
 
-storiesOf('DatePicker', module)
+storiesOf('inputs/DatePicker', module)
 	.addDecorator(storyFn => (
 		<div style={{
 			display: 'flex',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditImageCell } from '../editImageCell';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

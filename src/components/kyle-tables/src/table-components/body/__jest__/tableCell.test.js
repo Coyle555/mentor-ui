@@ -14,7 +14,7 @@ jest.mock('../cell-components/asyncDropdownCell', () => {
 import React from 'react';
 import { Cell } from '../tableCell';
 import renderer from 'react-test-renderer';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 afterEach(cleanup);
