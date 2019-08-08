@@ -1,6 +1,5 @@
 import {
 	ALL_OPERATIONS,
-	ASYNC_OPERATIONS,
 	ENUM_OPERATIONS,
 	NUM_DATE_OPERATIONS,
 	STRING_OPERATIONS
@@ -54,8 +53,6 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 			case 'datetime':
 			case 'date':
 				return NUM_DATE_OPERATIONS;
-			case 'async':
-				return ASYNC_OPERATIONS;
 			default:
 				return [];
 		}
@@ -75,7 +72,7 @@ export function	_getLabelDataType(fields = [], id) {
 	}
 
 	if (!!label.options) {
-		return typeof label.options === 'function' ? 'async' : 'enumoptions';
+		return 'enumoptions';
 	} else {
 		return label.type || 'string';
 	}
@@ -98,7 +95,7 @@ export function _getLabelOptions(fields = [], id) {
 
 // get the parse functions for an options list if it exists
 export function _getParseForOptions(fields = [], token) {
-	if (!token.id || !token.label || !token.operator) {
+	if (fields.length === 0 || !token.id || !token.label || !token.operator) {
 		return null;
 	}
 

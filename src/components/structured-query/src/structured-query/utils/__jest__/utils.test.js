@@ -1,5 +1,4 @@
 import {
-	ASYNC_OPERATIONS,
 	ENUM_OPERATIONS,
 	NUM_DATE_OPERATIONS,
 	STRING_OPERATIONS
@@ -90,10 +89,6 @@ describe('Get label data type utility function', () => {
 
 	test('Enum options data type', () => {
 		expect(_getLabelDataType([{ id: 'foo', options: true }], 'foo')).toBe('enumoptions');
-	});
-
-	test('Async data type', () => {
-		expect(_getLabelDataType([{ id: 'foo', options: () => {} }], 'foo')).toBe('async');
 	});
 
 	test('label data type', () => {
@@ -239,11 +234,6 @@ describe('Get options for the typeahead utility function', () => {
 				.toEqual(NUM_DATE_OPERATIONS);
 		});
 
-		test('Async operators', () => {
-			expect(_getOptionsForTypeahead(options, { id: 'i', label: 'A' }))
-				.toEqual(ASYNC_OPERATIONS);
-		});
-
 		test('Invalid type operators', () => {
 			expect(_getOptionsForTypeahead(options, { id: 'j', label: 'A' }))
 				.toEqual([]);
@@ -313,6 +303,13 @@ describe('Is duplicate token utility function', () => {
 });
 
 describe('Getting the parse function for an options list', () => {
+	test('No fields', () => {
+		expect(_getParseForOptions(
+			[],
+			{ id: 'foo', label: 'Foo', operator: 'equals' })
+		).toBeNull();
+	});
+
 	test('Token with no id', () => {
 		expect(_getParseForOptions([], {})).toBeNull();
 	});

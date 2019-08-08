@@ -10,6 +10,7 @@ import {
 	_getHeader,
 	_getInputDatatype,
 	_getOptionsForTypeahead,
+	_getParseForOptions,
 	_isDuplicateToken,
 	validateToken
 } from './utils/utils';
@@ -32,6 +33,7 @@ export class StructuredQuery extends Component {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+			parse: PropTypes.func,
 			type: PropTypes.string
 		})),
 		initTokens: PropTypes.arrayOf(PropTypes.object),
@@ -110,11 +112,12 @@ export class StructuredQuery extends Component {
 	//
 	// @value: value to add to the token
 	_addTokenForValue = (value) => {
-		const { nextToken, parse, searchTokens } = this.state;
+		const { fields } = this.props;
+		const { nextToken, searchTokens } = this.state;
 
 		// Handle attaching a label to input
 		if (nextToken.label === '') {
-			this._addlabelToNewToken(value);
+			this._addLabelToNewToken(value);
 			return;
 		}
 
@@ -125,6 +128,7 @@ export class StructuredQuery extends Component {
 		}
 
 		const newToken = Object.assign({}, nextToken, { value });
+		const parse = _getParseForOptions(fields, nextToken);
 
 		// Else, we are attaching a value so we need to add the 
 		// next token to the list of all tokens
@@ -135,7 +139,7 @@ export class StructuredQuery extends Component {
 	}
 	
 	// Add a label to the new token
-	_addlabelToNewToken(value) {
+	_addLabelToNewToken(value) {
 		let field = this.props.fields.find(field => {
 			return field.label === value;
 		});
@@ -246,7 +250,7 @@ export class StructuredQuery extends Component {
 	}
 
 	render() {
-		const { customClasses, exportSearch, fields, parse } = this.props;
+		const { customClasses, exportSearch, fields } = this.props;
 		const { nextToken, searchTokens } = this.state;
 
 		const filterClasses = classNames({
@@ -271,8 +275,8 @@ export class StructuredQuery extends Component {
 				</span>
 				<ActiveFilters 
 					clearSearch={this.clearSearch}
+					fields={fields}
 					onRemove={this._removeTokenForValue}
-					parse={parse}
 					searchTokens={searchTokens}
 				/>
 				<Typeahead
@@ -284,7 +288,7 @@ export class StructuredQuery extends Component {
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
 					options={_getOptionsForTypeahead(fields, nextToken)}
-					parse={parse}
+					parse={_getParseForOptions(fields, nextToken)}
 				/>
 				{/*<span className="input-group-addon right-addon">
 					<i className="far fa-search" />

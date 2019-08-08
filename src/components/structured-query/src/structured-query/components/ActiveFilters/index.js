@@ -4,22 +4,31 @@ import Tether from 'react-tether';
 import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 
+import { _getParseForOptions } from '../../utils/utils';
 import { FilterItem } from './FilterItem';
 
 export class ActiveFiltersComponent extends Component {
 
 	static propTypes = {
 		clearSearch: PropTypes.func,
+		fields: PropTypes.arrayOf(PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			label: PropTypes.string,
+			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+			parse: PropTypes.func,
+			type: PropTypes.string
+		})),
 		onRemove: PropTypes.func,
 		searchTokens: PropTypes.arrayOf(PropTypes.shape({
 			label: PropTypes.string,
 			id: PropTypes.string,
 			operator: PropTypes.string,
-			value: PropTypes.string
+			value: PropTypes.any
 		}))
 	}
 
 	static defaultProps = {
+		fields: [],
 		searchTokens: []
 	}
 
@@ -42,7 +51,7 @@ export class ActiveFiltersComponent extends Component {
 	}
 
 	renderFilters = (ref) => {
-		const { clearSearch, onRemove, parse, searchTokens } = this.props;
+		const { clearSearch, fields, onRemove, searchTokens } = this.props;
 
 		if (searchTokens.length === 0) {
 			return null;
@@ -73,7 +82,7 @@ export class ActiveFiltersComponent extends Component {
 						<FilterItem
 							key={token.id + token.operator + token.value}
 							onRemove={onRemove}
-							parse={parse}
+							parse={_getParseForOptions(fields, token)}
 							type={token.type}
 						>
 							{token}

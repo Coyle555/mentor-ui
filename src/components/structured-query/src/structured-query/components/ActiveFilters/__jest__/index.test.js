@@ -12,19 +12,12 @@ describe('Rendering active filters', () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Some search tokens passed in', () => {
-		const tree = renderer.create(
-			<ActiveFiltersComponent searchTokens={[{ id: 'foo', label: 'Foo' }]} />
-		).toJSON();
-
-		expect(tree).toMatchSnapshot();
-	});
-
 	test('Opening active filters with search tokens', async () => {
 		const { container, queryByText } = render(
 			<ActiveFiltersComponent searchTokens={[{
 				id: 'foo',
 				label: 'Foo',
+				operator: 'equals',
 				value: 'value'
 			}]} />);
 
@@ -33,6 +26,72 @@ describe('Rendering active filters', () => {
 		await wait(() => {
 			expect(queryByText('value')).toBeTruthy();
 			expect(queryByText('Clear All')).toBeTruthy();
+		});
+	});
+
+	test('Opening active filters with search tokens and parse', async () => {
+		const parse = jest.fn(val => val.name);
+		const { container, queryByText } = render(
+			<ActiveFiltersComponent
+				fields={[{ id: 'foo', parse }]}
+				searchTokens={[{
+					id: 'foo',
+					label: 'Foo',
+					operator: 'equals',
+					value: { name: 'value' }
+				}]}
+			/>);
+
+		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
+
+		await wait(() => {
+			expect(parse).toHaveBeenCalledWith({ name: 'value' });
+			expect(queryByText('value')).toBeTruthy();
+			expect(queryByText('Clear All')).toBeTruthy();
+		});
+	});
+});
+
+describe('Clearing search', () => {
+	test('Clear out a single search token', async () => {
+		const onRemove = jest.fn();
+		const { container, queryByText } = render(
+			<ActiveFiltersComponent
+				onRemove={onRemove}
+				searchTokens={[{
+					id: 'foo',
+					label: 'Foo',
+					operator: 'equals',
+					value: 'value'
+				}]}
+			/>);
+
+		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
+
+		await wait(() => {
+			fireEvent.click(queryByText('Clear'));
+			expect(onRemove).toHaveBeenCalled();
+		});
+	});
+
+	test('Clear out all filters on click', async () => {
+		const clearSearch = jest.fn();
+		const { container, queryByText } = render(
+			<ActiveFiltersComponent
+				clearSearch={clearSearch}
+				searchTokens={[{
+					id: 'foo',
+					label: 'Foo',
+					operator: 'equals',
+					value: 'value'
+				}]}
+			/>);
+
+		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
+
+		await wait(() => {
+			fireEvent.click(queryByText('Clear All'));
+			expect(clearSearch).toHaveBeenCalled();
 		});
 	});
 });

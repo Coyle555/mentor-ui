@@ -51,10 +51,3 @@ export const ENUM_OPERATIONS = [
 	IS_NOT_EMPTY
 ];
 
-export const ASYNC_OPERATIONS = [
-	CONTAINS,
-	DOES_NOT_CONTAIN,
-	IS_EMPTY,
-	IS_NOT_EMPTY
-];
-

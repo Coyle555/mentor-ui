@@ -312,7 +312,7 @@ describe('Adding a field to a token', () => {
 		}]);
 	});
 
-	test.only('Adding a duplicate token', () => {
+	test('Adding a duplicate token', () => {
 		const fields = [
 			{ id: 'foo', label: 'Foo', type: 'string', options: [{ name: 'foo' }], parse: val => val.name },
 			{ id: 'bar', label: 'Bar', type: 'string' }
@@ -329,7 +329,6 @@ describe('Adding a field to a token', () => {
 		instance._addTokenForValue('Foo');
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
 		instance._addTokenForValue({ name: 'foo' });
-		console.log(instance.state.searchTokens);
 
 		expect(instance.state.searchTokens.length).toBe(1);
 	});
