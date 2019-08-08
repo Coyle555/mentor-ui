@@ -106,8 +106,6 @@ export class TypeaheadComponent extends Component {
 			option = moment(option).toISOString();
 		}
 
-		this.loadingOptions = false;
-
 		this.setState({
 			selectedOptionIndex: -1,
 			value: '',
@@ -149,8 +147,6 @@ export class TypeaheadComponent extends Component {
 				).map(res => res.string));
 			}
 		}).then(visibleOptions => {
-			this.loadingOptions = false;
-
 			if (typeof options === 'function') {
 				this.rawOptions = visibleOptions;
 
@@ -163,6 +159,8 @@ export class TypeaheadComponent extends Component {
 				selectedOptionIndex: -1,
 				value,
 				visibleOptions
+			}, () => {
+				this.loadingOptions = false;
 			});
 		});
 	}

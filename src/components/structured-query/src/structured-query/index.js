@@ -110,24 +110,26 @@ export class StructuredQuery extends Component {
 	//
 	// @value: value to add to the token
 	_addTokenForValue = (value) => {
-		const { nextToken, searchTokens } = this.state;
+		const { nextToken, parse, searchTokens } = this.state;
 
 		// Handle attaching a label to input
-		if (this.state.nextToken.label === '') {
+		if (nextToken.label === '') {
 			this._addlabelToNewToken(value);
 			return;
 		}
 
 		// Handle attaching an operator
-		if (this.state.nextToken.operator === '') {
+		if (nextToken.operator === '') {
 			this._addOperatorToNewToken(value);
 			return;
 		}
 
+		const newToken = Object.assign({}, nextToken, { value });
+
 		// Else, we are attaching a value so we need to add the 
 		// next token to the list of all tokens
 		// We check first to make sure there are no duplicates
-		if (!_isDuplicateToken(searchTokens, Object.assign({}, nextToken, { value }))) {
+		if (!_isDuplicateToken(searchTokens, newToken, parse)) {
 			this._addValueToNewToken(value);
 		}
 	}

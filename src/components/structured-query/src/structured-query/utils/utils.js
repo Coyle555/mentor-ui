@@ -67,7 +67,7 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 
 // Get the data type of a label
 // defaults to string if an error occurs
-export function	_getLabelDataType(fields, id) {
+export function	_getLabelDataType(fields = [], id) {
 	let label = fields.find(field => field.id === id);
 
 	if (!label) {
@@ -84,7 +84,7 @@ export function	_getLabelDataType(fields, id) {
 // Get the available options(enum) if any were passed in with the 
 // options object
 export function _getLabelOptions(fields = [], id) {
-	let label = fields.find(field => field.id === id);
+	const label = fields.find(field => field.id === id);
 
 	if (!label) return [];
 	
@@ -94,6 +94,16 @@ export function _getLabelOptions(fields = [], id) {
 	}
 
 	return label.options;
+}
+
+// get the parse functions for an options list if it exists
+export function _getParseForOptions(fields = [], token) {
+	if (!token.id || !token.label || !token.operator) {
+		return null;
+	}
+
+	const field = fields.find(field => field.id === token.id);
+	return field.parse;
 }
 
 // gets the next header to display over the selectable list of options
@@ -119,10 +129,19 @@ export function _getInputDatatype(token, fields) {
 }
 
 // Check a token against the current list of tokens for duplicates
-export function _isDuplicateToken(tokens, newToken) {
+export function _isDuplicateToken(tokens, newToken, parse) {
+	let newTokenValue = typeof parse === 'function'
+		? parse(newToken.value)
+		: newToken.value;
+	let tokenValue;
+
 	return tokens.some(token => {
+		tokenValue = typeof parse === 'function'
+			? parse(token.value)
+			: token.value;
+
 		return token.label === newToken.label &&
 			token.operator === newToken.operator &&
-			token.value === newToken.value
+			tokenValue === newTokenValue;
 	}, this);
 }
