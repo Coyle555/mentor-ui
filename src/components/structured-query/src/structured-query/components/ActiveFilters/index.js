@@ -42,7 +42,7 @@ export class ActiveFiltersComponent extends Component {
 	}
 
 	renderFilters = (ref) => {
-		const { clearSearch, onRemove, searchTokens } = this.props;
+		const { clearSearch, onRemove, parse, searchTokens } = this.props;
 
 		if (searchTokens.length === 0) {
 			return null;
@@ -73,6 +73,7 @@ export class ActiveFiltersComponent extends Component {
 						<FilterItem
 							key={token.id + token.operator + token.value}
 							onRemove={onRemove}
+							parse={parse}
 							type={token.type}
 						>
 							{token}

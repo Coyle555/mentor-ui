@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Handling key events Going down keystroke 1`] = `
+exports[`Handling key events Navigating up and down the menu Going down keystroke 1`] = `
 <div>
   <div
     class="filter-input-group"
@@ -62,7 +62,7 @@ exports[`Handling key events Going down keystroke 1`] = `
 </div>
 `;
 
-exports[`Handling key events Going up keystroke 1`] = `
+exports[`Handling key events Navigating up and down the menu Going up keystroke 1`] = `
 <div>
   <div
     class="filter-input-group"
@@ -124,7 +124,7 @@ exports[`Handling key events Going up keystroke 1`] = `
 </div>
 `;
 
-exports[`Handling key events Going up/down keystroke with no options 1`] = `
+exports[`Handling key events Navigating up and down the menu Going up/down keystroke with no options 1`] = `
 <div>
   <div
     class="filter-input-group"

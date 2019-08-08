@@ -177,13 +177,13 @@ describe('Handling key down events', () => {
 });
 
 describe('Adding a field to a token', () => {
-	const options = [
+	const fields = [
 		{ id: 'foo', label: 'Foo', type: 'string' },
 		{ id: 'bar', label: 'Bar', type: 'string' }
 	];
 	
 	test('Adding a label to a token', () => {
-		const instance = renderer.create(<StructuredQuery options={options} />).getInstance();
+		const instance = renderer.create(<StructuredQuery fields={fields} />).getInstance();
 
 		instance._addTokenForValue('Foo');
 		expect(instance.state.nextToken).toEqual({
@@ -196,7 +196,7 @@ describe('Adding a field to a token', () => {
 	});
 
 	test('Adding an equals operator to a token', () => {
-		const instance = renderer.create(<StructuredQuery options={options} />).getInstance();
+		const instance = renderer.create(<StructuredQuery fields={fields} />).getInstance();
 
 		instance._addTokenForValue('Foo');
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
@@ -212,7 +212,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a is empty operator to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} fields={fields} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -246,7 +246,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a is not empty operator to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} fields={fields} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -280,7 +280,7 @@ describe('Adding a field to a token', () => {
 	test('Adding a value to a token', () => {
 		const onTokenAdd = jest.fn();
 		const instance = renderer.create(
-			<StructuredQuery onTokenAdd={onTokenAdd} options={options} />
+			<StructuredQuery onTokenAdd={onTokenAdd} fields={fields} />
 		).getInstance();
 
 		instance._addTokenForValue('Foo');
@@ -310,6 +310,23 @@ describe('Adding a field to a token', () => {
 			type: 'string',
 			value: 'testVal'
 		}]);
+	});
+
+	test('Adding a duplicate token', () => {
+		const onTokenAdd = jest.fn();
+		const instance = renderer.create(
+			<StructuredQuery onTokenAdd={onTokenAdd} fields={fields} />
+		).getInstance();
+
+		instance._addTokenForValue('Foo');
+		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
+		instance._addTokenForValue('testVal');
+
+		instance._addTokenForValue('Foo');
+		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
+		instance._addTokenForValue('testVal');
+
+		expect(instance.state.searchTokens.length).toBe(1);
 	});
 });
 

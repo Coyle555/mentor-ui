@@ -19,25 +19,24 @@ import './styles/structured-filter.less';
 export class StructuredQuery extends Component {
 
 	static defaultProps = {
-		// options is an array of objects with fields of
-		// id, label, type
 		customClasses: {},
 		exportSearch: null,
+		fields: [],
 		initTokens: [],
-		options: [],
 	}
 
 	static propTypes = {
 		exportSearch: PropTypes.func,
 		customClasses: PropTypes.object,
+		fields: PropTypes.arrayOf(PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			label: PropTypes.string,
+			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+			type: PropTypes.string
+		})),
 		initTokens: PropTypes.arrayOf(PropTypes.object),
 		onTokenAdd: PropTypes.func,
 		onTokenRemove: PropTypes.func,
-		options: PropTypes.arrayOf(PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			label: PropTypes.string,
-			type: PropTypes.string
-		})),
 	}
 
 	constructor(props) {
@@ -135,16 +134,16 @@ export class StructuredQuery extends Component {
 	
 	// Add a label to the new token
 	_addlabelToNewToken(value) {
-		let option = this.props.options.find(option => {
-			return option.label === value;
+		let field = this.props.fields.find(field => {
+			return field.label === value;
 		});
 
 		const newToken = Object.assign({},
 				this.state.nextToken,
 				{
 					label: value,
-					id: option.id,
-					type: option.type
+					id: field.id,
+					type: field.type
 				});
 
 		this.setState({ nextToken: newToken });
@@ -213,16 +212,9 @@ export class StructuredQuery extends Component {
 	}
 
 	// Remove a token from the search tokens
-	_removeTokenForValue = (value) => {
+	_removeTokenForValue = (token) => {
 		const { onTokenRemove } = this.props;
-		const index = this.state.searchTokens.indexOf(value);
-
-		// return nothing if object not found
-		if (index === -1) return;
-
-		const searchTokens = this.state.searchTokens.filter((token, i) => {
-			return index !== i;
-		});
+		const searchTokens = this.state.searchTokens.filter(searchToken => searchToken !== token);
 
 		this.setState({
 			searchTokens
@@ -252,7 +244,7 @@ export class StructuredQuery extends Component {
 	}
 
 	render() {
-		const { customClasses, exportSearch, options, parse } = this.props;
+		const { customClasses, exportSearch, fields, parse } = this.props;
 		const { nextToken, searchTokens } = this.state;
 
 		const filterClasses = classNames({
@@ -278,17 +270,18 @@ export class StructuredQuery extends Component {
 				<ActiveFilters 
 					clearSearch={this.clearSearch}
 					onRemove={this._removeTokenForValue}
+					parse={parse}
 					searchTokens={searchTokens}
 				/>
 				<Typeahead
 					addTokenForValue={this._addTokenForValue}
 					label={nextToken.label}
 					customClasses={customClasses}
-					datatype={_getInputDatatype(nextToken, options)}
+					datatype={_getInputDatatype(nextToken, fields)}
 					header={_getHeader(nextToken)}
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
-					options={_getOptionsForTypeahead(options, nextToken)}
+					options={_getOptionsForTypeahead(fields, nextToken)}
 					parse={parse}
 				/>
 				{/*<span className="input-group-addon right-addon">

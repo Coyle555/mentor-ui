@@ -92,7 +92,7 @@ describe('Get label data type utility function', () => {
 	});
 
 	test('Async data type', () => {
-		expect(_getLabelDataType([{ id: 'foo', asyncFilter: true }], 'foo')).toBe('async');
+		expect(_getLabelDataType([{ id: 'foo', options: () => {} }], 'foo')).toBe('async');
 	});
 
 	test('label data type', () => {
@@ -183,7 +183,7 @@ describe('Get options for the typeahead utility function', () => {
 		{ id: 'f', label: 'F', type: 'integer' },
 		{ id: 'g', label: 'G', type: 'float' },
 		{ id: 'h', label: 'H', type: 'datetime' },
-		{ id: 'i', label: 'I', asyncFilter: '/foo' },
+		{ id: 'i', label: 'I', options: () => {} },
 		{ id: 'j', label: 'J', type: 'invalid' }
 	];
 

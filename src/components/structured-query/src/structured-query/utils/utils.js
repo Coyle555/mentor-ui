@@ -33,13 +33,13 @@ export function validateToken(token) {
 }
 
 // Get the options available based on where the user is in the query
-export function _getOptionsForTypeahead(options = [], token = {}) {
+export function _getOptionsForTypeahead(fields = [], token = {}) {
 	if (!token.label) {
 
-		return options.map(option => option.label);
+		return fields.map(field => field.label);
 
 	} else if (!token.operator) {
-		let labelType = _getLabelDataType(options, token.id);
+		let labelType = _getLabelDataType(fields, token.id);
 
 		switch (labelType) {
 			case 'string':
@@ -60,26 +60,22 @@ export function _getOptionsForTypeahead(options = [], token = {}) {
 				return [];
 		}
 	} else {
-		return _getLabelOptions(options, token.id);
+		return _getLabelOptions(fields, token.id);
 	}
 }
 
 
 // Get the data type of a label
 // defaults to string if an error occurs
-export function	_getLabelDataType(options, id) {
-	let label = options.find(option => {
-		return option.id === id;
-	});
+export function	_getLabelDataType(fields, id) {
+	let label = fields.find(field => field.id === id);
 
 	if (!label) {
 		return 'string';
 	}
 
 	if (!!label.options) {
-		return 'enumoptions';
-	} else if (!!label.asyncFilter) {
-		return 'async';
+		return typeof label.options === 'function' ? 'async' : 'enumoptions';
 	} else {
 		return label.type || 'string';
 	}
@@ -87,14 +83,10 @@ export function	_getLabelDataType(options, id) {
 
 // Get the available options(enum) if any were passed in with the 
 // options object
-export function _getLabelOptions(options = [], id) {
-	let label = options.find(option => {
-		return option.id === id;
-	});
+export function _getLabelOptions(fields = [], id) {
+	let label = fields.find(field => field.id === id);
 
-	if (!label) {
-		return [];
-	}
+	if (!label) return [];
 	
 	// default case for boolean data types
 	if (label.type === 'boolean' && !label.options) {
@@ -118,9 +110,9 @@ export function _getHeader(nextToken = {}) {
 // Get the input data type after a user selects a label and operation
 // Used to render possible operations on that data
 // Renders to string if label and operator have been selected
-export function _getInputDatatype(token, options) {
+export function _getInputDatatype(token, fields) {
 	if (!!token.label && !!token.operator) {
-		return _getLabelDataType(options, token.id);
+		return _getLabelDataType(fields, token.id);
 	}
 
 	return 'string';
