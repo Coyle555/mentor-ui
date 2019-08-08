@@ -125,11 +125,11 @@ export class TypeaheadComponent extends Component {
 			if (typeof options === 'function') {
 				resolve(options(value));
 			} else {
-				if (typeof parse === 'function') {
-					options = options.map(val => parse(val));
-				}
-
-				resolve(fuzzy.filter(value, options).map(res => res.original));
+				resolve(fuzzy.filter(
+					value,
+					options,
+					{ extract: typeof parse === 'function' ? parse : undefined }
+				).map(res => res.string));
 			}
 		}).then(visibleOptions => {
 			this.loadingOptions = false;

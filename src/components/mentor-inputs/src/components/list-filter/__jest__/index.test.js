@@ -12,6 +12,7 @@ describe('Renders of list filters', () => {
 
 		expect(tree.toJSON()).toMatchSnapshot();
 		expect(tree.getInstance().lastMatchedVal).toBe('');
+		expect(tree.getInstance().rawOptions).toEqual([]);
 	});
 
 	test('Render with a custom css class', () => {
@@ -66,6 +67,7 @@ describe('Mounting a list filter', () => {
 
 			expect(filter).toHaveBeenCalledWith('foo');
 			expect(tree.getInstance().lastMatchedVal).toBe('foo');
+			expect(tree.getInstance().rawOptions).toEqual(['foo', 'bar', 'baz']);
 		});
 
 		test('Options with a parse function', async () => {
@@ -230,6 +232,7 @@ describe('List filter receiving new props', () => {
 
 			await wait(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
+				expect(tree.getInstance().rawOptions).toEqual(['new', 'options', 'list']);
 			});
 		});
 
@@ -251,6 +254,7 @@ describe('List filter receiving new props', () => {
 
 			await wait(() => {
 				expect(tree.getInstance().lastMatchedVal).toBe('list');
+				expect(tree.getInstance().rawOptions).toEqual(['new', 'options', 'list']);
 			});
 		});
 
@@ -395,6 +399,32 @@ describe('List filter onChange event', () => {
 			
 			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
 			expect(onMatch).toHaveBeenCalledWith({ name: 'bar' }, 'inputName');
+		});
+
+		test('User types complete match with onMatch handler, custom filter, and parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const filter = jest.fn(val => val === 'bar'
+				? [{ name: 'bar' }]
+				: [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]
+			);
+			const onMatch = jest.fn();
+			const { container, getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onMatch={onMatch}
+					parse={parse}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
+			expect(filter).toHaveBeenCalledTimes(2);
+
+			await wait(() => {
+				expect(onMatch).toHaveBeenCalledWith({ name: 'bar' }, 'inputName');
+			});
 		});
 
 		test('User types match that was a previous match', async () => {
@@ -849,10 +879,12 @@ describe('Handling list item events', () => {
 
 		test('Clicking a list item with parse', async () => {
 			const parse = jest.fn(val => val.name);
+			const onMatch = jest.fn();
 			const { queryByText } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
+					onMatch={onMatch}
 					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
 					parse={parse}
 				/>
@@ -863,6 +895,7 @@ describe('Handling list item events', () => {
 				expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
 				expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
 				expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
+				expect(onMatch).toHaveBeenCalledWith({ name: 'baz' }, 'inputName');
 			});
 		});
 
@@ -879,6 +912,31 @@ describe('Handling list item events', () => {
 			
 			fireEvent.click(queryByText('baz'));
 			expect(filter).toHaveBeenCalledWith('baz');
+		});
+
+		test('Clicking a list item with custom filter and parse', async () => {
+			const onMatch = jest.fn();
+			const parse = jest.fn(val => val.name);
+			const filter = jest.fn(() => Promise.resolve([
+				{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }
+			]));
+			const { queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					filter={filter}
+					name="inputName"
+					onMatch={onMatch}
+					parse={parse}
+				/>
+			);
+			
+			await wait(() => {
+				fireEvent.click(queryByText('baz'));
+				expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
+				expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
+				expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
+				expect(onMatch).toHaveBeenCalledWith({ name: 'baz' }, 'inputName');
+			});
 		});
 	});
 });

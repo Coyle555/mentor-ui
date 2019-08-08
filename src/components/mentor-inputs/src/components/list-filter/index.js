@@ -78,6 +78,7 @@ export class ListFilter extends Component {
 		const initOptions = typeof parse === 'function' ? options.map(val => parse(val)) : options;
 
 		this.lastMatchedVal = '';
+		this.rawOptions = this.props.options;
 
 		// @focused: true when the input box is focused; false otherwise
 		// @hasError: true when the list filter has an error due to a 
@@ -141,10 +142,16 @@ export class ListFilter extends Component {
 				return;
 			}
 
+			let options;
+
 			// new list of options passed in with value
-			const options = nextProps.options.length > 0 && this.props.options !== nextProps.options
-				? this.filterMatches(value, nextProps.options)
-				: this.filterMatches(value, this.props.options);
+			if (nextProps.options.length > 0 && this.props.options !== nextProps.options) {
+				options = this.filterMatches(value, nextProps.options)
+				this.rawOptions = nextProps.options;
+			} else {
+				options = this.filterMatches(value, this.props.options);
+			}
+
 			const hasError = this.checkForError(value, options, required);
 
 			if (!hasError) {
@@ -163,6 +170,7 @@ export class ListFilter extends Component {
 
 			const newOptions = this.filterMatches(value, nextProps.options);
 			const hasError = this.checkForError(value, newOptions, required);
+			this.rawOptions = nextProps.options;
 
 			if (!hasError) {
 				this.lastMatchedVal = value;
@@ -231,6 +239,8 @@ export class ListFilter extends Component {
 			new Promise((resolve, reject) => {
 				resolve(this.props.filter(value));
 			}).then(newOptions => {
+				this.rawOptions = newOptions;
+
 				if (typeof this.props.parse === 'function') {
 					newOptions = newOptions.map(val => this.props.parse(val));
 				}
@@ -397,7 +407,7 @@ export class ListFilter extends Component {
 		const { name, onMatch, options, parse } = this.props;
 
 		const matchedValue = typeof parse === 'function'
-			? options.find(option => parse(option) === value)
+			? this.rawOptions.find(option => parse(option) === value)
 			: value;
 
 		onMatch(matchedValue, name);

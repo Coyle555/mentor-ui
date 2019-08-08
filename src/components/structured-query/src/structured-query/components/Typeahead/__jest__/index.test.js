@@ -150,7 +150,7 @@ describe('Sending new options to the typeahead', () => {
 	test('New list of options that are generated from a function and a parse func', async () => {
 		const parse = jest.fn(val => val.name);
 		const options = jest.fn(() => ([{ name: '1' }]));
-		const { container, rerender } = await render(
+		const { container, debug, rerender } = await render(
 			<TypeaheadComponent options={options} parse={parse} />
 		);
 
