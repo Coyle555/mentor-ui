@@ -14,8 +14,8 @@ import APMDropzoneComponent from './components/Dropzone';
 
 import { getMentorInput as getMentorInputFunc } from './utils/utils';
 
+export { default as DatePicker } from './components/DatePicker';
 export const BooleanInput = BooleanInputComponent;
-// export const DatePicker = DatePickerComponent;
 export const EmailInput = EmailInputComponent;
 export const FileInput = FileInputComponent;
 export const FloatInput = FloatInputComponent;

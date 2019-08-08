@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BooleanInput from '../components/boolean-input/booleanInput';
-import { DatePicker } from 'components/DatePicker';
+import { DatePicker } from 'mentor-inputs';
 import EmailInput from '../components/email-input/emailInput';
 import FileInput from '../components/file-input/fileInput';
 import FloatInput from '../components/float-input/floatInput';

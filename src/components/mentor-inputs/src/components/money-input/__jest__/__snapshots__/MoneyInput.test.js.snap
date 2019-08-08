@@ -4,19 +4,6 @@ exports[`<MoneyInput /> disabled w/ a min of 1 and max of 5 1`] = `
 <div
   className="input-group"
 >
-  <div
-    className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
-  >
-    <i
-      className="far fa-dollar-sign"
-    />
-  </div>
   <input
     className="apm-mi-form-control"
     disabled={true}
@@ -24,9 +11,17 @@ exports[`<MoneyInput /> disabled w/ a min of 1 and max of 5 1`] = `
     min={1}
     onBlur={[Function]}
     onChange={[Function]}
+    step="any"
     type="number"
     value=""
   />
+  <div
+    className="input-group-addon"
+  >
+    <i
+      className="far fa-dollar-sign"
+    />
+  </div>
 </div>
 `;
 
@@ -34,26 +29,21 @@ exports[`<MoneyInput /> where props.value is pi 1`] = `
 <div
   className="input-group"
 >
+  <input
+    className="apm-mi-form-control"
+    onBlur={[Function]}
+    onChange={[Function]}
+    step="any"
+    type="number"
+    value={3.14}
+  />
   <div
     className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
   >
     <i
       className="far fa-dollar-sign"
     />
   </div>
-  <input
-    className="apm-mi-form-control"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value={3.14}
-  />
 </div>
 `;
 
@@ -61,26 +51,21 @@ exports[`<MoneyInput /> with a custom className 1`] = `
 <div
   className="input-group"
 >
+  <input
+    className="apm-mi-form-control custom-class"
+    onBlur={[Function]}
+    onChange={[Function]}
+    step="any"
+    type="number"
+    value=""
+  />
   <div
     className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
   >
     <i
       className="far fa-dollar-sign"
     />
   </div>
-  <input
-    className="apm-mi-form-control custom-class"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value=""
-  />
 </div>
 `;
 
@@ -88,25 +73,20 @@ exports[`<MoneyInput /> with no props 1`] = `
 <div
   className="input-group"
 >
+  <input
+    className="apm-mi-form-control"
+    onBlur={[Function]}
+    onChange={[Function]}
+    step="any"
+    type="number"
+    value=""
+  />
   <div
     className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
   >
     <i
       className="far fa-dollar-sign"
     />
   </div>
-  <input
-    className="apm-mi-form-control"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value=""
-  />
 </div>
 `;
