@@ -17,21 +17,3 @@ exports[`Rendering active filters No search tokens 1`] = `
   </span>
 </span>
 `;
-
-exports[`Rendering active filters Some search tokens passed in 1`] = `
-<span
-  className="left-addon active-filter-container active-filter-enabled"
-  data-for="structured-query-tooltip"
-  data-tip="View Filters"
-  onClick={[Function]}
->
-  <i
-    className="far fa-list"
-  />
-  <span
-    className="active-filter-count"
-  >
-    1
-  </span>
-</span>
-`;

@@ -8,14 +8,16 @@ export class FilterItem extends Component {
 		children: PropTypes.shape({
 			label: PropTypes.string,
 			operator: PropTypes.string,
-			value: PropTypes.string
+			value: PropTypes.any
 		}),
 		onRemove: PropTypes.func,
+		parse: PropTypes.func,
 		type: PropTypes.oneOf(['date', 'datetime'])
 	}
 
 	static defaultProps = {
-		children: {}
+		children: {},
+		parse: null
 	}
 
 	onRemove = () => {
@@ -23,7 +25,11 @@ export class FilterItem extends Component {
 	}
 
 	renderValue = (val) => {
-		if (this.props.type === 'datetime') {
+		if (typeof this.props.parse === 'function') {
+
+			return this.props.parse(val);
+
+		} else if (this.props.type === 'datetime') {
 
 			const date = Date.parse(new Date(val));
 			const region = new Intl.DateTimeFormat().resolvedOptions();
@@ -64,7 +70,7 @@ export class FilterItem extends Component {
 	}
 
 	render() {
-		const { children, } = this.props;
+		const { children } = this.props;
 
 		return (
 			<tr>

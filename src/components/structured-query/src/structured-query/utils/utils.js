@@ -1,6 +1,5 @@
 import {
 	ALL_OPERATIONS,
-	ASYNC_OPERATIONS,
 	ENUM_OPERATIONS,
 	NUM_DATE_OPERATIONS,
 	STRING_OPERATIONS
@@ -33,13 +32,13 @@ export function validateToken(token) {
 }
 
 // Get the options available based on where the user is in the query
-export function _getOptionsForTypeahead(options = [], token = {}) {
+export function _getOptionsForTypeahead(fields = [], token = {}) {
 	if (!token.label) {
 
-		return options.map(option => option.label);
+		return fields.map(field => field.label);
 
 	} else if (!token.operator) {
-		let labelType = _getLabelDataType(options, token.id);
+		let labelType = _getLabelDataType(fields, token.id);
 
 		switch (labelType) {
 			case 'string':
@@ -54,23 +53,19 @@ export function _getOptionsForTypeahead(options = [], token = {}) {
 			case 'datetime':
 			case 'date':
 				return NUM_DATE_OPERATIONS;
-			case 'async':
-				return ASYNC_OPERATIONS;
 			default:
 				return [];
 		}
 	} else {
-		return _getLabelOptions(options, token.id);
+		return _getLabelOptions(fields, token.id);
 	}
 }
 
 
 // Get the data type of a label
 // defaults to string if an error occurs
-export function	_getLabelDataType(options, id) {
-	let label = options.find(option => {
-		return option.id === id;
-	});
+export function	_getLabelDataType(fields = [], id) {
+	let label = fields.find(field => field.id === id);
 
 	if (!label) {
 		return 'string';
@@ -78,8 +73,6 @@ export function	_getLabelDataType(options, id) {
 
 	if (!!label.options) {
 		return 'enumoptions';
-	} else if (!!label.asyncFilter) {
-		return 'async';
 	} else {
 		return label.type || 'string';
 	}
@@ -87,14 +80,10 @@ export function	_getLabelDataType(options, id) {
 
 // Get the available options(enum) if any were passed in with the 
 // options object
-export function _getLabelOptions(options = [], id) {
-	let label = options.find(option => {
-		return option.id === id;
-	});
+export function _getLabelOptions(fields = [], id) {
+	const label = fields.find(field => field.id === id);
 
-	if (!label) {
-		return [];
-	}
+	if (!label) return [];
 	
 	// default case for boolean data types
 	if (label.type === 'boolean' && !label.options) {
@@ -102,6 +91,16 @@ export function _getLabelOptions(options = [], id) {
 	}
 
 	return label.options;
+}
+
+// get the parse functions for an options list if it exists
+export function _getParseForOptions(fields = [], token) {
+	if (fields.length === 0 || !token.id || !token.label || !token.operator) {
+		return null;
+	}
+
+	const field = fields.find(field => field.id === token.id);
+	return field.parse;
 }
 
 // gets the next header to display over the selectable list of options
@@ -118,19 +117,28 @@ export function _getHeader(nextToken = {}) {
 // Get the input data type after a user selects a label and operation
 // Used to render possible operations on that data
 // Renders to string if label and operator have been selected
-export function _getInputDatatype(token, options) {
+export function _getInputDatatype(token, fields) {
 	if (!!token.label && !!token.operator) {
-		return _getLabelDataType(options, token.id);
+		return _getLabelDataType(fields, token.id);
 	}
 
 	return 'string';
 }
 
 // Check a token against the current list of tokens for duplicates
-export function _isDuplicateToken(tokens, newToken) {
+export function _isDuplicateToken(tokens, newToken, parse) {
+	let newTokenValue = typeof parse === 'function'
+		? parse(newToken.value)
+		: newToken.value;
+	let tokenValue;
+
 	return tokens.some(token => {
+		tokenValue = typeof parse === 'function'
+			? parse(token.value)
+			: token.value;
+
 		return token.label === newToken.label &&
 			token.operator === newToken.operator &&
-			token.value === newToken.value
+			tokenValue === newTokenValue;
 	}, this);
 }

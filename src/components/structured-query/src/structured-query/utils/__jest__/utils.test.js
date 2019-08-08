@@ -1,5 +1,4 @@
 import {
-	ASYNC_OPERATIONS,
 	ENUM_OPERATIONS,
 	NUM_DATE_OPERATIONS,
 	STRING_OPERATIONS
@@ -12,6 +11,7 @@ import {
 	_getInputDatatype,
 	_isDuplicateToken,
 	_getOptionsForTypeahead,
+	_getParseForOptions,
 	validateToken
 } from '../utils';
 
@@ -89,10 +89,6 @@ describe('Get label data type utility function', () => {
 
 	test('Enum options data type', () => {
 		expect(_getLabelDataType([{ id: 'foo', options: true }], 'foo')).toBe('enumoptions');
-	});
-
-	test('Async data type', () => {
-		expect(_getLabelDataType([{ id: 'foo', asyncFilter: true }], 'foo')).toBe('async');
 	});
 
 	test('label data type', () => {
@@ -183,7 +179,7 @@ describe('Get options for the typeahead utility function', () => {
 		{ id: 'f', label: 'F', type: 'integer' },
 		{ id: 'g', label: 'G', type: 'float' },
 		{ id: 'h', label: 'H', type: 'datetime' },
-		{ id: 'i', label: 'I', asyncFilter: '/foo' },
+		{ id: 'i', label: 'I', options: () => {} },
 		{ id: 'j', label: 'J', type: 'invalid' }
 	];
 
@@ -238,11 +234,6 @@ describe('Get options for the typeahead utility function', () => {
 				.toEqual(NUM_DATE_OPERATIONS);
 		});
 
-		test('Async operators', () => {
-			expect(_getOptionsForTypeahead(options, { id: 'i', label: 'A' }))
-				.toEqual(ASYNC_OPERATIONS);
-		});
-
 		test('Invalid type operators', () => {
 			expect(_getOptionsForTypeahead(options, { id: 'j', label: 'A' }))
 				.toEqual([]);
@@ -280,5 +271,69 @@ describe('Is duplicate token utility function', () => {
 			tokens,
 			{ label: 'Bar', operator: 'equals', value: 'baz' }
 		)).toBe(false);
+	});
+
+	test('Duplicate token not found with an object value and parse', () => {
+		const parse = jest.fn(val => val.name);
+		const tokens = [{ label: 'Baz', operator: 'equals', value: { name: 'baz' } }];
+
+		expect(_isDuplicateToken(
+			tokens,
+			{ label: 'Baz', operator: 'equals', value: { name: 'foo' } },
+			parse
+		)).toBe(false);
+
+		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
+		expect(parse).toHaveBeenNthCalledWith(2, { name: 'baz' });
+	});
+	
+	test('Duplicate token found with an object value and parse', () => {
+		const parse = jest.fn(val => val.name);
+		const tokens = [{ label: 'Baz', operator: 'equals', value: { name: 'baz' } }];
+
+		expect(_isDuplicateToken(
+			tokens,
+			{ label: 'Baz', operator: 'equals', value: { name: 'baz' } },
+			parse
+		)).toBe(true);
+
+		expect(parse).toHaveBeenNthCalledWith(1, { name: 'baz' });
+		expect(parse).toHaveBeenNthCalledWith(2, { name: 'baz' });
+	});
+});
+
+describe('Getting the parse function for an options list', () => {
+	test('No fields', () => {
+		expect(_getParseForOptions(
+			[],
+			{ id: 'foo', label: 'Foo', operator: 'equals' })
+		).toBeNull();
+	});
+
+	test('Token with no id', () => {
+		expect(_getParseForOptions([], {})).toBeNull();
+	});
+
+	test('Token with no label', () => {
+		expect(_getParseForOptions([], { id: 'foo' })).toBeNull();
+	});
+
+	test('Token with no operator', () => {
+		expect(_getParseForOptions([], { id: 'foo', label: 'Foo' })).toBeNull();
+	});
+
+	test('Token with no parse', () => {
+		expect(_getParseForOptions(
+			[{ id: 'foo' }],
+			{ id: 'foo', label: 'Foo', operator: 'equals' })
+		).toBe(undefined);
+	});
+
+	test('Token with a parse', () => {
+		const parse = () => {}
+		expect(_getParseForOptions(
+			[{ id: 'foo', parse }],
+			{ id: 'foo', label: 'Foo', operator: 'equals' })
+		).toEqual(parse);
 	});
 });
