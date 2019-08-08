@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableHeader } from '../tableHeader';
-import renderer from 'react-test-renderer';
+import renderer from '@testing-library/react';
 
 test('Default render of a table header', () => {
 	const tree = renderer.create(<TableHeader />).toJSON();

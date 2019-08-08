@@ -3,7 +3,7 @@ jest.mock('stickyfilljs');
 import React from 'react';
 import { TableHeaderCell } from '../tableHeaderCell';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

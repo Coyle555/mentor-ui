@@ -4,7 +4,7 @@ jest.mock('../tableRowDraggable');
 import React from 'react';
 import { TableRow } from '../tableRow';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CustomButton } from '../customButton';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, cleanup } from 'react-testing-library';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 
