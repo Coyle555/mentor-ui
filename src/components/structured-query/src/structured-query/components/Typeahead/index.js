@@ -213,7 +213,7 @@ export class TypeaheadComponent extends Component {
 
 		let handler = this.eventMap(event);
 
-		// handle value completion if there are no options
+		// handle value completion if there were no options passed in
 		if ((event.keyCode === keyEvent.DOM_VK_RETURN
 			|| event.keyCode === keyEvent.DOM_VK_ENTER)
 			&& this.props.options.length === 0
