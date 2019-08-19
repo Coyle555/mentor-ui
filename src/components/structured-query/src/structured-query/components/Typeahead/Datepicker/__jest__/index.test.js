@@ -2,7 +2,7 @@ jest.mock('moment', () => {
 	return () => ({ format: jest.fn((format) => format) });
 });
 
-jest.mock('components/DatePicker', () => {
+jest.mock('mentor-inputs', () => {
 	return { DatePicker: (props) => <div>{JSON.stringify(props)}</div> };
 });
 

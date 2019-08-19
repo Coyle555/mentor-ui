@@ -6,7 +6,7 @@ exports[`<UrlInput /> with a non-string value passed in 1`] = `
   className="apm-mi-form-control"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  type="text"
   value="4593.3"
 />
 `;
@@ -18,7 +18,7 @@ exports[`<UrlInput /> with a required attribute 1`] = `
   onBlur={[Function]}
   onChange={[Function]}
   required={true}
-  type="url"
+  type="text"
   value=""
 />
 `;
@@ -29,7 +29,7 @@ exports[`<UrlInput /> with a value passed in 1`] = `
   className="apm-mi-form-control"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  type="text"
   value="https://www.gmail.com"
 />
 `;
@@ -40,7 +40,7 @@ exports[`<UrlInput /> with autocomplete enabled 1`] = `
   className="apm-mi-form-control"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  type="text"
   value=""
 />
 `;
@@ -51,7 +51,7 @@ exports[`<UrlInput /> with no props 1`] = `
   className="apm-mi-form-control"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  type="text"
   value=""
 />
 `;

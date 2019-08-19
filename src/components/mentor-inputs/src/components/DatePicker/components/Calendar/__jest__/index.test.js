@@ -1,10 +1,12 @@
 jest.mock('../components/CalendarDay', () => ({
 	CalendarDay: (props) => (
-		<button
-			data-testid="calendar-day"
-			onClick={props.onClick}>
-			CalendarDay
-		</button>
+		<td>
+			<button
+				data-testid="calendar-day"
+				onClick={props.onClick}>
+				CalendarDay
+			</button>
+		</td>
 	)
 }));
 
