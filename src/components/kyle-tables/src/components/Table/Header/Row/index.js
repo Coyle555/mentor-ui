@@ -58,7 +58,7 @@ export const TableHeaderRow = ({
 				<TableHeaderCell
 					customClasses={customClasses}
 					id={cell.id}
-					key={cell.category}
+					key={cell.label}
 					onClick={_onSort}
 					sort={sort.id === cell.id
 						? sort.ascending
@@ -66,7 +66,7 @@ export const TableHeaderRow = ({
 							: 'descending'
 						: null
 					}
-					title={cell.category}
+					title={cell.label}
 				/>
 			))}
 		</tr>

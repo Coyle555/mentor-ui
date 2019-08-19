@@ -7,64 +7,64 @@ const IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz3
 
 const columns = [
 	{
-		category: 'Id',
+		label: 'Id',
 		id: 'id',
 		type: 'string',
 		display: false
 	},
 	{
-		category: 'Number',
+		label: 'Number',
 		id: 'num',
 		type: 'integer',
 	},
 	{
-		category: 'Float',
+		label: 'Float',
 		id: 'float',
 		type: 'float'
 	},
 	{
-		category: 'String',
+		label: 'String',
 		id: 'string',
 		type: 'string',
 	},
 	{
-		category: 'DateTime',
+		label: 'DateTime',
 		id: 'datetime',
 		type: 'datetime',
 		display: false
 	},
 	{
-		category: 'Date',
+		label: 'Date',
 		id: 'date',
 		type: 'date'
 	},
 	{
-		category: 'Object',
+		label: 'Object',
 		id: 'object',
 		display: false
 	},
 	{
-		category: 'Image',
+		label: 'Image',
 		id: 'img',
 		image: true
 	},
 	{
-		category: 'Options',
+		label: 'Options',
 		id: 'options',
 		options: ['Option1', 'Option2', 'Option3']
 	},
 	{
-		category: 'Link to File',
+		label: 'Link to File',
 		id: 'file',
 		file: true
 	},
 	{
-		category: 'Color',
+		label: 'Color',
 		id: 'color',
 		color: true
 	},
 	{
-		category: 'Custom Column',
+		label: 'Custom Column',
 		id: 'customColumnId'
 	}
 ];
@@ -129,7 +129,7 @@ const customToolbarButtons = [{
 	tip: 'Custom Button',
 }];
 
-const filters = [{ category: 'Color', id: 'color', operator: 'equals', value: 'white' }];
+const filters = [{ label: 'Color', id: 'color', operator: 'equals', value: 'white' }];
 
 const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) =>
 	editMode && rowSelected
@@ -167,13 +167,13 @@ storiesOf('Table', module)
 			<Table
 				columns={[
 					{
-						category: 'Id',
+						label: 'Id',
 						id: 'id',
 						type: 'string',
 						display: false
 					},
 					{
-						category: 'String Col',
+						label: 'String Col',
 						id: 'expand',
 						type: 'string',
 					}
@@ -189,13 +189,13 @@ storiesOf('Table', module)
 		<Table
 			columns={[
 				{
-					category: 'Id',
+					label: 'Id',
 					id: 'id',
 					type: 'string',
 					display: false
 				},
 				{
-					category: 'String Col',
+					label: 'String Col',
 					id: 'col',
 					type: 'string',
 				}

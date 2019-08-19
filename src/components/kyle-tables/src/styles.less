@@ -1,6 +1,22 @@
 @import '~mentor-ui-constants';
 @tdBorderColor: #dfe6ee;
 
+.table-edit-mode {
+	position: absolute;
+	width: 100%;
+	height: 80%;
+	top: 50%;
+	left: 50%;
+	border: 2px solid red;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+
+	> .table-edit-modals {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
 .table-container {
 	width: 100%;
 	max-width: 100%;

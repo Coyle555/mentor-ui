@@ -78,14 +78,14 @@ class ViewColumnsComponent extends Component {
 								<div className="pretty p-default">
 									<input
 										type="checkbox"
-										id={col.category}
+										id={col.label}
 										checked={col.display}
 										name={col.id}
 										onChange={onDisplayColChange}
 									/>
 									<div className="state p-info">
-										<label htmlFor={col.category}>
-											{col.category}
+										<label htmlFor={col.label}>
+											{col.label}
 										</label>
 									</div>
 								</div>

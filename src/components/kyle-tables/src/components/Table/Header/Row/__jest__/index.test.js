@@ -46,8 +46,8 @@ test('Table header row with header cells', () => {
 	const tree = renderer.create(
 		<TableHeaderRow
 			cells={[
-				{ id: 'foo', category: 'Foo' },
-				{ id: 'bar', category: 'Bar' }
+				{ id: 'foo', label: 'Foo' },
+				{ id: 'bar', label: 'Bar' }
 			]}
 		/>
 	).toJSON();
@@ -58,7 +58,7 @@ test('Table header row with header cells', () => {
 test('Table header row with ascending sort', () => {
 	const tree = renderer.create(
 		<TableHeaderRow
-			cells={[{ id: 'foo', category: 'Foo' }]}
+			cells={[{ id: 'foo', label: 'Foo' }]}
 			sort={{ id: 'foo', ascending: true }}
 		/>
 	).toJSON();
@@ -69,7 +69,7 @@ test('Table header row with ascending sort', () => {
 test('Table header row with descending sort', () => {
 	const tree = renderer.create(
 		<TableHeaderRow
-			cells={[{ id: 'foo', category: 'Foo' }]}
+			cells={[{ id: 'foo', label: 'Foo' }]}
 			sort={{ id: 'foo', ascending: false }}
 		/>
 	).toJSON();

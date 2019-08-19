@@ -366,17 +366,17 @@ test('Table sorts filterable options for the structured query', () => {
 	const instance = tree.getInstance();
 
 	const sorted = instance.sortFilterOptions([
-		{ category: 'foo' }, 
-		{ category: 'bar' }, 
-		{ category: 'baz' },
-		{ category: 'test' }
+		{ label: 'foo' }, 
+		{ label: 'bar' }, 
+		{ label: 'baz' },
+		{ label: 'test' }
 	]);
 
 	expect(sorted).toStrictEqual([
-		{ category: 'bar' }, 
-		{ category: 'baz' },
-		{ category: 'foo' }, 
-		{ category: 'test' }
+		{ label: 'bar' }, 
+		{ label: 'baz' },
+		{ label: 'foo' }, 
+		{ label: 'test' }
 	]);
 });
 
@@ -385,14 +385,14 @@ test('Table prep columns filter for the header', () => {
 	const instance = tree.getInstance();
 
 	// regular column
-	let columns = instance.prepColumnsForHeader([{ category: 'foo', display: true, id: 'foo' }]);
-	expect(columns).toStrictEqual([{ category: 'foo', display: true, id: 'foo' }]);
+	let columns = instance.prepColumnsForHeader([{ label: 'foo', display: true, id: 'foo' }]);
+	expect(columns).toStrictEqual([{ label: 'foo', display: true, id: 'foo' }]);
 
 	// hidden column
-	columns = instance.prepColumnsForHeader([{ category: 'foo', display: true, hidden: true, id: 'foo' }]);
+	columns = instance.prepColumnsForHeader([{ label: 'foo', display: true, hidden: true, id: 'foo' }]);
 	expect(columns).toStrictEqual([]);
 
-	// no category in column
+	// no label in column
 	columns = instance.prepColumnsForHeader([{ display: true, hidden: true, id: 'foo' }]);
 	expect(columns).toStrictEqual([]);
 });
@@ -402,14 +402,14 @@ test('Table prep columns sorting for the header', () => {
 	const instance = tree.getInstance();
 
 	const columns = instance.prepColumnsForHeader([
-		{ category: 'foo', display: true, id: 'foo' },
-		{ category: 'bar', display: true, id: 'foo' },
-		{ category: 'baz', display: true, id: 'foo' }
+		{ label: 'foo', display: true, id: 'foo' },
+		{ label: 'bar', display: true, id: 'foo' },
+		{ label: 'baz', display: true, id: 'foo' }
 	]);
 
 	expect(columns).toStrictEqual([
-		{ category: 'bar', display: true, id: 'foo' },
-		{ category: 'baz', display: true, id: 'foo' },
-		{ category: 'foo', display: true, id: 'foo' }
+		{ label: 'bar', display: true, id: 'foo' },
+		{ label: 'baz', display: true, id: 'foo' },
+		{ label: 'foo', display: true, id: 'foo' }
 	]);
 });

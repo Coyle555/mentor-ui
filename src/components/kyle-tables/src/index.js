@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import createPortal from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
@@ -6,6 +7,7 @@ import { cloneDeep } from 'lodash';
 import { Header } from './components/Header';
 import { TableMain } from './components/Table';
 import { Loading } from './components/Loading';
+import { EditModal } from './components/EditModal';
 import InsertForm from 'insert-popup-form';
 
 import './styles.less';
@@ -140,6 +142,9 @@ export class Table extends Component {
 
 		this.allRowsSelected = false;
 
+		this.elem = document.createElement('div');
+		this.elem.className = "table-edit-mode";
+
 		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
 		// @insertMode(bool) - toggle for insertion mode of table
@@ -186,6 +191,10 @@ export class Table extends Component {
 		if (this.props.columns !== nextProps.columns) {
 			this.setState({ columns: cloneDeep(nextProps.columns) });
 		}
+	}
+
+	componentWillUnmount() {
+		document.body.removeChild(this.elem);
 	}
 
 	// Retrieve next page of records
@@ -268,6 +277,7 @@ export class Table extends Component {
 
 	// Toggle edit mode when clicked
 	_onEditClick = () => {
+		document.body.appendChild(this.elem);
 		this.setState({ editMode: !this.state.editMode });
 	}
 
@@ -438,11 +448,11 @@ export class Table extends Component {
 
 	sortFilterOptions = (filterOptions) => {
 		filterOptions.sort((col1, col2) => {
-			if (col1.category < col2.category) {
+			if (col1.label < col2.label) {
 				return -1;
 			}
 
-			if (col1.category > col2.category) {
+			if (col1.label > col2.label) {
 				return 1;
 			}
 
@@ -453,15 +463,15 @@ export class Table extends Component {
 	}
 
 	prepColumnsForHeader = (columns) => {
-		return columns.filter(col => !!col.category)
+		return columns.filter(col => !!col.label)
 			.map(col => ({
 				id: col.id,
-				category: col.category,
+				label: col.label,
 				display: col.display !== false
 			}))
 			.sort((col1, col2) => {
-				if (col1.category < col2.category) return -1;
-				if (col1.category > col2.category) return 1;
+				if (col1.label < col2.label) return -1;
+				if (col1.label > col2.label) return 1;
 
 				return 0;
 			});
@@ -595,7 +605,7 @@ export class Table extends Component {
 
 	render() {
 		const { formFields, initInsertData } = this.props;
-		const { columns, insertMode, insertType } = this.state;
+		const { columns, editMode, insertMode, insertType } = this.state;
 
 		return (
 			<React.Fragment>
@@ -609,6 +619,12 @@ export class Table extends Component {
 						onSubmit={this._onSubmitInsertion}
 						resetForm={insertType === 'multiple'}
 					/>
+				}
+				{ editMode &&
+					createPortal(
+						EditModal,
+						this.elem
+					)
 				}
 				{ this.renderLayout() }
 			</React.Fragment>

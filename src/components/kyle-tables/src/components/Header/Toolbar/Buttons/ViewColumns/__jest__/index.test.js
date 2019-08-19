@@ -23,12 +23,12 @@ test('View columns toggling columns', () => {
 			onDisplayColChange={() => {}}
 			viewColumns={[
 				{
-					category: 'Foo',
+					label: 'Foo',
 					display: false,
 					id: 'foo'
 				},
 				{
-					category: 'Bar',
+					label: 'Bar',
 					display: false,
 					id: 'bar'
 				}
@@ -56,12 +56,12 @@ test('View columns toggling a column on/off', () => {
 			onDisplayColChange={() => {}}
 			viewColumns={[
 				{
-					category: 'Foo',
+					label: 'Foo',
 					display: false,
 					id: 'foo'
 				},
 				{
-					category: 'Bar',
+					label: 'Bar',
 					display: true,
 					id: 'bar'
 				}

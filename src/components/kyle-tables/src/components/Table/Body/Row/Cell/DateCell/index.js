@@ -34,6 +34,7 @@ export class DateCell extends PureComponent {
 	}
 
 	updateMenuPosn = () => {
+		return;
 		const menuPosn = this.wrapperRef.getBoundingClientRect();
 		const left = menuPosn.left;
 		const top = menuPosn.top + window.scrollY + menuPosn.height;
