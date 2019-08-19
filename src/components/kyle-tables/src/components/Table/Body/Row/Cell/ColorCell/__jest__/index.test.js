@@ -5,9 +5,6 @@ jest.mock('react-color', () => {
 import React from 'react';
 import { ColorCell } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, render } from '@testing-library/react';
-
-afterEach(cleanup);
 
 test('Default edit color picker render', () => {
 	const tree = renderer.create(<ColorCell />).toJSON();

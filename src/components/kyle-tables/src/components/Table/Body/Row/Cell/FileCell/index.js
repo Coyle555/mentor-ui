@@ -2,45 +2,35 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
-export class EditDropzoneCell extends PureComponent {
+import './styles.less';
 
-	static propTypes = {
-		colId: PropTypes.string.isRequired,
-		rowId: PropTypes.string.isRequired,
-		uploadFileCb: PropTypes.func
-	}
+export const FileCell = ({ colId, editMode, rowId, uploadFileCb, value }) => (
 
-	onDrop = (acceptedFiles, rejectedFiles) => {
-		if (!acceptedFiles.length) return;
+	!editMode
+		? <a download={true} href={value}>{value}</a>
+		: <Dropzone
+			onDrop={(acceptedFiles, rejectedFiles) => {
+				if (!acceptedFiles.length) return;
 
-		const { colId, rowId, uploadFileCb } = this.props;
+				uploadFileCb(rowId, colId, acceptedFiles);
+			}}
+		>
+			{({ getRootProps, getInputProps }) => (
+				<div {...getRootProps({ className: 'mui-table-file-cell' })}>
+					<input {...getInputProps()} />
+					<p className="no-margins">Drop File</p>
+				</div>
+			)}
+		</Dropzone>
+);
 
-		uploadFileCb(rowId, colId, acceptedFiles);
-	}
+FileCell.propTypes = {
+	colId: PropTypes.string.isRequired,
+	editMode: PropTypes.bool,
+	rowId: PropTypes.string.isRequired,
+	uploadFileCb: PropTypes.func
+};
 
-	render() {
-		return (
-			<Dropzone onDrop={this.onDrop}>
-				{({ getRootProps, getInputProps }) => (
-					<div
-						{...getRootProps({
-							style: {
-								width: '100%',
-								display: 'block',
-								textAlign: 'center',
-								border: '2px dashed darkgrey',
-								borderRadius: '5px',
-								backgroundColor: 'lightgrey',
-								boxSizing: 'border-box',
-								outline: 'none'
-							}
-						})}
-					>
-						<input {...getInputProps()} />
-						<p className="no-margins">Drop File</p>
-					</div>
-				)}
-			</Dropzone>
-		)
-	}
+FileCell.defaultProps = {
+	editMode: false
 };

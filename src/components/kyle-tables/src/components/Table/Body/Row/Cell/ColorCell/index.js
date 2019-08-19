@@ -11,7 +11,7 @@ export const ColorCell = (props) => {
 	if (!props.editMode) {
 		return (
 			<div
-				className="mui-table-color"
+				className="mui-table-color-cell"
 				style={{ backgroundColor: props.color }}
 			/>
 		);

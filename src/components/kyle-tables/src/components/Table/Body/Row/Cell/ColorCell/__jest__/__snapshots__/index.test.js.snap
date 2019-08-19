@@ -8,7 +8,7 @@ exports[`Color picker in edit mode 1`] = `
 
 exports[`Color picker with a color passed in 1`] = `
 <div
-  className="mui-table-color"
+  className="mui-table-color-cell"
   style={
     Object {
       "backgroundColor": "#000",
@@ -19,7 +19,7 @@ exports[`Color picker with a color passed in 1`] = `
 
 exports[`Default edit color picker render 1`] = `
 <div
-  className="mui-table-color"
+  className="mui-table-color-cell"
   style={
     Object {
       "backgroundColor": "#fff",

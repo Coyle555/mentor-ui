@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { convertCellToString } from './utils/utils';
 import { ColorCell } from './ColorCell';
 import { EditInputCell } from './InputCell';
-import { EditDropzoneCell } from './Dropzone';
+import { FileCell } from './FileCell';
 import { ImageCell } from './ImageCell';
 import { EditTableInputCell } from './TableInputCell';
 import { TableListFilter } from './ListFilter';
@@ -62,6 +62,7 @@ export const Cell = ({
 
 	// convert different data types to the proper string
 	value = convertCellToString(value, type);
+	editMode = rowSelected && editMode && updatable !== false && !multiline;
 	
 	if (!image && !!value) {
 		title = value;
@@ -79,8 +80,6 @@ export const Cell = ({
 		}
 	}
 
-	editMode = rowSelected && editMode && updatable !== false && !multiline;
-
 	if (!!image && !!value) {
 
 		cell = (
@@ -93,9 +92,16 @@ export const Cell = ({
 			/>
 		);
 
-	} else if (!!file && !!value) {
+	} else if ((!!file && !!value) || (editMode && !!image && !value)) {
 
-		cell = <a download={true} href={value}>{value}</a>;
+		cell = (
+			<FileCell
+				colId={colId}
+				editMode={editMode}
+				rowId={rowId}
+				uploadFileCb={uploadFileCb}
+			/>
+		);
 
 	} else if (!!color && !!value) {
 
@@ -106,6 +112,21 @@ export const Cell = ({
 				editMode={editMode}
 				onColorChange={onColorChange}
 				rowId={rowId}
+			/>
+		);
+
+	} else if (cellOptions) {
+
+		cell = (
+			<SelectCell
+				colId={colId}
+				editMode={editMode}
+				inputClass={editInputClass}
+				onBlur={onBlur}
+				options={cellOptions}
+				required={required}
+				rowId={rowId}
+				value={value}
 			/>
 		);
 
@@ -129,30 +150,7 @@ export const Cell = ({
 			/>
 		);*/
 
-	// file/image dropzone cell
-	if (!!file || !!image) {
-		cell = (
-			<EditDropzoneCell
-				colId={colId}
-				rowId={rowId}
-				uploadFileCb={uploadFileCb}
-			/>
-		);
-
-	} else if (cellOptions) {
-		cell = (
-			<SelectCell
-				colId={colId}
-				inputClass={editInputClass}
-				onBlur={onBlur}
-				options={cellOptions}
-				required={required}
-				row={row}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	} else if (asyncFilter) {
+	if (asyncFilter) {
 		cell = (
 			<TableListFilter
 				clearInputAfterMatch={false}
