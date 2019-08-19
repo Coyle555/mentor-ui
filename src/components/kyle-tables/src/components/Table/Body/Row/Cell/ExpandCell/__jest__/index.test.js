@@ -1,12 +1,12 @@
 import React from 'react';
-import { ExpandRow } from '../index';
+import { ExpandCell } from '../index';
 import renderer from 'react-test-renderer';
 
 function onClick() {}
 
 test('Expand row icon is collapsed on render', () => {
 	const component = renderer.create(
-		<ExpandRow onClick={onClick} />
+		<ExpandCell onClick={onClick} />
 	);
 
 	let tree = component.toJSON();
@@ -15,7 +15,7 @@ test('Expand row icon is collapsed on render', () => {
 
 test('Expand row icon is expanded on render', () => {
 	const component = renderer.create(
-		<ExpandRow expanded={true} onClick={onClick} />
+		<ExpandCell expanded={true} onClick={onClick} />
 	);
 
 	let tree = component.toJSON();

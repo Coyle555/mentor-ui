@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { DatePicker } from 'mentor-inputs';
 
-export class TableDatePicker extends PureComponent {
+export class DateCell extends PureComponent {
 
 	static propTypes = {
 		value: PropTypes.string
@@ -68,6 +68,7 @@ export class TableDatePicker extends PureComponent {
 
 	render() {
 		const {
+			editMode,
 			inputClass,
 			name,
 			onBlur,
@@ -76,6 +77,10 @@ export class TableDatePicker extends PureComponent {
 			value
 		} = this.props;
 		const { menuLeft, menuTop } = this.state;
+
+		if (!editMode) {
+			return value;
+		}
 
 		return (
 			<div ref={ref => this.wrapperRef = ref}>

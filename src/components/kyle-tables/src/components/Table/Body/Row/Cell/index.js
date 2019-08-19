@@ -4,12 +4,12 @@ import classNames from 'classnames';
 
 import { convertCellToString } from './utils/utils';
 import { ColorCell } from './ColorCell';
-import { EditInputCell } from './InputCell';
+import { DateCell } from './DateCell';
+import { DefaultCell } from './DefaultCell';
 import { FileCell } from './FileCell';
 import { ImageCell } from './ImageCell';
+import { ListFilterCell } from './ListFilterCell';
 import { EditTableInputCell } from './TableInputCell';
-import { TableListFilter } from './ListFilter';
-import { TableDatePicker } from './DatePicker';
 import { SelectCell } from './SelectCell';
 
 export const Cell = ({
@@ -81,7 +81,6 @@ export const Cell = ({
 	}
 
 	if (!!image && !!value) {
-
 		cell = (
 			<ImageCell
 				colId={colId}
@@ -91,9 +90,7 @@ export const Cell = ({
 				value={value}
 			/>
 		);
-
 	} else if ((!!file && !!value) || (editMode && !!image && !value)) {
-
 		cell = (
 			<FileCell
 				colId={colId}
@@ -102,9 +99,7 @@ export const Cell = ({
 				uploadFileCb={uploadFileCb}
 			/>
 		);
-
 	} else if (!!color && !!value) {
-
 		cell = (
 			<ColorCell
 				colId={colId}
@@ -114,9 +109,7 @@ export const Cell = ({
 				rowId={rowId}
 			/>
 		);
-
 	} else if (cellOptions) {
-
 		cell = (
 			<SelectCell
 				colId={colId}
@@ -129,9 +122,33 @@ export const Cell = ({
 				value={value}
 			/>
 		);
-
+	} else if (type === 'datetime' || type === 'date') {
+		cell = (
+			<DateCell
+				editMode={editMode}
+				inputClass={editInputClass}
+				name={colId}
+				onBlur={onBlur}
+				portalRef={portalRef}
+				required={required}
+				rowId={rowId}
+				value={value}
+			/>
+		);
 	} else {
-		cell = value;
+		cell = (
+			<DefaultCell
+				colId={colId}
+				editMode={editMode}
+				inputClass={editInputClass}
+				onBlur={onBlur}
+				required={required}
+				row={row}
+				rowId={rowId}
+				type={cellType}
+				value={value}
+			/>
+		);
 	}
 
 	/*} else if (!!tableOnInsert) {
@@ -166,34 +183,6 @@ export const Cell = ({
 				value={value}
 			/>
 		);
-	} else if (type === 'datetime' || type === 'date') {
-		cell = (
-			<TableDatePicker
-				inputClass={editInputClass}
-				name={colId}
-				onBlur={onBlur}
-				portalRef={portalRef}
-				required={required}
-				row={row}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	// regular editable input cell
-	} else {
-		cell = (
-			<EditInputCell
-				colId={colId}
-				inputClass={editInputClass}
-				onBlur={onBlur}
-				required={required}
-				row={row}
-				rowId={rowId}
-				type={cellType}
-				value={value}
-			/>
-		);
-	}
 
 	return (
 		<td className={cellClass} title={title}>

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './styles.less';
 
-export const ExpandRow = ({ expanded, lastBtn, onClick }) => {
+export const ExpandCell = ({ expanded, lastBtn, onClick }) => {
 	const iconClasses = classNames({
 		'fas': true,
 		'fa-caret-down': expanded,
@@ -24,13 +24,13 @@ export const ExpandRow = ({ expanded, lastBtn, onClick }) => {
 	);
 };
 
-ExpandRow.propTypes = {
+ExpandCell.propTypes = {
 	expanded: PropTypes.bool.isRequired,
 	lastBtn: PropTypes.bool,
 	onClick: PropTypes.func.isRequired
 };
 
-ExpandRow.defaultProps = {
+ExpandCell.defaultProps = {
 	expanded: false,
 	lastBtn: true
 };

@@ -5,7 +5,7 @@ import { ListFilter } from 'mentor-inputs';
 
 const MAX_HEIGHT = 250;
 
-export class TableListFilter extends PureComponent {
+export class ListFilterCell extends PureComponent {
 
 	static propTypes = {
 		customFilter: PropTypes.func,

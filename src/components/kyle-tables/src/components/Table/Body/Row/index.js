@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { TableRowDraggable } from './Drag/Draggable';
 import { TableRowDroppable } from './Drag/Droppable';
-import { ExpandRow } from './Cell/Expand';
+import { ExpandCell } from './Cell/ExpandCell';
 import { Cell } from './Cell';
 
 // Generates a row that just displays the data in cells
