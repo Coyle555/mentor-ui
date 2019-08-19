@@ -1,30 +1,9 @@
 import React from 'react';
-import { DeleteWarning, DeleteRecords } from '../index';
+import { DeleteRecords } from '../index';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
-
-// Delete Warning
-test('Delete warning renders default correctly', () => {
-	const tree = renderer.create(<DeleteWarning />).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Delete warning renders with multiple rows selected correctly', () => {
-	function onDeleteClick() {}
-
-	const tree = renderer.create(
-		<DeleteWarning
-			numRowsSelected={5}
-			onDeleteClick={onDeleteClick}
-		/>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
 
 // Delete Button
 test('Delete button renders default correctly', () => {
@@ -48,7 +27,10 @@ test('Delete button delete warning turns on when clicked', () => {
 });
 
 test('Delete button delete warning removes warning when delete is confirmed', async () => {
-	const { container, getByText } = render(<DeleteRecords numRowsSelected={1} />);
+	const onDeleteClick = jest.fn();
+	const { container, getByText } = render(
+		<DeleteRecords onDeleteClick={onDeleteClick} numRowsSelected={1} />);
+
 	let items = container.querySelector('.table-header-delete-warning');
 	expect(items).toBeFalsy();
 
@@ -59,4 +41,6 @@ test('Delete button delete warning removes warning when delete is confirmed', as
 	fireEvent.click(getByText('Yes'));
 	items = await container.querySelector('.table-header-delete-warning');
 	expect(items).toBeFalsy();
+
+	expect(onDeleteClick).toHaveBeenCalled();
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { PageDropdown } from '../pageDropdown';
+import { PageDropdown } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, getByTestId, } from '@testing-library/react';
+import { cleanup, fireEvent, render, getByTestId } from '@testing-library/react';
 
 afterEach(cleanup);
 

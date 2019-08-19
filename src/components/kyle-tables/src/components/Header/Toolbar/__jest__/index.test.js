@@ -32,7 +32,7 @@ test('Toolbar renders when collapsed menu is open', () => {
 });
 
 test('Toolbar render with quickviews', () => {
-	const tree = renderer.create(<Toolbar quickViews={[{ tip: 'foo', icon: null, id: 'foo' }]} />).toJSON();
+	const tree = renderer.create(<Toolbar quickViews={[{ name: 'foo', columns: ['foo'] }]} />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });

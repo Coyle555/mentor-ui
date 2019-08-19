@@ -183,6 +183,7 @@ export const Cell = ({
 				value={value}
 			/>
 		);
+	}
 
 	return (
 		<td className={cellClass} title={title}>

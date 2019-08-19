@@ -4,7 +4,7 @@ import Tether from 'react-tether';
 import classNames from 'classnames';
 import onClickOutside from 'react-onclickoutside';
 
-class QuickViewsComponent extends Component {
+export class QuickViewsComponent extends Component {
 
 	static propTypes = {
 		disabled: PropTypes.bool,

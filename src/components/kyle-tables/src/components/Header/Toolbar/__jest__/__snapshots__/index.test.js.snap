@@ -64,7 +64,7 @@ exports[`Toolbar render when collapsed 1`] = `
     type="button"
   >
     <i
-      className="far fa-list-ul"
+      className="fal fa-list"
     />
   </button>
 </div>
@@ -81,7 +81,7 @@ exports[`Toolbar render when collapsed and loadng 1`] = `
     type="button"
   >
     <i
-      className="far fa-list-ul"
+      className="fal fa-list"
     />
   </button>
 </div>
@@ -186,20 +186,6 @@ exports[`Toolbar render with a delete records button 1`] = `
   </span>
   <span
     data-for="table-tooltip"
-    data-tip="Toggle Columns"
-  >
-    <button
-      className="btn-table"
-      onClick={[Function]}
-      type="button"
-    >
-      <i
-        className="fal fa-columns"
-      />
-    </button>
-  </span>
-  <span
-    data-for="table-tooltip"
     data-tip="Delete Rows"
   >
     <button
@@ -210,6 +196,20 @@ exports[`Toolbar render with a delete records button 1`] = `
     >
       <i
         className="fal fa-trash-alt"
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
       />
     </button>
   </span>
@@ -255,20 +255,6 @@ exports[`Toolbar render with a edit records button 1`] = `
   </span>
   <span
     data-for="table-tooltip"
-    data-tip="Toggle Columns"
-  >
-    <button
-      className="btn-table"
-      onClick={[Function]}
-      type="button"
-    >
-      <i
-        className="fal fa-columns"
-      />
-    </button>
-  </span>
-  <span
-    data-for="table-tooltip"
     data-tip="Toggle Edit Mode"
   >
     <button
@@ -282,6 +268,20 @@ exports[`Toolbar render with a edit records button 1`] = `
             "color": "white",
           }
         }
+      />
+    </button>
+  </span>
+  <span
+    data-for="table-tooltip"
+    data-tip="Toggle Columns"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-columns"
       />
     </button>
   </span>
@@ -524,27 +524,20 @@ exports[`Toolbar render with quickviews 1`] = `
 <div
   className="table-header-toolbar"
 >
-  <div
-    className="table-header-icon m-r-sm"
-  >
-    <span
-      data-for="table-tooltip"
-      data-tip="foo"
-    >
-      <button
-        className="btn-table"
-        onClick={[Function]}
-        type="button"
-      >
-        <i
-          className={null}
-        />
-      </button>
-    </span>
-  </div>
   <span
-    className="table-header-icon-divider m-r-md"
-  />
+    data-for="table-tooltip"
+    data-tip="Quickviews"
+  >
+    <button
+      className="btn-table"
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fal fa-clipboard-list"
+      />
+    </button>
+  </span>
   <span
     data-for="table-tooltip"
     data-tip="Add Record"
