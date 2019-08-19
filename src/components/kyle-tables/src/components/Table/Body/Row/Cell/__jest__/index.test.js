@@ -113,36 +113,6 @@ test('Cell with a customColumn callback', () => {
 	);
 });
 
-test('Cell is tokenized', () => {
-	const tree = renderer.create(<Cell tokenize={true} />).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Cell is tokenized with a list of string values', () => {
-	const tree = renderer.create(
-		<Cell
-			rowId="baz"
-			tokenize={true}
-			value={['foo', 'bar']}
-		/>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Cell is tokenized with a list of object values', () => {
-	const tree = renderer.create(
-		<Cell
-			rowId="baz"
-			tokenize={true}
-			value={[{ id: 'foo', name: 'Foo' }, { id: 'bar', name: 'Bar' }]}
-		/>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
 test('Cell that has an image', () => {
 	const tree = renderer.create(<Cell model={{ foo: { image: true } }} value="/src" />).toJSON();
 
@@ -151,18 +121,6 @@ test('Cell that has an image', () => {
 
 test('Cell has a value', () => {
 	const tree = renderer.create(<Cell value="foo" />).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Cell has a table on insert', () => {
-	const tree = renderer.create(
-		<Cell
-			editMode={true}
-			rowSelected={true}
-			tableOnInsert={{ name: 'foo', apiPath: '/foo' }}
-		/>
-	).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });

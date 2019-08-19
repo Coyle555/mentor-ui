@@ -24,13 +24,13 @@ export const ExpandRow = ({ expanded, lastBtn, onClick }) => {
 	);
 };
 
-ExpandIcon.propTypes = {
+ExpandRow.propTypes = {
 	expanded: PropTypes.bool.isRequired,
 	lastBtn: PropTypes.bool,
 	onClick: PropTypes.func.isRequired
 };
 
-ExpandIcon.defaultProps = {
+ExpandRow.defaultProps = {
 	expanded: false,
 	lastBtn: true
 };

@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of table header cell 1`] = `
+<th
+  className="table-heading-cell"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
+exports[`Table header cell that is sorted 1`] = `
+<th
+  className="table-heading-cell"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
+exports[`Table header cell that is sorted with a sort icon 1`] = `
+<th
+  className="table-heading-cell"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
+exports[`Table header cell with a custom class 1`] = `
+<th
+  className="table-heading-cell foo"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
+exports[`Table header cell with a title 1`] = `
+<th
+  className="table-heading-cell"
+>
+  <span
+    onClick={[Function]}
+  >
+    Foo
+     
+  </span>
+</th>
+`;

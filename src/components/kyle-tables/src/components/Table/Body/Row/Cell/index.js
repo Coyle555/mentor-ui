@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { convertCellToString } from './utils/utils';
-import { EditColorPicker } from './ColorPicker';
+import { ColorCell } from './ColorCell';
 import { EditInputCell } from './InputCell';
 import { EditDropzoneCell } from './Dropzone';
-import { EditImageCell } from './ImageCell';
+import { ImageCell } from './ImageCell';
 import { EditTableInputCell } from './TableInputCell';
 import { TableListFilter } from './ListFilter';
 import { TableDatePicker } from './DatePicker';
@@ -79,34 +79,41 @@ export const Cell = ({
 		}
 	}
 
-	// determine the type of cell to render based on column data
-	// no edit box if column is not in edit mode or updatable or
-	// disable column is enabled and column isn't editable so just display value
-	if (!rowSelected || !editMode || updatable === false || multiline) {
+	editMode = rowSelected && editMode && updatable !== false && !multiline;
 
-		if (!!image && !!value) {
+	if (!!image && !!value) {
 
-			cell = <img className="table-image-cell" src={value} />;
+		cell = (
+			<ImageCell
+				colId={colId}
+				editMode={editMode}
+				onDeleteClick={onDeleteImageClick}
+				rowId={rowId}
+				value={value}
+			/>
+		);
 
-		} else if (!!file && !!value) {
+	} else if (!!file && !!value) {
 
-			cell = <a download={true} href={value}>{value}</a>;
+		cell = <a download={true} href={value}>{value}</a>;
 
-		} else if (!!color && !!value) {
+	} else if (!!color && !!value) {
 
-			cell = <div style={{
-				border: '1.5px solid black',
-				borderRadius: '50%',
-				backgroundColor: value,
-				height: '16px',
-				width: '16px'
-			}} />;
+		cell = (
+			<ColorCell
+				colId={colId}
+				color={value}
+				editMode={editMode}
+				onColorChange={onColorChange}
+				rowId={rowId}
+			/>
+		);
 
-		} else {
-			cell = value;
-		}
+	} else {
+		cell = value;
+	}
 
-	} else if (!!tableOnInsert) {
+	/*} else if (!!tableOnInsert) {
 
 		cell = (
 			<EditTableInputCell
@@ -120,30 +127,10 @@ export const Cell = ({
 				type={cellType}
 				value={value}
 			/>
-		);
+		);*/
 
-	// add a delete button to images in edit mode
-	} else if (!!image && !!value) {
-		cell = (
-			<EditImageCell
-				colId={colId}
-				onDeleteClick={onDeleteImageClick}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	// color picker cell
-	} else if (!!color) {
-		cell = (
-			<EditColorPicker
-				colId={colId}
-				color={value}
-				onColorChange={onColorChange}
-				rowId={rowId}
-			/>
-		);
 	// file/image dropzone cell
-	} else if (!!file || !!image) {
+	if (!!file || !!image) {
 		cell = (
 			<EditDropzoneCell
 				colId={colId}

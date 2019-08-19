@@ -1,28 +1,29 @@
 import React from 'react';
-import { EditImageCell } from '../index';
+import { ImageCell } from '../index';
 import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 
-test('Default render of edit image cell', () => {
-	const tree = renderer.create(<EditImageCell />).toJSON();
+test('Default render of image cell', () => {
+	const tree = renderer.create(<ImageCell value="/foo" />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Edit image cell with a value', () => {
-	const tree = renderer.create(<EditImageCell value="/foo.jpg" />).toJSON();
+test('Image cell in edit mode with a value', () => {
+	const tree = renderer.create(<ImageCell editMode={true} value="/foo.jpg" />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Edit image cell onDeleteClick callback', () => {
+test('Image cell in edit mode onDeleteClick callback', () => {
 	const onDeleteClick = jest.fn();
 
 	const { getByTestId } = render(
-		<EditImageCell
+		<ImageCell
 			colId="foo"
+			editMode={true}
 			onDeleteClick={onDeleteClick}
 			rowId="bar"
 		/>
