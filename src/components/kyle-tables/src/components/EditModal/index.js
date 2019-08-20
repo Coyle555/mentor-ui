@@ -2,33 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
+import { Form } from './Form';
+
 export class EditModal extends Component {
-
-	constructor(props) {
-		super(props);
-
-		const editRoot = document.getElementById('mui-table-edit-root');
-		this.el = document.createElement('div');
-
-		editRoot.appendChild(this.el);
-	}
 
 	componentDidUpdate(prevProps) {
 		const editRoot = document.getElementById('mui-table-edit-root');
 
 		if (this.props.editMode) {
-			editRoot.style.zIndex = 2;
+			editRoot.style.display = 'block';
 		} else {
-			editRoot.style.zIndex = -1;
+			editRoot.style.display = 'none';
 		}
-	}
-
-	componentWillUnmount() {
-		const editRoot = document.getElementById('mui-table-edit-root');
-		editRoot.removeChild(this.el);
 	}
 	
 	render() {
-		return createPortal(<div>Hello World!</div>, this.el);
+		return createPortal(
+			<Form />,
+			document.getElementById('mui-table-edit-root')
+		);
 	}
 }

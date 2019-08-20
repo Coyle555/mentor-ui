@@ -1,6 +1,6 @@
 import React from 'react';
 import { TableMain } from '../index';
-import renderer from '@testing-library/react';
+import renderer from 'react-test-renderer';
 
 test('Default render of table main', () => {
 	const tree = renderer.create(

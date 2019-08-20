@@ -604,7 +604,7 @@ export class Table extends Component {
 	}
 
 	render() {
-		const { formFields, initInsertData } = this.props;
+		const { data, formFields, initInsertData } = this.props;
 		const { columns, editMode, insertMode, insertType } = this.state;
 
 		return (
@@ -620,7 +620,11 @@ export class Table extends Component {
 						resetForm={insertType === 'multiple'}
 					/>
 				}
-				<EditModal editMode={editMode} />
+				<EditModal
+					columns={cloneDeep(columns)}
+					data={data}
+					editMode={editMode}
+				/>
 				{ this.renderLayout() }
 			</React.Fragment>
 		);
