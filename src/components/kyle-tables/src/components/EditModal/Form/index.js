@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Form = (props) => {
+export const Form = ({ columns, data }) => {
 
 	return (
 		<div style={{
@@ -11,8 +11,10 @@ export const Form = (props) => {
 			height: '100%',
 			borderRadius: '9.3px',
 			border: 'solid 0.9px #979797',
-			padding: '5px'
+			padding: '5px',
 		}}>
+			{ columns.map(col => col.label) }
+			{ data.map(d => <p />) }
 		</div>
 	);
 };

@@ -1,18 +1,50 @@
+jest.mock('../Form', () => {
+	return { Form: props => <div>{JSON.stringify(props)}</div> };
+});
+
 import React from 'react';
 import { EditModal } from '../index';
 import { cleanup, render, wait } from '@testing-library/react';
 
-describe('Creating edit modal root node', () => {
-	const root = document.createElement('div');
-	root.id = 'mui-table-edit-root';
+const root = document.createElement('div');
+root.id = 'mui-table-edit-root';
 
-	test('Appending the portal to the root node', async () => {
-		const { container, queryByText } = await render(<EditModal />, {
+describe('Creating edit modal root node', () => {
+	test('Edit mode disabled', () => {
+		const { container } = render(<EditModal editMode={false} />, {
 			container: document.body.appendChild(root)
 		});
 
-		await wait(() => {
-			expect(queryByText('Hello World!')).toBeTruthy();
+		expect(container.style.display).toBe('none');
+	});
+
+	test('Edit mode enabled', () => {
+		const { container } = render(<EditModal editMode={true} />, {
+			container: document.body.appendChild(root)
 		});
+
+		expect(container.style.display).toBe('block');
+	});
+
+	test('Toggling edit mode', () => {
+		const { container, rerender } = render(<EditModal editMode={true} />, {
+			container: document.body.appendChild(root)
+		});
+
+		expect(container.style.display).toBe('block');
+
+		rerender(<EditModal editMode={false} />);
+		expect(container.style.display).toBe('none');
+	});
+});
+
+describe.only('Moving back and forth on records', () => {
+	test('Can go to next record', () => {
+		const data = [{ foo: 'foo' }, { bar: 'bar' }];
+		const { queryByText } = render(<EditModal data={data} editMode={true} />, {
+			container: document.body.appendChild(root)
+		});
+
+		expect(queryByText('Next')).toBeTruthy();
 	});
 });
