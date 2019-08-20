@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import createPortal from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
@@ -142,8 +141,10 @@ export class Table extends Component {
 
 		this.allRowsSelected = false;
 
-		this.elem = document.createElement('div');
-		this.elem.className = "table-edit-mode";
+		this.el = document.createElement('div');
+		this.el.id = 'mui-table-edit-root';
+		this.el.className = 'table-edit-mode';
+		document.body.appendChild(this.el);
 
 		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
@@ -194,7 +195,7 @@ export class Table extends Component {
 	}
 
 	componentWillUnmount() {
-		document.body.removeChild(this.elem);
+		document.body.removeChild(this.el);
 	}
 
 	// Retrieve next page of records
@@ -277,7 +278,6 @@ export class Table extends Component {
 
 	// Toggle edit mode when clicked
 	_onEditClick = () => {
-		document.body.appendChild(this.elem);
 		this.setState({ editMode: !this.state.editMode });
 	}
 
@@ -620,12 +620,7 @@ export class Table extends Component {
 						resetForm={insertType === 'multiple'}
 					/>
 				}
-				{ editMode &&
-					createPortal(
-						EditModal,
-						this.elem
-					)
-				}
+				<EditModal editMode={editMode} />
 				{ this.renderLayout() }
 			</React.Fragment>
 		);
