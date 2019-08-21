@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render of footer with next button enabled 1`] = `
+<div
+  className="footer"
+>
+  <button
+    disabled={true}
+    type="button"
+  >
+    <i
+      className="fas fa-chevron-left"
+    />
+     Previous
+  </button>
+  1
+   / 
+  20
+  <button
+    disabled={false}
+    type="button"
+  >
+    Next 
+    <i
+      className="fas fa-chevron-right"
+    />
+  </button>
+</div>
+`;
+
+exports[`Render of footer with previous button enabled 1`] = `
+<div
+  className="footer"
+>
+  <button
+    disabled={false}
+    type="button"
+  >
+    <i
+      className="fas fa-chevron-left"
+    />
+     Previous
+  </button>
+  1
+   / 
+  20
+  <button
+    disabled={true}
+    type="button"
+  >
+    Next 
+    <i
+      className="fas fa-chevron-right"
+    />
+  </button>
+</div>
+`;
+
 exports[`Render of the footer with a index out of total count 1`] = `
 <div
   className="footer"
