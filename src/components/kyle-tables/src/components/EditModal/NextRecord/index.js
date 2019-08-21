@@ -1,36 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTransition, animated } from 'react-spring';
 
-export const NextRecord = ({ label, onClick }) => {
-	return (
-		<div
-			onClick={onClick}
-			style={{
-				background: 'white',
-				height: '80%',
-				padding: '10px',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				overflow: 'hidden',
-				borderTopLeftRadius: '9.3px',
-				borderBottomLeftRadius: '9.3px',
-				width: '64px'
-			}}
-		>
-			<p style={{
-				textTransform: 'uppercase',
-				letterSpacing: '1px',
-				wordSpacing: '2px',
-				writingMode: 'vertical-rl',
-				height: '100%',
-				textAlign: 'center',
-				transform: 'rotate(180deg)'
-			}}>
-				{label}
-			</p>
-		</div>
+export const NextRecord = ({ editMode, label, onClick }) => {
+	const [show, setShow] = useState(true);
+
+	const transitions = useTransition(
+		show,
+		null,
+		{
+			from: { width: '0px' },
+			enter: { width: '64px' },
+			leave: { width: '0px' }
+		}
 	);
+
+	return transitions.map(({ item, key, props }) => {
+		return item && 
+			<animated.div
+				className="next-record"
+				key={key}
+				onClick={onClick}
+				style={props}
+			>
+				<p style={{
+					textTransform: 'uppercase',
+					letterSpacing: '1px',
+					wordSpacing: '2px',
+					writingMode: 'vertical-rl',
+					height: '100%',
+					textAlign: 'center',
+					transform: 'rotate(180deg)'
+				}}>
+					{label}
+				</p>
+			</animated.div>
+	});
 };
 
 NextRecord.propTypes = {

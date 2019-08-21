@@ -78,11 +78,12 @@
     "react-dnd": "^7.6.0",
     "react-dropzone": "^10.1.5",
     "react-onclickoutside": "^6.8.0",
+    "react-spring": "^8.0.27",
     "react-stepper-horizontal": "^1.0.11",
     "react-tether": "^2.0.3",
     "react-toastify": "^5.2.1",
     "react-tooltip": "^3.10.0",
-    "react-transition-group": "^4.1.1",
+    "react-transition-group": "^4.2.2",
     "shortid": "^2.2.14",
     "stickyfilljs": "^2.1.0"
   },

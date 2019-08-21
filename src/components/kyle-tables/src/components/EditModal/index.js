@@ -6,6 +6,8 @@ import { Form } from './Form';
 import { NextRecord } from './NextRecord';
 import { PreviousRecord } from './PreviousRecord';
 
+import './styles.less';
+
 export const EditModal = ({ columns, data, editMode }) => {
 
 	const [recordIndex, setRecordIndex] = useState(0);
@@ -35,7 +37,7 @@ export const EditModal = ({ columns, data, editMode }) => {
 				columns={columns}
 				data={data}
 			/>
-			<NextRecord />
+			<NextRecord onClick={() => setRecordIndex(recordIndex + 1)} />
 		</Fragment>,
 		document.getElementById('mui-table-edit-root')
 	);
