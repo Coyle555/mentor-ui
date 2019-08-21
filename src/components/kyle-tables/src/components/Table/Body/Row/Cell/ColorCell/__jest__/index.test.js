@@ -17,9 +17,3 @@ test('Color picker with a color passed in', () => {
 
 	expect(tree).toMatchSnapshot();
 });
-
-test('Color picker in edit mode', () => {
-	const tree = renderer.create(<ColorCell editMode={true} />).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});

@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import fuzzy from 'fuzzy';
-import { createPortal } from 'react-dom';
-import classNames from 'classnames';
 
 import { DatePicker } from 'mentor-inputs';
 

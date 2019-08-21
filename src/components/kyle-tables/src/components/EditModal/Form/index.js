@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Field } from './Field';
 import { Footer } from './Footer';
 
 export const Form = ({ data, fields, title }) => {
@@ -15,6 +16,7 @@ export const Form = ({ data, fields, title }) => {
 						key={field.id}
 					>
 						{field.label}
+						<Field {...field} />
 					</div>
 				))}
 			</div>

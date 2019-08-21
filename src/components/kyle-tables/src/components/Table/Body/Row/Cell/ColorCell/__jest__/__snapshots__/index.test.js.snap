@@ -1,11 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Color picker in edit mode 1`] = `
-<div>
-  {"color":"#fff","disableAlpha":true}
-</div>
-`;
-
 exports[`Color picker with a color passed in 1`] = `
 <div
   className="mui-table-color-cell"
