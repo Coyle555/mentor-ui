@@ -50,11 +50,10 @@ describe.only('Moving back and forth on records', () => {
 
 	test.only('Clicking to go to next record', () => {
 		const data = [{ foo: 'foo' }, { bar: 'bar' }];
-		const { debug, queryByText } = render(<EditModal data={data} editMode={true} />, {
+		const { queryByText } = render(<EditModal data={data} editMode={true} />, {
 			container: document.body.appendChild(root)
 		});
 
-		debug();
 		fireEvent.click(queryByText('Next Record'));
 	});
 });

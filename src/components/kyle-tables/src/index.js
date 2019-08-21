@@ -27,6 +27,20 @@ export class Table extends Component {
 		csvURL: PropTypes.string,
 		excelURL: PropTypes.string,
 		pdfURL: PropTypes.string,
+		columns: PropTypes.arrayOf(PropTypes.shape({
+			color: PropTypes.bool,
+			display: PropTypes.bool,
+			file: PropTypes.bool,
+			id: PropTypes.string,
+			image: PropTypes.bool,
+			insertable: PropTypes.bool,
+			label: PropTypes.string,
+			multiline: PropTypes.bool,
+			options: PropTypes.arrayOf(PropTypes.string),
+			required: PropTypes.bool,
+			type: PropTypes.string,
+			updateable: PropTypes.bool
+		})),
 		currentPage: PropTypes.number,
 		customClasses: PropTypes.shape({
 			container: PropTypes.string,
@@ -621,9 +635,9 @@ export class Table extends Component {
 					/>
 				}
 				<EditModal
-					columns={cloneDeep(columns)}
+					fields={cloneDeep(columns)}
 					data={data}
-					editMode={editMode}
+					editMode={editMode || true}
 				/>
 				{ this.renderLayout() }
 			</React.Fragment>

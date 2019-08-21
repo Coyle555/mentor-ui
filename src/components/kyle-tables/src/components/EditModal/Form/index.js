@@ -1,20 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Form = ({ columns, data }) => {
+import { Footer } from './Footer';
+
+export const Form = ({ data, fields, title }) => {
 
 	return (
-		<div style={{
-			margin: '0 auto',
-			background: 'white',
-			width: '40%',
-			height: '100%',
-			borderRadius: '9.3px',
-			border: 'solid 0.9px #979797',
-			padding: '5px',
-		}}>
-			{ columns.map(col => col.label) }
-			{ data.map(d => <p />) }
+		<div className="edit-form">
+			<h2 className="title">{title}</h2>
+			<div className="field-container">
+				{ fields.map(field => (
+					<div
+						className="field"
+						key={field.id}
+					>
+						{field.label}
+					</div>
+				))}
+			</div>
+			<Footer />
 		</div>
 	);
+};
+
+Form.propTypes = {
+	data: PropTypes.object,
+	fields: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.string,
+		label: PropTypes.string
+	})),
+	title: PropTypes.string
+};
+
+Form.defaultProps = {
+	data: {},
+	fields: [],
+	title: ''
 };

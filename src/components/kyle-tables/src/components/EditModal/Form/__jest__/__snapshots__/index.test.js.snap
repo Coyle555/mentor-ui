@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering record form Fields in the form 1`] = `
+<div
+  className="edit-form"
+>
+  <h2
+    className="title"
+  >
+    
+  </h2>
+  <div
+    className="field-container"
+  >
+    <div
+      className="field"
+    >
+      Foo
+    </div>
+    <div
+      className="field"
+    >
+      Bar
+    </div>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      disabled={true}
+      type="button"
+    >
+      <i
+        className="fas fa-chevron-left"
+      />
+       Previous
+    </button>
+    0
+     / 
+    0
+    <button
+      disabled={true}
+      type="button"
+    >
+      Next 
+      <i
+        className="fas fa-chevron-right"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Rendering record form Title of the form 1`] = `
+<div
+  className="edit-form"
+>
+  <h2
+    className="title"
+  >
+    Test Record
+  </h2>
+  <div
+    className="field-container"
+  />
+  <div
+    className="footer"
+  >
+    <button
+      disabled={true}
+      type="button"
+    >
+      <i
+        className="fas fa-chevron-left"
+      />
+       Previous
+    </button>
+    0
+     / 
+    0
+    <button
+      disabled={true}
+      type="button"
+    >
+      Next 
+      <i
+        className="fas fa-chevron-right"
+      />
+    </button>
+  </div>
+</div>
+`;

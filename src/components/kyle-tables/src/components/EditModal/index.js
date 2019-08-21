@@ -8,7 +8,7 @@ import { PreviousRecord } from './PreviousRecord';
 
 import './styles.less';
 
-export const EditModal = ({ columns, data, editMode }) => {
+export const EditModal = ({ data, fields, editMode }) => {
 
 	const [recordIndex, setRecordIndex] = useState(0);
 
@@ -34,8 +34,9 @@ export const EditModal = ({ columns, data, editMode }) => {
 				hasPrevious={recordIndex > 0}
 			/>
 			<Form
-				columns={columns}
+				fields={fields}
 				data={data}
+				title={data[recordIndex].name || 'Title'}
 			/>
 			<NextRecord onClick={() => setRecordIndex(recordIndex + 1)} />
 		</Fragment>,
@@ -44,12 +45,12 @@ export const EditModal = ({ columns, data, editMode }) => {
 };
 
 EditModal.propTypes = {
-	columns: PropTypes.arrayOf(PropTypes.object),
 	data: PropTypes.arrayOf(PropTypes.object),
-	editMode: PropTypes.bool
+	editMode: PropTypes.bool,
+	fields: PropTypes.arrayOf(PropTypes.object),
 };
 
 EditModal.defaultProps = {
-	columns: [],
-	data: []
+	data: [],
+	fields: [],
 };
