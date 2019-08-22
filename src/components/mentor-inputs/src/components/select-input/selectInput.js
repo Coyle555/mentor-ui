@@ -63,26 +63,31 @@ const SelectInput = ({
 	}, [ options ]);
 
 	const inputClasses = classNames({	
-		'apm-mi-form-control': true,
+		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
 	});
 
 
 	return (
-		<select
-			{...props}
-			className={inputClasses}
-			{...inputState}
-			name={props.name}
-		>
-			<option
-				disabled={props.required}
-				value="" 
+		<div className={inputState.classes.inputGroup}>
+			<span className={inputState.classes.addon}>
+				<i className="fal fa-list" />
+			</span>
+			<select
+				{...props}
+				className={inputClasses}
+				{...inputState}
+				name={props.name}
 			>
-				{ placeholder }
-			</option>
-			{ formattedOptions }
-		</select>
+				<option
+					disabled={props.required}
+					value="" 
+				>
+					{ placeholder }
+				</option>
+				{ formattedOptions }
+			</select>
+		</div>
 	);
 }
 

@@ -11,21 +11,25 @@ const TextareaInput = ({ validation, ...props }) => {
 	const inputState = useInputState({ validate, parse, ...props });
 
 	const textareaClasses = classNames({	
-		'apm-textarea-resize-vert': true,
-		'apm-mi-form-control': true,
+		'apm-textarea-resize-vert mui-mi-input-field': true,
 		[props.className]: !!props.className,
 	});
 
 	return (
-		<textarea
-			autoComplete="false"
-			cols={15}
-			rows={5}
-			{...props}
-			className={textareaClasses}
-			{...inputState}
-		/>		
-	)
+		<div className={inputState.classes.inputGroup}>
+			<span className={inputState.classes.addon}>
+				<i className="fal fa-text" />
+			</span>
+			<textarea
+				autoComplete="false"
+				cols={15}
+				rows={5}
+				{...props}
+				className={textareaClasses}
+				{...inputState}
+			/>
+		</div>
+	);
 }
 
 function noEmptyStrings(value, input) {

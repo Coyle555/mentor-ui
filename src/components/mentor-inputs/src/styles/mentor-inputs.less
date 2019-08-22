@@ -20,6 +20,12 @@
 		justify-content: center;
 		align-items: center;
 		width: 40px;
+		font-weight: 300;
+		font-family: 'Font Awesome 5 Pro';
+
+		> .text {
+			font-size: .9rem;
+		}
 
 		&-is-on {
 			color: white;
@@ -54,6 +60,10 @@
 		&[disabled] {
 			background-color: @green-light;
 			border-color: @green-light;
+		}
+
+		&:invalid {
+			box-shadow: none;
 		}
 	}
 }

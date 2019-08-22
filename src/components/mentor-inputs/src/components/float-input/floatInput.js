@@ -11,7 +11,7 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	const validate = [ isFloat, validation ];
 
 	const inputState = useInputState({ validate, parse, ...props });
-	const inputClasses = classNames('apm-mi-form-control', props.className);
+	const inputClasses = classNames('mui-mi-input-field', props.className);
 
 	function parse(value) {
 		if (isNaN(value)) {
@@ -25,14 +25,18 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	}
 
 	return (
-		<input
-			{...props}
-			{...inputState}
-			className={inputClasses}
-			step="any"
-			type="number"
-		/>		
-	)
+		<div className={inputState.classes.inputGroup}>
+			<span className={inputState.classes.addon}>
+				<span className="text">0.1</span>
+			</span>
+			<input
+				{...props}
+				{...inputState}
+				className={inputClasses}
+				placeholder="Enter decimal"
+			/>
+		</div>
+	);
 }
 
 

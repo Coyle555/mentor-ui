@@ -11,16 +11,21 @@ const IntegerInput = ({ validation, ...props }) => {
 
 	const inputState = useInputState({ validate, parse, ...props });
 
-	const inputClasses = classNames('apm-mi-form-control', props.className);
+	const inputClasses = classNames('mui-mi-input-field', props.className);
 
 	return (
-		<input
-			{...props}
-			{...inputState}
-			className={inputClasses}
-			type="number"
-		/>		
-	)
+		<div className={inputState.classes.inputGroup}>
+			<span className={inputState.classes.addon}>
+				<span className="text">123</span>
+			</span>
+			<input
+				{...props}
+				{...inputState}
+				className={inputClasses}
+				placeholder="Enter number"
+			/>
+		</div>
+	);
 }
 
 function parse(value) {

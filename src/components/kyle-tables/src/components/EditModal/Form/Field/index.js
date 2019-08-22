@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 import { ColorField } from './Color';
 import { DateField } from './Date';
-import { getMentorInput, TextInput } from 'mentor-inputs';
+import {
+	getMentorInput,
+	FloatInput,
+	IntegerInput,
+	TextInput,
+	TextareaInput
+} from 'mentor-inputs';
 
 export const Field = ({ color, type, updateable, value }) => {
 
@@ -25,12 +31,37 @@ export const Field = ({ color, type, updateable, value }) => {
 			/>
 		);
 
-	} else {
-
-		const MentorInput = getMentorInput(type);
+	} else if (type === 'integer') {
 
 		return (
-			<MentorInput
+			<IntegerInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'float') {
+
+		return (
+			<FloatInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'multiline') {
+
+		return (
+			<TextareaInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else {
+
+		return (
+			<TextInput
 				disabled={!updateable}
 				value={value}
 			/>

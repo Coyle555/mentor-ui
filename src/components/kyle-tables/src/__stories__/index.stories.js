@@ -28,6 +28,11 @@ const columns = [
 		type: 'string',
 	},
 	{
+		label: 'Multiline',
+		id: 'string',
+		type: 'multiline',
+	},
+	{
 		label: 'DateTime',
 		id: 'datetime',
 		type: 'datetime',
