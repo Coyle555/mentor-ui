@@ -28,7 +28,6 @@ export const TextareaInput = TextareaInputComponent;
 export const APMDropzone = APMDropzoneComponent;
 
 export * from './components/mui-input/index';
-export * from './components/async-dropdown/index';
 export * from './hooks/index';
 export * from './components/DatePicker';
 

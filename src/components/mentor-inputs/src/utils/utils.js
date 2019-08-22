@@ -13,7 +13,6 @@ import SelectInput from '../components/select-input/selectInput';
 import TextInput from '../components/text-input/textInput';
 import TextareaInput from '../components/textarea-input/textareaInput';
 import URLInput from '../components/url-input/urlInput';
-import { AsyncDropdown } from '../components/async-dropdown/index';
 
 
 // gets a mentor input based off the type passed in
@@ -22,8 +21,6 @@ import { AsyncDropdown } from '../components/async-dropdown/index';
 export function getMentorInput(type = '') {
 
 	switch (type) {
-		case 'async-dropdown':
-			return AsyncDropdown;
 		case 'listfilter':
 			return ListFilter;
 		case 'boolean':
