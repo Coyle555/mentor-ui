@@ -11,10 +11,7 @@ export const Form = ({ data, fields, title }) => {
 			<h2 className="title">{title}</h2>
 			<div className="field-container">
 				{ fields.map(field => (
-					<div
-						className="field"
-						key={field.id}
-					>
+					<div className="field" key={field.id}>
 						{field.label}
 						<Field {...field} />
 					</div>

@@ -624,7 +624,7 @@ export class Table extends Component {
 				<EditModal
 					fields={cloneDeep(columns)}
 					data={data}
-					editMode={editMode}
+					editMode={editMode || true}
 				/>
 				{ this.renderLayout() }
 			</React.Fragment>

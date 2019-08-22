@@ -7,9 +7,11 @@ import {
 	getMentorInput,
 	FloatInput,
 	IntegerInput,
+	MoneyInput,
 	SelectInput,
 	TextInput,
-	TextareaInput
+	TextareaInput,
+	UrlInput
 } from 'mentor-inputs';
 
 export const Field = ({ color, options, type, updateable, value }) => {
@@ -18,6 +20,7 @@ export const Field = ({ color, options, type, updateable, value }) => {
 
 		return (
 			<SelectInput
+				disabled={!updateable}
 				options={options}
 				value={value}
 			/>
@@ -64,6 +67,24 @@ export const Field = ({ color, options, type, updateable, value }) => {
 
 		return (
 			<TextareaInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'money') {
+
+		return (
+			<MoneyInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'url') {
+
+		return (
+			<UrlInput
 				disabled={!updateable}
 				value={value}
 			/>

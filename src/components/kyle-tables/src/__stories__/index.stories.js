@@ -10,6 +10,7 @@ const columns = [
 		label: 'Id',
 		id: 'id',
 		type: 'string',
+		updateable: false,
 		display: false
 	},
 	{
@@ -31,6 +32,16 @@ const columns = [
 		label: 'Multiline',
 		id: 'string',
 		type: 'multiline',
+	},
+	{
+		label: 'Money',
+		id: 'money',
+		type: 'money'
+	},
+	{
+		label: 'URL',
+		id: 'url',
+		type: 'url'
 	},
 	{
 		label: 'DateTime',

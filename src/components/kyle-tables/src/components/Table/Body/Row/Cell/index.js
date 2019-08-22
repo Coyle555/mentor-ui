@@ -37,19 +37,9 @@ export const Cell = ({
 		title = value;
 	}
 
-	if (!!customColumn) {
+	if (typeof customColumn === 'function') {
 		cell = customColumn(row, { colId, value, _origValue });
-
-		if (!!cell) {
-			return (
-				<td className={cellClass} title={title}>
-					{cell}
-				</td>
-			);
-		}
-	}
-
-	if (type === 'color') {
+	} else if (type === 'color') {
 		cell = <ColorCell color={value} />;
 	} else if (type === 'file') {
 		cell = <FileCell value={value} />;

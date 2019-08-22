@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../text-input/textInput'
 
-const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
+const URL_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
 
 const UrlInput = ({ validation, ...props }) => {
 
@@ -12,7 +12,7 @@ const UrlInput = ({ validation, ...props }) => {
 	function isUrl(value, input) {
 
 		//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url
-		if (value.length && (input.validity.patternMismatch || !URL_REGEX.test(value))) {
+		if (value.length && !URL_REGEX.test(value)) {
 			return 'Not a valid URL.';
 		} else if (typeof validation === 'function') {
 			const customError = validation(value, input);
