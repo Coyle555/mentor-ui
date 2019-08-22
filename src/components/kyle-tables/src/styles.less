@@ -1,5 +1,4 @@
 @import '~mentor-ui-constants';
-@tdBorderColor: #dfe6ee;
 
 .table-edit-mode {
 	position: absolute;
@@ -100,8 +99,8 @@
 
 .apm-table-map-display {
 	height: 100%;
-  display: flex;
-  align-self: flex-end;
+	display: flex;
+	align-self: flex-end;
 }
 
 .table-loading {
@@ -157,62 +156,4 @@
 	&-exit-done {
 		left: 100%;
 	}
-}
-
-.table-row-hierarchy:last-child .table-cell-view{
-	border-bottom: 1px solid @tdBorderColor;
-}
-.table-row-hierarchy:hover {
-	box-shadow: 0 2px 14px 0 rgba(176, 186, 197, 0.6);
-}
-
-.table-row-hierarchy-odd {
-	//background: rgb(249, 249, 249);
-}
-
-.table-row-hierarchy-even {
-	//background: #fff;
-}
-
-.table-row-hierarchy:nth-child(odd) {
-    background: #f4f7fa;
-}
-
-.table-row-hierarchy-cell {
-	position: relative;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 73px;
-	box-sizing: border-box;
-}
-
-.table-hierarchy-branch {
-	border: none;
-	border-left: 2px dotted grey;
-	position: absolute;
-	top: 0;
-	width: 0;
-	height: 73px;
-}
-
-.table-hierarchy-container {
-	border: none;
-	border-left: 2px dotted grey;
-	position: absolute;
-	top: 0;
-	width: 0;
-}
-
-.table-hierarchy-container .table-hierarchy-content {
-	position: absolute;
-	top: 10px;
-	left: 15px;
-	height: 42px;
-}
-
-.table-hierarchy-container hr {
-	border-top: 2px dotted grey;
-	width: 10px;
-	margin-top: 34px
 }
