@@ -1,44 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<IntegerInput /> accepts a value prop of type number 1`] = `
-<input
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="number"
-  value={3}
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <span
+      className="text"
+    >
+      123
+    </span>
+  </span>
+  <input
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter number"
+    value={3}
+  />
+</div>
 `;
 
 exports[`<IntegerInput /> disabled w/ a min of 1 and max of 5 1`] = `
-<input
-  className="apm-mi-form-control"
-  disabled={true}
-  max={5}
-  min={1}
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="number"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <span
+      className="text"
+    >
+      123
+    </span>
+  </span>
+  <input
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    disabled={true}
+    max={5}
+    min={1}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter number"
+    value=""
+  />
+</div>
 `;
 
 exports[`<IntegerInput /> with a custom className 1`] = `
-<input
-  className="apm-mi-form-control custom-class"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="number"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <span
+      className="text"
+    >
+      123
+    </span>
+  </span>
+  <input
+    className="mui-mi-input-field custom-class"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter number"
+    value=""
+  />
+</div>
 `;
 
 exports[`<IntegerInput /> with no props 1`] = `
-<input
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="number"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <span
+      className="text"
+    >
+      123
+    </span>
+  </span>
+  <input
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter number"
+    value=""
+  />
+</div>
 `;

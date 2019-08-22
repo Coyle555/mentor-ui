@@ -19,7 +19,6 @@ storiesOf('Inputs/MoneyInput', module)
 				placeholder={text('placeholder', 'Enter a value')}
 				precision={number('precision', 2)}
 				name="example-float-input1"
-				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
 		)

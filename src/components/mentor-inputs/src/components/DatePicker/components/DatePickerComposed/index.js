@@ -289,7 +289,7 @@ class DatePickerContainer extends Component {
 						type="text"
 						value={value}
 					/>
-					{ 	pickerEnabled
+					{ pickerEnabled
 						&& showPicker
 						&& this.renderPicker(cc)
 					}

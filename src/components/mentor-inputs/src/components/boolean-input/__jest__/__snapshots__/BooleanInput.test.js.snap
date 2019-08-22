@@ -1,49 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BooleanInput /> with no props 1`] = `
-<select
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  value=""
+<div
+  className="mui-mi-input-group"
 >
-  <option
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-list"
+    />
+  </span>
+  <select
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
     value=""
-  />
-  <option
-    value={true}
   >
-    True
-  </option>
-  <option
-    value={false}
-  >
-    False
-  </option>
-</select>
+    <option
+      value=""
+    >
+      Select an option
+    </option>
+    <option
+      value={true}
+    >
+      True
+    </option>
+    <option
+      value={false}
+    >
+      False
+    </option>
+  </select>
+</div>
 `;
 
 exports[`<BooleanInput /> with placeholder option text 1`] = `
-<select
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  value=""
+<div
+  className="mui-mi-input-group"
 >
-  <option
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-list"
+    />
+  </span>
+  <select
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
     value=""
   >
-    Select true or false
-  </option>
-  <option
-    value={true}
-  >
-    True
-  </option>
-  <option
-    value={false}
-  >
-    False
-  </option>
-</select>
+    <option
+      value=""
+    >
+      Select true or false
+    </option>
+    <option
+      value={true}
+    >
+      True
+    </option>
+    <option
+      value={false}
+    >
+      False
+    </option>
+  </select>
+</div>
 `;

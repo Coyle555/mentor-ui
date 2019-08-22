@@ -515,29 +515,47 @@ export class ListFilter extends Component {
 			validation,
 			...props
 		} = this.props;
-		const { hasError, loadingFilter, value } = this.state;
+		const { focused, hasError, loadingFilter, value } = this.state;
 
 		const inputClasses = classNames({
-			'apm-mi-form-control apm-mi-list-filter': true,
+			'mui-mi-input-field apm-mi-list-filter': true,
 			[this.props.className]: !!this.props.className,
 			'apm-error-border-color': hasError
 		});
 
+		const addonClasses = classNames({
+			'mui-mi-input-addon': true,
+			'mui-mi-input-addon-is-on': focused,
+			'mui-mi-input-addon-has-error': hasError,
+		});
+
+		const inputGroupClasses = classNames({
+			'mui-mi-input-group': true,
+			'mui-mi-input-group-is-on': focused,
+			'mui-mi-input-group-has-error': hasError,
+		});
+
 		return (
 			<div className="apm-mi-container">
-				<input
-					{...props}
-					autoComplete="off"
-					className={inputClasses}
-					disabled={disabled}
-					onChange={this.onChange}
-					onFocus={this.onFocus}
-					onKeyDown={this.onKeyDown}
-					onKeyUp={this.onKeyUp}
-					ref={ref => this.inputRef = ref}
-					type="text"
-					value={value}
-				/>
+				<div className={inputGroupClasses}>
+					<span className={addonClasses}>
+						<i className="fal fa-list" />
+					</span>
+					<input
+						{...props}
+						autoComplete="off"
+						className={inputClasses}
+						disabled={disabled}
+						onChange={this.onChange}
+						onFocus={this.onFocus}
+						onKeyDown={this.onKeyDown}
+						onKeyUp={this.onKeyUp}
+						placeholder="Select an option"
+						ref={ref => this.inputRef = ref}
+						type="text"
+						value={value}
+					/>
+				</div>
 				{ this.renderIncrementalSearchResults() }
 				{ loadingFilter &&
 					<span className="apm-mi-clear-input">

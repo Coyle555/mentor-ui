@@ -1,68 +1,182 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TextInput /> with a required attribute 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  required={true}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    required={true}
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`<TextInput /> with a string value 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value="Bill"
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    type="text"
+    value="Bill"
+  />
+</div>
 `;
 
 exports[`<TextInput /> with a stringified value 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value="4593.3"
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    type="text"
+    value="4593.3"
+  />
+</div>
 `;
 
 exports[`<TextInput /> with autocomplete enabled 1`] = `
-<input
-  autoComplete="true"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="true"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`<TextInput /> with no props 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`<TextInput /> with value of null 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-text"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter text"
+    type="text"
+    value=""
+  />
+</div>
 `;

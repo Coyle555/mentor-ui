@@ -1,57 +1,152 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<UrlInput /> with a non-string value passed in 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value="4593.3"
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-link"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter URL"
+    type="text"
+    value="4593.3"
+  />
+</div>
 `;
 
 exports[`<UrlInput /> with a required attribute 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  required={true}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-link"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter URL"
+    required={true}
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`<UrlInput /> with a value passed in 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value="https://www.gmail.com"
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-link"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter URL"
+    type="text"
+    value="https://www.gmail.com"
+  />
+</div>
 `;
 
 exports[`<UrlInput /> with autocomplete enabled 1`] = `
-<input
-  autoComplete="true"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-link"
+    />
+  </span>
+  <input
+    autoComplete="true"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter URL"
+    type="text"
+    value=""
+  />
+</div>
 `;
 
 exports[`<UrlInput /> with no props 1`] = `
-<input
-  autoComplete="false"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
-/>
+<div
+  className="mui-mi-input-group"
+>
+  <span
+    className="mui-mi-input-addon"
+  >
+    <i
+      className="fal fa-link"
+    />
+  </span>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    classes={
+      Object {
+        "addon": "mui-mi-input-addon",
+        "inputGroup": "mui-mi-input-group",
+      }
+    }
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder="Enter URL"
+    type="text"
+    value=""
+  />
+</div>
 `;

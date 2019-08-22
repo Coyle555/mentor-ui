@@ -10,18 +10,13 @@ import './styles.less';
 const MoneyInput = ({ currency, ...inputProps}) => {
 
 	return (
-		<div className="input-group">
-			<FloatInput
-				precision={2}
-				{...inputProps}
-			/>
-			<div
-				className="input-group-addon"
-			>
-				<i className="fal fa-dollar-sign" />
-			</div>			
-		</div>				
-	)
+		<FloatInput
+			precision={2}
+			{...inputProps}
+			icon="fal fa-dollar-sign"
+			placeholder="Enter dollar amount"
+		/>
+	);
 }
 
 MoneyInput.propTypes = {

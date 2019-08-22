@@ -102,7 +102,8 @@ SelectInput.propTypes = {
 SelectInput.defaultProps = {
 	// getOptionLabel: (val) => { return val },
 	// getOptionValue: (val) => { return val },
-	options: []
+	options: [],
+	placeholder: 'Select an option'
 };
 
 export default SelectInput;

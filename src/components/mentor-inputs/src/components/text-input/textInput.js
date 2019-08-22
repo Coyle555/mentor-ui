@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const TextInput = ({ icon, placeholder, validation, ...props }) => {
+const TextInput = ({ icon, validation, ...props }) => {
 
 	const validate = [ noEmptyStrings, validation ];
 	const inputState = useInputState({ validate, parse, ...props });
@@ -18,11 +18,11 @@ const TextInput = ({ icon, placeholder, validation, ...props }) => {
 			</span>
 			<input
 				autoComplete="false"
+				placeholder="Enter text"
 				type="text"
 				{...props}
 				className={inputClasses}
 				{...inputState}
-				placeholder={placeholder}
 			/>
 		</div>
 	);
@@ -49,12 +49,10 @@ function parse(value) {
 
 TextInput.propTypes = {
 	icon: PropTypes.string,
-	placeholder: PropTypes.string
 };
 
 TextInput.defaultProps = {
 	icon: 'fal fa-text',
-	placeholder: 'Enter text'
 };
 
 export default TextInput;

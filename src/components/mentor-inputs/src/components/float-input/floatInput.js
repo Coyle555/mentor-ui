@@ -6,7 +6,7 @@ import { useInputState } from '../../hooks/index';
 
 import '../../styles/index.less';
 
-const FloatInput = ({ validation, precision, ...props }) => {
+const FloatInput = ({ icon, validation, precision, ...props }) => {
 
 	const validate = [ isFloat, validation ];
 
@@ -27,13 +27,16 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	return (
 		<div className={inputState.classes.inputGroup}>
 			<span className={inputState.classes.addon}>
-				<span className="text">0.1</span>
+				{ !!icon
+					? <i className={icon} />
+					: <span className="text">0.1</span>
+				}
 			</span>
 			<input
+				placeholder="Enter decimal"
 				{...props}
 				{...inputState}
 				className={inputClasses}
-				placeholder="Enter decimal"
 			/>
 		</div>
 	);

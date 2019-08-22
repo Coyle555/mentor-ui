@@ -22,7 +22,6 @@ storiesOf('Inputs/SelectInput', module)
 				onBlur={onBlur}
 				onChange={onChange}
 				options={options}
-				placeholder={text('Set placeholder text', 'Select one fruit', 'Placeholder Value')}
 				required={boolean('Is required?', false, 'Required')}
 				value={select('value', options, null, 'Set value from props')}
 			/>
