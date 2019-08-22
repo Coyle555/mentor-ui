@@ -111,7 +111,7 @@ class DatePickerContainer extends Component {
 		});
 	}
 
-	onClick = () => {
+	onFocus = () => {
 		this.setState({ showPicker: true });
 	}
 
@@ -180,12 +180,6 @@ class DatePickerContainer extends Component {
 			};
 		});
 	};
-
-	handleIconClick = (evt) => {
-		this.setState((prevState) => ({
-			showPicker: !prevState.showPicker,
-		}));
-	}
 
 	// clear the date from the input box
 	clearInput = () => {
@@ -271,29 +265,26 @@ class DatePickerContainer extends Component {
 			<div className={cc()}>
 				<div className={cn(
 					cc('input-group'),
-				  { [cc('input-group-has-error')]: hasError },
-				)}
-				>
-					<button
-						className={cn(
-							cc('input-group-button'),
-						  { [cc('input-group-button-has-error')] : hasError },
-						  { [cc('input-group-button-is-on')] : showPicker },
-						)}
-						onClick={this.handleIconClick}
-					>
+					{ [cc('input-group-is-on')]: showPicker },
+					{ [cc('input-group-has-error')]: hasError },
+				)}>
+					<span className={cn(
+						cc('input-group-addon'),
+						{ [cc('input-group-addon-is-on')]: showPicker },
+						{ [cc('input-group-addon-has-error')]: hasError }
+					)}>
 						<i className={cn(
 							'fal',
-						  { 'fa-calendar-alt': !isClock },
-						  { 'fa-clock': isClock },
+							{ 'fa-calendar-alt': !isClock },
+							{ 'fa-clock': isClock },
 						)} />
-					</button>
+					</span>
 					<input
 						data-testid={'datepicker-input-' + name}
 						className={cc('input-field')}
 						disabled={disabled}
 						onChange={this.handleInputChange}
-						onClick={this.onClick}
+						onFocus={this.onFocus}
 						placeholder={this.getDateFormat()}
 						type="text"
 						value={value}
@@ -333,10 +324,9 @@ DatePickerContainer.propTypes = {
 	required: PropTypes.bool,
 	type: PropTypes.oneOf(['date', 'datetime', 'time']).isRequired,
 	value: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.instanceOf(Date)
-		])
-
+		PropTypes.string,
+		PropTypes.instanceOf(Date)
+	])
 }
 
 DatePickerContainer.defaultProps = {

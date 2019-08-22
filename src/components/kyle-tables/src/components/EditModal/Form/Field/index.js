@@ -2,21 +2,48 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ColorField } from './Color';
-import { getMentorInput } from 'mentor-inputs';
+import { DateField } from './Date';
+import { getMentorInput, TextInput } from 'mentor-inputs';
 
-export const Field = ({ color, value }) => {
+export const Field = ({ color, type, updateable, value }) => {
 
 	if (color) {
-		return <ColorField color={value} />;
-	}
 
-	return null;
+		return (
+			<ColorField
+				color={value}
+				disabled={!updateable}
+			/>
+		);
+
+	} else if (type === 'date' || type === 'datetime') {
+
+		return (
+			<DateField
+				disabled={!updateable}
+				type={type}
+			/>
+		);
+
+	} else {
+
+		return (
+			<TextInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	}
 }
 
 Field.propTypes = {
-	color: PropTypes.bool
+	color: PropTypes.bool,
+	type: PropTypes.string,
+	updateable: PropTypes.bool
 };
 
 Field.defaultProps = {
-	color: false
+	color: false,
+	updateable: true
 };

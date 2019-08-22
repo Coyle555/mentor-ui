@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { DatePicker } from 'mentor-inputs';
+import { DatePickerComposed } from 'mentor-inputs';
 
 export const DateField = (props) => {
 
+	return (
+		<DatePickerComposed {...props} />
+	);
 }

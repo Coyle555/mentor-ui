@@ -1,29 +1,30 @@
 @import '~mentor-ui-constants';
 
 .apm-mi-form-control {
-	background-color: #FFFFFF;
+	background-color: @white;
 	background-image: none;
 	border: 1px solid @blue-primary;
 	border-radius: 1px;
-	color: #16181e;
+	color: @charcoal-dark;
 	display: block;
 	padding: 6px 12px;
 	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 	height: 100%;
+	width: 100%;
 
 	&:invalid {
-		border-color: #ed5565 !important;
+		border-color: @ketchup !important;
 	}
-}
 
-.apm-mi-form-control:focus {
-	outline: none;
-	border-color: @green-primary;
-}
+	&:focus {
+		outline: none;
+		border-color: @green-primary;
+	}
 
-.apm-mi-form-control[disabled] {
-	background-color: #e4f1cf;
-	border-color: #e4f1cf;
+	&[disabled] {
+		background-color: @green-light;
+		border-color: @green-light;
+	}
 }
 
 .apm-mi-list-filter {
@@ -91,7 +92,7 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-clip: padding-box;
-	background-color: #fff;
+	background-color: @white;
 	text-align: left;
 	margin: 1px 0;
 	z-index: @extra_zIndex;
@@ -120,7 +121,7 @@
 }
 
 .apm-list-filter-menu-li-highlight {
-	color: #fff;
+	color: @white;
 	text-decoration: none;
 	background-color: @blue-primary;
 	outline: 0;
@@ -128,7 +129,7 @@
 
 .apm-list-filter-menu-li:hover,
 .apm-list-filter-menu-li:active {
-	color: #fff;
+	color: @white;
 	text-decoration: none;
 	background-color: @blue-primary;
 	outline: 0;
@@ -137,7 +138,7 @@
 .apm-datepicker-input {
 	position: absolute;
 	left: 0;
-	background-color: #fff;
+	background-color: @white;
 	z-index: @coverAll_zIndex;
 	max-width: 400px;
 	margin-top: 8px;
@@ -145,7 +146,7 @@
 }
 
 .apm-error-border-color {
-	border-color: #ed5565 !important;
+	border-color: @ketchup !important;
 }
 
 .apm-list-filter-loading {

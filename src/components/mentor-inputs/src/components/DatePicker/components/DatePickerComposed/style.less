@@ -12,66 +12,49 @@
 		width: 100%;
 		padding: 0;
 
-		&-has-error {
-			border-color: @ketchup;
-		}
-
-		&-button {
-			color: @blue-primary;
-			background: transparent;
-			border: none;
-			border-right: 1px solid @blue-primary;
-			font-size: 14px;
-			font-weight: 400;
-			line-height: 1;
+		&-addon {
 			padding: 6px 12px;
 			text-align: center;
 			white-space: nowrap;
-			vertical-align: middle;
+			border-right: 1px solid @blue-primary;
+			color: @blue-primary;
+			line-height: 1;
 
 			&-is-on {
 				color: white;
-				background: @blue-primary !important;
-				border-color: @blue-primary;
+				background: @green-primary;
+				border-color: @green-primary;
 			}
 
 			&-has-error {
-				color: @ketchup;
-				border-color: @ketchup;
+				color: white;
+				background-color: @ketchup;
+				border-right-color: @ketchup;
 			}
+		}
 
-			&:hover {
-				cursor: pointer;
-			}
+		&-has-error {
+			border: 1px solid @ketchup !important;
+		}
 
-			&:focus {
-				outline: none;
-			}
+		&-is-on {
+			border: 1px solid @green-primary;
 		}
 	}
 
 	&-input-field {
 		width: 100%;
-		background-color: #FFFFFF;
+		background-color: @white;
 		background-image: none;
 		border: none;
-		color: #16181e;
+		color: @charcoal-dark;
 		padding: 6px 12px;
 		transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 		height: 100%;
 
-		&:invalid {
-			border-color: #ed5565 !important;
-		}
-
-		&:focus {
-			outline: none;
-			border-color: @green-primary;
-		}
-
 		&[disabled] {
-			background-color: #e4f1cf;
-			border-color: #e4f1cf;
+			background-color: @green-light;
+			border-color: @green-light;
 		}
 	}
 

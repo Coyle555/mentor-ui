@@ -94,8 +94,8 @@ export function DatePicker(props) {
 		<div className={cc()}>
 			<div className={cn(
 				cc('optional-controls'),
-			{ [cc('optional-controls-timer-spacer')]: isDateDisabled },
-			{ [cc('optional-controls-date-spacer')]: isTimeDisabled })
+				{ [cc('optional-controls-timer-spacer')]: isDateDisabled },
+				{ [cc('optional-controls-date-spacer')]: isTimeDisabled })
 			}>
 				<div className={cc('optional-controls-main')}>
 					{ isCallbackValid(onSaveHandler) &&
@@ -136,8 +136,7 @@ export function DatePicker(props) {
 				/>
 			}
 			{ activeTab === TYPES.date && !isDateDisabled
-			&&
-				<Calendar
+				&& <Calendar
 					maxDate={maxDate}
 					minDate={minDate}
 					moment={m}
