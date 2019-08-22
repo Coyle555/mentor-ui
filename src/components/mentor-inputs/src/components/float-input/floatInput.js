@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { useInputState } from '../../hooks/index';
-
 import '../../styles/index.less';
 
 const FloatInput = ({ icon, validation, precision, ...props }) => {
@@ -44,7 +43,7 @@ const FloatInput = ({ icon, validation, precision, ...props }) => {
 
 
 function isFloat(value) {
-	if (value != 0 && !parseFloat(value)) return 'Please enter a decimal value';
+	if (value !== 0 && !parseFloat(value)) return 'Please enter a decimal value';
 }
 export default FloatInput;
 

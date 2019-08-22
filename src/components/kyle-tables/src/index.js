@@ -70,14 +70,9 @@ export class Table extends Component {
 		}),
 		dropType: PropTypes.string,
 		editable: PropTypes.bool,
-		editDraggable: PropTypes.shape({
-			editDragType: PropTypes.string,
-			editDragCb: PropTypes.func
-		}),
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		formFields: PropTypes.arrayOf(PropTypes.object),
-		generateCustomFilter: PropTypes.func,
 		id: PropTypes.string.isRequired,
 		initInsertData: PropTypes.object,
 		insertable: PropTypes.bool,
@@ -130,7 +125,6 @@ export class Table extends Component {
 		draggable: null,
 		dropType: '',
 		editable: true,
-		editDraggable: null,
 		ExpandComponent: null,
 		exportTable: null,
 		filters: [],
@@ -562,17 +556,10 @@ export class Table extends Component {
 						data: this.props.data,
 						editMode: this.state.editMode,
 						ExpandComponent: this.props.ExpandComponent,
-						generateCustomFilter: this.props.generateCustomFilter,
-						uploadFileCb: this._uploadFileCb,
-						_editOnBlur: this._onBlur,
-						_editOnOptionMatch: this._onOptionMatch,
-						_editOnColorChange: this._onBlur,
-						_editOnDeleteImageClick: this._onDeleteImageClick,
 					}}
 					recordProperties={recordProperties}
 					dragProperties={{
 						draggable: this.props.draggable,
-						editDraggable: this.props.editDraggable
 					}}
 					dropType={this.props.dropType}
 					pageProperties={{
@@ -637,7 +624,7 @@ export class Table extends Component {
 				<EditModal
 					fields={cloneDeep(columns)}
 					data={data}
-					editMode={editMode || true}
+					editMode={editMode}
 				/>
 				{ this.renderLayout() }
 			</React.Fragment>

@@ -10,7 +10,6 @@ export class TableBody extends Component {
 	static propTypes = {
 		columns: PropTypes.arrayOf(PropTypes.object).isRequired,
 		customColumns: PropTypes.object,
-		editMode: PropTypes.bool,
 		expandable: PropTypes.bool,
 		ExpandComponent: PropTypes.element,
 		dragProperties: PropTypes.shape({
@@ -26,8 +25,6 @@ export class TableBody extends Component {
 		rowButtons: PropTypes.arrayOf(PropTypes.object),
 		rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
 		selectedRows: PropTypes.object,
-		_onBlur: PropTypes.func,
-		_onOptionMatch: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -68,22 +65,14 @@ export class TableBody extends Component {
 			allowSelection,
 			columns,
 			customClasses,
-			editMode,
+			customColumns,
 			rowData,
 			dragProperties,
 			dropType,
-			customColumns,
 			expandable,
 			ExpandComponent,
-			generateCustomFilter,
-			portalRef,
 			rowButtons,
 			selectedRows,
-			uploadFileCb,
-			_onBlur,
-			_onColorChange,
-			_onDeleteImageClick,
-			_onOptionMatch,
 			_onRowSelect,
 		} = this.props;
 
@@ -100,23 +89,14 @@ export class TableBody extends Component {
 					customColumns={customColumns}
 					draggable={dragProperties.draggable}
 					dropType={dropType}
-					editDraggable={dragProperties.editDraggable}
-					editMode={editMode}
 					expandable={expandable}
 					expanded={expandedRows[row.id]}
-					rowButtons={rowButtons}
-					generateCustomFilter={generateCustomFilter}
 					key={row.id}
-					onOptionMatch={_onOptionMatch}
-					onBlur={_onBlur}
-					onColorChange={_onColorChange}
-					onDeleteImageClick={_onDeleteImageClick}
-					portalRef={portalRef}
-					selectedRows={selectedRows}
-					rowSelected={!!selectedRows[row.id]}
+					rowButtons={rowButtons}
 					row={row}
 					rowId={row.id}
-					uploadFileCb={uploadFileCb}
+					rowSelected={!!selectedRows[row.id]}
+					selectedRows={selectedRows}
 					_onExpandClick={this._onExpandClick}
 					_onRowSelect={_onRowSelect}
 				/>

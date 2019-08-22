@@ -20,18 +20,8 @@ export class TableRow extends PureComponent {
 				dragType: PropTypes.string, dragCb: PropTypes.func
 			})
 		]),
-		editDraggable: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.shape({
-				editDragType: PropTypes.string,
-				editDragCb: PropTypes.func
-			})
-		]),
-		editMode: PropTypes.bool,
 		expandable: PropTypes.bool,
 		expanded: PropTypes.bool,
-		onBlur: PropTypes.func,
-		onOptionMatch: PropTypes.func,
 		rowSelected: PropTypes.bool,
 		row: PropTypes.object,
 		rowId: PropTypes.string,
@@ -43,8 +33,6 @@ export class TableRow extends PureComponent {
 		customClasses: {},
 		customColumns: {},
 		draggable: false,
-		editDraggable: false,
-		editMode: false,
 		expandable: false,
 		rowButtons: [],
 		row: {}
@@ -73,21 +61,13 @@ export class TableRow extends PureComponent {
 			customColumns,
 			draggable,
 			dropType,
-			editDraggable,
-			editMode,
 			expandable,
 			expanded,
-			onBlur,
-			onOptionMatch,
-			onColorChange,
-			onDeleteImageClick,
-			portalRef,
 			rowButtons,
 			rowSelected,
 			row,
 			rowId,
 			selectedRows,
-			uploadFileCb,
 		} = this.props;
 
 		const rowClass = {
@@ -135,32 +115,13 @@ export class TableRow extends PureComponent {
 				}
 				{ columns.map(col => (
 					<Cell
-						asyncFilter={col.asyncFilter}
-						cellOptions={col.options}
-						cellType={col.type}
 						colId={col.id}
-						color={col.color}
 						customClasses={customClasses}
 						customColumn={customColumns[col.id]}
-						editMode={editMode}
-						file={col.file}
-						image={col.image}
 						key={col.id}
-						multiline={!!col.multiline}
-						onBlur={onBlur}
-						onOptionMatch={onOptionMatch}
-						onColorChange={onColorChange}
-						onDeleteImageClick={onDeleteImageClick}
-						portalRef={portalRef}
-						required={col.required}
+						parse={col.parse}
 						row={row}
-						rowId={rowId}
-						rowSelected={rowSelected}
-						tableOnInsert={col.tableOnInsert}
-						tokenize={col.tokenize}
 						type={col.type}
-						updatable={col.updateable}
-						uploadFileCb={uploadFileCb}
 						value={row[col.id]}
 					/>
 				))}
@@ -185,23 +146,11 @@ export class TableRow extends PureComponent {
 				</TableRowDroppable>
 			);
 		// if view row is draggable, wrap row in a draggable component
-		} else if (!editMode && draggable && rowSelected) {
+		} else if (draggable && rowSelected) {
 			return (
 				<TableRowDraggable
 					dragCb={draggable.dragCb}
 					dragType={draggable.dragType}
-					selectedRows={selectedRows}
-					rowId={rowId}
-				>
-					{tableRow}
-				</TableRowDraggable>
-			);
-		// else if edit mode and edit row is draggable, wrap it
-		} else if (editMode && editDraggable && rowSelected) {
-			return (
-				<TableRowDraggable
-					dragCb={editDraggable.dragCb}
-					dragType={editDraggable.dragType}
 					selectedRows={selectedRows}
 					rowId={rowId}
 				>

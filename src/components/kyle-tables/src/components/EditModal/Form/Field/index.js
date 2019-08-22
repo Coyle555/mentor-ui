@@ -7,18 +7,29 @@ import {
 	getMentorInput,
 	FloatInput,
 	IntegerInput,
+	SelectInput,
 	TextInput,
 	TextareaInput
 } from 'mentor-inputs';
 
-export const Field = ({ color, type, updateable, value }) => {
+export const Field = ({ color, options, type, updateable, value }) => {
 
-	if (type === 'color') {
+	if (Array.isArray(options)) {
+
+		return (
+			<SelectInput
+				options={options}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'color') {
 
 		return (
 			<ColorField
 				color={value}
 				disabled={!updateable}
+				value={value}
 			/>
 		);
 

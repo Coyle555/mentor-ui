@@ -13,47 +13,19 @@ import { EditTableInputCell } from './TableInputCell';
 import { SelectCell } from './SelectCell';
 
 export const Cell = ({
-	asyncFilter,
-	cellOptions,
-	cellType,
 	colId,
-	color,
 	customClasses,
 	customColumn,
-	editMode,
-	file,
-	image,
-	multiline,
-	onBlur,
-	onColorChange,
-	onOptionMatch,
-	onDeleteImageClick,
-	portalRef,
-	required,
+	parse,
 	row,
-	rowId,
 	rowSelected,
-	tableOnInsert,
 	type,
-	updatable,
 	uploadFileCb,
 	value
 }) => {
 	const cellClass = classNames({
-		'table-cell-view': !editMode
-			|| (editMode && !rowSelected)
-			|| updatable === false
-			|| multiline,
-		'table-cell-edit': editMode
-			&& rowSelected
-			&& updatable !== false
-			&& !multiline,
+		'table-cell-view': true,
 		[customClasses.tableCell]: !!customClasses.tableCell
-	});
-
-	const editInputClass = classNames({
-		'table-cell-edit-input': true,
-		[customClasses.tableEditCell]: !!customClasses.tableEditCell
 	});
 
 	const _origValue = value;
@@ -61,15 +33,16 @@ export const Cell = ({
 	let title;
 
 	// convert different data types to the proper string
-	value = convertCellToString(value, type);
-	editMode = rowSelected && editMode && updatable !== false && !multiline;
+	value = typeof parse === 'function'
+		? parse(value)
+		: convertCellToString(value, type);
 	
-	if (!image && !!value) {
+	if (type !== 'image' && !!value) {
 		title = value;
 	}
 
 	if (!!customColumn) {
-		cell = customColumn(row, { colId, editMode, rowSelected, value, _origValue });
+		cell = customColumn(row, { colId, value, _origValue });
 
 		if (!!cell) {
 			return (
@@ -80,136 +53,20 @@ export const Cell = ({
 		}
 	}
 
-	if (!!image && !!value) {
-		cell = (
-			<ImageCell
-				colId={colId}
-				editMode={editMode}
-				onDeleteClick={onDeleteImageClick}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	} else if ((!!file && !!value) || (editMode && !!image && !value)) {
-		cell = (
-			<FileCell
-				colId={colId}
-				editMode={editMode}
-				rowId={rowId}
-				uploadFileCb={uploadFileCb}
-			/>
-		);
-	} else if (!!color && !!value) {
-		cell = (
-			<ColorCell
-				colId={colId}
-				color={value}
-				editMode={editMode}
-				onColorChange={onColorChange}
-				rowId={rowId}
-			/>
-		);
-	} else if (cellOptions) {
-		cell = (
-			<SelectCell
-				colId={colId}
-				editMode={editMode}
-				inputClass={editInputClass}
-				onBlur={onBlur}
-				options={cellOptions}
-				required={required}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	} else if (type === 'datetime' || type === 'date') {
-		cell = (
-			<DateCell
-				editMode={editMode}
-				inputClass={editInputClass}
-				name={colId}
-				onBlur={onBlur}
-				portalRef={portalRef}
-				required={required}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	} else {
-		cell = (
-			<DefaultCell
-				colId={colId}
-				editMode={editMode}
-				inputClass={editInputClass}
-				onBlur={onBlur}
-				required={required}
-				row={row}
-				rowId={rowId}
-				type={cellType}
-				value={value}
-			/>
-		);
-	}
-
-	/*} else if (!!tableOnInsert) {
-
-		cell = (
-			<EditTableInputCell
-				apiInfo={tableOnInsert}
-				colId={colId}
-				inputClass={editInputClass}
-				onBlur={onBlur}
-				required={required}
-				row={row}
-				rowId={rowId}
-				type={cellType}
-				value={value}
-			/>
-		);*/
-
-	if (asyncFilter) {
-		cell = (
-			<TableListFilter
-				clearInputAfterMatch={false}
-				customFilter={asyncFilter}
-				inputClass={editInputClass}
-				matchOnEmpty={!required}
-				name={colId}
-				onMatch={onOptionMatch}
-				options={cellOptions}
-				portalRef={portalRef}
-				required={required}
-				rowId={rowId}
-				value={value}
-			/>
-		);
-	}
-
 	return (
 		<td className={cellClass} title={title}>
-			{cell}
+			{value}
 		</td>
        );
 };
 
 Cell.propTypes = {
-	asyncFilter: PropTypes.func,
-	cellClass: PropTypes.string,
-	cellOptions: PropTypes.arrayOf(
-		PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.object
-		])
-	),
 	colId: PropTypes.string,
 	customClasses: PropTypes.object,
 	customColumn: PropTypes.func,
-	editMode: PropTypes.bool,
-	onBlur: PropTypes.func,
-	onOptionMatch: PropTypes.func,
+	parse: PropTypes.func,
 	row: PropTypes.object,
-	rowId: PropTypes.string,
-	updatable: PropTypes.bool,
+	type: PropTypes.string,
 	value: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number,

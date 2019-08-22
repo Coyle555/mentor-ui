@@ -17,7 +17,6 @@ export const TableMain = ({
 	dropType,
 	events,
 	expandable,
-	generateCustomFilter,
 	id,
 	numRowsSelected,
 	pageProperties,
@@ -34,13 +33,8 @@ export const TableMain = ({
 		[customClasses.table]: !!customClasses.table
 	});
 
-	let portalRef = useRef(null);
-
 	return (
-		<div
-			className="table-main-container"
-			ref={portalRef}
-		>
+		<div className="table-main-container">
 			<div className="table-content">
 				{ pageProperties.recordCount > 0 && rowProperties.data.length > 0
 					? <table className={tableClass} id={id}>
@@ -63,20 +57,11 @@ export const TableMain = ({
 							customColumns={rowProperties.customColumns}
 							dragProperties={dragProperties}
 							dropType={dropType}
-							editMode={rowProperties.editMode}
 							rowButtons={rowButtons}
 							ExpandComponent={rowProperties.ExpandComponent}
-							expandEditable={rowProperties.expandEditable}
 							expandable={expandable}
-							generateCustomFilter={rowProperties.generateCustomFilter}
-							portalRef={portalRef.current}
 							rowData={rowProperties.data}
 							selectedRows={selectedRows}
-							uploadFileCb={rowProperties.uploadFileCb}
-							_onBlur={rowProperties._editOnBlur}
-							_onOptionMatch={rowProperties._editOnOptionMatch}
-							_onColorChange={rowProperties._editOnColorChange}
-							_onDeleteImageClick={rowProperties._editOnDeleteImageClick}
 							_onRowSelect={_onRowSelect}
 						/>
 					</table>
@@ -107,13 +92,6 @@ TableMain.propTypes = {
 				dragType: PropTypes.string,
 				dragCb: PropTypes.func
 			})
-		]),
-		editDraggable: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.shape({
-				editDragType: PropTypes.string,
-				editDragCb: PropTypes.func
-			})
 		])
 	}),
 	recordProperties: PropTypes.shape({
@@ -132,13 +110,9 @@ TableMain.propTypes = {
 		onSort: PropTypes.func
 	}),
 	rowProperties: PropTypes.shape({
-		data: PropTypes.arrayOf(PropTypes.object),
-		insertRowCb: PropTypes.func,
-		ExpandComponent: PropTypes.element,
-		expandEditable: PropTypes.bool,
 		customColumns: PropTypes.object,
-		_onBlur: PropTypes.func,
-		_onChange: PropTypes.func
+		data: PropTypes.arrayOf(PropTypes.object),
+		ExpandComponent: PropTypes.element
 	}),
 	pageProperties: PropTypes.shape({
 		enabled: PropTypes.bool,
@@ -146,24 +120,4 @@ TableMain.propTypes = {
 		pageSize: PropTypes.number,
 		recordCount: PropTypes.number
 	})
-};
-
-TableMain.defaultProps = {
-	columns: [],
-	customClasses: {},
-	dragProperties: {},
-	events: {},
-	pageProperties: {
-		enabled: true,
-		recordCount: 0
-	},
-	recordProperties: {
-		count: 0,
-		currentPage: 1,
-		entriesViewable: 25
-	},
-	rowProperties: {
-		data: []
-	},
-	sort: {}
 };
