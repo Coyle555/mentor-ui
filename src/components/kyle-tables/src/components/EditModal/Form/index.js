@@ -12,8 +12,16 @@ export const Form = ({ data, fields, title }) => {
 			<div className="field-container">
 				{ fields.map(field => (
 					<div className="field" key={field.id}>
-						{field.label}
-						<Field {...field} />
+						<label>{field.label}</label>
+						{ field.updateable === false
+							&& <span className="cannot-update">
+								Field cannot be changed
+							</span>
+						}
+						<Field
+							{...field}
+							value={data[field.id]}
+						/>
 					</div>
 				))}
 			</div>

@@ -32,7 +32,7 @@ class FileInput extends Component {
 				name={name}
 				onDrop={this.onDrop}
 			>
-				{children}
+			{() => "Children went here?"}
 			</Dropzone>
 		);
 	}

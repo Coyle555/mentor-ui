@@ -5,8 +5,11 @@ import { ColorField } from './Color';
 import { DateField } from './Date';
 import {
 	getMentorInput,
+	EmailInput,
+	FileInput,
 	FloatInput,
 	IntegerInput,
+	ListFilter,
 	MoneyInput,
 	SelectInput,
 	TextInput,
@@ -16,7 +19,17 @@ import {
 
 export const Field = ({ color, options, type, updateable, value }) => {
 
-	if (Array.isArray(options)) {
+	if (type === 'listfilter') {
+
+		return (
+			<ListFilter
+				disabled={!updateable}
+				options={options}
+				value={value}
+			/>
+		);
+
+	} else if (Array.isArray(options)) {
 
 		return (
 			<SelectInput
@@ -88,6 +101,28 @@ export const Field = ({ color, options, type, updateable, value }) => {
 				disabled={!updateable}
 				value={value}
 			/>
+		);
+
+	} else if (type === 'email') {
+
+		return (
+			<EmailInput
+				disabled={!updateable}
+				value={value}
+			/>
+		);
+
+	} else if (type === 'image') {
+		
+		return (
+			<div>
+				<img className="table-image-cell" src={value} />
+				<i
+					className="far fa-times table-cell-edit-image"
+					onClick={() => onDeleteClick(rowId, colId)}
+				/>
+				<FileInput />
+			</div>
 		);
 
 	} else {

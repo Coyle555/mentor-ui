@@ -34,6 +34,11 @@
 			border-right-color: @green-primary;
 		}
 
+		&-is-disabled {
+			background-color: @green-light;
+			cursor: not-allowed;
+		}
+
 		&-has-error {
 			color: white;
 			background-color: @ketchup;
@@ -61,6 +66,7 @@
 		&[disabled] {
 			background-color: @green-light;
 			border-color: @green-light;
+			cursor: not-allowed;
 		}
 
 		&:invalid {
@@ -130,7 +136,7 @@
 	position: absolute;
 	color: inherit;
 	max-height: 250px;
-	width: 100%;
+	width: calc(100% - 40px);
 	overflow-y: auto;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
@@ -159,7 +165,7 @@
 	text-align: left;
 	font-weight: normal;
 	display: inline-block;
-	width: calc(100% - 4px);
+	width: calc(100% - 8px);
 	cursor: pointer;
 }
 

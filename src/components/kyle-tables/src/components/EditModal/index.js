@@ -35,7 +35,7 @@ export const EditModal = ({ data, fields, editMode }) => {
 			/>
 			<Form
 				fields={fields}
-				data={data}
+				data={data[recordIndex]}
 				title={data[recordIndex].name || 'Title'}
 			/>
 			<NextRecord onClick={() => setRecordIndex(recordIndex + 1)} />

@@ -30,8 +30,13 @@ const columns = [
 	},
 	{
 		label: 'Multiline',
-		id: 'string',
+		id: 'multiline',
 		type: 'multiline',
+	},
+	{
+		label: 'Email',
+		id: 'email',
+		type: 'email'
 	},
 	{
 		label: 'Money',
@@ -66,6 +71,12 @@ const columns = [
 		type: 'image'
 	},
 	{
+		label: 'List Filter',
+		id: 'listfilter',
+		type: 'listfilter',
+		options: ['Option1', 'Option2', 'Option3']
+	},
+	{
 		label: 'Options',
 		id: 'options',
 		options: ['Option1', 'Option2', 'Option3']
@@ -95,6 +106,7 @@ const data = [
 		string: 'Test desc',
 		options: 'Option2',
 		file: IMAGE,
+		img: IMAGE,
 		color: '#fff',
 		customColumnId: 'custom 1'
 	},

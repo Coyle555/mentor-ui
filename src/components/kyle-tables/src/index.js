@@ -606,7 +606,7 @@ export class Table extends Component {
 
 	render() {
 		const { data, formFields, initInsertData } = this.props;
-		const { columns, editMode, insertMode, insertType } = this.state;
+		const { columns, editMode, insertMode, insertType, selectedRows } = this.state;
 
 		return (
 			<React.Fragment>
@@ -623,7 +623,10 @@ export class Table extends Component {
 				}
 				<EditModal
 					fields={cloneDeep(columns)}
-					data={data}
+					data={Object.keys(selectedRows).length > 0
+						? data.map(d => selectedRows[d.id])
+						: data
+					}
 					editMode={editMode || true}
 				/>
 				{ this.renderLayout() }

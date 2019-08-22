@@ -18,12 +18,13 @@ import { useInputValidation } from './useInputValidation';
 export const useInputState = (props = {}) => {
 
 	const {
+		disabled,
+		handleEvents,
 		onBlur,
 		onChange,
 		parse,
 		validate,
 		value,
-		handleEvents,
 		...input
 	} = props;
 
@@ -69,6 +70,7 @@ export const useInputState = (props = {}) => {
 		'mui-mi-input-addon': true,
 		'mui-mi-input-addon-is-on': focus,
 		'mui-mi-input-addon-has-error': error,
+		'mui-mi-input-addon-is-disabled': disabled,
 	});
 
 	const inputGroupClasses = classNames({
