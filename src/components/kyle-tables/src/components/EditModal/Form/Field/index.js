@@ -7,7 +7,7 @@ import { getMentorInput, TextInput } from 'mentor-inputs';
 
 export const Field = ({ color, type, updateable, value }) => {
 
-	if (color) {
+	if (type === 'color') {
 
 		return (
 			<ColorField
@@ -27,8 +27,10 @@ export const Field = ({ color, type, updateable, value }) => {
 
 	} else {
 
+		const MentorInput = getMentorInput(type);
+
 		return (
-			<TextInput
+			<MentorInput
 				disabled={!updateable}
 				value={value}
 			/>

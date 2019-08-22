@@ -18,7 +18,7 @@ const MoneyInput = ({ currency, ...inputProps}) => {
 			<div
 				className="input-group-addon"
 			>
-				<i className="far fa-dollar-sign" />
+				<i className="fal fa-dollar-sign" />
 			</div>			
 		</div>				
 	)

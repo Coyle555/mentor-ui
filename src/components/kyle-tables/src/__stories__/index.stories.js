@@ -46,7 +46,7 @@ const columns = [
 	{
 		label: 'Image',
 		id: 'img',
-		image: true
+		type: 'image'
 	},
 	{
 		label: 'Options',
@@ -56,12 +56,12 @@ const columns = [
 	{
 		label: 'Link to File',
 		id: 'file',
-		file: true
+		type: 'file'
 	},
 	{
 		label: 'Color',
 		id: 'color',
-		color: true
+		type: 'color'
 	},
 	{
 		label: 'Custom Column',

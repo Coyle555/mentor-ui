@@ -11,19 +11,23 @@
 		border: 1px solid @blue-primary;
 		width: 100%;
 		padding: 0;
+		transition: border-color 0.15s ease-in-out 0s;
 
 		&-addon {
 			padding: 6px 12px;
-			text-align: center;
 			white-space: nowrap;
 			border-right: 1px solid @blue-primary;
 			color: @blue-primary;
 			line-height: 1;
+			transition: background-color 0.15s ease-in-out 0s, color 0.15s ease-in-out 0s, border-right-color 0.15s ease-in-out 0s;
+			display: flex;
+			justify-content: center;
+			width: 40px;
 
 			&-is-on {
 				color: white;
-				background: @green-primary;
-				border-color: @green-primary;
+				background-color: @green-primary;
+				border-right-color: @green-primary;
 			}
 
 			&-has-error {
@@ -49,7 +53,6 @@
 		border: none;
 		color: @charcoal-dark;
 		padding: 6px 12px;
-		transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 		height: 100%;
 
 		&[disabled] {

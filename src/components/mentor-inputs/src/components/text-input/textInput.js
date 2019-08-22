@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,19 +7,25 @@ import '../../styles/index.less';
 
 const TextInput = ({ validation, ...props }) => {
 
+
 	const validate = [ noEmptyStrings, validation ];
 	const inputState = useInputState({ validate, parse, ...props });
-	const inputClasses = classNames('apm-mi-form-control', props.className);
+	const inputClasses = classNames('mui-mi-input-field', props.className);
 
 	return (
-		<input
-			autoComplete="false"
-			type="text"
-			{...props}
-			className={inputClasses}
-			{...inputState}
-		/>		
-	)
+		<div className={inputState.classes.inputGroup}>
+			<span className={inputState.classes.addon}>
+				<i className="fal fa-text" />
+			</span>
+			<input
+				autoComplete="false"
+				type="text"
+				{...props}
+				className={inputClasses}
+				{...inputState}
+			/>
+		</div>
+	);
 }
 
 function noEmptyStrings(value, input) {
