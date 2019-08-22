@@ -46,6 +46,7 @@ const columns = [
 	{
 		label: 'Object',
 		id: 'object',
+		parse: val => val.name,
 		display: false
 	},
 	{

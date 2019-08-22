@@ -4,13 +4,8 @@ import classNames from 'classnames';
 
 import { convertCellToString } from './utils/utils';
 import { ColorCell } from './ColorCell';
-import { DateCell } from './DateCell';
-import { DefaultCell } from './DefaultCell';
 import { FileCell } from './FileCell';
 import { ImageCell } from './ImageCell';
-import { ListFilterCell } from './ListFilterCell';
-import { EditTableInputCell } from './TableInputCell';
-import { SelectCell } from './SelectCell';
 
 export const Cell = ({
 	colId,
@@ -29,13 +24,14 @@ export const Cell = ({
 	});
 
 	const _origValue = value;
-	let cell;
 	let title;
 
 	// convert different data types to the proper string
 	value = typeof parse === 'function'
 		? parse(value)
 		: convertCellToString(value, type);
+
+	let cell = value;
 	
 	if (type !== 'image' && !!value) {
 		title = value;
@@ -53,9 +49,17 @@ export const Cell = ({
 		}
 	}
 
+	if (type === 'color') {
+		cell = <ColorCell color={value} />;
+	} else if (type === 'file') {
+		cell = <FileCell value={value} />;
+	} else if (type === 'image') {
+		cell = <ImageCell value={value} />;
+	}
+
 	return (
 		<td className={cellClass} title={title}>
-			{value}
+			{cell}
 		</td>
        );
 };
