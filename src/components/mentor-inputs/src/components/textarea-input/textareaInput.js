@@ -11,7 +11,7 @@ const TextareaInput = ({ validation, ...props }) => {
 	const inputState = useInputState({ validate, parse, ...props });
 
 	const textareaClasses = classNames({	
-		'apm-textarea-resize-vert mui-mi-input-field': true,
+		'mui-textarea-resize-vert mui-mi-input-field': true,
 		[props.className]: !!props.className,
 	});
 
@@ -22,8 +22,8 @@ const TextareaInput = ({ validation, ...props }) => {
 			rows={5}
 			placeholder="Enter text"
 			{...props}
-			className={textareaClasses}
 			{...inputState}
+			className={textareaClasses}
 		/>
 	);
 }

@@ -115,13 +115,30 @@ export const Field = ({ color, options, type, updateable, value }) => {
 	} else if (type === 'image') {
 		
 		return (
-			<div>
-				<img className="table-image-cell" src={value} />
-				<i
-					className="far fa-times table-cell-edit-image"
-					onClick={() => onDeleteClick(rowId, colId)}
-				/>
-				<FileInput />
+			<div style={{display: 'flex', height: '100px', alignItems: 'center'}}>
+				<div style={{ textAlign: 'center', width: '25%'}}>
+					<img style={{ maxHeight: '75px' }} src={value} />
+					<p style={{ color: 'red', margin: '15px 0 0 0', fontSize: '.7rem', fontWeight: 400, cursor: 'pointer' }}>Delete Image</p>
+					{/*onClick={() => onDeleteClick(rowId, colId)}*/}
+				</div>
+				<div style={{height: '100%', width: '75%'}}>
+					<FileInput label="Upload Image" />
+				</div>
+			</div>
+		);
+
+	} else if (type === 'file') {
+		
+		return (
+			<div style={{display: 'flex', height: '100px', alignItems: 'center'}}>
+				<div style={{ textAlign: 'center', width: '25%'}}>
+					<a href={value} download style={{ fontSize: '.9rem', fontWeight: 500 }}>File</a>
+					<p style={{ color: 'red', margin: '15px 0 0 0', fontSize: '.7rem', fontWeight: 400, cursor: 'pointer' }}>Delete File</p>
+					{/*onClick={() => onDeleteClick(rowId, colId)}*/}
+				</div>
+				<div style={{height: '100%', width: '75%'}}>
+					<FileInput label="Upload File" />
+				</div>
 			</div>
 		);
 
