@@ -457,7 +457,7 @@ export class ListFilter extends Component {
 		const { options, selectedOptionIndex } = this.state;
 
 		const listContainerClasses = classNames(
-			'apm-list-filter-menu-ul',
+			'mui-list-filter-menu-ul',
 			{ [listClasses.container]: !!listClasses.container },
 			'ignore-react-onclickoutside'
 		);
@@ -518,13 +518,13 @@ export class ListFilter extends Component {
 		const { hasError, loadingFilter, value } = this.state;
 
 		const inputClasses = classNames({
-			'mui-mi-input-field apm-mi-list-filter': true,
+			'mui-mi-input-field mui-mi-list-filter': true,
 			[this.props.className]: !!this.props.className,
 			'apm-error-border-color': hasError
 		});
 
 		return (
-			<div className="apm-mi-container">
+			<div className="mui-mi-container">
 				<input
 					{...props}
 					autoComplete="off"
@@ -541,13 +541,13 @@ export class ListFilter extends Component {
 				/>
 				{ this.renderIncrementalSearchResults() }
 				{ loadingFilter &&
-					<span className="apm-mi-clear-input">
+					<span className="mui-mi-clear-input">
 						<Spinner className="apm-color-black" />
 					</span>
 				}
 				{ !!value && !loadingFilter && !disabled &&
 					<span
-						className="apm-mi-clear-input"
+						className="mui-mi-clear-input"
 						data-testid="clear-input"
 						onClick={this.clearInput}
 					>

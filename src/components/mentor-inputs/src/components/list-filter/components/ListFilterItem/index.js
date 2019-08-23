@@ -38,10 +38,10 @@ export class ListFilterItem extends Component {
 		} = this.props;
 
 		const liClasses = classNames(
-			'apm-list-filter-menu-li',
+			'mui-list-filter-menu-li',
 			{
 				[listClasses.item]: !!listClasses.item,
-				'apm-list-filter-menu-li-highlight': selected
+				'mui-list-filter-menu-li-highlight': selected
 			}
 		);
 

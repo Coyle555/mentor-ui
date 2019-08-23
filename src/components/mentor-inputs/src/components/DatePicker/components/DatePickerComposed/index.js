@@ -46,7 +46,6 @@ class DatePickerContainer extends Component {
 
 	componentDidMount() {
 		this.isPickerEnabled();
-		//window.addEventListener('resize', this.isPickerEnabled);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -62,15 +61,6 @@ class DatePickerContainer extends Component {
 				value: val
 			});
 		}
-	}
-
-	componentDidUpdate(prevProps, prevState) {
-		//console.log('p: ', prevState.moment);
-		//console.log('n: ', this.state.moment);
-	}
-
-	componentWillUnmount() {
-		//window.removeEventListener('resize', this.isPickerEnabled);
 	}
 
 	// checks if the datepicker is in picker mode depending if the date picker
@@ -250,7 +240,7 @@ class DatePickerContainer extends Component {
 		});
 
 		return (
-			<div className="apm-mi-container">
+			<div className="mui-mi-container">
 				<input
 					data-testid={'datepicker-input-' + name}
 					className={inputClasses}
