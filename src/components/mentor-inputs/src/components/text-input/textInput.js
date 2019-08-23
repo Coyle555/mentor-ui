@@ -5,26 +5,21 @@ import classNames from 'classnames';
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const TextInput = ({ icon, validation, ...props }) => {
+const TextInput = ({ validation, ...props }) => {
 
 	const validate = [ noEmptyStrings, validation ];
 	const inputState = useInputState({ validate, parse, ...props });
 	const inputClasses = classNames('mui-mi-input-field', props.className);
 
 	return (
-		<div className={inputState.classes.inputGroup}>
-			<span className={inputState.classes.addon}>
-				<i className={icon} />
-			</span>
-			<input
-				autoComplete="false"
-				placeholder="Enter text"
-				type="text"
-				{...props}
-				className={inputClasses}
-				{...inputState}
-			/>
-		</div>
+		<input
+			autoComplete="false"
+			placeholder="Enter text"
+			type="text"
+			{...props}
+			className={inputClasses}
+			{...inputState}
+		/>
 	);
 }
 
@@ -46,14 +41,6 @@ function parse(value) {
 		return '';
 	}
 }
-
-TextInput.propTypes = {
-	icon: PropTypes.string,
-};
-
-TextInput.defaultProps = {
-	icon: 'fal fa-text',
-};
 
 export default TextInput;
 

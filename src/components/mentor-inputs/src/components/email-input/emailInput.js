@@ -22,9 +22,8 @@ const EmailInput = ({ validation, ...props }) => {
 
 	return (
 		<TextInput
-			{...props}
-			icon="fal fa-at"
 			placeholder="Enter email"
+			{...props}
 			validation={isEmail}
 		/>		
 	);

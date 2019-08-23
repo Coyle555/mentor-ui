@@ -35,7 +35,7 @@ export function useInputValidation(customValidators) {
 		let i = -1;
 		let errorString = '';
 
-		while (++i < customValidators.length && !errorString) {
+		for (i = 0; i < customValidators.length && !errorString; i++) {
 			const fn = customValidators[i];
 
 			if (typeof fn === 'function') {

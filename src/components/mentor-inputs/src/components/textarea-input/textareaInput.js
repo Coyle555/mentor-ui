@@ -16,19 +16,15 @@ const TextareaInput = ({ validation, ...props }) => {
 	});
 
 	return (
-		<div className={inputState.classes.inputGroup}>
-			<span className={inputState.classes.addon}>
-				<i className="fal fa-text" />
-			</span>
-			<textarea
-				autoComplete="false"
-				cols={15}
-				rows={5}
-				{...props}
-				className={textareaClasses}
-				{...inputState}
-			/>
-		</div>
+		<textarea
+			autoComplete="false"
+			cols={15}
+			rows={5}
+			placeholder="Enter text"
+			{...props}
+			className={textareaClasses}
+			{...inputState}
+		/>
 	);
 }
 

@@ -13,7 +13,6 @@ const MoneyInput = ({ currency, ...inputProps}) => {
 		<FloatInput
 			precision={2}
 			{...inputProps}
-			icon="fal fa-dollar-sign"
 			placeholder="Enter dollar amount"
 		/>
 	);

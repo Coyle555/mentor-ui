@@ -281,7 +281,7 @@ class DatePickerContainer extends Component {
 					</span>
 					<input
 						data-testid={'datepicker-input-' + name}
-						className={cc('input-field')}
+						className="mui-mi-input-field"
 						disabled={disabled}
 						onChange={this.handleInputChange}
 						onFocus={this.onFocus}

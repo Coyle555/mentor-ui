@@ -23,7 +23,6 @@ const UrlInput = ({ validation, ...props }) => {
 	return (
 		<TextInput
 			{...props}
-			icon="fal fa-link"
 			placeholder="Enter URL"
 			validation={isUrl}
 		/>		

@@ -69,25 +69,20 @@ const SelectInput = ({
 
 
 	return (
-		<div className={inputState.classes.inputGroup}>
-			<span className={inputState.classes.addon}>
-				<i className="fal fa-list" />
-			</span>
-			<select
-				{...props}
-				className={inputClasses}
-				{...inputState}
-				name={props.name}
+		<select
+			{...props}
+			className={inputClasses}
+			{...inputState}
+			name={props.name}
+		>
+			<option
+				disabled={props.required}
+				value="" 
 			>
-				<option
-					disabled={props.required}
-					value="" 
-				>
-					{ placeholder }
-				</option>
-				{ formattedOptions }
-			</select>
-		</div>
+				{ placeholder }
+			</option>
+			{ formattedOptions }
+		</select>
 	);
 }
 

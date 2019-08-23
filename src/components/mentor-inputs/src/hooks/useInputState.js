@@ -32,7 +32,6 @@ export const useInputState = (props = {}) => {
 	const fakeNameToPreventAutocomplete = useRef(null);
 	const [ currentValue, setCurrentValue ] = useState(() => getDisplayValue(value, parse));
 	const [ error, checkErrors ] = useInputValidation(validate);
-	const [focus, setFocus] = useState(false);
 	
 	/// value in state should be updated when value in props is changed
 
@@ -66,28 +65,15 @@ export const useInputState = (props = {}) => {
 
 	}, [inputRef.current, input.required]);
 
-	const addonClasses = classNames({
-		'mui-mi-input-addon': true,
-		'mui-mi-input-addon-is-on': focus,
-		'mui-mi-input-addon-has-error': error,
-		'mui-mi-input-addon-is-disabled': disabled,
+	const inputClasses = classNames({
+		'mui-mi-input-field': true,
+		'mui-mi-input-field-has-error': error,
 	});
-
-	const inputGroupClasses = classNames({
-		'mui-mi-input-group': true,
-		'mui-mi-input-group-is-on': focus,
-		'mui-mi-input-group-has-error': error,
-	});
-
+		
 	return {
-		classes: {
-			addon: addonClasses,
-			inputGroup: inputGroupClasses
-		},
+		className: inputClasses,
 
 		onBlur(evt) {
-			setFocus(false);
-
 			if (typeof onBlur !== 'function') return;
 			
 			const lastVal = getDisplayValue(value, parse);
@@ -117,10 +103,6 @@ export const useInputState = (props = {}) => {
 					onChange(evt.target.validationMessage, val, input.name);
 				}
 			}
-		},
-
-		onFocus(evt) {
-			setFocus(true);
 		},
 
 		name: fakeNameToPreventAutocomplete.current || input.name,

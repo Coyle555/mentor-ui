@@ -537,25 +537,20 @@ export class ListFilter extends Component {
 
 		return (
 			<div className="apm-mi-container">
-				<div className={inputGroupClasses}>
-					<span className={addonClasses}>
-						<i className="fal fa-list" />
-					</span>
-					<input
-						{...props}
-						autoComplete="off"
-						className={inputClasses}
-						disabled={disabled}
-						onChange={this.onChange}
-						onFocus={this.onFocus}
-						onKeyDown={this.onKeyDown}
-						onKeyUp={this.onKeyUp}
-						placeholder="Select an option"
-						ref={ref => this.inputRef = ref}
-						type="text"
-						value={value}
-					/>
-				</div>
+				<input
+					{...props}
+					autoComplete="off"
+					className={inputClasses}
+					disabled={disabled}
+					onChange={this.onChange}
+					onFocus={this.onFocus}
+					onKeyDown={this.onKeyDown}
+					onKeyUp={this.onKeyUp}
+					placeholder="Select an option"
+					ref={ref => this.inputRef = ref}
+					type="text"
+					value={value}
+				/>
 				{ this.renderIncrementalSearchResults() }
 				{ loadingFilter &&
 					<span className="apm-mi-clear-input">

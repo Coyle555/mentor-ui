@@ -5,12 +5,12 @@ import classNames from 'classnames';
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const FloatInput = ({ icon, validation, precision, ...props }) => {
+const FloatInput = ({ validation, precision, ...props }) => {
 
 	const validate = [ isFloat, validation ];
 
 	const inputState = useInputState({ validate, parse, ...props });
-	const inputClasses = classNames('mui-mi-input-field', props.className);
+	const inputClasses = classNames(inputState.className, props.className);
 
 	function parse(value) {
 		if (isNaN(value)) {
@@ -20,24 +20,16 @@ const FloatInput = ({ icon, validation, precision, ...props }) => {
 			return Number(parseFloat(value).toFixed(precision))
 		} else {
 			return parseFloat(value);
-		}	
+		}
 	}
 
 	return (
-		<div className={inputState.classes.inputGroup}>
-			<span className={inputState.classes.addon}>
-				{ !!icon
-					? <i className={icon} />
-					: <span className="text">0.1</span>
-				}
-			</span>
-			<input
-				placeholder="Enter decimal"
-				{...props}
-				{...inputState}
-				className={inputClasses}
-			/>
-		</div>
+		<input
+			placeholder="Enter decimal"
+			{...props}
+			{...inputState}
+			className={inputClasses}
+		/>
 	);
 }
 
