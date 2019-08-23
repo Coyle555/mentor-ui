@@ -1,242 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TextareaInput /> with 14 cols 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={14}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={14}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value=""
+/>
 `;
 
 exports[`<TextareaInput /> with 30 rows 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={30}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={30}
+  value=""
+/>
 `;
 
 exports[`<TextareaInput /> with a required attribute 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    rows={5}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  required={true}
+  rows={5}
+  value=""
+/>
 `;
 
 exports[`<TextareaInput /> with a string value 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value="Bill"
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value="Bill"
+/>
 `;
 
 exports[`<TextareaInput /> with a stringified value 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value="4593.3"
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value="4593.3"
+/>
 `;
 
 exports[`<TextareaInput /> with autocomplete enabled 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="true"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="true"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value=""
+/>
 `;
 
 exports[`<TextareaInput /> with no props 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value=""
+/>
 `;
 
 exports[`<TextareaInput /> with value of null 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-text"
-    />
-  </span>
-  <textarea
-    autoComplete="false"
-    className="apm-textarea-resize-vert mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    cols={15}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    rows={5}
-    value=""
-  />
-</div>
+<textarea
+  autoComplete="false"
+  className="mui-mi-input-field"
+  cols={15}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  rows={5}
+  value=""
+/>
 `;

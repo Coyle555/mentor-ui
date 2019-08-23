@@ -1,152 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<EmailInput /> with a non-string value passed in 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-at"
-    />
-  </span>
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter email"
-    type="text"
-    value="4593.3"
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  type="text"
+  value="4593.3"
+/>
 `;
 
 exports[`<EmailInput /> with a required attribute 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-at"
-    />
-  </span>
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter email"
-    required={true}
-    type="text"
-    value=""
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  required={true}
+  type="text"
+  value=""
+/>
 `;
 
 exports[`<EmailInput /> with a value passed in 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-at"
-    />
-  </span>
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter email"
-    type="text"
-    value="bill@gmail.com"
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  type="text"
+  value="bill@gmail.com"
+/>
 `;
 
 exports[`<EmailInput /> with autocomplete enabled 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-at"
-    />
-  </span>
-  <input
-    autoComplete="true"
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter email"
-    type="text"
-    value=""
-  />
-</div>
+<input
+  autoComplete="true"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  type="text"
+  value=""
+/>
 `;
 
 exports[`<EmailInput /> with no props 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-at"
-    />
-  </span>
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter email"
-    type="text"
-    value=""
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  type="text"
+  value=""
+/>
 `;

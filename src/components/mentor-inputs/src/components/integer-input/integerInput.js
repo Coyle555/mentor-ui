@@ -7,7 +7,7 @@ import '../../styles/index.less';
 
 const IntegerInput = ({ validation, ...props }) => {
 
-	const validate = [ isValidInt(props.required), noDecimals, validation ];
+	const validate = [ noDecimals, isValidInt(props.required), validation ];
 
 	const inputState = useInputState({ validate, parse, ...props });
 
@@ -31,13 +31,13 @@ function parse(value) {
 /// check if value is a float (1.000 wont throw an error in an input by default)
 function noDecimals(num) {
 	if (String(num).indexOf('.') > -1) {
-		return 'No decimal values.';
+		return 'Invalid number';
 	} 
 }
 
 function isValidInt(required) {
 	return (num) => {
-		if ((num === '' && required) || (num !== '' && !isInteger(num))) {
+		if ((num === '' && !!required) || (num !== '' && !isInteger(num))) {
 			return 'Invalid number';
 		}
 	};

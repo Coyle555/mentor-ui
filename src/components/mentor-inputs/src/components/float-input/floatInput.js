@@ -7,7 +7,7 @@ import '../../styles/index.less';
 
 const FloatInput = ({ validation, precision, ...props }) => {
 
-	const validate = [ isFloat, validation ];
+	const validate = [ isValidFloat(props.required), validation ];
 
 	const inputState = useInputState({ validate, parse, ...props });
 	const inputClasses = classNames(inputState.className, props.className);
@@ -33,9 +33,18 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	);
 }
 
-
-function isFloat(value) {
-	if (value !== 0 && !parseFloat(value)) return 'Please enter a decimal value';
+function isValidFloat(required) {
+	return (num) => {
+		if ((num === '' && !!required) || (num !== '' && !isFloat(num))) {
+			return 'Invalid number';
+		}
+	};
 }
-export default FloatInput;
 
+function isFloat(num) {
+	return !isNaN(num)
+		&& parseFloat(Number(num)) === Number(num)
+		&& !isNaN(parseFloat(num, 10));
+}
+
+export default FloatInput;

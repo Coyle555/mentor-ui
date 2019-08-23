@@ -1,14 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import { createPortal } from 'react-dom';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import cn from 'classnames';
-import { composeClass } from 'utils';
 import moment from 'moment';
 
 import { DatePicker } from '../DatePicker';
-
-import './style.less';
 
 // default format masks for different datepicker types
 const DEFAULT_FORMAT_MASKS = {
@@ -201,16 +197,13 @@ class DatePickerContainer extends Component {
 		this.setState({ showPicker: false });
 	}
 
-	renderPicker = (cc) => {
+	renderPicker = () => {
 		const { pickerStyle, portalRef } = this.props;
 		//console.log('renderPicker method - moment state: ', this.state.moment);
 
 		const picker = (
 			<div
-				className={cn(
-					cc('datepicker-container'),
-					'ignore-react-onclickoutside',
-				)}
+				className="mui-mi-datepicker ignore-react-onclickoutside"
 				ref={ref => this.pickerRef = ref}
 				style={pickerStyle.container}
 			>
@@ -231,10 +224,6 @@ class DatePickerContainer extends Component {
 			</div>
 		);
 
-		if (!!portalRef) {
-			return createPortal(picker, portalRef);
-		}
-
 		return picker;
 	}
 
@@ -254,46 +243,28 @@ class DatePickerContainer extends Component {
 			className,
 		} = this.props;
 
-		const cc = composeClass(
-			'APMDatePickerComposed',
-			className,
-		);
-
-		const isClock = type === 'time';
+		const inputClasses = cn({
+			'mui-mi-input-field': true,
+			[this.props.className]: !!this.props.className,
+			'mui-mi-input-field-has-error': hasError
+		});
 
 		return (
-			<div className={cc()}>
-				<div className={cn(
-					cc('input-group'),
-					{ [cc('input-group-is-on')]: showPicker },
-					{ [cc('input-group-has-error')]: hasError },
-				)}>
-					<span className={cn(
-						cc('input-group-addon'),
-						{ [cc('input-group-addon-is-on')]: showPicker },
-						{ [cc('input-group-addon-has-error')]: hasError }
-					)}>
-						<i className={cn(
-							'fal',
-							{ 'fa-calendar-alt': !isClock },
-							{ 'fa-clock': isClock },
-						)} />
-					</span>
-					<input
-						data-testid={'datepicker-input-' + name}
-						className="mui-mi-input-field"
-						disabled={disabled}
-						onChange={this.handleInputChange}
-						onFocus={this.onFocus}
-						placeholder={this.getDateFormat()}
-						type="text"
-						value={value}
-					/>
-					{ pickerEnabled
-						&& showPicker
-						&& this.renderPicker(cc)
-					}
-				</div>
+			<div className="apm-mi-container">
+				<input
+					data-testid={'datepicker-input-' + name}
+					className={inputClasses}
+					disabled={disabled}
+					onChange={this.handleInputChange}
+					onFocus={this.onFocus}
+					placeholder={this.getDateFormat()}
+					type="text"
+					value={value}
+				/>
+				{ pickerEnabled
+					&& showPicker
+					&& this.renderPicker()
+				}
 			</div>
 		);
 	}

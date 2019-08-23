@@ -6,24 +6,45 @@ import { Footer } from './Footer';
 
 export const Form = ({ data, fields, title }) => {
 
+	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
+	const rightFields = fields.slice(Math.floor(fields.length / 2));
+
 	return (
 		<div className="edit-form">
 			<h2 className="title">{title}</h2>
 			<div className="field-container">
-				{ fields.map(field => (
-					<div className="field" key={field.id}>
-						<label>{field.label}</label>
-						{ field.updateable === false
-							&& <span className="cannot-update">
-								Field cannot be changed
-							</span>
-						}
-						<Field
-							{...field}
-							value={data[field.id]}
-						/>
-					</div>
-				))}
+				<div className="left-fields">
+					{ leftFields.map(field => (
+						<div className="field" key={field.id}>
+							<label>{field.label}</label>
+							{ field.updateable === false
+								&& <span className="cannot-update">
+									Field cannot be changed
+								</span>
+							}
+							<Field
+								{...field}
+								value={data[field.id]}
+							/>
+						</div>
+					))}
+				</div>
+				<div className="right-fields">
+					{ rightFields.map(field => (
+						<div className="field" key={field.id}>
+							<label>{field.label}</label>
+							{ field.updateable === false
+								&& <span className="cannot-update">
+									Field cannot be changed
+								</span>
+							}
+							<Field
+								{...field}
+								value={data[field.id]}
+							/>
+						</div>
+					))}
+				</div>
 			</div>
 			<Footer />
 		</div>

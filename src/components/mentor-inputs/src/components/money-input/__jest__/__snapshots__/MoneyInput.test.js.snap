@@ -1,116 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MoneyInput /> disabled w/ a min of 1 and max of 5 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-dollar-sign"
-    />
-  </span>
-  <input
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    disabled={true}
-    max={5}
-    min={1}
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter dollar amount"
-    value=""
-  />
-</div>
+<input
+  className="mui-mi-input-field"
+  disabled={true}
+  max={5}
+  min={1}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  value=""
+/>
 `;
 
 exports[`<MoneyInput /> where props.value is pi 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-dollar-sign"
-    />
-  </span>
-  <input
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter dollar amount"
-    value={3.14}
-  />
-</div>
+<input
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  value={3.141592653589793}
+/>
 `;
 
 exports[`<MoneyInput /> with a custom className 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-dollar-sign"
-    />
-  </span>
-  <input
-    className="mui-mi-input-field custom-class"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter dollar amount"
-    value=""
-  />
-</div>
+<input
+  className="mui-mi-input-field custom-class"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  value=""
+/>
 `;
 
 exports[`<MoneyInput /> with no props 1`] = `
-<div
-  className="mui-mi-input-group"
->
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-dollar-sign"
-    />
-  </span>
-  <input
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    placeholder="Enter dollar amount"
-    value=""
-  />
-</div>
+<input
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  value=""
+/>
 `;

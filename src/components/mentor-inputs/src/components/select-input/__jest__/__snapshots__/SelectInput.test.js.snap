@@ -1,303 +1,177 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SelectInput /> with a parsed value 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value={0.59}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
+    Select an option
+  </option>
+  <option
+    value={1.4}
+  >
+    apple
+  </option>
+  <option
     value={0.59}
   >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      value={1.4}
-    >
-      apple
-    </option>
-    <option
-      value={0.59}
-    >
-      bananas
-    </option>
-    <option
-      value={5.99}
-    >
-      cranberries
-    </option>
-  </select>
-</div>
+    bananas
+  </option>
+  <option
+    value={5.99}
+  >
+    cranberries
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with a required attribute 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  required={true}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    disabled={true}
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-  >
-    <option
-      disabled={true}
-      value=""
-    >
-      Select an option
-    </option>
-  </select>
-</div>
+    Select an option
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with no props 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-  >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-  </select>
-</div>
+    Select an option
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with options from array of objects w/ no parsing props 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
+    Select an option
+  </option>
+  <option
+    value={
       Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
+        "label": "apple",
+        "price": 1.4,
       }
     }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
   >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      value={
-        Object {
-          "label": "apple",
-          "price": 1.4,
-        }
+    [object Object]
+  </option>
+  <option
+    value={
+      Object {
+        "label": "bananas",
+        "price": 0.59,
       }
-    >
-      [object Object]
-    </option>
-    <option
-      value={
-        Object {
-          "label": "bananas",
-          "price": 0.59,
-        }
+    }
+  >
+    [object Object]
+  </option>
+  <option
+    value={
+      Object {
+        "label": "cranberries",
+        "price": 5.99,
       }
-    >
-      [object Object]
-    </option>
-    <option
-      value={
-        Object {
-          "label": "cranberries",
-          "price": 5.99,
-        }
-      }
-    >
-      [object Object]
-    </option>
-  </select>
-</div>
+    }
+  >
+    [object Object]
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with options from array of objects w/ parsing props 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
+    Select an option
+  </option>
+  <option
+    value={1.4}
   >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      value={1.4}
-    >
-      apple
-    </option>
-    <option
-      value={0.59}
-    >
-      bananas
-    </option>
-    <option
-      value={5.99}
-    >
-      cranberries
-    </option>
-  </select>
-</div>
+    apple
+  </option>
+  <option
+    value={0.59}
+  >
+    bananas
+  </option>
+  <option
+    value={5.99}
+  >
+    cranberries
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with options from array of strings 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
+    Select an option
+  </option>
+  <option
+    value="apples"
   >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      value="apples"
-    >
-      apples
-    </option>
-    <option
-      value="bananas"
-    >
-      bananas
-    </option>
-    <option
-      value="cranberries"
-    >
-      cranberries
-    </option>
-  </select>
-</div>
+    apples
+  </option>
+  <option
+    value="bananas"
+  >
+    bananas
+  </option>
+  <option
+    value="cranberries"
+  >
+    cranberries
+  </option>
+</select>
 `;
 
 exports[`<SelectInput /> with placeholder option text 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
 >
-  <span
-    className="mui-mi-input-addon"
+  <option
+    value=""
   >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-  >
-    <option
-      value=""
-    >
-      Select one por favor
-    </option>
-  </select>
-</div>
+    Select one por favor
+  </option>
+</select>
 `;

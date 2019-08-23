@@ -25,9 +25,23 @@
 	> .field-container {
 		flex-grow: 2;
 		overflow-y: auto;
-		padding-right: 5px;
 		
-		> .field {
+		> .left-fields {
+			float: left;
+			width: 50%;
+			padding-right: 12.5px;
+			padding-left: 5px;
+			border-right: 1px solid @gray-dark;
+		}
+
+		> .right-fields {
+			float: right;
+			width: 50%;
+			padding-right: 5px;
+			padding-left: 12.5px;
+		}
+		
+		.field {
 			font-size: .85rem;
 			font-weight: 600;
 			color: @charcoal;

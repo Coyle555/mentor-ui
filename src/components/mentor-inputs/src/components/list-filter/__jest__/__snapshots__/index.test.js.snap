@@ -4,30 +4,19 @@ exports[`List filter receiving new props Passing in new options New list of opti
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -64,30 +53,19 @@ exports[`List filter receiving new props Passing in new options New options pass
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="foo"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="foo"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -108,30 +86,19 @@ exports[`List filter receiving new props Passing in new value New list of option
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="op"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="op"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -161,30 +128,19 @@ exports[`List filter receiving new props Passing in new value New value passed i
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="b"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -222,30 +178,19 @@ exports[`List filter receiving new props Passing in new value Required with a ne
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="b"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -283,30 +228,19 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -343,30 +277,19 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="b"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -404,30 +327,19 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -464,30 +376,19 @@ exports[`Mounting a list filter Mounting with a required input Required with par
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on mui-mi-input-group-has-error"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on mui-mi-input-addon-has-error"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="b"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -525,30 +426,19 @@ exports[`Mounting a list filter Mounting with a required input Required with val
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value="bar"
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="bar"
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
@@ -578,30 +468,19 @@ exports[`Renders of list filters Default render of list filter 1`] = `
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group"
-  >
-    <span
-      className="mui-mi-input-addon"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
 </div>
 `;
 
@@ -609,30 +488,19 @@ exports[`Renders of list filters Render with a custom css class 1`] = `
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group"
-  >
-    <span
-      className="mui-mi-input-addon"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={false}
-      className="mui-mi-input-field apm-mi-list-filter foo"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field apm-mi-list-filter foo"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
 </div>
 `;
 
@@ -640,30 +508,19 @@ exports[`Renders of list filters Render with a custom list container css class 1
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
   <ul
     className="apm-list-filter-menu-ul container ignore-react-onclickoutside"
     style={Object {}}
@@ -675,30 +532,19 @@ exports[`Renders of list filters Render with a custom list container style 1`] =
 <div
   className="apm-mi-container"
 >
-  <div
-    className="mui-mi-input-group mui-mi-input-group-is-on"
-  >
-    <span
-      className="mui-mi-input-addon mui-mi-input-addon-is-on"
-    >
-      <i
-        className="fal fa-list"
-      />
-    </span>
-    <input
-      autoComplete="off"
-      autoFocus={true}
-      className="mui-mi-input-field apm-mi-list-filter"
-      disabled={false}
-      onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      placeholder="Select an option"
-      type="text"
-      value=""
-    />
-  </div>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field apm-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
   <ul
     className="apm-list-filter-menu-ul ignore-react-onclickoutside"
     style={

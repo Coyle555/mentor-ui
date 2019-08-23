@@ -515,24 +515,12 @@ export class ListFilter extends Component {
 			validation,
 			...props
 		} = this.props;
-		const { focused, hasError, loadingFilter, value } = this.state;
+		const { hasError, loadingFilter, value } = this.state;
 
 		const inputClasses = classNames({
 			'mui-mi-input-field apm-mi-list-filter': true,
 			[this.props.className]: !!this.props.className,
 			'apm-error-border-color': hasError
-		});
-
-		const addonClasses = classNames({
-			'mui-mi-input-addon': true,
-			'mui-mi-input-addon-is-on': focused,
-			'mui-mi-input-addon-has-error': hasError,
-		});
-
-		const inputGroupClasses = classNames({
-			'mui-mi-input-group': true,
-			'mui-mi-input-group-is-on': focused,
-			'mui-mi-input-group-has-error': hasError,
 		});
 
 		return (

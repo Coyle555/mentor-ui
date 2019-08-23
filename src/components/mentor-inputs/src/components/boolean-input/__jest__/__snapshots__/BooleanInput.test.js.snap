@@ -1,87 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BooleanInput /> with no props 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value=""
 >
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
+  <option
     value=""
   >
-    <option
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      value={true}
-    >
-      True
-    </option>
-    <option
-      value={false}
-    >
-      False
-    </option>
-  </select>
-</div>
+    Select an option
+  </option>
+  <option
+    value={true}
+  >
+    True
+  </option>
+  <option
+    value={false}
+  >
+    False
+  </option>
+</select>
 `;
 
 exports[`<BooleanInput /> with placeholder option text 1`] = `
-<div
-  className="mui-mi-input-group"
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value=""
 >
-  <span
-    className="mui-mi-input-addon"
-  >
-    <i
-      className="fal fa-list"
-    />
-  </span>
-  <select
-    className="mui-mi-input-field"
-    classes={
-      Object {
-        "addon": "mui-mi-input-addon",
-        "inputGroup": "mui-mi-input-group",
-      }
-    }
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
+  <option
     value=""
   >
-    <option
-      value=""
-    >
-      Select true or false
-    </option>
-    <option
-      value={true}
-    >
-      True
-    </option>
-    <option
-      value={false}
-    >
-      False
-    </option>
-  </select>
-</div>
+    Select true or false
+  </option>
+  <option
+    value={true}
+  >
+    True
+  </option>
+  <option
+    value={false}
+  >
+    False
+  </option>
+</select>
 `;
