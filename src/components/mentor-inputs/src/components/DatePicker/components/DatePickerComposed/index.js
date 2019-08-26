@@ -4,6 +4,7 @@ import onClickOutside from 'react-onclickoutside';
 import cn from 'classnames';
 import moment from 'moment';
 
+import { keyEvent as KeyEvent } from 'utils';
 import { DatePicker } from '../DatePicker';
 
 // default format masks for different datepicker types
@@ -187,6 +188,12 @@ class DatePickerContainer extends Component {
 		this.setState({ showPicker: false });
 	}
 
+	onKeyDown = (evt) => {
+		if (evt.keyCode === KeyEvent.DOM_VK_TAB) {
+			this.handleClose();
+		}
+	}
+
 	renderPicker = () => {
 		const { pickerStyle, portalRef } = this.props;
 		//console.log('renderPicker method - moment state: ', this.state.moment);
@@ -247,6 +254,7 @@ class DatePickerContainer extends Component {
 					disabled={disabled}
 					onChange={this.handleInputChange}
 					onFocus={this.onFocus}
+					onKeyDown={this.onKeyDown}
 					placeholder={this.getDateFormat()}
 					type="text"
 					value={value}

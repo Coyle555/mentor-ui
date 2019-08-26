@@ -148,11 +148,20 @@
 	overflow: hidden;
 	border-top-left-radius: 9.3px;
 	border-bottom-left-radius: 9.3px;
-
 	border-left: 5px solid @blue-primary;
 	border-top: 5px solid @blue-primary;
 	border-bottom: 5px solid @blue-primary;
 	cursor: pointer;
+
+	> .label {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		writing-mode: vertical-rl;
+		height: 100%;
+		text-align: center;
+		transform: rotate(180deg);
+	}
 
 	&:hover {
 		color: white;
@@ -171,13 +180,40 @@
 	border-top-right-radius: 9.3px;
 	border-bottom-right-radius: 9.3px;
 	width: 64px;
+	border-right: 5px solid @blue-primary;
+	border-top: 5px solid @blue-primary;
+	border-bottom: 5px solid @blue-primary;
+	cursor: pointer;
+
+	> .label {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		writing-mode: vertical-lr;
+		height: 100%;
+		text-align: center;
+	}
+
+	&:hover {
+		color: white;
+		background: lighten(@blue-primary, 15%);
+	}
 }
 
-.end-of-records {
+.end-of-previous-records {
 	border-right: 5px solid @ketchup;
 	border-top: 5px solid @ketchup;
 	border-bottom: 5px solid @ketchup;
 	color: white;
-	background: lighten(@ketchup, 15%);
+	background: lighten(@ketchup, 15%) !important;
+	cursor: not-allowed;
+}
+
+.end-of-next-records {
+	border-left: 5px solid @ketchup;
+	border-top: 5px solid @ketchup;
+	border-bottom: 5px solid @ketchup;
+	color: white;
+	background: lighten(@ketchup, 15%) !important;
 	cursor: not-allowed;
 }

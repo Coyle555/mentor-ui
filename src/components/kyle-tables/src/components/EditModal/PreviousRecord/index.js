@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const PreviousRecord = ({ label, hasPrevious, onClick }) => {
+export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
+	const previousClasses = classNames({
+		'previous-record': true,
+		'end-of-previous-records': !hasPrevious
+	});
+
 	return (
 		<div
-			className="previous-record end-of-records"
-			onClick={onClick}
+			className={previousClasses}
+			onClick={onPreviousClick}
 		>
-			<p style={{
-				textTransform: 'uppercase',
-				letterSpacing: '1px',
-				wordSpacing: '2px',
-				writingMode: 'vertical-lr',
-				height: '100%',
-				textAlign: 'center'
-			}}>
-				{label}
+			<p className="label">
+				{ hasPrevious
+					? label
+					: 'No Previous Record'
+				}
 			</p>
 		</div>
 	);
@@ -28,5 +30,5 @@ PreviousRecord.propTypes = {
 };
 
 PreviousRecord.defaultProps = {
-	label: 'Previous'
+	label: 'Previous Record'
 };

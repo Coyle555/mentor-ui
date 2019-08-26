@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
+import classNames from 'classnames';
 
-export const NextRecord = ({ editMode, label, onClick }) => {
+export const NextRecord = ({ hasNext, label, onClick }) => {
 	const [show, setShow] = useState(true);
 
 	const transitions = useTransition(
@@ -15,24 +16,24 @@ export const NextRecord = ({ editMode, label, onClick }) => {
 		}
 	);
 
+	const nextClasses = classNames({
+		'next-record': true,
+		'end-of-next-records': !hasNext
+	});
+
 	return transitions.map(({ item, key, props }) => {
 		return item && 
 			<animated.div
-				className="next-record"
+				className={nextClasses}
 				key={key}
 				onClick={onClick}
 				style={props}
 			>
-				<p style={{
-					textTransform: 'uppercase',
-					letterSpacing: '1px',
-					wordSpacing: '2px',
-					writingMode: 'vertical-rl',
-					height: '100%',
-					textAlign: 'center',
-					transform: 'rotate(180deg)'
-				}}>
-					{label}
+				<p className="label">
+					{ hasNext
+						? label
+						: 'No Next Record'
+					}
 				</p>
 			</animated.div>
 	});
