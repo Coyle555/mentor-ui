@@ -4,7 +4,17 @@ import PropTypes from 'prop-types';
 import { Field } from './Field';
 import { Footer } from './Footer';
 
-export const Form = ({ data, fields, title }) => {
+export const Form = ({
+	currentIndex,
+	data,
+	fields,
+	hasNext,
+	hasPrevious,
+	onNextClick,
+	onPreviousClick,
+	title,
+	totalRecords
+}) => {
 
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
@@ -46,7 +56,14 @@ export const Form = ({ data, fields, title }) => {
 					))}
 				</div>
 			</div>
-			<Footer />
+			<Footer
+				currentIndex={currentIndex + 1}
+				hasNext={hasNext}
+				hasPrevious={hasPrevious}
+				onNextClick={onNextClick}
+				onPreviousClick={onPreviousClick}
+				totalRecords={totalRecords}
+			/>
 		</div>
 	);
 };

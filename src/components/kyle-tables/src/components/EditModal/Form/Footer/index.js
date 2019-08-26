@@ -7,7 +7,7 @@ export const Footer = ({
 	hasPrevious,
 	onNextClick,
 	onPreviousClick,
-	totalCount
+	totalRecords
 }) => (
 	<div className="footer">
 		<button
@@ -17,7 +17,7 @@ export const Footer = ({
 		>
 			<i className="fas fa-chevron-left" /> Previous
 		</button>
-		{currentIndex} / {totalCount}
+		{currentIndex} / {totalRecords}
 		<button
 			disabled={!hasNext}
 			onClick={onNextClick}
@@ -34,12 +34,12 @@ Footer.propTypes = {
 	hasPrevious: PropTypes.bool,
 	onNextClick: PropTypes.func,
 	onPreviousClick: PropTypes.func,
-	totalCount: PropTypes.number
+	totalRecords: PropTypes.number
 };
 
 Footer.defaultProps = {
 	currentIndex: 0,
 	hasNext: false,
 	hasPrevious: false,
-	totalCount: 0
+	totalRecords: 0
 };
