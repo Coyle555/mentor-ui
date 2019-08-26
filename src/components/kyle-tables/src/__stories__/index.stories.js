@@ -107,7 +107,7 @@ const data = [
 		options: 'Option2',
 		file: IMAGE,
 		img: IMAGE,
-		color: '#fff',
+		color: '#0ff',
 		customColumnId: 'custom 1'
 	},
 	{

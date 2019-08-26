@@ -1,31 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SwatchesPicker } from 'react-color';
+import { GithubPicker } from 'react-color';
+
+const COLORS = [
+	'#000000', '#FFFFFF', '#B80000',
+      '#DB3E00', '#FCCB00', '#008B02',
+      '#006B76', '#1273DE', '#004DCF',
+      '#5300EB', '#EB9694', '#FAD0C3',
+      '#FEF3BD', '#C1E1C5', '#BEDADC',
+      '#C4DEF6', '#BED3F3', '#D4C4FB',
+      '#3D4B54', '#001528', '#008860',
+      '#004437', '#EE104E', '#A5F944',
+      '#003366', '#F6A230', '#4F054F',
+      '#008000', '#0000FF', '#FFFF00'
+];
 
 export class ColorField extends Component {
 
-	state = { color: '#fff' }
+	state = { color: this.props.color };
 
 	onChangeComplete = (color) => {
 		this.setState({ color: color.hex });
-					//props.onColorChange(props.rowId, props.colId, color.hex);
+		//props.onColorChange(props.rowId, props.colId, color.hex);
 	}
-
-	//const [color, setColor] = useState('#ccc');//props.color);
-	//console.log('color in color field', color);
 
 	render() {
 		const { color } = this.state;
-		console.log('color to render', color);
 
 		return (
-			<SwatchesPicker
-				color={color}
-				disableAlpha={true}
-				width="100%"
-				height="100px"
-				onChangeComplete={this.onChangeComplete}
-			/>
+			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+				<div style={{
+					width: '75px',
+					height: '75px',
+					backgroundColor: color,
+					border: '1.5px solid black',
+					textAlign: 'center',
+					borderRadius: '75px',
+					margin: '0 auto'
+				}} />
+				<GithubPicker
+					color={color}
+					colors={COLORS}
+					onChangeComplete={this.onChangeComplete}
+					width="75%"
+					triangle="hide"
+				/>
+			</div>
 		);
 	}
 };
@@ -38,5 +58,5 @@ ColorField.propTypes = {
 };
 
 ColorField.defaultProps = {
-	color: '#ccc'
+	color: '#fff'
 };
