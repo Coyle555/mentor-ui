@@ -58,6 +58,39 @@
 				font-size: 0.7rem;
 				font-weight: 500;
 			}
+
+			> .file-input-container {
+				display: flex;
+				height: 100px;
+				align-items: center;
+
+				> .file-display {
+					text-align: center;
+					width: 25%;
+
+					> .file-image {
+						max-height: 75px;
+					}
+
+					> .file-link {
+						font-size: .9rem;
+						font-weight: 500;
+					}
+
+					> .file-delete {
+						color: red;
+						margin: 15px 0 0 0;
+						font-size: .7rem;
+						font-weight: 400;
+						cursor: pointer;
+					}
+				}
+
+				> .file-input {
+					height: 100%;
+					width: 75%;
+				}
+			}
 		}
 	}
 

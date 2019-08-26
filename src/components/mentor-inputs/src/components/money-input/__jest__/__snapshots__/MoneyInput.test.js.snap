@@ -19,7 +19,7 @@ exports[`<MoneyInput /> where props.value is pi 1`] = `
   onBlur={[Function]}
   onChange={[Function]}
   placeholder="Enter dollar amount"
-  value={3.141592653589793}
+  value={3.14}
 />
 `;
 

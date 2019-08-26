@@ -2,7 +2,7 @@
 
 exports[`Default render of a list filter item 1`] = `
 <li
-  className="apm-list-filter-menu-li"
+  className="mui-list-filter-menu-li"
   onClick={[Function]}
   onMouseOver={[Function]}
 />
@@ -10,7 +10,7 @@ exports[`Default render of a list filter item 1`] = `
 
 exports[`Render of a list filter item with a custom class 1`] = `
 <li
-  className="apm-list-filter-menu-li foo"
+  className="mui-list-filter-menu-li foo"
   onClick={[Function]}
   onMouseOver={[Function]}
 />
@@ -18,7 +18,7 @@ exports[`Render of a list filter item with a custom class 1`] = `
 
 exports[`Rendering a list filter item with a custom component 1`] = `
 <li
-  className="apm-list-filter-menu-li"
+  className="mui-list-filter-menu-li"
   onClick={[Function]}
   onMouseOver={[Function]}
 >

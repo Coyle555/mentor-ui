@@ -2,12 +2,12 @@
 
 exports[`List filter receiving new props Passing in new options New list of options 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -18,11 +18,11 @@ exports[`List filter receiving new props Passing in new options New list of opti
     value=""
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -30,7 +30,7 @@ exports[`List filter receiving new props Passing in new options New list of opti
       new
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -38,7 +38,7 @@ exports[`List filter receiving new props Passing in new options New list of opti
       options
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -51,12 +51,12 @@ exports[`List filter receiving new props Passing in new options New list of opti
 
 exports[`List filter receiving new props Passing in new options New options passed in that invalidate the current value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -67,11 +67,11 @@ exports[`List filter receiving new props Passing in new options New options pass
     value="foo"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   />
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -84,12 +84,12 @@ exports[`List filter receiving new props Passing in new options New options pass
 
 exports[`List filter receiving new props Passing in new value New list of options with a value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -100,11 +100,11 @@ exports[`List filter receiving new props Passing in new value New list of option
     value="op"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -113,7 +113,7 @@ exports[`List filter receiving new props Passing in new value New list of option
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -126,12 +126,12 @@ exports[`List filter receiving new props Passing in new value New list of option
 
 exports[`List filter receiving new props Passing in new value New value passed in 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -142,11 +142,11 @@ exports[`List filter receiving new props Passing in new value New value passed i
     value="b"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -154,7 +154,7 @@ exports[`List filter receiving new props Passing in new value New value passed i
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -163,7 +163,7 @@ exports[`List filter receiving new props Passing in new value New value passed i
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -176,12 +176,12 @@ exports[`List filter receiving new props Passing in new value New value passed i
 
 exports[`List filter receiving new props Passing in new value Required with a new invalid value passed in 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -192,11 +192,11 @@ exports[`List filter receiving new props Passing in new value Required with a ne
     value="b"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -204,7 +204,7 @@ exports[`List filter receiving new props Passing in new value Required with a ne
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -213,7 +213,7 @@ exports[`List filter receiving new props Passing in new value Required with a ne
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -226,12 +226,12 @@ exports[`List filter receiving new props Passing in new value Required with a ne
 
 exports[`Mounting a list filter Mounting a non required input List of options 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -242,11 +242,11 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
     value=""
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -254,7 +254,7 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
       foo
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -262,7 +262,7 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -275,12 +275,12 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
 
 exports[`Mounting a list filter Mounting a non required input List of options with an initial value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -291,11 +291,11 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
     value="b"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -303,7 +303,7 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -312,7 +312,7 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -325,12 +325,12 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
 
 exports[`Mounting a list filter Mounting with a required input Required with no value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -341,11 +341,11 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
     value=""
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -353,7 +353,7 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
       foo
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -361,7 +361,7 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -374,12 +374,12 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
 
 exports[`Mounting a list filter Mounting with a required input Required with partial value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -390,11 +390,11 @@ exports[`Mounting a list filter Mounting with a required input Required with par
     value="b"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -402,7 +402,7 @@ exports[`Mounting a list filter Mounting with a required input Required with par
       bar
     </li>
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -411,7 +411,7 @@ exports[`Mounting a list filter Mounting with a required input Required with par
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -424,12 +424,12 @@ exports[`Mounting a list filter Mounting with a required input Required with par
 
 exports[`Mounting a list filter Mounting with a required input Required with valid value 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -440,11 +440,11 @@ exports[`Mounting a list filter Mounting with a required input Required with val
     value="bar"
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={Object {}}
   >
     <li
-      className="apm-list-filter-menu-li"
+      className="mui-list-filter-menu-li"
       onClick={[Function]}
       onMouseOver={[Function]}
       style={Object {}}
@@ -453,7 +453,7 @@ exports[`Mounting a list filter Mounting with a required input Required with val
     </li>
   </ul>
   <span
-    className="apm-mi-clear-input"
+    className="mui-mi-clear-input"
     data-testid="clear-input"
     onClick={[Function]}
   >
@@ -466,12 +466,12 @@ exports[`Mounting a list filter Mounting with a required input Required with val
 
 exports[`Renders of list filters Default render of list filter 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -486,12 +486,12 @@ exports[`Renders of list filters Default render of list filter 1`] = `
 
 exports[`Renders of list filters Render with a custom css class 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field apm-mi-list-filter foo"
+    className="mui-mi-input-field mui-mi-list-filter foo"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -506,12 +506,12 @@ exports[`Renders of list filters Render with a custom css class 1`] = `
 
 exports[`Renders of list filters Render with a custom list container css class 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -522,7 +522,7 @@ exports[`Renders of list filters Render with a custom list container css class 1
     value=""
   />
   <ul
-    className="apm-list-filter-menu-ul container ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul container ignore-react-onclickoutside"
     style={Object {}}
   />
 </div>
@@ -530,12 +530,12 @@ exports[`Renders of list filters Render with a custom list container css class 1
 
 exports[`Renders of list filters Render with a custom list container style 1`] = `
 <div
-  className="apm-mi-container"
+  className="mui-mi-container"
 >
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field apm-mi-list-filter"
+    className="mui-mi-input-field mui-mi-list-filter"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -546,7 +546,7 @@ exports[`Renders of list filters Render with a custom list container style 1`] =
     value=""
   />
   <ul
-    className="apm-list-filter-menu-ul ignore-react-onclickoutside"
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
     style={
       Object {
         "width": 10,
