@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
 
+import { Portal } from './Portal';
 import { Form } from './Form';
 import { NextRecord } from './NextRecord';
 import { PreviousRecord } from './PreviousRecord';
@@ -12,31 +12,23 @@ export const EditModal = ({ data, fields, editMode }) => {
 
 	const [recordIndex, setRecordIndex] = useState(0);
 
-	useEffect(() => {
-		const editRoot = document.getElementById('mui-table-edit-root');
-
-		if (editMode) {
-			editRoot.style.display = 'flex';
-			editRoot.style.justifyContent = 'space-between';
-			editRoot.style.alignItems = 'center';
-		} else {
-			editRoot.style.display = 'none';
-		}
-	}, [editMode]);
-
 	const onNextClick = useCallback(() => {
+		if (recordIndex + 1 >= data.length) return;
+
 		setRecordIndex(recordIndex + 1);
 	});
 
 	const onPreviousClick = useCallback(() => {
+		if (recordIndex - 1 < 0) return;
+
 		setRecordIndex(recordIndex - 1);
 	});
 
 	const hasPrevious = recordIndex > 0;
 	const hasNext = recordIndex + 1 < data.length;
 
-	return createPortal(
-		<Fragment>
+	return (
+		<Portal>
 			<PreviousRecord
 				label={hasPrevious
 					? data[recordIndex - 1].name
@@ -61,8 +53,7 @@ export const EditModal = ({ data, fields, editMode }) => {
 				hasNext={hasNext}
 				onClick={onNextClick}
 			/>
-		</Fragment>,
-		document.getElementById('mui-table-edit-root')
+		</Portal>
 	);
 };
 

@@ -152,6 +152,13 @@
 	border-top: 5px solid @blue-primary;
 	border-bottom: 5px solid @blue-primary;
 	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	width: 64px;
 
 	> .label {
 		text-transform: uppercase;
@@ -170,43 +177,19 @@
 }
 
 .previous-record {
-	background: white;
-	height: 60%;
-	padding: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: hidden;
+	.next-record();
+
 	border-top-right-radius: 9.3px;
 	border-bottom-right-radius: 9.3px;
-	width: 64px;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
 	border-right: 5px solid @blue-primary;
-	border-top: 5px solid @blue-primary;
-	border-bottom: 5px solid @blue-primary;
-	cursor: pointer;
+	border-left: none;
 
 	> .label {
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		word-spacing: 2px;
 		writing-mode: vertical-lr;
-		height: 100%;
-		text-align: center;
+		transform: none;
 	}
-
-	&:hover {
-		color: white;
-		background: lighten(@blue-primary, 15%);
-	}
-}
-
-.end-of-previous-records {
-	border-right: 5px solid @ketchup;
-	border-top: 5px solid @ketchup;
-	border-bottom: 5px solid @ketchup;
-	color: white;
-	background: lighten(@ketchup, 15%) !important;
-	cursor: not-allowed;
 }
 
 .end-of-next-records {
@@ -217,3 +200,11 @@
 	background: lighten(@ketchup, 15%) !important;
 	cursor: not-allowed;
 }
+
+.end-of-previous-records {
+	.end-of-next-records();
+
+	border-right: 5px solid @ketchup;
+	border-left: none;
+}
+
