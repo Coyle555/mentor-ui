@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { DatePickerComposed } from '../';
+import DatePickerInput from '../DatePickerInput';
 
-storiesOf('DatePicker/DatePickerComposed', module)
+storiesOf('DatePicker', module)
 	.add('general', () =>
-		<DatePickerComposed
+		<DatePickerInput
 			maxDate='2019-08-01'
 			minDate='2019-06-01'
 			minHour={15}

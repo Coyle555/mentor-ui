@@ -5,7 +5,7 @@ import cn from 'classnames';
 import moment from 'moment';
 
 import { keyEvent as KeyEvent } from 'utils';
-import { DatePicker } from '../DatePicker';
+import { DatePicker } from 'datepicker';
 
 // default format masks for different datepicker types
 const DEFAULT_FORMAT_MASKS = {
@@ -13,7 +13,6 @@ const DEFAULT_FORMAT_MASKS = {
 	date: 'YYYY-MM-DD',
 	time: 'HH:mm'
 };
-
 
 class DatePickerContainer extends Component {
 	constructor(props) {
@@ -319,4 +318,4 @@ DatePickerContainer.defaultProps = {
 	value: ''
 }
 
-export const DatePickerComposed = onClickOutside(DatePickerContainer);
+export default onClickOutside(DatePickerContainer);

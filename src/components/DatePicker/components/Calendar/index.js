@@ -131,7 +131,7 @@ export function Calendar(props) {
 export function buttonCallback(
 	m,
 	setDays,
-	getDays,
+	getDays
 ) {
 	return () => {
 		setDays(getDays(m));
@@ -164,7 +164,7 @@ export function getDays(m) {
 export function	selectDate(
 	m, // moment object
 	onChange,
-	buttonCallback,
+	buttonCallback
 ) {
 	return (day, week) => {
 		const prevMonth = week === 0 && day > 7;
@@ -182,7 +182,7 @@ export function	selectDate(
 export function leftButtonCallback(
 	m, // moment object
 	minDate,
-	callback,
+	callback
 ) {
 	return (evt) => {
 		evt.preventDefault();
@@ -200,7 +200,7 @@ export function leftButtonCallback(
 export function	rightButtonCallback(
 	m, // moment object
 	maxDate,
-	callback,
+	callback
 ) {
 	return (evt) => {
 		evt.preventDefault();

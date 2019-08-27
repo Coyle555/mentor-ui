@@ -18,6 +18,7 @@ module.exports = {
 				alias: {
 					components: path.join(__dirname, './src/components'),
 					utils: path.join(__dirname, './src/utils'),
+					datepicker: path.join(__dirname, './src/components/DatePicker/index.js'),
 					'mentor-inputs': path.join(__dirname, './src/components/mentor-inputs/src/index.js'),
 					'structured-query': path.join(__dirname, './src/components/structured-query/src/index.js'),
 					'insert-popup-form': path.join(__dirname, './src/components/InsertPopupForm/index.js'),

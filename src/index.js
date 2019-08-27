@@ -15,6 +15,7 @@ export * from './components/Panel/index';
 export * from './components/Panel/PanelSeries/index';
 export * from './components/Spinner';
 export * from './components/ToggleButton';
+export * from './components/DatePicker';
 
 
 export * from './components/mentor-inputs/src/index';

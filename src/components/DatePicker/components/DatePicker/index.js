@@ -69,10 +69,7 @@ export function DatePicker(props) {
 		: new Moment().hour(0).minute(0)
 	);
 
-	const [isDateDisabled, isTimeDisabled] = getIsDisabled(
-		TYPES,
-		type,
-	);
+	const [isDateDisabled, isTimeDisabled] = getIsDisabled(TYPES, type);
 
 	const cc = composeNamespace('APMDatePicker', className);
 

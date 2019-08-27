@@ -6,7 +6,7 @@ import { FileField } from './File';
 import { ImageField } from './Image';
 import {
 	getMentorInput,
-	DatePickerComposed,
+	DatePickerInput,
 	EmailInput,
 	FloatInput,
 	IntegerInput,
@@ -62,7 +62,7 @@ export const Field = ({
 	} else if (type === 'date' || type === 'datetime') {
 
 		return (
-			<DatePickerComposed
+			<DatePickerInput
 				disabled={!updateable}
 				type={type}
 			/>

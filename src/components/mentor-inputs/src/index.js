@@ -1,5 +1,5 @@
 import BooleanInputComponent from './components/boolean-input/booleanInput';
-
+import DatePickerInputComponent from './components/datepicker-input/DatePickerInput';
 import EmailInputComponent from './components/email-input/emailInput';
 import FileInputComponent from './components/file-input/fileInput';
 import FloatInputComponent from './components/float-input/floatInput';
@@ -16,6 +16,7 @@ import UrlInputComponent from './components/url-input/urlInput';
 import { getMentorInput as getMentorInputFunc } from './utils/utils';
 
 export const BooleanInput = BooleanInputComponent;
+export const DatePickerInput = DatePickerInputComponent;
 export const EmailInput = EmailInputComponent;
 export const FileInput = FileInputComponent;
 export const FloatInput = FloatInputComponent;
@@ -31,6 +32,5 @@ export const UrlInput = UrlInputComponent;
 
 export * from './components/mui-input/index';
 export * from './hooks/index';
-export * from './components/datepicker-input';
 
 export const getMentorInput = getMentorInputFunc;

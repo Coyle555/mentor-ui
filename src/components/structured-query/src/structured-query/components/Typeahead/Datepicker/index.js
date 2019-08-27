@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { DatePicker as Picker } from 'mentor-inputs';
+import { DatePickerInput } from 'mentor-inputs';
 
 export class DatePicker extends Component {
 
@@ -30,7 +30,7 @@ export class DatePicker extends Component {
 
 		return (
 			<div className="datepicker">
-				<Picker
+				<DatePickerInput
 					clearInput={clearInput}
 					handleClose={handleClose}
 					moment={datetime}
