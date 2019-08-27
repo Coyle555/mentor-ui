@@ -8,7 +8,17 @@ import { PreviousRecord } from './PreviousRecord';
 
 import './styles.less';
 
-export const EditModal = ({ data, fields, editMode }) => {
+export const EditModal = ({
+	data,
+	editMode,
+	fields,
+	onBlur,
+	onDeleteFileClick,
+	onOptionMatch,
+	uploadFile
+}) => {
+
+	if (!editMode) return null;
 
 	const [recordIndex, setRecordIndex] = useState(0);
 
@@ -28,7 +38,10 @@ export const EditModal = ({ data, fields, editMode }) => {
 	const hasNext = recordIndex + 1 < data.length;
 
 	return (
-		<Portal>
+		<Portal 
+			goToNextRecord={onNextClick}
+			goToPreviousRecord={onPreviousClick}
+		>
 			<PreviousRecord
 				label={hasPrevious
 					? data[recordIndex - 1].name
@@ -44,14 +57,18 @@ export const EditModal = ({ data, fields, editMode }) => {
 				fields={fields}
 				hasPrevious={hasPrevious}
 				hasNext={hasNext}
+				onBlur={onBlur}
+				onDeleteFileClick={onDeleteFileClick}
 				onNextClick={onNextClick}
+				onOptionMatch={onOptionMatch}
 				onPreviousClick={onPreviousClick}
 				title={data[recordIndex].name || 'Title'}
 				totalRecords={data.length}
+				uploadFile={uploadFile}
 			/>
 			<NextRecord
 				hasNext={hasNext}
-				onClick={onNextClick}
+				onNextClick={onNextClick}
 			/>
 		</Portal>
 	);
@@ -61,6 +78,10 @@ EditModal.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.object),
 	editMode: PropTypes.bool,
 	fields: PropTypes.arrayOf(PropTypes.object),
+	onBlur: PropTypes.func,
+	onDeleteFileClick: PropTypes.func,
+	onOptionMatch: PropTypes.func,
+	uploadFile: PropTypes.func
 };
 
 EditModal.defaultProps = {

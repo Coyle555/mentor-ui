@@ -18,13 +18,23 @@ import {
 	UrlInput
 } from 'mentor-inputs';
 
-export const Field = ({ options, type, updateable, value }) => {
+export const Field = ({
+	onBlur,
+	onDeleteFileClick,
+	onOptionMatch,
+	options,
+	type,
+	updateable,
+	uploadFile,
+	value
+}) => {
 
 	if (type === 'listfilter') {
 
 		return (
 			<ListFilter
 				disabled={!updateable}
+				onOptionMatch={onOptionMatch}
 				options={options}
 				value={value}
 			/>
@@ -44,7 +54,6 @@ export const Field = ({ options, type, updateable, value }) => {
 
 		return (
 			<ColorField
-				color={value}
 				disabled={!updateable}
 				value={value}
 			/>
@@ -117,6 +126,8 @@ export const Field = ({ options, type, updateable, value }) => {
 		
 		return (
 			<ImageField
+				onDeleteClick={onDeleteFileClick}
+				uploadFile={uploadFile}
 				value={value}
 			/>
 		);
@@ -125,6 +136,8 @@ export const Field = ({ options, type, updateable, value }) => {
 		
 		return (
 			<FileField
+				onDeleteClick={onDeleteFileClick}
+				uploadFile={uploadFile}
 				value={value}
 			/>
 		);

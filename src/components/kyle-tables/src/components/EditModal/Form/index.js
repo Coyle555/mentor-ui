@@ -10,14 +10,24 @@ export const Form = ({
 	fields,
 	hasNext,
 	hasPrevious,
+	onBlur,
+	onDeleteFileClick,
 	onNextClick,
+	onOptionMatch,
 	onPreviousClick,
 	title,
-	totalRecords
+	totalRecords,
+	uploadFile
 }) => {
 
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
+	const props = {
+		onBlur,
+		onDeleteFileClick,
+		onOptionMatch,
+		uploadFile,
+	};
 
 	return (
 		<div className="edit-form">
@@ -34,6 +44,7 @@ export const Form = ({
 							}
 							<Field
 								{...field}
+								{...props}
 								value={data[field.id]}
 							/>
 						</div>
@@ -50,6 +61,7 @@ export const Form = ({
 							}
 							<Field
 								{...field}
+								{...props}
 								value={data[field.id]}
 							/>
 						</div>

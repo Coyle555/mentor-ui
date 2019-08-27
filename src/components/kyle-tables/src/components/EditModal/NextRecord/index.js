@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
 import classNames from 'classnames';
 
-export const NextRecord = ({ hasNext, label, onClick }) => {
+export const NextRecord = ({ hasNext, label, onNextClick }) => {
 	const [show, setShow] = useState(true);
 
 	const transitions = useTransition(
@@ -26,7 +26,7 @@ export const NextRecord = ({ hasNext, label, onClick }) => {
 			<animated.div
 				className={nextClasses}
 				key={key}
-				onClick={onClick}
+				onClick={onNextClick}
 				style={props}
 			>
 				<p className="label">
@@ -41,7 +41,7 @@ export const NextRecord = ({ hasNext, label, onClick }) => {
 
 NextRecord.propTypes = {
 	label: PropTypes.string,
-	onClick: PropTypes.func
+	onNextClick: PropTypes.func
 };
 
 NextRecord.defaultProps = {

@@ -17,7 +17,13 @@ const COLORS = [
 
 export class ColorField extends Component {
 
-	state = { color: this.props.color };
+	state = { color: this.props.value };
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.value !== this.props.value) {
+			this.setState({ color: this.props.value });
+		}
+	}
 
 	onChangeComplete = (color) => {
 		this.setState({ color: color.hex });
@@ -44,11 +50,6 @@ export class ColorField extends Component {
 
 ColorField.propTypes = {
 	colId: PropTypes.string,
-	color: PropTypes.string,
 	onColorChange: PropTypes.func,
 	rowId: PropTypes.string
-};
-
-ColorField.defaultProps = {
-	color: '#fff'
 };

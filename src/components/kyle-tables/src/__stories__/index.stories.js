@@ -107,7 +107,7 @@ const data = [
 		options: 'Option2',
 		file: IMAGE,
 		img: IMAGE,
-		color: '#0ff',
+		color: '#000000',
 		customColumnId: 'custom 1'
 	},
 	{
@@ -117,7 +117,7 @@ const data = [
 		num: 31,
 		object: { id: 'apple', name: 'Apple' },
 		string: 'Another desc that is going to be really long. The quick brown fox jumped over the lazy dog.',
-		color: '#ccc',
+		color: '#B80000',
 		customColumnId: 'custom 2'
 	},
 	{
@@ -127,6 +127,7 @@ const data = [
 		object: { id: 'test', name: 'Test' },
 		num: 938,
 		string: 'Foo bar',
+		color: '#FCCB00',
 		options: 'Option3',
 		customColumnId: 'custom 3'
 	},
@@ -135,6 +136,7 @@ const data = [
 		float: .5,
 		id: 'row4',
 		string: 'bar',
+		color: '#008B02',
 		img: IMAGE
 	},
 	{
@@ -142,6 +144,7 @@ const data = [
 		float: .5,
 		id: 'row5',
 		object: { id: 'abc', name: 'ABC' },
+		color: '#DB3E00',
 		num: 12,
 	},
 ];

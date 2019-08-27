@@ -28,17 +28,18 @@ export class Table extends Component {
 		excelURL: PropTypes.string,
 		pdfURL: PropTypes.string,
 		columns: PropTypes.arrayOf(PropTypes.shape({
-			color: PropTypes.bool,
 			display: PropTypes.bool,
-			file: PropTypes.bool,
 			id: PropTypes.string,
-			image: PropTypes.bool,
 			insertable: PropTypes.bool,
 			label: PropTypes.string,
-			multiline: PropTypes.bool,
 			options: PropTypes.arrayOf(PropTypes.string),
 			required: PropTypes.bool,
-			type: PropTypes.string,
+			type: PropTypes.oneOf([
+				'string', 'integer', 'float', 'multiline',
+				'email', 'money', 'url', 'datetime',
+				'date', 'time', 'image', 'listfilter',
+				'file', 'color'
+			]),
 			updateable: PropTypes.bool
 		})),
 		currentPage: PropTypes.number,
@@ -313,15 +314,6 @@ export class Table extends Component {
 		}
 	}
 
-	// handle deletion when user deletes an image
-	_onDeleteImageClick = (rowId, colId) => {
-		const { updateCb } = this.props;
-
-		if (typeof updateCb === 'function') {
-			updateCb(rowId, colId, null);
-		}
-	}
-
 	// Either show hidden columns or hide visible columns
 	// @event(user event)
 	// 	event.target.name: column id to show/hide
@@ -387,11 +379,20 @@ export class Table extends Component {
 		}
 	}
 
-	_uploadFileCb = (rowId, colId, files) => {
+	_uploadFile = (rowId, colId, files) => {
 		const { uploadFileCb } = this.props;
 
 		if (typeof uploadFileCb === 'function') {
 			uploadFileCb(rowId, colId, files);
+		}
+	}
+
+	// handle deletion when user deletes a file
+	_onDeleteFileClick = (rowId, colId) => {
+		const { updateCb } = this.props;
+
+		if (typeof updateCb === 'function') {
+			updateCb(rowId, colId, null);
 		}
 	}
 
@@ -622,12 +623,16 @@ export class Table extends Component {
 					/>
 				}
 				<EditModal
-					fields={cloneDeep(columns)}
 					data={Object.keys(selectedRows).length > 0
 						? data.map(d => selectedRows[d.id])
 						: data
 					}
 					editMode={editMode || true}
+					fields={cloneDeep(columns)}
+					onBlur={this._onBlur}
+					onDeleteFileClick={this._onDeleteFileClick}
+					onOptionMatch={this._onOptionMatch}
+					uploadFile={this._uploadFile}
 				/>
 				{ this.renderLayout() }
 			</React.Fragment>
