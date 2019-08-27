@@ -12,7 +12,6 @@ import TextInputComponent from './components/text-input/textInput';
 import TextareaInputComponent from './components/textarea-input/textareaInput';
 import TableInputComponent from './components/table-input/index';
 import UrlInputComponent from './components/url-input/urlInput';
-import APMDropzoneComponent from './components/Dropzone';
 
 import { getMentorInput as getMentorInputFunc } from './utils/utils';
 
@@ -29,10 +28,9 @@ export const TableInput = TableInputComponent;
 export const TextInput = TextInputComponent;
 export const TextareaInput = TextareaInputComponent;
 export const UrlInput = UrlInputComponent;
-export const APMDropzone = APMDropzoneComponent;
 
 export * from './components/mui-input/index';
 export * from './hooks/index';
-export * from './components/DatePicker';
+export * from './components/datepicker-input';
 
 export const getMentorInput = getMentorInputFunc;

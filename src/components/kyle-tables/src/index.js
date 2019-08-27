@@ -38,7 +38,7 @@ export class Table extends Component {
 				'string', 'integer', 'float', 'multiline',
 				'email', 'money', 'url', 'datetime',
 				'date', 'time', 'image', 'listfilter',
-				'file', 'color'
+				'file', 'color', 'boolean'
 			]),
 			updateable: PropTypes.bool
 		})),

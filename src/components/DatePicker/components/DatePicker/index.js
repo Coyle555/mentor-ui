@@ -196,11 +196,7 @@ export function isFormatValid(format, m) { // m = moment
 		&& format.match(/\d/) === null
 }
 
-export function onChangeCallback(
-	onChange,
-	mask,
-	setM,
-) {
+export function onChangeCallback(onChange, mask, setM) {
 	return (m) => { // m = moment
 		const value = m.format(mask);
 
@@ -209,11 +205,7 @@ export function onChangeCallback(
 	}
 }
 
-export function onClearCallback(
-	onClear,
-	setM,
-	Moment,
-) {
+export function onClearCallback(onClear, setM, Moment) {
 	return () => {
 		onClear();
 		setM(new Moment());
