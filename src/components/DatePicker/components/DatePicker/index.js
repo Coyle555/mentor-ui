@@ -35,9 +35,9 @@ const TAB_OPTIONS = Object.freeze([
 ]);
 
 const DEFAULT_FORMAT_MASKS = Object.freeze({
-	[TYPES.datetime]: 'YYYY-MM-DD HH:mm',
-	[TYPES.date]: 'YYYY-MM-DD',
-	[TYPES.time]: 'HH:mm'
+	[TYPES.datetime]: 'MMM DD, YYYY - hh:mm a',
+	[TYPES.date]: 'MMM DD, YYYY',
+	[TYPES.time]: 'hh:mm a'
 });
 
 

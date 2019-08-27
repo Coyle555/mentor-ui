@@ -6,22 +6,19 @@ import moment from 'moment';
 
 import { keyEvent as KeyEvent } from 'utils';
 import { DatePicker } from 'datepicker';
+import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
 
 // default format masks for different datepicker types
-const DEFAULT_FORMAT_MASKS = {
-	datetime: 'YYYY-MM-DD HH:mm',
-	date: 'YYYY-MM-DD',
-	time: 'HH:mm'
-};
 
 class DatePickerContainer extends Component {
+
 	constructor(props) {
 		super(props);
 
-		const { required, value } = this.props;
-		const mask = this.getDateFormat();
+		const { required, type, value } = this.props;
+		const mask = getDateFormat(type);
 
-		const isValid = moment(value).isValid();
+		const isValid = moment(value, mask).isValid();
 		const firstMoment = isValid
 			? new moment(value, mask)
 			: new moment(new Date(), mask)
@@ -77,10 +74,6 @@ class DatePickerContainer extends Component {
 		}
 	}
 
-	getDateFormat = () => {
-		return DEFAULT_FORMAT_MASKS[this.props.type];
-	}
-
 	handleClickOutside = () => {
 		const { name, onBlur } = this.props;
 		const { hasError, value } = this.state;
@@ -102,44 +95,16 @@ class DatePickerContainer extends Component {
 	}
 
 
-	validDate(value) {
-		const { type } = this.props;
-		const mask = this.getDateFormat();
-		let valid;
-
-		if (value.length !== mask.length) {
-			return false;
-		}
-
-		if (type === 'datetime') {
-			valid = /\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}/.test(value);
-
-		} else if (type === 'date') {
-			valid = /\d{4}-\d{2}-\d{2}/.test(value);
-
-		} else if (type === 'time') {
-			valid = /\d{2}:\d{2}/.test(value);
-
-		}
-
-		return valid ? new moment(value, mask).isValid() : false;
-	}
-
 	handleInputChange = evt => {
-		const { name, onChange, required } = this.props;
-		const mask = this.getDateFormat();
+		const { name, onChange, required, type } = this.props;
+		const mask = getDateFormat(type);
 
 		const value = evt.target.value;
-		let hasError = value.length > 0
-			? !this.validDate(value)
-			: !!required;
-
-		const isValidValue = this.validDate(value);
+		const isValidValue = isValidDate(value, mask);
+		const hasError = (value.length > 0 && !isValidValue) || (!value && !!required);
 
 		if (isValidValue) {
-			this.setState({
-				moment: new moment(value, mask)
-			})
+			this.setState({ moment: new moment(value, mask) });
 		}
 
 		this.setState({
@@ -157,12 +122,15 @@ class DatePickerContainer extends Component {
 	handleDateTimeChange = (value) => {
 		const { name, onChange, required, type } = this.props;
 
+		// if user clears the input from the datepicker
+		let hasError = !!required && !value;
+
 		this.setState({
-			hasError: !!required && !value,
+			hasError,
 			value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(false, value, name);
+				onChange(hasError, value, name);
 			};
 		});
 	};
@@ -195,7 +163,6 @@ class DatePickerContainer extends Component {
 
 	renderPicker = () => {
 		const { pickerStyle, portalRef } = this.props;
-		//console.log('renderPicker method - moment state: ', this.state.moment);
 
 		const picker = (
 			<div
@@ -224,20 +191,8 @@ class DatePickerContainer extends Component {
 	}
 
 	render() {
-		const {
-			hasError,
-			pickerEnabled,
-			showPicker,
-			value,
-		} = this.state;
-
-		const {
-			disabled,
-			error,
-			name,
-			type,
-			className,
-		} = this.props;
+		const { hasError, pickerEnabled, showPicker, value } = this.state;
+		const { className, disabled, error, name, type } = this.props;
 
 		const inputClasses = cn({
 			'mui-mi-input-field': true,
@@ -254,7 +209,7 @@ class DatePickerContainer extends Component {
 					onChange={this.handleInputChange}
 					onFocus={this.onFocus}
 					onKeyDown={this.onKeyDown}
-					placeholder={this.getDateFormat()}
+					placeholder={getPlaceholder(type)}
 					type="text"
 					value={value}
 				/>

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import DatePickerInput from '../DatePickerInput';
 
-storiesOf('DatePicker', module)
+storiesOf('Inputs/DatePickerInput', module)
 	.add('general', () =>
 		<DatePickerInput
 			maxDate='2019-08-01'
