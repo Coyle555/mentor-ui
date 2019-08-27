@@ -100,7 +100,7 @@ class DatePickerContainer extends Component {
 		const mask = getDateFormat(type);
 
 		const value = evt.target.value;
-		const isValidValue = isValidDate(value, mask);
+		const isValidValue = isValidDate(value, mask, type);
 		const hasError = (value.length > 0 && !isValidValue) || (!value && !!required);
 
 		if (isValidValue) {
