@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSpring, animated } from 'react-spring';
 
 import { Field } from './Field';
 import { Footer } from './Footer';
@@ -19,7 +20,6 @@ export const Form = ({
 	totalRecords,
 	uploadFile
 }) => {
-
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
 	const props = {
@@ -29,8 +29,14 @@ export const Form = ({
 		uploadFile,
 	};
 
+	const motionProps = useSpring({
+		from: { opacity: 0, transform: 'translateX(200px)' },
+		to: { opacity: 1, transform: 'translateX(0px)' },
+		reset: true
+	});
+
 	return (
-		<div className="edit-form">
+		<animated.div className="edit-form" style={motionProps}>
 			<h2 className="title">{title}</h2>
 			<div className="field-container">
 				<div className="left-fields">
@@ -76,7 +82,7 @@ export const Form = ({
 				onPreviousClick={onPreviousClick}
 				totalRecords={totalRecords}
 			/>
-		</div>
+		</animated.div>
 	);
 };
 
