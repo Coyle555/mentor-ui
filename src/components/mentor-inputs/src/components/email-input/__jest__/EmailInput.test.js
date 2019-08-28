@@ -14,6 +14,12 @@ test('<EmailInput /> with no props', () => {
 	 expect(tree).toMatchSnapshot();
 });
 
+test('Email with a custom placeholder', () => {
+	const tree = renderer.create(<EmailInput placeholder="Test Placeholder" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 
 test('<EmailInput /> with a required attribute', () => {
  	const component = renderer.create( 
@@ -51,15 +57,16 @@ test('<EmailInput /> with autocomplete enabled', () => {
 test('<EmailInput /> verifies its an actual email with expected error message', () => {
 	const onBlur = jest.fn().mockImplementation((err) => err);
 
-	const { container } = render(
+	const { container, debug } = render(
 		<EmailInput onBlur={onBlur} value="notanemail.com" />
 	);
 
-	fireEvent.focus(container.querySelector('input[type="email"]'));	
-	fireEvent.change(container.querySelector('input[type="email"]'), { target: { value: 'fakeme-gmail.com' }});
-	fireEvent.blur(container.querySelector('input[type="email"]'));	
+	fireEvent.focus(container.querySelector('input[type="text"]'));	
+	fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: 'fakeme-gmail.com' }});
+	fireEvent.blur(container.querySelector('input[type="text"]'));	
 	
 	expect(onBlur.mock.results[0].value).toBe('Not a valid email address.');
+	expect(container.querySelector('input[type="text"]').className).toBe('mui-mi-input-field mui-mi-input-field-has-error');
 });
 
 test('<EmailInput /> handles custom validation', () => {
@@ -75,11 +82,12 @@ test('<EmailInput /> handles custom validation', () => {
 		/>
 	);
 
-	fireEvent.focus(container.querySelector('input[type="email"]'));	
-	fireEvent.change(container.querySelector('input[type="email"]'), { target: { value: 'a@gmail.com' }});
-	fireEvent.blur(container.querySelector('input[type="email"]'));		
+	fireEvent.focus(container.querySelector('input[type="text"]'));	
+	fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: 'a@gmail.com' }});
+	fireEvent.blur(container.querySelector('input[type="text"]'));		
 	
 	expect(onChange.mock.results[0].value).toBe('No Gmail Allowed');
+	expect(container.querySelector('input[type="text"]').className).toBe('mui-mi-input-field mui-mi-input-field-has-error');
 });
 
 

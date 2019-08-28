@@ -25,7 +25,7 @@ const FileInput = ({ label, name, onDrop }) => {
 	return (
 		<div {...rootProps}>
 			<input {...getInputProps()} />
-			<p className={classes} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 600, fontSize: '1rem' }}>{label}</p>
+			<p className={classes}>{label}</p>
 		</div>
 	);
 }
