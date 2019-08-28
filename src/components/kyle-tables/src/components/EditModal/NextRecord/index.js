@@ -10,8 +10,8 @@ export const NextRecord = ({ hasNext, label, onNextClick }) => {
 	});
 
 	const motionProps = useSpring({
-		from: { width: '0px' },
-		to: { width: '64px' }
+		from: { opacity: 0, width: '0px' },
+		to: { opacity: 1, width: '64px' }
 	});
 
 	return (

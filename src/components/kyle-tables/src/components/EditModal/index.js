@@ -12,6 +12,7 @@ export const EditModal = ({
 	data,
 	editMode,
 	fields,
+	getRowName,
 	onBlur,
 	onDeleteFileClick,
 	onOptionMatch,
@@ -51,7 +52,6 @@ export const EditModal = ({
 				onPreviousClick={onPreviousClick}
 			/>
 			<Form
-				changeRecord={(newIndex) => setRecordIndex(newIndex)}
 				currentIndex={recordIndex}
 				data={data[recordIndex]}
 				fields={fields}
@@ -62,7 +62,10 @@ export const EditModal = ({
 				onNextClick={onNextClick}
 				onOptionMatch={onOptionMatch}
 				onPreviousClick={onPreviousClick}
-				title={data[recordIndex].name || data[recordIndex].id}
+				title={typeof getRowName === 'function'
+					? getRowName(data[recordIndex])
+					: data[recordIndex].id
+				}
 				totalRecords={data.length}
 				uploadFile={uploadFile}
 			/>

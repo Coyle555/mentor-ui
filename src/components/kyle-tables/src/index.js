@@ -38,7 +38,8 @@ export class Table extends Component {
 				'string', 'integer', 'float', 'multiline',
 				'email', 'money', 'url', 'datetime',
 				'date', 'time', 'image', 'listfilter',
-				'file', 'color', 'boolean'
+				'file', 'color', 'boolean', 'select',
+				'textarea'
 			]),
 			updateable: PropTypes.bool
 		})),
@@ -608,7 +609,7 @@ export class Table extends Component {
 	}
 
 	render() {
-		const { data, formFields, initInsertData } = this.props;
+		const { data, formFields, getRowName, initInsertData } = this.props;
 		const { columns, editMode, insertMode, insertType, selectedRows } = this.state;
 
 		return (
@@ -626,11 +627,12 @@ export class Table extends Component {
 				}
 				<EditModal
 					data={Object.keys(selectedRows).length > 0
-						? data.map(d => selectedRows[d.id])
+						? data.filter(d => selectedRows[d.id])
 						: data
 					}
 					editMode={editMode}
 					fields={cloneDeep(columns)}
+					getRowName={getRowName}
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}
 					onOptionMatch={this._onOptionMatch}

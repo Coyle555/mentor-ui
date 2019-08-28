@@ -23,135 +23,54 @@ export const Field = ({
 	onDeleteFileClick,
 	onOptionMatch,
 	options,
+	required,
 	type,
 	updateable,
 	uploadFile,
-	value
+	value,
+	...props
 }) => {
+	type = Array.isArray(options) && type !== 'listfilter' ? 'select' : type;
 
-	if (type === 'listfilter') {
+	let Input;
+	let inputProps = {
+		disabled: !updateable,
+		required,
+		type,
+		value
+	};
 
-		return (
-			<ListFilter
-				disabled={!updateable}
-				onOptionMatch={onOptionMatch}
-				options={options}
-				value={value}
+	if (type === 'image') {
+		Input = (
+			<ImageField
+				{...inputProps}
+				onDeleteClick={onDeleteFileClick}
+				uploadFile={uploadFile}
 			/>
 		);
-
-	} else if (Array.isArray(options)) {
-
-		return (
-			<SelectInput
-				disabled={!updateable}
-				options={options}
-				value={value}
+	} else if (type === 'file') {
+		Input = (
+			<FileField
+				{...inputProps}
+				onDeleteClick={onDeleteFileClick}
+				uploadFile={uploadFile}
 			/>
 		);
-
 	} else if (type === 'color') {
 
-		return (
-			<ColorField
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'date' || type === 'datetime') {
-
-		return (
-			<DatePickerInput
-				disabled={!updateable}
-				type={type}
-			/>
-		);
-
-	} else if (type === 'integer') {
-
-		return (
-			<IntegerInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'float') {
-
-		return (
-			<FloatInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'multiline') {
-
-		return (
-			<TextareaInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'money') {
-
-		return (
-			<MoneyInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'url') {
-
-		return (
-			<UrlInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'email') {
-
-		return (
-			<EmailInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'image') {
-		
-		return (
-			<ImageField
-				onDeleteClick={onDeleteFileClick}
-				uploadFile={uploadFile}
-				value={value}
-			/>
-		);
-
-	} else if (type === 'file') {
-		
-		return (
-			<FileField
-				onDeleteClick={onDeleteFileClick}
-				uploadFile={uploadFile}
-				value={value}
-			/>
-		);
+		Input = <ColorField {...inputProps} />;
 
 	} else {
 
-		return (
-			<TextInput
-				disabled={!updateable}
-				value={value}
-			/>
-		);
+		Input = getMentorInput(type);
 
+		inputProps.onMatch = type === 'listfilter' ? onOptionMatch: undefined;
+		inputProps.options = Array.isArray(options) ? options: undefined;
+
+		Input = <Input {...inputProps} />;
 	}
+
+	return Input;
 }
 
 Field.propTypes = {
