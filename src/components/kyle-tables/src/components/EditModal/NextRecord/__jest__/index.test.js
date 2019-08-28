@@ -1,21 +1,27 @@
 import React from 'react';
 import { NextRecord } from '../index';
+import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
 afterEach(cleanup);
 
-test.skip('Clicking the next record', () => {
-	const onClick = jest.fn();
-	const { getByText } = render(<NextRecord label="Next" onClick={onClick} />);
+test('Next record does not exist', () => {
+	const tree = renderer.create(<NextRecord hasNext={false} />).toJSON();
 
-	fireEvent.click(getByText('Next'));
+	expect(tree).toMatchSnapshot();
+});
+
+test('Next record with a custom label', () => {
+	const tree = renderer.create(<NextRecord label="Foo" hasPrevious={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Clicking the next record if it exists', () => {
+	const onClick = jest.fn();
+	const { getByText } = render(<NextRecord hasNext={true} onNextClick={onClick} />);
+
+	fireEvent.click(getByText('Next Record'));
 	expect(onClick).toHaveBeenCalled();
 });
 
-test.skip('Passing down custom label', async () => {
-	const { debug, queryByText } = render(<NextRecord label="Next" />);
-
-	await wait(() => {
-		expect(queryByText('Next')).toBeTruthy();
-	});
-});

@@ -34,7 +34,7 @@ export function getMentorInput(type = '') {
 		case 'datetime':
 		case 'date':
 		case 'time':
-			return DatePicker;	
+			return DatePickerInput;	
 		case 'email':
 			return EmailInput;
 		case 'select':

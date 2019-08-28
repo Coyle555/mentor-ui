@@ -74,6 +74,7 @@ export class Table extends Component {
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		formFields: PropTypes.arrayOf(PropTypes.object),
+		getRowName: PropTypes.func,
 		id: PropTypes.string.isRequired,
 		initInsertData: PropTypes.object,
 		insertable: PropTypes.bool,
@@ -130,6 +131,7 @@ export class Table extends Component {
 		exportTable: null,
 		filters: [],
 		formFields: null,
+		getRowName: null,
 		id: '',
 		initInsertData: null,
 		insertable: true,
@@ -627,7 +629,7 @@ export class Table extends Component {
 						? data.map(d => selectedRows[d.id])
 						: data
 					}
-					editMode={editMode || true}
+					editMode={editMode}
 					fields={cloneDeep(columns)}
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}

@@ -62,7 +62,7 @@ export const EditModal = ({
 				onNextClick={onNextClick}
 				onOptionMatch={onOptionMatch}
 				onPreviousClick={onPreviousClick}
-				title={data[recordIndex].name || 'Title'}
+				title={data[recordIndex].name || data[recordIndex].id}
 				totalRecords={data.length}
 				uploadFile={uploadFile}
 			/>

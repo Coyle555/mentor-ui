@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useSpring, animated } from 'react-spring';
 
 export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
 	const previousClasses = classNames({
@@ -8,18 +9,24 @@ export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
 		'end-of-previous-records': !hasPrevious
 	});
 
+	const motionProps = useSpring({
+		from: { width: '0px' },
+		to: { width: '64px' }
+	});
+
 	return (
-		<div
+		<animated.div
 			className={previousClasses}
 			onClick={onPreviousClick}
+			style={motionProps}
 		>
-			<p className="label">
+			<p className="previous-record-label">
 				{ hasPrevious
 					? label
 					: 'No Previous Record'
 				}
 			</p>
-		</div>
+		</animated.div>
 	);
 };
 

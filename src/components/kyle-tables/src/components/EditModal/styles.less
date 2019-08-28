@@ -160,7 +160,7 @@
 	user-select: none;
 	width: 64px;
 
-	> .label {
+	> .next-record-label {
 		text-transform: uppercase;
 		letter-spacing: 1px;
 		word-spacing: 2px;
@@ -186,7 +186,9 @@
 	border-right: 5px solid @blue-primary;
 	border-left: none;
 
-	> .label {
+	> .previous-record-label {
+		.next-record > .next-record-label();
+
 		writing-mode: vertical-lr;
 		transform: none;
 	}
