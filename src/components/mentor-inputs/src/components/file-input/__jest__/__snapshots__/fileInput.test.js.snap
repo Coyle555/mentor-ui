@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default file input 1`] = `
+<div
+  onBlur={[Function]}
+  onClick={[Function]}
+  onDragEnter={[Function]}
+  onDragLeave={[Function]}
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  style={
+    Object {
+      "height": "100%",
+      "outline": "none",
+    }
+  }
+  tabIndex={0}
+>
+  <input
+    autoComplete="off"
+    multiple={true}
+    onChange={[Function]}
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    tabIndex={-1}
+    type="file"
+  />
+  <p
+    className="mui-mi-file-input"
+  >
+    Upload File(s)
+  </p>
+</div>
+`;

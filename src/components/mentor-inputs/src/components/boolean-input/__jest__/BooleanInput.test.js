@@ -25,6 +25,13 @@ test('<BooleanInput /> with placeholder option text', () => {
  	expect(tree).toMatchSnapshot();
 });
 
+test('<BooleanInput /> with required ', () => {
+ 	const component = renderer.create(<BooleanInput required={true} />);
+
+ 	const tree = component.toJSON();
+ 	expect(tree).toMatchSnapshot();
+});
+
 test('<BooleanInput /> onBlur cb returns a boolean or null', () => {
  	const onBlur = jest.fn();
  	const { container } = render( 

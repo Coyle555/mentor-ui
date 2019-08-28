@@ -7,13 +7,13 @@ import '../../styles/index.less';
 
 const FileInput = ({ label, name, onDrop }) => {
 	
-	const dropzoneDrop = useCallback((acceptedFiles, rejectedFiles) => {
+	const dropzoneDrop = useCallback(acceptedFiles => {
 		if (typeof onDrop === 'function') {
-			onDrop(acceptedFiles, rejectedFiles, name);
+			onDrop(acceptedFiles, name);
 		}
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ dropzoneDrop });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: dropzoneDrop });
 
 	const classes = classNames({
 		'mui-mi-file-input': true,

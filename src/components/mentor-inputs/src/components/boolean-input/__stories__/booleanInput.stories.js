@@ -32,6 +32,4 @@ storiesOf('Inputs/BooleanInput', module)
 				value={select('value', initialValues, null, 'Set value from props')}
 			/>
 		)
-	})
-
-
+	});

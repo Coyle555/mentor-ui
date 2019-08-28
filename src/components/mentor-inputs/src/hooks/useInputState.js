@@ -19,7 +19,6 @@ export const useInputState = (props = {}) => {
 
 	const {
 		disabled,
-		handleEvents,
 		onBlur,
 		onChange,
 		parse,
@@ -78,11 +77,7 @@ export const useInputState = (props = {}) => {
 			
 			const lastVal = getDisplayValue(value, parse);
 
-			if (handleEvents) {
-			
-				onBlur(evt);
-			
-			} else if (String(currentValue).trim() !== String(lastVal).trim()) {
+			if (String(currentValue).trim() !== String(lastVal).trim()) {
 				const val = typeof parse === 'function' ? parse(currentValue) : currentValue;
 
 				onBlur(error, val, input.name);
@@ -96,12 +91,9 @@ export const useInputState = (props = {}) => {
 			setCurrentValue(newValue);
 
 			if (typeof onChange === 'function') {
-				if (handleEvents) {
-					onChange(evt);
-				} else {
-					const val = typeof parse === 'function' ? parse(newValue) : newValue;
-					onChange(evt.target.validationMessage, val, input.name);
-				}
+				const val = typeof parse === 'function' ? parse(newValue) : newValue;
+
+				onChange(evt.target.validationMessage, val, input.name);
 			}
 		},
 
