@@ -26,8 +26,10 @@ export class ColorField extends Component {
 	}
 
 	onChangeComplete = (color) => {
+		const { fieldId, onColorChange, rowId } = this.props;
+
 		this.setState({ color: color.hex });
-		//props.onColorChange(props.rowId, props.colId, color.hex);
+		onColorChange(rowId, fieldId, color.hex);
 	}
 
 	render() {
@@ -51,5 +53,10 @@ export class ColorField extends Component {
 ColorField.propTypes = {
 	colId: PropTypes.string,
 	onColorChange: PropTypes.func,
-	rowId: PropTypes.string
+	rowId: PropTypes.string,
+	value: PropTypes.string
+};
+
+ColorField.defaultProps = {
+	value: '#ffffff'
 };

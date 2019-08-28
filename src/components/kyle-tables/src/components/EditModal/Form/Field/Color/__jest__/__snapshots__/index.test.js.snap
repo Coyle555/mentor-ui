@@ -2,240 +2,36 @@
 
 exports[`Color picker with a color passed in 1`] = `
 <div
-  className="slider-picker "
-  style={Object {}}
+  className="color-input-container"
 >
   <div
+    className="color-circle"
     style={
       Object {
-        "height": "12px",
-        "position": "relative",
+        "backgroundColor": "#000000",
       }
     }
-  >
-    <div
-      style={
-        Object {
-          "MozBorderRadius": undefined,
-          "MozBoxShadow": undefined,
-          "OBorderRadius": undefined,
-          "OBoxShadow": undefined,
-          "WebkitBorderRadius": undefined,
-          "WebkitBoxShadow": undefined,
-          "borderRadius": undefined,
-          "bottom": "0px",
-          "boxShadow": undefined,
-          "left": "0px",
-          "msBorderRadius": undefined,
-          "msBoxShadow": undefined,
-          "position": "absolute",
-          "right": "0px",
-          "top": "0px",
-        }
-      }
-    >
-      <div
-        className="hue-horizontal"
-        onMouseDown={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        style={
-          Object {
-            "MozBorderRadius": undefined,
-            "OBorderRadius": undefined,
-            "WebkitBorderRadius": undefined,
-            "borderRadius": undefined,
-            "height": "100%",
-            "msBorderRadius": undefined,
-            "padding": "0 2px",
-            "position": "relative",
-          }
-        }
-      >
-        <style>
-          
-            .hue-horizontal {
-              background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0
-                33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-              background: -webkit-linear-gradient(to right, #f00 0%, #ff0
-                17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-            }
-
-            .hue-vertical {
-              background: linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%,
-                #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-              background: -webkit-linear-gradient(to top, #f00 0%, #ff0 17%,
-                #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-            }
-          
-        </style>
-        <div
-          style={
-            Object {
-              "left": "0%",
-              "position": "absolute",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "MozBorderRadius": "6px",
-                "MozBoxShadow": "0 1px 4px 0 rgba(0, 0, 0, 0.37)",
-                "MozTransform": "translate(-7px, -1px)",
-                "OBorderRadius": "6px",
-                "OBoxShadow": "0 1px 4px 0 rgba(0, 0, 0, 0.37)",
-                "OTransform": "translate(-7px, -1px)",
-                "WebkitBorderRadius": "6px",
-                "WebkitBoxShadow": "0 1px 4px 0 rgba(0, 0, 0, 0.37)",
-                "WebkitTransform": "translate(-7px, -1px)",
-                "backgroundColor": "rgb(248, 248, 248)",
-                "borderRadius": "6px",
-                "boxShadow": "0 1px 4px 0 rgba(0, 0, 0, 0.37)",
-                "height": "14px",
-                "msBorderRadius": "6px",
-                "msBoxShadow": "0 1px 4px 0 rgba(0, 0, 0, 0.37)",
-                "msTransform": "translate(-7px, -1px)",
-                "transform": "translate(-7px, -1px)",
-                "width": "14px",
-              }
-            }
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+  />
   <div>
-    <div
-      style={
-        Object {
-          "marginTop": "20px",
-        }
+    {"color":"#000000","colors":["#000000","#FFFFFF","#B80000","#DB3E00","#FCCB00","#008B02","#006B76","#1273DE","#004DCF","#5300EB","#EB9694","#FAD0C3","#FEF3BD","#C1E1C5","#BEDADC","#C4DEF6","#BED3F3","#D4C4FB","#3D4B54","#001528","#008860","#004437","#EE104E","#A5F944","#003366","#F6A230","#4F054F","#008000","#0000FF","#FFFF00"],"width":"75%","triangle":"hide"}
+  </div>
+</div>
+`;
+
+exports[`Color picker with a new color passed in 1`] = `
+<div
+  className="color-input-container"
+>
+  <div
+    className="color-circle"
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
       }
-    >
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "float": "left",
-            "paddingRight": "1px",
-            "width": "20%",
-          }
-        }
-      >
-        <div
-          onClick={[Function]}
-          style={
-            Object {
-              "MozBorderRadius": "2px 0 0 2px",
-              "OBorderRadius": "2px 0 0 2px",
-              "WebkitBorderRadius": "2px 0 0 2px",
-              "background": "hsl(0, 50%, 80%)",
-              "borderRadius": "2px 0 0 2px",
-              "cursor": "pointer",
-              "height": "12px",
-              "msBorderRadius": "2px 0 0 2px",
-            }
-          }
-        />
-      </div>
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "float": "left",
-            "paddingRight": "1px",
-            "width": "20%",
-          }
-        }
-      >
-        <div
-          onClick={[Function]}
-          style={
-            Object {
-              "background": "hsl(0, 50%, 65%)",
-              "cursor": "pointer",
-              "height": "12px",
-            }
-          }
-        />
-      </div>
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "float": "left",
-            "paddingRight": "1px",
-            "width": "20%",
-          }
-        }
-      >
-        <div
-          onClick={[Function]}
-          style={
-            Object {
-              "background": "hsl(0, 50%, 50%)",
-              "cursor": "pointer",
-              "height": "12px",
-            }
-          }
-        />
-      </div>
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "float": "left",
-            "paddingRight": "1px",
-            "width": "20%",
-          }
-        }
-      >
-        <div
-          onClick={[Function]}
-          style={
-            Object {
-              "background": "hsl(0, 50%, 35%)",
-              "cursor": "pointer",
-              "height": "12px",
-            }
-          }
-        />
-      </div>
-      <div
-        style={
-          Object {
-            "boxSizing": "border-box",
-            "float": "left",
-            "paddingRight": "1px",
-            "width": "20%",
-          }
-        }
-      >
-        <div
-          onClick={[Function]}
-          style={
-            Object {
-              "MozBorderRadius": "0 2px 2px 0",
-              "OBorderRadius": "0 2px 2px 0",
-              "WebkitBorderRadius": "0 2px 2px 0",
-              "background": "hsl(0, 50%, 20%)",
-              "borderRadius": "0 2px 2px 0",
-              "cursor": "pointer",
-              "height": "12px",
-              "msBorderRadius": "0 2px 2px 0",
-            }
-          }
-        />
-      </div>
-      <div
-        style={
-          Object {
-            "clear": "both",
-          }
-        }
-      />
-    </div>
+    }
+  />
+  <div>
+    {"color":"#ffffff","colors":["#000000","#FFFFFF","#B80000","#DB3E00","#FCCB00","#008B02","#006B76","#1273DE","#004DCF","#5300EB","#EB9694","#FAD0C3","#FEF3BD","#C1E1C5","#BEDADC","#C4DEF6","#BED3F3","#D4C4FB","#3D4B54","#001528","#008860","#004437","#EE104E","#A5F944","#003366","#F6A230","#4F054F","#008000","#0000FF","#FFFF00"],"width":"75%","triangle":"hide"}
   </div>
 </div>
 `;
