@@ -9,7 +9,7 @@ export function hasError(value, required, customValidators) {
 
 	if (!!customValidators && customValidators.length > 0) {
 		for (let validator of customValidators) {
-			if (typeof validator === 'function' && validator(value)) {
+			if (typeof validator === 'function' && !validator(value)) {
 				return true;
 			}
 		}

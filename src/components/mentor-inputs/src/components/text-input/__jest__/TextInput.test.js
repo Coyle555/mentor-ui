@@ -64,3 +64,12 @@ test('Text input onBlur callback', () => {
 	fireEvent.blur(container.querySelector('input'));
 	expect(onBlur).toHaveBeenCalledWith(false, 'foo', 'text');
 });
+
+test('Custom validation on text input', () => {
+	const onChange = jest.fn();
+	const validate = jest.fn(val => val === 'adam' ? false : true);
+	const { container } = render(<TextInput name="text" onChange={onChange} validate={validate} />);
+
+	fireEvent.change(container.querySelector('input'), { target: { value: 'adam' } });
+	expect(onChange).toHaveBeenCalledWith(true, 'adam', 'text');
+});

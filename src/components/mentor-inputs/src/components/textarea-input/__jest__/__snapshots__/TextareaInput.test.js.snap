@@ -29,7 +29,7 @@ exports[`<TextareaInput /> with 30 rows 1`] = `
 exports[`<TextareaInput /> with a required attribute 1`] = `
 <textarea
   autoComplete="false"
-  className="mui-textarea-resize-vert mui-mi-input-field"
+  className="mui-textarea-resize-vert mui-mi-input-field mui-mi-input-field-has-error"
   cols={15}
   onBlur={[Function]}
   onChange={[Function]}

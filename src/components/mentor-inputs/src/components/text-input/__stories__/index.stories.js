@@ -30,7 +30,7 @@ storiesOf('Inputs/TextInput', module)
 
 		const reservedNames = ['adam', 'barry', 'chris', 'kyle'];
 		const noRepeatedNames = value => {
-			if (reservedNames.includes(value.toLowerCase().trim())) {
+			if (!reservedNames.includes(value.toLowerCase().trim())) {
 				return 'That name has already been added.';
 			}
 		}
