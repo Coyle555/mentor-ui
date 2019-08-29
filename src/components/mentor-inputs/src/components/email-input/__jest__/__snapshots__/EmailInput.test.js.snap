@@ -1,9 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<EmailInput /> with a non-string value passed in 1`] = `
+exports[`<EmailInput /> with a non valid value passed in 1`] = `
 <input
   autoComplete="false"
-  className="mui-mi-input-field"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter email"
+  type="text"
+  value="bill@gmail"
+/>
+`;
+
+exports[`<EmailInput /> with a non-email value passed in 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
   placeholder="Enter email"
@@ -15,7 +27,7 @@ exports[`<EmailInput /> with a non-string value passed in 1`] = `
 exports[`<EmailInput /> with a required attribute 1`] = `
 <input
   autoComplete="false"
-  className="mui-mi-input-field"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
   placeholder="Enter email"
@@ -25,7 +37,7 @@ exports[`<EmailInput /> with a required attribute 1`] = `
 />
 `;
 
-exports[`<EmailInput /> with a value passed in 1`] = `
+exports[`<EmailInput /> with a valid value passed in 1`] = `
 <input
   autoComplete="false"
   className="mui-mi-input-field"

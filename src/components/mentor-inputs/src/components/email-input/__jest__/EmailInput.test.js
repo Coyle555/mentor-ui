@@ -7,7 +7,6 @@ import EmailInput from '../emailInput';
 afterEach(cleanup);
 
 test('<EmailInput /> with no props', () => {
-
 	 const component = renderer.create( <EmailInput/> );
 
 	 const tree = component.toJSON();
@@ -23,23 +22,31 @@ test('Email with a custom placeholder', () => {
 
 test('<EmailInput /> with a required attribute', () => {
  	const component = renderer.create( 
- 		<EmailInput required/> 
+ 		<EmailInput required /> 
  	);
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
 
-test('<EmailInput /> with a non-string value passed in', () => {
+test('<EmailInput /> with a non-email value passed in', () => {
  	const component = renderer.create( 
- 		<EmailInput value={4593.3} /> 
+ 		<EmailInput value="4593.3" /> 
  	);
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
 
-test('<EmailInput /> with a value passed in', () => {
+test('<EmailInput /> with a valid value passed in', () => {
  	const component = renderer.create( 
  		<EmailInput value="bill@gmail.com" /> 
+ 	);
+ 	const tree = component.toJSON();
+ 	expect(tree).toMatchSnapshot();
+}); 
+
+test('<EmailInput /> with a non valid value passed in', () => {
+ 	const component = renderer.create( 
+ 		<EmailInput value="bill@gmail" /> 
  	);
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
@@ -52,42 +59,3 @@ test('<EmailInput /> with autocomplete enabled', () => {
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
-
-
-test('<EmailInput /> verifies its an actual email with expected error message', () => {
-	const onBlur = jest.fn().mockImplementation((err) => err);
-
-	const { container, debug } = render(
-		<EmailInput onBlur={onBlur} value="notanemail.com" />
-	);
-
-	fireEvent.focus(container.querySelector('input[type="text"]'));	
-	fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: 'fakeme-gmail.com' }});
-	fireEvent.blur(container.querySelector('input[type="text"]'));	
-	
-	expect(onBlur.mock.results[0].value).toBe('Not a valid email address.');
-	expect(container.querySelector('input[type="text"]').className).toBe('mui-mi-input-field mui-mi-input-field-has-error');
-});
-
-test('<EmailInput /> handles custom validation', () => {
-	const onChange = jest.fn().mockImplementation((err) => err);
-	const noGmailCheck = (val) => {
-		if (/@gmail\.com$/.test(val)) return 'No Gmail Allowed';
-	}
-
-	const { container } = render(
-		<EmailInput
-			onBlur={onChange}
-			validation={noGmailCheck}
-		/>
-	);
-
-	fireEvent.focus(container.querySelector('input[type="text"]'));	
-	fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: 'a@gmail.com' }});
-	fireEvent.blur(container.querySelector('input[type="text"]'));		
-	
-	expect(onChange.mock.results[0].value).toBe('No Gmail Allowed');
-	expect(container.querySelector('input[type="text"]').className).toBe('mui-mi-input-field mui-mi-input-field-has-error');
-});
-
-
