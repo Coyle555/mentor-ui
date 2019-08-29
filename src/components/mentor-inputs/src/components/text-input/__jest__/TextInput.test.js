@@ -13,6 +13,12 @@ test('<TextInput /> with no props', () => {
 	 expect(tree).toMatchSnapshot();
 });
 
+test('<TextInput /> with a disabled attribute', () => {
+ 	const component = renderer.create(<TextInput disabled={true} />);
+
+ 	const tree = component.toJSON();
+ 	expect(tree).toMatchSnapshot();
+});
 
 test('<TextInput /> with a required attribute', () => {
  	const component = renderer.create(<TextInput required={true} />);
