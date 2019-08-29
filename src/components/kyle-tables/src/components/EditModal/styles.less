@@ -7,7 +7,6 @@
 	width: 60%;
 	height: 90%;
 	border-radius: 9.3px;
-	border: solid 0.9px #979797;
 	border: 2px solid @blue-gray-dark;
 	display: flex;
 	flex-direction: column;
@@ -23,87 +22,89 @@
 	}
 
 	> .field-container {
-		flex-grow: 2;
-		overflow-y: auto;
+		display: flex;
 		
-		> .left-fields {
-			float: left;
-			width: 50%;
+		> .list-of-fields {
+			width: 20%;
 			padding-right: 12.5px;
 			padding-left: 5px;
 			border-right: 1px solid @gray-dark;
+			min-height: 100%;
+			overflow-y: auto;
 		}
 
-		> .right-fields {
+		> .fields {
 			float: right;
-			width: 50%;
+			width: 80%;
 			padding-right: 5px;
 			padding-left: 12.5px;
-		}
+			overflow-y: auto;
 		
-		.field {
-			font-size: .85rem;
-			font-weight: 600;
-			color: @charcoal;
-			margin-bottom: 10px;
+			> .field {
+				font-size: .85rem;
+				font-weight: 600;
+				color: @charcoal;
+				margin-bottom: 10px;
+				padding: 0 12.5px;
 
-			> label {
-				display: inline-block;
-				margin-bottom: 3.5px;
-			}
+				> label {
+					display: inline-block;
+					margin-bottom: 3.5px;
+				}
 
-			> span.cannot-update {
-				color: @ketchup;
-				float: right;
-				font-size: 0.7rem;
-				font-weight: 500;
-			}
+				> span.cannot-update {
+					color: @ketchup;
+					float: right;
+					font-size: 0.7rem;
+					font-weight: 500;
+				}
 
-			> .file-input-container {
-				display: flex;
-				height: 100px;
-				align-items: center;
+				> .file-input-container {
+					display: flex;
+					height: 100px;
+					align-items: center;
 
-				> .file-display {
-					text-align: center;
-					width: 25%;
+					> .file-display {
+						text-align: center;
+						width: 25%;
 
-					> .file-image {
-						max-height: 75px;
+						> .file-image {
+							max-height: 75px;
+						}
+
+						> .file-link {
+							font-size: .9rem;
+							font-weight: 500;
+						}
+
+						> .file-delete {
+							color: red;
+							margin: 15px 0 0 0;
+							font-size: .7rem;
+							font-weight: 400;
+							cursor: pointer;
+						}
 					}
 
-					> .file-link {
-						font-size: .9rem;
-						font-weight: 500;
-					}
-
-					> .file-delete {
-						color: red;
-						margin: 15px 0 0 0;
-						font-size: .7rem;
-						font-weight: 400;
-						cursor: pointer;
+					> .file-input {
+						height: 100%;
+						width: 75%;
 					}
 				}
 
-				> .file-input {
-					height: 100%;
-					width: 75%;
-				}
-			}
+				> .color-input-container {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
 
-			> .color-input-container {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-
-				> .color-circle {
-					width: 75px;
-					height: 75px;
-					border: 1.5px solid black;
-					text-align: center;
-					border-radius: 75px;
-					margin: 0 auto;
+					> .color-circle {
+						width: 75px;
+						height: 75px;
+						border: 1.5px solid black;
+						text-align: center;
+						border-radius: 75px;
+						margin: 0 auto;
+					}
 				}
 			}
 		}

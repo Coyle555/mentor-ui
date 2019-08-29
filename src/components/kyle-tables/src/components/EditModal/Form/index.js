@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
 
@@ -20,6 +20,7 @@ export const Form = ({
 	totalRecords,
 	uploadFile
 }) => {
+	const direction = useRef(currentIndex);
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
 	const props = {
@@ -28,9 +29,14 @@ export const Form = ({
 		onOptionMatch,
 		uploadFile,
 	};
+	console.log('ref current', direction.current);
+	console.log('current dir', currentIndex);
+
+	const x = currentIndex > direction.current ? 200 : -200;
+	direction.current = currentIndex;
 
 	const motionProps = useSpring({
-		from: { opacity: 0, transform: 'translateX(200px)' },
+		from: { opacity: 0, transform: `translateX(${x}px)` },
 		to: { opacity: 1, transform: 'translateX(0px)' },
 		reset: true
 	});
@@ -39,25 +45,13 @@ export const Form = ({
 		<animated.div className="edit-form" style={motionProps}>
 			<h2 className="title">{title}</h2>
 			<div className="field-container">
-				<div className="left-fields">
-					{ leftFields.map(field => (
-						<div className="field" key={field.id}>
-							<label>{field.label}</label>
-							{ field.updateable === false
-								&& <span className="cannot-update">
-									Field cannot be changed
-								</span>
-							}
-							<Field
-								{...field}
-								{...props}
-								value={data[field.id]}
-							/>
-						</div>
+				<div className="list-of-fields">
+					{ fields.map(field => (
+						<p>{field.label}</p>
 					))}
 				</div>
-				<div className="right-fields">
-					{ rightFields.map(field => (
+				<div className="fields">
+					{ fields.map(field => (
 						<div className="field" key={field.id}>
 							<label>{field.label}</label>
 							{ field.updateable === false

@@ -46,7 +46,7 @@ class DatePickerContainer extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.state.value.toString() !== nextProps.value.toString()) {
+		if (!!nextProps.value && this.state.value.toString() !== nextProps.value.toString()) {
 			let val = '';
 
 			if (!!nextProps.value) {
