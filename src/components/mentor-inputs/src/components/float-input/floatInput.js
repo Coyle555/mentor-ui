@@ -13,7 +13,7 @@ const FloatInput = ({ validation, precision, ...props }) => {
 	const inputClasses = classNames(inputState.className, props.className);
 
 	function parse(value) {
-		if (isNaN(value)) {
+		if (!value || isNaN(value)) {
 			//avoid passing NaN into input 
 			return ''; 
 		} else if (!isNaN(precision)) {

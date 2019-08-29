@@ -520,7 +520,7 @@ export class ListFilter extends Component {
 		const inputClasses = classNames({
 			'mui-mi-input-field mui-mi-list-filter': true,
 			[this.props.className]: !!this.props.className,
-			'apm-error-border-color': hasError
+			'mui-mi-input-field-has-error': hasError
 		});
 
 		return (

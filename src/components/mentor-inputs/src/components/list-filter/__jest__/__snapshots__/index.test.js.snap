@@ -56,7 +56,7 @@ exports[`List filter receiving new props Passing in new options New options pass
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -89,7 +89,7 @@ exports[`List filter receiving new props Passing in new value New list of option
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -131,7 +131,7 @@ exports[`List filter receiving new props Passing in new value New value passed i
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -181,7 +181,7 @@ exports[`List filter receiving new props Passing in new value Required with a ne
   <input
     autoComplete="off"
     autoFocus={false}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -280,7 +280,7 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -330,7 +330,7 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}
@@ -379,7 +379,7 @@ exports[`Mounting a list filter Mounting with a required input Required with par
   <input
     autoComplete="off"
     autoFocus={true}
-    className="mui-mi-input-field mui-mi-list-filter apm-error-border-color"
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
     disabled={false}
     onChange={[Function]}
     onFocus={[Function]}

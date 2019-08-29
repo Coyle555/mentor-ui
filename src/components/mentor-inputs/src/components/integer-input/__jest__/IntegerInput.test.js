@@ -58,9 +58,9 @@ test('<IntegerInput /> onBlur callback returns errors thrown by browser', () => 
 			min={18}
 		/>
 	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '17' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
+	fireEvent.focus(container.querySelector('input'));
+	fireEvent.change(container.querySelector('input'), { target: { value: '17' }});	
+	fireEvent.blur(container.querySelector('input'));
 
 	const onChangeArgs = onChange.mock.results[0];
 	expect(onChangeArgs.type).toBe('return');
@@ -76,9 +76,9 @@ test('<IntegerInput /> onBlur callback fires error when theres a float value', (
 			onBlur={onChange}
 		/>
 	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '17.9999' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
+	fireEvent.focus(container.querySelector('input'));
+	fireEvent.change(container.querySelector('input'), { target: { value: '17.9999' }});	
+	fireEvent.blur(container.querySelector('input'));
 
 	const onChangeArgs = onChange.mock.results[0];
 	expect(onChangeArgs.type).toBe('return');
