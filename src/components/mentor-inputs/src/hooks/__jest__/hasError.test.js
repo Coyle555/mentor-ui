@@ -22,5 +22,5 @@ test('Error with custom validator', () => {
 test('No error with custom validator', () => {
 	const validator = jest.fn(val => true);
 
-	expect(hasError('', false, validator)).toBe(false);
+	expect(hasError('foo', false, validator)).toBe(false);
 });

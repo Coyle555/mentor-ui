@@ -11,7 +11,7 @@ function validateValue(value) {
 
 export const useInputState = (props = {}) => {
 
-	const {
+	let {
 		disabled,
 		onBlur,
 		onChange,
@@ -22,10 +22,13 @@ export const useInputState = (props = {}) => {
 		...input
 	} = props;
 
+	value = validateValue(value);
+
 	const inputRef = useRef(null);
 	const fakeNameToPreventAutocomplete = useRef(null);
 	const lastVal = useRef(value);
-	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
+
+	const [ currentValue, setCurrentValue ] = useState(value);
 	const [ error, setError ] = useState(hasError(value, required, validate))
 	
 	/// value in state should be updated when value in props is changed
