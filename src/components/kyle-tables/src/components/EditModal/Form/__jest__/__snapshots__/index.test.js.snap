@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Rendering record form Fields in the form 1`] = `
+exports[`Rendering edit modal form Fields in the form 1`] = `
 <div
   className="edit-form"
+  style={
+    Object {
+      "opacity": 0,
+      "transform": "translateX(200px)",
+    }
+  }
 >
   <h2
     className="title"
@@ -13,47 +19,113 @@ exports[`Rendering record form Fields in the form 1`] = `
     className="field-container"
   >
     <div
-      className="field"
+      className="list-of-fields"
     >
-      Foo
+      <div>
+        {"fields":[{"id":"foo","label":"Foo"},{"id":"bar","label":"Bar"}]}
+      </div>
     </div>
     <div
-      className="field"
+      className="fields"
     >
-      Bar
+      <div
+        className="field"
+      >
+        <label>
+          Foo
+        </label>
+        <div>
+          {"id":"foo","label":"Foo","fieldId":"foo"}
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <label>
+          Bar
+        </label>
+        <div>
+          {"id":"bar","label":"Bar","fieldId":"bar"}
+        </div>
+      </div>
     </div>
   </div>
-  <div
-    className="footer"
-  >
-    <button
-      disabled={true}
-      type="button"
-    >
-      <i
-        className="fas fa-chevron-left"
-      />
-       Previous
-    </button>
-    0
-     / 
-    0
-    <button
-      disabled={true}
-      type="button"
-    >
-      Next 
-      <i
-        className="fas fa-chevron-right"
-      />
-    </button>
+  <div>
+    {"currentIndex":null}
   </div>
 </div>
 `;
 
-exports[`Rendering record form Title of the form 1`] = `
+exports[`Rendering edit modal form Fields in the form with one not updateable 1`] = `
 <div
   className="edit-form"
+  style={
+    Object {
+      "opacity": 0,
+      "transform": "translateX(200px)",
+    }
+  }
+>
+  <h2
+    className="title"
+  >
+    
+  </h2>
+  <div
+    className="field-container"
+  >
+    <div
+      className="list-of-fields"
+    >
+      <div>
+        {"fields":[{"id":"foo","label":"Foo","updateable":false},{"id":"bar","label":"Bar"}]}
+      </div>
+    </div>
+    <div
+      className="fields"
+    >
+      <div
+        className="field"
+      >
+        <label>
+          Foo
+        </label>
+        <span
+          className="cannot-update"
+        >
+          Field cannot be changed
+        </span>
+        <div>
+          {"id":"foo","label":"Foo","updateable":false,"fieldId":"foo"}
+        </div>
+      </div>
+      <div
+        className="field"
+      >
+        <label>
+          Bar
+        </label>
+        <div>
+          {"id":"bar","label":"Bar","fieldId":"bar"}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    {"currentIndex":null}
+  </div>
+</div>
+`;
+
+exports[`Rendering edit modal form Title of the form 1`] = `
+<div
+  className="edit-form"
+  style={
+    Object {
+      "opacity": 0,
+      "transform": "translateX(200px)",
+    }
+  }
 >
   <h2
     className="title"
@@ -62,31 +134,20 @@ exports[`Rendering record form Title of the form 1`] = `
   </h2>
   <div
     className="field-container"
-  />
-  <div
-    className="footer"
   >
-    <button
-      disabled={true}
-      type="button"
+    <div
+      className="list-of-fields"
     >
-      <i
-        className="fas fa-chevron-left"
-      />
-       Previous
-    </button>
-    0
-     / 
-    0
-    <button
-      disabled={true}
-      type="button"
-    >
-      Next 
-      <i
-        className="fas fa-chevron-right"
-      />
-    </button>
+      <div>
+        {"fields":[]}
+      </div>
+    </div>
+    <div
+      className="fields"
+    />
+  </div>
+  <div>
+    {"currentIndex":null}
   </div>
 </div>
 `;

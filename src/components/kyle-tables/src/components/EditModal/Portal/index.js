@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { keyEvent as KeyEvent } from 'utils';
 
 export class Portal extends React.Component {
+
+	static propTypes = {
+		closeEditMode: PropTypes.func,
+		goToNextRecord: PropTypes.func,
+		goToPreviousRecord: PropTypes.func
+	}
 
 	constructor(props) {
 		super(props);
@@ -37,6 +44,10 @@ export class Portal extends React.Component {
 
 				this.props.goToNextRecord();
 			}
+		}
+
+		if (evt.keyCode === KeyEvent.DOM_VK_ESCAPE) {
+			this.props.closeEditMode();
 		}
 	}
 

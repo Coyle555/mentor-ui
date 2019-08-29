@@ -22,8 +22,6 @@ export const Form = ({
 	uploadFile
 }) => {
 	const direction = useRef(currentIndex);
-	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
-	const rightFields = fields.slice(Math.floor(fields.length / 2));
 
 	// determine which direction the modal should slide in the next/prev record
 	const x = currentIndex < direction.current ? -200 : 200;
@@ -78,12 +76,22 @@ export const Form = ({
 };
 
 Form.propTypes = {
+	currentIndex: PropTypes.number,
 	data: PropTypes.object,
 	fields: PropTypes.arrayOf(PropTypes.shape({
 		id: PropTypes.string,
 		label: PropTypes.string
 	})),
-	title: PropTypes.string
+	hasNext: PropTypes.bool,
+	hasPrevious: PropTypes.bool,
+	onBlur: PropTypes.func,
+	onDeleteFileClick: PropTypes.func,
+	onNextClick: PropTypes.func,
+	onOptionMatch: PropTypes.func,
+	onPreviousClick: PropTypes.func,
+	title: PropTypes.string,
+	totalRecords: PropTypes.number,
+	uploadFile: PropTypes.func
 };
 
 Form.defaultProps = {

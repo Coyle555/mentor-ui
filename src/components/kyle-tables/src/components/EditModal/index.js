@@ -9,6 +9,7 @@ import { PreviousRecord } from './PreviousRecord';
 import './styles.less';
 
 export const EditModal = ({
+	closeEditMode,
 	data,
 	editMode,
 	fields,
@@ -37,17 +38,29 @@ export const EditModal = ({
 
 	const hasPrevious = recordIndex > 0;
 	const hasNext = recordIndex + 1 < data.length;
+	let nextRecordLabel;
+	let previousRecordLabel;
+
+	if (!hasPrevious) {
+		previousRecordLabel = 'No Previous Record';
+	} else if (typeof getRowName === 'function') {
+		previousRecordLabel = getRowName(data[recordIndex - 1]);
+	}
+
+	if (!hasNext) {
+		nextRecordLabel = 'No Next Record';
+	} else if (typeof getRowName === 'function') {
+		nextRecordLabel = getRowName(data[recordIndex + 1]);
+	}
 
 	return (
 		<Portal 
+			closeEditMode={closeEditMode}
 			goToNextRecord={onNextClick}
 			goToPreviousRecord={onPreviousClick}
 		>
 			<PreviousRecord
-				label={hasPrevious
-					? data[recordIndex - 1].name
-					: 'No Previous Record'
-				}
+				label={previousRecordLabel}
 				hasPrevious={hasPrevious}
 				onPreviousClick={onPreviousClick}
 			/>
@@ -70,6 +83,7 @@ export const EditModal = ({
 				uploadFile={uploadFile}
 			/>
 			<NextRecord
+				label={nextRecordLabel}
 				hasNext={hasNext}
 				onNextClick={onNextClick}
 			/>

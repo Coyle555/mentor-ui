@@ -626,6 +626,7 @@ export class Table extends Component {
 					/>
 				}
 				<EditModal
+					closeEditMode={this._onEditClick}
 					data={Object.keys(selectedRows).length > 0
 						? data.filter(d => selectedRows[d.id])
 						: data
