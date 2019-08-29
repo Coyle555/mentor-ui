@@ -45,3 +45,12 @@ test('Float input with an invalid float', () => {
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
 });
+
+test('Float input blur with a preicison', () => {
+	const onBlur = jest.fn();
+	const { debug, container } = render(<FloatInput name="foo" onBlur={onBlur} precision={2} />);
+
+	fireEvent.change(container.querySelector('input'), { target: { value: '123.423' } });
+	fireEvent.blur(container.querySelector('input'));
+	expect(onBlur).toHaveBeenCalledWith(true, '123.423', 'foo');
+});

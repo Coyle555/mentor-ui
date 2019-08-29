@@ -12,7 +12,7 @@ const fruits = [
 	{ label: 'cranberries', price: 5.99 }
 ];
 
-test('<SelectInput /> with no props', () => {
+test.only('<SelectInput /> with no props', () => {
 
 	 const component = renderer.create( <SelectInput/> );
 
