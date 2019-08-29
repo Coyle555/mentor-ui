@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering a file field 1`] = `
+<div>
+  {"disabled":false,"type":"file","value":""}
+</div>
+`;
+
+exports[`Rendering an color field 1`] = `
+<div>
+  {"disabled":false,"type":"color","value":""}
+</div>
+`;
+
+exports[`Rendering an image field 1`] = `
+<div>
+  {"disabled":false,"type":"image","value":""}
+</div>
+`;
+
+exports[`Rendering field with a parse 1`] = `
+<div>
+  {"disabled":false,"type":"string","value":"foo"}
+</div>
+`;
+
+exports[`Rendering options that is a list filter 1`] = `
+<div>
+  {"disabled":false,"type":"listfilter","value":"","options":["foo"]}
+</div>
+`;
+
+exports[`Rendering options that is not a list filter 1`] = `
+<div>
+  {"disabled":false,"type":"select","value":"","options":["foo"]}
+</div>
+`;
+
+exports[`Rendering text field 1`] = `
+<div>
+  {"disabled":false,"type":"string","value":""}
+</div>
+`;

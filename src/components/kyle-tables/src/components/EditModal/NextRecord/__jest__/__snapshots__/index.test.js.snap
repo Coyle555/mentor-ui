@@ -5,6 +5,7 @@ exports[`Next record does not exist 1`] = `
   className="next-record end-of-next-records"
   style={
     Object {
+      "opacity": 0,
       "width": "0px",
     }
   }
@@ -22,6 +23,7 @@ exports[`Next record with a custom label 1`] = `
   className="next-record end-of-next-records"
   style={
     Object {
+      "opacity": 0,
       "width": "0px",
     }
   }

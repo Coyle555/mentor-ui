@@ -4,25 +4,14 @@ import PropTypes from 'prop-types';
 import { ColorField } from './Color';
 import { FileField } from './File';
 import { ImageField } from './Image';
-import {
-	getMentorInput,
-	DatePickerInput,
-	EmailInput,
-	FloatInput,
-	IntegerInput,
-	ListFilter,
-	MoneyInput,
-	SelectInput,
-	TextInput,
-	TextareaInput,
-	UrlInput
-} from 'mentor-inputs';
+import { getMentorInput } from 'mentor-inputs';
 
 export const Field = ({
 	onBlur,
 	onDeleteFileClick,
 	onOptionMatch,
 	options,
+	parse,
 	required,
 	type,
 	updateable,
@@ -37,7 +26,9 @@ export const Field = ({
 		disabled: !updateable,
 		required,
 		type,
-		value
+		value: typeof parse === 'function'
+			? parse(value)
+			: value
 	};
 
 	if (type === 'image') {
@@ -64,6 +55,7 @@ export const Field = ({
 
 		Input = getMentorInput(type);
 
+		inputProps.onBlur = onBlur;
 		inputProps.onMatch = type === 'listfilter' ? onOptionMatch: undefined;
 		inputProps.options = Array.isArray(options) ? options: undefined;
 
@@ -74,8 +66,16 @@ export const Field = ({
 }
 
 Field.propTypes = {
+	onBlur: PropTypes.func,
+	onDeleteFileClick: PropTypes.func,
+	onOptionMatch: PropTypes.func,
+	options: PropTypes.array,
+	parse: PropTypes.func,
+	required: PropTypes.bool,
 	type: PropTypes.string,
-	updateable: PropTypes.bool
+	updateable: PropTypes.bool,
+	uploadFile: PropTypes.func,
+	value: PropTypes.any
 };
 
 Field.defaultProps = {

@@ -23,16 +23,8 @@ export const Form = ({
 	const direction = useRef(currentIndex);
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
-	const props = {
-		onBlur,
-		onDeleteFileClick,
-		onOptionMatch,
-		uploadFile,
-	};
-	console.log('ref current', direction.current);
-	console.log('current dir', currentIndex);
 
-	const x = currentIndex > direction.current ? 200 : -200;
+	const x = currentIndex < direction.current ? -200 : 200;
 	direction.current = currentIndex;
 
 	const motionProps = useSpring({
@@ -61,8 +53,11 @@ export const Form = ({
 							}
 							<Field
 								{...field}
-								{...props}
+								onBlur={onBlur}
+								onDeleteFileClick={onDeleteFileClick}
+								onOptionMatch={onOptionMatch}
 								value={data[field.id]}
+								uploadFile={uploadFile}
 							/>
 						</div>
 					))}
