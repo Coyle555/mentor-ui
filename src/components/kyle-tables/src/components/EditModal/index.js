@@ -38,20 +38,6 @@ export const EditModal = ({
 
 	const hasPrevious = recordIndex > 0;
 	const hasNext = recordIndex + 1 < data.length;
-	let nextRecordLabel;
-	let previousRecordLabel;
-
-	if (!hasPrevious) {
-		previousRecordLabel = 'No Previous Record';
-	} else if (typeof getRowName === 'function') {
-		previousRecordLabel = getRowName(data[recordIndex - 1]);
-	}
-
-	if (!hasNext) {
-		nextRecordLabel = 'No Next Record';
-	} else if (typeof getRowName === 'function') {
-		nextRecordLabel = getRowName(data[recordIndex + 1]);
-	}
 
 	return (
 		<Portal 
@@ -60,7 +46,10 @@ export const EditModal = ({
 			goToPreviousRecord={onPreviousClick}
 		>
 			<PreviousRecord
-				label={previousRecordLabel}
+				label={typeof getRowName === 'function'
+					? getRowName(data[recordIndex - 1])
+					: 'Previous Record'
+				}
 				hasPrevious={hasPrevious}
 				onPreviousClick={onPreviousClick}
 			/>
@@ -83,7 +72,10 @@ export const EditModal = ({
 				uploadFile={uploadFile}
 			/>
 			<NextRecord
-				label={nextRecordLabel}
+				label={typeof getRowName === 'function'
+					? getRowName(data[recordIndex + 1])
+					: 'Next Record'
+				}
 				hasNext={hasNext}
 				onNextClick={onNextClick}
 			/>
@@ -95,6 +87,7 @@ EditModal.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.object),
 	editMode: PropTypes.bool,
 	fields: PropTypes.arrayOf(PropTypes.object),
+	getRowName: PropTypes.func,
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
 	onOptionMatch: PropTypes.func,

@@ -1,59 +1,27 @@
+jest.mock('../Portal', () => {
+	return { Portal: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../NextRecord', () => {
+	return { NextRecord: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../PreviousRecord', () => {
+	return { PreviousRecord: props => <div>{JSON.stringify(props)}</div> };
+});
+
 jest.mock('../Form', () => {
 	return { Form: props => <div>{JSON.stringify(props)}</div> };
 });
 
 import React from 'react';
 import { EditModal } from '../index';
+import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
-const root = document.createElement('div');
-root.id = 'mui-table-edit-root';
+test('Edit mode disabled', () => {
+	const tree = renderer.create(<EditModal editMode={false} />).toJSON();
 
-describe('Creating edit modal root node', () => {
-	test('Edit mode disabled', () => {
-		const { container } = render(<EditModal editMode={false} />, {
-			container: document.body.appendChild(root)
-		});
-
-		expect(container.style.display).toBe('none');
-	});
-
-	test('Edit mode enabled', () => {
-		const { container } = render(<EditModal editMode={true} />, {
-			container: document.body.appendChild(root)
-		});
-
-		expect(container.style.display).toBe('block');
-	});
-
-	test('Toggling edit mode', () => {
-		const { container, rerender } = render(<EditModal editMode={true} />, {
-			container: document.body.appendChild(root)
-		});
-
-		expect(container.style.display).toBe('block');
-
-		rerender(<EditModal editMode={false} />);
-		expect(container.style.display).toBe('none');
-	});
+	expect(tree).toMatchSnapshot();
 });
 
-describe.only('Moving back and forth on records', () => {
-	test('Can go to next record', () => {
-		const data = [{ foo: 'foo' }, { bar: 'bar' }];
-		const { queryByText } = render(<EditModal data={data} editMode={true} />, {
-			container: document.body.appendChild(root)
-		});
-
-		expect(queryByText('Next Record')).toBeTruthy();
-	});
-
-	test.only('Clicking to go to next record', () => {
-		const data = [{ foo: 'foo' }, { bar: 'bar' }];
-		const { queryByText } = render(<EditModal data={data} editMode={true} />, {
-			container: document.body.appendChild(root)
-		});
-
-		fireEvent.click(queryByText('Next Record'));
-	});
-});

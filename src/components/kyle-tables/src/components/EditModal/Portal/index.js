@@ -47,6 +47,9 @@ export class Portal extends React.Component {
 		}
 
 		if (evt.keyCode === KeyEvent.DOM_VK_ESCAPE) {
+			event.preventDefault();
+			event.stopPropagation();
+
 			this.props.closeEditMode();
 		}
 	}
