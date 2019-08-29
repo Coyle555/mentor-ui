@@ -18,6 +18,7 @@ import { Field } from '../index';
 import renderer from 'react-test-renderer';
 
 const props = {
+	id: 'bar',
 	onBlur: () => {},
 	onDeleteFileClick: () => {},
 	onOptionMatch: () => {},

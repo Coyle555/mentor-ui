@@ -62,7 +62,7 @@ const columns = [
 	{
 		label: 'Object',
 		id: 'object',
-		parse: val => val.name,
+		parse: val => typeof val === 'object' ? val.name : '',
 		display: false
 	},
 	{

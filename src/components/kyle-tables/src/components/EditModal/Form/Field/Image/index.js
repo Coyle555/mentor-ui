@@ -18,7 +18,11 @@ export const ImageField = ({ fieldId, onDeleteClick, rowId, uploadFile, value })
 			</div>
 		}
 		<div className="file-input" style={{ width: !!value ? '75%' : '100%' }}>
-			<FileInput label="Upload Image" onDrop={uploadFile} />
+			<FileInput
+				label="Upload Image"
+				name={fieldId}
+				onDrop={uploadFile}
+			/>
 		</div>
 	</div>
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { ColorField } from './Color';
@@ -7,12 +7,12 @@ import { ImageField } from './Image';
 import { getMentorInput } from 'mentor-inputs';
 
 export const Field = ({
-	onBlur,
+	fieldId,
 	onDeleteFileClick,
-	onOptionMatch,
 	options,
 	parse,
 	required,
+	rowId,
 	type,
 	updateable,
 	uploadFile,
@@ -21,12 +21,24 @@ export const Field = ({
 }) => {
 	type = Array.isArray(options) && type !== 'listfilter' ? 'select' : type;
 
+	const onBlur = useCallback((error, value, name) => {
+		if (error) return;
+
+		props.onBlur(rowId, name, value);
+	});
+
+	const onOptionMatch = useCallback((value, name) => {
+		props.onOptionMatch(rowId, name, value);
+	});
+
 	let Input;
 	let inputProps = {
 		disabled: !updateable,
+		name: fieldId,
+		options,
 		required,
 		type,
-		value: typeof parse === 'function'
+		value: !!value && typeof parse === 'function'
 			? parse(value)
 			: value
 	};
@@ -35,7 +47,9 @@ export const Field = ({
 		Input = (
 			<ImageField
 				{...inputProps}
+				fieldId={fieldId}
 				onDeleteClick={onDeleteFileClick}
+				rowId={rowId}
 				uploadFile={uploadFile}
 			/>
 		);
@@ -43,21 +57,32 @@ export const Field = ({
 		Input = (
 			<FileField
 				{...inputProps}
+				fieldId={fieldId}
 				onDeleteClick={onDeleteFileClick}
+				rowId={rowId}
 				uploadFile={uploadFile}
 			/>
 		);
 	} else if (type === 'color') {
 
-		Input = <ColorField {...inputProps} />;
+		Input = (
+			<ColorField
+				{...inputProps}
+				fieldId={fieldId}
+				onColorChange={props.onBlur}
+				rowId={rowId}
+			/>
+		);
 
 	} else {
 
 		Input = getMentorInput(type);
 
-		inputProps.onBlur = onBlur;
-		inputProps.onMatch = type === 'listfilter' ? onOptionMatch: undefined;
-		inputProps.options = Array.isArray(options) ? options: undefined;
+		if (type === 'listfilter') {
+			inputProps.onMatch = onOptionMatch;
+		} else {
+			inputProps.onBlur = onBlur;
+		}
 
 		Input = <Input {...inputProps} />;
 	}
@@ -66,6 +91,7 @@ export const Field = ({
 }
 
 Field.propTypes = {
+	fieldId: PropTypes.string,
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
 	onOptionMatch: PropTypes.func,

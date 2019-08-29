@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
 
 import { Field } from './Field';
+import { FieldList } from './FieldList';
 import { Footer } from './Footer';
 
 export const Form = ({
@@ -24,6 +25,7 @@ export const Form = ({
 	const leftFields = fields.slice(0, Math.floor(fields.length / 2));
 	const rightFields = fields.slice(Math.floor(fields.length / 2));
 
+	// determine which direction the modal should slide in the next/prev record
 	const x = currentIndex < direction.current ? -200 : 200;
 	direction.current = currentIndex;
 
@@ -38,13 +40,11 @@ export const Form = ({
 			<h2 className="title">{title}</h2>
 			<div className="field-container">
 				<div className="list-of-fields">
-					{ fields.map(field => (
-						<p>{field.label}</p>
-					))}
+					<FieldList fields={fields} />
 				</div>
 				<div className="fields">
 					{ fields.map(field => (
-						<div className="field" key={field.id}>
+						<div className="field" key={'field' + field.id}>
 							<label>{field.label}</label>
 							{ field.updateable === false
 								&& <span className="cannot-update">
@@ -53,9 +53,11 @@ export const Form = ({
 							}
 							<Field
 								{...field}
+								fieldId={field.id}
 								onBlur={onBlur}
 								onDeleteFileClick={onDeleteFileClick}
 								onOptionMatch={onOptionMatch}
+								rowId={data.id}
 								value={data[field.id]}
 								uploadFile={uploadFile}
 							/>

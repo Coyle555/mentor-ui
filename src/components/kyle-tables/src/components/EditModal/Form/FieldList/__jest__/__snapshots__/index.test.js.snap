@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List of fields 1`] = `
+Array [
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    onBlur={[Function]}
+    onChange={[Function]}
+    placeholder="Search fields"
+    type="text"
+    value=""
+  />,
+  <ul
+    className="fields-ul"
+  >
+    <li
+      className="field-li"
+    >
+      Foo
+    </li>
+    <li
+      className="field-li"
+    >
+      Bar
+    </li>
+    <li
+      className="field-li"
+    >
+      Baz
+    </li>
+  </ul>,
+]
+`;
