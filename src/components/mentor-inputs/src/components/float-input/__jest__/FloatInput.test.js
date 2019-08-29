@@ -25,23 +25,23 @@ test('<FloatInput /> with a custom className', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
-test('<FloatInput /> accepts a value prop of type number', () => {
-	const component = renderer.create( <FloatInput value={3.2}/> );
+test('<FloatInput /> accepts a valid float value', () => {
+	const component = renderer.create( <FloatInput value="3.2" /> );
 
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
 
 });
 
-test('<FloatInput /> parses value props of type string to float', () => {
-	const component = renderer.create( <FloatInput value="3.14"/> );
-
-	const tree = component.toJSON();
-	expect(tree.props.value).toBe(3.14);
-});
-
 test('Float input with required prop', () => {
 	const tree = renderer.create(<FloatInput required={true} />).toJSON();
 
 	expect(tree).toMatchSnapshot();
+});
+
+test('Float input with an invalid float', () => {
+	const component = renderer.create( <FloatInput value="3.2aa" /> );
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
 });
