@@ -17,9 +17,11 @@ exports[`Page dropdown with infinity max page 1`] = `
     type="text"
     value="1"
   />
-  of 
-  NaN
-   pages
+  <span>
+    of 
+    NaN
+     pages
+  </span>
 </div>
 `;
 

@@ -25,8 +25,8 @@ export const TableFooter = ({
 	const hasPrevious = (currentPage > 1);
 
 	return (
-		<div className="table-footer m-t-sm">
-			<div >
+		<div className="table-footer row m-t-sm">
+			<div className="col-4">
 				<PreviousButton
 					hasPrevious={hasPrevious}
 					onClick={onPrevious}
@@ -36,7 +36,7 @@ export const TableFooter = ({
 					onClick={onNext}
 				/>
 			</div>
-			<div className="text-center">
+			<div className="col-4">
 				<RecordCount
 					currentPage={currentPage}
 					entriesViewable={entriesViewable}

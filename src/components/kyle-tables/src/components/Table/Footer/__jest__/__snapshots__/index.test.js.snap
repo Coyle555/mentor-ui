@@ -6,9 +6,11 @@ exports[`Table footer has a previous page 1`] = `null`;
 
 exports[`Table footer render that has a next page 1`] = `
 <div
-  className="table-footer m-t-sm"
+  className="table-footer row m-t-sm"
 >
-  <div>
+  <div
+    className="col-4"
+  >
     <button
       disabled={true}
       type="button"
@@ -29,7 +31,7 @@ exports[`Table footer render that has a next page 1`] = `
     </button>
   </div>
   <div
-    className="text-center"
+    className="col-4"
   >
     <p>
       Showing 
@@ -61,9 +63,11 @@ exports[`Table footer render that has a next page 1`] = `
       type="text"
       value="1"
     />
-    of 
-    2
-     pages
+    <span>
+      of 
+      2
+       pages
+    </span>
   </div>
 </div>
 `;

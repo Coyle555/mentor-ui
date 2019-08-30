@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { IntegerInput } from 'mentor-inputs';
@@ -12,13 +12,13 @@ export const PageDropdown = ({ currentPage, onChange, pageSize, recordCount }) =
 		return null;
 	}
 
-	const _onBlur = (err, value) => {
+	const _onBlur = useCallback((err, value) => {
 		if (err) return;
 
 		if (typeof onChange === 'function') {
 			onChange(value);
 		}
-	}
+	});
 
 	return (
 		<div className="page-dropdown">
@@ -28,9 +28,9 @@ export const PageDropdown = ({ currentPage, onChange, pageSize, recordCount }) =
 				name="page-dropdown"
 				onBlur={_onBlur}
 				value={currentPage}
-				validate={val => val > 0 && val < maxPage}
+				validate={useCallback(val => val > 0 && val <= maxPage)}
 			/>
-			of {maxPage} pages
+			<span>of {maxPage} pages</span>
 		</div>
 	);
 
