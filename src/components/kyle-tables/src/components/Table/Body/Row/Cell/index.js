@@ -20,7 +20,8 @@ export const Cell = ({
 }) => {
 	const cellClass = classNames({
 		'table-cell-view': true,
-		[customClasses.tableCell]: !!customClasses.tableCell
+		[customClasses.tableCell]: !!customClasses.tableCell,
+		'text-right': type === 'float' || type === 'integer'
 	});
 
 	const _origValue = value;

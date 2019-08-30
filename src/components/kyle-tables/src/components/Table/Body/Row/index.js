@@ -80,7 +80,7 @@ export class TableRow extends PureComponent {
 		let tableRow = (
 			<tr className={classNames(rowClass)}>
 				{ expandable && 
-					<ExpandRow
+					<ExpandCell
 						expanded={expanded}
 						lastBtn={rowButtons.length === 0}
 						onClick={this._onExpandClick}

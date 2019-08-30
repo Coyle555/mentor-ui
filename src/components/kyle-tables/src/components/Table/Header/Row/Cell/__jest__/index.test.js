@@ -19,6 +19,18 @@ test('Table header cell with a custom class', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Table header cell of type float', () => {
+	const tree = renderer.create(<TableHeaderCell type="float" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Table header cell of type integer', () => {
+	const tree = renderer.create(<TableHeaderCell type="integer" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('Table header cell with a title', () => {
 	const tree = renderer.create(<TableHeaderCell title="Foo" />).toJSON();
 

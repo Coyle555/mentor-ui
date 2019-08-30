@@ -37,5 +37,5 @@ test('Page dropdown onChange callback', () => {
 
 	fireEvent.change(getByTestId('pagedropdown'), { target: { value: '2' } });
 	fireEvent.blur(getByTestId('pagedropdown'));
-	expect(onChange).toHaveBeenCalledWith(2);
+	expect(onChange).toHaveBeenCalledWith('2');
 });

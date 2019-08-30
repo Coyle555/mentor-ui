@@ -13,6 +13,32 @@ exports[`Default render of table header cell 1`] = `
 </th>
 `;
 
+exports[`Table header cell of type float 1`] = `
+<th
+  className="table-heading-cell text-right"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
+exports[`Table header cell of type integer 1`] = `
+<th
+  className="table-heading-cell text-right"
+>
+  <span
+    onClick={[Function]}
+  >
+    
+     
+  </span>
+</th>
+`;
+
 exports[`Table header cell that is sorted 1`] = `
 <th
   className="table-heading-cell"

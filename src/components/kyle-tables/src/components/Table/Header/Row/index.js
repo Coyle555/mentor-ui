@@ -67,6 +67,7 @@ export const TableHeaderRow = ({
 						: null
 					}
 					title={cell.label}
+					type={cell.type}
 				/>
 			))}
 		</tr>

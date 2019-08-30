@@ -17,6 +17,7 @@ export class TableHeaderCell extends Component {
 		sortIcon: PropTypes.element,
 		sorted: PropTypes.bool,
 		title: PropTypes.string,
+		type: PropTypes.string
 	}
 
 	static defaultProps = {
@@ -35,11 +36,12 @@ export class TableHeaderCell extends Component {
 	}
 
 	render() {
-		const { customClasses, sort, title } = this.props;
+		const { customClasses, sort, title, type } = this.props;
 
 		const classList = classNames({
 			'table-heading-cell': true,
-			[customClasses.tableHeaderCell]: !!customClasses.tableHeaderCell
+			[customClasses.tableHeaderCell]: !!customClasses.tableHeaderCell,
+			'text-right': type === 'float' || type === 'integer'
 		});
 
 		return (

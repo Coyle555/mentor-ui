@@ -25,11 +25,10 @@ export const PageDropdown = ({ currentPage, onChange, pageSize, recordCount }) =
 			<IntegerInput
 				className="page-dropdown-input"
 				data-testid="pagedropdown"
-				max={maxPage}
-				min={1}
 				name="page-dropdown"
 				onBlur={_onBlur}
 				value={currentPage}
+				validate={val => val > 0 && val < maxPage}
 			/>
 			of {maxPage} pages
 		</div>
