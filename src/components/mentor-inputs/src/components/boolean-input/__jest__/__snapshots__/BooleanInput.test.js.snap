@@ -13,12 +13,12 @@ exports[`<BooleanInput /> with no props 1`] = `
     Select an option
   </option>
   <option
-    value={true}
+    value="True"
   >
     True
   </option>
   <option
-    value={false}
+    value="False"
   >
     False
   </option>
@@ -38,12 +38,12 @@ exports[`<BooleanInput /> with placeholder option text 1`] = `
     Select true or false
   </option>
   <option
-    value={true}
+    value="True"
   >
     True
   </option>
   <option
-    value={false}
+    value="False"
   >
     False
   </option>
@@ -52,10 +52,9 @@ exports[`<BooleanInput /> with placeholder option text 1`] = `
 
 exports[`<BooleanInput /> with required  1`] = `
 <select
-  className="mui-mi-input-field"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  required={true}
   value=""
 >
   <option
@@ -65,12 +64,62 @@ exports[`<BooleanInput /> with required  1`] = `
     Select an option
   </option>
   <option
-    value={true}
+    value="True"
   >
     True
   </option>
   <option
-    value={false}
+    value="False"
+  >
+    False
+  </option>
+</select>
+`;
+
+exports[`Boolean input with invalid initial value 1`] = `
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value=""
+>
+  <option
+    value=""
+  >
+    Select an option
+  </option>
+  <option
+    value="True"
+  >
+    True
+  </option>
+  <option
+    value="False"
+  >
+    False
+  </option>
+</select>
+`;
+
+exports[`Boolean input with valid initial value 1`] = `
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value="True"
+>
+  <option
+    value=""
+  >
+    Select an option
+  </option>
+  <option
+    value="True"
+  >
+    True
+  </option>
+  <option
+    value="False"
   >
     False
   </option>

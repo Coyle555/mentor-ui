@@ -1,10 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<SelectInput /> with a newly received and parsed value 1`] = `
+<select
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  value="bananas"
+>
+  <option
+    value=""
+  >
+    Select an option
+  </option>
+  <option
+    value="apple"
+  >
+    apple
+  </option>
+  <option
+    value="bananas"
+  >
+    bananas
+  </option>
+  <option
+    value="cranberries"
+  >
+    cranberries
+  </option>
+</select>
+`;
+
 exports[`<SelectInput /> with a parsed value 1`] = `
 <select
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  value="bananas"
 >
   <option
     value=""
@@ -34,6 +65,7 @@ exports[`<SelectInput /> with a required attribute 1`] = `
   className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
+  value=""
 >
   <option
     disabled={true}
@@ -49,6 +81,7 @@ exports[`<SelectInput /> with no props 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  value=""
 >
   <option
     value=""
@@ -63,6 +96,7 @@ exports[`<SelectInput /> with options from array of objects w/ parsing props 1`]
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  value=""
 >
   <option
     value=""
@@ -92,6 +126,7 @@ exports[`<SelectInput /> with options from array of strings 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  value=""
 >
   <option
     value=""
@@ -121,6 +156,7 @@ exports[`<SelectInput /> with placeholder option text 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  value=""
 >
   <option
     value=""

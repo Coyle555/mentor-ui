@@ -16,23 +16,20 @@ const SelectInput = ({
 }) => {
 	value = typeof parse === 'function' ? parse(value) : value;
 
-	//if (!value) value = '';
+	if (!value) value = '';
 
 	const lastVal = useRef(value);
 	const inputRef = useRef(null);
 	const [ currentValue, setCurrentValue ] = useState(value);
 	const [ error, setError ] = useState(hasError(value, required, validate));
-	console.log('curren value', currentValue);
 
 	/// value in state should be updated when value in props is changed
-	/*useEffect(() => {
+	useEffect(() => {
 		if (currentValue !== value) {
 			/// update to the new value if its actually new
-			setCurrentValue(validateValue(value));
+			setCurrentValue(value);
 
 			if (inputRef.current) {
-				/// check for errors on the new value
-				/// as long as the inputRef points to a dom node
 				setError(hasError(value, required, validate));
 			}
 		}
@@ -42,58 +39,55 @@ const SelectInput = ({
 	/// as soon as the input ref is attached to the node
 	/// check for errors on the value
 	/// (We also need to reevaluate error status if required attribute is changed)
-	/*useEffect(() => {
+	useEffect(() => {
 		if (!inputRef.current || !inputRef.current.name) return;
 
 		setError(hasError(currentValue, required, validate));
 
 	}, [inputRef.current, required]);
 
-	/*const onBlur = useCallback(evt => {
-		if (typeof onBlur !== 'function') return;
+	const onBlur = useCallback(evt => {
+		if (typeof props.onBlur !== 'function') return;
 		
 		if (currentValue !== lastVal) {
 			lastVal.current = currentValue;
 
 			const actualValue = typeof parse === 'function'
-				? options.find(opt => parse(opt) === newValue)
-				: newValue;
+				? options.find(opt => parse(opt) === currentValue)
+				: currentValue;
 
-			onBlur(error, actualValue, props.name);
+			props.onBlur(error, actualValue, props.name);
 		}
-	});*/
+	});
 
-	console.log(currentValue);
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;
 		setCurrentValue(newValue);
 
-		//const error = hasError(newValue, required, validate);
-		//setError(error);
+		const error = hasError(newValue, required, validate);
+		setError(error);
 
-		if (typeof onChange === 'function') {
-			/*const actualValue = typeof parse === 'function'
+		if (typeof props.onChange === 'function') {
+			const actualValue = typeof parse === 'function'
 				? options.find(opt => parse(opt) === newValue)
 				: newValue;
 
-			console.log('calling on change w/', error, actualValue, props.name);*/
-
-			onChange(error, '', props.name);
+			props.onChange(error, actualValue, props.name);
 		}
 	});
 
-	/*const inputClasses = classNames({
+	const inputClasses = classNames({
 		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
 		'mui-mi-input-field-has-error': error
-	});*/
+	});
 
 	return (
 		<select
 			{...props}
-			//className={inputClasses}
+			className={inputClasses}
 			name={props.name}
-			//onBlur={onBlur}
+			onBlur={onBlur}
 			onChange={onChange}
 			ref={inputRef}
 			value={currentValue}

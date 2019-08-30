@@ -32,6 +32,18 @@ test('<BooleanInput /> with required ', () => {
  	expect(tree).toMatchSnapshot();
 });
 
+test('Boolean input with valid initial value', () => {
+	const tree = renderer.create(<BooleanInput value={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Boolean input with invalid initial value', () => {
+	const tree = renderer.create(<BooleanInput value="ASdas" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('<BooleanInput /> onBlur cb returns a boolean or null', () => {
  	const onBlur = jest.fn();
  	const { container } = render( 
@@ -41,8 +53,8 @@ test('<BooleanInput /> onBlur cb returns a boolean or null', () => {
  		/> 
  	);
 
- 	fireEvent.change(container.querySelector('select'), { target: { value: true }});
+ 	fireEvent.change(container.querySelector('select'), { target: { value: 'True' }});
  	fireEvent.blur(container.querySelector('select'));
  	
- 	expect(onBlur).toHaveBeenCalledWith('', true, 'attending');
+ 	expect(onBlur).toHaveBeenCalledWith(false, true, 'attending');
 });

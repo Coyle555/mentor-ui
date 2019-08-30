@@ -75,18 +75,19 @@ test('<SelectInput /> with a parsed value', () => {
 });
 
 test.skip('<SelectInput /> with a newly received and parsed value', () => {
+	const parse = val => val.label;
+
  	const component = renderer.create( 
- 		<SelectInput 
- 			options={fruits}
-			parse={val => val.label}
- 			value={fruits[1]}
- 		/> 
+ 		<SelectInput options={fruits} parse={parse} value={fruits[1]} /> 
  	);
+
+	component.update(<SelectInput options={fruits} parse={parse} value={fruits[2]} />);
+
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });  
 
-test.only('<SelectInput /> onChange cb returns parsed value with props.parse', () => {
+test('<SelectInput /> onChange cb returns parsed value with props.parse', () => {
 	const onChange = jest.fn();
 	const { container, debug } = render(
  		<SelectInput 
@@ -102,7 +103,7 @@ test.only('<SelectInput /> onChange cb returns parsed value with props.parse', (
 	expect(onChange).toHaveBeenCalledWith(false, { label: 'apple', price: 1.40 }, 'foo');
 });
 
-test.skip('<SelectInput /> onBlur cb returns parsed value with props.parse', () => {
+test('<SelectInput /> onBlur cb returns parsed value with props.parse', () => {
 	const onBlur = jest.fn();
 	const { container } = render(
  		<SelectInput 
