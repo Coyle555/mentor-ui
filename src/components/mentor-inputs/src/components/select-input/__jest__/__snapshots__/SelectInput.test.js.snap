@@ -5,7 +5,6 @@ exports[`<SelectInput /> with a parsed value 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  value={0.59}
 >
   <option
     value=""
@@ -13,17 +12,17 @@ exports[`<SelectInput /> with a parsed value 1`] = `
     Select an option
   </option>
   <option
-    value={1.4}
+    value="apple"
   >
     apple
   </option>
   <option
-    value={0.59}
+    value="bananas"
   >
     bananas
   </option>
   <option
-    value={5.99}
+    value="cranberries"
   >
     cranberries
   </option>
@@ -32,10 +31,9 @@ exports[`<SelectInput /> with a parsed value 1`] = `
 
 exports[`<SelectInput /> with a required attribute 1`] = `
 <select
-  className="mui-mi-input-field"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  required={true}
 >
   <option
     disabled={true}
@@ -60,50 +58,6 @@ exports[`<SelectInput /> with no props 1`] = `
 </select>
 `;
 
-exports[`<SelectInput /> with options from array of objects w/ no parsing props 1`] = `
-<select
-  className="mui-mi-input-field"
-  onBlur={[Function]}
-  onChange={[Function]}
->
-  <option
-    value=""
-  >
-    Select an option
-  </option>
-  <option
-    value={
-      Object {
-        "label": "apple",
-        "price": 1.4,
-      }
-    }
-  >
-    [object Object]
-  </option>
-  <option
-    value={
-      Object {
-        "label": "bananas",
-        "price": 0.59,
-      }
-    }
-  >
-    [object Object]
-  </option>
-  <option
-    value={
-      Object {
-        "label": "cranberries",
-        "price": 5.99,
-      }
-    }
-  >
-    [object Object]
-  </option>
-</select>
-`;
-
 exports[`<SelectInput /> with options from array of objects w/ parsing props 1`] = `
 <select
   className="mui-mi-input-field"
@@ -116,17 +70,17 @@ exports[`<SelectInput /> with options from array of objects w/ parsing props 1`]
     Select an option
   </option>
   <option
-    value={1.4}
+    value="apple"
   >
     apple
   </option>
   <option
-    value={0.59}
+    value="bananas"
   >
     bananas
   </option>
   <option
-    value={5.99}
+    value="cranberries"
   >
     cranberries
   </option>

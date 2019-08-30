@@ -33,15 +33,14 @@ storiesOf('Inputs/SelectInput', module)
 
 		return (
 			<SelectInput 
-				getOptionLabel={opt => opt.labelText}
-				getOptionValue={opt => opt.price}
 				name="fruitPrice"
 				onBlur={onBlur}
 				onChange={onChange}
 				options={fruitPrices}
+				parse={opt => opt.labelText}
 				placeholder={text('Set placeholder text', 'Select one fruit')}
 				required={boolean('Is required?', false)}
-				value={select('value', options, null)}
+				value={{ labelText: 'Apple', price: 1.59 }}
 			/>
 		)
 	})

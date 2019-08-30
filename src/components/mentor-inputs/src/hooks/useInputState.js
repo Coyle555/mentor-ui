@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash';
 import shortid from 'shortid';
@@ -15,7 +15,6 @@ export const useInputState = (props = {}) => {
 		disabled,
 		onBlur,
 		onChange,
-		parse,
 		required,
 		validate,
 		value,
@@ -69,17 +68,16 @@ export const useInputState = (props = {}) => {
 	return {
 		className: inputClasses,
 
-		onBlur(evt) {
+		onBlur: useCallback(evt => {
 			if (typeof onBlur !== 'function') return;
 			
 			if (String(currentValue).trim() !== String(lastVal).trim()) {
 				lastVal.current = currentValue;
 				onBlur(error, currentValue, input.name);
-			
 			}
-		},
+		}),
 		
-		onChange(evt) {
+		onChange: useCallback(evt => {
 			const newValue = evt.target.value;
 			setCurrentValue(newValue);
 
@@ -89,7 +87,7 @@ export const useInputState = (props = {}) => {
 			if (typeof onChange === 'function') {
 				onChange(error, newValue, input.name);
 			}
-		},
+		}),
 
 		name: fakeNameToPreventAutocomplete.current || input.name,
 		ref: inputRef,
