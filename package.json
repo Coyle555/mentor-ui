@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "@fortawesome/fontawesome-pro": "^5.9.0",
+    "@fortawesome/fontawesome-pro": "^5.10.2",
     "airbnb-browser-shims": "^3.2.1",
     "classnames": "^2.2.6",
     "compose-namespace": "^1.0.3",
