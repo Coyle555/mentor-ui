@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
 jobs:
@@ -48,7 +48,8 @@ jobs:
           path: coverage
 
       - codecov/upload:
-          file: coverage
+          file: ./coverage/lcov.info
+          when: always
 
       - run: 
           name: Failed Tests
