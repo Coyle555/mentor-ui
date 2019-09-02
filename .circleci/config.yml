@@ -40,7 +40,7 @@ jobs:
       # run tests!
       - run:
           name: test
-          command: npm run jest
+          command: npm run jest-ci
 
       - run: 
           name: Failed Tests
