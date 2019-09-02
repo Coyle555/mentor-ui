@@ -51,8 +51,6 @@ export class FilterItem extends Component {
 		} else if (this.props.type === 'date') {
 
 			const date = Date.parse(new Date(val));
-			const region = new Intl.DateTimeFormat().resolvedOptions();
-			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
 			const options = {
 				year: 'numeric',
 				month: 'long',
@@ -61,7 +59,7 @@ export class FilterItem extends Component {
 
 			return (
 				<span>
-					{ new Intl.DateTimeFormat('default', options).format(convertedDate) }
+					{ new Intl.DateTimeFormat('default', options).format(date) }
 				</span>
 			);
 		}

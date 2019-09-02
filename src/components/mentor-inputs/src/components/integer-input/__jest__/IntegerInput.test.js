@@ -38,3 +38,31 @@ test('Integer input with a non integer value', () => {
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
 });
+
+test('Minimum value passed for integer input', () => {
+	const component = renderer.create( <IntegerInput min={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Minimum value failed for integer input', () => {
+	const component = renderer.create( <IntegerInput min={10} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value passed for integer input', () => {
+	const component = renderer.create( <IntegerInput max={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value failed for integer input', () => {
+	const component = renderer.create( <IntegerInput max={0} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});

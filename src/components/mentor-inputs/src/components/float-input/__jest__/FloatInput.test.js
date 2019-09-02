@@ -54,3 +54,31 @@ test('Float input blur with a preicison', () => {
 	fireEvent.blur(container.querySelector('input'));
 	expect(onBlur).toHaveBeenCalledWith(true, '123.423', 'foo');
 });
+
+test('Minimum value passed for float input', () => {
+	const component = renderer.create(<FloatInput min={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Minimum value failed for float input', () => {
+	const component = renderer.create(<FloatInput min={10} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value passed for float input', () => {
+	const component = renderer.create(<FloatInput max={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value failed for float input', () => {
+	const component = renderer.create(<FloatInput max={0} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});

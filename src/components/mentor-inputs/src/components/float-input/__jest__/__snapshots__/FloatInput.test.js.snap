@@ -72,3 +72,51 @@ exports[`Float input with required prop 1`] = `
   value=""
 />
 `;
+
+exports[`Maximum value failed for float input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter decimal"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Maximum value passed for float input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter decimal"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Minimum value failed for float input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter decimal"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Minimum value passed for float input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter decimal"
+  type="text"
+  value="5"
+/>
+`;

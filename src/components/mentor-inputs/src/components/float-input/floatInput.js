@@ -10,7 +10,7 @@ function isFloat(num) {
 		&& !isNaN(parseFloat(num, 10));
 }
 
-const FloatInput = ({ validate = [], precision = -1, ...props }) => {
+const FloatInput = ({ max, min, precision = -1, validate, ...props }) => {
 
 	const hasValidPrecision = useCallback(val => (
 		precision > -1
@@ -18,11 +18,24 @@ const FloatInput = ({ validate = [], precision = -1, ...props }) => {
 			: true
 	));
 
+	const isGreaterThanMin = useCallback(value => (
+		min !== undefined ? Number(value) >= min : true
+	));
+
+	const isGreaterThanMax = useCallback(value => (
+		max !== undefined ? Number(value) <= max : true
+	));
+
 	return (
 		<TextInput
 			placeholder="Enter decimal"
 			{...props}
-			validate={[isFloat, hasValidPrecision].concat(validate)}
+			validate={[
+				isFloat,
+				hasValidPrecision,
+				isGreaterThanMin,
+				isGreaterThanMax
+			].concat(validate)}
 		/>
 	);
 };

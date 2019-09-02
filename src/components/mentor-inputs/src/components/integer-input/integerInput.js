@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,15 +15,34 @@ function isInteger(num) {
 		&& !isNaN(parseInt(num, 10));
 }
 
-const IntegerInput = ({ validate = [], ...props }) => {
+const IntegerInput = ({ max, min, validate, ...props }) => {
+
+	const isGreaterThanMin = useCallback(value => (
+		min !== undefined ? Number(value) >= min : true
+	));
+
+	const isGreaterThanMax = useCallback(value => (
+		max !== undefined ? Number(value) <= max : true
+	));
 
 	return (
 		<TextInput
 			placeholder="Enter number"
 			{...props}
-			validate={[isInteger, noDecimals].concat(validate)}
+			validate={[
+				isInteger,
+				noDecimals,
+				isGreaterThanMin,
+				isGreaterThanMax
+			].concat(validate)}
 		/>
 	);
-}
+};
+
+IntegerInput.propTypes = {
+	min: PropTypes.number,
+	max: PropTypes.number,
+	validate: PropTypes.func
+};
 
 export default IntegerInput;

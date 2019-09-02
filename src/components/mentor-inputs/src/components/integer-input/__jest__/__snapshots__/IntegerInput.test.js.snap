@@ -59,3 +59,51 @@ exports[`Integer input with a non integer value 1`] = `
   value="test"
 />
 `;
+
+exports[`Maximum value failed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Maximum value passed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Minimum value failed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`Minimum value passed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;

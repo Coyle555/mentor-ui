@@ -1,10 +1,3 @@
-jest.mock('react-intl', () => {
-	return {
-		FormattedDate: (props) => <div>Date: {JSON.stringify(props)}</div>,
-		FormattedTime: (props) => <div>Time: {JSON.stringify(props)}</div>
-	};
-});
-
 import React from 'react';
 import { FilterItem } from '../index';
 import renderer from 'react-test-renderer';
