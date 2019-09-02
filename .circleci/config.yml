@@ -41,3 +41,8 @@ jobs:
       - run:
           name: test
           command: npm run jest
+
+      - run: 
+          name: Failed Tests
+          command: exit 0
+          when: on_fail

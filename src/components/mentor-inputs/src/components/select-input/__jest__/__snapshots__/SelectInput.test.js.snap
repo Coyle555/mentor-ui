@@ -1,35 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SelectInput /> with a newly received and parsed value 1`] = `
-<select
-  className="mui-mi-input-field"
-  onBlur={[Function]}
-  onChange={[Function]}
-  value="bananas"
->
-  <option
-    value=""
-  >
-    Select an option
-  </option>
-  <option
-    value="apple"
-  >
-    apple
-  </option>
-  <option
-    value="bananas"
-  >
-    bananas
-  </option>
-  <option
-    value="cranberries"
-  >
-    cranberries
-  </option>
-</select>
-`;
-
 exports[`<SelectInput /> with a parsed value 1`] = `
 <select
   className="mui-mi-input-field"
