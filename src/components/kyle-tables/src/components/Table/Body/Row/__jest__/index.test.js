@@ -38,7 +38,7 @@ test('Table row with extra columns without an onClick handler', () => {
 	).toJSON();
 });
 
-test('Table row with extra columns with an onClick handler', () => {
+test('Table row with extra columns with an onClick handler ', () => {
 	const onClick = jest.fn();
 
 	const tree = renderer.create(
