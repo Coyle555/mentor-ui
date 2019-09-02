@@ -10,7 +10,7 @@
     "build-storybook": "build-storybook -c .storybook -o docs && cp ./README.md ./docs/index.md",
     "storybook": "start-storybook",
     "jest": "TZ=America/New_York jest --testPathPattern=src/.*/__jest__/.*.test.js$ --setupFilesAfterEnv=./jest.setup.js --watch",
-    "jest-ci": "TZ=America/New_York jest --testPathPattern=src/.*/__jest__/.*.test.js$ --setupFilesAfterEnv=./jest.setup.js --collectCoverage=true",
+    "jest-ci": "TZ=America/New_York jest --testPathPattern=src/.*/__jest__/.*.test.js$ --setupFilesAfterEnv=./jest.setup.js",
     "jest-coverage": "TZ=America/New_York jest --testPathPattern=src/.*/__jest__/.*.test.js$ --setupFilesAfterEnv=./jest.setup.js --coverage"
   },
   "devDependencies": {
