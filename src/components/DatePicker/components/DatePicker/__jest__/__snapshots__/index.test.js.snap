@@ -21,7 +21,7 @@ exports[`DatePicker Component Should match snapshot with base props 1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -55,7 +55,7 @@ exports[`DatePicker Component Should match snapshot with clearInput prop 1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -86,7 +86,7 @@ exports[`DatePicker Component Should match snapshot with onCloseHandler prop 1`]
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -120,7 +120,7 @@ exports[`DatePicker Component Should match snapshot with onSaveHandler prop 1`] 
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -147,7 +147,7 @@ exports[`DatePicker Component Should match stapshot with all min /max props  1`]
     <div
       data-testid="Calendar"
     >
-      {"maxDate":"9999-09-09","minDate":"0000-01-01","moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":"9999-09-09","minDate":"0000-01-01","moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -174,7 +174,7 @@ exports[`DatePicker Component Should match stapshot with maxDate / and minDate p
     <div
       data-testid="Calendar"
     >
-      {"maxDate":"9999-01-01","minDate":"1999-01-01","moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":"9999-01-01","minDate":"1999-01-01","moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -201,7 +201,7 @@ exports[`DatePicker Component Should match stapshot with maxDate props  1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":"1999-01-01","minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":"1999-01-01","minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -228,7 +228,7 @@ exports[`DatePicker Component Should match stapshot with maxHour props  1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -255,7 +255,7 @@ exports[`DatePicker Component Should match stapshot with maxMinute props  1`] = 
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -282,7 +282,7 @@ exports[`DatePicker Component Should match stapshot with min /maxHour props  1`]
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -309,7 +309,7 @@ exports[`DatePicker Component Should match stapshot with min /maxMinute props  1
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -336,7 +336,7 @@ exports[`DatePicker Component Should match stapshot with minDate props  1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":"1999-01-01","moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":"1999-01-01","moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -363,7 +363,7 @@ exports[`DatePicker Component Should match stapshot with minHour props  1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -390,7 +390,7 @@ exports[`DatePicker Component Should match stapshot with minMinute props  1`] = 
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -417,7 +417,7 @@ exports[`DatePicker Component Should render date component only 1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
@@ -444,7 +444,7 @@ exports[`DatePicker Component Should render time component only 1`] = `
     <div
       data-testid="Calendar"
     >
-      {"maxDate":null,"minDate":null,"moment":"2000-01-01T05:00:00.000Z"}
+      {"maxDate":null,"minDate":null,"moment":"2000-01-01T06:00:00.000Z"}
     </div>
   </div>
 </div>
