@@ -15,6 +15,7 @@ import {
 beforeEach(cleanup);
 
 describe('CalendarDay component', () => {
+	const tr = document.createElement('tr');
 	const m = new moment('2020-12-05 12:12');
 
 	it('Should should match snapshot with base props', () => {
@@ -24,7 +25,8 @@ describe('CalendarDay component', () => {
 				week={0}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 
 		expect(container).toMatchSnapshot();
@@ -37,7 +39,8 @@ describe('CalendarDay component', () => {
 				week={0}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 		const classes = JSON.stringify(getByText('5').classList);
 		expect(classes).toMatch(/current-day/);
@@ -50,7 +53,8 @@ describe('CalendarDay component', () => {
 				week={0}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 		const classes = JSON.stringify(getByText('30').classList);
 		expect(classes).toMatch(/not-present-month/);
@@ -63,7 +67,8 @@ describe('CalendarDay component', () => {
 				week={4}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 		const classes = JSON.stringify(getByText('14').classList);
 		expect(classes).toMatch(/not-present-month/);
@@ -78,7 +83,8 @@ describe('CalendarDay component', () => {
 				week={0}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 
 		fireEvent.click(getByText('10'));
@@ -95,7 +101,8 @@ describe('CalendarDay component', () => {
 				week={4}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 		fireEvent.click(getByText('14'));
 
@@ -113,7 +120,8 @@ describe('CalendarDay component', () => {
 				week={0}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 
 		const classes = JSON.stringify(getByText('10').classList);
@@ -129,7 +137,8 @@ describe('CalendarDay component', () => {
 				week={2}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 
 		const classes = JSON.stringify(getByText('10').classList);
@@ -146,7 +155,8 @@ describe('CalendarDay component', () => {
 				week={2}
 				currentDay={5}
 				currentMoment={m}
-			/>
+			/>,
+			{ container: document.body.appendChild(tr) }
 		);
 
 		const classes = JSON.stringify(getByText('10').classList);

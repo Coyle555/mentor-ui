@@ -243,4 +243,5 @@ DatePicker.defaultProps = {
 	minMinute: 0,
 	maxMinute: 59,
 	onSaveHandler: null,
+	type: 'datetime'
 };

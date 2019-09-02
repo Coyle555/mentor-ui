@@ -3,7 +3,7 @@ jest.mock('moment', () => {
 });
 
 jest.mock('mentor-inputs', () => {
-	return { DatePicker: (props) => <div>{JSON.stringify(props)}</div> };
+	return { DatePickerInput: (props) => <div>{JSON.stringify(props)}</div> };
 });
 
 import React from 'react';
