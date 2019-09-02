@@ -7,16 +7,4 @@ exports[`Default render of image cell 1`] = `
 />
 `;
 
-exports[`Image cell in edit mode with a value 1`] = `
-Array [
-  <img
-    className="table-image-cell"
-    src="/foo.jpg"
-  />,
-  <i
-    className="fa fa-times table-cell-edit-image"
-    data-testid="table-image-delete"
-    onClick={[Function]}
-  />,
-]
-`;
+exports[`Render of image cell with no value 1`] = `""`;

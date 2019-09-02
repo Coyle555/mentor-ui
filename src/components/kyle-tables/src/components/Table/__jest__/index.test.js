@@ -4,7 +4,12 @@ import renderer from 'react-test-renderer';
 
 test('Default render of table main', () => {
 	const tree = renderer.create(
-		<TableMain />,
+		<TableMain
+			events={{}}
+			pageProperties={{ recordCount: 0 }}
+			recordProperties={{}}
+			rowProperties={{}}
+		/>,
 		{ createNodeMock: element => {
 			if (element.type === 'div') {
 				return {};
@@ -19,7 +24,16 @@ test('Default render of table main', () => {
 
 test('Table main render with records', () => {
 	const tree = renderer.create(
-		<TableMain pageProperties={{ recordCount: 10 }} />
+		<TableMain
+			events={{}}
+			pageProperties={{ recordCount: 10 }}
+			recordProperties={{
+				entriesViewable: 10,
+				currentPage: 1,
+				count: 10
+			}}
+			rowProperties={{ data: [] }}
+		/>
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();

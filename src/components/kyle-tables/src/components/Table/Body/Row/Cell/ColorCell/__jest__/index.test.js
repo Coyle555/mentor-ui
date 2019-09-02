@@ -6,7 +6,7 @@ import React from 'react';
 import { ColorCell } from '../index';
 import renderer from 'react-test-renderer';
 
-test('Default edit color picker render', () => {
+test('Default color picker render', () => {
 	const tree = renderer.create(<ColorCell />).toJSON();
 
 	expect(tree).toMatchSnapshot();

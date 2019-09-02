@@ -11,24 +11,8 @@ test('Default render of image cell', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Image cell in edit mode with a value', () => {
-	const tree = renderer.create(<ImageCell editMode={true} value="/foo.jpg" />).toJSON();
+test('Render of image cell with no value', () => {
+	const tree = renderer.create(<ImageCell value="" />).toJSON();
 
 	expect(tree).toMatchSnapshot();
-});
-
-test('Image cell in edit mode onDeleteClick callback', () => {
-	const onDeleteClick = jest.fn();
-
-	const { getByTestId } = render(
-		<ImageCell
-			colId="foo"
-			editMode={true}
-			onDeleteClick={onDeleteClick}
-			rowId="bar"
-		/>
-	);
-
-	fireEvent.click(getByTestId('table-image-delete'));
-	expect(onDeleteClick).toHaveBeenCalledWith('bar', 'foo');
 });

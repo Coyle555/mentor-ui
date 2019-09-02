@@ -39,7 +39,13 @@ test('Table loads the next page', () => {
 	);
 
 	tree.getInstance()._loadNextPage();
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 2, undefined, undefined, []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 2, 
+		sortId: undefined, 
+		sortDir: undefined, 
+		filters: []
+	});
 });
 
 test('Table loads the previous page', () => {
@@ -50,7 +56,13 @@ test('Table loads the previous page', () => {
 	);
 
 	tree.getInstance()._loadPrevPage();
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 1, undefined, undefined, []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 1, 
+		sortId: undefined, 
+		sortDir: undefined, 
+		filters: []
+	});
 });
 
 test('Table loads a user defined page', () => {
@@ -61,7 +73,13 @@ test('Table loads a user defined page', () => {
 	);
 
 	tree.getInstance()._loadGetPage(5);
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 5, undefined, undefined, []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 5, 
+		sortId: undefined, 
+		sortDir: undefined,
+		filters: []
+	});
 });
 
 test('Table sorts an already sorted ascending column', () => {
@@ -76,7 +94,13 @@ test('Table sorts an already sorted ascending column', () => {
 	);
 
 	tree.getInstance()._loadSort('foo');
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 1, 'foo', 'DESC', []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 1, 
+		sortId: 'foo',
+		sortDir: 'DESC',
+		filters: []
+	});
 });
 
 test('Table sorts an already sorted descending column', () => {
@@ -91,7 +115,13 @@ test('Table sorts an already sorted descending column', () => {
 	);
 
 	tree.getInstance()._loadSort('foo');
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 1, 'foo', 'ASC', []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 1, 
+		sortId: 'foo', 
+		sortDir: 'ASC',
+		filters: []
+	});
 });
 
 test('Table sorts an unsorted column', () => {
@@ -105,7 +135,13 @@ test('Table sorts an unsorted column', () => {
 	);
 
 	tree.getInstance()._loadSort('bar');
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 1, 'bar', 'DESC', []);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined, 
+		currentPage: 1, 
+		sortId: 'bar',
+		sortDir: 'DESC',
+		filters: []
+	});
 });
 
 test('Table filters on a filter change', () => {
@@ -119,7 +155,13 @@ test('Table filters on a filter change', () => {
 	);
 
 	tree.getInstance()._loadFilterChange(['foo', 'bar']);
-	expect(handleTableChange).toHaveBeenCalledWith(undefined, 1, undefined, undefined, ['foo', 'bar']);
+	expect(handleTableChange).toHaveBeenCalledWith({
+		pageSize: undefined,
+		currentPage: 1,
+		sortId: undefined,
+		sortDir: undefined,
+		filters: ['foo', 'bar']
+	});
 });
 
 test('Exporting table has correct filters', () => {
@@ -163,26 +205,6 @@ test('Table activates multiple insert mode', () => {
 	instance._onInsertClick('multiple');
 	expect(instance.state.insertMode).toBe(true);
 	expect(instance.state.insertType).toBe('multiple');
-});
-
-test('Table inserts a token', () => {
-	const insertTokenCb = jest.fn();
-
-	const tree = renderer.create(<Table insertTokenCb={insertTokenCb} />);
-	const instance = tree.getInstance();
-
-	instance._onInsertTokenClick('foo', 'bar', 'baz');
-	expect(insertTokenCb).toHaveBeenCalledWith('foo', 'bar', 'baz');
-});
-
-test('Table deletes a token', () => {
-	const deleteTokenCb = jest.fn();
-
-	const tree = renderer.create(<Table deleteTokenCb={deleteTokenCb} />);
-	const instance = tree.getInstance();
-
-	instance._onDeleteTokenClick('foo', 'bar', 'baz');
-	expect(deleteTokenCb).toHaveBeenCalledWith('foo', 'bar', 'baz');
 });
 
 test('Table selects a row', () => {
@@ -264,13 +286,13 @@ test('Table deletes all row', () => {
 	expect(instance.state.selectedRows).toStrictEqual({});
 });
 
-test('Table deletes an image', () => {
+test('Table deletes a file', () => {
 	const updateCb = jest.fn();
 	const tree = renderer.create(<Table updateCb={updateCb} />);
 	const instance = tree.getInstance();
 
-	instance._onDeleteImageClick('foo', 'bar');
-	expect(updateCb).toHaveBeenCalledWith('foo', { bar: null });
+	instance._onDeleteFileClick('foo', 'bar');
+	expect(updateCb).toHaveBeenCalledWith('foo', 'bar', null);
 });
 
 test('Table displayed column is turned off', () => {
@@ -278,7 +300,6 @@ test('Table displayed column is turned off', () => {
 	const tree = renderer.create(
 		<Table
 			columns={[{ id: 'foo', display: true }]}
-			model={{ foo: { id: 'foo', display: true } }}
 			onDisplayColChange={onDisplayColChange}
 		/>
 	);
@@ -286,7 +307,6 @@ test('Table displayed column is turned off', () => {
 
 	instance._onDisplayColChange({ target: { name: 'foo', checked: false } });
 
-	expect(instance.state.model).toStrictEqual({ foo: { id: 'foo', display: false } });
 	expect(instance.state.columns).toStrictEqual([{ id: 'foo', display: false }]);
 	expect(onDisplayColChange).toHaveBeenCalledWith([]);
 });
@@ -296,7 +316,6 @@ test('Table displayed column is turned on', () => {
 	const tree = renderer.create(
 		<Table
 			columns={[{ id: 'foo', display: false }]}
-			model={{ foo: { id: 'foo', display: false } }}
 			onDisplayColChange={onDisplayColChange}
 		/>
 	);
@@ -304,33 +323,27 @@ test('Table displayed column is turned on', () => {
 
 	instance._onDisplayColChange({ target: { name: 'foo', checked: true } });
 
-	expect(instance.state.model).toStrictEqual({ foo: { id: 'foo', display: true } });
 	expect(instance.state.columns).toStrictEqual([{ id: 'foo', display: true }]);
 	expect(onDisplayColChange).toHaveBeenCalledWith(['foo']);
 });
 
 test('Table quick view column change', () => {
 	const tree = renderer.create(
-		<Table
-			columns={[{ id: 'foo', display: false }]}
-			model={{ foo: { id: 'foo', display: false } }}
-		/>
+		<Table columns={[{ id: 'foo', display: false }]} />
 	);
 	const instance = tree.getInstance();
 
-	instance._onQuickViewColChange({ foo: true });
-	expect(instance.state.model).toStrictEqual({ foo: { id: 'foo', display: true } });
-	// this is a hack to get around writing the whole model
+	instance._onQuickViewColChange(['foo']);
 	expect(instance.state.columns[0].display).toBe(true);
 });
 
-test('Table input has an onBlur account', () => {
+test('Table input has an onBlur fire', () => {
 	const updateCb = jest.fn();
 	const tree = renderer.create(<Table updateCb={updateCb} />);
 	const instance = tree.getInstance();
 
-	instance._onBlur('foo', { bar: 'baz' });
-	expect(updateCb).toHaveBeenCalledWith('foo', { bar: 'baz' });
+	instance._onBlur('foo', 'bar', 'baz');
+	expect(updateCb).toHaveBeenCalledWith('foo', 'bar', 'baz');
 });
 
 test('Table input matches an option', () => {
@@ -339,7 +352,7 @@ test('Table input matches an option', () => {
 	const instance = tree.getInstance();
 
 	instance._onOptionMatch('foo', 'bar', 'baz');
-	expect(updateCb).toHaveBeenCalledWith('foo', { bar: 'baz' });
+	expect(updateCb).toHaveBeenCalledWith('foo', 'bar', 'baz');
 });
 
 test('Table input uploads a file', () => {
@@ -347,7 +360,7 @@ test('Table input uploads a file', () => {
 	const tree = renderer.create(<Table uploadFileCb={uploadFileCb} />);
 	const instance = tree.getInstance();
 
-	instance._uploadFileCb('foo', '/bar', null);
+	instance._uploadFile('foo', '/bar', null);
 	expect(uploadFileCb).toHaveBeenCalledWith('foo', '/bar', null);
 });
 
@@ -388,12 +401,8 @@ test('Table prep columns filter for the header', () => {
 	let columns = instance.prepColumnsForHeader([{ label: 'foo', display: true, id: 'foo' }]);
 	expect(columns).toStrictEqual([{ label: 'foo', display: true, id: 'foo' }]);
 
-	// hidden column
-	columns = instance.prepColumnsForHeader([{ label: 'foo', display: true, hidden: true, id: 'foo' }]);
-	expect(columns).toStrictEqual([]);
-
-	// no label in column
-	columns = instance.prepColumnsForHeader([{ display: true, hidden: true, id: 'foo' }]);
+	// no label in column discards the field
+	columns = instance.prepColumnsForHeader([{ display: true, id: 'foo' }]);
 	expect(columns).toStrictEqual([]);
 });
 

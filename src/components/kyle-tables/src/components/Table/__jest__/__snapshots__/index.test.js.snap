@@ -30,9 +30,11 @@ exports[`Table main render with records 1`] = `
     </div>
   </div>
   <div
-    className="table-footer m-t-sm"
+    className="table-footer row m-t-sm"
   >
-    <div>
+    <div
+      className="col-4"
+    >
       <button
         disabled={true}
         type="button"
@@ -53,7 +55,7 @@ exports[`Table main render with records 1`] = `
       </button>
     </div>
     <div
-      className="text-center"
+      className="col-4"
     >
       <p>
         Showing 
@@ -62,7 +64,7 @@ exports[`Table main render with records 1`] = `
         </b>
          to 
         <b>
-          25
+          10
         </b>
          of 
         <b>
@@ -75,19 +77,21 @@ exports[`Table main render with records 1`] = `
       className="page-dropdown"
     >
       <input
-        className="apm-mi-form-control page-dropdown-input"
+        autoComplete="false"
+        className="mui-mi-input-field page-dropdown-input"
         data-testid="pagedropdown"
-        max={1}
-        min={1}
         name="page-dropdown"
         onBlur={[Function]}
         onChange={[Function]}
-        type="number"
-        value={1}
+        placeholder="Enter number"
+        type="text"
+        value="1"
       />
-      of 
-      1
-       pages
+      <span>
+        of 
+        1
+         pages
+      </span>
     </div>
   </div>
 </div>

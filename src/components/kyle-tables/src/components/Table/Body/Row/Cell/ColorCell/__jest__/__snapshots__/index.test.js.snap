@@ -11,12 +11,12 @@ exports[`Color picker with a color passed in 1`] = `
 />
 `;
 
-exports[`Default edit color picker render 1`] = `
+exports[`Default color picker render 1`] = `
 <div
-  className="mui-table-color-cell"
+  className=""
   style={
     Object {
-      "backgroundColor": "#fff",
+      "backgroundColor": "",
     }
   }
 />

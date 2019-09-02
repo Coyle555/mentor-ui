@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { convertToTimeZone } from 'date-fns-timezone';
 
 export class FilterItem extends Component {
@@ -51,15 +52,10 @@ export class FilterItem extends Component {
 		} else if (this.props.type === 'date') {
 
 			const date = Date.parse(new Date(val));
-			const options = {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric'
-			};
 
 			return (
 				<span>
-					{ new Intl.DateTimeFormat('default', options).format(date) }
+					{ new moment(date).format('MMMM D, YYYY h:mm A') }
 				</span>
 			);
 		}

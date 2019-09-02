@@ -13,6 +13,7 @@ export class TableRow extends PureComponent {
 
 	static propTypes = {
 		columns: PropTypes.arrayOf(PropTypes.object),
+		customClasses: PropTypes.object,
 		customColumns: PropTypes.object,
 		draggable: PropTypes.oneOfType([
 			PropTypes.bool,

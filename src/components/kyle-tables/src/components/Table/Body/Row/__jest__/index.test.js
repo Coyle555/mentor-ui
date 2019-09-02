@@ -1,5 +1,5 @@
-jest.mock('../tableRowDroppable');
-jest.mock('../tableRowDraggable');
+jest.mock('../Drag/Droppable');
+jest.mock('../Drag/Draggable');
 
 import React from 'react';
 import { TableRow } from '../index';
@@ -58,9 +58,9 @@ test('Table row with an extra column onClick handler fired', () => {
 	const tableBody = document.createElement('tbody');
 	const { getByText } = render(
 		<TableRow
-			extraColumns={[{ cell: 'foo', onClick }]}
-			rowId="baz"
 			row={{ a: 1, b: 2, c: 3 }}
+			rowButtons={[{ icon: <div>foo</div>, onClick }]}
+			rowId="baz"
 		/>,
 		{ container: document.body.appendChild(tableBody) }
 	);
@@ -132,22 +132,6 @@ test('Table row in edit mode and is draggable', () => {
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();
-});
-
-test('Table row that generates a custom async filter for a row', () => {
-	const generateCustomFilter = jest.fn();
-
-	const tableBody = document.createElement('tbody');
-	render(
-		<TableRow
-			columns={[{ id: 'foo' }]}
-			generateCustomFilter={generateCustomFilter}
-			row={{ a: 1, b: 2, c: 3 }}
-		/>,
-		{ container: document.body.appendChild(tableBody) }
-	);
-
-	expect(generateCustomFilter).toHaveBeenCalledWith({ id: 'foo' }, { a: 1, b: 2, c: 3 });
 });
 
 test('Table row that has a row selected', () => {

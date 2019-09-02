@@ -1,14 +1,14 @@
 jest.mock('react-dropzone');
-jest.mock('../cell-components/listFilter', () => {
-	return { TableListFilter: props => <div>{JSON.stringify(props)}</div> };
+jest.mock('../ColorCell', () => {
+	return { ColorCell: props => <div>{JSON.stringify(props)}</div> };
 });
 
-jest.mock('../cell-components/datePicker', () => {
-	return { TableDatePicker: props => <div>{JSON.stringify(props)}</div> };
+jest.mock('../FileCell', () => {
+	return { FileCell: props => <div>{JSON.stringify(props)}</div> };
 });
 
-jest.mock('../cell-components/asyncDropdownCell', () => {
-	return { AsyncDropdownCell: props => <div>{JSON.stringify(props)}</div> };
+jest.mock('../ImageCell', () => {
+	return { ImageCell: props => <div>{JSON.stringify(props)}</div> };
 });
 
 import React from 'react';
@@ -105,8 +105,6 @@ test('Cell with a customColumn callback', () => {
 		{ baz: 1 },
 		{
 			colId: 'foo',
-			editMode: false,
-			rowSelected: false,
 			value: 'bar',
 			_origValue: 'bar'
 		}
@@ -114,7 +112,7 @@ test('Cell with a customColumn callback', () => {
 });
 
 test('Cell that has an image', () => {
-	const tree = renderer.create(<Cell model={{ foo: { image: true } }} value="/src" />).toJSON();
+	const tree = renderer.create(<Cell model={{ foo: { type: 'image' } }} value="/src" />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });

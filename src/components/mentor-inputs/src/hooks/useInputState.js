@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import { hasError } from './hasError';
 
 function validateValue(value) {
-	return !!value ? String(value) : '';
+	return value === 0 || !!value ? String(value) : '';
 }
 
 export const useInputState = (props = {}) => {

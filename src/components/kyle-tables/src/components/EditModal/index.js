@@ -20,7 +20,7 @@ export const EditModal = ({
 	uploadFile
 }) => {
 
-	if (!editMode) return null;
+	if (!editMode || data.length === 0) return null;
 
 	const [recordIndex, setRecordIndex] = useState(0);
 

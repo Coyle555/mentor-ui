@@ -1,3 +1,7 @@
+jest.mock('../../DragPreview', () => {
+	return { createDragPreview: props => <div>{JSON.stringify(props)}</div> };
+});
+
 import React from 'react';
 import { formatDragMessage, getDragType, DragRow } from '../index';
 import renderer from 'react-test-renderer';

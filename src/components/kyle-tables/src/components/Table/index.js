@@ -85,6 +85,7 @@ export const TableMain = ({
 
 TableMain.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
+	customClasses: PropTypes.object,
 	dragProperties: PropTypes.shape({
 		draggable: PropTypes.oneOfType([
 			PropTypes.bool,
@@ -94,30 +95,34 @@ TableMain.propTypes = {
 			})
 		])
 	}),
-	recordProperties: PropTypes.shape({
-		entriesViewable: PropTypes.number,
-		count: PropTypes.number,
-		currentPage: PropTypes.number
-	}),
-	sort: PropTypes.shape({
-		icons: PropTypes.object,
-		properties: PropTypes.object
-	}),
 	events: PropTypes.shape({
 		onNext: PropTypes.func,
 		onPrevious: PropTypes.func,
 		onGetPage: PropTypes.func,
 		onSort: PropTypes.func
 	}),
-	rowProperties: PropTypes.shape({
-		customColumns: PropTypes.object,
-		data: PropTypes.arrayOf(PropTypes.object),
-		ExpandComponent: PropTypes.element
-	}),
 	pageProperties: PropTypes.shape({
 		enabled: PropTypes.bool,
 		currentPage: PropTypes.number,
 		pageSize: PropTypes.number,
 		recordCount: PropTypes.number
-	})
+	}),
+	recordProperties: PropTypes.shape({
+		entriesViewable: PropTypes.number,
+		count: PropTypes.number,
+		currentPage: PropTypes.number
+	}),
+	rowProperties: PropTypes.shape({
+		customColumns: PropTypes.object,
+		data: PropTypes.arrayOf(PropTypes.object),
+		ExpandComponent: PropTypes.element
+	}),
+	sort: PropTypes.shape({
+		icons: PropTypes.object,
+		properties: PropTypes.object
+	}),
+};
+
+TableMain.defaultProps = {
+	customClasses: {}
 };

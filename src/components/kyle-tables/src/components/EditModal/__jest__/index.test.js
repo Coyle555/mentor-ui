@@ -25,3 +25,8 @@ test('Edit mode disabled', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('No data passed in', () => {
+	const tree = renderer.create(<EditModal data={[]} editMode={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
