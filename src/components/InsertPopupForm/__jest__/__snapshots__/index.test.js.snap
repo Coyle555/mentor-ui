@@ -62,12 +62,13 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
               <input
                 autoComplete="false"
                 autoFocus={true}
-                className="apm-mi-form-control form-input"
+                className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 required={true}
                 type="text"
                 value="test"
@@ -191,12 +192,13 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
               <input
                 autoComplete="false"
                 autoFocus={true}
-                className="apm-mi-form-control form-input"
+                className="mui-mi-input-field form-input mui-mi-input-field-has-error"
                 data-testid="field-input"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 required={true}
                 type="text"
                 value=""
@@ -303,12 +305,13 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
               <input
                 autoComplete="false"
                 autoFocus={true}
-                className="apm-mi-form-control form-input"
+                className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 type="text"
                 value=""
               />
@@ -455,12 +458,13 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
               <input
                 autoComplete="false"
                 autoFocus={true}
-                className="apm-mi-form-control form-input"
+                className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 type="text"
                 value=""
               />
