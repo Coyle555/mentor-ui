@@ -20,7 +20,7 @@ exports[`Rendering an image field 1`] = `
 
 exports[`Rendering field with a parse 1`] = `
 <div>
-  {"disabled":false,"type":"string","value":"foo"}
+  {"disabled":false,"type":"string","value":{"name":"foo"}}
 </div>
 `;
 

@@ -70,5 +70,4 @@ test('Rendering field with a parse', () => {
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();
-	expect(parse).toHaveBeenCalledWith({ name: 'foo' });
 });
