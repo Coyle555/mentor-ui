@@ -46,7 +46,7 @@ export const EditModal = ({
 			goToPreviousRecord={onPreviousClick}
 		>
 			<PreviousRecord
-				label={typeof getRowName === 'function'
+				label={hasPrevious && typeof getRowName === 'function'
 					? getRowName(data[recordIndex - 1])
 					: 'Previous Record'
 				}
@@ -72,7 +72,7 @@ export const EditModal = ({
 				uploadFile={uploadFile}
 			/>
 			<NextRecord
-				label={typeof getRowName === 'function'
+				label={hasNext && typeof getRowName === 'function'
 					? getRowName(data[recordIndex + 1])
 					: 'Next Record'
 				}
