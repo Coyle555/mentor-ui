@@ -83,7 +83,6 @@ export class Table extends Component {
 		loading: PropTypes.bool,
 		multipleInsertion: PropTypes.bool,
 		pagination: PropTypes.bool,
-		queryDisabled: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
 		rowButtons: PropTypes.arrayOf(
@@ -139,7 +138,6 @@ export class Table extends Component {
 		insertCb: null,
 		multipleInsertion: true,
 		pagination: true,
-		queryDisabled: false,
 		quickViews: [],
 		rowButtons: [],
 		singleInsertion: true,
@@ -458,8 +456,8 @@ export class Table extends Component {
 		});
 	}
 
-	sortFilterOptions = (filterOptions) => {
-		filterOptions.sort((col1, col2) => {
+	sortFilterFields = (filterFields) => {
+		filterFields.sort((col1, col2) => {
 			if (col1.label < col2.label) {
 				return -1;
 			}
@@ -471,7 +469,7 @@ export class Table extends Component {
 			return 0;
 		});
 
-		return filterOptions;
+		return filterFields;
 	}
 
 	prepColumnsForHeader = (columns) => {
@@ -498,20 +496,19 @@ export class Table extends Component {
 			count: this.props.recordCount
 		};
 
-		let filterOptions = cloneDeep(this.props.columns);
-		filterOptions = this.sortFilterOptions(filterOptions);
+		let filterFields = cloneDeep(this.props.columns);
+		filterFields = this.sortFilterFields(filterFields);
 
 		const HeaderComponent = (
 			<Header
 				filter={{
-					disabled: this.props.queryDisabled,
 					exportSearch: typeof this.props.exportTable === 'function'
 						? this.exportTableInsert
 						: null,
+					fields: filterFields,
 					initTokens: this.props.filters,
 					onTokenAdd: this._loadFilterChange,
 					onTokenRemove: this._loadFilterChange,
-					options: filterOptions
 				}}
 				toolbar={{
 					columns: this.prepColumnsForHeader(this.state.columns),

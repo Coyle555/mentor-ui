@@ -27,7 +27,6 @@ export class StructuredQuery extends Component {
 	}
 
 	static propTypes = {
-		exportSearch: PropTypes.func,
 		customClasses: PropTypes.object,
 		fields: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
@@ -36,6 +35,7 @@ export class StructuredQuery extends Component {
 			parse: PropTypes.func,
 			type: PropTypes.string
 		})),
+		exportSearch: PropTypes.func,
 		initTokens: PropTypes.arrayOf(PropTypes.object),
 		onTokenAdd: PropTypes.func,
 		onTokenRemove: PropTypes.func,

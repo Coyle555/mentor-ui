@@ -62,12 +62,14 @@ describe('Mounting a list filter', () => {
 			const filter = jest.fn((value) => Promise.resolve([value]));
 
 			const tree = renderer.create(
-				<ListFilter filter={filter} options={options} value="foo" />
+				<ListFilter options={filter} value="foo" />
 			);
 
-			expect(filter).toHaveBeenCalledWith('foo');
-			expect(tree.getInstance().lastMatchedVal).toBe('foo');
-			expect(tree.getInstance().rawOptions).toEqual(['foo', 'bar', 'baz']);
+			await wait(() => {
+				expect(filter).toHaveBeenCalledWith('foo');
+				expect(tree.getInstance().lastMatchedVal).toBe('foo');
+				expect(tree.getInstance().rawOptions).toEqual(['foo']);
+			});
 		});
 
 		test('Options with a parse function', async () => {
@@ -193,8 +195,8 @@ describe('List filter receiving new props', () => {
 
 		test('Custom filter with a new value and options list', async () => {
 			const filter = jest.fn((value) => Promise.resolve([value]));
-			const tree = renderer.create(<ListFilter filter={filter} options={options} />);
-			tree.update(<ListFilter filter={filter} options={newOptions} value="list" />);
+			const tree = renderer.create(<ListFilter options={filter} />);
+			tree.update(<ListFilter options={filter} value="list" />);
 
 			await wait(() => {
 				expect(filter).toHaveBeenCalledWith('list');
@@ -354,9 +356,8 @@ describe('List filter onChange event', () => {
 			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
-					options={options}
 					role="test"
 				/>
 			);
@@ -411,7 +412,7 @@ describe('List filter onChange event', () => {
 			const { container, getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onMatch={onMatch}
 					parse={parse}
@@ -519,7 +520,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onChange={onChange}
 					role="test"
@@ -541,7 +542,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onChange={onChange}
 					role="test"
@@ -564,7 +565,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onMatch={onMatch}
 					role="test"
@@ -585,7 +586,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onChange={onChange}
 					onMatch={onMatch}
@@ -607,7 +608,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onChange={onChange}
 					onMatch={onMatch}
@@ -632,7 +633,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onMatch={onMatch}
 					role="test"
@@ -654,7 +655,7 @@ describe('Custom filtering on a list filter', () => {
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onChange={onChange}
 					onMatch={onMatch}
@@ -734,19 +735,20 @@ describe('List filter onKeyDown event', () => {
 		});
 
 		test('Auto complete with a custom filter', async () => {
-			const filter = jest.fn(value => Promise.resolve([value]));
+			const filter = jest.fn(value => Promise.resolve(options));
 
 			const { getByRole } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
-					options={options}
+					options={filter}
 					role="test"
 				/>
 			);
 			
-			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			expect(filter).toHaveBeenCalledWith('foo');
+			await wait(() => {
+				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+				expect(filter).toHaveBeenCalledWith('foo');
+			});
 		});
 	});
 
@@ -900,18 +902,20 @@ describe('Handling list item events', () => {
 		});
 
 		test('Clicking a list item with a custom filter', async () => {
-			const filter = jest.fn();
-			const { queryByText } = render(
+			const filter = jest.fn(val => options);
+			const { debug, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
-					options={options}
 				/>
 			);
 			
-			fireEvent.click(queryByText('baz'));
-			expect(filter).toHaveBeenCalledWith('baz');
+			await wait(() => {
+				fireEvent.click(queryByText('baz'));
+				expect(filter).toHaveBeenNthCalledWith(1, '');
+				expect(filter).toHaveBeenNthCalledWith(2, 'baz');
+			});
 		});
 
 		test('Clicking a list item with custom filter and parse', async () => {
@@ -923,7 +927,7 @@ describe('Handling list item events', () => {
 			const { queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					name="inputName"
 					onMatch={onMatch}
 					parse={parse}
@@ -972,7 +976,7 @@ describe('Filtering with a parse function', () => {
 			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
-					filter={filter}
+					options={filter}
 					parse={parse}
 					role="test"
 				/>

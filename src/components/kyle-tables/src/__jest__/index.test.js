@@ -378,7 +378,7 @@ test('Table sorts filterable options for the structured query', () => {
 	const tree = renderer.create(<Table />);
 	const instance = tree.getInstance();
 
-	const sorted = instance.sortFilterOptions([
+	const sorted = instance.sortFilterFields([
 		{ label: 'foo' }, 
 		{ label: 'bar' }, 
 		{ label: 'baz' },
