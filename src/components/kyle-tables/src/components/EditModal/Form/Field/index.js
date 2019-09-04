@@ -36,11 +36,10 @@ export const Field = ({
 		disabled: !updateable,
 		name: fieldId,
 		options,
+		parse,
 		required,
 		type,
-		value: !!value && typeof parse === 'function'
-			? parse(value)
-			: value
+		value
 	};
 
 	if (type === 'image') {
@@ -95,7 +94,7 @@ Field.propTypes = {
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
 	onOptionMatch: PropTypes.func,
-	options: PropTypes.array,
+	options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 	parse: PropTypes.func,
 	required: PropTypes.bool,
 	type: PropTypes.string,

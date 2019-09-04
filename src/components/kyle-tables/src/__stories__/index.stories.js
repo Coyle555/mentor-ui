@@ -71,10 +71,21 @@ const columns = [
 		type: 'image'
 	},
 	{
-		label: 'List Filter',
-		id: 'listfilter',
+		label: 'List Filter w/ array',
+		id: 'listfilterarray',
 		type: 'listfilter',
 		options: ['Option1', 'Option2', 'Option3']
+	},
+	{
+		label: 'List Filter w/ func',
+		id: 'listfilterfunc',
+		type: 'listfilter',
+		options: val => ([
+			{ id: 'foo', name: 'Foo' },
+			{ id: 'bar', name: 'Bar' },
+			{ id: 'baz', name: 'Baz' }
+		]),
+		parse: val => !!val && typeof val ==='object' ? val.name : ''
 	},
 	{
 		label: 'Options',

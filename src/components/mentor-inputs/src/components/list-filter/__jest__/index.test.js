@@ -98,6 +98,45 @@ describe('Mounting a list filter', () => {
 
 			expect(parse).toHaveBeenNthCalledWith(1, { name: 'bar' });
 		});
+
+		test('Option function with a parse function', async () => {
+			const parse = jest.fn(val => val.name);
+			const options = jest.fn(() => Promise.resolve(
+				[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]
+			));
+			const tree = renderer.create(
+				<ListFilter options={options} parse={parse} />
+			);
+
+			await wait(() => {
+				expect(parse).toHaveBeenCalled();
+				expect(options).toHaveBeenCalled();
+			});
+		});
+
+		test('Option function with a parse function and value', async () => {
+			const parse = jest.fn(val => val.name);
+			const options = jest.fn(val => 
+				val === 'bar'
+					? [{ name: 'bar' }]
+					: [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]
+			);
+
+			const tree = renderer.create(
+				<ListFilter
+					autoFocus={true}
+					options={options}
+					parse={parse}
+					value={{ name: 'bar' }}
+				/>
+			);
+
+			await wait(() => {
+				expect(parse).toHaveBeenCalled();
+				expect(options).toHaveBeenCalled();
+				expect(tree.toJSON()).toMatchSnapshot();
+			});
+		});
 	});
 
 	describe('Mounting with a required input', () => {

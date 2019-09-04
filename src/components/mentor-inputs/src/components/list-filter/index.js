@@ -102,7 +102,7 @@ export class ListFilter extends Component {
 	}
 
 	componentDidMount() {
-		const { name, onMatch, options, parse, required } = this.props;
+		const { name, onMatch, options, required } = this.props;
 		const { value } = this.state;
 
 		if (typeof options === 'function') {
@@ -248,12 +248,12 @@ export class ListFilter extends Component {
 					newOptions = newOptions.map(val => this.props.parse(val));
 				}
 
-				this.loadfilterOptions(value, newOptions);
+				this.loadFilterOptions(value, newOptions);
 			});
 		});
 	}
 
-	loadfilterOptions = (value, newOptions) => {
+	loadFilterOptions = (value, newOptions) => {
 		const { name, onChange, onMatch, required } = this.props;
 
 		this.setState({

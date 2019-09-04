@@ -32,7 +32,7 @@ export class Table extends Component {
 			id: PropTypes.string,
 			insertable: PropTypes.bool,
 			label: PropTypes.string,
-			options: PropTypes.arrayOf(PropTypes.string),
+			options: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.string)]),
 			required: PropTypes.bool,
 			type: PropTypes.oneOf([
 				'string', 'integer', 'float', 'multiline',

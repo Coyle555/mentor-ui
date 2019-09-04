@@ -323,6 +323,48 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
 </div>
 `;
 
+exports[`Mounting a list filter Mounting a non required input Option function with a parse function and value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
 exports[`Mounting a list filter Mounting with a required input Required with no value 1`] = `
 <div
   className="mui-mi-container"
