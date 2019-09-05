@@ -6,35 +6,9 @@ exports[`Getting a default input 1`] = `
 />
 `;
 
-exports[`Getting a list filter input w/ a custom filter 1`] = `
-<ListFilter
-  filter="/filter"
-  id="foo"
-/>
-`;
-
-exports[`Getting a list filter input w/ a custom filter 2`] = `
-<ListFilter
-  id="foo"
-  options={
-    Array [
-      "foo",
-      "bar",
-      "baz",
-    ]
-  }
-/>
-`;
-
 exports[`Getting a list filter input w/ a list filter type 1`] = `
 <ListFilter
   id="foo"
-/>
-`;
-
-exports[`Getting a multiline input 1`] = `
-<TextareaInput
-  id="multi"
 />
 `;
 

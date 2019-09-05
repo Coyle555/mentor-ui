@@ -3,24 +3,22 @@ import {
 	getMentorInput,
 	ListFilter,
 	TableInput,
-	TextareaInput,
 	SelectInput
 } from 'mentor-inputs';
 
 export function getInputComponent(field, props) {
-	if (!!field.filter || field.type === 'listfilter') {
+	if (field.type === 'listfilter') {
 		delete props.onBlur;
 
 		return (
 			<ListFilter
 				{...props}
-				filter={field.filter}
 				options={field.options}
 				parse={field.parse}
 			/>
 		);
 
-	} else if (!!field.options) {
+	} else if (!!field.options && Array.isArray(field.options)) {
 		delete props.onMatch;
 
 		return (
@@ -39,11 +37,6 @@ export function getInputComponent(field, props) {
 				onSelectData={this._handleOptionMatch}
 			/>
 		);*/
-
-	} else if (field.multiline) {
-		delete props.onMatch;
-
-		return <TextareaInput {...props} />;
 
 	} else {
 		delete props.onMatch;
