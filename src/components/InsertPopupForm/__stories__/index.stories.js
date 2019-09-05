@@ -19,13 +19,12 @@ storiesOf('InsertPopupForm', module)
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
-					{ id: 'listfilter2', label: 'List Filter w/ Filter', filter: (val) => val.split('') },
 					{
-						id: 'listfilter3',
-						label: 'List Filter w/ Parse',
-						options: [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }],
-						parse: val => val.name,
-						type: 'listfilter'
+						id: 'listfilter2',
+						label: 'List Filter w/ Filter',
+						type: 'listfilter',
+						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+						parse: val => val.name
 					}
 				]}
 				onDisable={action('onDisable')}

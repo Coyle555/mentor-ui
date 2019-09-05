@@ -169,6 +169,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
+		console.log('change', this.insertData);
 		this.handleFieldError(error, fieldId);
 	}
 
@@ -188,6 +189,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
 		this.insertData[fieldId] = option; 
+		console.log('match', this.insertData);
 		this.handleFieldError(false, fieldId);
 	}
 

@@ -135,6 +135,8 @@ export class ListFilter extends Component {
 				? parse(nextProps.value)
 				: nextProps.value;
 
+			if (this.state.value === value) return;
+
 			if (typeof this.props.options === 'function') {
 				this.lastMatchedVal = value;
 				this.setState({ value }, () => {
