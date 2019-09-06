@@ -11,6 +11,7 @@ export const Field = ({
 	onDeleteFileClick,
 	options,
 	parse,
+	parseMatchedValue,
 	required,
 	rowId,
 	type,
@@ -35,8 +36,7 @@ export const Field = ({
 	let inputProps = {
 		disabled: !updateable,
 		name: fieldId,
-		options,
-		parse,
+		onBlur,
 		required,
 		type,
 		value
@@ -77,10 +77,20 @@ export const Field = ({
 
 		Input = getMentorInput(type);
 
-		if (type === 'listfilter') {
+		if (type === 'select') {
+
+			inputProps.options = options;
+			inputProps.parse = parse;
+			inputProps.parseMatchedValue = parseMatchedValue;
+
+		} else if (type === 'listfilter') {
+
+			delete inputProps.onBlur;
 			inputProps.onMatch = onOptionMatch;
-		} else {
-			inputProps.onBlur = onBlur;
+			inputProps.options = options;
+			inputProps.parse = parse;
+			inputProps.parseMatchedValue = parseMatchedValue;
+
 		}
 
 		Input = <Input {...inputProps} />;

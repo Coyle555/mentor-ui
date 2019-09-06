@@ -26,13 +26,13 @@ exports[`Rendering field with a parse 1`] = `
 
 exports[`Rendering options that is a list filter 1`] = `
 <div>
-  {"disabled":false,"options":["foo"],"type":"listfilter","value":""}
+  {"disabled":false,"type":"listfilter","value":"","options":["foo"]}
 </div>
 `;
 
 exports[`Rendering options that is not a list filter 1`] = `
 <div>
-  {"disabled":false,"options":["foo"],"type":"select","value":""}
+  {"disabled":false,"type":"select","value":"","options":["foo"]}
 </div>
 `;
 
