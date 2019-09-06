@@ -186,6 +186,28 @@ describe('Submitting an insert form', () => {
 			expect(onSubmit).toHaveBeenCalledWith({ foo: { name: 'foo' } });
 		});
 
+		test.only('onSubmit with a parsing a matched field', () => {
+			const parseMatchedValue = jest.fn(val => val.id);
+			const onSubmit = jest.fn();
+			const formFields = [{
+				label: 'Bar',
+				id: 'foo',
+				options: [{ id: 'foo', name: 'Foo' }],
+				parse: val => val.name,
+				parseMatchedValue,
+				type: 'listfilter'
+			}];
+
+			const { getByTestId, getByText } = render(
+				<InsertForm formFields={formFields} onSubmit={onSubmit} />
+			);
+
+			fireEvent.change(getByTestId('field-input'), { target: { value: 'Foo' } });
+			fireEvent.click(getByText('Submit'));
+			expect(parseMatchedValue).toHaveBeenCalledWith({ id: 'foo', name: 'Foo' });
+			expect(onSubmit).toHaveBeenCalledWith({ foo: 'foo' });
+		});
+
 		test('Resetting after a submission', () => {
 			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 			

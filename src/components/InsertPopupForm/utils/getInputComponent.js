@@ -25,6 +25,7 @@ export function getInputComponent(field, props) {
 			<SelectInput
 				{...props}
 				options={field.options}
+				parse={field.parse}
 			/>
 		);
 
