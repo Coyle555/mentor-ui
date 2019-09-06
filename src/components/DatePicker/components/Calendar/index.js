@@ -25,8 +25,8 @@ export class Calendar extends Component {
 
 		this.state = {
 			currentTime: this.props.moment,
-			prevMonthShouldBeDisabled: false,
-			nextMonthShouldBeDisabled: false
+			isPreviousMonthDisabled: false,
+			isNextMonthDisabled: false
 		};
 	}
 
@@ -53,8 +53,8 @@ export class Calendar extends Component {
 		const { currentTime } = this.state;
 
 		this.setState({
-			prevMonthShouldBeDisabled: prevMonthShouldBeDisabled(currentTime, minDate),
-			nextMonthShouldBeDisabled: nextMonthShouldBeDisabled(currentTime, maxDate)
+			isPreviousMonthDisabled: isPreviousMonthDisabled(currentTime, minDate),
+			isNextMonthDisabled: isNextMonthDisabled(currentTime, maxDate)
 		});
 	}
 
@@ -90,18 +90,17 @@ export class Calendar extends Component {
 		const {
 			className,
 			moment,
+			minDate,
+			maxDate,
 		} = this.props;
 
-		const maxDate = '2019-08-01';
-		const minDate = '2019-06-01';
-
 		const {
-			nextMonthShouldBeDisabled,
-			prevMonthShouldBeDisabled,
+			isNextMonthDisabled,
+			isPreviousMonthDisabled,
 		} = this.state;
 
 		const m = moment;
-		const currentDate = m.date();
+		const currentDay = m.date();
 		const d1 = m
 			.clone()
 			.subtract(1, 'month')
@@ -123,9 +122,9 @@ export class Calendar extends Component {
 				<CalendarControls
 					title={m.format('MMMM YYYY')}
 					leftButtonOnClick={this.prevMonth}
-					leftButtonDisabled={nextMonthShouldBeDisabled}
+					leftButtonDisabled={isPreviousMonthDisabled}
 					rightButtonOnClick={this.nextMonth}
-					rightButtonDisabled={prevMonthShouldBeDisabled}
+					rightButtonDisabled={isNextMonthDisabled}
 				/>
 				<table className={cc('table')}>
 					<thead>
@@ -147,7 +146,7 @@ export class Calendar extends Component {
 									<CalendarDay
 										key={i}
 										day={i}
-										currentDate={currentDate}
+										currentDay={currentDay}
 										week={week}
 										onClick={this.selectDate}
 										currentMoment={m}
@@ -164,32 +163,20 @@ export class Calendar extends Component {
 	}
 }
 
-export function prevMonthShouldBeDisabled(
+export function isPreviousMonthDisabled(
 	currentMoment,
 	minDate
 ) {
-	if (!minDate || moment(minDate).isAfter(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.subtract(1, 'month');
-	currentMomentCopy.endOf('month');
-
-	return currentMomentCopy.isBefore(minDate);
+	if (!minDate)
+		return false
+	return !currentMoment.isSameOrAfter(minDate);
 }
 
-export function nextMonthShouldBeDisabled(
+export function isNextMonthDisabled(
 	currentMoment,
 	maxDate
 ) {
-	if (!maxDate || moment(maxDate).isBefore(currentMoment)) {
-		return false;
-	}
-
-	const currentMomentCopy = moment(currentMoment);
-	currentMomentCopy.add(1, 'month');
-	currentMomentCopy.startOf('month');
-
-	return currentMomentCopy.isAfter(maxDate);
+	if (!maxDate)
+		return false
+	return !currentMoment.isSameOrBefore(maxDate);
 }

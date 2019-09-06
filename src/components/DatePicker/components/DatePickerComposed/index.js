@@ -56,10 +56,6 @@ class DatePickerContainer extends Component {
 		//window.addEventListener('resize', this.isPickerEnabled);
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		console.log(prevProps, prevState);
-	}
-
 	componentWillReceiveProps(nextProps) {
 		if (this.state.value.toString() !== nextProps.value.toString()) {
 			let val = '';
