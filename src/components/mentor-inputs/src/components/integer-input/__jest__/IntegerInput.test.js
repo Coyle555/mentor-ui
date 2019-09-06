@@ -75,7 +75,7 @@ test('Maximum value failed for integer input', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
-test.only('New maximum value failed for integer input', () => {
+test('New maximum value failed for integer input', () => {
 	const component = renderer.create( <IntegerInput max={10} value={5} />);
 	component.update(<IntegerInput max={0} value={5} />);
 
