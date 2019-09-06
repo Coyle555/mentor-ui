@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -18,23 +18,27 @@ function isInteger(num) {
 const IntegerInput = ({ max, min, validate, ...props }) => {
 
 	const isGreaterThanMin = useCallback(value => (
-		min !== undefined ? Number(value) >= min : true
-	));
+		isInteger(min) ? Number(value) >= min : true
+	), [min]);
 
 	const isGreaterThanMax = useCallback(value => (
-		max !== undefined ? Number(value) <= max : true
-	));
+		isInteger(max) ? Number(value) <= max : true
+	), [max]);
+
+	const validates = useMemo(() => {
+		return [
+			isInteger,
+			noDecimals,
+			isGreaterThanMin,
+			isGreaterThanMax
+		].concat(validate);
+	}, [isGreaterThanMin, isGreaterThanMax, validate]);
 
 	return (
 		<TextInput
 			placeholder="Enter number"
 			{...props}
-			validate={[
-				isInteger,
-				noDecimals,
-				isGreaterThanMin,
-				isGreaterThanMax
-			].concat(validate)}
+			validate={validates}
 		/>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -10,38 +10,49 @@ function isFloat(num) {
 		&& !isNaN(parseFloat(num, 10));
 }
 
-const FloatInput = ({ max, min, precision = -1, validate, ...props }) => {
+const FloatInput = ({ max, min, precision, validate, ...props }) => {
 
 	const hasValidPrecision = useCallback(val => (
 		precision > -1
 			? String(Number(val).toFixed(precision)) === val
 			: true
-	));
+	), [precision]);
 
 	const isGreaterThanMin = useCallback(value => (
-		min !== undefined ? Number(value) >= min : true
-	));
+		isFloat(min) ? Number(value) >= min : true
+	), [min]);
 
 	const isGreaterThanMax = useCallback(value => (
-		max !== undefined ? Number(value) <= max : true
-	));
+		isFloat(max) ? Number(value) <= max : true
+	), [max]);
+
+	const validates = useMemo(() => {
+		return [
+			isFloat,
+			hasValidPrecision,
+			isGreaterThanMin,
+			isGreaterThanMax
+		].concat(validate);
+	}, [hasValidPrecision, isGreaterThanMin, isGreaterThanMax, validate]);
 
 	return (
 		<TextInput
 			placeholder="Enter decimal"
 			{...props}
-			validate={[
-				isFloat,
-				hasValidPrecision,
-				isGreaterThanMin,
-				isGreaterThanMax
-			].concat(validate)}
+			validate={validates}
 		/>
 	);
 };
 
 FloatInput.propTypes = {
-	precision: PropTypes.number
+	max: PropTypes.number,
+	min: PropTypes.number,
+	precision: PropTypes.number,
+	validate: PropTypes.func
+};
+
+FloatInput.defaultProps = {
+	precision: -1
 };
 
 export default FloatInput;

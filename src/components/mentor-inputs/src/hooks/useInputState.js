@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash';
-import shortid from 'shortid';
 
 import { hasError } from './hasError';
 
@@ -21,43 +20,21 @@ export const useInputState = (props = {}) => {
 		...input
 	} = props;
 
-	value = validateValue(value);
+	const lastVal = useRef(validateValue(value));
 
-	const inputRef = useRef(null);
-	const fakeNameToPreventAutocomplete = useRef(null);
-	const lastVal = useRef(value);
+	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
+	const [ error, setError ] = useState(hasError(currentValue, required, validate));
 
-	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(hasError(value, required, validate))
+	useEffect(() => {
+		setError(hasError(currentValue, required, validate));
+	}, [required, validate]);
 	
 	/// value in state should be updated when value in props is changed
 	useEffect(() => {
-		if (!fakeNameToPreventAutocomplete.current && input.autoComplete !== 'true' ) {
-			fakeNameToPreventAutocomplete.current = shortid.generate() + '-APM-' + (input.name || 'unnamed');
-		}
-
-		if (currentValue !== value) {
-			/// update to the new value if its actually new
-			setCurrentValue(validateValue(value));
-
-			if (inputRef.current) {
-				/// check for errors on the new value
-				/// as long as the inputRef points to a dom node
-				setError(hasError(value, required, validate));
-			}
-		}
-
-	}, [props.value]);
-
-	/// as soon as the input ref is attached to the node
-	/// check for errors on the value
-	/// (We also need to reevaluate error status if required attribute is changed)
-	useEffect(() => {
-		if (!inputRef.current || !inputRef.current.name) return;
-
-		setError(hasError(currentValue, required, validate));
-
-	}, [inputRef.current, input.required]);
+		/// update to the new value if its actually new
+		setCurrentValue(validateValue(value));
+		setError(hasError(value, required, validate));
+	}, [value]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
@@ -89,8 +66,7 @@ export const useInputState = (props = {}) => {
 			}
 		}),
 
-		name: fakeNameToPreventAutocomplete.current || input.name,
-		ref: inputRef,
+		name: input.name,
 		value: currentValue
 	}
 };

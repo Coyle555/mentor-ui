@@ -186,7 +186,7 @@ describe('Submitting an insert form', () => {
 			expect(onSubmit).toHaveBeenCalledWith({ foo: { name: 'foo' } });
 		});
 
-		test.only('onSubmit with a parsing a matched field', () => {
+		test('onSubmit with a parsing a matched field', () => {
 			const parseMatchedValue = jest.fn(val => val.id);
 			const onSubmit = jest.fn();
 			const formFields = [{

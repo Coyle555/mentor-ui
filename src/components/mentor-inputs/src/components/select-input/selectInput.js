@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { hasError, useInputState } from '../../hooks/index';
+import { hasError } from '../../hooks/index';
 import '../../styles/index.less';
 
 const SelectInput = ({ 

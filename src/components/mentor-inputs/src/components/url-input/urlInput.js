@@ -9,7 +9,7 @@ function isUrl(value) {
 	return URL_REGEX.test(value);
 }
 
-const UrlInput = ({ validate = [], ...props }) => {
+const UrlInput = ({ validate, ...props }) => {
 
 	return (
 		<TextInput
@@ -19,5 +19,9 @@ const UrlInput = ({ validate = [], ...props }) => {
 		/>		
 	)
 }
+
+UrlInput.propTypes = {
+	validate: PropTypes.func
+};
 
 export default UrlInput;
