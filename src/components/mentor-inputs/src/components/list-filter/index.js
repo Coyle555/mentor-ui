@@ -43,6 +43,7 @@ export class ListFilter extends Component {
 		onMatch: PropTypes.func,
 		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 		parse: PropTypes.func,
+		parseMatchedValue: PropTypes.func,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
 		value: PropTypes.any
@@ -63,6 +64,7 @@ export class ListFilter extends Component {
 		onMatch: null,
 		options: [],
 		parse: null,
+		parseMatchedValue: null,
 		required: false,
 		validation: null,
 		value: ''
@@ -401,11 +403,15 @@ export class ListFilter extends Component {
 	}
 
 	onMatch = (value) => {
-		const { name, onMatch, options, parse } = this.props;
+		const { name, onMatch, options, parse, parseMatchedValue } = this.props;
 
-		const matchedValue = typeof parse === 'function'
+		let matchedValue = typeof parse === 'function'
 			? this.rawOptions.find(option => parse(option) === value)
 			: value;
+
+		if (typeof parseMatchedValue === 'function') {
+			matchedValue = parseMatchedValue(matchedValue);
+		}
 
 		onMatch(matchedValue, name);
 		this.lastMatchedVal = value;
@@ -504,6 +510,7 @@ export class ListFilter extends Component {
 			options,
 			outsideClickIgnoreClass,
 			parse,
+			parseMatchedValue,
 			portalRef,
 			preventDefault,
 			required,

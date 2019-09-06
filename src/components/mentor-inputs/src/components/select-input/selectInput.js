@@ -9,6 +9,7 @@ const SelectInput = ({
 	options, 
 	placeholder,
 	parse, 
+	parseMatchedValue,
 	required,
 	validate, 
 	value,
@@ -52,9 +53,13 @@ const SelectInput = ({
 		if (currentValue !== lastVal) {
 			lastVal.current = currentValue;
 
-			const actualValue = typeof parse === 'function'
+			let actualValue = typeof parse === 'function'
 				? options.find(opt => parse(opt) === currentValue)
 				: currentValue;
+
+			if (typeof parseMatchedValue === 'function') {
+				actualValue = parseMatchedValue(actualValue);
+			}
 
 			props.onBlur(error, actualValue, props.name);
 		}
@@ -68,9 +73,13 @@ const SelectInput = ({
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
-			const actualValue = typeof parse === 'function'
+			let actualValue = typeof parse === 'function'
 				? options.find(opt => parse(opt) === newValue)
 				: newValue;
+
+			if (typeof parseMatchedValue === 'function') {
+				actualValue = parseMatchedValue(actualValue);
+			}
 
 			props.onChange(error, actualValue, props.name);
 		}

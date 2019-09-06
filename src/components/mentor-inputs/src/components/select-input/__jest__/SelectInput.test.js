@@ -86,6 +86,41 @@ test('<SelectInput /> with a newly received and parsed value', () => {
 	expect(container.querySelector('select').value).toBe('cranberries');
 });
 
+test('<SelectInput /> with a parsed value on change', () => {
+	const parseMatchedValue = jest.fn(val => val.price);
+ 	const { getByRole } = render( 
+ 		<SelectInput 
+ 			options={fruits}
+			onChange={() => {}}
+			parse={val => val.label}
+			parseMatchedValue={parseMatchedValue}
+			role="select-input"
+ 			value={fruits[1]}
+ 		/> 
+ 	);
+
+	fireEvent.change(getByRole('select-input'), { target: { value: 'apple' } });
+	expect(parseMatchedValue).toHaveBeenCalledWith({ label: 'apple', price: 1.40 });
+});
+
+test('<SelectInput /> with a parsed value on blur', () => {
+	const parseMatchedValue = jest.fn(val => val.price);
+ 	const { getByRole } = render( 
+ 		<SelectInput 
+ 			options={fruits}
+			onBlur={() => {}}
+			parse={val => val.label}
+			parseMatchedValue={parseMatchedValue}
+			role="select-input"
+ 			value={fruits[1]}
+ 		/> 
+ 	);
+
+	fireEvent.change(getByRole('select-input'), { target: { value: 'apple' } });
+	fireEvent.blur(getByRole('select-input'));
+	expect(parseMatchedValue).toHaveBeenCalledWith({ label: 'apple', price: 1.40 });
+});
+
 test('<SelectInput /> onChange cb returns parsed value with props.parse', () => {
 	const onChange = jest.fn();
 	const { container, debug } = render(
