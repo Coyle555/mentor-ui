@@ -20,6 +20,7 @@ export const useInputState = (props = {}) => {
 		...input
 	} = props;
 
+	const inputRef = useRef(null);
 	const lastVal = useRef(validateValue(value));
 
 	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
@@ -31,10 +32,22 @@ export const useInputState = (props = {}) => {
 	
 	/// value in state should be updated when value in props is changed
 	useEffect(() => {
+		const newVal = validateValue(value);
+
 		/// update to the new value if its actually new
-		setCurrentValue(validateValue(value));
-		setError(hasError(value, required, validate));
+		setCurrentValue(newVal);
+		setError(hasError(newVal, required, validate));
 	}, [value]);
+
+	useEffect(() => {
+		if (!inputRef.current) return;
+
+		const err = setError(hasError(currentValue, required, validate));
+
+		if (typeof err === 'string') {
+			inputRef.current.setCustomValidity(err);
+		}
+	}, [inputRef.current]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
@@ -61,12 +74,17 @@ export const useInputState = (props = {}) => {
 			const error = hasError(newValue, required, validate);
 			setError(error);
 
+			if (error && inputRef.current) {
+				inputRef.current.setCustomValidity(String(error));
+			}
+
 			if (typeof onChange === 'function') {
 				onChange(error, newValue, input.name);
 			}
 		}),
 
 		name: input.name,
+		ref: inputRef,
 		value: currentValue
 	}
 };
