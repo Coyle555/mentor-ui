@@ -5,25 +5,29 @@ import classNames from 'classnames';
 import TextInput from '../text-input/textInput'
 
 function isFloat(num) {
-	return !isNaN(num)
-		&& parseFloat(Number(num)) === Number(num)
-		&& !isNaN(parseFloat(num, 10));
+	return !isNaN(num) && parseFloat(Number(num)) === Number(num) && !isNaN(parseFloat(num, 10))
+		? true
+		: 'Invalid number';
 }
 
 const FloatInput = ({ max, min, precision, validate, ...props }) => {
 
 	const hasValidPrecision = useCallback(val => (
-		precision > -1
-			? String(Number(val).toFixed(precision)) === val
+		precision > -1 && String(Number(val).toFixed(precision)) !== val
+			? 'Invalid number'
 			: true
 	), [precision]);
 
 	const isGreaterThanMin = useCallback(value => (
-		isFloat(min) ? Number(value) >= min : true
+		typeof min === 'number' && Number(value) < min
+			? 'Value is too small'
+			: true
 	), [min]);
 
 	const isGreaterThanMax = useCallback(value => (
-		isFloat(max) ? Number(value) <= max : true
+		typeof max === 'number' && Number(value) > max
+			? 'Value is too large'
+			: true
 	), [max]);
 
 	const validates = useMemo(() => {

@@ -24,15 +24,14 @@ const SelectInput = ({
 	const [ currentValue, setCurrentValue ] = useState(value);
 	const [ error, setError ] = useState(hasError(value, required, validate));
 
-	/// value in state should be updated when value in props is changed
+	useEffect(() => {
+		setError(hasError(currentValue, required, validate));
+	}, [required, validate]);
+
 	useEffect(() => {
 		if (currentValue !== value) {
-			/// update to the new value if its actually new
 			setCurrentValue(value);
-
-			if (inputRef.current) {
-				setError(hasError(value, required, validate));
-			}
+			setError(hasError(value, required, validate));
 		}
 
 	}, [value]);
@@ -41,11 +40,14 @@ const SelectInput = ({
 	/// check for errors on the value
 	/// (We also need to reevaluate error status if required attribute is changed)
 	useEffect(() => {
-		if (!inputRef.current || !inputRef.current.name) return;
+		if (!inputRef.current) return;
 
-		setError(hasError(currentValue, required, validate));
+		const err = setError(hasError(currentValue, required, validate));
 
-	}, [inputRef.current, required]);
+		if (typeof err === 'string') {
+			inputRef.current.setCustomValidity(err);
+		}
+	}, [inputRef.current]);
 
 	const onBlur = useCallback(evt => {
 		if (typeof props.onBlur !== 'function') return;
@@ -79,6 +81,14 @@ const SelectInput = ({
 
 			if (typeof parseMatchedValue === 'function') {
 				actualValue = parseMatchedValue(actualValue);
+			}
+
+			if (inputRef.current) {
+				if (error) {
+					inputRef.current.setCustomValidity(String(error));
+				} else {
+					inputRef.current.setCustomValidity('');
+				}
 			}
 
 			props.onChange(error, actualValue, props.name);

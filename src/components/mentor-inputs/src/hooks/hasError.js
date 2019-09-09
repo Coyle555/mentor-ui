@@ -1,6 +1,6 @@
 export function hasError(value, required, customValidators) {
 	if (!value && !!required) {
-		return true;
+		return 'Value is required';
 	}
 
 	if (!!customValidators && !Array.isArray(customValidators)) {

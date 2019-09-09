@@ -6,23 +6,29 @@ import TextInput from '../text-input/textInput'
 
 /// check if value is a float (1.000 wont throw an error in an input by default)
 function noDecimals(num) {
-	return num.indexOf('.') === -1;
+	return num.indexOf('.') > -1
+		? 'No decimal allowed'
+		: true;
 }
 
 function isInteger(num) {
-	return !isNaN(num)
-		&& parseInt(Number(num)) === Number(num)
-		&& !isNaN(parseInt(num, 10));
+	return !isNaN(num) && parseInt(Number(num)) === Number(num) && !isNaN(parseInt(num, 10))
+		? true
+		: 'Invalid number';
 }
 
 const IntegerInput = ({ max, min, validate, ...props }) => {
 
 	const isGreaterThanMin = useCallback(value => (
-		isInteger(min) ? Number(value) >= min : true
+		typeof min === 'number' && Number(value) < min 
+			? 'Value is too small'
+			: true
 	), [min]);
 
 	const isGreaterThanMax = useCallback(value => (
-		isInteger(max) ? Number(value) <= max : true
+		typeof max === 'number' && Number(value) > max
+			? 'Value is too large'
+			: true
 	), [max]);
 
 	const validates = useMemo(() => {

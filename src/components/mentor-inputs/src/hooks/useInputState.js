@@ -30,11 +30,9 @@ export const useInputState = (props = {}) => {
 		setError(hasError(currentValue, required, validate));
 	}, [required, validate]);
 	
-	/// value in state should be updated when value in props is changed
 	useEffect(() => {
 		const newVal = validateValue(value);
 
-		/// update to the new value if its actually new
 		setCurrentValue(newVal);
 		setError(hasError(newVal, required, validate));
 	}, [value]);
@@ -74,8 +72,12 @@ export const useInputState = (props = {}) => {
 			const error = hasError(newValue, required, validate);
 			setError(error);
 
-			if (error && inputRef.current) {
-				inputRef.current.setCustomValidity(String(error));
+			if (inputRef.current) {
+				if (error) {
+					inputRef.current.setCustomValidity(String(error));
+				} else {
+					inputRef.current.setCustomValidity('');
+				}
 			}
 
 			if (typeof onChange === 'function') {
