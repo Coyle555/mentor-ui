@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 
+import { Row } from './components/Row';
+
 const ROW_HEIGHT = 62;
 
 export const Tree = ({ nodeCount, nodes, isVirtualized }) => { 
@@ -16,6 +18,7 @@ export const Tree = ({ nodeCount, nodes, isVirtualized }) => {
 						itemSize={ROW_HEIGHT}
 						width={width}
 					>
+						{Row}
 					</List>
 				)}
 			</AutoSizer>
