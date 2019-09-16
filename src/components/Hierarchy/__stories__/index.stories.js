@@ -4,8 +4,13 @@ import { storiesOf } from '@storybook/react';
 import Tree from '../index';
 
 const nodes = [{
-	children: [],
-	childrenCount: 0,
+	children: () => ({
+		expanded: false,
+		id: 'foo',
+		title: 'Bar',
+		subtitle: 'Bar subtitle'
+	}),
+	childrenCount: 1,
 	expanded: false,
 	id: 'foo',
 	title: 'Foo',
