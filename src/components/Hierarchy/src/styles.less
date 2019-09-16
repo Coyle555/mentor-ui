@@ -13,14 +13,36 @@
 		height: 100%;
 	}
 
+	.mui-line-half-horizontal-right::before,
+	.mui-line-full-vertical::after,
+	.mui-line-half-vertical-top::after {
+		position: absolute;
+		content: '';
+		background-color: black;
+	}
+
 	.mui-line-half-horizontal-right::before {
 		height: 1px;
 		top: 50%;
 		right: 0;
 		width: 50%;
-		position: absolute;
-		content: '';
-		background-color: black;
+	}
+
+	.mui-line-full-vertical,
+	.mui-line-half-vertical-top {
+		position: relative;
+	}
+
+	.mui-line-full-vertical::after,
+	.mui-line-half-vertical-top::after {
+		width: 1px;
+		left: 22px;
+		top: 0;
+		height: 100%;
+	}
+
+	.mui-line-half-vertical-top::after {
+		height: 50%;
 	}
 
 	.mui-node-row {

@@ -1,7 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
-import classNames from 'classnames';
 
 import { Row } from './components/Row';
 
@@ -9,48 +8,40 @@ import './styles.less';
 
 const ROW_HEIGHT = 62;
 
+function getChild(node, nodes = []) {
+	nodes.push(node);
+
+	if (Array.isArray(node.children) && node.children.length > 0) {
+		for (let i = 0; i < node.children.length; i++) {
+			nodes.concat(getChild(node.children[i]), nodes);
+		}
+	}
+
+	return nodes;
+}
 
 export const Tree = ({ isVirtualized, nodeCount, nodes, subtitle }) => { 
 
+	/*const convertedTree = useMemo(() => {
+		const rootNode = nodes[0];
+
+		return getChild(rootNode);
+	}, [nodes]);*/
+
 	const renderRow = useCallback(({ index, key, style }) => (
-		<div
-			className="mui-node-row"
+		<Row
+			childrenCount={nodes[index].childrenCount}
+			expanded={nodes[index].expanded}
+			hasSibling={index + 1 < nodes.length
+				&& nodes[index + 1].level === nodes[index].level}
+			isRoot={index === 0}
 			key={key}
+			level={nodes[index].level}
+			node={nodes[index]}
 			style={style}
-		>
-			{ nodes[index].childrenCount > 0 && (
-				<button
-					className={classNames(
-						nodes[index].expanded 
-							? 'node-collapse-button'
-							: 'node-expand-button'
-					)}
-					type="button"
-				>
-					{ nodes[index].expanded
-						? <i className="fas fa-minus" />
-						: <i className="fas fa-plus" />
-					}
-				</button>
-			)}
-			<div className="mui-line-block mui-line-half-horizontal-right" />
-			<div className="mui-node-handler">
-				<div className="node-handler">
-					<i className="far fa-bars fa-lg" />
-				</div>
-			</div>
-			<div className="mui-node-content">
-				<div className="node-text-title">
-					{ nodes[index].title }
-				</div>
-				<div className="node-text-subtitle">
-					{ typeof subtitle === 'function'
-						? subtitle(nodes[index])
-						: nodes[index].subtitle || ''
-					}
-				</div>
-			</div>
-		</div>
+			subtitle={nodes[index].subtitle}
+			title={nodes[index].title}
+		/>
 	));
 
 	if (isVirtualized) {
@@ -61,7 +52,7 @@ export const Tree = ({ isVirtualized, nodeCount, nodes, subtitle }) => {
 					return <List
 						className="mui-hierarchy-node"
 						height={1000}
-						rowCount={nodeCount}
+						rowCount={nodes.length}
 						rowHeight={ROW_HEIGHT}
 						rowRenderer={renderRow}
 						width={1000}
