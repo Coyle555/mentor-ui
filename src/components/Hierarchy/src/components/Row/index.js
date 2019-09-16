@@ -23,7 +23,11 @@ export const Row = ({
 	let scaffold = [];
 
 	for (let i = 0; i < level; i++) {
-		scaffold.push(<div className="mui-line-block" />);
+		if (i > 0) {
+			scaffold.push(<div className="mui-line-block mui-line-full-vertical" />);
+		} else {
+			scaffold.push(<div className="mui-line-block" />);
+		}
 	}
 
 	const branchClasses = classNames({
@@ -44,6 +48,7 @@ export const Row = ({
 							? 'node-collapse-button'
 							: 'node-expand-button'
 					)}
+					style={{ left: 22 + (44 * level) + 'px' }}
 					type="button"
 				>
 					{ expanded

@@ -8,41 +8,38 @@ import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-function getChild(node, nodes = []) {
-	nodes.push(node);
-
-	if (Array.isArray(node.children) && node.children.length > 0) {
-		for (let i = 0; i < node.children.length; i++) {
-			nodes.concat(getChild(node.children[i]), nodes);
-		}
-	}
-
-	return nodes;
-}
-
 export const Tree = ({ isVirtualized, nodeCount, nodes, subtitle }) => { 
 
 	/*const convertedTree = useMemo(() => {
-		const rootNode = nodes[0];
+		let node = nodes[0];
+		const nodes = [node];
 
-		return getChild(rootNode);
+		while (Array.isArray(node.children) && node.children.length > 0) {
+			node.children += 
+		}
+
+		return [];
 	}, [nodes]);*/
 
-	const renderRow = useCallback(({ index, key, style }) => (
-		<Row
-			childrenCount={nodes[index].childrenCount}
-			expanded={nodes[index].expanded}
-			hasSibling={index + 1 < nodes.length
-				&& nodes[index + 1].level === nodes[index].level}
-			isRoot={index === 0}
-			key={key}
-			level={nodes[index].level}
-			node={nodes[index]}
-			style={style}
-			subtitle={nodes[index].subtitle}
-			title={nodes[index].title}
-		/>
-	));
+	const renderRow = useCallback(({ index, key, style }) => {
+		const { childrenCount, expanded, level, subtitle, title } = nodes[index];
+
+		return (
+			<Row
+				childrenCount={childrenCount}
+				expanded={expanded}
+				hasSibling={index + childrenCount + 1 < nodes.length
+					&& nodes[index + childrenCount + 1].level === level}
+				isRoot={index === 0}
+				key={key}
+				level={level}
+				node={nodes[index]}
+				style={style}
+				subtitle={subtitle}
+				title={title}
+			/>
+		);
+	});
 
 	if (isVirtualized) {
 		return (
