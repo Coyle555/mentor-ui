@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import Tree from '../index';
 
-const nodes = {
+const nodes = [{
 	children: [],
 	childrenCount: 0,
 	expanded: false,
@@ -11,7 +11,7 @@ const nodes = {
 	title: 'Foo',
 	subtitle: 'Foo subtitle',
 	data: {}
-};
+}];
 
 storiesOf('Hierarchy', module)
 	.add('General', () => {

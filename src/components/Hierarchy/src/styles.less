@@ -1,0 +1,49 @@
+@import '~mentor-ui-constants';
+
+.mui-hierarchy-node {
+	min-width: 100%;
+	white-space: nowrap;
+	text-align: left;
+	color: @charcoal;
+
+	.mui-line-block {
+		width: 44px;
+		position: relative;
+		display: inline-block;
+		height: 100%;
+	}
+
+	.mui-node-row {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		.mui-node-handler {
+			height: 100%;
+			width: 44px;
+			border: solid #aaa 1px;
+			box-shadow: 0 2px 2px -2px;
+			border-radius: 1px;
+			z-index: 1;
+			background: rgb(244, 247, 250);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.mui-node-content {
+			background: white;
+			position: relative;
+			height: 100%;
+			border: solid #bbb 1px;
+			box-shadow: 0 2px 2px -2px;
+			padding: 0 5px 0 10px;
+			border-radius: 2px;
+			min-width: 230px;
+			flex: 1 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+}

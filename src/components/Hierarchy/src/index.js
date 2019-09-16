@@ -1,26 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList as List } from 'react-window';
+import { AutoSizer, List } from 'react-virtualized';
 
 import { Row } from './components/Row';
 
+import './styles.less';
+
 const ROW_HEIGHT = 62;
 
+
 export const Tree = ({ nodeCount, nodes, isVirtualized }) => { 
+
+	const renderRow = ({ index, key, style }) => (
+		<div
+			className="mui-node-row"
+			key={key}
+			style={style}
+		>
+			<div className="mui-node-handler">
+			</div>
+			<div className="mui-node-content">
+				{nodes[index].title}
+			</div>
+		</div>
+	);
+
 	if (isVirtualized) {
 		return (
 			<AutoSizer>
-				{({ height, width }) => (
-					<List
-						height={height}
-						itemCount={nodeCount}
-						itemSize={ROW_HEIGHT}
-						width={width}
-					>
-						{Row}
-					</List>
-				)}
+				{({ height, width }) => {
+					console.log('rendering', height, width);
+					return <List
+						className="mui-hierarchy-node"
+						height={1000}
+						rowCount={nodeCount}
+						rowHeight={ROW_HEIGHT}
+						rowRenderer={renderRow}
+						width={1000}
+					/>
+				}}
 			</AutoSizer>
 		);
 	}
