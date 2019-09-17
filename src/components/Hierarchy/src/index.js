@@ -3,58 +3,41 @@ import PropTypes from 'prop-types';
 import { AutoSizer, List } from 'react-virtualized';
 
 import { Row } from './components/Row';
+import { convertTree } from './utils/convertTree';
 
 import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, nodeCount, nodes, subtitle }) => { 
+export const Tree = ({ isVirtualized, nodeCount, tree, subtitle }) => { 
 
-	/*const convertedTree = useMemo(() => {
-		let node = nodes[0];
-		const nodes = [node];
+	const convertedTree = useMemo(() => convertTree(tree), [tree]);
 
-		while (Array.isArray(node.children) && node.children.length > 0) {
-			node.children += 
-		}
+	console.log('node count', convertedTree.length);
+	console.log(convertedTree);
 
-		return [];
-	}, [nodes]);*/
-
-	const renderRow = useCallback(({ index, key, style }) => {
-		const { childrenCount, expanded, level, subtitle, title } = nodes[index];
-
-		return (
-			<Row
-				childrenCount={childrenCount}
-				expanded={expanded}
-				hasSibling={index + childrenCount + 1 < nodes.length
-					&& nodes[index + childrenCount + 1].level === level}
-				isRoot={index === 0}
-				key={key}
-				level={level}
-				node={nodes[index]}
-				style={style}
-				subtitle={subtitle}
-				title={title}
-			/>
-		);
-	});
+	const renderRow = useCallback(({ index, key, style }) => (
+		<Row
+			index={index}
+			key={key}
+			style={style}
+			tree={convertedTree}
+		/>
+	));
 
 	if (isVirtualized) {
 		return (
 			<AutoSizer>
-				{({ height, width }) => {
-					console.log('rendering', height, width);
-					return <List
+				{({ height, width }) => (
+					<List
 						className="mui-hierarchy-node"
 						height={1000}
-						rowCount={nodes.length}
+						rowCount={convertedTree.length}
 						rowHeight={ROW_HEIGHT}
 						rowRenderer={renderRow}
 						width={1000}
 					/>
-				}}
+				)}
 			</AutoSizer>
 		);
 	}
@@ -65,13 +48,13 @@ export const Tree = ({ isVirtualized, nodeCount, nodes, subtitle }) => {
 Tree.propTypes = {
 	isVirtualized: PropTypes.bool,
 	nodeCount: PropTypes.number,
-	nodes: PropTypes.array,
+	tree: PropTypes.array,
 	subtitle: PropTypes.func
 }
 
 Tree.defaultProps = {
 	isVirtualized: true,
 	nodeCount: 0,
-	nodes: [],
+	tree: [],
 	subtitle: null
 };

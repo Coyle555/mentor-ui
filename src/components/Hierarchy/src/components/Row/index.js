@@ -2,17 +2,8 @@ import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const Row = ({
-	childrenCount,
-	expanded,
-	level,
-	hasSibling,
-	isRoot,
-	node,
-	title,
-	style,
-	subtitle
-}) => {
+export const Row = ({ index, style, tree }) => {
+	const { childrenCount, descendants, expanded, level, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
 
 	/*const onToggleChildVisibility = useCallback(() => {
@@ -20,20 +11,18 @@ export const Row = ({
 			toggleC
 	});*/
 
-	let scaffold = [];
+	let scaffold = new Array(level).fill(null).map(() => {
+		const classes = classNames({
+			'mui-line-block': true
+		});
 
-	for (let i = 0; i < level; i++) {
-		if (i > 0) {
-			scaffold.push(<div className="mui-line-block mui-line-full-vertical" />);
-		} else {
-			scaffold.push(<div className="mui-line-block" />);
-		}
-	}
+		return <div className={classes} />;
+	});
 
 	const branchClasses = classNames({
 		'mui-line-block mui-line-half-horizontal-right': true,
-		'mui-line-half-vertical-top': !hasSibling && !isRoot,
-		'mui-line-full-vertical': hasSibling && !isRoot
+		//'mui-line-half-vertical-top': !hasSibling && !isRoot,
+		//'mui-line-full-vertical': hasSibling && !isRoot
 	});
 
 	return (
@@ -58,7 +47,7 @@ export const Row = ({
 				</button>
 			)}
 			{scaffold}
-			<div className={branchClasses} />
+			<div className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top" />
 			<div className="mui-node-handler">
 				<div className="node-handler">
 					<i className="far fa-bars fa-lg" />
