@@ -11,18 +11,15 @@ export const Row = ({ index, style, tree }) => {
 			toggleC
 	});*/
 
-	let scaffold = new Array(level).fill(null).map(() => {
+	let scaffold = new Array(level + 1).fill(null).map((val, index) => {
 		const classes = classNames({
-			'mui-line-block': true
+			'mui-line-block': true,
+			'mui-line-half-horizontal-right mui-line-half-vertical-top': index === level,
+			//'mui-line-half-vertical-top': descendants - 
+			//'mui-line-full-vertical': true
 		});
 
 		return <div className={classes} />;
-	});
-
-	const branchClasses = classNames({
-		'mui-line-block mui-line-half-horizontal-right': true,
-		//'mui-line-half-vertical-top': !hasSibling && !isRoot,
-		//'mui-line-full-vertical': hasSibling && !isRoot
 	});
 
 	return (
@@ -47,7 +44,6 @@ export const Row = ({ index, style, tree }) => {
 				</button>
 			)}
 			{scaffold}
-			<div className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top" />
 			<div className="mui-node-handler">
 				<div className="node-handler">
 					<i className="far fa-bars fa-lg" />

@@ -1,31 +1,21 @@
 
-export function convertTree(tree = [], level = 0) {
+export function convertTree(tree = [], level = 0, parent = null) {
 	let convertedTree = [];
 
 	if (tree.length === 0) return [];
 	
 	for (let node of tree) {
+		const { children } = node;
+		delete node.children;
+
+		const newNode = { ...node, level, parent };
 		let subtree = [];
 
 		if (node.expanded) {
-			subtree = convertTree(node.children, level + 1);
+			subtree = convertTree(children, level + 1, newNode);
 		}
 
-		delete node.children;
-
-		convertedTree = convertedTree.concat(
-			{
-				...node,
-				level,
-				descendants: node.expanded
-					? node.childrenCount +
-						subtree.reduce((acc, val) => (
-							acc + val.childrenCount
-						), 0)
-					: 0
-			},
-			...subtree
-		);
+		convertedTree = convertedTree.concat(newNode, ...subtree);
 	}
 
 	return convertedTree;

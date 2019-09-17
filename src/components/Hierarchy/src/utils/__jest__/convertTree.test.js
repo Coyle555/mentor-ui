@@ -18,7 +18,7 @@ test('Converting a tree with one node' , () => {
 		childrenCount: 0,
 		expanded: false,
 		level: 0,
-		descendants: 0
+		parent: null
 	}]);
 });
 
@@ -40,13 +40,19 @@ test('Converting tree with an expanded child', () => {
 		childrenCount: 1,
 		expanded: true,
 		level: 0,
-		descendants: 1
+		parent: null
 	}, {
 		id: 'bar',
 		childrenCount: 0,
 		expanded: false,
 		level: 1,
-		descendants: 0
+		parent: {
+			id: 'foo',
+			childrenCount: 1,
+			expanded: true,
+			level: 0,
+			parent: null
+		}
 	}]);
 });
 
@@ -68,7 +74,7 @@ test('Converting tree with no expanded child', () => {
 		childrenCount: 1,
 		expanded: false,
 		level: 0,
-		descendants: 0
+		parent: null
 	}]);
 });
 
@@ -95,19 +101,31 @@ test('Converting tree with multiple expanded children', () => {
 		childrenCount: 2,
 		expanded: true,
 		level: 0,
-		descendants: 2
+		parent: null
 	}, {
 		id: 'bar',
 		childrenCount: 0,
 		expanded: false,
 		level: 1,
-		descendants: 0
+		parent: {
+			id: 'foo',
+			childrenCount: 2,
+			expanded: true,
+			level: 0,
+			parent: null
+		}
 	}, {
 		id: 'baz',
 		childrenCount: 0,
 		expanded: false,
 		level: 1,
-		descendants: 0
+		parent: {
+			id: 'foo',
+			childrenCount: 2,
+			expanded: true,
+			level: 0,
+			parent: null
+		}
 	}]);
 });
 
@@ -139,24 +157,48 @@ test('Converting a tree with a depth of 3', () => {
 		childrenCount: 2,
 		expanded: true,
 		level: 0,
-		descendants: 3
+		parent: null
 	}, {
 		id: 'bar',
 		childrenCount: 1,
 		expanded: true,
 		level: 1,
-		descendants: 1
+		parent: {
+			id: 'foo',
+			childrenCount: 2,
+			expanded: true,
+			level: 0,
+			parent: null
+		}
 	}, {
 		id: 'child4',
 		childrenCount: 0,
 		expanded: false,
 		level: 2,
-		descendants: 0
+		parent: {
+			id: 'bar',
+			childrenCount: 1,
+			level: 1,
+			expanded: true,
+			parent: {
+				id: 'foo',
+				childrenCount: 2,
+				expanded: true,
+				level: 0,
+				parent: null
+			}
+		}
 	}, {
 		id: 'baz',
 		childrenCount: 0,
 		expanded: false,
 		level: 1,
-		descendants: 0
+		parent: {
+			id: 'foo',
+			childrenCount: 2,
+			expanded: true,
+			level: 0,
+			parent: null
+		}
 	}]);
 });
