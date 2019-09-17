@@ -16,13 +16,15 @@ test('Converting a tree with one node' , () => {
 	expect(convertTree(tree)).toEqual([{
 		id: 'foo',
 		childrenCount: 0,
+		children: [],
 		expanded: false,
 		level: 0,
-		parent: null
+		parent: null,
+		hasSibling: false
 	}]);
 });
 
-test('Converting tree with an expanded child', () => {
+test.only('Converting tree with an expanded child', () => {
 	const tree = [{
 		children: [{
 			id: 'bar',
@@ -40,12 +42,21 @@ test('Converting tree with an expanded child', () => {
 		childrenCount: 1,
 		expanded: true,
 		level: 0,
-		parent: null
+		parent: null,
+		hasSibling: false,
+		children: [{
+			id: 'bar',
+			children: [],
+			childrenCount: 0,
+			expanded: false
+		}]
 	}, {
 		id: 'bar',
 		childrenCount: 0,
+		children: [],
 		expanded: false,
 		level: 1,
+		hasSibling: false,
 		parent: {
 			id: 'foo',
 			childrenCount: 1,

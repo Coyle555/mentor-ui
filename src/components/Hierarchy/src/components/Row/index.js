@@ -11,23 +11,25 @@ export const Row = ({ index, style, tree }) => {
 			toggleC
 	});*/
 
-	let scaffold = new Array(level + 1).fill(null).map((val, i) => {
+	const scaffold = new Array(level + 1).fill(null).map((val, i) => {
 		let currentLevel = level;
 		let currentNode = tree[index];
 
+		// need to get the ancestor for the node at the level being processed
+		// for the scaffolding
 		while (currentLevel !== i) {
 			currentNode = currentNode.parent;
 			currentLevel--;
 		}
 
-		const isVertical = !!currentNode
-			? currentNode.hasSibling
-			: false;
+		const isVertical = !!currentNode && currentNode.hasSibling;
 
 		const classes = classNames({
 			'mui-line-block': true,
 			'mui-line-half-horizontal-right': i === level,
-			'mui-line-half-vertical-top': !isVertical,
+			'mui-line-half-vertical-top': !isVertical
+				&& !!currentNode.parent
+				&& currentNode.parent.children[currentNode.parent.children.length - 1].id === id,
 			'mui-line-full-vertical': isVertical
 		});
 
