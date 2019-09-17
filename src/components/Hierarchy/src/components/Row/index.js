@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Row = ({ index, style, tree }) => {
-	const { childrenCount, descendants, expanded, level, title, subtitle } = tree[index];
+	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
 
 	/*const onToggleChildVisibility = useCallback(() => {
@@ -11,12 +11,24 @@ export const Row = ({ index, style, tree }) => {
 			toggleC
 	});*/
 
-	let scaffold = new Array(level + 1).fill(null).map((val, index) => {
+	let scaffold = new Array(level + 1).fill(null).map((val, i) => {
+		let currentLevel = level;
+		let currentNode = tree[index];
+
+		while (currentLevel !== i) {
+			currentNode = currentNode.parent;
+			currentLevel--;
+		}
+
+		const isVertical = !!currentNode
+			? currentNode.hasSibling
+			: false;
+
 		const classes = classNames({
 			'mui-line-block': true,
-			'mui-line-half-horizontal-right mui-line-half-vertical-top': index === level,
-			//'mui-line-half-vertical-top': descendants - 
-			//'mui-line-full-vertical': true
+			'mui-line-half-horizontal-right': i === level,
+			'mui-line-half-vertical-top': !isVertical,
+			'mui-line-full-vertical': isVertical
 		});
 
 		return <div className={classes} />;
