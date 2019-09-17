@@ -13,9 +13,6 @@ export const Tree = ({ isVirtualized, nodeCount, tree, subtitle }) => {
 
 	const convertedTree = useMemo(() => convertTree(tree), [tree]);
 
-	console.log('node count', convertedTree.length);
-	console.log(convertedTree);
-
 	const renderRow = useCallback(({ index, key, style }) => (
 		<Row
 			index={index}
@@ -27,22 +24,30 @@ export const Tree = ({ isVirtualized, nodeCount, tree, subtitle }) => {
 
 	if (isVirtualized) {
 		return (
-			<AutoSizer>
-				{({ height, width }) => (
-					<List
-						className="mui-hierarchy-node"
-						height={1000}
-						rowCount={convertedTree.length}
-						rowHeight={ROW_HEIGHT}
-						rowRenderer={renderRow}
-						width={1000}
-					/>
-				)}
-			</AutoSizer>
+			<div style={{ height: '100%' }}>
+				<AutoSizer>
+					{({ height, width }) => (
+						<List
+							className="mui-hierarchy-node"
+							height={height}
+							rowCount={convertedTree.length}
+							rowHeight={ROW_HEIGHT}
+							rowRenderer={renderRow}
+							width={width}
+						/>
+					)}
+				</AutoSizer>
+			</div>
 		);
 	}
 
-	return <div>Hello</div>;
+	return (
+		<div className="mui-hierarchy-node" style={{ height: '100%' }}>
+			{ convertedTree.map((node, index) => (
+				renderRow({ index, key: node.id, style: { height: ROW_HEIGHT } })
+			))}
+		</div>
+	);
 }
 
 Tree.propTypes = {

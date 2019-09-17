@@ -118,5 +118,5 @@ storiesOf('Hierarchy', module)
 	.add('General', () => {
 		return (
 			<Tree tree={tree} />
-		)
+		);
 	});
