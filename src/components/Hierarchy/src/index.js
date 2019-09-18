@@ -9,7 +9,7 @@ import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, nodeCount, tree, subtitle }) => { 
+export const Tree = ({ isVirtualized, tree, subtitle }) => { 
 
 	const convertedTree = useMemo(() => convertTree(tree), [tree]);
 
@@ -52,14 +52,12 @@ export const Tree = ({ isVirtualized, nodeCount, tree, subtitle }) => {
 
 Tree.propTypes = {
 	isVirtualized: PropTypes.bool,
-	nodeCount: PropTypes.number,
 	tree: PropTypes.array,
 	subtitle: PropTypes.func
 }
 
 Tree.defaultProps = {
 	isVirtualized: true,
-	nodeCount: 0,
 	tree: [],
 	subtitle: null
 };
