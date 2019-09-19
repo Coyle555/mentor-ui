@@ -117,6 +117,8 @@ const tree = [
 storiesOf('Hierarchy', module)
 	.add('General', () => {
 		return (
-			<Tree tree={tree} />
+			<div style={{ height: window.innerHeight + 'px' }}>
+				<Tree tree={tree} />
+			</div>
 		);
 	});
