@@ -51,10 +51,12 @@
 		top: 0;
 		left: 0;
 		min-width: 100%;
+		height: 100%;
 		white-space: nowrap;
 		display: flex;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
+		align-items: center;
 
 		.node-collapse-button,
 		.node-expand-button {
@@ -93,8 +95,9 @@
 			background: @green-primary;
 		}
 
+
 		.mui-node-handler {
-			height: 100%;
+			height: 85%;
 			width: 44px;
 			border: solid #aaa 1px;
 			box-shadow: 0 2px 2px -2px;
@@ -113,13 +116,13 @@
 
 		.mui-node-content {
 			background: white;
-			height: 100%;
+			height: 85%;
 			border: solid #bbb 1px;
 			box-shadow: 0 2px 2px -2px;
 			padding: 0 5px 0 10px;
 			border-radius: 2px;
 			min-width: 230px;
-			padding: 10px;
+			padding: 7px 10px;
 
 			.node-text-title {
 				font-weight: bold;
@@ -128,6 +131,14 @@
 
 			.node-text-subtitle {
 				font-size: .85rem;
+			}
+		}
+
+		.mui-node-clickable {
+			cursor: pointer;
+
+			&:hover {
+				background-color: @green-light;
 			}
 		}
 	}

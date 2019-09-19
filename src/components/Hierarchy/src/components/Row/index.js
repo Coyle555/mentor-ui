@@ -2,14 +2,21 @@ import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const Row = ({ index, style, tree }) => {
+export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) => {
 	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
 
-	/*const onToggleChildVisibility = useCallback(() => {
-		if (typeof children === 'function') {
-			toggleC
-	});*/
+	const onToggleChildVisibility = useCallback(() => {
+		if (typeof toggleChildVisibility === 'function') {
+			setLoading(true);
+
+			new Promise((resolve, reject) => {
+				resolve(toggleChildVisibility({ index, node: tree[index] }));
+			}).then(() => {
+				setLoading(false);
+			});
+		}
+	});
 
 	const scaffold = new Array(level + 1).fill(null).map((val, i) => {
 		let currentLevel = level;
@@ -34,6 +41,11 @@ export const Row = ({ index, style, tree }) => {
 		return <div className={classes} />;
 	});
 
+	const contentClasses = classNames({
+		'mui-node-content': true,
+		'mui-node-clickable': typeof onNodeClick === 'function'
+	});
+
 	return (
 		<div
 			className="mui-node-row"
@@ -46,6 +58,7 @@ export const Row = ({ index, style, tree }) => {
 							? 'node-collapse-button'
 							: 'node-expand-button'
 					)}
+					onClick={onToggleChildVisibility}
 					style={{ left: 22 + (44 * level) + 'px' }}
 					type="button"
 				>
@@ -61,7 +74,7 @@ export const Row = ({ index, style, tree }) => {
 					<i className="far fa-bars fa-lg" />
 				</div>
 			</div>
-			<div className="mui-node-content">
+			<div className={contentClasses}>
 				<div className="node-text-title">
 					{title}
 				</div>
@@ -74,9 +87,4 @@ export const Row = ({ index, style, tree }) => {
 			</div>
 		</div>
 	);
-};
-
-Row.propTypes = {
-	title: PropTypes.string,
-	subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };

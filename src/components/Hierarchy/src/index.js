@@ -1,23 +1,37 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AutoSizer, List } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List } from 'react-window';
 
 import { Row } from './components/Row';
 import { convertTree } from './utils/convertTree';
+import { collapseNode } from './utils/collapseNode';
 
 import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, tree, subtitle }) => { 
+export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree, subtitle }) => { 
 
-	const convertedTree = useMemo(() => convertTree(tree), [tree]);
+	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
+	const toggleChildVisibility = useCallback(({ index, node }) => {
+		// collapsing node
+		if (node.expanded) {
+			setConvertedTree(collapseNode({ tree: convertedTree, node, index }));
+			return;
+		}
 
-	const renderRow = useCallback(({ index, key, style }) => (
+		if (typeof onToggleChildVisibility === 'function') {
+			onToggleChildVisibility(node);
+		}
+	});
+
+	const renderRow = useCallback(({ index, style }) => (
 		<Row
 			index={index}
-			key={key}
+			onNodeClick={onNodeClick}
 			style={style}
+			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}
 		/>
 	));
@@ -30,11 +44,12 @@ export const Tree = ({ isVirtualized, tree, subtitle }) => {
 						<List
 							className="mui-hierarchy-node"
 							height={height}
-							rowCount={convertedTree.length}
-							rowHeight={ROW_HEIGHT}
-							rowRenderer={renderRow}
+							itemCount={convertedTree.length}
+							itemSize={ROW_HEIGHT}
 							width={width}
-						/>
+						>
+							{renderRow}
+						</List>
 					)}
 				</AutoSizer>
 			</div>
@@ -52,12 +67,14 @@ export const Tree = ({ isVirtualized, tree, subtitle }) => {
 
 Tree.propTypes = {
 	isVirtualized: PropTypes.bool,
+	onToggleChildVisibility: PropTypes.func,
 	tree: PropTypes.array,
 	subtitle: PropTypes.func
 }
 
 Tree.defaultProps = {
 	isVirtualized: true,
+	onToggleChildVisibility: null,
 	tree: [],
 	subtitle: null
 };

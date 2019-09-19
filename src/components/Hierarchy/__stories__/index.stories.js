@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from 'storybook-utils';
 
 import Tree from '../index';
 
@@ -80,11 +81,29 @@ const tree = [
 						}, {
 							id: '1-2-1-2-2',
 							title: '1-2-1-2-2',
-							childrenCount: 1,
+							childrenCount: 4,
 							expanded: true,
 							children: [{
 								id: '1-2-1-2-2-1',
 								title: '1-2-1-2-2-1',
+								childrenCount: 0,
+								children: [],
+								expanded: false
+							}, {
+								id: '1-2-1-2-2-2',
+								title: '1-2-1-2-2-2',
+								childrenCount: 0,
+								children: [],
+								expanded: false
+							}, {
+								id: '1-2-1-2-2-3',
+								title: '1-2-1-2-2-3',
+								childrenCount: 0,
+								children: [],
+								expanded: false
+							}, {
+								id: '1-2-1-2-2-4',
+								title: '1-2-1-2-2-4',
 								childrenCount: 0,
 								children: [],
 								expanded: false
@@ -118,7 +137,10 @@ storiesOf('Hierarchy', module)
 	.add('General', () => {
 		return (
 			<div style={{ height: window.innerHeight + 'px' }}>
-				<Tree tree={tree} />
+				<Tree
+					onNodeClick={action('onNodeClick')}
+					tree={tree}
+				/>
 			</div>
 		);
 	});

@@ -22,6 +22,10 @@ export function convertTree(tree = [], level = 0, parent = null) {
 			subtree = convertTree(children, level + 1, newNode);
 		}
 
+		newNode.descendants = node.expanded
+			? node.childrenCount + subtree.reduce((acc, val) => acc + val.childrenCount, 0)
+			: 0;
+
 		convertedTree = convertedTree.concat(newNode, ...subtree);
 	}
 
