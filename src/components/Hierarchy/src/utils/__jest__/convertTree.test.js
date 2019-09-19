@@ -16,7 +16,6 @@ test('Converting a tree with one node' , () => {
 	expect(convertTree(tree)).toEqual([{
 		id: 'foo',
 		childrenCount: 0,
-		children: [],
 		expanded: false,
 		level: 0,
 		parent: null,
@@ -24,7 +23,7 @@ test('Converting a tree with one node' , () => {
 	}]);
 });
 
-test.only('Converting tree with an expanded child', () => {
+test('Converting tree with an expanded child', () => {
 	const tree = [{
 		children: [{
 			id: 'bar',
@@ -43,17 +42,10 @@ test.only('Converting tree with an expanded child', () => {
 		expanded: true,
 		level: 0,
 		parent: null,
-		hasSibling: false,
-		children: [{
-			id: 'bar',
-			children: [],
-			childrenCount: 0,
-			expanded: false
-		}]
+		hasSibling: false
 	}, {
 		id: 'bar',
 		childrenCount: 0,
-		children: [],
 		expanded: false,
 		level: 1,
 		hasSibling: false,
@@ -62,7 +54,8 @@ test.only('Converting tree with an expanded child', () => {
 			childrenCount: 1,
 			expanded: true,
 			level: 0,
-			parent: null
+			parent: null,
+			hasSibling: false
 		}
 	}]);
 });
@@ -85,7 +78,8 @@ test('Converting tree with no expanded child', () => {
 		childrenCount: 1,
 		expanded: false,
 		level: 0,
-		parent: null
+		parent: null,
+		hasSibling: false
 	}]);
 });
 
@@ -112,30 +106,35 @@ test('Converting tree with multiple expanded children', () => {
 		childrenCount: 2,
 		expanded: true,
 		level: 0,
-		parent: null
+		parent: null,
+		hasSibling: false
 	}, {
 		id: 'bar',
 		childrenCount: 0,
 		expanded: false,
+		hasSibling: true,
 		level: 1,
 		parent: {
 			id: 'foo',
 			childrenCount: 2,
 			expanded: true,
 			level: 0,
-			parent: null
+			parent: null,
+			hasSibling: false
 		}
 	}, {
 		id: 'baz',
 		childrenCount: 0,
 		expanded: false,
+		hasSibling: false,
 		level: 1,
 		parent: {
 			id: 'foo',
 			childrenCount: 2,
 			expanded: true,
 			level: 0,
-			parent: null
+			parent: null,
+			hasSibling: false
 		}
 	}]);
 });
@@ -168,35 +167,41 @@ test('Converting a tree with a depth of 3', () => {
 		childrenCount: 2,
 		expanded: true,
 		level: 0,
-		parent: null
+		parent: null,
+		hasSibling: false
 	}, {
 		id: 'bar',
 		childrenCount: 1,
 		expanded: true,
 		level: 1,
+		hasSibling: true,
 		parent: {
 			id: 'foo',
 			childrenCount: 2,
 			expanded: true,
 			level: 0,
-			parent: null
+			parent: null,
+			hasSibling: false
 		}
 	}, {
 		id: 'child4',
 		childrenCount: 0,
 		expanded: false,
+		hasSibling: false,
 		level: 2,
 		parent: {
 			id: 'bar',
 			childrenCount: 1,
 			level: 1,
+			hasSibling: true,
 			expanded: true,
 			parent: {
 				id: 'foo',
 				childrenCount: 2,
 				expanded: true,
 				level: 0,
-				parent: null
+				parent: null,
+				hasSibling: false
 			}
 		}
 	}, {
@@ -204,12 +209,14 @@ test('Converting a tree with a depth of 3', () => {
 		childrenCount: 0,
 		expanded: false,
 		level: 1,
+		hasSibling: false,
 		parent: {
 			id: 'foo',
 			childrenCount: 2,
 			expanded: true,
 			level: 0,
-			parent: null
+			parent: null,
+			hasSibling: false
 		}
 	}]);
 });
