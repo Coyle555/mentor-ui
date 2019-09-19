@@ -6,6 +6,7 @@ import { FixedSizeList as List } from 'react-window';
 import { Row } from './components/Row';
 import { convertTree } from './utils/convertTree';
 import { collapseNode } from './utils/collapseNode';
+import { expandNode } from './utils/expandNode';
 
 import './styles.less';
 
@@ -18,11 +19,18 @@ export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree
 		// collapsing node
 		if (node.expanded) {
 			setConvertedTree(collapseNode({ tree: convertedTree, node, index }));
-			return;
-		}
+		// expanding node
+		} else {
+			if (typeof onToggleChildVisibility === 'function') {
+				onToggleChildVisibility(node);
+			}
 
-		if (typeof onToggleChildVisibility === 'function') {
-			onToggleChildVisibility(node);
+			setConvertedTree(expandNode({
+				index,
+				node,
+				originalTree: tree,
+				tree: convertedTree,
+			}));
 		}
 	});
 

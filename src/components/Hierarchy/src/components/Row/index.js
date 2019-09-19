@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -18,28 +18,31 @@ export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) 
 		}
 	});
 
-	const scaffold = new Array(level + 1).fill(null).map((val, i) => {
-		let currentLevel = level;
-		let currentNode = tree[index];
+	console.log('using level', level + 1);
+	const scaffold = useMemo(() => {
+		return new Array(level + 1).fill(null).map((val, i) => {
+			let currentLevel = level;
+			let currentNode = tree[index];
 
-		// need to get the ancestor for the node at the level being processed
-		// for the scaffolding
-		while (currentLevel !== i) {
-			currentNode = currentNode.parent;
-			currentLevel--;
-		}
+			// need to get the ancestor for the node at the level being processed
+			// for the scaffolding
+			while (currentLevel !== i) {
+				currentNode = currentNode.parent;
+				currentLevel--;
+			}
 
-		const isVertical = !!currentNode && currentNode.hasSibling;
+			const isVertical = !!currentNode && currentNode.hasSibling;
 
-		const classes = classNames({
-			'mui-line-block': true,
-			'mui-line-half-horizontal-right': i === level,
-			'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
-			'mui-line-full-vertical': isVertical
+			const classes = classNames({
+				'mui-line-block': true,
+				'mui-line-half-horizontal-right': i === level,
+				'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
+				'mui-line-full-vertical': isVertical
+			});
+
+			return <div className={classes} />;
 		});
-
-		return <div className={classes} />;
-	});
+	}, [level]);
 
 	const contentClasses = classNames({
 		'mui-node-content': true,

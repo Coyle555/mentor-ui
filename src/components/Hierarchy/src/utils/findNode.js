@@ -1,12 +1,15 @@
 
-export function findNode(tree, node) {
-	if (tree.id === node.id) {
+export function findNode(node, nodeToFind) {
+	if (node.id === nodeToFind.id) {
 		return node;
 	}
+	
+	if (Array.isArray(node.children) && node.children.length > 0) {
+		for (let child of node.children) {
+			const nextNode = findNode(child, nodeToFind);
 
-	if (Array.isArray(children) && children.length > 0) {
-		for (let i = 0; i < children.length; i++) {
-			findNode(tree, childre)
+			// successful match
+			if (!!nextNode) return nextNode;
 		}
 	}
 
