@@ -14,14 +14,9 @@ test('<MoneyInput /> with no props', () => {
 	 expect(tree).toMatchSnapshot();
 });
 
-test('<MoneyInput /> disabled w/ a min of 1 and max of 5', () => {
-	const component = renderer.create( 
-		<MoneyInput
-			min={1}
-			max={5}
-			disabled
-		/> 
-	);
+test('<MoneyInput /> required', () => {
+	const component = renderer.create( <MoneyInput required={true} /> );
+
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();
 });
@@ -40,6 +35,9 @@ test('<MoneyInput /> where props.value is pi', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
-/// All other tests to this point should be covered by float input
-/// Im basically trying to validate that the FloatInput is inheriting all the correct props
-/// through the money input
+test('<MoneyInput /> with proper money', () => {
+	const component = renderer.create(<MoneyInput value="12.23" />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});

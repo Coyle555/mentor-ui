@@ -1,41 +1,43 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import Dropzone from 'react-dropzone';
+import classNames from 'classnames';
+import { useDropzone } from 'react-dropzone';
 
 import '../../styles/index.less';
 
-class FileInput extends Component {
+const FileInput = ({ label, name, onDrop }) => {
 	
-	static propTypes = {
-		name: PropTypes.string,
-		onDrop: PropTypes.func.isRequired
-	}
+	const dropzoneDrop = useCallback(acceptedFiles => {
+		if (typeof onDrop === 'function') {
+			onDrop(acceptedFiles, name);
+		}
+	}, []);
 
-	onDrop = (acceptedFiles, rejectedFiles) => {
-		const { name } = this.props;
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: dropzoneDrop });
 
-		this.props.onDrop(acceptedFiles, rejectedFiles, name);
-	}
+	const classes = classNames({
+		'mui-mi-file-input': true,
+		'mui-mi-file-input-active': isDragActive
+	});
 
-	render() {
-		const {
-			children,
-			name,
-			...props
-		} = this.props;
+	const rootProps = getRootProps({ style: { outline: 'none', height: '100%' } });
 
-		return (
-			<Dropzone
-				activeClassName="apm-mi-file-input-active"
-				className="apm-mi-file-input"
-				{...props}
-				name={name}
-				onDrop={this.onDrop}
-			>
-				{children}
-			</Dropzone>
-		);
-	}
+	return (
+		<div {...rootProps}>
+			<input {...getInputProps()} />
+			<p className={classes}>{label}</p>
+		</div>
+	);
 }
+
+FileInput.propTypes = {
+	label: PropTypes.string,
+	name: PropTypes.string,
+	onDrop: PropTypes.func.isRequired
+};
+
+FileInput.defaultProps = {
+	label: 'Upload File(s)'
+};
 
 export default FileInput;

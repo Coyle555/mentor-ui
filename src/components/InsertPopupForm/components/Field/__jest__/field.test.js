@@ -1,7 +1,6 @@
 import React from 'react';
-import { Field } from '../field';
+import { Field } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from 'react-testing-library';
 
 test('Default render of the field', () => {
 	const tree = renderer.create(<Field />).toJSON();
@@ -52,19 +51,6 @@ test('Rendering a field with a string value', () => {
 		<Field
 			InputComponent={<Input />}
 			value="foo"
-		/>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Rendering a field with an object value', () => {
-	const Input = (props) => <input type="text">{props.value}</input>;
-
-	const tree = renderer.create(
-		<Field
-			InputComponent={<Input />}
-			value={{ foo: 'bar' }}
 		/>
 	).toJSON();
 

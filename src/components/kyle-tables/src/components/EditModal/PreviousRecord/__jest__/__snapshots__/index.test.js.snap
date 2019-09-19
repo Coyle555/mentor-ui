@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Previous record does not exist 1`] = `
+<div
+  className="previous-record end-of-previous-records"
+  style={
+    Object {
+      "opacity": 0,
+      "width": "0px",
+    }
+  }
+>
+  <p
+    className="previous-record-label"
+  >
+    No Previous Record
+  </p>
+</div>
+`;
+
+exports[`Previous record with a custom label 1`] = `
+<div
+  className="previous-record"
+  style={
+    Object {
+      "opacity": 0,
+      "width": "0px",
+    }
+  }
+>
+  <p
+    className="previous-record-label"
+  >
+    Foo
+  </p>
+</div>
+`;

@@ -22,7 +22,6 @@ storiesOf('Inputs/SelectInput', module)
 				onBlur={onBlur}
 				onChange={onChange}
 				options={options}
-				placeholder={text('Set placeholder text', 'Select one fruit', 'Placeholder Value')}
 				required={boolean('Is required?', false, 'Required')}
 				value={select('value', options, null, 'Set value from props')}
 			/>
@@ -34,37 +33,17 @@ storiesOf('Inputs/SelectInput', module)
 
 		return (
 			<SelectInput 
-				getOptionLabel={opt => opt.labelText}
-				getOptionValue={opt => opt.price}
 				name="fruitPrice"
 				onBlur={onBlur}
 				onChange={onChange}
 				options={fruitPrices}
+				parse={opt => opt.labelText}
 				placeholder={text('Set placeholder text', 'Select one fruit')}
 				required={boolean('Is required?', false)}
-				value={select('value', options, null)}
+				value={{ labelText: 'Apple', price: 1.59 }}
 			/>
 		)
 	})
-	.addWithJSX('using parse function to format return value', () => {
-		const prices = [1.59, 2.31, 1.22, 0.98, 0.05 ];
-		const fruitPrices = options.map((fruit, i) => ({ labelText: fruit, price: prices[i]}))
-
-		return (
-			<SelectInput 
-				getOptionLabel={opt => opt.labelText + ' - $' + opt.price}
-				getOptionValue={opt => opt.price}
-				name="fruitPrice"
-				onBlur={onBlur}
-				onChange={onChange}
-				options={fruitPrices}
-				parse={val => parseFloat(val)}
-				placeholder={text('Set placeholder text', 'Select one fruit')}
-				required={boolean('Is required?', false)}
-				value={select('value', options, null)}
-			/>
-		)
-	})	
 	.addWithJSX('with custom validation', () => {
 
 
@@ -77,7 +56,7 @@ storiesOf('Inputs/SelectInput', module)
 				placeholder="Select a fruit"
 				required={boolean('Is required?', false)}
 				value={select('value', options, null)}
-				validate={ val => val === 'Grape' ? 'Sorry, we\'re out of grapes' : null}
+				validate={ val => val !== 'Grape'}
 			/>
 		)
 	})	

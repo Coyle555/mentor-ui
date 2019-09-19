@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CalendarDay component Should should match snapshot with base props 1`] = `
-<div>
+<tr>
   <td
     class="APMCalendarDay"
   >
     1
   </td>
-</div>
+</tr>
 `;

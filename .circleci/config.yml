@@ -1,0 +1,48 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/mentor
+
+    steps:
+      - checkout
+
+      - run:
+          name: Set up Font Awesome
+          command: |
+              npm set @fortawesome:registry=https://npm.fontawesome.com
+              npm set //npm.fontawesome.com/:_authToken=$FONT_AWESOME_PRO
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: dependency-cache-{{ checksum "package.json" }}
+
+      # run tests!
+      - run:
+          name: test
+          command: npm run jest-ci -- -w 1
+
+      - run: 
+          name: Failed Tests
+          command: exit 0
+          when: on_fail

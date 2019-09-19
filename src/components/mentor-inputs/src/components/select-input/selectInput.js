@@ -1,103 +1,131 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useInputState } from '../../hooks/index';
+import { hasError, useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
 const SelectInput = ({ 
-	validation, 
 	options, 
 	placeholder,
-	getOptionLabel,
-	getOptionValue,
 	parse, 
+	required,
+	validate, 
+	value,
 	...props 
 }) => {
-	const parseValue = useMemo(() => {
-		return function(value) {
-			if (typeof parse === 'function') {
-				return parse(value);
-			} else if (value && typeof value === 'object') {
-				return getOptionValue(value);
-			} else {
-				return value;
+	value = typeof parse === 'function' ? parse(value) : value;
+
+	if (!value) value = '';
+
+	const lastVal = useRef(value);
+	const inputRef = useRef(null);
+	const [ currentValue, setCurrentValue ] = useState(value);
+	const [ error, setError ] = useState(hasError(value, required, validate));
+
+	/// value in state should be updated when value in props is changed
+	useEffect(() => {
+		if (currentValue !== value) {
+			/// update to the new value if its actually new
+			setCurrentValue(value);
+
+			if (inputRef.current) {
+				setError(hasError(value, required, validate));
 			}
 		}
-	}, []);
 
-	const inputState = useInputState({ 
-		validate: validation, 
-		parse: parseValue, 
-		...props 
-	});	
+	}, [value]);
 
-	const formattedOptions = useMemo(() => {
-		const isGetLabelFn = typeof getOptionLabel === 'function';
-		const isGetValueFn = typeof getOptionValue === 'function';
+	/// as soon as the input ref is attached to the node
+	/// check for errors on the value
+	/// (We also need to reevaluate error status if required attribute is changed)
+	useEffect(() => {
+		if (!inputRef.current || !inputRef.current.name) return;
 
-		return options.map((option, i) => {
-			let label, val = option;
-			
-			if (isGetLabelFn) {
-				/// prevent potential crash cause by react trying to render JSON in the html
-				// this probably wont look pretty but its better than the alternative
-				label = String(getOptionLabel(option));
-			} else {
-				label = typeof option === 'string' ? option : String(option);
-			}
+		setError(hasError(currentValue, required, validate));
 
-			if (isGetLabelFn) {
-				val = getOptionValue(option);
-			}
-			
-			return (
-				<option
-					key={i + label}
-					value={val}
-				>
-					{ label }
-				</option>	
-			)
-		});
-	}, [ options ]);
+	}, [inputRef.current, required]);
 
-	const inputClasses = classNames({	
-		'apm-mi-form-control': true,
-		[props.className]: !!props.className,
+	const onBlur = useCallback(evt => {
+		if (typeof props.onBlur !== 'function') return;
+		
+		if (currentValue !== lastVal) {
+			lastVal.current = currentValue;
+
+			const actualValue = typeof parse === 'function'
+				? options.find(opt => parse(opt) === currentValue)
+				: currentValue;
+
+			props.onBlur(error, actualValue, props.name);
+		}
 	});
 
+	const onChange = useCallback(evt => {
+		const newValue = evt.target.value;
+		setCurrentValue(newValue);
+
+		const error = hasError(newValue, required, validate);
+		setError(error);
+
+		if (typeof props.onChange === 'function') {
+			const actualValue = typeof parse === 'function'
+				? options.find(opt => parse(opt) === newValue)
+				: newValue;
+
+			props.onChange(error, actualValue, props.name);
+		}
+	});
+
+	const inputClasses = classNames({
+		'mui-mi-input-field': true,
+		[props.className]: !!props.className,
+		'mui-mi-input-field-has-error': error
+	});
 
 	return (
 		<select
 			{...props}
 			className={inputClasses}
-			{...inputState}
 			name={props.name}
+			onBlur={onBlur}
+			onChange={onChange}
+			ref={inputRef}
+			value={currentValue}
 		>
 			<option
-				disabled={props.required}
+				disabled={required}
 				value="" 
 			>
 				{ placeholder }
 			</option>
-			{ formattedOptions }
+			{ options.map(option => {
+				const value = typeof parse === 'function'
+					? parse(option)
+					: option;
+
+				return (
+					<option
+						key={value}
+						value={value}
+					>
+						{value}
+					</option>
+				);
+			})}
 		</select>
 	);
 }
 
 SelectInput.propTypes = {
-	getOptionLabel: PropTypes.func,
-	getOptionValue: PropTypes.func,
 	options: PropTypes.array,
 	parse: PropTypes.func,
 	validation: PropTypes.func,
 };
 
 SelectInput.defaultProps = {
-	// getOptionLabel: (val) => { return val },
-	// getOptionValue: (val) => { return val },
-	options: []
+	options: [],
+	placeholder: 'Select an option',
+	value: ''
 };
 
 export default SelectInput;

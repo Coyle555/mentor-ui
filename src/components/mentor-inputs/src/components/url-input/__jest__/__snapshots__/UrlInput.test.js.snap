@@ -3,22 +3,36 @@
 exports[`<UrlInput /> with a non-string value passed in 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  placeholder="Enter URL"
+  type="text"
   value="4593.3"
+/>
+`;
+
+exports[`<UrlInput /> with a non-url value passed in 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter URL"
+  type="text"
+  value="www.goog"
 />
 `;
 
 exports[`<UrlInput /> with a required attribute 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter URL"
   required={true}
-  type="url"
+  type="text"
   value=""
 />
 `;
@@ -26,10 +40,11 @@ exports[`<UrlInput /> with a required attribute 1`] = `
 exports[`<UrlInput /> with a value passed in 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  placeholder="Enter URL"
+  type="text"
   value="https://www.gmail.com"
 />
 `;
@@ -37,10 +52,11 @@ exports[`<UrlInput /> with a value passed in 1`] = `
 exports[`<UrlInput /> with autocomplete enabled 1`] = `
 <input
   autoComplete="true"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  placeholder="Enter URL"
+  type="text"
   value=""
 />
 `;
@@ -48,10 +64,11 @@ exports[`<UrlInput /> with autocomplete enabled 1`] = `
 exports[`<UrlInput /> with no props 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  type="url"
+  placeholder="Enter URL"
+  type="text"
   value=""
 />
 `;

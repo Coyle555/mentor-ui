@@ -23,4 +23,15 @@ storiesOf('Inputs/FloatInput', module)
 				required={boolean('required', false)}
 			/>
 		)
+	})
+	.add('required', () => {
+		return (
+			<FloatInput
+				onBlur={action('onBlur')}
+				onChange={action('onChange')}
+				placeholder={text('placeholder', 'Enter a float value')}
+				name="example-float-input1"
+				required={true}
+			/>
+		)
 	})		

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BooleanInput from '../components/boolean-input/booleanInput';
-import { DatePicker } from 'components/DatePicker';
+import DatePickerInput from '../components/datepicker-input/DatePickerInput';
 import EmailInput from '../components/email-input/emailInput';
 import FileInput from '../components/file-input/fileInput';
 import FloatInput from '../components/float-input/floatInput';
@@ -13,7 +13,6 @@ import SelectInput from '../components/select-input/selectInput';
 import TextInput from '../components/text-input/textInput';
 import TextareaInput from '../components/textarea-input/textareaInput';
 import URLInput from '../components/url-input/urlInput';
-import { AsyncDropdown } from '../components/async-dropdown/index';
 
 
 // gets a mentor input based off the type passed in
@@ -22,8 +21,6 @@ import { AsyncDropdown } from '../components/async-dropdown/index';
 export function getMentorInput(type = '') {
 
 	switch (type) {
-		case 'async-dropdown':
-			return AsyncDropdown;
 		case 'listfilter':
 			return ListFilter;
 		case 'boolean':
@@ -37,7 +34,7 @@ export function getMentorInput(type = '') {
 		case 'datetime':
 		case 'date':
 		case 'time':
-			return DatePicker;	
+			return DatePickerInput;	
 		case 'email':
 			return EmailInput;
 		case 'select':

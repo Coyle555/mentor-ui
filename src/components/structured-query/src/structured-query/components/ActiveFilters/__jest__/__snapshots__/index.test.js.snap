@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering active filters No search tokens 1`] = `
+<span
+  className="left-addon active-filter-container"
+  data-for="structured-query-tooltip"
+  data-tip="View Filters"
+  onClick={[Function]}
+>
+  <i
+    className="far fa-list"
+  />
+  <span
+    className="active-filter-count"
+  >
+    0
+  </span>
+</span>
+`;

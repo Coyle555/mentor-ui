@@ -1,43 +1,47 @@
-import React, { useMemo } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useInputState } from '../../hooks/index';
+import TextInput from '../text-input/textInput'
 
-import '../../styles/index.less';
+function isFloat(num) {
+	return !isNaN(num)
+		&& parseFloat(Number(num)) === Number(num)
+		&& !isNaN(parseFloat(num, 10));
+}
 
-const FloatInput = ({ validation, precision, ...props }) => {
+const FloatInput = ({ max, min, precision = -1, validate, ...props }) => {
 
-	const validate = [ isFloat, validation ];
+	const hasValidPrecision = useCallback(val => (
+		precision > -1
+			? String(Number(val).toFixed(precision)) === val
+			: true
+	));
 
-	const inputState = useInputState({ validate, parse, ...props });
-	const inputClasses = classNames('apm-mi-form-control', props.className);
+	const isGreaterThanMin = useCallback(value => (
+		min !== undefined ? Number(value) >= min : true
+	));
 
-	function parse(value) {
-		if (isNaN(value)) {
-			//avoid passing NaN into input 
-			return ''; 
-		} else if (!isNaN(precision)) {
-			return Number(parseFloat(value).toFixed(precision))
-		} else {
-			return parseFloat(value);
-		}	
-	}
+	const isGreaterThanMax = useCallback(value => (
+		max !== undefined ? Number(value) <= max : true
+	));
 
 	return (
-		<input
+		<TextInput
+			placeholder="Enter decimal"
 			{...props}
-			{...inputState}
-			className={inputClasses}
-			step="any"
-			type="number"
-		/>		
-	)
-}
+			validate={[
+				isFloat,
+				hasValidPrecision,
+				isGreaterThanMin,
+				isGreaterThanMax
+			].concat(validate)}
+		/>
+	);
+};
 
+FloatInput.propTypes = {
+	precision: PropTypes.number
+};
 
-function isFloat(value) {
-	if (value != 0 && !parseFloat(value)) return 'Please enter a decimal value';
-}
 export default FloatInput;
-

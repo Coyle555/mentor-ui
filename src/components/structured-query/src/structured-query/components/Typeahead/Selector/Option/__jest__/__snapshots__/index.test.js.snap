@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a typeahead option 1`] = `
+<li
+  className=""
+  onClick={[Function]}
+>
+  <a
+    className=""
+  />
+</li>
+`;
+
+exports[`Option label passed in 1`] = `
+<li
+  className=""
+  onClick={[Function]}
+>
+  <a
+    className=""
+  >
+    foo
+  </a>
+</li>
+`;
+
+exports[`Option that is active 1`] = `
+<li
+  className="hover"
+  onClick={[Function]}
+>
+  <a
+    className=""
+  />
+</li>
+`;
+
+exports[`Option with a custom list anchor link class 1`] = `
+<li
+  className=""
+  onClick={[Function]}
+>
+  <a
+    className="bar"
+  />
+</li>
+`;
+
+exports[`Option with a custom list item class 1`] = `
+<li
+  className="foo"
+  onClick={[Function]}
+>
+  <a
+    className=""
+  />
+</li>
+`;

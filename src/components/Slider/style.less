@@ -28,4 +28,42 @@
 		cursor: pointer;
 		box-shadow: 0px 2px 2px -1px rgba(0,0,0,0.24);
 	}
+
+	&-left-constraint,
+	&-right-constraint {
+		position: absolute;
+		background-color: @mustard;
+		opacity: 0.4;
+
+		&:before {
+			position: absolute;
+			font-size: 10px;
+			color: @charcoal;
+			top: calc(0% - 13px);
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	&-left-constraint {
+		left: 0;
+		height: 15px;
+		border-top-left-radius: 15px;
+		border-bottom-left-radius: 15px;
+
+		&:before {
+			content: 'min';
+		}
+	}
+
+	&-right-constraint {
+		right: 0;
+		height: 12px;
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;
+
+		&:before {
+			content: 'max';
+		}
+	}
 }

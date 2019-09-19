@@ -5,23 +5,10 @@ import { render, fireEvent, waitForElement, cleanup, act, getByTestId } from '@t
 import IntegerInput from '../integerInput';
 
 test('<IntegerInput /> with no props', () => {
-
 	 const component = renderer.create( <IntegerInput/> );
 
 	 const tree = component.toJSON();
 	 expect(tree).toMatchSnapshot();
-});
-
-test('<IntegerInput /> disabled w/ a min of 1 and max of 5', () => {
-	const component = renderer.create( 
-		<IntegerInput
-			min={1}
-			max={5}
-			disabled
-		/> 
-	);
-	const tree = component.toJSON();
-	expect(tree).toMatchSnapshot();
 });
 
 test('<IntegerInput /> with a custom className', () => {
@@ -36,51 +23,46 @@ test('<IntegerInput /> accepts a value prop of type number', () => {
 
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
-
 });
 
-test('<IntegerInput /> parses value props of type string to number', () => {
-	const component = renderer.create( <IntegerInput value="3"/> );
+test('Integer input with a decimal value', () => {
+	const component = renderer.create( <IntegerInput value={3.24}/> );
 
 	const tree = component.toJSON();
-	expect(tree.props.value).toBe(3);
+	expect(tree).toMatchSnapshot();	
 });
 
-test('<IntegerInput /> onBlur callback returns errors thrown by browser', () => {
-	const onChange = jest.fn().mockImplementation((err) => {
-		if (err) return 'NO.';
-	});
+test('Integer input with a non integer value', () => {
+	const component = renderer.create( <IntegerInput value="test"/> );
 
-	const { container } = render(
-		<IntegerInput
-			name="age" 
-			onBlur={onChange}
-			min={18}
-		/>
-	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '17' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
-
-	const onChangeArgs = onChange.mock.results[0];
-	expect(onChangeArgs.type).toBe('return');
-	expect(onChangeArgs.value).toBe('NO.')
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
 });
 
-test('<IntegerInput /> onBlur callback fires error when theres a float value', () => {
-	const onChange = jest.fn().mockImplementation((err) => err);
+test('Minimum value passed for integer input', () => {
+	const component = renderer.create( <IntegerInput min={5} value={5} />);
 
-	const { container } = render(
-		<IntegerInput
-			name="age" 
-			onBlur={onChange}
-		/>
-	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '17.9999' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
 
-	const onChangeArgs = onChange.mock.results[0];
-	expect(onChangeArgs.type).toBe('return');
-	expect(onChangeArgs.value).toBe('No decimal values.');
+test('Minimum value failed for integer input', () => {
+	const component = renderer.create( <IntegerInput min={10} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value passed for integer input', () => {
+	const component = renderer.create( <IntegerInput max={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value failed for integer input', () => {
+	const component = renderer.create( <IntegerInput max={0} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
 });

@@ -4,32 +4,15 @@ import classNames from 'classnames';
 
 import FloatInput from '../float-input/floatInput';
 
-// TO DO - Allow for different currency symbols
-import './styles.less';
-
-const MoneyInput = ({ currency, ...inputProps}) => {
+const MoneyInput = (props) => {
 
 	return (
-		<div className="input-group">
-			<FloatInput
-				precision={2}
-				{...inputProps}
-			/>
-			<div
-				className="input-group-addon"
-			>
-				<i className="far fa-dollar-sign" />
-			</div>			
-		</div>				
-	)
+		<FloatInput
+			placeholder="Enter dollar amount"
+			{...props}
+			precision={2}
+		/>
+	);
 }
-
-MoneyInput.propTypes = {
-	currency: PropTypes.string.isRequired
-};
-
-MoneyInput.defaultProps = {
-	currency: 'USD'
-};
 
 export default MoneyInput;

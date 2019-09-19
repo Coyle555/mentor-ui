@@ -5,13 +5,13 @@ exports[`Default render of the field 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   />
   <div
-    className="col-lg-8"
+    className="col-8"
   />
   <div
-    className="col-lg-2"
+    className="col-2"
   />
 </div>
 `;
@@ -21,13 +21,13 @@ exports[`Rendering a field that can be submitted 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   />
   <div
-    className="col-lg-8"
+    className="col-8"
   />
   <div
-    className="col-lg-2"
+    className="col-2"
   >
     <button
       className="nav-btn nav-btn-submit"
@@ -48,10 +48,10 @@ exports[`Rendering a field with a string value 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   />
   <div
-    className="col-lg-8"
+    className="col-8"
   >
     <input
       type="text"
@@ -60,27 +60,7 @@ exports[`Rendering a field with a string value 1`] = `
     </input>
   </div>
   <div
-    className="col-lg-2"
-  />
-</div>
-`;
-
-exports[`Rendering a field with an object value 1`] = `
-<div
-  className="row"
->
-  <div
-    className="col-lg-2 text-right"
-  />
-  <div
-    className="col-lg-8"
-  >
-    <input
-      type="text"
-    />
-  </div>
-  <div
-    className="col-lg-2"
+    className="col-2"
   />
 </div>
 `;
@@ -90,7 +70,7 @@ exports[`Rendering field that can go left 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   >
     <button
       className="nav-btn"
@@ -104,10 +84,10 @@ exports[`Rendering field that can go left 1`] = `
     </button>
   </div>
   <div
-    className="col-lg-8"
+    className="col-8"
   />
   <div
-    className="col-lg-2"
+    className="col-2"
   />
 </div>
 `;
@@ -117,7 +97,7 @@ exports[`Rendering field that can go left and right 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   >
     <button
       className="nav-btn"
@@ -131,10 +111,10 @@ exports[`Rendering field that can go left and right 1`] = `
     </button>
   </div>
   <div
-    className="col-lg-8"
+    className="col-8"
   />
   <div
-    className="col-lg-2"
+    className="col-2"
   >
     <button
       className="nav-btn"
@@ -155,13 +135,13 @@ exports[`Rendering field that can go right 1`] = `
   className="row"
 >
   <div
-    className="col-lg-2 text-right"
+    className="col-2 text-right"
   />
   <div
-    className="col-lg-8"
+    className="col-8"
   />
   <div
-    className="col-lg-2"
+    className="col-2"
   >
     <button
       className="nav-btn"

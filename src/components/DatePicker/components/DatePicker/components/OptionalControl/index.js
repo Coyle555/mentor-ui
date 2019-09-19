@@ -29,7 +29,7 @@ export function OptionalControl(props) {
 		>
 			<i className={cn(
 				cc('icon'),
-			 { [cc('icon-rm')]: !!children },
+				{ [cc('icon-rm')]: !!children },
 				iconClass,
 			)}/>
 			{children}

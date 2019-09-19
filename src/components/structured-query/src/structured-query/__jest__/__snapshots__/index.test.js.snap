@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render states of the StructuredQuery Custom container class 1`] = `
+<div
+  className="filter-tokenizer foo"
+>
+  <span
+    className="left-addon first-addon export-search"
+    data-for="structured-query-tooltip"
+    data-tip="Save Search"
+    onClick={[Function]}
+  >
+    <i
+      className="fal fa-save"
+    />
+  </span>
+  <span
+    className="left-addon active-filter-container"
+    data-for="structured-query-tooltip"
+    data-tip="View Filters"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-list"
+    />
+    <span
+      className="active-filter-count"
+    >
+      0
+    </span>
+  </span>
+  <div
+    className="filter-input-group"
+    onClick={[Function]}
+  >
+    <div
+      className="filter-category"
+    >
+      
+    </div>
+    <div
+      className="filter-operator"
+    >
+      
+    </div>
+    <div
+      className="typeahead"
+    >
+      <input
+        className=""
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    {"id":"structured-query-tooltip","place":"top","type":"dark","effect":"solid","multiline":false}
+  </div>
+</div>
+`;
+
+exports[`Render states of the StructuredQuery Default render 1`] = `
+<div
+  className="filter-tokenizer"
+>
+  <span
+    className="left-addon first-addon export-search"
+    data-for="structured-query-tooltip"
+    data-tip="Save Search"
+    onClick={[Function]}
+  >
+    <i
+      className="fal fa-save"
+    />
+  </span>
+  <span
+    className="left-addon active-filter-container"
+    data-for="structured-query-tooltip"
+    data-tip="View Filters"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-list"
+    />
+    <span
+      className="active-filter-count"
+    >
+      0
+    </span>
+  </span>
+  <div
+    className="filter-input-group"
+    onClick={[Function]}
+  >
+    <div
+      className="filter-category"
+    >
+      
+    </div>
+    <div
+      className="filter-operator"
+    >
+      
+    </div>
+    <div
+      className="typeahead"
+    >
+      <input
+        className=""
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    {"id":"structured-query-tooltip","place":"top","type":"dark","effect":"solid","multiline":false}
+  </div>
+</div>
+`;
+
+exports[`Render states of the StructuredQuery Export search callback 1`] = `
+<div
+  className="filter-tokenizer"
+>
+  <span
+    className="left-addon first-addon export-search export-search-enabled"
+    data-for="structured-query-tooltip"
+    data-tip="Save Search"
+    onClick={[Function]}
+  >
+    <i
+      className="fal fa-save"
+    />
+  </span>
+  <span
+    className="left-addon active-filter-container"
+    data-for="structured-query-tooltip"
+    data-tip="View Filters"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-list"
+    />
+    <span
+      className="active-filter-count"
+    >
+      0
+    </span>
+  </span>
+  <div
+    className="filter-input-group"
+    onClick={[Function]}
+  >
+    <div
+      className="filter-category"
+    >
+      
+    </div>
+    <div
+      className="filter-operator"
+    >
+      
+    </div>
+    <div
+      className="typeahead"
+    >
+      <input
+        className=""
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    {"id":"structured-query-tooltip","place":"top","type":"dark","effect":"solid","multiline":false}
+  </div>
+</div>
+`;

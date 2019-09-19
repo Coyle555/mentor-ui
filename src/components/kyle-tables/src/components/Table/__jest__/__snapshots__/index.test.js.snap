@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of table main 1`] = `
+<div
+  className="table-main-container"
+>
+  <div
+    className="table-content"
+  >
+    <div
+      className="table-no-results text-success text-center font-bold"
+    >
+      No Results
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Table main render with records 1`] = `
+<div
+  className="table-main-container"
+>
+  <div
+    className="table-content"
+  >
+    <div
+      className="table-no-results text-success text-center font-bold"
+    >
+      No Results
+    </div>
+  </div>
+  <div
+    className="table-footer row m-t-sm"
+  >
+    <div
+      className="col-4"
+    >
+      <button
+        disabled={true}
+        type="button"
+      >
+        <i
+          className="fas fa-chevron-left"
+        />
+         Previous
+      </button>
+      <button
+        disabled={true}
+        type="button"
+      >
+        Next 
+        <i
+          className="fas fa-chevron-right"
+        />
+      </button>
+    </div>
+    <div
+      className="col-4"
+    >
+      <p>
+        Showing 
+        <b>
+          1
+        </b>
+         to 
+        <b>
+          10
+        </b>
+         of 
+        <b>
+          10
+        </b>
+         records
+      </p>
+    </div>
+    <div
+      className="page-dropdown"
+    >
+      <input
+        autoComplete="false"
+        className="mui-mi-input-field page-dropdown-input"
+        data-testid="pagedropdown"
+        name="page-dropdown"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder="Enter number"
+        type="text"
+        value="1"
+      />
+      <span>
+        of 
+        1
+         pages
+      </span>
+    </div>
+  </div>
+</div>
+`;

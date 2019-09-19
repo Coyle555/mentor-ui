@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of file cell 1`] = `
+<a
+  download={true}
+  href="/foo"
+>
+  /foo
+</a>
+`;
+
+exports[`Render of file cell with no value 1`] = `""`;

@@ -4,49 +4,40 @@ import classNames from 'classnames';
 
 import SelectInput from '../select-input/selectInput';
 
-const OPTIONS = [ 
-	{ value: true, label: 'True' },
-	{ value: false, label: 'False' }
-];
+const OPTIONS = [true, false];
 
-const BooleanInput = props => {
+const parse = (val => {
+	if (val === true) {
+		return 'True'
+	}
 	
+	if (val === false) {
+		return 'False'
+	}
+});
+
+const BooleanInput = ({ value, ...props }) => {
+
+	if (value === 'true' || value === 'True') {
+		value = true;
+	} else if (value === 'false' || value === 'False') {
+		value = false;
+	}
+
 	return (
 		<SelectInput 
 			{...props}
-			getOptionLabel={getOptionLabel}
-			getOptionValue={getOptionValue}
 			options={OPTIONS}
 			parse={parse}
+			value={value}
 		/>
 	);
-}
-
-function getOptionLabel(opt) {
-	return opt.label;
-}
-function getOptionValue(opt) {
-	return opt.value;
-}
-
-function parse(value) {
-	switch (value) {
-		case true:
-		case 'true':
-			return true;
-		case false:
-		case 'false':
-			return false;
-		default:
-			return ''
-	}
 }
 
 BooleanInput.propTypes = {
 	className: PropTypes.string,
 	placeholder: PropTypes.string,
 	required: PropTypes.bool,
-	// validation: PropTypes.func,
 	style: PropTypes.object,
 	value: PropTypes.oneOf([ false, true, 'false', 'true', '', null, undefined])	
 }

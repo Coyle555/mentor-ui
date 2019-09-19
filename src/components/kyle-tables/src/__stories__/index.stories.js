@@ -7,61 +7,104 @@ const IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz3
 
 const columns = [
 	{
-		category: 'Id',
+		label: 'Id',
 		id: 'id',
 		type: 'string',
+		updateable: false,
 		display: false
 	},
 	{
-		category: 'Number',
+		label: 'Number',
 		id: 'num',
 		type: 'integer',
 	},
 	{
-		category: 'Float',
+		label: 'Float',
 		id: 'float',
 		type: 'float'
 	},
 	{
-		category: 'String',
+		label: 'String',
 		id: 'string',
 		type: 'string',
 	},
 	{
-		category: 'DateTime',
+		label: 'Multiline',
+		id: 'multiline',
+		type: 'multiline',
+	},
+	{
+		label: 'Email',
+		id: 'email',
+		type: 'email'
+	},
+	{
+		label: 'Money',
+		id: 'money',
+		type: 'money'
+	},
+	{
+		label: 'URL',
+		id: 'url',
+		type: 'url'
+	},
+	{
+		label: 'DateTime',
 		id: 'datetime',
 		type: 'datetime',
 		display: false
 	},
 	{
-		category: 'Date',
+		label: 'Date',
 		id: 'date',
 		type: 'date'
 	},
 	{
-		category: 'Object',
+		label: 'Object',
 		id: 'object',
+		parse: val => typeof val === 'object' ? val.name : '',
 		display: false
 	},
 	{
-		category: 'Image',
+		label: 'Image',
 		id: 'img',
-		image: true
+		type: 'image'
 	},
 	{
-		category: 'Options',
+		label: 'List Filter w/ array',
+		id: 'listfilterarray',
+		type: 'listfilter',
+		options: ['Option1', 'Option2', 'Option3']
+	},
+	{
+		label: 'List Filter w/ func',
+		id: 'listfilterfunc',
+		type: 'listfilter',
+		options: val => ([
+			{ id: 'foo', name: 'Foo' },
+			{ id: 'bar', name: 'Bar' },
+			{ id: 'baz', name: 'Baz' }
+		]),
+		parse: val => !!val && typeof val ==='object' ? val.name : ''
+	},
+	{
+		label: 'Options',
 		id: 'options',
 		options: ['Option1', 'Option2', 'Option3']
 	},
 	{
-		category: 'Link to File',
+		label: 'Link to File',
 		id: 'file',
-		file: true
+		type: 'file'
 	},
 	{
-		category: 'Color',
+		label: 'Color',
 		id: 'color',
-		color: true
+		type: 'color'
+	},
+	{
+		label: 'Custom Column',
+		id: 'customColumnId'
 	}
 ];
 
@@ -74,7 +117,9 @@ const data = [
 		string: 'Test desc',
 		options: 'Option2',
 		file: IMAGE,
-		color: '#fff'
+		img: IMAGE,
+		color: '#000000',
+		customColumnId: 'custom 1'
 	},
 	{
 		date: new Date(),
@@ -83,7 +128,8 @@ const data = [
 		num: 31,
 		object: { id: 'apple', name: 'Apple' },
 		string: 'Another desc that is going to be really long. The quick brown fox jumped over the lazy dog.',
-		color: '#ccc'
+		color: '#B80000',
+		customColumnId: 'custom 2'
 	},
 	{
 		date: null,
@@ -92,13 +138,16 @@ const data = [
 		object: { id: 'test', name: 'Test' },
 		num: 938,
 		string: 'Foo bar',
-		options: 'Option3'
+		color: '#FCCB00',
+		options: 'Option3',
+		customColumnId: 'custom 3'
 	},
 	{
 		date: null,
 		float: .5,
 		id: 'row4',
 		string: 'bar',
+		color: '#008B02',
 		img: IMAGE
 	},
 	{
@@ -106,6 +155,7 @@ const data = [
 		float: .5,
 		id: 'row5',
 		object: { id: 'abc', name: 'ABC' },
+		color: '#DB3E00',
 		num: 12,
 	},
 ];
@@ -122,7 +172,13 @@ const customToolbarButtons = [{
 	tip: 'Custom Button',
 }];
 
-const filters = [{ category: 'Color', id: 'color', operator: 'equals', value: 'white' }];
+const filters = [{ label: 'Color', id: 'color', operator: 'equals', value: 'white' }];
+
+const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) =>
+	editMode && rowSelected
+		? null
+		: <span>Custom Column -- {value}</span>
+};
 
 storiesOf('Table', module)
 	.add('Basic table', () => (
@@ -130,6 +186,7 @@ storiesOf('Table', module)
 			columns={columns}
 			csvURL="www.duckduckgo.com"
 			currentPage={1}
+			customColumns={customColumns}
 			customToolbarButtons={customToolbarButtons}
 			data={data}
 			deleteCb={action('onDeleteClick')}
@@ -144,6 +201,55 @@ storiesOf('Table', module)
 			sortDir="ASC"
 			updateCb={action('updateCb')}
 			uploadFileCb={action('uploadFileCb')}
+		/>
+	))
+	.add('Expandable table', () => {
+		const ExpandComponent = (props) => <span>{JSON.stringify(props)}</span>;
+
+		return (
+			<Table
+				columns={[
+					{
+						label: 'Id',
+						id: 'id',
+						type: 'string',
+						display: false
+					},
+					{
+						label: 'String Col',
+						id: 'expand',
+						type: 'string',
+					}
+				]}
+				data={[{ id: '1', expand: 'test' }]}
+				ExpandComponent={<ExpandComponent />}
+				pageSize={5}
+				recordCount={1}
+			/>
+		);
+	})
+	.add('Row buttons', () => (
+		<Table
+			columns={[
+				{
+					label: 'Id',
+					id: 'id',
+					type: 'string',
+					display: false
+				},
+				{
+					label: 'String Col',
+					id: 'col',
+					type: 'string',
+				}
+			]}
+			data={[{ id: '1', col: 'test' }]}
+			pageSize={5}
+			recordCount={1}
+			rowButtons={[{
+				icon: <i className="fal fa-abacus" />,
+				onClick: action('extraColumnClick')
+			}]}
 		/>
 	))
 	.add('Loading table', () => (

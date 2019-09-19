@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of page dropdown 1`] = `null`;
+
+exports[`Page dropdown with infinity max page 1`] = `
+<div
+  className="page-dropdown"
+>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field page-dropdown-input mui-mi-input-field-has-error"
+    data-testid="pagedropdown"
+    name="page-dropdown"
+    onBlur={[Function]}
+    onChange={[Function]}
+    placeholder="Enter number"
+    type="text"
+    value="1"
+  />
+  <span>
+    of 
+    NaN
+     pages
+  </span>
+</div>
+`;
+
+exports[`Page dropdown with less than negative max page 1`] = `null`;

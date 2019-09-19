@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 
 import Portal from './portal';
-import { Table } from 'components/kyle-tables/src/index';
+import { Table } from 'components/kyle-tables/';
 import { constructQuery } from './constructQuery';
 
 

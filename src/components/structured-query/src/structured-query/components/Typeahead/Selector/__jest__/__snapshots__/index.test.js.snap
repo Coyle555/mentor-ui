@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering the selector Custom results class 1`] = `
+<div
+  className="typeahead-selector foo"
+>
+  <div
+    className="header"
+  >
+    
+  </div>
+  <ul />
+</div>
+`;
+
+exports[`Rendering the selector Default render of selector 1`] = `
+<div
+  className="typeahead-selector"
+>
+  <div
+    className="header"
+  >
+    
+  </div>
+  <ul />
+</div>
+`;
+
+exports[`Rendering the selector Header label rendered 1`] = `
+<div
+  className="typeahead-selector"
+>
+  <div
+    className="header"
+  >
+    header foo
+  </div>
+  <ul />
+</div>
+`;
+
+exports[`Rendering the selector List of options rendered 1`] = `
+<div
+  className="typeahead-selector"
+>
+  <div
+    className="header"
+  >
+    
+  </div>
+  <ul>
+    <li
+      className=""
+      onClick={[Function]}
+    >
+      <a
+        className=""
+      >
+        foo
+      </a>
+    </li>
+    <li
+      className=""
+      onClick={[Function]}
+    >
+      <a
+        className=""
+      >
+        bar
+      </a>
+    </li>
+    <li
+      className=""
+      onClick={[Function]}
+    >
+      <a
+        className=""
+      >
+        baz
+      </a>
+    </li>
+  </ul>
+</div>
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label } from '../label';
+import { Label } from '../index';
 import renderer from 'react-test-renderer';
 
 test('Default render of insert form label', () => {

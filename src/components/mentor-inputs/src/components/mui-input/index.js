@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { useInputValidation } from '../../hooks/index';
+import { useInputValidation } from './useInputValidation';
  // a material ui style input attempt with validation
 import './styles.less';
 

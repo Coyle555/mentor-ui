@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter item of type date 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    <span>
+      October 21, 1995 8:00 PM
+    </span>
+  </td>
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;
+
+exports[`Filter item of type datetime 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    <span>
+      October 21, 1995, 8:00 PM
+    </span>
+  </td>
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;
+
+exports[`Filter item with a parse function 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    bar
+  </td>
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;
+
+exports[`Filter item with child object 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    Baz
+  </td>
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;
+
+exports[`Rendering default filter item 1`] = `
+<tr>
+  <td />
+  <td />
+  <td
+    className="filter-value"
+  />
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;

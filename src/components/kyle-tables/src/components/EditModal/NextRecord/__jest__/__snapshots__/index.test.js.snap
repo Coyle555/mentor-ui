@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Next record does not exist 1`] = `
+<div
+  className="next-record end-of-next-records"
+  style={
+    Object {
+      "opacity": 0,
+      "width": "0px",
+    }
+  }
+>
+  <p
+    className="next-record-label"
+  >
+    No Next Record
+  </p>
+</div>
+`;
+
+exports[`Next record with a custom label 1`] = `
+<div
+  className="next-record end-of-next-records"
+  style={
+    Object {
+      "opacity": 0,
+      "width": "0px",
+    }
+  }
+>
+  <p
+    className="next-record-label"
+  >
+    No Next Record
+  </p>
+</div>
+`;

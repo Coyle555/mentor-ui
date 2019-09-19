@@ -1,2 +1,2 @@
 export * from './useInputState';
-export * from './useInputValidation';
+export * from './hasError';

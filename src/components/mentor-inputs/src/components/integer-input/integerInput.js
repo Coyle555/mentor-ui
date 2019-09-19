@@ -1,38 +1,48 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useInputState } from '../../hooks/index';
-import '../../styles/index.less';
+import TextInput from '../text-input/textInput'
 
-const IntegerInput = ({ validation, ...props }) => {
-
-	const validate = [ noDecimals, validation ];
-
-	const inputState = useInputState({ validate, parse, ...props });
-
-	const inputClasses = classNames('apm-mi-form-control', props.className);
-
-	return (
-		<input
-			{...props}
-			{...inputState}
-			className={inputClasses}
-			type="number"
-		/>		
-	)
-}
-
-function parse(value) {
-	if (isNaN(value)) return ''; //avoid passing NaN into input
-	return parseInt(value);
-}
 /// check if value is a float (1.000 wont throw an error in an input by default)
 function noDecimals(num) {
-	if (String(num).indexOf('.') > -1) {
-		return 'No decimal values.';
-	} 
+	return num.indexOf('.') === -1;
 }
 
+function isInteger(num) {
+	return !isNaN(num)
+		&& parseInt(Number(num)) === Number(num)
+		&& !isNaN(parseInt(num, 10));
+}
+
+const IntegerInput = ({ max, min, validate, ...props }) => {
+
+	const isGreaterThanMin = useCallback(value => (
+		min !== undefined ? Number(value) >= min : true
+	));
+
+	const isGreaterThanMax = useCallback(value => (
+		max !== undefined ? Number(value) <= max : true
+	));
+
+	return (
+		<TextInput
+			placeholder="Enter number"
+			{...props}
+			validate={[
+				isInteger,
+				noDecimals,
+				isGreaterThanMin,
+				isGreaterThanMax
+			].concat(validate)}
+		/>
+	);
+};
+
+IntegerInput.propTypes = {
+	min: PropTypes.number,
+	max: PropTypes.number,
+	validate: PropTypes.func
+};
 
 export default IntegerInput;

@@ -1,11 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<TextInput /> with a disabled attribute 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  disabled={true}
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
+  type="text"
+  value=""
+/>
+`;
+
 exports[`<TextInput /> with a required attribute 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter text"
   required={true}
   type="text"
   value=""
@@ -15,9 +29,10 @@ exports[`<TextInput /> with a required attribute 1`] = `
 exports[`<TextInput /> with a string value 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter text"
   type="text"
   value="Bill"
 />
@@ -26,31 +41,22 @@ exports[`<TextInput /> with a string value 1`] = `
 exports[`<TextInput /> with a stringified value 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter text"
   type="text"
   value="4593.3"
-/>
-`;
-
-exports[`<TextInput /> with autocomplete enabled 1`] = `
-<input
-  autoComplete="true"
-  className="apm-mi-form-control"
-  onBlur={[Function]}
-  onChange={[Function]}
-  type="text"
-  value=""
 />
 `;
 
 exports[`<TextInput /> with no props 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter text"
   type="text"
   value=""
 />
@@ -59,9 +65,22 @@ exports[`<TextInput /> with no props 1`] = `
 exports[`<TextInput /> with value of null 1`] = `
 <input
   autoComplete="false"
-  className="apm-mi-form-control"
+  className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
+  placeholder="Enter text"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`Text input with custom class 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter text"
   type="text"
   value=""
 />

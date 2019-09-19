@@ -12,15 +12,9 @@ test('<FloatInput /> with no props', () => {
 	 expect(tree).toMatchSnapshot();
 });
 
-test('<FloatInput /> disabled w/ a min of 1 and max of 5', () => {
-	const component = renderer.create( 
-		<FloatInput
-			min={1}
-			max={5}
-			disabled
-		/> 
-	);
-	const tree = component.toJSON();
+test('Float Input with custom placeholder', () => {
+	const tree = renderer.create(<FloatInput placeholder="Test placeholder" />).toJSON();
+
 	expect(tree).toMatchSnapshot();
 });
 
@@ -31,55 +25,60 @@ test('<FloatInput /> with a custom className', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
-test('<FloatInput /> accepts a value prop of type number', () => {
-	const component = renderer.create( <FloatInput value={3.2}/> );
+test('<FloatInput /> accepts a valid float value', () => {
+	const component = renderer.create( <FloatInput value="3.2" /> );
 
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
 
 });
 
-test('<FloatInput /> parses value props of type string to float', () => {
-	const component = renderer.create( <FloatInput value="3.14"/> );
+test('Float input with required prop', () => {
+	const tree = renderer.create(<FloatInput required={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Float input with an invalid float', () => {
+	const component = renderer.create( <FloatInput value="3.2aa" /> );
 
 	const tree = component.toJSON();
-	expect(tree.props.value).toBe(3.14);
+	expect(tree).toMatchSnapshot();	
 });
 
-test('<FloatInput /> onBlur callback returns errors thrown by browser', () => {
-	const onChange = jest.fn().mockImplementation((err) => {
-		if (err) return 'NO.';
-	});
+test('Float input blur with a preicison', () => {
+	const onBlur = jest.fn();
+	const { debug, container } = render(<FloatInput name="foo" onBlur={onBlur} precision={2} />);
 
-	const { container } = render(
-		<FloatInput
-			name="price" 
-			onBlur={onChange}
-			min={0.5}
-		/>
-	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '0.25' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
-	const onChangeArgs = onChange.mock.results[0];
-	expect(onChangeArgs.type).toBe('return');
-	expect(onChangeArgs.value).toBe('NO.')
+	fireEvent.change(container.querySelector('input'), { target: { value: '123.423' } });
+	fireEvent.blur(container.querySelector('input'));
+	expect(onBlur).toHaveBeenCalledWith(true, '123.423', 'foo');
 });
 
-test('<FloatInput /> onBlur callback returns float at specified precision', () => {
-	const onChange = jest.fn().mockImplementation((err, val) => err ? err : val);
+test('Minimum value passed for float input', () => {
+	const component = renderer.create(<FloatInput min={5} value={5} />);
 
-	const { container } = render(
-		<FloatInput
-			name="price"
-			precision={3} 
-			onBlur={onChange}
-		/>
-	);
-	fireEvent.focus(container.querySelector('input[type="number"]'));
-	fireEvent.change(container.querySelector('input[type="number"]'), { target: { value: '17.136832354' }});	
-	fireEvent.blur(container.querySelector('input[type="number"]'));
-	const onChangeArgs = onChange.mock.results[0];
-	expect(onChangeArgs.type).toBe('return');
-	expect(onChangeArgs.value).toBe(17.137);
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Minimum value failed for float input', () => {
+	const component = renderer.create(<FloatInput min={10} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value passed for float input', () => {
+	const component = renderer.create(<FloatInput max={5} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('Maximum value failed for float input', () => {
+	const component = renderer.create(<FloatInput max={0} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
 });

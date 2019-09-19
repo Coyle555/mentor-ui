@@ -1,0 +1,114 @@
+@import '~mentor-ui-constants';
+
+.table-checkbox-cell {
+	width: 40px;
+}
+
+.table-cell-view {
+	max-width: 0;
+	border-top: 1px solid @blue-gray-light;
+	padding: 20px 8px;
+	word-wrap: break-word;
+	white-space: normal;
+	vertical-align: middle;
+	font-size: 17px;
+
+	&:not(:first-child) {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+}
+
+.table-row-button {
+	text-align: center;
+	cursor: pointer;
+}
+
+.table-btn-border {
+	border-right: 1px solid @gray-dark;
+}
+
+.table-body {
+	> tr > td.table-row-expanded {
+		border-right: 1px solid @gray-dark;
+	}
+
+	& tr:last-child td {
+		border-bottom: 1px solid @blue-gray-light;
+	}
+}
+
+.table-cell-droppable {
+	max-width: 0;
+	border-top: 1px solid rgb(231, 234, 236);
+	padding: 32px;
+	color: white;
+	text-align: center;
+	font-size: x-large;
+	word-wrap: break-word;
+	white-space: normal;
+}
+
+.table-cell-droppable > span {
+	font-size: x-large;
+}
+
+.table-row {
+	color: @charcoal;
+}
+
+.table-row:nth-child(odd) {
+	background: @soft-white;
+}
+
+.table-row:hover {
+	box-shadow: 0 2px 14px 0 rgba(176, 186, 197, 0.6);
+}
+
+.table-row-selected {
+	background: @green-light !important;
+}
+
+.table-expand-cell {
+	width: 35px;
+}
+
+.table-danger-btn {
+	width: 100%;
+	border: 1px solid #8e333c;
+	box-sizing: border-box;
+}
+
+.btn-table {
+	background: none;
+	border: none;
+	font-size: 1.75em;
+	line-height: 0.75em;
+	vertical-align: -.0667em;
+	padding: 0;
+	outline: none;
+	opacity: 0.8;
+	margin: 0 10px;
+	color: white;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 1;
+		color: white;
+	}
+
+	&:link,
+	&:visited {
+		color: white;
+	}
+
+	&:active {
+		color: @green-primary;
+	}
+
+	&[disabled] {
+		color: @error;
+		cursor: not-allowed;
+	}
+}

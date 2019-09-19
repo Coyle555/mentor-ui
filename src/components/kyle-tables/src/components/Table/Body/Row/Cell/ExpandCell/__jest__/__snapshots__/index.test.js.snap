@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expand row icon is collapsed on render 1`] = `
+<td
+  className="table-expand-icon table-btn-border"
+  onClick={[Function]}
+>
+  <i
+    className="fas fa-caret-right fa-2x"
+  />
+</td>
+`;
+
+exports[`Expand row icon is expanded on render 1`] = `
+<td
+  className="table-expand-icon table-btn-border"
+  onClick={[Function]}
+>
+  <i
+    className="fas fa-caret-down fa-2x"
+  />
+</td>
+`;

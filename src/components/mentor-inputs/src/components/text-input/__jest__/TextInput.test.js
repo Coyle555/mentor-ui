@@ -7,110 +7,75 @@ import TextInput from '../textInput';
 afterEach(cleanup);
 
 test('<TextInput /> with no props', () => {
-
 	 const component = renderer.create( <TextInput/> );
 
 	 const tree = component.toJSON();
 	 expect(tree).toMatchSnapshot();
 });
 
+test('<TextInput /> with a disabled attribute', () => {
+ 	const component = renderer.create(<TextInput disabled={true} />);
+
+ 	const tree = component.toJSON();
+ 	expect(tree).toMatchSnapshot();
+});
 
 test('<TextInput /> with a required attribute', () => {
- 	const component = renderer.create( 
- 		<TextInput required/> 
- 	);
+ 	const component = renderer.create(<TextInput required={true} />);
+
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with value of null', () => {
- 	const component = renderer.create( 
- 		<TextInput value={null} /> 
- 	);
+ 	const component = renderer.create(<TextInput value={null} />);
+
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a stringified value', () => {
- 	const component = renderer.create( 
- 		<TextInput value={4593.3} /> 
- 	);
+ 	const component = renderer.create(<TextInput value={4593.3} />);
+
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a string value', () => {
- 	const component = renderer.create( 
- 		<TextInput value="Bill" /> 
- 	);
+ 	const component = renderer.create(<TextInput value="Bill" />);
+
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
 }); 
 
-test('<TextInput /> with autocomplete enabled', () => {
- 	const component = renderer.create( 
- 		<TextInput autoComplete="true" /> 
- 	);
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
+test('Text input with custom class', () => {
+	const tree = renderer.create(<TextInput className="foo" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
 });
 
+test('Text input onChange callback', () => {
+	const onChange = jest.fn();
+	const { container } = render(<TextInput name="text" onChange={onChange} />);
 
-test('<TextInput /> onBlur callback returns errors thrown by browser', () => {
-	const onChange = jest.fn().mockImplementation((err) => {
-		if (err) return 'Constraints not satisfied.';
-	});
+	fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
+	expect(onChange).toHaveBeenCalledWith(false, 'foo', 'text');
+});
 
-	const { container } = render(
-		<TextInput
-			name="email" 
-			onBlur={onChange}
-			pattern="abc"
-		/>
-	);
-	fireEvent.focus(container.querySelector('input'));
-	fireEvent.change(container.querySelector('input'), { target: { value: '1234' }});	
+test('Text input onBlur callback', () => {
+	const onBlur = jest.fn();
+	const { container } = render(<TextInput name="text" onBlur={onBlur} />);
+
+	fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
 	fireEvent.blur(container.querySelector('input'));
-	const onChangeArgs = onChange.mock.results[0];
-	expect(onChangeArgs.type).toBe('return');
-	expect(onChangeArgs.value).toBe('Constraints not satisfied.');
+	expect(onBlur).toHaveBeenCalledWith(false, 'foo', 'text');
 });
 
-test('<TextInput />  validates when required value is an empty string', () => {
-	const onChange = jest.fn().mockImplementation((err) => err);
+test('Custom validation on text input', () => {
+	const onChange = jest.fn();
+	const validate = jest.fn(val => val === 'adam' ? false : true);
+	const { container } = render(<TextInput name="text" onChange={onChange} validate={validate} />);
 
-	const { container } = render(
-		<TextInput
-			name="address" 
-			onChange={onChange}
-			required
-		/>
-	);
-	act(() => {
-		fireEvent.focus(container.querySelector('input[type="text"]'));
-		fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: ' '}});
-	});
-
-	expect(onChange.mock.results[0].value).toBe('This field is required.');
+	fireEvent.change(container.querySelector('input'), { target: { value: 'adam' } });
+	expect(onChange).toHaveBeenCalledWith(true, 'adam', 'text');
 });
-
-test('<TextInput /> handles custom validation', () => {
-	const onChange = jest.fn().mockImplementation((err) => err);
-	const noGmailCheck = (val) => {
-		if (/@gmail\.com$/.test(val)) return 'No Gmail Allowed';
-	}
-
-	const { container } = render(
-		<TextInput
-			name="email"
-			onBlur={onChange}
-			validation={noGmailCheck}
-		/>
-	);
-	fireEvent.focus(container.querySelector('input[type="text"]'));
-	fireEvent.change(container.querySelector('input[type="text"]'), { target: { value: 'a@gmail.com' }});
-	fireEvent.blur(container.querySelector('input[type="text"]'));		
-	
-	expect(onChange.mock.results[0].value).toBe('No Gmail Allowed');
-});
-

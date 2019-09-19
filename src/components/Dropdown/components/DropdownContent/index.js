@@ -11,6 +11,8 @@ const DropdownContent = props => {
 	const popper = useRef(null);
 	const ref = useRef(null);
 
+	const { children, style, className } = props;
+
 	const onClickOutside = (evt) => {
 		
 		if (!ref.current) return;
@@ -38,6 +40,7 @@ const DropdownContent = props => {
  			? ref.current.previousSibling
  			: ref.current.nextSibling;
 
+
 		popper.current = new Popper( 
 			triggerEl.firstChild,
 			ref.current,
@@ -47,26 +50,25 @@ const DropdownContent = props => {
 		);
 	}, [isOpen]);
 
+
 	if (!isOpen) return null;
 
 	const handleOnClick = evt => {
 		evt.stopPropagation();
 	}
 
-	const className = cn('APMDropdown-content', 
-		{ [props.className]: props.className });
-
 	return (
 		<div
-			className={className}
+			className={cn('APMDropdown-content', className)}
 			onClick={handleOnClick}
 			ref={ref}
-			style={props.style}
+			style={style}
 		>
-			{ props.children }
+			{ children }
 		</div>
 	)
 }
+
 
 DropdownContent.propTypes = {
 	/**
@@ -81,3 +83,4 @@ DropdownContent.defaultProps = {
 }
 
 export default DropdownContent;
+

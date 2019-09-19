@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render of header where is it not collapsed 1`] = `
+<div
+  className="table-header-container"
+>
+  <div
+    className="table-header-filter"
+  >
+    <div
+      className="filter-tokenizer"
+    >
+      <span
+        className="left-addon first-addon export-search"
+        data-for="structured-query-tooltip"
+        data-tip="Save Search"
+        onClick={[Function]}
+      >
+        <i
+          className="fal fa-save"
+        />
+      </span>
+      <span
+        className="left-addon active-filter-container"
+        data-for="structured-query-tooltip"
+        data-tip="View Filters"
+        onClick={[Function]}
+      >
+        <i
+          className="far fa-list"
+        />
+        <span
+          className="active-filter-count"
+        >
+          0
+        </span>
+      </span>
+      <div
+        className="filter-input-group"
+        onClick={[Function]}
+      >
+        <div
+          className="filter-category"
+        >
+          
+        </div>
+        <div
+          className="filter-operator"
+        >
+          
+        </div>
+        <div
+          className="typeahead"
+        >
+          <input
+            className=""
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="__react_component_tooltip place-top type-dark "
+        data-id="tooltip"
+        id="structured-query-tooltip"
+      />
+    </div>
+  </div>
+  <div
+    className="table-header-toolbar"
+  >
+    <span
+      data-for="table-tooltip"
+      data-tip="Add Record"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-file-plus"
+        />
+      </button>
+    </span>
+    <span
+      data-for="table-tooltip"
+      data-tip="Add Multiple Records"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-copy"
+        />
+      </button>
+    </span>
+    <span
+      data-for="table-tooltip"
+      data-tip="Toggle Columns"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-columns"
+        />
+      </button>
+    </span>
+    <div
+      className="__react_component_tooltip place-top type-dark "
+      data-id="tooltip"
+      id="table-tooltip"
+    />
+  </div>
+</div>
+`;
+
+exports[`Render of header where it is collapsed 1`] = `
+<div
+  className="table-header-container"
+>
+  <div
+    className="table-header-filter"
+  >
+    <div
+      className="filter-tokenizer"
+    >
+      <span
+        className="left-addon first-addon export-search"
+        data-for="structured-query-tooltip"
+        data-tip="Save Search"
+        onClick={[Function]}
+      >
+        <i
+          className="fal fa-save"
+        />
+      </span>
+      <span
+        className="left-addon active-filter-container"
+        data-for="structured-query-tooltip"
+        data-tip="View Filters"
+        onClick={[Function]}
+      >
+        <i
+          className="far fa-list"
+        />
+        <span
+          className="active-filter-count"
+        >
+          0
+        </span>
+      </span>
+      <div
+        className="filter-input-group"
+        onClick={[Function]}
+      >
+        <div
+          className="filter-category"
+        >
+          
+        </div>
+        <div
+          className="filter-operator"
+        >
+          
+        </div>
+        <div
+          className="typeahead"
+        >
+          <input
+            className=""
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="__react_component_tooltip place-top type-dark "
+        data-id="tooltip"
+        id="structured-query-tooltip"
+      />
+    </div>
+  </div>
+  <div
+    className="table-header-toolbar"
+  >
+    <span
+      data-for="table-tooltip"
+      data-tip="Add Record"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-file-plus"
+        />
+      </button>
+    </span>
+    <span
+      data-for="table-tooltip"
+      data-tip="Add Multiple Records"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-copy"
+        />
+      </button>
+    </span>
+    <span
+      data-for="table-tooltip"
+      data-tip="Toggle Columns"
+    >
+      <button
+        className="btn-table"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fal fa-columns"
+        />
+      </button>
+    </span>
+    <div
+      className="__react_component_tooltip place-top type-dark "
+      data-id="tooltip"
+      id="table-tooltip"
+    />
+  </div>
+</div>
+`;

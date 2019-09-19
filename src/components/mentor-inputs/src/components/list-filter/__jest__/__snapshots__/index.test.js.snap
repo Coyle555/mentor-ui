@@ -1,0 +1,599 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List filter receiving new props Passing in new options New list of options 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      new
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      options
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      list
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new options New options passed in that invalidate the current value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="foo"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  />
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value New list of options with a value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="op"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      options
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value New value passed in 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`List filter receiving new props Passing in new value Required with a new invalid value passed in 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting a non required input List of options 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      foo
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting a non required input List of options with an initial value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting a non required input Option function with a parse function and value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting with a required input Required with no value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      foo
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting with a required input Required with partial value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter mui-mi-input-field-has-error"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="b"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      baz
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Mounting a list filter Mounting with a required input Required with valid value 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
+exports[`Renders of list filters Default render of list filter 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`Renders of list filters Render with a custom css class 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter foo"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`Renders of list filters Render with a custom list container css class 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+  <ul
+    className="mui-list-filter-menu-ul container ignore-react-onclickoutside"
+    style={Object {}}
+  />
+</div>
+`;
+
+exports[`Renders of list filters Render with a custom list container style 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select an option"
+    type="text"
+    value=""
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={
+      Object {
+        "width": 10,
+      }
+    }
+  />
+</div>
+`;

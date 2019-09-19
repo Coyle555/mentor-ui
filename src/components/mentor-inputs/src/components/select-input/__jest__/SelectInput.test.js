@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, waitForElement, cleanup, act, getByTestId } from '@testing-library/react';
+import { render, fireEvent, cleanup, wait } from '@testing-library/react';
 
 import SelectInput from '../selectInput';
 
@@ -51,20 +51,11 @@ test('<SelectInput /> with options from array of strings', () => {
  	expect(tree).toMatchSnapshot();
 });
 
-test('<SelectInput /> with options from array of objects w/ no parsing props', () => {
- 	const component = renderer.create( 
- 		<SelectInput options={fruits}/> 
- 	);
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
-});
-
 test('<SelectInput /> with options from array of objects w/ parsing props', () => {
  	const component = renderer.create( 
  		<SelectInput 
  			options={fruits}
- 			getOptionLabel={v => v.label}
- 			getOptionValue={v => v.price}
+			parse={val => val.label}
  		/> 
  	);
  	const tree = component.toJSON();
@@ -75,29 +66,55 @@ test('<SelectInput /> with a parsed value', () => {
  	const component = renderer.create( 
  		<SelectInput 
  			options={fruits}
- 			getOptionLabel={v => v.label}
- 			getOptionValue={v => v.price}
+			parse={val => val.label}
  			value={fruits[1]}
  		/> 
  	);
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
-});  
+});
 
-test('<SelectInput /> onblur cb returns parsed value with props.parse', () => {
-	const onBlur = jest.fn().mockImplementation((x, val) => val);
-	const { container } = render(
+test('<SelectInput /> with a newly received and parsed value', () => {
+	const parse = val => val.label;
+
+ 	const { container, rerender } = render( 
+ 		<SelectInput options={fruits} parse={parse} value={fruits[1]} /> 
+ 	);
+
+	expect(container.querySelector('select').value).toBe('bananas');
+	rerender(<SelectInput options={fruits} parse={parse} value={fruits[2]} />);
+	expect(container.querySelector('select').value).toBe('cranberries');
+});
+
+test('<SelectInput /> onChange cb returns parsed value with props.parse', () => {
+	const onChange = jest.fn();
+	const { container, debug } = render(
  		<SelectInput 
- 			onBlur={onBlur}
+			name="foo"
+			onChange={onChange}
  			options={fruits}
- 			getOptionLabel={v => v.label}
- 			getOptionValue={v => v.price}
- 			parse={v => parseFloat(v) || ''}
+			parse={val => val.label}
  			value={fruits[1]}
  		/> 
 	);
 
-	fireEvent.change(container.querySelector('select'), { target: { value: '5.99' }});
+	fireEvent.change(container.querySelector('select'), { target: { value: 'apple' } });
+	expect(onChange).toHaveBeenCalledWith(false, { label: 'apple', price: 1.40 }, 'foo');
+});
+
+test('<SelectInput /> onBlur cb returns parsed value with props.parse', () => {
+	const onBlur = jest.fn();
+	const { container } = render(
+ 		<SelectInput 
+			name="foo"
+ 			onBlur={onBlur}
+ 			options={fruits}
+			parse={val => val.label}
+ 			value={fruits[1]}
+ 		/> 
+	);
+
+	fireEvent.change(container.querySelector('select'), { target: { value: 'apple' } });
 	fireEvent.blur(container.querySelector('select'));
-	expect(onBlur).toHaveReturnedWith(5.99);
+	expect(onBlur).toHaveBeenCalledWith(false, { label: 'apple', price: 1.40 }, 'foo');
 });

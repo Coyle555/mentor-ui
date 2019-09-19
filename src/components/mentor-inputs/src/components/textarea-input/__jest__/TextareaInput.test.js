@@ -17,7 +17,7 @@ test('<TextareaInput /> with no props', () => {
 
 test('<TextareaInput /> with a required attribute', () => {
  	const component = renderer.create( 
- 		<TextareaInput required/> 
+ 		<TextareaInput required={true} /> 
  	);
  	const tree = component.toJSON();
  	expect(tree).toMatchSnapshot();
@@ -71,21 +71,3 @@ test('<TextareaInput /> with 14 cols', () => {
  	expect(tree).toMatchSnapshot();
 });
 
-
-test('<TextareaInput />  validates when required value is an empty string', () => {
-	const onChange = jest.fn().mockImplementation((err) => err);
-
-	const { container } = render(
-		<TextareaInput
-			name="address" 
-			onChange={onChange}
-			required
-		/>
-	);
-	act(() => {
-		fireEvent.focus(container.querySelector('textarea'));
-		fireEvent.change(container.querySelector('textarea'), { target: { value: ' '}});
-	});
-
-	expect(onChange.mock.results[0].value).toBe('This field is required.');
-});

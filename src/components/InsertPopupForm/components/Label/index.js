@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 export const Label = ({ label, required }) => (
 	<div className="row">
 		<div className="col-2"/>
-		<div className="col-4">
+		<div className="col-7">
 			<label className="label">
 				{label}
 			</label>
 		</div>
-		<div className="col-4 text-right">
+		<div className="col-1 text-right">
 			{ !!required &&
 				<label className="required-input">
 					Required

@@ -1,112 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MoneyInput /> disabled w/ a min of 1 and max of 5 1`] = `
-<div
-  className="input-group"
->
-  <div
-    className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
-  >
-    <i
-      className="far fa-dollar-sign"
-    />
-  </div>
-  <input
-    className="apm-mi-form-control"
-    disabled={true}
-    max={5}
-    min={1}
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value=""
-  />
-</div>
+exports[`<MoneyInput /> required 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  required={true}
+  type="text"
+  value=""
+/>
 `;
 
 exports[`<MoneyInput /> where props.value is pi 1`] = `
-<div
-  className="input-group"
->
-  <div
-    className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
-  >
-    <i
-      className="far fa-dollar-sign"
-    />
-  </div>
-  <input
-    className="apm-mi-form-control"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value={3.14}
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field mui-mi-input-field-has-error"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  type="text"
+  value="3.141592653589793"
+/>
 `;
 
 exports[`<MoneyInput /> with a custom className 1`] = `
-<div
-  className="input-group"
->
-  <div
-    className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
-  >
-    <i
-      className="far fa-dollar-sign"
-    />
-  </div>
-  <input
-    className="apm-mi-form-control custom-class"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value=""
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field custom-class"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  type="text"
+  value=""
+/>
 `;
 
 exports[`<MoneyInput /> with no props 1`] = `
-<div
-  className="input-group"
->
-  <div
-    className="input-group-addon"
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "border": "none",
-      }
-    }
-  >
-    <i
-      className="far fa-dollar-sign"
-    />
-  </div>
-  <input
-    className="apm-mi-form-control"
-    onBlur={[Function]}
-    onChange={[Function]}
-    type="number"
-    value=""
-  />
-</div>
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  type="text"
+  value=""
+/>
+`;
+
+exports[`<MoneyInput /> with proper money 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter dollar amount"
+  type="text"
+  value="12.23"
+/>
 `;
