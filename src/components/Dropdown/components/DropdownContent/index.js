@@ -2,50 +2,54 @@ import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import Popper from 'popper.js';
 import DropdownContext from '../../utils/context';
 
 const DropdownContent = props => {
 	const [isOpen, setIsOpen] = useContext(DropdownContext);
+
+	const popper = useRef(null);
 	const ref = useRef(null);
 
 	const { children, style, className } = props;
 
 	const onClickOutside = (evt) => {
+		
 		if (!ref.current) return;
-		const triggerWrapper = evt.target.closest('div.APMDropdown');
-		const wrapperEl = ref.current.closest('div.APMDropdown');
+		const triggerWrapper = evt.target.closest('.APMDropdown');
+		const wrapperEl = ref.current.closest('.APMDropdown');
+
 		if (wrapperEl.isSameNode(triggerWrapper)) return;
 		setIsOpen(false);
 	}
 
 	useEffect(() => {
+
 		window.addEventListener('click', onClickOutside);
 		return () => {
 			window.removeEventListener('click', onClickOutside);
 		}
 	}, []);
 
-	// make sure its completely visible on the viewport
+
 	useEffect(() => {
-		if (!isOpen) return;
-		//const wrapper = ref.current.parentNode.getBoundingClientRect();
-		const content = ref.current.getBoundingClientRect();
-		const maxWidth = window.innerWidth;
+ 		if (!isOpen) return;
+ 		
 
-		// clipped on right side of screen
-		if (content.right > maxWidth) {
-			ref.current.style.left = (maxWidth - content.right - 18) + 'px';
+ 		const triggerEl = ref.current.previousSibling 
+ 			? ref.current.previousSibling
+ 			: ref.current.nextSibling;
 
-		// clipped on left side of screen
-		} else if (content.left < 0) {
 
-			ref.current.style.left = '0px';
+		popper.current = new Popper( 
+			triggerEl.firstChild,
+			ref.current,
+			{ 
+				placement: props.placement
+			}
+		);
+	}, [isOpen]);
 
-		} else {
-			// TODO - center it around the Dropdown trigger (or maybe allow user to pass in position prop)
-		}
-
-	});
 
 	if (!isOpen) return null;
 
@@ -65,4 +69,18 @@ const DropdownContent = props => {
 	)
 }
 
+
+DropdownContent.propTypes = {
+	/**
+		The placement of the content relative to the dropdown trigger. 
+		See https://popper.js.org/popper-documentation.html#Popper.placements
+	*/
+	placement: PropTypes.string
+}
+
+DropdownContent.defaultProps = {
+	placement: 'bottom'
+}
+
 export default DropdownContent;
+

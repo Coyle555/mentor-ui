@@ -128,7 +128,7 @@ export class ListFilter extends Component {
 		});
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		// if new value passed in, refilter list and check for error
 		if (!!nextProps.value && this.state.value !== nextProps.value) {
 			const { name, parse, required } = this.props;

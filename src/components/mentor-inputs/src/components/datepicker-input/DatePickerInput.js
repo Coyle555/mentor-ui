@@ -45,7 +45,7 @@ class DatePickerContainer extends Component {
 		this.isPickerEnabled();
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (!!nextProps.value && this.state.value.toString() !== nextProps.value.toString()) {
 			let val = '';
 

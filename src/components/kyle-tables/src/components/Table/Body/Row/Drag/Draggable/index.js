@@ -66,7 +66,7 @@ export class DragRow extends PureComponent {
 		this.setState({ dragPreviewText });
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (this.props.selectedRows !== nextProps.selectedRows) {
 			this.setState({
 				dragPreviewText: formatDragMessage(nextProps.selectedRows)
