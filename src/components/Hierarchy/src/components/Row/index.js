@@ -6,6 +6,7 @@ import { Handler } from './Handler';
 
 export const Row = ({
 	canDrag,
+	customHandle,
 	index,
 	onNodeClick,
 	style,
@@ -14,6 +15,7 @@ export const Row = ({
 }) => {
 	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
+	const [selected, setSelected] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
 		if (typeof toggleChildVisibility === 'function') {
@@ -52,6 +54,7 @@ export const Row = ({
 
 	const contentClasses = classNames({
 		'mui-node-content': true,
+		'mui-node-selected': !!selected,
 		'mui-node-clickable': typeof onNodeClick === 'function'
 	});
 
@@ -80,9 +83,19 @@ export const Row = ({
 			{scaffold}
 			<Handler
 				canDrag={canDrag}
+				customHandle={customHandle}
 				loading={loading}
+				node={tree[index]}
 			/>
-			<div className={contentClasses}>
+			<div
+				className={contentClasses}
+				onClick={() => {
+					if (typeof onNodeClick === 'function') {
+						setSelected(!selected);
+						onNodeClick(tree[index]);
+					}
+				}}
+			>
 				<div className="node-text-title">
 					{title}
 				</div>

@@ -1,18 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-export const Handler = ({ canDrag, loading, img }) => {
-	let handlerIcon = <i className="far fa-bars fa-lg" />;
+const DEFAULT_HANDLER = <i className="far fa-bars fa-lg" />;
+
+export const Handler = ({ canDrag, customHandle, loading, node }) => {
+	const handlerClasses = classNames({
+		'mui-node-handler': true,
+		'mui-node-handler-draggable': canDrag
+	});
+
+	let handlerIcon = DEFAULT_HANDLER;
 
 	if (!!loading) {
 		handlerIcon = <i className="far fa-spinner mui-loading-spinner" />;
-	} else if (!!img) {
-		handlerIcon = <img src={img} />;
+	} else if (typeof customHandle === 'function') {
+		handlerIcon = customHandle(node);
+
+		if (!handlerIcon) {
+			handlerIcon = DEFAULT_HANDLER;
+		}
 	}
 
 	return (
-		<div className="mui-node-handler">
-			<div className="node-handler">
+		<div className={handlerClasses}>
+			<div className="node-handler-icon">
 				{handlerIcon}
 			</div>
 		</div>
@@ -21,6 +33,7 @@ export const Handler = ({ canDrag, loading, img }) => {
 
 Handler.propTypes = {
 	canDrag: PropTypes.bool,
+	customHandle: PropTypes.func,
 	loading: PropTypes.bool,
-	img: PropTypes.string
+	node: PropTypes.object
 };
