@@ -10,7 +10,6 @@ const DropdownTrigger = props => {
 	const { className, children, render } = props;
 
 	return (
-<<<<<<< HEAD
 		<span
 			className={props.className}
 			onClick={!props.disabled 
@@ -22,16 +21,6 @@ const DropdownTrigger = props => {
 					typeof props.render === 'function'
 						? props.render(isOpen, props.disabled) 
 						: props.children
-=======
-		<div
-			className={className}
-			onClick={() => setIsOpen(!isOpen)}
-		>
-				{
-					typeof render === 'function'
-						? render(isOpen)
-						: children
->>>>>>> c2dc23153852ed6a10f13a315d75ef115174e8d8
 				}
 		</span>
 	);

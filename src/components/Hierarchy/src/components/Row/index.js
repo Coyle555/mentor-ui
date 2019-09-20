@@ -27,9 +27,7 @@ export const Row = ({ index, style, tree }) => {
 		const classes = classNames({
 			'mui-line-block': true,
 			'mui-line-half-horizontal-right': i === level,
-			'mui-line-half-vertical-top': !isVertical
-				&& !!currentNode.parent
-				&& currentNode.parent.children[currentNode.parent.children.length - 1].id === id,
+			'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
 			'mui-line-full-vertical': isVertical
 		});
 
