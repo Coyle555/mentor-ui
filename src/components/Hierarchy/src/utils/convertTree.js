@@ -10,6 +10,7 @@ export function convertTree(tree = [], level = 0, parent = null) {
 			// last node in tree has no siblings coming after it
 			hasSibling: tree[tree.length - 1] !== node,
 			level,
+			// index position of the parent in the list
 			parent
 		};
 
@@ -18,7 +19,11 @@ export function convertTree(tree = [], level = 0, parent = null) {
 		let subtree = [];
 
 		if (node.expanded) {
-			subtree = convertTree(node.children, level + 1, newNode);
+			subtree = convertTree(
+				node.children,
+				level + 1,
+				parent !== null ? parent + 1 : 0
+			);
 		}
 
 		newNode.descendants = node.expanded

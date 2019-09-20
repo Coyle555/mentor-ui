@@ -52,15 +52,7 @@ test('Converting tree with an expanded child', () => {
 		level: 1,
 		descendants: 0,
 		hasSibling: false,
-		parent: {
-			id: 'foo',
-			childrenCount: 1,
-			expanded: true,
-			level: 0,
-			descendants: 1,
-			parent: null,
-			hasSibling: false
-		}
+		parent: 0
 	}]);
 });
 
@@ -121,15 +113,7 @@ test('Converting tree with multiple expanded children', () => {
 		descendants: 0,
 		hasSibling: true,
 		level: 1,
-		parent: {
-			id: 'foo',
-			childrenCount: 2,
-			expanded: true,
-			level: 0,
-			descendants: 2,
-			parent: null,
-			hasSibling: false
-		}
+		parent: 0
 	}, {
 		id: 'baz',
 		childrenCount: 0,
@@ -137,15 +121,7 @@ test('Converting tree with multiple expanded children', () => {
 		hasSibling: false,
 		descendants: 0,
 		level: 1,
-		parent: {
-			id: 'foo',
-			childrenCount: 2,
-			descendants: 2,
-			expanded: true,
-			level: 0,
-			parent: null,
-			hasSibling: false
-		}
+		parent: 0
 	}]);
 });
 
@@ -187,15 +163,7 @@ test('Converting a tree with a depth of 3', () => {
 		descendants: 1,
 		level: 1,
 		hasSibling: true,
-		parent: {
-			id: 'foo',
-			childrenCount: 2,
-			expanded: true,
-			descendants: 3,
-			level: 0,
-			parent: null,
-			hasSibling: false
-		}
+		parent: 0
 	}, {
 		id: 'child4',
 		childrenCount: 0,
@@ -203,23 +171,7 @@ test('Converting a tree with a depth of 3', () => {
 		hasSibling: false,
 		descendants: 0,
 		level: 2,
-		parent: {
-			id: 'bar',
-			childrenCount: 1,
-			level: 1,
-			descendants: 1,
-			hasSibling: true,
-			expanded: true,
-			parent: {
-				id: 'foo',
-				descendants: 3,
-				childrenCount: 2,
-				expanded: true,
-				level: 0,
-				parent: null,
-				hasSibling: false
-			}
-		}
+		parent: 1
 	}, {
 		id: 'baz',
 		childrenCount: 0,
@@ -227,14 +179,6 @@ test('Converting a tree with a depth of 3', () => {
 		level: 1,
 		hasSibling: false,
 		descendants: 0,
-		parent: {
-			id: 'foo',
-			childrenCount: 2,
-			expanded: true,
-			level: 0,
-			descendants: 3,
-			parent: null,
-			hasSibling: false
-		}
+		parent: 0
 	}]);
 });
