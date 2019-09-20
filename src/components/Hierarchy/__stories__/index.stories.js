@@ -159,6 +159,7 @@ storiesOf('Hierarchy', module)
 		return (
 			<div style={{ height: window.innerHeight + 'px' }}>
 				<Tree
+					canDrag={false}
 					onExpandNode={onExpandNode}
 					onNodeClick={action('onNodeClick')}
 					tree={tree}

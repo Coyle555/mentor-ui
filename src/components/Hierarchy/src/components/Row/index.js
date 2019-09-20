@@ -2,7 +2,16 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) => {
+import { Handler } from './Handler';
+
+export const Row = ({
+	canDrag,
+	index,
+	onNodeClick,
+	style,
+	toggleChildVisibility,
+	tree
+}) => {
 	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
 
@@ -69,11 +78,10 @@ export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) 
 				</button>
 			)}
 			{scaffold}
-			<div className="mui-node-handler">
-				<div className="node-handler">
-					<i className="far fa-bars fa-lg" />
-				</div>
-			</div>
+			<Handler
+				canDrag={canDrag}
+				loading={loading}
+			/>
 			<div className={contentClasses}>
 				<div className="node-text-title">
 					{title}

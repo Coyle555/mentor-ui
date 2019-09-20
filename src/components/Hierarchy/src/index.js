@@ -14,10 +14,16 @@ import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, onExpandNode, onNodeClick, tree, subtitle }) => { 
+export const Tree = ({
+	canDrag,
+	isVirtualized,
+	onExpandNode,
+	onNodeClick,
+	tree,
+	subtitle
+}) => { 
 
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
-	console.log(convertedTree);
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// collapsing node
 		if (node.expanded) {
@@ -37,6 +43,7 @@ export const Tree = ({ isVirtualized, onExpandNode, onNodeClick, tree, subtitle 
 
 	const renderRow = useCallback(({ index, style }) => (
 		<Row
+			canDrag={canDrag}
 			index={index}
 			onNodeClick={onNodeClick}
 			style={style}
@@ -75,6 +82,7 @@ export const Tree = ({ isVirtualized, onExpandNode, onNodeClick, tree, subtitle 
 }
 
 Tree.propTypes = {
+	canDrag: PropTypes.bool,
 	isVirtualized: PropTypes.bool,
 	onExpandNode: PropTypes.func,
 	tree: PropTypes.array,
@@ -82,6 +90,7 @@ Tree.propTypes = {
 }
 
 Tree.defaultProps = {
+	canDrag: false,
 	isVirtualized: true,
 	onExpandNode: null,
 	tree: [],

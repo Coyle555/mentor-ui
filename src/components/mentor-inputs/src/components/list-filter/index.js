@@ -545,7 +545,7 @@ export class ListFilter extends Component {
 				{ this.renderIncrementalSearchResults() }
 				{ loadingFilter &&
 					<span className="mui-mi-clear-input">
-						<Spinner className="apm-color-black" />
+						<Spinner className="apm-color-black mui-loading-spinner" />
 					</span>
 				}
 				{ !!value && !loadingFilter && !disabled &&
