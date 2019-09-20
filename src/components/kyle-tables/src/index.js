@@ -173,7 +173,7 @@ export class Table extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (this.props.data !== nextProps.data) {
 
 			const { selectedRows } = this.state;

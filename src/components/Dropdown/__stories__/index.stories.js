@@ -28,7 +28,7 @@ storiesOf('Dropdown', module)
 								<i className={`fas fa-caret-${isOpen ? 'down' : 'up'}`}/>
 							</Button>
 						} 
-					/>
+					/>				
 					<DropdownMenu>
 						<h2 style={{textAlign: 'center'}}>DropdownMenu</h2>
 						<DropdownMenuItem>
@@ -37,17 +37,17 @@ storiesOf('Dropdown', module)
 						<DropdownMenuItem>
 							Option B
 						</DropdownMenuItem>
-					</DropdownMenu>
+					</DropdownMenu>					
 				</Dropdown>
 			)		
 		})
 	.add('Basic Dropdown Menu', () => {
 
 		return (
-			
+			<div style={{margin: '10px auto', width: 'intrinsic'}}>
 			<Dropdown>
 				<DropdownTrigger>
-					<span style={{cursor: 'pointer', border: '1px solid'}}>Click here to open the dropdown</span>
+					<span style={{cursor: 'pointer', border: '1px solid'}}>Click here</span>
 				</DropdownTrigger>
 				<DropdownMenu>
 					<h2 style={{textAlign: 'center'}}>DropdownMenu</h2>
@@ -75,6 +75,7 @@ storiesOf('Dropdown', module)
 					</DropdownMenuItem>
 				</DropdownMenu>
 			</Dropdown>
+			</div>
 		)
 	})
 	.add('On the far left of the screen', () => {
@@ -116,7 +117,7 @@ storiesOf('Dropdown', module)
 	.add('On the far right of the screen', () => {
 
 		return (
-			<div style={{position: 'relative',float: 'right', marginTop: 40}}>
+			<div style={{display: 'flex', flexDirection: 'row-reverse', width: '100%', marginTop: 40 }}>
 			<Dropdown>
 				<DropdownTrigger>
 					<span style={{cursor: 'pointer', border: '1px solid'}}>Open</span>

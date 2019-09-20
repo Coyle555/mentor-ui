@@ -20,7 +20,6 @@ exports[`Default file input 1`] = `
 >
   <input
     autoComplete="off"
-    multiple={true}
     onChange={[Function]}
     onClick={[Function]}
     style={
