@@ -2,12 +2,12 @@
 
 exports[`Default render of spinner 1`] = `
 <i
-  className="far fa-spinner apm-spinner "
+  className="far fa-spinner mui-spinner "
 />
 `;
 
 exports[`Render of spinner with a custom class 1`] = `
 <i
-  className="far fa-spinner apm-spinner foo"
+  className="far fa-spinner mui-spinner foo"
 />
 `;

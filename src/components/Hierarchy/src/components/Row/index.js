@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { Handler } from './Handler';
 import { ToggleButton } from './ToggleButton';
+import { Node } from './Node';
 
 export const Row = ({
 	canDrag,
@@ -53,12 +54,6 @@ export const Row = ({
 		return <div className={classes} />;
 	});
 
-	const contentClasses = classNames({
-		'mui-node-content': true,
-		'mui-node-selected': !!selected,
-		'mui-node-clickable': typeof onNodeClick === 'function'
-	});
-
 	return (
 		<div
 			className="mui-node-row"
@@ -77,25 +72,13 @@ export const Row = ({
 				loading={loading}
 				node={tree[index]}
 			/>
-			<div
-				className={contentClasses}
-				onClick={() => {
-					if (typeof onNodeClick === 'function') {
-						setSelected(!selected);
-						onNodeClick(tree[index]);
-					}
-				}}
-			>
-				<div className="node-text-title">
-					{title}
-				</div>
-				<div className="node-text-subtitle">
-					{ typeof subtitle === 'function'
-						? subtitle(node)
-						: subtitle || ''
-					}
-				</div>
-			</div>
+			<Node
+				node={tree[index]}
+				onNodeClick={onNodeClick}
+				selected={selected}
+				subtitle={subtitle}
+				title={title}
+			/>
 		</div>
 	);
 };

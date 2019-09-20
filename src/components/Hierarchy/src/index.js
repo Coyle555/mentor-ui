@@ -65,6 +65,7 @@ export const Tree = ({
 							height={height}
 							itemCount={convertedTree.length}
 							itemSize={ROW_HEIGHT}
+							itemKey={index => convertedTree[index].id}
 							width={width}
 						>
 							{renderRow}

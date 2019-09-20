@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default node render 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <div
+    className="node-text-title"
+  >
+    
+  </div>
+  <div
+    className="node-text-subtitle"
+  >
+    
+  </div>
+</div>
+`;
+
+exports[`Node with a subtitle function 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <div
+    className="node-text-title"
+  >
+    
+  </div>
+  <div
+    className="node-text-subtitle"
+  >
+    baz
+  </div>
+</div>
+`;
+
+exports[`Node with a subtitle string 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <div
+    className="node-text-title"
+  >
+    
+  </div>
+  <div
+    className="node-text-subtitle"
+  >
+    Bar
+  </div>
+</div>
+`;
+
+exports[`Node with a title 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <div
+    className="node-text-title"
+  >
+    Foo
+  </div>
+  <div
+    className="node-text-subtitle"
+  >
+    
+  </div>
+</div>
+`;
+
+exports[`Selected node render 1`] = `
+<div
+  className="mui-node-content mui-node-selected"
+  onClick={[Function]}
+>
+  <div
+    className="node-text-title"
+  >
+    
+  </div>
+  <div
+    className="node-text-subtitle"
+  >
+    
+  </div>
+</div>
+`;
