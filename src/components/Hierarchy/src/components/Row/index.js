@@ -18,30 +18,28 @@ export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) 
 		}
 	});
 
-	const scaffold = useMemo(() => {
-		return new Array(level + 1).fill(null).map((val, i) => {
-			let currentLevel = level;
-			let currentNode = tree[index];
+	const scaffold = new Array(level + 1).fill(null).map((val, i) => {
+		let currentLevel = level;
+		let currentNode = tree[index];
 
-			// need to get the ancestor for the node at the level being processed
-			// for the scaffolding
-			while (currentLevel !== i) {
-				currentNode = currentNode.parent;
-				currentLevel--;
-			}
+		// need to get the ancestor for the node at the level being processed
+		// for the scaffolding
+		while (currentLevel !== i) {
+			currentNode = tree[currentNode.parent];
+			currentLevel--;
+		}
 
-			const isVertical = !!currentNode && currentNode.hasSibling;
+		const isVertical = !!currentNode && currentNode.hasSibling;
 
-			const classes = classNames({
-				'mui-line-block': true,
-				'mui-line-half-horizontal-right': i === level,
-				'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
-				'mui-line-full-vertical': isVertical
-			});
-
-			return <div className={classes} />;
+		const classes = classNames({
+			'mui-line-block': true,
+			'mui-line-half-horizontal-right': i === level,
+			'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
+			'mui-line-full-vertical': isVertical
 		});
-	}, [level]);
+
+		return <div className={classes} />;
+	});
 
 	const contentClasses = classNames({
 		'mui-node-content': true,

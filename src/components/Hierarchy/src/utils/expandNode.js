@@ -1,15 +1,17 @@
 import { findNode } from './findNode';
 import { convertTree } from './convertTree';
+import { appendNodes } from './appendNodes';
 
-export function expandNode({ index, node, originalTree, tree }) {
-	let originalNode = findNode(originalTree[0], node);
+export function expandNode({ index, node, nodesToAppend, tree }) {
+	const childrenToAppend = appendNodes({
+		newNodes: nodesToAppend,
+		nodeToAppendTo: node,
+		parentIndex: index,
+	});
 
-	if (!originalNode) return tree;
-
-	originalNode = convertTree(
-
+	node.expanded = true;
 	const newTree = tree.slice();
-	newTree.splice(index + 1, 0, ...originalNode.children);
+	newTree.splice(index + 1, 0, ...childrenToAppend);
 
 	return newTree;
 }

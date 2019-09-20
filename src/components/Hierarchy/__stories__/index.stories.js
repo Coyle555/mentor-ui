@@ -133,11 +133,33 @@ const tree = [
 	},
 ];
 
+function onExpandNode(node) {
+	return [{
+		childrenCount: 1,
+		expanded: false,
+		id: 'expand1',
+		title: 'expand1',
+		children: [{
+			id: 'expand1-child',
+			title: 'expand1-child',
+			childrenCount: 0,
+			children: []
+		}]
+	}, {
+		childrenCount: 0,
+		expanded: false,
+		id: 'expand1',
+		title: 'expand1',
+		children: []
+	}];
+}
+
 storiesOf('Hierarchy', module)
 	.add('General', () => {
 		return (
 			<div style={{ height: window.innerHeight + 'px' }}>
 				<Tree
+					onExpandNode={onExpandNode}
 					onNodeClick={action('onNodeClick')}
 					tree={tree}
 				/>

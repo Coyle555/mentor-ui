@@ -4,15 +4,17 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 
 import { Row } from './components/Row';
-import { convertTree } from './utils/convertTree';
-import { collapseNode } from './utils/collapseNode';
-import { expandNode } from './utils/expandNode';
+import {
+	collapseNode,
+	convertTree,
+	expandNode 
+} from './utils';
 
 import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree, subtitle }) => { 
+export const Tree = ({ isVirtualized, onExpandNode, onNodeClick, tree, subtitle }) => { 
 
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
 	console.log(convertedTree);
@@ -21,16 +23,14 @@ export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree
 		if (node.expanded) {
 			setConvertedTree(collapseNode({ tree: convertedTree, node, index }));
 		// expanding node
-		} else {
-			if (typeof onToggleChildVisibility === 'function') {
-				onToggleChildVisibility(node);
-			}
+		} else if (typeof onExpandNode === 'function') {
+			const nodesToAppend = onExpandNode(node);
 
 			setConvertedTree(expandNode({
 				index,
 				node,
-				originalTree: tree,
-				tree: convertedTree,
+				nodesToAppend,
+				tree: convertedTree
 			}));
 		}
 	});
@@ -76,14 +76,14 @@ export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree
 
 Tree.propTypes = {
 	isVirtualized: PropTypes.bool,
-	onToggleChildVisibility: PropTypes.func,
+	onExpandNode: PropTypes.func,
 	tree: PropTypes.array,
 	subtitle: PropTypes.func
 }
 
 Tree.defaultProps = {
 	isVirtualized: true,
-	onToggleChildVisibility: null,
+	onExpandNode: null,
 	tree: [],
 	subtitle: null
 };
