@@ -38,7 +38,7 @@ exports[`Filter item of type datetime 1`] = `
     className="filter-value"
   >
     <span>
-      October 21, 1995, 8:00 PM
+      1995 M10 21 20:00
     </span>
   </td>
   <td>

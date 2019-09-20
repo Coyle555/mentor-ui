@@ -65,7 +65,7 @@ const SelectInput = ({
 
 			props.onBlur(error, actualValue, props.name);
 		}
-	}, [props.onBlur, parse, parseMatchedValue ]);
+	});
 
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;
@@ -93,7 +93,7 @@ const SelectInput = ({
 
 			props.onChange(error, actualValue, props.name);
 		}
-	}, [props.onChange, parse, parseMatchedValue]);
+	});
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
