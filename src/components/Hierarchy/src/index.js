@@ -15,6 +15,7 @@ const ROW_HEIGHT = 62;
 export const Tree = ({ isVirtualized, onNodeClick, onToggleChildVisibility, tree, subtitle }) => { 
 
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
+	console.log(convertedTree);
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// collapsing node
 		if (node.expanded) {

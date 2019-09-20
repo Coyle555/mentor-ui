@@ -18,7 +18,6 @@ export const Row = ({ index, onNodeClick, style, toggleChildVisibility, tree }) 
 		}
 	});
 
-	console.log('using level', level + 1);
 	const scaffold = useMemo(() => {
 		return new Array(level + 1).fill(null).map((val, i) => {
 			let currentLevel = level;
