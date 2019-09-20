@@ -1,23 +1,46 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AutoSizer, List } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List } from 'react-window';
 
 import { Row } from './components/Row';
-import { convertTree } from './utils/convertTree';
+import {
+	collapseNode,
+	convertTree,
+	expandNode 
+} from './utils';
 
 import './styles.less';
 
 const ROW_HEIGHT = 62;
 
-export const Tree = ({ isVirtualized, tree, subtitle }) => { 
+export const Tree = ({ isVirtualized, onExpandNode, onNodeClick, tree, subtitle }) => { 
 
-	const convertedTree = useMemo(() => convertTree(tree), [tree]);
+	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
+	console.log(convertedTree);
+	const toggleChildVisibility = useCallback(({ index, node }) => {
+		// collapsing node
+		if (node.expanded) {
+			setConvertedTree(collapseNode({ tree: convertedTree, node, index }));
+		// expanding node
+		} else if (typeof onExpandNode === 'function') {
+			const nodesToAppend = onExpandNode(node);
 
-	const renderRow = useCallback(({ index, key, style }) => (
+			setConvertedTree(expandNode({
+				index,
+				node,
+				nodesToAppend,
+				tree: convertedTree
+			}));
+		}
+	});
+
+	const renderRow = useCallback(({ index, style }) => (
 		<Row
 			index={index}
-			key={key}
+			onNodeClick={onNodeClick}
 			style={style}
+			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}
 		/>
 	));
@@ -30,11 +53,12 @@ export const Tree = ({ isVirtualized, tree, subtitle }) => {
 						<List
 							className="mui-hierarchy-node"
 							height={height}
-							rowCount={convertedTree.length}
-							rowHeight={ROW_HEIGHT}
-							rowRenderer={renderRow}
+							itemCount={convertedTree.length}
+							itemSize={ROW_HEIGHT}
 							width={width}
-						/>
+						>
+							{renderRow}
+						</List>
 					)}
 				</AutoSizer>
 			</div>
@@ -52,12 +76,14 @@ export const Tree = ({ isVirtualized, tree, subtitle }) => {
 
 Tree.propTypes = {
 	isVirtualized: PropTypes.bool,
+	onExpandNode: PropTypes.func,
 	tree: PropTypes.array,
 	subtitle: PropTypes.func
 }
 
 Tree.defaultProps = {
 	isVirtualized: true,
+	onExpandNode: null,
 	tree: [],
 	subtitle: null
 };
