@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 
 import '../../styles/index.less';
 
-const FileInput = ({ label, name, onDrop }) => {
+const FileInput = ({ label, name, onDrop, ...props }) => {
 	
 	const dropzoneDrop = useCallback(acceptedFiles => {
 		if (typeof onDrop === 'function') {
