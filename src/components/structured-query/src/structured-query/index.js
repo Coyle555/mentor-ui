@@ -65,7 +65,7 @@ export class StructuredQuery extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (this.props.initTokens !== nextProps.initTokens) {
 			this.setState({ searchTokens: nextProps.initTokens.filter(validateToken) });
 		}

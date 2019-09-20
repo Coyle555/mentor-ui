@@ -60,7 +60,7 @@ export class TypeaheadComponent extends Component {
 		this.getOptions(this.props.options);
 	}
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (!!nextProps.options && this.props.options !== nextProps.options) {
 			this.getOptions(nextProps.options);
 		}
