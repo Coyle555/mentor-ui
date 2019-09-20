@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { Handler } from './Handler';
+import { ToggleButton } from './ToggleButton';
 
 export const Row = ({
 	canDrag,
@@ -63,23 +64,12 @@ export const Row = ({
 			className="mui-node-row"
 			style={style}
 		>
-			{ childrenCount > 0 && (
-				<button
-					className={classNames(
-						expanded 
-							? 'node-collapse-button'
-							: 'node-expand-button'
-					)}
-					onClick={onToggleChildVisibility}
-					style={{ left: 22 + (44 * level) + 'px' }}
-					type="button"
-				>
-					{ expanded
-						? <i className="fas fa-minus" />
-						: <i className="fas fa-plus" />
-					}
-				</button>
-			)}
+			<ToggleButton
+				childrenCount={childrenCount}
+				expanded={expanded}
+				level={level}
+				onClick={onToggleChildVisibility}
+			/>
 			{scaffold}
 			<Handler
 				canDrag={canDrag}
