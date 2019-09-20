@@ -13,7 +13,9 @@ const FileInput = ({ label, name, onDrop }) => {
 		}
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: dropzoneDrop });
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
+		onDrop: dropzoneDrop 
+	});
 
 	const classes = classNames({
 		'mui-mi-file-input': true,
@@ -24,7 +26,12 @@ const FileInput = ({ label, name, onDrop }) => {
 
 	return (
 		<div {...rootProps}>
-			<input {...getInputProps()} />
+			<input 
+				{...getInputProps()} 
+				accept={props.accept}
+				capture={props.capture}
+				multiple={props.multiple}
+			/>
 			<p className={classes}>{label}</p>
 		</div>
 	);

@@ -23,6 +23,8 @@ export default class InsertForm extends Component {
 			label: PropTypes.string.isRequired,
 			multiline: PropTypes.bool,
 			options: PropTypes.array,
+			parse: PropTypes.func,
+			parseMatchedValue: PropTypes.func,
 			required: PropTypes.bool,
 			type: PropTypes.string
 		})).isRequired,
@@ -169,7 +171,6 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
-		console.log('change', this.insertData);
 		this.handleFieldError(error, fieldId);
 	}
 
@@ -189,7 +190,6 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
 		this.insertData[fieldId] = option; 
-		console.log('match', this.insertData);
 		this.handleFieldError(false, fieldId);
 	}
 
@@ -220,7 +220,18 @@ export default class InsertForm extends Component {
 		}
 
 		if (typeof this.props.onSubmit === 'function') {
-			this.props.onSubmit(this.insertData);
+			const dataToSubmit = Object.keys(this.insertData).reduce((acc, fieldId) => {
+				acc[fieldId] = this.insertData[fieldId];
+				const field = this.state.formModel.find(field => field.id === fieldId);
+
+				if (typeof field.parseMatchedValue === 'function') {
+					acc[fieldId] = field.parseMatchedValue(this.insertData[fieldId]);
+				}
+
+				return acc;
+			}, {});
+
+			this.props.onSubmit(dataToSubmit);
 		}
 
 		if (this.props.resetForm) {

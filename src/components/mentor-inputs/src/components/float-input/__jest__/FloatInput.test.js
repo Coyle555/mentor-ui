@@ -30,7 +30,6 @@ test('<FloatInput /> accepts a valid float value', () => {
 
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	
-
 });
 
 test('Float input with required prop', () => {
@@ -46,13 +45,13 @@ test('Float input with an invalid float', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
-test('Float input blur with a preicison', () => {
+test('Float input blur with a precision', () => {
 	const onBlur = jest.fn();
 	const { debug, container } = render(<FloatInput name="foo" onBlur={onBlur} precision={2} />);
 
 	fireEvent.change(container.querySelector('input'), { target: { value: '123.423' } });
 	fireEvent.blur(container.querySelector('input'));
-	expect(onBlur).toHaveBeenCalledWith(true, '123.423', 'foo');
+	expect(onBlur).toHaveBeenCalledWith('Invalid number', '123.423', 'foo');
 });
 
 test('Minimum value passed for float input', () => {
@@ -69,6 +68,14 @@ test('Minimum value failed for float input', () => {
 	expect(tree).toMatchSnapshot();	
 });
 
+test('New minimum value failed for float input', () => {
+	const component = renderer.create(<FloatInput min={10} value={5} />);
+	component.update(<FloatInput min={3} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
 test('Maximum value passed for float input', () => {
 	const component = renderer.create(<FloatInput max={5} value={5} />);
 
@@ -78,6 +85,14 @@ test('Maximum value passed for float input', () => {
 
 test('Maximum value failed for float input', () => {
 	const component = renderer.create(<FloatInput max={0} value={5} />);
+
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();	
+});
+
+test('New maximum value failed for float input', () => {
+	const component = renderer.create(<FloatInput max={10} value={5} />);
+	component.update(<FloatInput max={3} value={5} />);
 
 	const tree = component.toJSON();
 	expect(tree).toMatchSnapshot();	

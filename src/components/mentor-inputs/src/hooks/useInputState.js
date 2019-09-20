@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import { get } from 'lodash';
-import shortid from 'shortid';
 
 import { hasError } from './hasError';
 
@@ -21,43 +20,32 @@ export const useInputState = (props = {}) => {
 		...input
 	} = props;
 
-	value = validateValue(value);
-
 	const inputRef = useRef(null);
-	const fakeNameToPreventAutocomplete = useRef(null);
-	const lastVal = useRef(value);
+	const lastVal = useRef(validateValue(value));
 
-	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(hasError(value, required, validate))
-	
-	/// value in state should be updated when value in props is changed
+	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
+	const [ error, setError ] = useState(hasError(currentValue, required, validate));
+
 	useEffect(() => {
-		if (!fakeNameToPreventAutocomplete.current && input.autoComplete !== 'true' ) {
-			fakeNameToPreventAutocomplete.current = shortid.generate() + '-APM-' + (input.name || 'unnamed');
-		}
-
-		if (currentValue !== value) {
-			/// update to the new value if its actually new
-			setCurrentValue(validateValue(value));
-
-			if (inputRef.current) {
-				/// check for errors on the new value
-				/// as long as the inputRef points to a dom node
-				setError(hasError(value, required, validate));
-			}
-		}
-
-	}, [props.value]);
-
-	/// as soon as the input ref is attached to the node
-	/// check for errors on the value
-	/// (We also need to reevaluate error status if required attribute is changed)
-	useEffect(() => {
-		if (!inputRef.current || !inputRef.current.name) return;
-
 		setError(hasError(currentValue, required, validate));
+	}, [required, validate]);
+	
+	useEffect(() => {
+		const newVal = validateValue(value);
 
-	}, [inputRef.current, input.required]);
+		setCurrentValue(newVal);
+		setError(hasError(newVal, required, validate));
+	}, [value]);
+
+	useEffect(() => {
+		if (!inputRef.current) return;
+
+		const err = setError(hasError(currentValue, required, validate));
+
+		if (typeof err === 'string') {
+			inputRef.current.setCustomValidity(err);
+		}
+	}, [inputRef.current]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
@@ -84,12 +72,20 @@ export const useInputState = (props = {}) => {
 			const error = hasError(newValue, required, validate);
 			setError(error);
 
+			if (inputRef.current) {
+				if (error) {
+					inputRef.current.setCustomValidity(String(error));
+				} else {
+					inputRef.current.setCustomValidity('');
+				}
+			}
+
 			if (typeof onChange === 'function') {
 				onChange(error, newValue, input.name);
 			}
 		}),
 
-		name: fakeNameToPreventAutocomplete.current || input.name,
+		name: input.name,
 		ref: inputRef,
 		value: currentValue
 	}

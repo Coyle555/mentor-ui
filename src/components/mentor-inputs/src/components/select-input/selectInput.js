@@ -2,13 +2,14 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { hasError, useInputState } from '../../hooks/index';
+import { hasError } from '../../hooks/index';
 import '../../styles/index.less';
 
 const SelectInput = ({ 
 	options, 
 	placeholder,
 	parse, 
+	parseMatchedValue,
 	required,
 	validate, 
 	value,
@@ -23,15 +24,14 @@ const SelectInput = ({
 	const [ currentValue, setCurrentValue ] = useState(value);
 	const [ error, setError ] = useState(hasError(value, required, validate));
 
-	/// value in state should be updated when value in props is changed
+	useEffect(() => {
+		setError(hasError(currentValue, required, validate));
+	}, [required, validate]);
+
 	useEffect(() => {
 		if (currentValue !== value) {
-			/// update to the new value if its actually new
 			setCurrentValue(value);
-
-			if (inputRef.current) {
-				setError(hasError(value, required, validate));
-			}
+			setError(hasError(value, required, validate));
 		}
 
 	}, [value]);
@@ -40,11 +40,14 @@ const SelectInput = ({
 	/// check for errors on the value
 	/// (We also need to reevaluate error status if required attribute is changed)
 	useEffect(() => {
-		if (!inputRef.current || !inputRef.current.name) return;
+		if (!inputRef.current) return;
 
-		setError(hasError(currentValue, required, validate));
+		const err = setError(hasError(currentValue, required, validate));
 
-	}, [inputRef.current, required]);
+		if (typeof err === 'string') {
+			inputRef.current.setCustomValidity(err);
+		}
+	}, [inputRef.current]);
 
 	const onBlur = useCallback(evt => {
 		if (typeof props.onBlur !== 'function') return;
@@ -52,13 +55,17 @@ const SelectInput = ({
 		if (currentValue !== lastVal) {
 			lastVal.current = currentValue;
 
-			const actualValue = typeof parse === 'function'
+			let actualValue = typeof parse === 'function'
 				? options.find(opt => parse(opt) === currentValue)
 				: currentValue;
 
+			if (typeof parseMatchedValue === 'function') {
+				actualValue = parseMatchedValue(actualValue);
+			}
+
 			props.onBlur(error, actualValue, props.name);
 		}
-	});
+	}, [props.onBlur, parse, parseMatchedValue ]);
 
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;
@@ -68,13 +75,25 @@ const SelectInput = ({
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
-			const actualValue = typeof parse === 'function'
+			let actualValue = typeof parse === 'function'
 				? options.find(opt => parse(opt) === newValue)
 				: newValue;
 
+			if (typeof parseMatchedValue === 'function') {
+				actualValue = parseMatchedValue(actualValue);
+			}
+
+			if (inputRef.current) {
+				if (error) {
+					inputRef.current.setCustomValidity(String(error));
+				} else {
+					inputRef.current.setCustomValidity('');
+				}
+			}
+
 			props.onChange(error, actualValue, props.name);
 		}
-	});
+	}, [props.onChange, parse, parseMatchedValue]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,

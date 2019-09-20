@@ -1,6 +1,6 @@
 {
   "name": "mentor-ui",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "repository": "https://github.com/MentorAPM/mentor-ui.git",
   "author": "",
@@ -87,6 +87,9 @@
     "react-toastify": "^5.2.1",
     "react-tooltip": "^3.10.0",
     "react-transition-group": "^4.2.2",
+    "react-virtualized": "^9.21.1",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5",
     "shortid": "^2.2.14",
     "stickyfilljs": "^2.1.0"
   },

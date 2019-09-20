@@ -1,7 +1,7 @@
 import { hasError } from '../hasError';
 
 test('Error when no value and required', () => {
-	expect(hasError('', true)).toBe(true);
+	expect(hasError('', true)).toBe('Value is required');
 });
 
 test('No error when value and required', () => {

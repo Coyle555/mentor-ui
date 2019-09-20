@@ -423,6 +423,30 @@ describe('List filter onChange event', () => {
 			expect(onMatch).toHaveBeenCalledWith('bar', 'inputName');
 		});
 
+		test('User types complete match and parses matched value', async () => {
+			const options = [
+				{ id: 'foo', name: 'Foo' }, 
+				{ id: 'bar', name: 'Bar' },
+				{ id: 'baz', name: 'Baz' }
+			];
+
+			const parseMatchedValue = jest.fn(val => val.id);
+			const { container, getByRole, queryByText } = render(
+				<ListFilter
+					autoFocus={true}
+					name="inputName"
+					onMatch={() => {}}
+					options={options}
+					parse={val => val.name}
+					parseMatchedValue={parseMatchedValue}
+					role="test"
+				/>
+			);
+			
+			fireEvent.change(getByRole('test'), { target: { value: 'Bar' } });
+			expect(parseMatchedValue).toHaveBeenCalledWith({ id: 'bar', name: 'Bar' });
+		});
+
 		test('User types complete match with onMatch handler and parse function', async () => {
 			const parse = jest.fn(val => val.name);
 			const onMatch = jest.fn();

@@ -107,3 +107,27 @@ exports[`Minimum value passed for integer input 1`] = `
   value="5"
 />
 `;
+
+exports[`New maximum value failed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;
+
+exports[`New minimum value failed for integer input 1`] = `
+<input
+  autoComplete="false"
+  className="mui-mi-input-field"
+  onBlur={[Function]}
+  onChange={[Function]}
+  placeholder="Enter number"
+  type="text"
+  value="5"
+/>
+`;
