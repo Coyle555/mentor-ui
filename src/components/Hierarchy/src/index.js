@@ -19,9 +19,9 @@ export const Tree = ({
 	customHandle,
 	isVirtualized,
 	onExpandNode,
-	onNodeClick,
 	tree,
-	subtitle
+	subtitle,
+	...props
 }) => { 
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
 	const [selectedNodeId, setSelectedNodeId] = useState('');
@@ -43,12 +43,23 @@ export const Tree = ({
 		}
 	});
 
+	const onNodeClick = useCallback((node) => {
+		const newSelectedNodeId = selectedNodeId === node.id ? '' : node.id;
+
+		setSelectedNodeId(newSelectedNodeId);
+
+		if (typeof props.onNodeClick === 'function') {
+			props.onNodeClick(node, !!newSelectedNodeId);
+		}
+	});
+
 	const renderRow = useCallback(({ index, style }) => (
 		<Row
 			canDrag={canDrag}
 			customHandle={customHandle}
 			index={index}
 			onNodeClick={onNodeClick}
+			selectedNodeId={selectedNodeId}
 			style={style}
 			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}

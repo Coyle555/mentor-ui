@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export const Node = ({ node, onNodeClick, selected, subtitle, title }) => {
 	const nodeClasses = classNames({
 		'mui-node-content': true,
-		'mui-node-selected': !!selected,
+		'mui-node-selected': selected,
 		'mui-node-clickable': typeof onNodeClick === 'function'
 	});
 
@@ -36,6 +36,7 @@ Node.propTypes = {
 };
 
 Node.defaultProps = {
+	selected: false,
 	subtitle: '',
 	title: ''
 };

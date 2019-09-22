@@ -11,13 +11,13 @@ export const Row = ({
 	customHandle,
 	index,
 	onNodeClick,
+	selectedNodeId,
 	style,
 	toggleChildVisibility,
 	tree
 }) => {
 	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
 	const [loading, setLoading] = useState(false);
-	const [selected, setSelected] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
 		if (typeof toggleChildVisibility === 'function') {
@@ -75,7 +75,7 @@ export const Row = ({
 			<Node
 				node={tree[index]}
 				onNodeClick={onNodeClick}
-				selected={selected}
+				selected={selectedNodeId === id}
 				subtitle={subtitle}
 				title={title}
 			/>

@@ -1,5 +1,3 @@
-import { findNode } from './findNode';
-import { convertTree } from './convertTree';
 import { appendNodes } from './appendNodes';
 
 export function expandNode({ index, node, nodesToAppend, tree }) {
