@@ -33,8 +33,6 @@ export const Tree = ({
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
 
 	const reducer = useCallback((state, action) => {
-		console.log('received action', action);
-		console.log('w/ state', state);
 		switch (action.type) {
 			case 'selectNode':
 				let newIndex = -1;
@@ -47,7 +45,11 @@ export const Tree = ({
 					onNodeClick(newIndex > -1 ? convertedTree[newIndex] : null);
 				}
 
-				return { ...state, selectedNodeIndex: newIndex };
+				return {
+					...state,
+					buttonMenuIndex: -1,
+					selectedNodeIndex: newIndex
+				};
 
 			case 'openButtonMenu':
 				let newButtonIndex = -1;
@@ -129,7 +131,10 @@ export const Tree = ({
 
 Tree.propTypes = {
 	canDrag: PropTypes.bool,
-	customButtons: PropTypes.arrayOf(PropTypes.element),
+	customButtons: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.element),
+		PropTypes.func
+	]),
 	customHandle: PropTypes.func,
 	isVirtualized: PropTypes.bool,
 	onExpandNode: PropTypes.func,

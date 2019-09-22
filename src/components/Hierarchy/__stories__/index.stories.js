@@ -164,10 +164,35 @@ function customHandle(node) {
 	return null;
 }
 
-const customButtons = [
-	<button type="button">First button</button>,
-	<button type="button">Second button</button>
-];
+const customButtons = (node) => {
+	if (node.id === '1') return [];
+
+	return [
+		<button
+			disabled={node.level < 2}
+			style={{
+				background: 'none',
+				border: '1px solid green',
+				textAlign: 'left',
+				width: '100%'
+			}}
+			type="button"
+		>
+			<i className="fal fa-acorn" /> First button
+		</button>,
+		<button
+			style={{
+				background: 'none',
+				border: '1px solid green',
+				textAlign: 'left',
+				width: '100%'
+			}}
+			type="button"
+		>
+			<i className="fal fa-air-freshener" /> Second button
+		</button>
+	];
+};
 
 storiesOf('Hierarchy', module)
 	.add('General', () => {

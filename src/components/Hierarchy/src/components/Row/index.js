@@ -10,6 +10,7 @@ export const Row = ({
 	buttonMenuIndex,
 	canDrag,
 	clickable,
+	customButtons,
 	customHandle,
 	dispatch,
 	index,
@@ -77,6 +78,7 @@ export const Row = ({
 			<Node
 				buttonMenuIndex={buttonMenuIndex}
 				clickable={clickable}
+				customButtons={customButtons}
 				dispatch={dispatch}
 				node={tree[index]}
 				nodeIndex={index}

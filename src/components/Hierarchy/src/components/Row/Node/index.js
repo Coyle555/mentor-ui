@@ -6,6 +6,7 @@ import Tether from 'react-tether';
 export const Node = ({
 	buttonMenuIndex,
 	clickable,
+	customButtons,
 	dispatch,
 	node,
 	nodeIndex,
@@ -13,6 +14,10 @@ export const Node = ({
 	subtitle,
 	title
 }) => {
+	if (typeof customButtons === 'function') {
+		customButtons = customButtons(node);
+	}
+
 	const openButtonMenu = (evt => {
 		evt.stopPropagation();
 
@@ -41,28 +46,33 @@ export const Node = ({
 					}
 				</div>
 			</span>
-			<Tether
-				attachment="top left"
-				targetAttachment="top right"
-				constraints={[{ to: 'scrollParent' }]}
-				renderTarget={ref => (
-					<button
-						className="node-buttons"
-						onClick={openButtonMenu}
-						ref={ref}
-						type="button"
-					>
-						<i className="fal fa-ellipsis-v fa-3x" />
-					</button>
-				)}
-				renderElement={ref => (
-					buttonMenuIndex === nodeIndex &&
-						<div style={{ border: '1px solid red' }} ref={ref}>
-							<h2>Content</h2>
-						</div>
-					)
-				}
-			/>
+			{ customButtons.length > 0
+				&& <Tether
+					attachment="top left"
+					targetAttachment="top right"
+					constraints={[{ to: 'scrollParent' }]}
+					renderTarget={ref => (
+						<button
+							className="node-buttons"
+							onClick={openButtonMenu}
+							ref={ref}
+							type="button"
+						>
+							<i className="fal fa-ellipsis-v fa-3x" />
+						</button>
+					)}
+					renderElement={ref => 
+						buttonMenuIndex === nodeIndex &&
+							<div className="mui-hierarchy-buttons-container" ref={ref}>
+								{ customButtons.map((btn, i) => (
+									<div key={'btn' + nodeIndex + node.id + i}>
+										{btn}
+									</div>
+								))}
+							</div>
+					}
+				/>
+			}
 		</div>
 	);
 };
