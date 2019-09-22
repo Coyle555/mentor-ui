@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Handler } from './Handler';
 import { ToggleButton } from './ToggleButton';
 import { Node } from './Node';
+import { Scaffold } from './Scaffold';
 
 export const Row = ({
 	buttonMenuIndex,
@@ -23,38 +24,13 @@ export const Row = ({
 	const [loading, setLoading] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
-		if (typeof toggleChildVisibility === 'function') {
-			setLoading(true);
+		setLoading(true);
 
-			new Promise((resolve, reject) => {
-				resolve(toggleChildVisibility({ index, node: tree[index] }));
-			}).then(() => {
-				setLoading(false);
-			});
-		}
-	});
-
-	const scaffold = new Array(level + 1).fill(null).map((val, i) => {
-		let currentLevel = level;
-		let currentNode = tree[index];
-
-		// need to get the ancestor for the node at the level being processed
-		// for the scaffolding
-		while (currentLevel !== i) {
-			currentNode = tree[currentNode.parent];
-			currentLevel--;
-		}
-
-		const isVertical = !!currentNode && currentNode.hasSibling;
-
-		const classes = classNames({
-			'mui-line-block': true,
-			'mui-line-half-horizontal-right': i === level,
-			'mui-line-half-vertical-top': !isVertical && i === level && i > 0,
-			'mui-line-full-vertical': isVertical
+		new Promise((resolve, reject) => {
+			resolve(toggleChildVisibility({ index, node: tree[index] }));
+		}).then(() => {
+			setLoading(false);
 		});
-
-		return <div className={classes} />;
 	});
 
 	return (
@@ -68,7 +44,11 @@ export const Row = ({
 				level={level}
 				onClick={onToggleChildVisibility}
 			/>
-			{scaffold}
+			<Scaffold
+				level={level}
+				nodeIndex={index}
+				tree={tree}
+			/>
 			<Handler
 				canDrag={canDrag}
 				customHandle={customHandle}

@@ -79,6 +79,10 @@ export const Node = ({
 
 Node.propTypes = {
 	clickable: PropTypes.bool,
+	customButtons: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.element),
+		PropTypes.func
+	]),
 	node: PropTypes.object,
 	selected: PropTypes.bool,
 	subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -86,6 +90,7 @@ Node.propTypes = {
 };
 
 Node.defaultProps = {
+	customButtons: [],
 	selected: false,
 	subtitle: '',
 	title: ''

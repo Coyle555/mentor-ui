@@ -69,15 +69,14 @@ export const Tree = ({
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// collapsing node
 		if (node.expanded) {
-			setConvertedTree(collapseNode({ tree: convertedTree, node, index }));
+			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
 		// expanding node
 		} else if (typeof onExpandNode === 'function') {
 			const nodesToAppend = onExpandNode(node);
 
 			setConvertedTree(expandNode({
-				index,
-				node,
 				nodesToAppend,
+				parentIndex: index,
 				tree: convertedTree
 			}));
 		}
