@@ -24,6 +24,77 @@ test('Converting a tree with one node' , () => {
 	}]);
 });
 
+test('Converting a tree with one branch' , () => {
+	const tree = [{
+		childrenCount: 1,
+		expanded: true,
+		id: 'foo',
+		children: [{
+			childrenCount: 1,
+			expanded: true,
+			id: 'bar',
+			children: [{
+				childrenCount: 1,
+				expanded: true,
+				id: 'baz',
+				children: [{
+					childrenCount: 1,
+					expanded: true,
+					id: 'node4',
+					children: [{
+						childrenCount: 0,
+						expanded: false,
+						id: 'node5',
+						children: []
+					}]
+				}]
+			}],
+		}],
+	}];
+
+	expect(convertTree(tree)).toEqual([{
+		id: 'foo',
+		childrenCount: 1,
+		expanded: true,
+		level: 0,
+		parent: null,
+		descendants: 4,
+		hasSibling: false
+	}, {
+		id: 'bar',
+		childrenCount: 1,
+		expanded: true,
+		level: 1,
+		parent: 0,
+		descendants: 3,
+		hasSibling: false
+	}, {
+		id: 'baz',
+		childrenCount: 1,
+		expanded: true,
+		level: 2,
+		parent: 1,
+		descendants: 2,
+		hasSibling: false
+	}, {
+		id: 'node4',
+		childrenCount: 1,
+		expanded: true,
+		level: 3,
+		parent: 2,
+		descendants: 1,
+		hasSibling: false
+	}, {
+		id: 'node5',
+		childrenCount: 0,
+		expanded: false,
+		level: 4,
+		parent: 3,
+		descendants: 0,
+		hasSibling: false
+	}]);
+});
+
 test('Converting tree with an expanded child', () => {
 	const tree = [{
 		children: [{
