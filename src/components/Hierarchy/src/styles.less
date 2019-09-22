@@ -58,7 +58,7 @@
 		justify-content: flex-start;
 		align-items: center;
 
-		.node-collapse-button,
+		> .node-collapse-button,
 		.node-expand-button {
 			appearance: none;
 			border: none;
@@ -87,15 +87,15 @@
 			}
 		}
 
-		.node-collapse-button {
+		> .node-collapse-button {
 			background: @ketchup;
 		}			
 
-		.node-expand-button {
+		> .node-expand-button {
 			background: @green-primary;
 		}
 
-		.mui-node-handler {
+		> .mui-node-handler {
 			height: 85%;
 			width: 44px;
 			border: solid #aaa 1px;
@@ -104,7 +104,7 @@
 			z-index: 1;
 			background: rgb(244, 247, 250);
 
-			.node-handler-icon {
+			> .node-handler-icon {
 				width: 100%;
 				height: 100%;
 				display: flex;
@@ -113,11 +113,11 @@
 			}
 		}
 
-		.mui-node-handler-draggable {
+		> .mui-node-handler-draggable {
 			cursor: pointer;
 		}
 
-		.mui-node-content {
+		> .mui-node-content {
 			background: white;
 			height: 85%;
 			border: solid #bbb 1px;
@@ -126,17 +126,30 @@
 			border-radius: 2px;
 			min-width: 230px;
 			padding: 7px 10px;
+			display: flex;
+			justify-content: space-between;
 
-			.node-text-title {
+			> span > .node-text-title {
 				font-weight: bold;
 				font-size: 1rem;
 			}
 
-			.node-text-subtitle {
+			> span > .node-text-subtitle {
 				font-size: .85rem;
 				max-width: 500px;
 				overflow: hidden;
 				text-overflow: ellipsis;
+			}
+
+			> .node-buttons {
+				border: none;
+				outline: none;
+				background: none;
+				color: @link;
+				cursor: pointer;
+				align-self: center;
+				padding: 0;
+				width: 15px;
 			}
 
 			&:hover {
@@ -144,11 +157,11 @@
 			}
 		}
 
-		.mui-node-selected {
+		> .mui-node-selected {
 			background-color: @green-light;
 		}
 
-		.mui-node-clickable {
+		> .mui-node-clickable {
 			cursor: pointer;
 		}
 	}

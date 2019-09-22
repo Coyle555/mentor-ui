@@ -164,12 +164,18 @@ function customHandle(node) {
 	return null;
 }
 
+const customButtons = [
+	<button type="button">First button</button>,
+	<button type="button">Second button</button>
+];
+
 storiesOf('Hierarchy', module)
 	.add('General', () => {
 		return (
 			<div style={{ height: window.innerHeight + 'px' }}>
 				<Tree
 					canDrag={false}
+					customButtons={customButtons}
 					customHandle={customHandle}
 					onExpandNode={onExpandNode}
 					onNodeClick={action('onNodeClick')}

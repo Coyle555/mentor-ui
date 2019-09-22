@@ -5,16 +5,27 @@ exports[`Default node render 1`] = `
   className="mui-node-content"
   onClick={[Function]}
 >
-  <div
-    className="node-text-title"
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
   >
-    
-  </div>
-  <div
-    className="node-text-subtitle"
-  >
-    
-  </div>
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;
 
@@ -23,16 +34,27 @@ exports[`Node with a subtitle function 1`] = `
   className="mui-node-content"
   onClick={[Function]}
 >
-  <div
-    className="node-text-title"
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      baz
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
   >
-    
-  </div>
-  <div
-    className="node-text-subtitle"
-  >
-    baz
-  </div>
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;
 
@@ -41,16 +63,27 @@ exports[`Node with a subtitle string 1`] = `
   className="mui-node-content"
   onClick={[Function]}
 >
-  <div
-    className="node-text-title"
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      Bar
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
   >
-    
-  </div>
-  <div
-    className="node-text-subtitle"
-  >
-    Bar
-  </div>
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;
 
@@ -59,16 +92,27 @@ exports[`Node with a title 1`] = `
   className="mui-node-content"
   onClick={[Function]}
 >
-  <div
-    className="node-text-title"
+  <span>
+    <div
+      className="node-text-title"
+    >
+      Foo
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
   >
-    Foo
-  </div>
-  <div
-    className="node-text-subtitle"
-  >
-    
-  </div>
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;
 
@@ -77,15 +121,26 @@ exports[`Selected node render 1`] = `
   className="mui-node-content mui-node-selected"
   onClick={[Function]}
 >
-  <div
-    className="node-text-title"
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
   >
-    
-  </div>
-  <div
-    className="node-text-subtitle"
-  >
-    
-  </div>
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;

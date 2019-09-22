@@ -16,6 +16,7 @@ const ROW_HEIGHT = 62;
 
 export const Tree = ({
 	canDrag,
+	customButtons,
 	customHandle,
 	isVirtualized,
 	onExpandNode,
@@ -56,6 +57,7 @@ export const Tree = ({
 	const renderRow = useCallback(({ index, style }) => (
 		<Row
 			canDrag={canDrag}
+			customButtons={customButtons}
 			customHandle={customHandle}
 			index={index}
 			onNodeClick={onNodeClick}
@@ -98,6 +100,7 @@ export const Tree = ({
 
 Tree.propTypes = {
 	canDrag: PropTypes.bool,
+	customButtons: PropTypes.arrayOf(PropTypes.element),
 	customHandle: PropTypes.func,
 	isVirtualized: PropTypes.bool,
 	onExpandNode: PropTypes.func,
@@ -107,6 +110,7 @@ Tree.propTypes = {
 
 Tree.defaultProps = {
 	canDrag: false,
+	customButtons: [],
 	customHandle: null,
 	isVirtualized: true,
 	onExpandNode: null,
