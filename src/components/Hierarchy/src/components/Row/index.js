@@ -7,11 +7,13 @@ import { ToggleButton } from './ToggleButton';
 import { Node } from './Node';
 
 export const Row = ({
+	buttonMenuIndex,
 	canDrag,
+	clickable,
 	customHandle,
+	dispatch,
 	index,
-	onNodeClick,
-	selectedNodeId,
+	selectedNodeIndex,
 	style,
 	toggleChildVisibility,
 	tree
@@ -73,9 +75,12 @@ export const Row = ({
 				node={tree[index]}
 			/>
 			<Node
+				buttonMenuIndex={buttonMenuIndex}
+				clickable={clickable}
+				dispatch={dispatch}
 				node={tree[index]}
-				onNodeClick={onNodeClick}
-				selected={selectedNodeId === id}
+				nodeIndex={index}
+				selected={selectedNodeIndex === index}
 				subtitle={subtitle}
 				title={title}
 			/>

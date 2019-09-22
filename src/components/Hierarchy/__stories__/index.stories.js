@@ -131,7 +131,7 @@ const tree = [
 		id: '1',
 		title: '1',
 		subtitle: 'Foo subtitle',
-		data: {}
+		data: { sample: 'data' }
 	},
 ];
 

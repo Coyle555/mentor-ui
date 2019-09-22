@@ -1,27 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Tether from 'react-tether';
 
-export const Node = ({ node, onNodeClick, selected, subtitle, title }) => {
-	const [buttonMenuOpen, setButtonMenuOpen] = useState(false);
-
-	const openButtonMenu = useCallback(evt => {
+export const Node = ({
+	buttonMenuIndex,
+	clickable,
+	dispatch,
+	node,
+	nodeIndex,
+	selected,
+	subtitle,
+	title
+}) => {
+	const openButtonMenu = (evt => {
 		evt.stopPropagation();
 
-		setButtonMenuOpen(!buttonMenuOpen);
+		dispatch({ type: 'openButtonMenu', nodeIndex });
 	});
 
 	const nodeClasses = classNames({
 		'mui-node-content': true,
 		'mui-node-selected': selected,
-		'mui-node-clickable': typeof onNodeClick === 'function'
+		'mui-node-clickable': clickable
 	});
 
 	return (
 		<div
 			className={nodeClasses}
-			onClick={() => { onNodeClick(node) }}
+			onClick={() => { dispatch({ type: 'selectNode', nodeIndex })}}
 		>
 			<span>
 				<div className="node-text-title">
@@ -49,7 +56,7 @@ export const Node = ({ node, onNodeClick, selected, subtitle, title }) => {
 					</button>
 				)}
 				renderElement={ref => (
-					buttonMenuOpen &&
+					buttonMenuIndex === nodeIndex &&
 						<div style={{ border: '1px solid red' }} ref={ref}>
 							<h2>Content</h2>
 						</div>
@@ -61,8 +68,8 @@ export const Node = ({ node, onNodeClick, selected, subtitle, title }) => {
 };
 
 Node.propTypes = {
+	clickable: PropTypes.bool,
 	node: PropTypes.object,
-	onNodeClick: PropTypes.func,
 	selected: PropTypes.bool,
 	subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 	title: PropTypes.string

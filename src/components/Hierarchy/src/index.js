@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
@@ -14,18 +14,55 @@ import './styles.less';
 
 const ROW_HEIGHT = 62;
 
+const initialState = {
+	selectedNodeIndex: -1,
+	buttonMenuIndex: -1
+};
+
 export const Tree = ({
 	canDrag,
 	customButtons,
 	customHandle,
 	isVirtualized,
 	onExpandNode,
+	onNodeClick,
 	tree,
 	subtitle,
 	...props
 }) => { 
 	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
-	const [selectedNodeId, setSelectedNodeId] = useState('');
+
+	const reducer = useCallback((state, action) => {
+		console.log('received action', action);
+		console.log('w/ state', state);
+		switch (action.type) {
+			case 'selectNode':
+				let newIndex = -1;
+
+				if (state.selectedNodeIndex !== action.nodeIndex) {
+					newIndex = action.nodeIndex;
+				}
+
+				if (typeof onNodeClick === 'function') {
+					onNodeClick(newIndex > -1 ? convertedTree[newIndex] : null);
+				}
+
+				return { ...state, selectedNodeIndex: newIndex };
+
+			case 'openButtonMenu':
+				let newButtonIndex = -1;
+
+				if (state.buttonMenuIndex !== action.nodeIndex) {
+					newButtonIndex = action.nodeIndex;
+				}
+
+				return { ...state, buttonMenuIndex: newButtonIndex };
+			default:
+				return state;
+		}
+	});
+
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// collapsing node
@@ -44,24 +81,16 @@ export const Tree = ({
 		}
 	});
 
-	const onNodeClick = useCallback((node) => {
-		const newSelectedNodeId = selectedNodeId === node.id ? '' : node.id;
-
-		setSelectedNodeId(newSelectedNodeId);
-
-		if (typeof props.onNodeClick === 'function') {
-			props.onNodeClick(node, !!newSelectedNodeId);
-		}
-	});
-
 	const renderRow = useCallback(({ index, style }) => (
 		<Row
+			buttonMenuIndex={state.buttonMenuIndex}
 			canDrag={canDrag}
+			clickable={typeof onNodeClick === 'function'}
 			customButtons={customButtons}
 			customHandle={customHandle}
+			dispatch={dispatch}
 			index={index}
-			onNodeClick={onNodeClick}
-			selectedNodeId={selectedNodeId}
+			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
 			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}
