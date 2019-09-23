@@ -143,12 +143,7 @@ function onExpandNode(node) {
 		expanded: false,
 		id: 'expand1' + rand,
 		title: 'expand1',
-		children: [{
-			id: 'expand1-child',
-			title: 'expand1-child',
-			childrenCount: 0,
-			children: []
-		}]
+		children: []
 	}, {
 		childrenCount: 0,
 		expanded: false,

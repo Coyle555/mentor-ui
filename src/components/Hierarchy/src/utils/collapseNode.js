@@ -1,7 +1,7 @@
 
 export function collapseNode({ parentIndex, tree }) {
 	let node = tree[parentIndex];
-	const numDescendantsToRemove = node.descendants;
+	const numDescendantsToRemove = node.descendants || 0;
 	const path = { [parentIndex]: true };
 
 	node.expanded = false;
@@ -26,8 +26,6 @@ export function collapseNode({ parentIndex, tree }) {
 
 		newTree[i].parent -= numDescendantsToRemove;
 	}
-
-	console.log('collapsed', newTree);
 
 	return newTree;
 }

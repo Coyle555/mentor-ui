@@ -62,7 +62,7 @@ export const Tree = ({
 			default:
 				return state;
 		}
-	});
+	}, []);
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 

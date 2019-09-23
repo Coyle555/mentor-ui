@@ -9,6 +9,7 @@ export function appendNodes({ nodeToAppendTo, newNodes = [], parentIndex }) {
 	for (let node of newNodes) {
 		nodesToAppend.push({
 			...node,
+			descendants: 0,
 			// last node in tree has no siblings coming after it
 			hasSibling: newNodes[newNodes.length - 1] !== node,
 			level: nodeToAppendTo.level + 1,

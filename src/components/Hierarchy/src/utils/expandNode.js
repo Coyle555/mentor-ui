@@ -32,7 +32,5 @@ export function expandNode({ parentIndex, nodesToAppend, tree }) {
 		newTree[i].parent += childrenToAppend.length;
 	}
 
-	console.log('expanded', newTree);
-
 	return newTree;
 }
