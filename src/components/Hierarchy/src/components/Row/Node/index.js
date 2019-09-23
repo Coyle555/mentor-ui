@@ -63,7 +63,10 @@ export const Node = ({
 					)}
 					renderElement={ref => 
 						buttonMenuIndex === nodeIndex
-							&& <div className="mui-hierarchy-buttons-container" ref={ref}>
+							&& <div
+								className="mui-hierarchy-buttons-container"
+								ref={ref}
+							>
 								{ customButtons.map((btn, i) => (
 									<div key={'btn' + nodeIndex + node.id + i}>
 										{btn}

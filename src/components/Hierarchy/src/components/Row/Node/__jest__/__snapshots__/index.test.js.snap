@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Clickable node 1`] = `
+<div
+  className="mui-node-content mui-node-clickable"
+  onClick={[Function]}
+>
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+</div>
+`;
+
 exports[`Default node render 1`] = `
 <div
   className="mui-node-content"
@@ -77,6 +97,35 @@ exports[`Node with a title 1`] = `
       
     </div>
   </span>
+</div>
+`;
+
+exports[`Rendering custom buttons 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+  <button
+    className="node-buttons"
+    onClick={[Function]}
+    type="button"
+  >
+    <i
+      className="fal fa-ellipsis-v fa-3x"
+    />
+  </button>
 </div>
 `;
 

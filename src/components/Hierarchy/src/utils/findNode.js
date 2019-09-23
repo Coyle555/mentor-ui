@@ -1,5 +1,5 @@
 
-export function findNode(tree, nodeToFind) {
+export function findNode(tree = {}, nodeToFind) {
 	const node = tree;
 
 	if (node.id === nodeToFind.id) {

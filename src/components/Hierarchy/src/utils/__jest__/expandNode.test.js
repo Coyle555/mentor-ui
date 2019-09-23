@@ -14,8 +14,8 @@ test('Expanding a node on root', () => {
 		tree: baseTree
 	})).toEqual([
 		{ expanded: true, id: 'root', level: 0, descendants: 2, parent: null },
-		{ hasSibling: true, id: 'foo', level: 1, descendants: 0, parent: 0 },
-		{ hasSibling: false, id: 'bar', level: 1, descendants: 0, parent: 0 },
+		{ childrenCount: 0, expanded: false, hasSibling: true, id: 'foo', level: 1, descendants: 0, parent: 0 },
+		{ childrenCount: 0, expanded: false, hasSibling: false, id: 'bar', level: 1, descendants: 0, parent: 0 },
 	]);
 });
 
@@ -36,8 +36,8 @@ test('Expanding a node on a tree with multiple branches', () => {
 		{ id: 'root-child-1', expanded: true, level: 1, descendants: 2, parent: 0 },
 		// --------------------------------------------------------
 		// newly added nodes
-		{ id: 'foo', hasSibling: true, level: 2, descendants: 0, parent: 1 },
-		{ id: 'bar', hasSibling: false, level: 2, descendants: 0, parent: 1 },
+		{ childrenCount: 0, expanded: false, id: 'foo', hasSibling: true, level: 2, descendants: 0, parent: 1 },
+		{ childrenCount: 0, expanded: false, id: 'bar', hasSibling: false, level: 2, descendants: 0, parent: 1 },
 		// ---------------------------------------------------------
 		{ id: 'root-child-1', level: 1, descendants: 1, parent: 0 },
 		{ id: 'child-1', level: 2, descendants: 0, parent: 4 },

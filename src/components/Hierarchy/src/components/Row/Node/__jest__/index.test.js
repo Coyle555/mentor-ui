@@ -17,6 +17,12 @@ test('Selected node render', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Clickable node', () => {
+	const tree = renderer.create(<Node clickable={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('Node with a title', () => {
 	const tree = renderer.create(<Node title="Foo" />).toJSON();
 
@@ -39,13 +45,46 @@ test('Node with a subtitle function', () => {
 	expect(subtitle).toHaveBeenCalledWith({ name: 'baz' });
 });
 
-test('Clicking a node', async () => {
-	const node = { name: 'foo' };
-	const onClick = jest.fn();
+test('Clicking a node', () => {
+	const dispatch = jest.fn();
 
 	const { container } = render(
-		<Node node={node} onNodeClick={onClick} />);
+		<Node nodeIndex={1} dispatch={dispatch} />);
 
 	fireEvent.click(container.querySelector('div.mui-node-content'));
-	expect(onClick).toHaveBeenCalledWith({ name: 'foo' });
+	expect(dispatch).toHaveBeenCalledWith({ type: 'selectNode', nodeIndex: 1 });
+});
+
+test('Rendering custom buttons', () => {
+	const tree = renderer.create(<Node buttonMenuIndex={-1} customButtons={[<i />]} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Rendering custom buttons with a function', () => {
+	const node = { id: 'foo' };
+	const customButtons = jest.fn(() => []);
+
+	renderer.create(<Node buttonMenuIndex={-1} customButtons={customButtons} node={node} />);
+
+	expect(customButtons).toHaveBeenCalledWith({id: 'foo' });
+});
+
+test('Opening a button menu', () => {
+	const dispatch = jest.fn();
+	const { container } = render(<Node customButtons={[<i />]} dispatch={dispatch} nodeIndex={1} />);
+
+	fireEvent.click(container.querySelector('button.node-buttons'));
+	expect(dispatch).toHaveBeenCalledWith({ type: 'openButtonMenu', nodeIndex: 1 });
+});
+
+test('Having a button menu open', () => {
+	const customButtons = [<div role="role1" />, <div role="role2" />];
+	const node = { id: 'foo' };
+	const { getByRole } = render(
+		<Node buttonMenuIndex={0} customButtons={customButtons} node={node} nodeIndex={0} />
+	);
+
+	expect(getByRole('role1')).toBeTruthy();
+	expect(getByRole('role2')).toBeTruthy();
 });

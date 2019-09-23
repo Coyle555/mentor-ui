@@ -6,116 +6,114 @@ import Tree from '../index';
 
 const IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpCNDY3QjdFRDY3MjA2ODExODcxRkE4RjQyQzM2RTYwRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNTRGMEY1NTk3NkIxMUUxQjBEQkY2NUVCQzcyNzE0NCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNTRGMEY1NDk3NkIxMUUxQjBEQkY2NUVCQzcyNzE0NCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjdFQTFBNjQ2QjQyMDY4MTE4NzFGQThGNDJDMzZFNjBEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkI0NjdCN0VENjcyMDY4MTE4NzFGQThGNDJDMzZFNjBEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+3q/RKwAAAPpJREFUeNpi/P//PwMtAeOoBSRbYBM10wZIbQRiIRLNegHEoUB85MiydLggExaFE8gwHAQkgHgOuiA2C1Sg9F8sGFd4wsTVgZiTkAW4AEgtIxA/BeJoINYDYhMgvgMVhwE2ZE0sZAQFKJyPI/G/E3IVUYkBij8iGX4YGjS6eIKOKAsYkdR9RBLXJTZciQUdQOyDxHfAEQcMpMYBTPMjIL6MJH4BW6SS4wNY+E5DC+v/UCxHaRyANP8jIP+fkiBiwGcAActJimSyADYL/lJgHkjvL0IWHIHSzGgYF0CWP46es7HFQTrUFfZALEpkfLyDOix3tMocfBYABBgAAAJOxWsvzNoAAAAASUVORK5CYII=';
 
-const tree = [
-	{
-		children: [
-			{
-				children: [
-					{
-						expanded: false,
-						id: '1-1-1',
-						title: '1-1-1',
-						subtitle: 'Bar child 2 subtitle',
-						data: {}
-					},
-					{
-						children: [{
-							expanded: true,
-							id: '1-1-2-1',
-							title: '1-1-2-1',
-							data: {},
-							children: [{
-								id: '1-1-2-1-1',
-								title: '1-1-2-1-1',
-								children: [],
-								expanded: false
-							}]
-						}],
-						expanded: true,
-						id: '1-1-2',
-						title: '1-1-2',
-						subtitle: 'Bar child subtitle',
-						data: {}
-					},
-					{
-						id: '1-1-3',
-						title: '1-1-3',
-						children: [],
-						expanded: false
-					}
-				],
-				expanded: true,
-				id: 'bar',
-				title: '1-1',
-				subtitle: 'Bar subtitle',
-				data: {}
-			},
-			{
-				children: [{
-					id: '1-2-1',
-					expanded: true,
-					title: '1-2-1',
+const tree = {
+	children: [
+		{
+			children: [
+				{
+					expanded: false,
+					id: '1-1-1',
+					title: '1-1-1',
+					subtitle: 'Bar child 2 subtitle',
+					data: {}
+				},
+				{
 					children: [{
-						id: '1-2-1-1',
-						title: '1-2-1-1',
-						children: [],
-						expanded: false
+						expanded: true,
+						id: '1-1-2-1',
+						title: '1-1-2-1',
+						data: {},
+						children: [{
+							id: '1-1-2-1-1',
+							title: '1-1-2-1-1',
+							children: [],
+							expanded: false
+						}]
+					}],
+					expanded: true,
+					id: '1-1-2',
+					title: '1-1-2',
+					subtitle: 'Bar child subtitle',
+					data: {}
+				},
+				{
+					id: '1-1-3',
+					title: '1-1-3',
+					children: [],
+					expanded: false
+				}
+			],
+			expanded: true,
+			id: 'bar',
+			title: '1-1',
+			subtitle: 'Bar subtitle',
+			data: {}
+		},
+		{
+			children: [{
+				id: '1-2-1',
+				expanded: true,
+				title: '1-2-1',
+				children: [{
+					id: '1-2-1-1',
+					title: '1-2-1-1',
+					children: [],
+					expanded: false
+				}, {
+					id: '1-2-1-2',
+					title: '1-2-1-2',
+					expanded: true,
+					children: [{
+						id: '1-2-1-2-1',
+						title: '1-2-1-2-1',
+						expanded: false,
+						children: []
 					}, {
-						id: '1-2-1-2',
-						title: '1-2-1-2',
+						id: '1-2-1-2-2',
+						title: '1-2-1-2-2',
 						expanded: true,
 						children: [{
-							id: '1-2-1-2-1',
-							title: '1-2-1-2-1',
-							expanded: false,
-							children: []
+							id: '1-2-1-2-2-1',
+							title: '1-2-1-2-2-1',
+							children: [],
+							expanded: false
 						}, {
-							id: '1-2-1-2-2',
-							title: '1-2-1-2-2',
-							expanded: true,
-							children: [{
-								id: '1-2-1-2-2-1',
-								title: '1-2-1-2-2-1',
-								children: [],
-								expanded: false
-							}, {
-								id: '1-2-1-2-2-2',
-								title: '1-2-1-2-2-2',
-								children: [],
-								expanded: false
-							}, {
-								id: '1-2-1-2-2-3',
-								title: '1-2-1-2-2-3',
-								children: [],
-								expanded: false
-							}, {
-								id: '1-2-1-2-2-4',
-								title: '1-2-1-2-2-4',
-								children: [],
-								expanded: false
-							}]
-						}],
-					}, {
-						id: '1-2-1-3',
-						title: '1-2-1-3',
-						expanded: false,
-						children: [],
-					}], 
-				}],
-				expanded: true,
-				id: 'baz',
-				title: '1-2',
-				subtitle: 'Baz subtitle',
-				data: {}
-			}
-		],
-		expanded: true,
-		id: '1',
-		title: '1',
-		subtitle: 'Foo subtitle',
-		data: { sample: 'data' }
-	},
-];
+							id: '1-2-1-2-2-2',
+							title: '1-2-1-2-2-2',
+							children: [],
+							expanded: false
+						}, {
+							id: '1-2-1-2-2-3',
+							title: '1-2-1-2-2-3',
+							children: [],
+							expanded: false
+						}, {
+							id: '1-2-1-2-2-4',
+							title: '1-2-1-2-2-4',
+							children: [],
+							expanded: false
+						}]
+					}],
+				}, {
+					id: '1-2-1-3',
+					title: '1-2-1-3',
+					expanded: false,
+					children: [],
+				}], 
+			}],
+			expanded: true,
+			id: 'baz',
+			title: '1-2',
+			subtitle: 'Baz subtitle',
+			data: {}
+		}
+	],
+	expanded: true,
+	id: '1',
+	title: '1',
+	subtitle: 'Foo subtitle',
+	data: { sample: 'data' }
+};
 
 function onExpandNode(node) {
 	const rand = Math.random();

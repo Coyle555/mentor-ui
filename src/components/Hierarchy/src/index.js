@@ -31,7 +31,7 @@ export const Tree = ({
 	subtitle,
 	...props
 }) => { 
-	const [convertedTree, setConvertedTree] = useState(convertTree(tree), [tree]);
+	const [convertedTree, setConvertedTree] = useState(convertTree([tree]), [tree]);
 
 	const reducer = useCallback((state, action) => {
 		switch (action.type) {
@@ -46,6 +46,7 @@ export const Tree = ({
 					onNodeClick(newIndex > -1 ? convertedTree[newIndex] : null);
 				}
 
+				console.log('new stae');
 				return {
 					...state,
 					buttonMenuIndex: -1,
@@ -68,6 +69,13 @@ export const Tree = ({
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const toggleChildVisibility = useCallback(({ index, node }) => {
+		// deselect nodes and close open button menus
+		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
+			dispatch({ type: 'selectNode', nodeIndex: -1 });
+		} else {
+			dispatch({ type: 'openButtonMenu', nodeIndex: -1 });
+		}
+
 		// collapsing node
 		if (node.expanded) {
 			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
@@ -82,7 +90,7 @@ export const Tree = ({
 			}));
 		// expanding node with list of children attached to node
 		} else {
-			node = findNode(tree[0], node);
+			node = findNode(tree, node);
 
 			setConvertedTree(expandNode({
 				nodesToAppend: node.children || [],
@@ -158,7 +166,7 @@ Tree.propTypes = {
 	customHandle: PropTypes.func,
 	isVirtualized: PropTypes.bool,
 	onExpandNode: PropTypes.func,
-	tree: PropTypes.array,
+	tree: PropTypes.object,
 	subtitle: PropTypes.func
 }
 
