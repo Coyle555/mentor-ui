@@ -136,10 +136,12 @@ const tree = [
 ];
 
 function onExpandNode(node) {
+	const rand = Math.random();
+
 	return [{
 		childrenCount: 1,
 		expanded: false,
-		id: 'expand1',
+		id: 'expand1' + rand,
 		title: 'expand1',
 		children: [{
 			id: 'expand1-child',
@@ -150,8 +152,8 @@ function onExpandNode(node) {
 	}, {
 		childrenCount: 0,
 		expanded: false,
-		id: 'expand1',
-		title: 'expand1',
+		id: 'expand2' + rand,
+		title: 'expand2',
 		children: []
 	}];
 }

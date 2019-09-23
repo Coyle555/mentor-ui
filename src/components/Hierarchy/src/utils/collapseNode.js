@@ -2,13 +2,14 @@
 export function collapseNode({ parentIndex, tree }) {
 	let node = tree[parentIndex];
 	const numDescendantsToRemove = node.descendants;
-	const origNodeLevel = node.level;
+	const path = { [parentIndex]: true };
 
 	node.expanded = false;
 	node.descendants -= numDescendantsToRemove;
 
 	// update count of descendants
 	while (node.parent !== null) {
+		path[node.parent] = true;
 		node = tree[node.parent];
 		node.descendants -= numDescendantsToRemove;
 	}
@@ -21,14 +22,12 @@ export function collapseNode({ parentIndex, tree }) {
 	// collapsed will be shifted upwards
 	// also any nodes with the same parent as the selected node will not have a parent shift
 	for (let i = parentIndex + 1; i < newTree.length; i++) {
-		if (newTree[i].level < tree[parentIndex].level
-			|| newTree[i].parent === tree[parentIndex].parent) {
-
-			continue;
-		}
+		if (path.hasOwnProperty(newTree[i].parent)) continue;
 
 		newTree[i].parent -= numDescendantsToRemove;
 	}
+
+	console.log('collapsed', newTree);
 
 	return newTree;
 }

@@ -18,7 +18,7 @@ export const Node = ({
 		customButtons = customButtons(node);
 	}
 
-	const openButtonMenu = (evt => {
+	const openButtonMenu = useCallback(evt => {
 		evt.stopPropagation();
 
 		dispatch({ type: 'openButtonMenu', nodeIndex });
@@ -62,8 +62,8 @@ export const Node = ({
 						</button>
 					)}
 					renderElement={ref => 
-						buttonMenuIndex === nodeIndex &&
-							<div className="mui-hierarchy-buttons-container" ref={ref}>
+						buttonMenuIndex === nodeIndex
+							&& <div className="mui-hierarchy-buttons-container" ref={ref}>
 								{ customButtons.map((btn, i) => (
 									<div key={'btn' + nodeIndex + node.id + i}>
 										{btn}

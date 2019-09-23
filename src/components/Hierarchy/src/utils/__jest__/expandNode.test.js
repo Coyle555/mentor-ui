@@ -40,6 +40,6 @@ test('Expanding a node on a tree with multiple branches', () => {
 		{ id: 'bar', hasSibling: false, level: 2, parent: 1 },
 		// ---------------------------------------------------------
 		{ id: 'root-child-1', level: 1, descendants: 1, parent: 0 },
-		{ id: 'child-1', level: 2, descendants: 0, parent: 2 },
+		{ id: 'child-1', level: 2, descendants: 0, parent: 4 },
 	]);
 });

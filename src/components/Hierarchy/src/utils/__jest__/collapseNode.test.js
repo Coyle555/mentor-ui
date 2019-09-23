@@ -32,3 +32,24 @@ test('Collapsing a node on a tree with multiple branches', () => {
 		{ id: 'child-1', level: 2, descendants: 0, parent: 2 },
 	]);
 });
+
+test('Collapsing a node on a tree with one branch more nested than another branch', () => {
+	const baseTree = [
+		{ id: 'root', level: 0, descendants: 5, parent: null },
+		{ id: 'root-child-1', level: 1, descendants: 2, parent: 0 },
+		{ id: 'foo', level: 2, descendants: 1, parent: 1 },
+		{ id: 'bar', level: 3, descendants: 1, parent: 2 },
+		{ id: 'baz', level: 4, parent: 3 },
+		{ id: 'root-child-2', level: 1, descendants: 1, parent: 0 },
+		{ id: 'child-1', level: 2, descendants: 0, parent: 5 },
+	];
+
+	expect(collapseNode({ parentIndex: 3, tree: baseTree })).toEqual([
+		{ id: 'root', level: 0, descendants: 4, parent: null },
+		{ id: 'root-child-1', level: 1, descendants: 1, parent: 0 },
+		{ id: 'foo', level: 2, descendants: 0, parent: 1 },
+		{ id: 'bar', expanded: false, level: 3, descendants: 0, parent: 2 },
+		{ id: 'root-child-2', level: 1, descendants: 1, parent: 0 },
+		{ id: 'child-1', level: 2, descendants: 0, parent: 4 },
+	]);
+});

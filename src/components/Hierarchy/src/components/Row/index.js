@@ -24,13 +24,17 @@ export const Row = ({
 	const [loading, setLoading] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
-		setLoading(true);
+		if (!expanded) {
+			setLoading(true);
 
-		new Promise((resolve, reject) => {
-			resolve(toggleChildVisibility({ index, node: tree[index] }));
-		}).then(() => {
-			setLoading(false);
-		});
+			new Promise((resolve, reject) => {
+				resolve(toggleChildVisibility({ index, node: tree[index] }));
+			}).then(() => {
+				setLoading(false);
+			});
+		} else {
+			toggleChildVisibility({ index, node: tree[index] });
+		}
 	});
 
 	return (
