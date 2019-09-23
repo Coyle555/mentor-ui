@@ -1,3 +1,3 @@
-import { Tree } from './src';
+import { Tree as Hierarchy } from './src';
 
-export default Tree;
+export default Hierarchy;
