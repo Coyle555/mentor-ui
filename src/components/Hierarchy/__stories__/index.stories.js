@@ -201,6 +201,7 @@ storiesOf('Hierarchy', module)
 					customHandle={customHandle}
 					onExpandNode={onExpandNode}
 					onNodeClick={action('onNodeClick')}
+					isVirtualized={false}
 					tree={tree}
 				/>
 			</div>

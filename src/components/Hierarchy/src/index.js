@@ -100,7 +100,7 @@ export const Tree = ({
 
 	if (isVirtualized) {
 		return (
-			<div style={{ height: '100%' }}>
+			<div className="mui-hierarchy-container">
 				<AutoSizer>
 					{({ height, width }) => (
 						<List
@@ -120,10 +120,20 @@ export const Tree = ({
 	}
 
 	return (
-		<div className="mui-hierarchy-node" style={{ height: '100%' }}>
-			{ convertedTree.map((node, index) => (
-				renderRow({ index, key: node.id, style: { height: ROW_HEIGHT } })
-			))}
+		<div className="mui-hierarchy-container">
+			<div className="mui-hierarchy-node">
+				{ convertedTree.map((node, index) => (
+					renderRow({
+						index,
+						key: node.id,
+						style: {
+							height: ROW_HEIGHT,
+							left: 0,
+							top: index * ROW_HEIGHT + 'px',
+						}
+					})
+				))}
+			</div>
 		</div>
 	);
 }

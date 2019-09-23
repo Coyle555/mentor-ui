@@ -1,175 +1,181 @@
 @import '~mentor-ui-constants';
 
-.mui-hierarchy-node {
-	min-width: 100%;
-	white-space: nowrap;
-	text-align: left;
-	color: @charcoal;
-	outline: none;
+.mui-hierarchy-container {
+	height: 100%;
+	position: relative;
+	overflow: auto;
 
-	.mui-line-block {
-		width: 44px;
-		position: relative;
-		display: inline-block;
-		height: 100%;
-	}
-
-	.mui-line-half-horizontal-right::before,
-	.mui-line-full-vertical::after,
-	.mui-line-half-vertical-top::after {
-		position: absolute;
-		content: '';
-		background-color: black;
-	}
-
-	.mui-line-half-horizontal-right::before {
-		height: 1px;
-		top: 50%;
-		right: 0;
-		width: 50%;
-	}
-
-	.mui-line-full-vertical,
-	.mui-line-half-vertical-top {
-		position: relative;
-	}
-
-	.mui-line-full-vertical::after,
-	.mui-line-half-vertical-top::after {
-		width: 1px;
-		left: 22px;
-		top: 0;
-		height: 100%;
-	}
-
-	.mui-line-half-vertical-top::after {
-		height: 50%;
-	}
-
-	.mui-node-row {
-		position: absolute;
-		top: 0;
-		left: 0;
+	.mui-hierarchy-node {
 		min-width: 100%;
-		height: 100%;
 		white-space: nowrap;
-		display: flex;
-		flex-wrap: nowrap;
-		justify-content: flex-start;
-		align-items: center;
+		text-align: left;
+		color: @charcoal;
+		outline: none;
 
-		> .node-collapse-button,
-		.node-expand-button {
-			appearance: none;
-			border: none;
-			position: absolute;
-			border-radius: 100%;
-			box-shadow: 0 0 0 1px #000;
-			width: 16px;
-			height: 16px;
-			padding: 0;
-			top: 50%;
-			left: 22px;
-			z-index: 1;
-			transform: translate(-50%, -50%);
-			cursor: pointer;
-			color: white;
-
-			&:focus {
-				outline: none;
-				box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;
-			}
-
-			&:hover:not(active) {
-				background-size: 24px;
-				height: 20px;
-				width: 20px;
-			}
-		}
-
-		> .node-collapse-button {
-			background: @ketchup;
-		}			
-
-		> .node-expand-button {
-			background: @green-primary;
-		}
-
-		> .mui-node-handler {
-			height: 85%;
+		.mui-line-block {
 			width: 44px;
-			border: solid #aaa 1px;
-			box-shadow: 0 2px 2px -2px;
-			border-radius: 1px;
-			z-index: 1;
-			background: rgb(244, 247, 250);
-
-			> .node-handler-icon {
-				width: 100%;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
+			position: relative;
+			display: inline-block;
+			height: 100%;
 		}
 
-		> .mui-node-handler-draggable {
-			cursor: pointer;
+		.mui-line-half-horizontal-right::before,
+		.mui-line-full-vertical::after,
+		.mui-line-half-vertical-top::after {
+			position: absolute;
+			content: '';
+			background-color: black;
 		}
 
-		> .mui-node-content {
-			background: white;
-			height: 85%;
-			border: solid #bbb 1px;
-			box-shadow: 0 2px 2px -2px;
-			padding: 0 5px 0 10px;
-			border-radius: 2px;
-			min-width: 230px;
-			padding: 7px 10px;
+		.mui-line-half-horizontal-right::before {
+			height: 1px;
+			top: 50%;
+			right: 0;
+			width: 50%;
+		}
+
+		.mui-line-full-vertical,
+		.mui-line-half-vertical-top {
+			position: relative;
+		}
+
+		.mui-line-full-vertical::after,
+		.mui-line-half-vertical-top::after {
+			width: 1px;
+			left: 22px;
+			top: 0;
+			height: 100%;
+		}
+
+		.mui-line-half-vertical-top::after {
+			height: 50%;
+		}
+
+		.mui-node-row {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			white-space: nowrap;
 			display: flex;
-			justify-content: space-between;
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			align-items: center;
 
-			> span > .node-text-title {
-				font-weight: bold;
-				font-size: 1rem;
-			}
-
-			> span > .node-text-subtitle {
-				font-size: .85rem;
-				max-width: 500px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
-
-			> .node-buttons {
+			> .node-collapse-button,
+			.node-expand-button {
+				appearance: none;
 				border: none;
-				outline: none;
-				background: none;
-				color: @link;
-				cursor: pointer;
-				align-self: center;
+				position: absolute;
+				border-radius: 100%;
+				box-shadow: 0 0 0 1px #000;
+				width: 16px;
+				height: 16px;
 				padding: 0;
-				width: 15px;
+				top: 50%;
+				left: 22px;
+				z-index: 1;
+				transform: translate(-50%, -50%);
+				cursor: pointer;
+				color: white;
+
+				&:focus {
+					outline: none;
+					box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;
+				}
+
+				&:hover:not(active) {
+					background-size: 24px;
+					height: 20px;
+					width: 20px;
+				}
 			}
 
-			&:hover {
+			> .node-collapse-button {
+				background: @ketchup;
+			}			
+
+			> .node-expand-button {
+				background: @green-primary;
+			}
+
+			> .mui-node-handler {
+				height: 85%;
+				width: 44px;
+				border: solid #aaa 1px;
+				box-shadow: 0 2px 2px -2px;
+				border-radius: 1px;
+				z-index: 1;
+				background: rgb(244, 247, 250);
+
+				> .node-handler-icon {
+					width: 100%;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			> .mui-node-handler-draggable {
+				cursor: pointer;
+			}
+
+			> .mui-node-content {
+				background: white;
+				height: 85%;
+				border: solid #bbb 1px;
+				box-shadow: 0 2px 2px -2px;
+				padding: 0 5px 0 10px;
+				border-radius: 2px;
+				min-width: 230px;
+				padding: 7px 10px;
+				display: flex;
+				justify-content: space-between;
+
+				> span > .node-text-title {
+					font-weight: bold;
+					font-size: 1rem;
+				}
+
+				> span > .node-text-subtitle {
+					font-size: .85rem;
+					max-width: 500px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				> .node-buttons {
+					border: none;
+					outline: none;
+					background: none;
+					color: @link;
+					cursor: pointer;
+					align-self: center;
+					padding: 0;
+					width: 15px;
+				}
+
+				&:hover {
+					background-color: @green-light;
+				}
+			}
+
+			> .mui-node-selected {
 				background-color: @green-light;
 			}
-		}
 
-		> .mui-node-selected {
-			background-color: @green-light;
-		}
-
-		> .mui-node-clickable {
-			cursor: pointer;
+			> .mui-node-clickable {
+				cursor: pointer;
+			}
 		}
 	}
-}
 
-.mui-hierarchy-buttons-container {
-	background: white;
-	padding: 7.5px;
-	border: solid #bbb 1px;
-	box-shadow: 0 2px 2px -2px;
+	.mui-hierarchy-buttons-container {
+		background: white;
+		padding: 7.5px;
+		border: solid #bbb 1px;
+		box-shadow: 0 2px 2px -2px;
+	}
 }
