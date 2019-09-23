@@ -23,7 +23,12 @@ export const Scaffold = ({ level, nodeIndex, tree }) => {
 			'mui-line-full-vertical': isVertical
 		});
 
-		return <div className={classes} />;
+		return (
+			<div
+				className={classes}
+				key={'scaffold' + currentNode.id + i}
+			/>
+		);
 	});
 };
 
