@@ -9,8 +9,13 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 	let totalParentDescendants = 0;
 	
 	for (let node of tree) {
+		const childrenCount = Array.isArray(node.children)
+			? node.children.length
+			: 0;
+
 		const newNode = {
 			...node,
+			childrenCount,
 			// last node in tree has no siblings coming after it
 			hasSibling: tree[tree.length - 1] !== node,
 			level,
@@ -37,7 +42,7 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 
 		// calculate all descendants of the current node
 		newNode.descendants = node.expanded
-			? node.childrenCount + subtree.reduce((acc, val) => acc + val.childrenCount, 0)
+			? childrenCount + subtree.reduce((acc, val) => acc + val.childrenCount, 0)
 			: 0;
 
 		// need to add one to account for the node just processed as a 

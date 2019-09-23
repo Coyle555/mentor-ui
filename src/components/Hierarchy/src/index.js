@@ -7,7 +7,8 @@ import { Row } from './components/Row';
 import {
 	collapseNode,
 	convertTree,
-	expandNode 
+	expandNode,
+	findNode
 } from './utils';
 
 import './styles.less';
@@ -70,7 +71,7 @@ export const Tree = ({
 		// collapsing node
 		if (node.expanded) {
 			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
-		// expanding node
+		// expanding node with a function
 		} else if (typeof onExpandNode === 'function') {
 			const nodesToAppend = onExpandNode(node);
 
@@ -79,10 +80,19 @@ export const Tree = ({
 				parentIndex: index,
 				tree: convertedTree
 			}));
+		// expanding node with list of children attached to node
+		} else {
+			node = findNode(tree[0], node);
+
+			setConvertedTree(expandNode({
+				nodesToAppend: node.children || [],
+				parentIndex: index,
+				tree: convertedTree
+			}));
 		}
 	});
 
-	const renderRow = useCallback(({ index, style }) => (
+	const renderRow = useCallback(({ index, key, style }) => (
 		<Row
 			buttonMenuIndex={state.buttonMenuIndex}
 			canDrag={canDrag}
@@ -91,6 +101,7 @@ export const Tree = ({
 			customHandle={customHandle}
 			dispatch={dispatch}
 			index={index}
+			key={key}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
 			toggleChildVisibility={toggleChildVisibility}

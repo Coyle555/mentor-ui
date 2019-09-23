@@ -1,6 +1,6 @@
 import { appendNodes } from './appendNodes';
 
-export function expandNode({ parentIndex, nodesToAppend, tree }) {
+export function expandNode({ parentIndex, nodesToAppend = [], tree }) {
 	let node = tree[parentIndex];
 	// path of parent node to root
 	const path = { [parentIndex]: true };
