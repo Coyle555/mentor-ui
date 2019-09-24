@@ -9,6 +9,7 @@ test('Converting a tree with one node' , () => {
 	const tree = [{
 		expanded: false,
 		id: 'foo',
+		children: []
 	}];
 
 	expect(convertTree(tree)).toEqual([{
@@ -42,7 +43,7 @@ test('Converting a tree with one branch' , () => {
 					children: [{
 						expanded: false,
 						id: 'node5',
-						children: 0
+						children: []
 					}]
 				}]
 			}],

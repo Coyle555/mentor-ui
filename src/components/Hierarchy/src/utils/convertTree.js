@@ -1,5 +1,15 @@
 
 export function convertTree(tree = [], level = 0, parentIndex = null) {
+	tree = convert(tree, level, parentIndex);
+	
+	tree.forEach(node => {
+		delete node.children;
+	});
+
+	return tree;
+};
+
+function convert(tree, level, parentIndex) {
 	let convertedTree = [];
 
 	if (tree.length === 0) return [];
@@ -9,9 +19,7 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 	let totalParentDescendants = 0;
 	
 	for (let node of tree) {
-		const childrenCount = Array.isArray(node.children)
-			? node.children.length
-			: 0;
+		const childrenCount = node.children.length;
 
 		const newNode = {
 			childrenCount,
@@ -22,8 +30,6 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 			// index position of the parent in the list
 			parent: parentIndex
 		};
-
-		delete newNode.children;
 
 		let subtree = [];
 
