@@ -112,6 +112,7 @@ export const Tree = ({
 			onExpandNode={onExpandNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
+			subtitle={subtitle}
 			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}
 		/>
@@ -174,8 +175,8 @@ Tree.defaultProps = {
 	canDrag: false,
 	customButtons: [],
 	customHandle: null,
-	isVirtualized: true,
+	isVirtualized: false,
 	onExpandNode: null,
-	tree: [],
+	tree: {},
 	subtitle: null
 };

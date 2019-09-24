@@ -18,10 +18,11 @@ export const Row = ({
 	onExpandNode,
 	selectedNodeIndex,
 	style,
+	subtitle,
 	toggleChildVisibility,
 	tree
 }) => {
-	const { childrenCount, expanded, id, level, parent, title, subtitle } = tree[index];
+	const { childrenCount, expanded, id, level, parent, title } = tree[index];
 	const [loading, setLoading] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
@@ -75,7 +76,7 @@ export const Row = ({
 				node={tree[index]}
 				nodeIndex={index}
 				selected={selectedNodeIndex === index}
-				subtitle={subtitle}
+				subtitle={subtitle || tree[index].subtitle}
 				title={title}
 			/>
 		</div>
