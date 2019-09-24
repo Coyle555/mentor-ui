@@ -197,4 +197,63 @@ storiesOf('Hierarchy', module)
 				/>
 			</div>
 		);
+	}).add('Example', () => {
+		return (
+			<div style={{ height: window.innerHeight + 'px' }}>
+				<Tree
+					canDrag={false}
+					onNodeClick={action('onNodeClick')}
+					isVirtualized={true}
+					tree={{
+						childrenCount: 3,
+						title: 'Overall',
+						expanded: true,
+						id: '1',
+						children: [{
+							childrenCount: 2,
+							expanded: true,
+							id: '1-1',
+							title: 'Beaver Canyon',
+							children: [{
+								children: [],
+								childrenCount: 5,
+								expanded: false,
+								title: 'Primary and Clarification',
+								id: '1-1-1'
+							}, {
+								children: [],
+								childrenCount: 1,
+								expanded: false,
+								title: 'Filtration',
+								id: '1-1-2'
+							}],
+						}, {
+							children: [],
+							childrenCount: 0,
+							expanded: false,
+							id: '1-2',
+							title: 'Distribution'
+						}, {
+							childrenCount: 2,
+							expanded: true,
+							id: '1-3',
+							title: 'Neville Island',
+							children: [{
+								children: [],
+								childrenCount: 2,
+								expanded: false,
+								id: '1-3-1',
+								title: 'Solids Handling'
+							}, {
+								children: [],
+								childrenCount: 1,
+								expanded: false,
+								id: '1-3-2',
+								title: 'Support Equipment'
+							}],
+						}]
+					}}
+				/>
+			</div>
+		);
 	});

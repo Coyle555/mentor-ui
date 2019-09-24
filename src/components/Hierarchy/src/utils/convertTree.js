@@ -35,7 +35,7 @@ function convert(tree, level, parentIndex) {
 
 		// process the children as its own tree
 		if (node.expanded) {
-			subtree = convertTree(
+			subtree = convert(
 				node.children,
 				level + 1,
 				// add one for the parent node of the subtree as you 
@@ -48,7 +48,7 @@ function convert(tree, level, parentIndex) {
 
 		// calculate all descendants of the current node
 		newNode.descendants = node.expanded
-			? childrenCount + subtree.reduce((acc, val) => acc + val.childrenCount, 0)
+			? childrenCount + subtree.reduce((acc, val) => acc + val.children.length, 0)
 			: 0;
 
 		// need to add one to account for the node just processed as a 
