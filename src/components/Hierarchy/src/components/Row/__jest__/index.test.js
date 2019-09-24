@@ -19,6 +19,8 @@ import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 import { Row } from '../index';
 
+afterEach(cleanup);
+
 const tree = [{
 	childrenCount: 0,
 	expanded: false,
