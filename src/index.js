@@ -2,6 +2,7 @@ import a from './components/Button';
 import b from './components/Drawer';
 import c from './components/InsertPopupForm/index';
 import d from './components/Token';
+import e from './components/Hierarchy';
 
 import './styles/index.less';
 
@@ -16,7 +17,6 @@ export * from './components/Panel/PanelSeries/index';
 export * from './components/Spinner';
 export * from './components/ToggleButton';
 export * from './components/DatePicker';
-export * from './components/Hierarchy';
 
 
 export * from './components/mentor-inputs/src/index';
@@ -27,4 +27,4 @@ export const Button = a;
 export const Drawer = b;
 export const InsertPopupForm = c;
 export const Token = d;
-
+export const Hierarchy = e;
