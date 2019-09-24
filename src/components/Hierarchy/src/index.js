@@ -109,6 +109,7 @@ export const Tree = ({
 			dispatch={dispatch}
 			index={index}
 			key={key}
+			onExpandNode={onExpandNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
 			toggleChildVisibility={toggleChildVisibility}

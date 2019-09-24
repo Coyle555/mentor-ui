@@ -15,6 +15,7 @@ export const Row = ({
 	customHandle,
 	dispatch,
 	index,
+	onExpandNode,
 	selectedNodeIndex,
 	style,
 	toggleChildVisibility,
@@ -24,11 +25,18 @@ export const Row = ({
 	const [loading, setLoading] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
-		if (!expanded) {
+		// collapse row
+		if (expanded) {
+			toggleChildVisibility({ index, node: tree[index] });
+		// expand row
+		} else if (typeof onExpandNode === 'function') {
 			setLoading(true);
 
 			new Promise((resolve, reject) => {
-				resolve(toggleChildVisibility({ index, node: tree[index] }));
+				resolve(toggleChildVisibility({
+					index,
+					node: tree[index]
+				}));
 			}).then(() => {
 				setLoading(false);
 			});
