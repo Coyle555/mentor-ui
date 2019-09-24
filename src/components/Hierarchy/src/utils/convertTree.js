@@ -14,8 +14,8 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 			: 0;
 
 		const newNode = {
-			...node,
 			childrenCount,
+			...node,
 			// last node in tree has no siblings coming after it
 			hasSibling: tree[tree.length - 1] !== node,
 			level,

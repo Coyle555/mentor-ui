@@ -46,7 +46,6 @@ export const Tree = ({
 					onNodeClick(newIndex > -1 ? convertedTree[newIndex] : null);
 				}
 
-				console.log('new stae');
 				return {
 					...state,
 					buttonMenuIndex: -1,

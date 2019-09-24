@@ -7,8 +7,6 @@ test('Converting a tree with no nodes', () => {
 
 test('Converting a tree with one node' , () => {
 	const tree = [{
-		children: [],
-		childrenCount: 0,
 		expanded: false,
 		id: 'foo',
 	}];
@@ -42,10 +40,9 @@ test('Converting a tree with one branch' , () => {
 					expanded: true,
 					id: 'node4',
 					children: [{
-						childrenCount: 0,
 						expanded: false,
 						id: 'node5',
-						children: []
+						children: 0
 					}]
 				}]
 			}],
