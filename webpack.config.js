@@ -53,6 +53,18 @@ module.exports = {
 				test: /\.less$/,
 				use: ['style-loader', 'css-loader', 'less-loader']
 			},
+			{
+				test: /\.(png|jpg|gif)(\?v=\d+\.\d+\.\d+)?$/,
+				use: [{ loader: 'url-loader?limit=100000' }]
+			},
+			{
+				test: /\.(eot|com|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+				use: [{ loader: 'url-loader?limit=10000&mimetype=application/octet-stream' }]
+			},
+			{
+				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+				use: [{ loader: 'url-loader?limit=10000&mimetype=image/svg+xml' }]
+			}
 		]
 	},
 
