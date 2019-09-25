@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useMemo, useState } from 'react';
+import React, { PureComponent, Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -15,6 +15,7 @@ export const Row = ({
 	customHandle,
 	dispatch,
 	index,
+	loading,
 	onExpandNode,
 	selectedNodeIndex,
 	style,
@@ -23,24 +24,9 @@ export const Row = ({
 	tree
 }) => {
 	const { childrenCount, expanded, id, level, parent, title } = tree[index];
-	const [loading, setLoading] = useState(false);
 
 	const onToggleChildVisibility = useCallback(() => {
-		// collapse row
-		if (expanded) {
-			toggleChildVisibility({ index, node: tree[index] });
-		// expand row
-		} else if (typeof onExpandNode === 'function') {
-			setLoading(true);
-
-			new Promise((resolve, reject) => {
-				resolve(toggleChildVisibility({ index, node: tree[index] }));
-			}).then(() => {
-				setLoading(false);
-			});
-		} else {
-			toggleChildVisibility({ index, node: tree[index] });
-		}
+		toggleChildVisibility({ index, node: tree[index] });
 	});
 
 	return (
@@ -52,6 +38,7 @@ export const Row = ({
 				childrenCount={childrenCount}
 				expanded={expanded}
 				level={level}
+				loading={loading}
 				onClick={onToggleChildVisibility}
 			/>
 			<Scaffold

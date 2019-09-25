@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export const ToggleButton = ({ childrenCount, expanded, level, onClick }) => {
+export const ToggleButton = ({ childrenCount, expanded, level, loading, onClick }) => {
 	if (childrenCount < 1) return null;
 	
 	return (
@@ -12,6 +12,7 @@ export const ToggleButton = ({ childrenCount, expanded, level, onClick }) => {
 					? 'node-collapse-button'
 					: 'node-expand-button'
 			)}
+			disabled={loading}
 			onClick={onClick}
 			style={{ left: 22 + (44 * level) + 'px' }}
 			type="button"

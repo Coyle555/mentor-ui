@@ -2,10 +2,6 @@ jest.mock('../Handler', () => {
 	return { Handler: props => <div>{JSON.stringify(props)}</div> };
 });
 
-jest.mock('../ToggleButton', () => {
-	return { ToggleButton: props => <div role="toggle">{JSON.stringify(props)}</div> };
-});
-
 jest.mock('../Node', () => {
 	return { Node: props => <div>{JSON.stringify(props)}</div> };
 });
@@ -32,64 +28,33 @@ const tree = [{
 }];
 
 test('Default render of a row', () => {
-	const tree = renderer.create(<Row index={0} tree={tree} />).toJSON();
+	const json = renderer.create(<Row index={0} tree={tree} />).toJSON();
 
-	expect(tree).toMatchSnapshot();
+	expect(json).toMatchSnapshot();
 });
 
 test('Render of row with custom style', () => {
-	const tree = renderer.create(
+	const json = renderer.create(
 		<Row index={0} style={{ width: '10px' }} tree={tree} />
 	).toJSON();
 
-	expect(tree).toMatchSnapshot();
+	expect(json).toMatchSnapshot();
 });
 
-test('Toggling child visibility callback on expanded row', () => {
+test('Toggling child visibility callback', () => {
 	const tree = [{ id: 'foo' }];
 	const toggleChildVisibility = jest.fn();
-	const { getByRole } = render(
+	const { container } = render(
 		<Row
-			expanded={true}
 			index={0}
 			toggleChildVisibility={toggleChildVisibility}
 			tree={tree}
 		/>
 	);
 
-	fireEvent.click(getByRole('toggle'));
-	expect(toggleChildVisibility).toHaveBeenCalledWith({ index: 0, node: { id: 'foo' } });
-});
-
-test('Toggling child visibility callback on non expanded row and no custom expand function', () => {
-	const tree = [{ id: 'foo' }];
-	const toggleChildVisibility = jest.fn();
-	const { getByRole } = render(
-		<Row
-			expanded={false}
-			index={0}
-			toggleChildVisibility={toggleChildVisibility}
-			tree={tree}
-		/>
-	);
-
-	fireEvent.click(getByRole('toggle'));
-	expect(toggleChildVisibility).toHaveBeenCalledWith({ index: 0, node: { id: 'foo' } });
-});
-
-test('Toggling child visibility callback on non expanded row and a custom expand function', () => {
-	const onExpandNode = () => {};
-	const tree = [{ id: 'foo' }];
-	const toggleChildVisibility = jest.fn((val) => Promise.resolve(val));
-	const { getByRole } = render(
-		<Row
-			expanded={false}
-			index={0}
-			toggleChildVisibility={toggleChildVisibility}
-			tree={tree}
-		/>
-	);
-
-	fireEvent.click(getByRole('toggle'));
-	expect(toggleChildVisibility).toHaveBeenCalledWith({ index: 0, node: { id: 'foo' } });
+	fireEvent.click(container.querySelector('button'));
+	expect(toggleChildVisibility).toHaveBeenCalledWith({
+		index: 0,
+		node: { id: 'foo' }
+	});
 });

@@ -21,6 +21,7 @@ id | String | Yes | Uniquely identifies the node in the hierarchy
 title | Strng | Yes | Title to display to the user for a node
 subtitle | String | No | Subtitle to display to the user for a node *Note: if a subtitle function is passed in, that will take priority*
 children | Array(*objects*) | Yes | All the children of the node. Each item in the list of children will need to be in the node format
+childrenCount | Number | No | Can be used to signal there are children of a node that do not exist in the tree(Used for async operations)
 
 
 Any extra attributes passed in on a node object are merged in to the node.

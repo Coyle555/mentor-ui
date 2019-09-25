@@ -19,7 +19,7 @@ function convert(tree, level, parentIndex) {
 	let totalParentDescendants = 0;
 	
 	for (let node of tree) {
-		const childrenCount = node.children.length;
+		const childrenCount = Array.isArray(node.children) ? node.children.length : 0;
 
 		const newNode = {
 			childrenCount,

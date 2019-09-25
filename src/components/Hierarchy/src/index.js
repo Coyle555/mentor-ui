@@ -16,8 +16,9 @@ import './styles.less';
 const ROW_HEIGHT = 62;
 
 const initialState = {
+	buttonMenuIndex: -1,
+	loadingNodeIds: [],
 	selectedNodeIndex: -1,
-	buttonMenuIndex: -1
 };
 
 export const Tree = ({
@@ -60,12 +61,14 @@ export const Tree = ({
 				}
 
 				return { ...state, buttonMenuIndex: newButtonIndex };
+
 			default:
 				return state;
 		}
 	}, []);
 
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [loadingNodeId, setLoadingNodeId] = useState('');
 
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// deselect nodes and close open button menus
@@ -80,8 +83,12 @@ export const Tree = ({
 			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
 		// expanding node with a function
 		} else if (typeof onExpandNode === 'function') {
+			// wait for a previous loading request to complete before making another request
+			if (!!loadingNodeId) return;
+
 			new Promise((resolve, reject) => {
 
+				setLoadingNodeId(node.id);
 				resolve(onExpandNode(node));
 
 			}).then(nodesToAppend => {
@@ -90,6 +97,8 @@ export const Tree = ({
 					parentIndex: index,
 					tree: convertedTree
 				}));
+
+				setLoadingNodeId('');
 			});
 		// expanding node with list of children attached to node
 		} else {
@@ -103,7 +112,7 @@ export const Tree = ({
 		}
 	});
 
-	const renderRow = useCallback(({ index, key, style }) => (
+	const renderRow = useCallback(({ index, style, ...props }) => (
 		<Row
 			buttonMenuIndex={state.buttonMenuIndex}
 			canDrag={canDrag}
@@ -112,7 +121,8 @@ export const Tree = ({
 			customHandle={customHandle}
 			dispatch={dispatch}
 			index={index}
-			key={key}
+			loading={convertedTree[index].id === loadingNodeId}
+			key={props.key}
 			onExpandNode={onExpandNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}

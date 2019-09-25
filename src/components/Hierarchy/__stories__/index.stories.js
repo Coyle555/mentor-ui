@@ -15,7 +15,8 @@ const tree = {
 					id: '1-1-1',
 					title: '1-1-1',
 					subtitle: 'Bar child 2 subtitle',
-					data: {}
+					data: {},
+					children: []
 				},
 				{
 					children: [{
@@ -40,7 +41,8 @@ const tree = {
 					id: '1-1-3',
 					title: '1-1-3',
 					children: [],
-					expanded: false
+					expanded: false,
+					children: []
 				}
 			],
 			expanded: true,
@@ -169,6 +171,14 @@ const customButtons = (node) => {
 	];
 };
 
+function onExpandNodeAsync(node) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve(onExpandNode(node));
+		}, 1200);
+	});
+}
+
 storiesOf('Hierarchy', module)
 	.add('Tree with an expand function', () => {
 		return (
@@ -193,6 +203,18 @@ storiesOf('Hierarchy', module)
 					customHandle={customHandle}
 					onNodeClick={action('onNodeClick')}
 					isVirtualized={false}
+					tree={tree}
+				/>
+			</div>
+		);
+	})
+	.add('Tree with an async node expansion', () => {
+		return (
+			<div style={{ height: window.innerHeight + 'px' }}>
+				<Tree
+					canDrag={false}
+					isVirtualized={true}
+					onExpandNode={onExpandNodeAsync}
 					tree={tree}
 				/>
 			</div>
