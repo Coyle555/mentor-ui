@@ -80,13 +80,17 @@ export const Tree = ({
 			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
 		// expanding node with a function
 		} else if (typeof onExpandNode === 'function') {
-			const nodesToAppend = onExpandNode(node);
+			new Promise((resolve, reject) => {
 
-			setConvertedTree(expandNode({
-				nodesToAppend,
-				parentIndex: index,
-				tree: convertedTree
-			}));
+				resolve(onExpandNode(node));
+
+			}).then(nodesToAppend => {
+				setConvertedTree(expandNode({
+					nodesToAppend,
+					parentIndex: index,
+					tree: convertedTree
+				}));
+			});
 		// expanding node with list of children attached to node
 		} else {
 			node = findNode(tree, node);

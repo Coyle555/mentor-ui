@@ -34,10 +34,7 @@ export const Row = ({
 			setLoading(true);
 
 			new Promise((resolve, reject) => {
-				resolve(toggleChildVisibility({
-					index,
-					node: tree[index]
-				}));
+				resolve(toggleChildVisibility({ index, node: tree[index] }));
 			}).then(() => {
 				setLoading(false);
 			});

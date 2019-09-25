@@ -22,6 +22,9 @@ title | Strng | Yes | Title to display to the user for a node
 subtitle | String | No | Subtitle to display to the user for a node *Note: if a subtitle function is passed in, that will take priority*
 children | Array(*objects*) | Yes | All the children of the node. Each item in the list of children will need to be in the node format
 
+
+Any extra attributes passed in on a node object are merged in to the node.
+
 #### Example
 
 ```
