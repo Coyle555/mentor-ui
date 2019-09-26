@@ -61,6 +61,12 @@ test('Rendering custom buttons', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Rendering with invalid custom buttons object', () => {
+	const tree = renderer.create(<Node buttonMenuIndex={-1} customButtons={{}} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('Rendering custom buttons with a function', () => {
 	const node = { id: 'foo' };
 	const customButtons = jest.fn(() => []);

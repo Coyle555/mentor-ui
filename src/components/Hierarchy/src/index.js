@@ -4,12 +4,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 
 import { Row } from './components/Row';
-import {
-	collapseNode,
-	convertTree,
-	expandNode,
-	findNode
-} from './utils';
+import { collapseNode, convertTree, expandNode, findNode } from './utils';
 
 import './styles.less';
 
@@ -32,7 +27,7 @@ export const Tree = ({
 	subtitle,
 	...props
 }) => { 
-	const [convertedTree, setConvertedTree] = useState(convertTree([tree]), [tree]);
+	const [convertedTree, setConvertedTree] = useState(convertTree([tree]), []);
 
 	const reducer = useCallback((state, action) => {
 		switch (action.type) {
@@ -71,7 +66,7 @@ export const Tree = ({
 	const [loadingNodeId, setLoadingNodeId] = useState('');
 
 	const toggleChildVisibility = useCallback(({ index, node }) => {
-		// deselect nodes and close open button menus
+		// deselect nodes if collapsing and close opened button menus
 		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
 			dispatch({ type: 'selectNode', nodeIndex: -1 });
 		} else {
@@ -183,7 +178,7 @@ Tree.propTypes = {
 	onExpandNode: PropTypes.func,
 	tree: PropTypes.object,
 	subtitle: PropTypes.func
-}
+};
 
 Tree.defaultProps = {
 	canDrag: false,

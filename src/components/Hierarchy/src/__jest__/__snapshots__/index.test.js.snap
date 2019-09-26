@@ -1,0 +1,526 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering hierarchy that is not virtualized 1`] = `
+<div
+  className="mui-hierarchy-container"
+>
+  <div
+    className="mui-hierarchy-node"
+  >
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "0px",
+        }
+      }
+    >
+      <button
+        className="node-collapse-button"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "left": "22px",
+          }
+        }
+        type="button"
+      >
+        <i
+          className="fas fa-minus"
+        />
+      </button>
+      <div
+        className="mui-line-block mui-line-half-horizontal-right"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            Foo subtitle
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "62px",
+        }
+      }
+    >
+      <button
+        className="node-collapse-button"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "left": "66px",
+          }
+        }
+        type="button"
+      >
+        <i
+          className="fas fa-minus"
+        />
+      </button>
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-full-vertical"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            Bar subtitle
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "124px",
+        }
+      }
+    >
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-full-vertical"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1-1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            Bar child 2 subtitle
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "186px",
+        }
+      }
+    >
+      <button
+        className="node-collapse-button"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "left": "110px",
+          }
+        }
+        type="button"
+      >
+        <i
+          className="fas fa-minus"
+        />
+      </button>
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-full-vertical"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1-2
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            Bar child subtitle
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "248px",
+        }
+      }
+    >
+      <button
+        className="node-collapse-button"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "left": "154px",
+          }
+        }
+        type="button"
+      >
+        <i
+          className="fas fa-minus"
+        />
+      </button>
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1-2-1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "310px",
+        }
+      }
+    >
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1-2-1-1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "372px",
+        }
+      }
+    >
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-full-vertical"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-1-3
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "434px",
+        }
+      }
+    >
+      <button
+        className="node-collapse-button"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "left": "66px",
+          }
+        }
+        type="button"
+      >
+        <i
+          className="fas fa-minus"
+        />
+      </button>
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-2
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            Baz subtitle
+          </div>
+        </span>
+      </div>
+    </div>
+    <div
+      className="mui-node-row"
+      style={
+        Object {
+          "height": 62,
+          "left": 0,
+          "top": "496px",
+        }
+      }
+    >
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block"
+      />
+      <div
+        className="mui-line-block mui-line-half-horizontal-right mui-line-half-vertical-top"
+      />
+      <div
+        className="mui-node-handler"
+      >
+        <div
+          className="node-handler-icon"
+        >
+          <i
+            className="far fa-bars fa-lg"
+          />
+        </div>
+      </div>
+      <div
+        className="mui-node-content"
+        onClick={[Function]}
+      >
+        <span>
+          <div
+            className="node-text-title"
+          >
+            1-2-1
+          </div>
+          <div
+            className="node-text-subtitle"
+          >
+            
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Rendering hierarchy that is virtualized 1`] = `
+<div
+  className="mui-hierarchy-container"
+>
+  <div>
+    {}
+  </div>
+</div>
+`;

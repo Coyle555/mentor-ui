@@ -129,6 +129,26 @@ exports[`Rendering custom buttons 1`] = `
 </div>
 `;
 
+exports[`Rendering with invalid custom buttons object 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+>
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+</div>
+`;
+
 exports[`Selected node render 1`] = `
 <div
   className="mui-node-content mui-node-selected"
