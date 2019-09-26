@@ -68,7 +68,6 @@ export const Tree = ({
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// deselect nodes if collapsing and close opened button menus
 		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
-			console.log('dispatchign removing select', index, state.selectedNodeIndex);
 			dispatch({ type: 'selectNode', nodeIndex: -1 });
 		} else {
 			dispatch({ type: 'openButtonMenu', nodeIndex: -1 });
@@ -76,8 +75,7 @@ export const Tree = ({
 
 		// collapsing node
 		if (node.expanded) {
-			if (index < state.selectedNodeIndex) {
-				console.log('dispatchign moving select', index, state.selectedNodeIndex);
+			if (state.selectedNodeIndex > index + node.descendants) {
 				dispatch({
 					type: 'selectNode',
 					nodeIndex: state.selectedNodeIndex - convertedTree[index].descendants
