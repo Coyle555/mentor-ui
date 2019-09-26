@@ -1,10 +1,10 @@
 Props | Type | Required | Description
 ----- | ---- | -------- | -----------
 canDrag | Boolean | No | Allows nodes in the hierarchy to be dragged. Defaults to false.
-customButtons | Function or Array(*React elements*) | No | Render custom buttons that can be activated on each node. Array must be react elements. Function signature is (node) => {}
-customHandle | Function | No | Renders a custom handler on each node. Function signature is (node) => {}
+customButtons | Function or Array(*React elements*) | No | Render custom buttons that can be activated on each node. Array must be react elements. Function signature is (node) => {}. Returns an array of button elements.
+customHandle | Function | No | Renders a custom handler on each node. Function signature is (node) => {}. Return a react element.
 isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to false.
-onExpandNode | Function | No | Callback that will receive the children of a node that gets expanded. Function signature is (node) => {}
+onExpandNode | Function | No | Callback that will receive the children of a node that gets expanded. Function signature is (node) => {}. Returns an array of nodes in the proper format(see below).
 tree | Object | Yes | The tree object describing the hierarchy. See below for format.
 subtitle | Function | No | Callback to render subtitles. Function signature is (node) => {}
 

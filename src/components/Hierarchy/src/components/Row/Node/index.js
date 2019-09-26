@@ -46,7 +46,8 @@ export const Node = ({
 					}
 				</div>
 			</span>
-			{ customButtons.length > 0
+			{ Array.isArray(customButtons)
+				&& customButtons.length > 0
 				&& <Tether
 					attachment="top left"
 					targetAttachment="top right"
