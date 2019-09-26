@@ -219,7 +219,7 @@ storiesOf('Hierarchy', module)
 				/>
 			</div>
 		);
-	}).add('Example', () => {
+	}).add('Overwriting children counts for asynchronous expansion', () => {
 		return (
 			<div style={{ height: window.innerHeight + 'px' }}>
 				<Tree
