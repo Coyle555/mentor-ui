@@ -3,22 +3,22 @@
 .APMButton {
 	font-size: 16px;
 	border-radius: 3px;
-	background-color: #8DC63F;
+	background-color: @green-primary;
 	border: none;
-	color: #FFF;
+	color: @white;
 	padding: 0px 18px;
 	transition: all .1s ease;
 	cursor: pointer;
 
 	&:disabled {
-    background-color: #B0BAC5;
-    border: 1px solid #B0BAC5;
-    color: #FFF;
-    cursor: not-allowed;
+		background-color: @steel-blue;
+		border: 1px solid @steel-blue;
+		color: @white;
+		cursor: not-allowed;
 	}
 
 	&:hover:not([disabled]) {
-		background-color: rgba(141, 198, 63, .8);
+		background-color: lighten(@green-primary, 10%);
 	}
 
 	&:focus {
@@ -26,7 +26,19 @@
 	}
 
 	&:active:not([disabled]) {
-		background-color: #4D8000;
+		background-color: @green-secondary;
+	}
+
+	&-blue {
+		background-color: @blue-primary;
+
+		&:hover:not([disabled]) {
+			background-color: lighten(@blue-primary, 15%);
+		}
+
+		&:active:not([disabled]) {
+			background-color: @blue-secondary;
+		}
 	}
 
 	&-block {
@@ -38,35 +50,53 @@
 		height: 40px;
 	}
 
-  &-end-cap {
-    &-left {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+	&-end-cap {
+		&-left {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
 
-    &-right {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
-
-  &-light {
-    background-color: #FFF;
-    border: 1px solid #8DC63F;
-    color: #8DC63F;
-
-    &:hover:not([disabled]) {
-      background-color: #8DC63F;
-      color: #FFF;
-    }
-
-	&:active:not([disabled]) {
-		transition: none;
-		background-color: @green-secondary;
-		border-color: @green-secondary;
-		color: #FFF;
+		&-right {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
 	}
-  }
+
+	&-light {
+		background-color: @white;
+		border: 1px solid @green-primary;
+		color: @green-primary;
+
+		&:hover:not([disabled]) {
+			background-color: @green-primary;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: @green-secondary;
+			border-color: @green-secondary;
+			color: @white;
+		}
+	}
+
+	&-light-blue {
+		background-color: @white;
+		border: 1px solid @blue-primary;
+		color: @blue-primary;
+
+		&:hover:not([disabled]) {
+			background-color: @blue-primary;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: @blue-secondary;
+			border-color: @blue-secondary;
+			color: @white;
+		}
+	}
 
 	&-outline {
 		background-color: @charcoal !important;
@@ -74,14 +104,14 @@
 
 		&:hover:not([disabled]) {
 			background-color: @blue-gray-dark !important;
-			color: #FFF !important;
+			color: @white !important;
 		}
 
 		&:active:not([disabled]) {
 			transition: none !important;
 			background-color: @gray-dark !important;
 			border-color: @gray-dark !important;
-			color: #FFF;
+			color: @white;
 		}
 	}
 
@@ -90,15 +120,15 @@
 		padding: 2px 8px;
 	}
 
-  &-is-medium {
-	padding: 8px 14px;
-	min-width: 70px;
-	height: 40px;
-  }
+	&-is-medium {
+		padding: 8px 14px;
+		min-width: 70px;
+		height: 40px;
+	}
 
-  &-is-capless {
-    border-right: none;
-    border-left: none;
-    border-radius: 0;
-  }
+	&-is-capless {
+		border-right: none;
+		border-left: none;
+		border-radius: 0;
+	}
 }

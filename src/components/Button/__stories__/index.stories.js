@@ -32,6 +32,7 @@ storiesOf('Button', module)
 			<Button 
 				block={boolean('block', false)}
 				disabled={boolean('disabled', false)}
+				isBlue={boolean('isBlue', false)}
 				isCapless={boolean('isCapless', false)}
 				isLight={boolean('isLight', false)}
 				isLeftEndCap={boolean('isLeftEndCap', false)}
