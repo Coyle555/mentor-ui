@@ -48,6 +48,10 @@ export const Tree = ({
 					selectedNodeIndex: newIndex
 				};
 
+			case 'updateNode':
+
+				return { ...state, selectedNodeIndex: action.nodeIndex };
+
 			case 'openButtonMenu':
 				let newButtonIndex = -1;
 
@@ -60,7 +64,7 @@ export const Tree = ({
 			default:
 				return state;
 		}
-	}, []);
+	});
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [loadingNodeId, setLoadingNodeId] = useState('');
@@ -77,7 +81,7 @@ export const Tree = ({
 		if (node.expanded) {
 			if (state.selectedNodeIndex > index + node.descendants) {
 				dispatch({
-					type: 'selectNode',
+					type: 'updateNode',
 					nodeIndex: state.selectedNodeIndex - convertedTree[index].descendants
 				});
 			}
@@ -97,7 +101,7 @@ export const Tree = ({
 			}).then(nodesToAppend => {
 				if (index < state.selectedNodeIndex) {
 					dispatch({
-						type: 'selectNode',
+						type: 'updateNode',
 						nodeIndex: state.selectedNodeIndex + nodesToAppend.length
 					});
 				}
@@ -117,7 +121,7 @@ export const Tree = ({
 
 			if (index < state.selectedNodeIndex) {
 				dispatch({
-					type: 'selectNode',
+					type: 'updateNode',
 					nodeIndex: state.selectedNodeIndex + nodesToAppend.length
 				});
 			}

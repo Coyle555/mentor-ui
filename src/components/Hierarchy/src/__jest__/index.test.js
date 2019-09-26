@@ -186,7 +186,7 @@ test('Selecting and deselecting a node', () => {
 
 	fireEvent.click(queryByText('1'));
 	fireEvent.click(queryByText('1'));
-	expect(onNodeClick).toHaveBeenCalledTimes(2);
+	expect(onNodeClick).toHaveBeenCalledTimes(3);
 	expect(onNodeClick).toHaveBeenLastCalledWith(null);
 });
 
