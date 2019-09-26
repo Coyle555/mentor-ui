@@ -198,19 +198,9 @@ test('Selecting a node and collapsing its ancestor', () => {
 	expect(container.querySelector('div.mui-node-selected')).toBeNull();
 });
 
-test.only('Selecting a node and collapsing another branch after the node in the list', () => {
-	const { container, debug, queryByText } = render(<Tree isVirtualized={false} tree={tree} />);
-
-	fireEvent.click(queryByText('1-2'));
-	// dont want to collapse root
-	fireEvent.click(container.querySelectorAll('button.node-collapse-button')[1]);
-
-	// the third node should still be selected
-	expect(container.querySelector('div.mui-node-selected')).toBeTruthy();
-});
-
-test.skip('Selecting a node and expanding another branch after the node in the list', () => {
-	const { container, debug, queryByText } = render(<Tree isVirtualized={false} tree={tree} />);
+// the following tests are very brittle; changing the tree structure will break it
+test('Selecting a node and collapsing another branch after the node in the list', () => {
+	const { container, queryByText } = render(<Tree isVirtualized={false} tree={tree} />);
 
 	fireEvent.click(queryByText('1-2'));
 	// dont want to collapse root

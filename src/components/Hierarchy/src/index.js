@@ -68,6 +68,7 @@ export const Tree = ({
 	const toggleChildVisibility = useCallback(({ index, node }) => {
 		// deselect nodes if collapsing and close opened button menus
 		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
+			console.log('dispatchign removing select', index, state.selectedNodeIndex);
 			dispatch({ type: 'selectNode', nodeIndex: -1 });
 		} else {
 			dispatch({ type: 'openButtonMenu', nodeIndex: -1 });
@@ -75,7 +76,16 @@ export const Tree = ({
 
 		// collapsing node
 		if (node.expanded) {
+			if (index < state.selectedNodeIndex) {
+				console.log('dispatchign moving select', index, state.selectedNodeIndex);
+				dispatch({
+					type: 'selectNode',
+					nodeIndex: state.selectedNodeIndex - convertedTree[index].descendants
+				});
+			}
+
 			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
+
 		// expanding node with a function
 		} else if (typeof onExpandNode === 'function') {
 			// wait for a previous loading request to complete before making another request
@@ -87,6 +97,13 @@ export const Tree = ({
 				resolve(onExpandNode(node));
 
 			}).then(nodesToAppend => {
+				if (index < state.selectedNodeIndex) {
+					dispatch({
+						type: 'selectNode',
+						nodeIndex: state.selectedNodeIndex + nodesToAppend.length
+					});
+				}
+
 				setConvertedTree(expandNode({
 					nodesToAppend,
 					parentIndex: index,
@@ -98,9 +115,17 @@ export const Tree = ({
 		// expanding node with list of children attached to node
 		} else {
 			node = findNode(tree, node);
+			const nodesToAppend = node.children || [];
+
+			if (index < state.selectedNodeIndex) {
+				dispatch({
+					type: 'selectNode',
+					nodeIndex: state.selectedNodeIndex + nodesToAppend.length
+				});
+			}
 
 			setConvertedTree(expandNode({
-				nodesToAppend: node.children || [],
+				nodesToAppend,
 				parentIndex: index,
 				tree: convertedTree
 			}));
