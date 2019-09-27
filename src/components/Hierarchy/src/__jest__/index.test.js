@@ -87,6 +87,17 @@ test('Rendering hierarchy that is virtualized', () => {
 	expect(json).toMatchSnapshot();
 });
 
+test('Passing in a new tree', async () => {
+	const newTree = { id: 'foo', title: 'New Tree', children: [] };
+	const { queryByText, rerender } = render(<Tree tree={tree} />);
+
+	rerender(<Tree tree={newTree} />);
+
+	await wait(() => {
+		expect(queryByText('New Tree')).toBeTruthy();
+	});
+});
+
 test('Collapsing a node in the tree', () => {
 	const { container, queryByText } = render(<Tree isVirtualized={false} tree={tree} />);
 
@@ -186,7 +197,7 @@ test('Selecting and deselecting a node', () => {
 
 	fireEvent.click(queryByText('1'));
 	fireEvent.click(queryByText('1'));
-	expect(onNodeClick).toHaveBeenCalledTimes(3);
+	expect(onNodeClick).toHaveBeenCalledTimes(2);
 	expect(onNodeClick).toHaveBeenLastCalledWith(null);
 });
 
@@ -208,4 +219,66 @@ test('Selecting a node and collapsing another branch after the node in the list'
 
 	// the third node should still be selected
 	expect(container.querySelector('div.mui-node-selected')).toBeTruthy();
+});
+
+test('Handling on tree change after initial conversion', () => {
+	const tree = { id: 'foo', children: [], title: 'Foo' };
+	const onTreeChange = jest.fn();
+
+	renderer.create(<Tree onTreeChange={onTreeChange} tree={tree} />);
+
+	expect(onTreeChange).toHaveBeenCalledWith([{
+		childrenCount: 0,
+		descendants: 0,
+		hasSibling: false,
+		id: 'foo',
+		level: 0,
+		parent: null,
+		title: 'Foo'
+	}]);
+});
+
+test('Handling on tree change after collapsing a node', () => {
+	const onTreeChange = jest.fn();
+	const { container } = render(<Tree onTreeChange={onTreeChange} tree={tree} />);
+
+	fireEvent.click(container.querySelector('button.node-collapse-button'));
+	expect(onTreeChange).toHaveBeenCalled();
+});
+
+test('Handling on tree change after expanding a node', () => {
+	const onTreeChange = jest.fn();
+	const { container } = render(<Tree onTreeChange={onTreeChange} tree={tree} />);
+
+	fireEvent.click(container.querySelector('button.node-collapse-button'));
+	fireEvent.click(container.querySelector('button.node-expand-button'));
+	expect(onTreeChange).toHaveBeenCalled();
+});
+
+test('Expanding a node in the tree w/ an async expand node function', async () => {
+	const onTreeChange = jest.fn();
+	const onExpandNode = jest.fn((node) => {
+		return [{
+			expanded: false,
+			id: 'expand1',
+			title: 'expand1',
+			children: []
+		}, {
+			expanded: false,
+			id: 'expand2',
+			title: 'expand2',
+			children: []
+		}];
+	});
+
+	const { container, queryByText } = render(
+		<Tree onExpandNode={onExpandNode} onTreeChange={onTreeChange} tree={tree} />
+	);
+
+	fireEvent.click(container.querySelector('button.node-collapse-button'));
+	fireEvent.click(container.querySelector('button.node-expand-button'));
+
+	await wait(() => {
+		expect(onTreeChange).toHaveBeenCalled();
+	});
 });

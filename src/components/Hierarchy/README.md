@@ -1,12 +1,13 @@
 Props | Type | Required | Description
 ----- | ---- | -------- | -----------
-canDrag | Boolean | No | Allows nodes in the hierarchy to be dragged. Defaults to false.
-customButtons | Function or Array(*React elements*) | No | Render custom buttons that can be activated on each node. Array must be react elements. Function signature is (node) => {}. Returns an array of button elements.
-customHandle | Function | No | Renders a custom handler on each node. Function signature is (node) => {}. Return a react element.
-isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to false.
-onExpandNode | Function | No | Callback that will receive the children of a node that gets expanded. Function signature is (node) => {}. Returns an array of nodes in the proper format(see below).
 tree | Object | Yes | The tree object describing the hierarchy. See below for format.
-subtitle | Function | No | Callback to render subtitles. Function signature is (node) => {}
+canDrag | Boolean | No | Allows nodes in the hierarchy to be dragged. Defaults to false.
+customButtons | Function:(node: Node) => [React.Elements] or Array(*React elements*) | No | Render custom buttons that can be activated on each node. Array must be react elements.
+customHandle | Function:(node: Node) => React.Element | No | Renders a custom handler on each node.
+isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to false.
+onExpandNode | Function:(node: Node) => [Node] | No | Callback that will receive the children of a node that gets expanded.
+onTreeChange | Function:(tree: [Node]) => void | No | Callback that receives the new tree when the tree initializes, expands, or collapses.
+subtitle | Function(node: Node) => String | No | Callback to render subtitles.
 
 ### Tree format
 
@@ -16,11 +17,11 @@ Each node is constructed with the following attributes:
 
 Attribute | Type | Required | Description
 --------- | ---- | -------- | -----------
-expanded | Boolean | No | True if the node is expanded.
 id | String | Yes | Uniquely identifies the node in the hierarchy
-title | Strng | Yes | Title to display to the user for a node
-subtitle | String | No | Subtitle to display to the user for a node *Note: if a subtitle function is passed in, that will take priority*
 children | Array(*objects*) | Yes | All the children of the node. Each item in the list of children will need to be in the node format
+title | Strng | Yes | Title to display to the user for a node
+expanded | Boolean | No | True if the node is expanded.
+subtitle | String | No | Subtitle to display to the user for a node *Note: if a subtitle function is passed in, that will take priority*
 childrenCount | Number | No | Can be used to signal there are children of a node that do not exist in the tree(Used for async operations)
 
 

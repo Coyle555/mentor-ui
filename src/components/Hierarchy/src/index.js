@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
@@ -23,11 +23,29 @@ export const Tree = ({
 	isVirtualized,
 	onExpandNode,
 	onNodeClick,
+	onTreeChange,
 	tree,
 	subtitle,
 	...props
 }) => { 
-	const [convertedTree, setConvertedTree] = useState(convertTree([tree]), []);
+	const afterTreeChange = useCallback((tree) => {
+		if (typeof onTreeChange === 'function') {
+			onTreeChange(tree);
+		}
+	}, [onTreeChange]);
+
+	const [convertedTree, setConvertedTree] = useState(() => {
+		const initialTree = convertTree([tree]);
+		afterTreeChange(initialTree);
+
+		return initialTree;
+	});
+
+	useEffect(() => {
+		const newTree = convertTree([tree]);
+		setConvertedTree(newTree);
+		afterTreeChange(newTree);
+	}, [tree]);
 
 	const reducer = useCallback((state, action) => {
 		switch (action.type) {
@@ -48,7 +66,7 @@ export const Tree = ({
 					selectedNodeIndex: newIndex
 				};
 
-			case 'updateNode':
+			case 'updateNodeIndex':
 
 				return { ...state, selectedNodeIndex: action.nodeIndex };
 
@@ -81,12 +99,14 @@ export const Tree = ({
 		if (node.expanded) {
 			if (state.selectedNodeIndex > index + node.descendants) {
 				dispatch({
-					type: 'updateNode',
+					type: 'updateNodeIndex',
 					nodeIndex: state.selectedNodeIndex - convertedTree[index].descendants
 				});
 			}
 
-			setConvertedTree(collapseNode({ parentIndex: index, tree: convertedTree }));
+			const newTree = collapseNode({ parentIndex: index, tree: convertedTree });
+			setConvertedTree(newTree);
+			afterTreeChange(newTree);
 
 		// expanding node with a function
 		} else if (typeof onExpandNode === 'function') {
@@ -101,17 +121,19 @@ export const Tree = ({
 			}).then(nodesToAppend => {
 				if (index < state.selectedNodeIndex) {
 					dispatch({
-						type: 'updateNode',
+						type: 'updateNodeIndex',
 						nodeIndex: state.selectedNodeIndex + nodesToAppend.length
 					});
 				}
 
-				setConvertedTree(expandNode({
+				const newTree = expandNode({
 					nodesToAppend,
 					parentIndex: index,
 					tree: convertedTree
-				}));
+				});
 
+				setConvertedTree(newTree);
+				afterTreeChange(newTree);
 				setLoadingNodeId('');
 			});
 		// expanding node with list of children attached to node
@@ -121,16 +143,18 @@ export const Tree = ({
 
 			if (index < state.selectedNodeIndex) {
 				dispatch({
-					type: 'updateNode',
+					type: 'updateNodeIndex',
 					nodeIndex: state.selectedNodeIndex + nodesToAppend.length
 				});
 			}
 
-			setConvertedTree(expandNode({
+			const newTree = expandNode({
 				nodesToAppend,
 				parentIndex: index,
 				tree: convertedTree
-			}));
+			});
+			setConvertedTree(newTree);
+			afterTreeChange(newTree);
 		}
 	});
 
@@ -203,6 +227,8 @@ Tree.propTypes = {
 	customHandle: PropTypes.func,
 	isVirtualized: PropTypes.bool,
 	onExpandNode: PropTypes.func,
+	onNodeClick: PropTypes.func,
+	onTreeChange: PropTypes.func,
 	tree: PropTypes.object,
 	subtitle: PropTypes.func
 };
@@ -213,6 +239,8 @@ Tree.defaultProps = {
 	customHandle: null,
 	isVirtualized: false,
 	onExpandNode: null,
+	onNodeClick: null,
+	onTreeChange: null,
 	tree: {},
 	subtitle: null
 };
