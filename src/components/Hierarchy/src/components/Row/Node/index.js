@@ -10,6 +10,7 @@ export const Node = ({
 	dispatch,
 	node,
 	nodeIndex,
+	nodeStyle,
 	selected,
 	subtitle,
 	title
@@ -24,16 +25,25 @@ export const Node = ({
 		dispatch({ type: 'openButtonMenu', nodeIndex });
 	});
 
+	const getNodeStyle = useCallback(() => {
+		if (typeof nodeStyle ==='function') {
+			return nodeStyle(node);
+		}
+
+		return nodeStyle;
+	}, [nodeStyle]);
+
 	const nodeClasses = classNames({
 		'mui-node-content': true,
 		'mui-node-selected': selected,
-		'mui-node-clickable': clickable
+		'mui-node-clickable': clickable,
 	});
 
 	return (
 		<div
 			className={nodeClasses}
 			onClick={() => { dispatch({ type: 'selectNode', nodeIndex })}}
+			style={getNodeStyle()}
 		>
 			<span>
 				<div className="node-text-title">
@@ -88,6 +98,7 @@ Node.propTypes = {
 		PropTypes.func
 	]),
 	node: PropTypes.object,
+	nodeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 	selected: PropTypes.bool,
 	subtitle: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 	title: PropTypes.string

@@ -8,6 +8,7 @@ isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to fa
 onExpandNode | Function:(node: Node) => [Node] | No | Callback that will receive the children of a node that gets expanded.
 onTreeChange | Function:(tree: [Node]) => void | No | Callback that receives the new tree when the tree initializes, expands, or collapses.
 subtitle | Function(node: Node) => String | No | Callback to render subtitles.
+nodeStyle | Object or Function(node: Node) => Object | No | An object or a function to call to apply a style to nodes.
 
 ### Tree format
 
@@ -19,7 +20,7 @@ Attribute | Type | Required | Description
 --------- | ---- | -------- | -----------
 id | String | Yes | Uniquely identifies the node in the hierarchy
 children | Array(*objects*) | Yes | All the children of the node. Each item in the list of children will need to be in the node format
-title | Strng | Yes | Title to display to the user for a node
+title | String | Yes | Title to display to the user for a node
 expanded | Boolean | No | True if the node is expanded.
 subtitle | String | No | Subtitle to display to the user for a node *Note: if a subtitle function is passed in, that will take priority*
 childrenCount | Number | No | Can be used to signal there are children of a node that do not exist in the tree(Used for async operations)

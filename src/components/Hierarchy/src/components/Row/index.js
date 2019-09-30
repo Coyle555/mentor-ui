@@ -16,6 +16,7 @@ export const Row = ({
 	dispatch,
 	index,
 	loading,
+	nodeStyle,
 	onExpandNode,
 	selectedNodeIndex,
 	style,
@@ -59,6 +60,7 @@ export const Row = ({
 				dispatch={dispatch}
 				node={tree[index]}
 				nodeIndex={index}
+				nodeStyle={nodeStyle}
 				selected={selectedNodeIndex === index}
 				subtitle={subtitle || tree[index].subtitle}
 				title={title}

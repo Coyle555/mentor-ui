@@ -201,6 +201,7 @@ storiesOf('Hierarchy', module)
 					canDrag={false}
 					customButtons={customButtons}
 					customHandle={customHandle}
+					nodeStyle={{ borderRight: '10px solid blue' }}
 					onNodeClick={action('onNodeClick')}
 					isVirtualized={false}
 					tree={tree}

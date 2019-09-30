@@ -20,6 +20,31 @@ exports[`Clickable node 1`] = `
 </div>
 `;
 
+exports[`Custom style object on node 1`] = `
+<div
+  className="mui-node-content"
+  onClick={[Function]}
+  style={
+    Object {
+      "width": "20px",
+    }
+  }
+>
+  <span>
+    <div
+      className="node-text-title"
+    >
+      
+    </div>
+    <div
+      className="node-text-subtitle"
+    >
+      
+    </div>
+  </span>
+</div>
+`;
+
 exports[`Default node render 1`] = `
 <div
   className="mui-node-content"

@@ -21,6 +21,7 @@ export const Tree = ({
 	customButtons,
 	customHandle,
 	isVirtualized,
+	nodeStyle,
 	onExpandNode,
 	onNodeClick,
 	onTreeChange,
@@ -169,6 +170,7 @@ export const Tree = ({
 			index={index}
 			loading={convertedTree[index].id === loadingNodeId}
 			key={props.key}
+			nodeStyle={nodeStyle}
 			onExpandNode={onExpandNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
@@ -226,6 +228,7 @@ Tree.propTypes = {
 	]),
 	customHandle: PropTypes.func,
 	isVirtualized: PropTypes.bool,
+	nodeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 	onExpandNode: PropTypes.func,
 	onNodeClick: PropTypes.func,
 	onTreeChange: PropTypes.func,
@@ -238,6 +241,7 @@ Tree.defaultProps = {
 	customButtons: [],
 	customHandle: null,
 	isVirtualized: false,
+	nodeStyle: {},
 	onExpandNode: null,
 	onNodeClick: null,
 	onTreeChange: null,

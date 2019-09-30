@@ -17,6 +17,19 @@ test('Selected node render', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Custom style object on node', () => {
+	const tree = renderer.create(<Node nodeStyle={{ width: '20px' }} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Custom style function on node', () => {
+	const nodeStyle = jest.fn();
+	const tree = renderer.create(<Node node={{ id: 'foo' }} nodeStyle={nodeStyle} />).toJSON();
+
+	expect(nodeStyle).toHaveBeenCalledWith({ id: 'foo' });
+});
+
 test('Clickable node', () => {
 	const tree = renderer.create(<Node clickable={true} />).toJSON();
 

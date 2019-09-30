@@ -49,6 +49,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -109,6 +110,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -157,6 +159,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -220,6 +223,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -286,6 +290,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -340,6 +345,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -388,6 +394,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -448,6 +455,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
@@ -496,6 +504,7 @@ exports[`Rendering hierarchy that is not virtualized 1`] = `
       <div
         className="mui-node-content"
         onClick={[Function]}
+        style={Object {}}
       >
         <span>
           <div
