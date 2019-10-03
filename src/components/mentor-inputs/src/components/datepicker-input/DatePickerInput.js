@@ -23,10 +23,10 @@ class DatePickerContainer extends Component {
 		const { required, type, value } = this.props;
 		const mask = getDateFormat(type);
 
-		const isValid = moment(value, mask).isValid();
+		const isValid = moment(value).isValid();
 		const firstMoment = isValid
-			? new moment(value, mask)
-			: new moment(new Date(), mask)
+			? new moment(value)
+			: new moment(new Date());
 
 		this.lastVal = firstMoment.format(mask);
 

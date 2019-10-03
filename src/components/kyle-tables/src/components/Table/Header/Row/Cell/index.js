@@ -40,8 +40,7 @@ export class TableHeaderCell extends Component {
 
 		const classList = classNames({
 			'table-heading-cell': true,
-			[customClasses.tableHeaderCell]: !!customClasses.tableHeaderCell,
-			'text-right': type === 'float' || type === 'integer'
+			[customClasses.tableHeaderCell]: !!customClasses.tableHeaderCell
 		});
 
 		return (
