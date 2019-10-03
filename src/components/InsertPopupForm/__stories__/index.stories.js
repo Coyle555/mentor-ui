@@ -17,6 +17,9 @@ storiesOf('InsertPopupForm', module)
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'date', label: 'Date', type: 'date' },
+					{ id: 'datetime', label: 'DateTime', type: 'datetime' },
+					{ id: 'time', label: 'Time', type: 'time' },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
 					{

@@ -9,6 +9,11 @@ import { DatePicker } from 'datepicker';
 import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
 
 // default format masks for different datepicker types
+const DEFAULT_FORMAT_MASKS = Object.freeze({
+	datetime: 'MMM DD, YYYY - hh:mm a',
+	date: 'MMM DD, YYYY',
+	time: 'hh:mm a'
+});
 
 class DatePickerContainer extends Component {
 
@@ -46,7 +51,11 @@ class DatePickerContainer extends Component {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
-		if (!!nextProps.value && this.state.value.toString() !== nextProps.value.toString()) {
+		const { type } = this.props;
+
+		if (!!nextProps.value
+			&& new moment(this.state.value, getDateFormat(type)).toISOString() !== nextProps.value.toString()) {
+
 			let val = '';
 
 			if (!!nextProps.value) {
@@ -84,7 +93,7 @@ class DatePickerContainer extends Component {
 			showPicker: false
 		}, () => {
 			if (typeof onBlur === 'function' && this.lastVal !== value) {
-				onBlur(hasError, value, name);
+				onBlur(hasError, this.convertValueToISOString(), name);
 				this.lastVal = value;
 			}
 		});
@@ -113,7 +122,7 @@ class DatePickerContainer extends Component {
 			value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(hasError, value, name);
+				onChange(hasError, this.convertValueToISOString(), name);
 			}
 		});
 	}
@@ -130,10 +139,17 @@ class DatePickerContainer extends Component {
 			value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(hasError, value, name);
+				onChange(hasError, this.convertValueToISOString(), name);
 			};
 		});
 	};
+
+	convertValueToISOString = () => {
+		const { type } = this.props;
+		const { value } = this.state;
+		
+		return new moment(value, DEFAULT_FORMAT_MASKS[type]).toISOString();
+	}
 
 	// clear the date from the input box
 	clearInput = () => {
@@ -146,7 +162,7 @@ class DatePickerContainer extends Component {
 			value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(hasError, value, name)
+				onChange(hasError, this.convertValueToISOString(), name)
 			}
 		});
 	}
@@ -172,6 +188,7 @@ class DatePickerContainer extends Component {
 			>
 
 				<DatePicker
+					format={DEFAULT_FORMAT_MASKS[this.props.type]}
 					onCloseHandler={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					onClearHandler={this.clearInput}

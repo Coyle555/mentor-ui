@@ -10,9 +10,7 @@ import PropTypes from 'prop-types';
 import { Calendar } from '../Calendar';
 import { Time } from '../Time';
 import { TabNav } from 'components/TabNav';
-import {
-	OptionalControl
-} from './components/OptionalControl';
+import { OptionalControl } from './components/OptionalControl';
 import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
@@ -59,9 +57,7 @@ export function DatePicker(props) {
 		onChange,
 	} = props;
 
-	const [activeTab, setActiveTab] = useState(
-		getInitialType(TYPES, type)
-	);
+	const [activeTab, setActiveTab] = useState(getInitialType(TYPES, type));
 
 	const propsMomentRef = useRef(moment);
 	const [m, setM] = useState(moment
@@ -80,8 +76,7 @@ export function DatePicker(props) {
 	 * DatePickerComposed).
 	 */
 	useEffect(() => {
-		if (propsMomentRef.current !== moment
-			&& moment instanceof Moment) {
+		if (propsMomentRef.current !== moment && moment instanceof Moment) {
 			setM(moment)
 			propsMomentRef.current = moment;
 		}
@@ -147,8 +142,7 @@ export function DatePicker(props) {
 				/>
 			}
 			{ activeTab === TYPES.time && !isTimeDisabled
-			&&
-				<Time
+				&& <Time
 					minHour={minHour}
 					maxHour={maxHour}
 					minMinute={minMinute}

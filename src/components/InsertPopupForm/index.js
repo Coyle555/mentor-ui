@@ -22,7 +22,7 @@ export default class InsertForm extends Component {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
 			multiline: PropTypes.bool,
-			options: PropTypes.array,
+			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 			parse: PropTypes.func,
 			parseMatchedValue: PropTypes.func,
 			required: PropTypes.bool,

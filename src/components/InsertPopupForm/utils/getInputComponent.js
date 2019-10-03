@@ -1,6 +1,7 @@
 import React from 'react';
 import {
 	getMentorInput,
+	DatePickerInput,
 	ListFilter,
 	TableInput,
 	SelectInput
@@ -26,6 +27,15 @@ export function getInputComponent(field, props) {
 				{...props}
 				options={field.options}
 				parse={field.parse}
+			/>
+		);
+
+	} else if (field.type === 'date' || field.type === 'datetime' || field.type === 'time') {
+
+		return (
+			<DatePickerInput
+				{...props}
+				type={field.type}
 			/>
 		);
 
