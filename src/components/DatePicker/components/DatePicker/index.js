@@ -16,7 +16,6 @@ import { composeNamespace } from 'compose-namespace';
 import './style.less';
 
 export const TYPES = Object.freeze({
-	time: 'time',
 	date: 'date',
 	datetime: 'datetime',
 });
@@ -27,7 +26,7 @@ const TAB_OPTIONS = Object.freeze([
 		iconClass: 'fal fa-calendar-alt',
 	},
 	{
-		label: TYPES.time,
+		label: 'time',
 		iconClass: 'fal fa-clock',
 	},
 ]);
@@ -35,7 +34,6 @@ const TAB_OPTIONS = Object.freeze([
 const DEFAULT_FORMAT_MASKS = Object.freeze({
 	[TYPES.datetime]: 'MMM DD, YYYY - hh:mm a',
 	[TYPES.date]: 'MMM DD, YYYY',
-	[TYPES.time]: 'hh:mm a'
 });
 
 
@@ -65,7 +63,7 @@ export function DatePicker(props) {
 		: new Moment().hour(0).minute(0)
 	);
 
-	const [isDateDisabled, isTimeDisabled] = getIsDisabled(TYPES, type);
+	const isTimeDisabled = getIsTimeDisabled(TYPES, type);
 
 	const cc = composeNamespace('APMDatePicker', className);
 
@@ -86,7 +84,7 @@ export function DatePicker(props) {
 		<div className={cc()}>
 			<div className={cn(
 				cc('optional-controls'),
-				{ [cc('optional-controls-timer-spacer')]: isDateDisabled },
+				{ [cc('optional-controls-timer-spacer')]: true },
 				{ [cc('optional-controls-date-spacer')]: isTimeDisabled })
 			}>
 				<div className={cc('optional-controls-main')}>
@@ -119,7 +117,7 @@ export function DatePicker(props) {
 					/>
 				}
 			</div>
-			{ !isDateDisabled && !isTimeDisabled &&
+			{ !isTimeDisabled &&
 				<TabNav
 					className={cc('nav')}
 					tabs={TAB_OPTIONS}
@@ -127,7 +125,7 @@ export function DatePicker(props) {
 					onClick={onTabClick(setActiveTab)}
 				/>
 			}
-			{ activeTab === TYPES.date && !isDateDisabled
+			{ activeTab === TYPES.date 
 				&& <Calendar
 					maxDate={maxDate}
 					minDate={minDate}
@@ -161,11 +159,8 @@ export function DatePicker(props) {
 	);
 };
 
-export function getIsDisabled(types, type) {
-	return [
-		type === TYPES.time,
-		type === TYPES.date,
-	]
+export function getIsTimeDisabled(types, type) {
+	return type === TYPES.date;
 }
 
 export function getInitialType(types, type) {
@@ -174,8 +169,6 @@ export function getInitialType(types, type) {
 			return types.date;
 		case types.date:
 			return types.date;
-		case types.time:
-			return types.time;
 		default:
 			return types.date;
 	};

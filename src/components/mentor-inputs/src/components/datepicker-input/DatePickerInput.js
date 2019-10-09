@@ -12,7 +12,6 @@ import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
 const DEFAULT_FORMAT_MASKS = Object.freeze({
 	datetime: 'MMM DD, YYYY - hh:mm a',
 	date: 'MMM DD, YYYY',
-	time: 'hh:mm a'
 });
 
 class DatePickerContainer extends Component {
@@ -262,7 +261,7 @@ DatePickerContainer.propTypes = {
 		container: PropTypes.object
 	}),
 	required: PropTypes.bool,
-	type: PropTypes.oneOf(['date', 'datetime', 'time']).isRequired,
+	type: PropTypes.oneOf(['date', 'datetime']).isRequired,
 	value: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.instanceOf(Date)

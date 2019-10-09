@@ -57,7 +57,7 @@ import {
 	DatePicker,
 	onTabClick,
 	isCallbackValid,
-	getIsDisabled,
+	getIsTimeDisabled,
 	getInitialType,
 	isFormatValid,
 	onChangeCallback,
@@ -325,14 +325,9 @@ describe('DatePicker Component', () => {
 	});
 
 	describe('DatePicker methods', () => {
-		describe('getIsDisabled function', () => {
-			it('Should return an array containing two booleans', () => {
-				expect(
-					Array.isArray(
-						getIsDisabled(TYPES, 'date')
-					)
-				)
-					.toBe(true);
+		describe('getIsTimeDisabled function', () => {
+			it('Should return true if type is date', () => {
+				expect(getIsTimeDisabled(TYPES, 'date')).toBe(true);
 			});
 		});
 
@@ -350,11 +345,6 @@ describe('DatePicker Component', () => {
 			it('Should return date if type is "date"', () => {
 				expect(getInitialType(TYPES, 'date'))
 					.toBe(TYPES.date);
-			});
-
-			it('Should return time if type is "time"', () => {
-				expect(getInitialType(TYPES, 'time'))
-					.toBe(TYPES.time);
 			});
 		});
 

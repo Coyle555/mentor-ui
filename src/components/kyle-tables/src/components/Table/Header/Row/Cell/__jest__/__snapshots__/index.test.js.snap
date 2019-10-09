@@ -15,7 +15,7 @@ exports[`Default render of table header cell 1`] = `
 
 exports[`Table header cell of type float 1`] = `
 <th
-  className="table-heading-cell text-right"
+  className="table-heading-cell"
 >
   <span
     onClick={[Function]}
@@ -28,7 +28,7 @@ exports[`Table header cell of type float 1`] = `
 
 exports[`Table header cell of type integer 1`] = `
 <th
-  className="table-heading-cell text-right"
+  className="table-heading-cell"
 >
   <span
     onClick={[Function]}

@@ -6,7 +6,7 @@ exports[`DatePicker Component Should match snapshot with base props 1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -33,7 +33,7 @@ exports[`DatePicker Component Should match snapshot with clearInput prop 1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -67,7 +67,7 @@ exports[`DatePicker Component Should match snapshot with onCloseHandler prop 1`]
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -98,7 +98,7 @@ exports[`DatePicker Component Should match snapshot with onSaveHandler prop 1`] 
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -132,7 +132,7 @@ exports[`DatePicker Component Should match stapshot with all min /max props  1`]
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -159,7 +159,7 @@ exports[`DatePicker Component Should match stapshot with maxDate / and minDate p
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -186,7 +186,7 @@ exports[`DatePicker Component Should match stapshot with maxDate props  1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -213,7 +213,7 @@ exports[`DatePicker Component Should match stapshot with maxHour props  1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -240,7 +240,7 @@ exports[`DatePicker Component Should match stapshot with maxMinute props  1`] = 
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -267,7 +267,7 @@ exports[`DatePicker Component Should match stapshot with min /maxHour props  1`]
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -294,7 +294,7 @@ exports[`DatePicker Component Should match stapshot with min /maxMinute props  1
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -321,7 +321,7 @@ exports[`DatePicker Component Should match stapshot with minDate props  1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -348,7 +348,7 @@ exports[`DatePicker Component Should match stapshot with minHour props  1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -375,7 +375,7 @@ exports[`DatePicker Component Should match stapshot with minMinute props  1`] = 
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -402,7 +402,7 @@ exports[`DatePicker Component Should render date component only 1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
@@ -429,7 +429,7 @@ exports[`DatePicker Component Should render time component only 1`] = `
     class="APMDatePicker"
   >
     <div
-      class="APMDatePicker-optional-controls"
+      class="APMDatePicker-optional-controls APMDatePicker-optional-controls-timer-spacer"
     >
       <div
         class="APMDatePicker-optional-controls-main"
