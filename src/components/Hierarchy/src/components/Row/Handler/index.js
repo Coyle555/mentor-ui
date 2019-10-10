@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 const DEFAULT_HANDLER = <i className="far fa-bars fa-lg" />;
 
-export const Handler = ({ canDrag, customHandle, loading, node }) => {
+export const Handler = ({ canDrag, customHandle, drag, loading, node }) => {
 	const handlerClasses = classNames({
 		'mui-node-handler': true,
 		'mui-node-handler-draggable': canDrag
@@ -20,6 +20,16 @@ export const Handler = ({ canDrag, customHandle, loading, node }) => {
 		if (!handlerIcon) {
 			handlerIcon = DEFAULT_HANDLER;
 		}
+	}
+
+	if (typeof drag === 'function') {
+		return drag(
+			<div className={handlerClasses}>
+				<div className="node-handler-icon">
+					{handlerIcon}
+				</div>
+			</div>
+		);
 	}
 
 	return (

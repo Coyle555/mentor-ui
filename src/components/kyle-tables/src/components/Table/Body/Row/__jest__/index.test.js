@@ -1,5 +1,9 @@
 jest.mock('react-dnd', () => {
-	return { useDrag: () => [null, null] };
+	return { useDrag: () => [
+		{},
+		(Component) => Component,
+		(Component) => Component
+	]};
 });
 
 import React from 'react';

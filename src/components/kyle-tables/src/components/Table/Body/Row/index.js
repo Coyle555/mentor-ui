@@ -34,25 +34,25 @@ export const TableRow = ({
 	};
 
 	let collectedProps;
-	let dragRef;
+	let drag;
+	let preview;
 
 	if (draggable) {
-		[collectedProps, dragRef] = useDrag({ item: { id: rowId, row, type: ROW_DRAG_TYPE } });
+		[collectedProps, drag, preview] = useDrag({
+			item: { id: rowId, row, type: ROW_DRAG_TYPE }
+		});
 	}
 
 	// table row to display
-	return (
-		<tr
-			className={classNames(rowClass)}
-			ref={dragRef}
-		>
+	const RowComponent = (
+		<tr className={classNames(rowClass)}>
 			{ draggable &&
-				<td className={classNames({
+				drag(<td className={classNames({
 					'table-cell-view table-drag-icon': true,
 					'table-btn-border': !expandable && rowButtons.length === 0
 				})}>
 					<i className="fas fa-grip-vertical" />
-				</td>
+				</td>)
 			}
 			{ expandable && 
 				<ExpandCell
@@ -110,6 +110,12 @@ export const TableRow = ({
 			))}
 		</tr>
 	);
+
+	if (draggable) {
+		return preview(RowComponent);
+	}
+
+	return RowComponent;
 }
 
 TableRow.propTypes = {

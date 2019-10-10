@@ -1,11 +1,14 @@
-import React, { PureComponent, Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useDrag } from 'react-dnd';
 
 import { Handler } from './Handler';
 import { ToggleButton } from './ToggleButton';
 import { Node } from './Node';
 import { Scaffold } from './Scaffold';
+
+const NODE_DRAG_TYPE = 'NODE_DRAG';
 
 export const Row = ({
 	buttonMenuIndex,
@@ -30,6 +33,67 @@ export const Row = ({
 		toggleChildVisibility({ index, node: tree[index] });
 	});
 
+	let collectedProps;
+	let drag;
+	let preview;
+
+	if (canDrag) {
+		[collectedProps, drag, preview] = useDrag({
+			item: { id: tree[index].id, type: NODE_DRAG_TYPE }
+		});
+	}
+
+	let NodeComponent = null;
+
+	if (canDrag) {
+		NodeComponent = preview(
+			<Fragment>
+				<Handler
+					canDrag={canDrag}
+					customHandle={customHandle}
+					drag={drag}
+					loading={loading}
+					node={tree[index]}
+				/>
+				<Node
+					buttonMenuIndex={buttonMenuIndex}
+					clickable={clickable}
+					customButtons={customButtons}
+					dispatch={dispatch}
+					node={tree[index]}
+					nodeIndex={index}
+					nodeStyle={nodeStyle}
+					selected={selectedNodeIndex === index}
+					subtitle={subtitle || tree[index].subtitle}
+					title={title}
+				/>
+			</Fragment>
+		);
+	} else {
+		NodeComponent = (
+			<Fragment>
+				<Handler
+					canDrag={canDrag}
+					customHandle={customHandle}
+					loading={loading}
+					node={tree[index]}
+				/>
+				<Node
+					buttonMenuIndex={buttonMenuIndex}
+					clickable={clickable}
+					customButtons={customButtons}
+					dispatch={dispatch}
+					node={tree[index]}
+					nodeIndex={index}
+					nodeStyle={nodeStyle}
+					selected={selectedNodeIndex === index}
+					subtitle={subtitle || tree[index].subtitle}
+					title={title}
+				/>
+			</Fragment>
+		);
+	}
+
 	return (
 		<div
 			className="mui-node-row"
@@ -47,24 +111,7 @@ export const Row = ({
 				nodeIndex={index}
 				tree={tree}
 			/>
-			<Handler
-				canDrag={canDrag}
-				customHandle={customHandle}
-				loading={loading}
-				node={tree[index]}
-			/>
-			<Node
-				buttonMenuIndex={buttonMenuIndex}
-				clickable={clickable}
-				customButtons={customButtons}
-				dispatch={dispatch}
-				node={tree[index]}
-				nodeIndex={index}
-				nodeStyle={nodeStyle}
-				selected={selectedNodeIndex === index}
-				subtitle={subtitle || tree[index].subtitle}
-				title={title}
-			/>
+			{ NodeComponent }
 		</div>
 	);
 };
