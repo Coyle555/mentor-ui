@@ -1,6 +1,7 @@
-import React, { Component, PureComponent } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useDrag } from 'react-dnd';
 
 import { TableRowDraggable } from './Drag/Draggable';
 import { ExpandCell } from './Cell/ExpandCell';
@@ -8,141 +9,146 @@ import { Cell } from './Cell';
 
 // Generates a row that just displays the data in cells
 // Also can be expanded
-export class TableRow extends PureComponent {
+export const TableRow = ({
+	allowSelection,
+	columns,
+	customClasses,
+	customColumns,
+	draggable,
+	expandable,
+	expanded,
+	rowButtons,
+	rowSelected,
+	row,
+	rowId,
+	selectedRows,
+	_onExpandClick,
+	_onRowSelect
+}) => {
 
-	static propTypes = {
-		columns: PropTypes.arrayOf(PropTypes.object),
-		customClasses: PropTypes.object,
-		customColumns: PropTypes.object,
-		draggable: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.shape({
-				dragType: PropTypes.string, dragCb: PropTypes.func
-			})
-		]),
-		expandable: PropTypes.bool,
-		expanded: PropTypes.bool,
-		rowSelected: PropTypes.bool,
-		row: PropTypes.object,
-		rowId: PropTypes.string,
-		_onExpandClick: PropTypes.func
+	const rowClass = {
+		'table-row': true,
+		'table-row-selected': rowSelected,
+		[customClasses.tableRow]: !!customClasses.tableRow
 	};
 
-	static defaultProps = {
-		columns: [],
-		customClasses: {},
-		customColumns: {},
-		draggable: false,
-		expandable: false,
-		rowButtons: [],
-		row: {}
-	};
+	let collectedProps;
+	let dragRef;
 
-	_onExpandClick = (event) => {
-		event.stopPropagation();
-		this.props._onExpandClick(this.props.rowId);
+	if (draggable) {
+		[collectedProps, dragRef] = useDrag({ item: { id: rowId, type: 'TABLE_ROW' } });
 	}
 
-	_onRowSelect = (event) => {
-		this.props._onRowSelect(this.props.row);
-	}
-
-	onExtraColClick = (onClick) => {
-		if (typeof onClick === 'function') {
-			onClick(this.props.row);
-		}
-	}
-
-	render() {
-		const {
-			allowSelection,
-			columns,
-			customClasses,
-			customColumns,
-			draggable,
-			dropType,
-			expandable,
-			expanded,
-			rowButtons,
-			rowSelected,
-			row,
-			rowId,
-			selectedRows,
-		} = this.props;
-
-		const rowClass = {
-			'table-row': true,
-			'table-row-selected': rowSelected,
-			[customClasses.tableRow]: !!customClasses.tableRow
-		};
-
-		// table row to display
-		let tableRow = (
-			<tr className={classNames(rowClass)}>
-				{ expandable && 
-					<ExpandCell
-						expanded={expanded}
-						lastBtn={rowButtons.length === 0}
-						onClick={this._onExpandClick}
-					/>
-				}
-				{ rowButtons.map((btn, i) => (
-					<td
-						className={classNames({
-							'table-cell-view table-row-button': true,
-							'table-btn-border': rowButtons.length === i + 1
-						})}
-						key={`${rowId}-extra-${i}`}
-						onClick={() => this.onExtraColClick(btn.onClick)}
-					>
-						{btn.icon}
-					</td>
-				))}
-				{ allowSelection &&
-					<td className="table-cell-view">
-						<div className="pretty p-icon">
-							<input
-								checked={!!rowSelected}
-								onChange={this._onRowSelect}
-								type="checkbox"
-							/>
-							<div className="state p-info">
-								<i className="icon fal fa-check" />
-								<label />
-							</div>
-						</div>
-					</td>
-				}
-				{ columns.map(col => (
-					<Cell
-						colId={col.id}
-						customClasses={customClasses}
-						customColumn={customColumns[col.id]}
-						key={col.id}
-						parse={col.parse}
-						row={row}
-						type={col.type}
-						value={row[col.id]}
-					/>
-				))}
-			</tr>
-		);
-
-
-		// if view row is draggable, wrap row in a draggable component
-		if (draggable && rowSelected) {
-			return (
-				<TableRowDraggable
-					dragCb={draggable.dragCb}
-					dragType={draggable.dragType}
-					selectedRows={selectedRows}
-					rowId={rowId}
+	// table row to display
+	return (
+		<tr
+			className={classNames(rowClass)}
+			ref={dragRef}
+		>
+			{ draggable &&
+				<td className="table-expand-icon" style={{ color: 'lightgrey' }}>
+					<i className="fas fa-grip-vertical" />
+				</td>
+			}
+			{ expandable && 
+				<ExpandCell
+					expanded={expanded}
+					lastBtn={rowButtons.length === 0}
+					onClick={useCallback((event) => {
+						event.stopPropagation();
+						_onExpandClick(rowId);
+					}, [rowId])}
+				/>
+			}
+			{ rowButtons.map((btn, i) => (
+				<td
+					className={classNames({
+						'table-cell-view table-row-button': true,
+						'table-btn-border': rowButtons.length === i + 1
+					})}
+					key={`${rowId}-extra-${i}`}
+					onClick={() => typeof btn.onClick === 'function'
+						? btn.onClick(row)
+						: null
+					}
 				>
-					{tableRow}
-				</TableRowDraggable>
-			);
-		}
+					{btn.icon}
+				</td>
+			))}
+			{ allowSelection &&
+				<td className="table-cell-view">
+					<div className="pretty p-icon">
+						<input
+							checked={!!rowSelected}
+							onChange={useCallback(() => {
+								_onRowSelect(row);
+							}, [row])}
+							type="checkbox"
+						/>
+						<div className="state p-info">
+							<i className="icon fal fa-check" />
+							<label />
+						</div>
+					</div>
+				</td>
+			}
+			{ columns.map(col => (
+				<Cell
+					colId={col.id}
+					customClasses={customClasses}
+					customColumn={customColumns[col.id]}
+					key={col.id}
+					parse={col.parse}
+					row={row}
+					type={col.type}
+					value={row[col.id]}
+				/>
+			))}
+		</tr>
+	);
 
-		return tableRow;
+
+	// if view row is draggable, wrap row in a draggable component
+	/*if (draggable && rowSelected) {
+		return (
+			<TableRowDraggable
+				dragCb={draggable.dragCb}
+				dragType={draggable.dragType}
+				selectedRows={selectedRows}
+				rowId={rowId}
+			>
+				{tableRow}
+			</TableRowDraggable>
+		);
 	}
+
+	return tableRow;*/
+}
+
+TableRow.propTypes = {
+	columns: PropTypes.arrayOf(PropTypes.object),
+	customClasses: PropTypes.object,
+	customColumns: PropTypes.object,
+	draggable: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.shape({
+			dragType: PropTypes.string, dragCb: PropTypes.func
+		})
+	]),
+	expandable: PropTypes.bool,
+	expanded: PropTypes.bool,
+	rowSelected: PropTypes.bool,
+	row: PropTypes.object,
+	rowId: PropTypes.string,
+	_onExpandClick: PropTypes.func
+};
+
+TableRow.defaultProps = {
+	columns: [],
+	customClasses: {},
+	customColumns: {},
+	draggable: false,
+	expandable: false,
+	rowButtons: [],
+	row: {}
 };

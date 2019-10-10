@@ -40,6 +40,7 @@ export const DraggableTable = ({ columns, data }) => {
 					columns={columns}
 					currentPage={1}
 					data={data}
+					draggable={true}
 					pageSize={10}
 					recordCount={10}
 				/>
