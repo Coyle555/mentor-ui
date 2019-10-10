@@ -1,3 +1,14 @@
+jest.mock('mentor-inputs', () => {
+	return { TextInput: props => (
+		<input
+			{...props}
+			onChange={(evt) => {
+				props.onChange(false, evt.target.value)
+			}} 
+		/>
+	)};
+});
+
 import React from 'react';
 import { FieldList } from '../index';
 import renderer from 'react-test-renderer';

@@ -2,6 +2,10 @@ jest.mock('../components/Portal', () => {
 	return { Portal: props => <div>{props.children}</div> };
 });
 
+jest.mock('react-dnd', () => {
+	return { useDrag: props => <div>{JSON.stringify(props)}</div> };
+});
+
 import React from 'react';
 import InsertForm from '../index';
 import renderer from 'react-test-renderer';

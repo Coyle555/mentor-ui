@@ -1,4 +1,7 @@
 jest.mock('react-tooltip', () => (props) => <div>{JSON.stringify(props)}</div>);
+jest.mock('react-dnd', () => {
+	return { useDrag: () => [null, null] };
+});
 
 import React from 'react';
 import { StructuredQuery } from '../index';

@@ -1,3 +1,11 @@
+jest.mock('../Toolbar', () => {
+	return { Toolbar: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('structured-query', () => {
+	return props => <div>{JSON.stringify(props)}</div>;
+});
+
 import React from 'react';
 import { Header } from '../index';
 import renderer from 'react-test-renderer';

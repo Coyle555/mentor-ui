@@ -6,7 +6,7 @@ import { useDrag } from 'react-dnd';
 import { ExpandCell } from './Cell/ExpandCell';
 import { Cell } from './Cell';
 
-const ROW_DRAG_TYPE = 'TABLE_DRAG';
+const ROW_DRAG_TYPE = 'TABLE_ROW_DRAG';
 
 // Generates a row that just displays the data in cells
 // Also can be expanded

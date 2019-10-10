@@ -1,3 +1,23 @@
+jest.mock('../components/Header', () => {
+	return { Header: props => <div>{JSON.stringify(props)}</div> }
+});
+
+jest.mock('../components/Table', () => {
+	return { TableMain: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../components/Loading', () => {
+	return { Loading: props => <div>Loading {JSON.stringify(props)}</div> };
+});
+
+jest.mock('../components/EditModal', () => {
+	return { EditModal: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('insert-popup-form', () => {
+	return props => <div>{JSON.stringify(props)}</div>;
+});
+
 import React from 'react';
 import { Table } from '../index';
 import renderer from 'react-test-renderer';

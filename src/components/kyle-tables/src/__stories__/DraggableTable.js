@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { useDrop, DndProvider } from 'react-dnd';
 
 import { Table } from '../index';
 
 const DraggableArea = (props) => {
+	const [bgColor, setBgColor] = useState('lightgrey');
 	const [collectedProps, drop] = useDrop({
-		accept: 'TABLE_DRAG',
+		accept: 'TABLE_ROW_DRAG',
 		drop: (item, monitor) => {
-			console.log('item dropped', item);
+			setBgColor('lightgrey');
+			console.log('row dropped', item);
+		},
+		hover: (item, monitor) => {
+			setBgColor('yellow');
 		}
 	});
 
@@ -16,7 +21,7 @@ const DraggableArea = (props) => {
 		<div
 			ref={drop}
 			style={{
-				background: 'lightgrey',
+				background: bgColor,
 				height: window.innerHeight + 'px',
 				width: '50%',
 				fontSize: '2rem',

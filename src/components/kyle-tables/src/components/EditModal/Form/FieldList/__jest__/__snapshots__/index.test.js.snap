@@ -3,12 +3,8 @@
 exports[`List of fields 1`] = `
 Array [
   <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    onBlur={[Function]}
     onChange={[Function]}
     placeholder="Search fields"
-    type="text"
     value=""
   />,
   <ul
