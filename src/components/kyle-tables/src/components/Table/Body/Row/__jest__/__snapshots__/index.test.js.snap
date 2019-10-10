@@ -12,13 +12,77 @@ exports[`Table row custom class 1`] = `
 />
 `;
 
-exports[`Table row droppable and expandable 1`] = `null`;
+exports[`Table row draggable 1`] = `
+<tr
+  className="table-row"
+>
+  <td
+    className="table-cell-view table-drag-icon table-btn-border"
+  >
+    <i
+      className="fas fa-grip-vertical"
+    />
+  </td>
+  <td
+    className="table-cell-view"
+    title="1"
+  >
+    1
+  </td>
+</tr>
+`;
 
-exports[`Table row droppable and not expandable 1`] = `null`;
+exports[`Table row draggable and custom row buttons 1`] = `
+<tr
+  className="table-row"
+>
+  <td
+    className="table-cell-view table-drag-icon"
+  >
+    <i
+      className="fas fa-grip-vertical"
+    />
+  </td>
+  <td
+    className="table-cell-view table-row-button table-btn-border"
+    onClick={[Function]}
+  />
+  <td
+    className="table-cell-view"
+    title="1"
+  >
+    1
+  </td>
+</tr>
+`;
 
-exports[`Table row in edit mode and is draggable 1`] = `null`;
-
-exports[`Table row not in edit mode and is draggable 1`] = `null`;
+exports[`Table row draggable and expandable 1`] = `
+<tr
+  className="table-row"
+>
+  <td
+    className="table-cell-view table-drag-icon"
+  >
+    <i
+      className="fas fa-grip-vertical"
+    />
+  </td>
+  <td
+    className="table-expand-icon table-btn-border"
+    onClick={[Function]}
+  >
+    <i
+      className="fas fa-caret-right fa-2x"
+    />
+  </td>
+  <td
+    className="table-cell-view"
+    title="1"
+  >
+    1
+  </td>
+</tr>
+`;
 
 exports[`Table row that allows a selection that is checked 1`] = `
 <tr

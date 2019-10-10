@@ -6,17 +6,9 @@ exports[`Page dropdown with infinity max page 1`] = `
 <div
   className="page-dropdown"
 >
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field page-dropdown-input mui-mi-input-field-has-error"
-    data-testid="pagedropdown"
-    name="page-dropdown"
-    onBlur={[Function]}
-    onChange={[Function]}
-    placeholder="Enter number"
-    type="text"
-    value="1"
-  />
+  <div>
+    {"className":"page-dropdown-input","name":"page-dropdown","value":1}
+  </div>
   <span>
     of 
     NaN

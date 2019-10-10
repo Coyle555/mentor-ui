@@ -16,12 +16,16 @@ exports[`Table body with a couple rows 1`] = `
 <tbody
   className="table-body"
 >
-  <tr
-    className="table-row"
-  />
-  <tr
-    className="table-row"
-  />
+  <tr>
+    <td>
+      {"columns":[],"customClasses":{},"draggable":false,"dropType":"","expandable":false,"rowButtons":[],"row":{"id":"foo"},"rowId":"foo","rowSelected":false,"selectedRows":{}}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {"columns":[],"customClasses":{},"draggable":false,"dropType":"","expandable":false,"rowButtons":[],"row":{"id":"bar"},"rowId":"bar","rowSelected":false,"selectedRows":{}}
+    </td>
+  </tr>
 </tbody>
 `;
 
@@ -29,9 +33,11 @@ exports[`Table body with an expandable row 1`] = `
 <tbody
   className="table-body"
 >
-  <tr
-    className="table-row"
-  />
+  <tr>
+    <td>
+      {"columns":[],"customClasses":{},"draggable":false,"dropType":"","expandable":false,"rowButtons":[],"row":{"id":"foo"},"rowId":"foo","rowSelected":false,"selectedRows":{}}
+    </td>
+  </tr>
 </tbody>
 `;
 
@@ -39,16 +45,13 @@ exports[`Table body with an expanded row 1`] = `
 <tbody
   className="table-body"
 >
-  <tr
-    className="table-row"
-  >
-    <td
-      className="table-expand-icon table-btn-border"
-      onClick={[Function]}
-    >
-      <i
-        className="fas fa-caret-right fa-2x"
+  <tr>
+    <td>
+      <button
+        className="table-expand-icon"
+        onClick={[Function]}
       />
+      {"columns":[],"customClasses":{},"draggable":false,"dropType":"","expandable":true,"rowButtons":[],"row":{"id":"foo"},"rowId":"foo","rowSelected":false,"selectedRows":{}}
     </td>
   </tr>
 </tbody>

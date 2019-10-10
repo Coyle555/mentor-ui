@@ -48,10 +48,9 @@ export const TableRow = ({
 		>
 			{ draggable &&
 				<td className={classNames({
-					'table-drag-icon': true,
+					'table-cell-view table-drag-icon': true,
 					'table-btn-border': !expandable && rowButtons.length === 0
-				})}
-					style={{ color: 'lightgrey' }}>
+				})}>
 					<i className="fas fa-grip-vertical" />
 				</td>
 			}

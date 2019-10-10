@@ -1,5 +1,6 @@
-jest.mock('../Drag/Droppable');
-jest.mock('../Drag/Draggable');
+jest.mock('react-dnd', () => {
+	return { useDrag: () => [null, null] };
+});
 
 import React from 'react';
 import { TableRow } from '../index';
@@ -92,42 +93,38 @@ test('Table row with data cells', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Table row droppable and not expandable', () => {
-	const tree = renderer.create(<TableRow dropType="foo" rowSelected={false} />).toJSON();
+test('Table row draggable', () => {
+	const tree = renderer.create(
+		<TableRow
+			columns={[{ id: 'foo' }]}
+			draggable={true}
+			row={{ foo: 1 }}
+		/>
+	).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Table row droppable and expandable', () => {
+test('Table row draggable and expandable', () => {
 	const tree = renderer.create(
 		<TableRow
-			dropType="foo"
+			columns={[{ id: 'foo' }]}
+			draggable={true}
 			expandable={true}
-			rowSelected={false}
+			row={{ foo: 1 }}
 		/>
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Table row not in edit mode and is draggable', () => {
+test('Table row draggable and custom row buttons', () => {
 	const tree = renderer.create(
 		<TableRow
+			columns={[{ id: 'foo' }]}
 			draggable={true}
-			editMode={false}
-			rowSelected={true}
-		/>
-	).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Table row in edit mode and is draggable', () => {
-	const tree = renderer.create(
-		<TableRow
-			draggable={true}
-			editMode={true}
-			rowSelected={true}
+			row={{ foo: 1 }}
+			rowButtons={[{}]}
 		/>
 	).toJSON();
 

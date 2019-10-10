@@ -1,3 +1,23 @@
+jest.mock('../Header', () => {
+	return { TableHeader: (props) => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../Body', () => {
+	return { TableBody: (props) => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../NoResults', () => {
+	return { NoResults: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../Footer/RecordCount', () => {
+	return { RecordCount: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../Footer', () => {
+	return { TableFooter: props => <div>{JSON.stringify(props)}</div> };
+});
+
 import React from 'react';
 import { TableMain } from '../index';
 import renderer from 'react-test-renderer';

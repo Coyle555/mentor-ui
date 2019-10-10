@@ -1,3 +1,23 @@
+jest.mock('../Row', () => {
+	return { TableRow: props => {
+		return (
+			<tr>
+				<td>
+					{ props.expandable &&
+						<button
+							className="table-expand-icon"
+							onClick={() => {
+								props._onExpandClick(props.rowId);
+							}}
+						/>
+					}
+					{JSON.stringify(props)}
+				</td>
+			</tr>
+		);
+	}};
+});
+
 import React from 'react';
 import { TableBody } from '../index';
 import renderer from 'react-test-renderer';

@@ -24,7 +24,6 @@ export const PageDropdown = ({ currentPage, onChange, pageSize, recordCount }) =
 		<div className="page-dropdown">
 			<IntegerInput
 				className="page-dropdown-input"
-				data-testid="pagedropdown"
 				name="page-dropdown"
 				onBlur={_onBlur}
 				value={currentPage}

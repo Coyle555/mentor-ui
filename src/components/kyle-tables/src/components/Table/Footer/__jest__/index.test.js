@@ -1,3 +1,19 @@
+jest.mock('../RecordCount', () => {
+	return { RecordCount: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../PageDropdown', () => {
+	return { PageDropdown: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../NextButton', () => {
+	return { NextButton: props => <div>{JSON.stringify(props)}</div> };
+});
+
+jest.mock('../PreviousButton', () => {
+	return { PreviousButton: props => <div>{JSON.stringify(props)}</div> };
+});
+
 import React from 'react';
 import { TableFooter } from '../index';
 import renderer from 'react-test-renderer';
