@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { TableRowDraggable } from './Drag/Draggable';
-import { TableRowDroppable } from './Drag/Droppable';
 import { ExpandCell } from './Cell/ExpandCell';
 import { Cell } from './Cell';
 
@@ -130,24 +129,8 @@ export class TableRow extends PureComponent {
 		);
 
 
-		if (!!dropType && !rowSelected) {
-			let colSpan = expandable
-				? columns.length + 2
-				: columns.length + 1;
-
-			return (
-				<TableRowDroppable
-					colSpan={colSpan}
-					desc={row.desc}
-					dropType={dropType}
-					name={row.name}
-					rowId={rowId}
-				>
-					{tableRow}
-				</TableRowDroppable>
-			);
 		// if view row is draggable, wrap row in a draggable component
-		} else if (draggable && rowSelected) {
+		if (draggable && rowSelected) {
 			return (
 				<TableRowDraggable
 					dragCb={draggable.dragCb}
