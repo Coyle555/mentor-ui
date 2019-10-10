@@ -209,9 +209,7 @@ storiesOf('Hierarchy', module)
 			</div>
 		);
 	}).add('Draggable tree', () => {
-		return (
-			<DraggableTree tree={tree} />
-		);
+		return <DraggableTree tree={tree} />;
 	})
 	.add('Tree with an async node expansion', () => {
 		return (

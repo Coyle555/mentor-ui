@@ -43,7 +43,7 @@ export const Row = ({
 		});
 	}
 
-	let NodeComponent = (
+	const NodeComponent = (
 		<div className="mui-node-wrapper">
 			<Handler
 				canDrag={canDrag}
