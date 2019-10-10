@@ -22,23 +22,19 @@ export const Handler = ({ canDrag, customHandle, drag, loading, node }) => {
 		}
 	}
 
-	if (typeof drag === 'function') {
-		return drag(
+	return typeof drag === 'function'
+		? drag(
 			<div className={handlerClasses}>
 				<div className="node-handler-icon">
 					{handlerIcon}
 				</div>
 			</div>
-		);
-	}
-
-	return (
-		<div className={handlerClasses}>
+		)
+		: <div className={handlerClasses}>
 			<div className="node-handler-icon">
 				{handlerIcon}
 			</div>
-		</div>
-	);
+		</div>;
 };
 
 Handler.propTypes = {

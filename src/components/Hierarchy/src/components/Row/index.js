@@ -43,56 +43,29 @@ export const Row = ({
 		});
 	}
 
-	let NodeComponent = null;
-
-	if (canDrag) {
-		NodeComponent = preview(
-			<Fragment>
-				<Handler
-					canDrag={canDrag}
-					customHandle={customHandle}
-					drag={drag}
-					loading={loading}
-					node={tree[index]}
-				/>
-				<Node
-					buttonMenuIndex={buttonMenuIndex}
-					clickable={clickable}
-					customButtons={customButtons}
-					dispatch={dispatch}
-					node={tree[index]}
-					nodeIndex={index}
-					nodeStyle={nodeStyle}
-					selected={selectedNodeIndex === index}
-					subtitle={subtitle || tree[index].subtitle}
-					title={title}
-				/>
-			</Fragment>
-		);
-	} else {
-		NodeComponent = (
-			<Fragment>
-				<Handler
-					canDrag={canDrag}
-					customHandle={customHandle}
-					loading={loading}
-					node={tree[index]}
-				/>
-				<Node
-					buttonMenuIndex={buttonMenuIndex}
-					clickable={clickable}
-					customButtons={customButtons}
-					dispatch={dispatch}
-					node={tree[index]}
-					nodeIndex={index}
-					nodeStyle={nodeStyle}
-					selected={selectedNodeIndex === index}
-					subtitle={subtitle || tree[index].subtitle}
-					title={title}
-				/>
-			</Fragment>
-		);
-	}
+	let NodeComponent = (
+		<div className="mui-node-wrapper">
+			<Handler
+				canDrag={canDrag}
+				customHandle={customHandle}
+				drag={drag}
+				loading={loading}
+				node={tree[index]}
+			/>
+			<Node
+				buttonMenuIndex={buttonMenuIndex}
+				clickable={clickable}
+				customButtons={customButtons}
+				dispatch={dispatch}
+				node={tree[index]}
+				nodeIndex={index}
+				nodeStyle={nodeStyle}
+				selected={selectedNodeIndex === index}
+				subtitle={subtitle || tree[index].subtitle}
+				title={title}
+			/>
+		</div>
+	);
 
 	return (
 		<div
@@ -111,7 +84,10 @@ export const Row = ({
 				nodeIndex={index}
 				tree={tree}
 			/>
-			{ NodeComponent }
+			{ canDrag
+				? preview(NodeComponent)
+				: NodeComponent
+			}
 		</div>
 	);
 };
