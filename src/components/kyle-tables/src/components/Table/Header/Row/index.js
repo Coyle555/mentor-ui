@@ -13,6 +13,7 @@ export const TableHeaderRow = ({
 	allRowsSelected,
 	cells,
 	customClasses,
+	draggable,
 	editMode,
 	expandable,
 	rowButtons,
@@ -32,6 +33,12 @@ export const TableHeaderRow = ({
 
 	return (
 		<tr className={headerRowClasses}>
+			{ draggable &&
+				<th className={classNames({
+					'table-heading-cell table-expand-cell': true,
+					'table-btn-border': !expandable && rowButtons.length === 0
+				})} />
+			}
 			{ expandable &&
 				<th className={classNames({
 					'table-heading-cell table-expand-cell': true,

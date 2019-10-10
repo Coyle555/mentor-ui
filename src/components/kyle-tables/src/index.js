@@ -559,9 +559,7 @@ export class Table extends Component {
 						ExpandComponent: this.props.ExpandComponent,
 					}}
 					recordProperties={recordProperties}
-					dragProperties={{
-						draggable: this.props.draggable,
-					}}
+					draggable={this.props.draggable}
 					dropType={this.props.dropType}
 					pageProperties={{
 						enabled: this.props.pagination,

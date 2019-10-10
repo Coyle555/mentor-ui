@@ -5,7 +5,12 @@ import { useDrop, DndProvider } from 'react-dnd';
 import { Table } from '../index';
 
 const DraggableArea = (props) => {
-	const [collectedProps, drop] = useDrop({ accept: 'TABLE_DRAG' });
+	const [collectedProps, drop] = useDrop({
+		accept: 'TABLE_DRAG',
+		drop: (item, monitor) => {
+			console.log('item dropped', item);
+		}
+	});
 
 	return (
 		<div

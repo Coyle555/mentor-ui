@@ -13,7 +13,7 @@ import { TableFooter } from './Footer';
 export const TableMain = ({
 	columns,
 	customClasses,
-	dragProperties,
+	draggable,
 	dropType,
 	events,
 	expandable,
@@ -43,6 +43,7 @@ export const TableMain = ({
 							allRowsSelected={numRowsSelected === rowProperties.data.length}
 							columns={columns}
 							customClasses={customClasses}
+							draggable={draggable}
 							editMode={rowProperties.editMode}
 							expandable={expandable}
 							rowButtons={rowButtons}
@@ -55,7 +56,7 @@ export const TableMain = ({
 							columns={columns}
 							customClasses={customClasses}
 							customColumns={rowProperties.customColumns}
-							dragProperties={dragProperties}
+							draggable={draggable}
 							dropType={dropType}
 							rowButtons={rowButtons}
 							ExpandComponent={rowProperties.ExpandComponent}
@@ -86,15 +87,7 @@ export const TableMain = ({
 TableMain.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
 	customClasses: PropTypes.object,
-	dragProperties: PropTypes.shape({
-		draggable: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.shape({
-				dragType: PropTypes.string,
-				dragCb: PropTypes.func
-			})
-		])
-	}),
+	draggable: PropTypes.bool,
 	events: PropTypes.shape({
 		onNext: PropTypes.func,
 		onPrevious: PropTypes.func,

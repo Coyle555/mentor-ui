@@ -12,16 +12,7 @@ export class TableBody extends Component {
 		customColumns: PropTypes.object,
 		expandable: PropTypes.bool,
 		ExpandComponent: PropTypes.element,
-		dragProperties: PropTypes.shape({
-			draggable: PropTypes.oneOfType([
-				PropTypes.bool,
-				PropTypes.object,
-			]),
-			editDraggable: PropTypes.oneOfType([
-				PropTypes.bool,
-				PropTypes.object
-			])
-		}),
+		draggable: PropTypes.bool,
 		rowButtons: PropTypes.arrayOf(PropTypes.object),
 		rowData: PropTypes.arrayOf(PropTypes.object).isRequired,
 		selectedRows: PropTypes.object,
@@ -30,10 +21,7 @@ export class TableBody extends Component {
 	static defaultProps = {
 		columns: [],
 		customClasses: {},
-		dragProperties: {
-			draggable: false,
-			editDraggable: false
-		},
+		draggable: false,
 		dropType: '',
 		expandable: false,
 		rowButtons: [],
@@ -67,7 +55,7 @@ export class TableBody extends Component {
 			customClasses,
 			customColumns,
 			rowData,
-			dragProperties,
+			draggable,
 			dropType,
 			expandable,
 			ExpandComponent,
@@ -87,7 +75,7 @@ export class TableBody extends Component {
 					columns={columns}
 					customClasses={customClasses}
 					customColumns={customColumns}
-					draggable={dragProperties.draggable}
+					draggable={draggable}
 					dropType={dropType}
 					expandable={expandable}
 					expanded={expandedRows[row.id]}

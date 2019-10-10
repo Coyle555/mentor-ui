@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDrag } from 'react-dnd';
 
-import { TableRowDraggable } from './Drag/Draggable';
 import { ExpandCell } from './Cell/ExpandCell';
 import { Cell } from './Cell';
+
+const ROW_DRAG_TYPE = 'TABLE_DRAG';
 
 // Generates a row that just displays the data in cells
 // Also can be expanded
@@ -36,7 +37,7 @@ export const TableRow = ({
 	let dragRef;
 
 	if (draggable) {
-		[collectedProps, dragRef] = useDrag({ item: { id: rowId, type: 'TABLE_ROW' } });
+		[collectedProps, dragRef] = useDrag({ item: { id: rowId, row, type: ROW_DRAG_TYPE } });
 	}
 
 	// table row to display
@@ -46,7 +47,11 @@ export const TableRow = ({
 			ref={dragRef}
 		>
 			{ draggable &&
-				<td className="table-expand-icon" style={{ color: 'lightgrey' }}>
+				<td className={classNames({
+					'table-drag-icon': true,
+					'table-btn-border': !expandable && rowButtons.length === 0
+				})}
+					style={{ color: 'lightgrey' }}>
 					<i className="fas fa-grip-vertical" />
 				</td>
 			}
@@ -106,23 +111,6 @@ export const TableRow = ({
 			))}
 		</tr>
 	);
-
-
-	// if view row is draggable, wrap row in a draggable component
-	/*if (draggable && rowSelected) {
-		return (
-			<TableRowDraggable
-				dragCb={draggable.dragCb}
-				dragType={draggable.dragType}
-				selectedRows={selectedRows}
-				rowId={rowId}
-			>
-				{tableRow}
-			</TableRowDraggable>
-		);
-	}
-
-	return tableRow;*/
 }
 
 TableRow.propTypes = {
