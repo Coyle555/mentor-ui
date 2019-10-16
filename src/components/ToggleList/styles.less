@@ -1,0 +1,30 @@
+@import '~mentor-ui-constants';
+
+.mui-toggle-list {
+	width: 100%;
+	border-radius: 4px;
+	color: @charcoal;
+
+	&-item:first-child {
+		border-top: none;
+	}
+
+	&-item {
+		border-top: 1px solid lightgrey;
+		padding: 10px;
+
+		> .title {
+			cursor: pointer;
+			margin-bottom: 10px;
+			font-size: 1.2rem;
+			
+			> .icon {
+				margin-right: 10px;
+			}
+		}
+
+		> .content {
+			padding: 5px 20px;
+		}
+	}
+}

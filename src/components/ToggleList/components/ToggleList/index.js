@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { AccordionItem } from './AccordionItem';
+import { ToggleListItem } from './ToggleListItem';
 
 import '../../styles.less';
 
-export const Accordion = ({ list }) => {
+export const ToggleList = ({ list }) => {
 	return (
-		<div className="mui-accordion">
+		<div className="mui-toggle-list">
 			{ list.map((item, i) => (
-				<AccordionItem
+				<ToggleListItem
 					content={item.content}
 					key={item.title + i}
 					title={item.title}
@@ -19,7 +19,7 @@ export const Accordion = ({ list }) => {
 	);
 };
 
-Accordion.propTypes = {
+ToggleList.propTypes = {
 	list: PropTypes.arrayOf(PropTypes.shape({
 		content: PropTypes.oneOfType([
 			PropTypes.element, PropTypes.string
@@ -28,6 +28,6 @@ Accordion.propTypes = {
 	}))
 };
 
-Accordion.defaultProps = {
+ToggleList.defaultProps = {
 	list: []
 };

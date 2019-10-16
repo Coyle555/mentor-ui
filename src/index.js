@@ -6,7 +6,7 @@ import e from './components/Hierarchy';
 
 import './styles/index.less';
 
-export * from './components/Accordion;
+export * from './components/ToggleList;
 export * from './components/DatePicker';
 export * from './components/Dropdown';
 export * from './components/ErrorPage';
