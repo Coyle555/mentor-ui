@@ -12,15 +12,36 @@
 	}
 
 	&-list-item {
-		border-top: 1px solid @gray-dark;
+		border-top: 1px solid lightgrey;
 		padding: 10px;
 
-		.title {
+		> .title {
+			cursor: pointer;
 			margin-bottom: 10px;
+			
+			.icon {
+				margin-right: 5px;
+			}
 		}
 
-		.content {
+		> .content {
+			animation-duration: 0.35s;
+			animation-name: slidein;
+			animation-timing: ease-in-out;
 			padding: 5px 10px;
+			position: relative;
 		}
+	}
+}
+
+@keyframes slidein {
+	from {
+		top: 20px;
+		opacity: 0;
+	}
+
+	to {
+		top: 0;
+		opacity: 1;
 	}
 }
