@@ -6,7 +6,6 @@ import e from './components/Hierarchy';
 
 import './styles/index.less';
 
-export * from './components/ToggleList;
 export * from './components/DatePicker';
 export * from './components/Dropdown';
 export * from './components/ErrorPage';
@@ -15,8 +14,10 @@ export * from './components/Modal';
 export * from './components/NoResults';
 export * from './components/Panel/index';
 export * from './components/Panel/PanelSeries/index';
+export * from './components/SegmentedList';
 export * from './components/Spinner';
 export * from './components/ToggleButton';
+export * from './components/ToggleList;
 export * from './components/DatePicker';
 
 
