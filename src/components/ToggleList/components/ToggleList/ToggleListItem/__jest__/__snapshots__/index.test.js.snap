@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default toggle list item 1`] = `
+<div
+  className="mui-toggle-list-item"
+>
+  <div
+    className="title"
+    onClick={[Function]}
+  >
+    <div>
+      <div>
+        {"from":{"transform":"rotate(0deg)"},"to":{"transform":"rotate(0deg)"}}
+      </div>
+      <i
+        className="fas fa-caret-right icon"
+        style={Object {}}
+      />
+    </div>
+    Foo
+  </div>
+</div>
+`;

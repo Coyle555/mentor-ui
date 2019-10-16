@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of a toggle list 1`] = `
+<div
+  className="mui-toggle-list"
+>
+  <div>
+    {"content":"Foo content","title":"Foo"}
+  </div>
+  <div>
+    {"content":"Bar content","title":"Bar"}
+  </div>
+  <div>
+    {"content":"Baz content","title":"Baz"}
+  </div>
+</div>
+`;
