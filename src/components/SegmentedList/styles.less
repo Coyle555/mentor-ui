@@ -1,0 +1,39 @@
+@import '~mentor-ui-constants';
+
+.mui-segmented-list {
+	padding: 10px;
+
+	> .title-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 2px solid @gray-dark;
+
+		> .title {
+			font-size: 1.5rem;
+			letter-spacing: 0.5px;
+			font-weight: normal;
+		}
+
+		> .insert-btn {
+			height: 40px;
+			width: 200px;
+			padding: 5px;
+		}
+	}
+
+	> .mui-segmented-list-ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 10px 12.5px;
+
+		> .list-item:first-child {
+			border-top: none;
+		}
+
+		> .list-item {
+			border-top: 1px solid @gray-dark;
+			padding: 10px 7.5px;
+		}
+	}
+}
