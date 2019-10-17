@@ -1,3 +1,3 @@
-import { StructuredQuery } from './structured-query';
+import { StructuredQuery as StructuredQueryComponent } from './structured-query';
 
-export default StructuredQuery;
+export const StructuredQuery = StructuredQueryComponent;

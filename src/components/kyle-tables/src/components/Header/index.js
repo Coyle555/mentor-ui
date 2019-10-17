@@ -4,7 +4,7 @@ import Stickyfill from 'stickyfilljs';
 import ReactResizeDetector from 'react-resize-detector';
 
 import { Toolbar } from './Toolbar';
-import StructuredQuery from 'structured-query';
+import { StructuredQuery } from 'structured-query';
 
 const TOOLBAR_BREAKPOINT = 980;
 

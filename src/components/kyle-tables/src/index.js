@@ -173,8 +173,8 @@ export class Table extends Component {
 		};
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		if (this.props.data !== nextProps.data) {
+	componentDidUpdate(prevProps) {
+		if (this.props.data !== prevProps.data) {
 
 			const { selectedRows } = this.state;
 
@@ -184,7 +184,7 @@ export class Table extends Component {
 			// need to cycle through the new data and turn off any
 			// selected rows that were selected from the old data
 			// and are not in the new data
-			nextProps.data.forEach(row => {
+			this.props.data.forEach(row => {
 				// if selected row is in new data add it to new
 				// selected rows
 				if (row && selectedRows[row.id]) {
@@ -199,8 +199,8 @@ export class Table extends Component {
 			});
 		}
 
-		if (this.props.columns !== nextProps.columns) {
-			this.setState({ columns: cloneDeep(nextProps.columns) });
+		if (this.props.columns !== prevProps.columns) {
+			this.setState({ columns: cloneDeep(this.props.columns) });
 		}
 	}
 
@@ -490,12 +490,6 @@ export class Table extends Component {
 	renderLayout = () => {
 		const { customClasses } = this.props;
 
-		const recordProperties = {
-			entriesViewable: this.props.data.length,
-			currentPage: this.props.currentPage,
-			count: this.props.recordCount
-		};
-
 		let filterFields = cloneDeep(this.props.columns);
 		filterFields = this.sortFilterFields(filterFields);
 
@@ -558,7 +552,11 @@ export class Table extends Component {
 						editMode: this.state.editMode,
 						ExpandComponent: this.props.ExpandComponent,
 					}}
-					recordProperties={recordProperties}
+					recordProperties={{
+						count: this.props.recordCount,
+						currentPage: this.props.currentPage,
+						entriesViewable: this.props.data.length,
+					}}
 					dragProperties={{
 						draggable: this.props.draggable,
 					}}

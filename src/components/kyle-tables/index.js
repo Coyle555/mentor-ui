@@ -1,3 +1,5 @@
-import { Table } from './src';
+import { Table as T } from './src';
+import { TableMain } from './src/components/Table';
 
-export { Table };
+export const Table = T;
+export const TableComponent = TableMain;
