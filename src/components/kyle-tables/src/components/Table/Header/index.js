@@ -10,7 +10,6 @@ export const TableHeader = ({
 	allRowsSelected,
 	columns,
 	customClasses,
-	editMode,
 	expandable,
 	rowButtons,
 	sort,
@@ -28,7 +27,6 @@ export const TableHeader = ({
 				allRowsSelected={allRowsSelected}
 				cells={columns}
 				customClasses={customClasses}
-				editMode={editMode}
 				expandable={expandable}
 				rowButtons={rowButtons}
 				sort={sort}

@@ -13,7 +13,6 @@ export const TableHeaderRow = ({
 	allRowsSelected,
 	cells,
 	customClasses,
-	editMode,
 	expandable,
 	rowButtons,
 	sort,
@@ -50,7 +49,6 @@ export const TableHeaderRow = ({
 			{ allowSelection && 
 				<TableHeaderCheckboxCell
 					allRowsSelected={allRowsSelected}
-					editMode={editMode}
 					_onRowSelectAll={_onRowSelectAll}
 				/>
 			}
@@ -79,7 +77,6 @@ TableHeaderRow.propTypes = {
 	allowSelection: PropTypes.bool,
 	cells: PropTypes.arrayOf(PropTypes.object).isRequired,
 	customClasses: PropTypes.object,
-	editMode: PropTypes.bool,
 	expandable: PropTypes.bool,
 	rowButtons: PropTypes.arrayOf(PropTypes.object),
 	sort: PropTypes.shape({

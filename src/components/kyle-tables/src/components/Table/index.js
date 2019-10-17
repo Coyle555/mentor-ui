@@ -20,7 +20,6 @@ export const TableMain = ({
 	id,
 	numRowsSelected,
 	pageProperties,
-	recordProperties,
 	rowButtons,
 	rowProperties,
 	selectedRows,
@@ -40,10 +39,10 @@ export const TableMain = ({
 					? <table className={tableClass} id={id}>
 						<TableHeader
 							allowSelection={rowProperties.allowSelection}
-							allRowsSelected={numRowsSelected === rowProperties.data.length}
+							allRowsSelected={rowProperties.allowSelection
+								&& numRowsSelected === rowProperties.data.length}
 							columns={columns}
 							customClasses={customClasses}
-							editMode={rowProperties.editMode}
 							expandable={expandable}
 							rowButtons={rowButtons}
 							sort={sort}
@@ -68,17 +67,17 @@ export const TableMain = ({
 					: <NoResults />
 				}
 			</div>
-			<TableFooter
-				entriesViewable={recordProperties.entriesViewable}
-				currentPage={recordProperties.currentPage}
-				recordCount={recordProperties.count}
-				currentPage={pageProperties.currentPage}
-				pageSize={pageProperties.pageSize}
-				recordCount={pageProperties.recordCount}
-				onNext={events.onNext}
-				onPrevious={events.onPrevious}
-				onGetPage={events.onGetPage}
-			/>
+			{ pageProperties.enabled &&
+				<TableFooter
+					currentPage={pageProperties.currentPage}
+					entriesViewable={pageProperties.entriesViewable}
+					onNext={events.onNext}
+					onPrevious={events.onPrevious}
+					onGetPage={events.onGetPage}
+					pageSize={pageProperties.pageSize}
+					recordCount={pageProperties.recordCount}
+				/>
+			}
 		</div>
 	);
 };
@@ -107,11 +106,6 @@ TableMain.propTypes = {
 		pageSize: PropTypes.number,
 		recordCount: PropTypes.number
 	}),
-	recordProperties: PropTypes.shape({
-		entriesViewable: PropTypes.number,
-		count: PropTypes.number,
-		currentPage: PropTypes.number
-	}),
 	rowProperties: PropTypes.shape({
 		customColumns: PropTypes.object,
 		data: PropTypes.arrayOf(PropTypes.object),
@@ -121,8 +115,14 @@ TableMain.propTypes = {
 		icons: PropTypes.object,
 		properties: PropTypes.object
 	}),
+	_onRowSelect: PropTypes.func,
+	_onRowSelectAll: PropTypes.func
 };
 
 TableMain.defaultProps = {
-	customClasses: {}
+	customClasses: {},
+	numRowsSelected: 0,
+	selectedRows: {},
+	_onRowSelect: null,
+	_onRowSelectAll: null
 };

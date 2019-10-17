@@ -549,13 +549,7 @@ export class Table extends Component {
 						allowSelection: this.props.allowSelection,
 						customColumns: this.props.customColumns,
 						data: this.props.data,
-						editMode: this.state.editMode,
 						ExpandComponent: this.props.ExpandComponent,
-					}}
-					recordProperties={{
-						count: this.props.recordCount,
-						currentPage: this.props.currentPage,
-						entriesViewable: this.props.data.length,
 					}}
 					dragProperties={{
 						draggable: this.props.draggable,
@@ -563,6 +557,7 @@ export class Table extends Component {
 					dropType={this.props.dropType}
 					pageProperties={{
 						enabled: this.props.pagination,
+						entriesViewable: this.props.data.length,
 						currentPage: this.props.currentPage,
 						pageSize: this.props.pageSize,
 						recordCount: this.props.recordCount
