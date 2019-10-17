@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom styling on a list item 1`] = `
+<li
+  className="list-item"
+  style={
+    Object {
+      "width": "10px",
+    }
+  }
+>
+  Foo
+</li>
+`;
+
+exports[`Default render of list item 1`] = `
+<li
+  className="list-item"
+>
+  Foo
+</li>
+`;

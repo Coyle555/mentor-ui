@@ -27,24 +27,33 @@ export const SegmentedList = ({ InsertItemComponent, insertable, items, title })
 			}
 			<ul className="mui-segmented-list-ul">
 				{ items.map((item, i) => (
-					<ListItem key={`mui-item-${i}`}>
+					<ListItem key={`mui-sl-item-${i}`}>
 						{item}
 					</ListItem>
 				))}
-				<Spring
-					config={key => (key === 'left' ? config.slow : config.default)}
-					from={{ left: 75, opacity: 0 }}
-					to={{ left: 0, opacity: 1 }}
-					onRest={() => !insertingListItem && setDisplay('none')}
-					reset={true}
-					reverse={!insertingListItem}
-				>
-					{ props => (
-						<ListItem style={{ display, position: 'relative', ...props }}>
-							{ React.cloneElement(InsertItemComponent) }
-						</ListItem>
-					)}
-				</Spring>
+				{ insertable && React.isValidElement(InsertItemComponent) &&
+					<Spring
+						config={key => (key === 'left'
+							? config.slow
+							: config.default
+						)}
+						from={{ left: 75, opacity: 0 }}
+						to={{ left: 0, opacity: 1 }}
+						onRest={() => !insertingListItem && setDisplay('none')}
+						reset={true}
+						reverse={!insertingListItem}
+					>
+						{ props => (
+							<ListItem style={{
+								display,
+								position: 'relative',
+								...props
+							}}>
+								{ React.cloneElement(InsertItemComponent) }
+							</ListItem>
+						)}
+					</Spring>
+				}
 			</ul>
 		</div>
 	);
