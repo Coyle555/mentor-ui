@@ -17,7 +17,7 @@ export const TableFooter = ({
 	pageSize,
 	recordCount
 }) => {
-	if (recordCount === 0) {
+	if (recordCount < 1) {
 		return null;
 	}
 
@@ -26,7 +26,7 @@ export const TableFooter = ({
 
 	return (
 		<div className="table-footer row m-t-sm">
-			<div className="col-4">
+			<div className="buttons">
 				<PreviousButton
 					hasPrevious={hasPrevious}
 					onClick={onPrevious}
@@ -36,14 +36,12 @@ export const TableFooter = ({
 					onClick={onNext}
 				/>
 			</div>
-			<div className="col-4">
-				<RecordCount
-					currentPage={currentPage}
-					entriesViewable={entriesViewable}
-					pageSize={pageSize}
-					recordCount={recordCount}
-				/>
-			</div>
+			<RecordCount
+				currentPage={currentPage}
+				entriesViewable={entriesViewable}
+				pageSize={pageSize}
+				recordCount={recordCount}
+			/>
 			<PageDropdown
 				currentPage={currentPage}
 				onChange={onGetPage}

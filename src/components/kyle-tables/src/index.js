@@ -556,9 +556,9 @@ export class Table extends Component {
 					}}
 					dropType={this.props.dropType}
 					pageProperties={{
+						currentPage: this.props.currentPage,
 						enabled: this.props.pagination,
 						entriesViewable: this.props.data.length,
-						currentPage: this.props.currentPage,
 						pageSize: this.props.pageSize,
 						recordCount: this.props.recordCount
 					}}

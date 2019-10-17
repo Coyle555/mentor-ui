@@ -35,7 +35,7 @@ export const TableMain = ({
 	return (
 		<div className="table-main-container">
 			<div className="table-content">
-				{ pageProperties.recordCount > 0 && rowProperties.data.length > 0
+				{ rowProperties.data.length > 0
 					? <table className={tableClass} id={id}>
 						<TableHeader
 							allowSelection={rowProperties.allowSelection}
@@ -121,8 +121,16 @@ TableMain.propTypes = {
 
 TableMain.defaultProps = {
 	customClasses: {},
+	events: {},
 	numRowsSelected: 0,
+	pageProperties: {
+		enabled: false
+	},
 	selectedRows: {},
+	sort: {},
+	rowProperties: {
+		allowSelection: false
+	},
 	_onRowSelect: null,
 	_onRowSelectAll: null
 };
