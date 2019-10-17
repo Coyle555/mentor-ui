@@ -5,11 +5,12 @@ import { ToggleListItem } from './ToggleListItem';
 
 import '../../styles.less';
 
-export const ToggleList = ({ list }) => {
+export const ToggleList = ({ customClasses, list }) => {
 	return (
 		<div className="mui-toggle-list">
 			{ list.map((item, i) => (
 				<ToggleListItem
+					customClasses={customClasses}
 					content={item.content}
 					key={item.title + i}
 					title={item.title}
@@ -20,6 +21,10 @@ export const ToggleList = ({ list }) => {
 };
 
 ToggleList.propTypes = {
+	customClasses: PropTypes.shape({
+		content: PropTypes.string,
+		title: PropTypes.string
+	}),
 	list: PropTypes.arrayOf(PropTypes.shape({
 		content: PropTypes.oneOfType([
 			PropTypes.element, PropTypes.string
@@ -29,5 +34,6 @@ ToggleList.propTypes = {
 };
 
 ToggleList.defaultProps = {
+	customClasses: {},
 	list: []
 };

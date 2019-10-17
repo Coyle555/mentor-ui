@@ -21,3 +21,25 @@ exports[`Default toggle list item 1`] = `
   </div>
 </div>
 `;
+
+exports[`Toggle list item with custom class for the title 1`] = `
+<div
+  className="mui-toggle-list-item"
+>
+  <div
+    className="title custom-class"
+    onClick={[Function]}
+  >
+    <div>
+      <div>
+        {"from":{"transform":"rotate(0deg)"},"to":{"transform":"rotate(0deg)"}}
+      </div>
+      <i
+        className="fas fa-caret-right icon"
+        style={Object {}}
+      />
+    </div>
+    Foo
+  </div>
+</div>
+`;

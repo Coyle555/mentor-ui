@@ -26,3 +26,11 @@ test('Opening content on a toggle list item', () => {
 	fireEvent.click(getByText('Foo'));
 	expect(getByText('content')).toBeTruthy();
 });
+
+test('Toggle list item with custom class for the title', () => {
+	const tree = renderer.create(
+		<ToggleListItem content="content" customClasses={{ title: 'custom-class' }} title="Foo" />
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
