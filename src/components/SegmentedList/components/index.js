@@ -7,7 +7,7 @@ import { ListItem } from './ListItem';
 
 import '../styles.less';
 
-export const SegmentedList = ({ children, insertable, title }) => {
+export const SegmentedList = ({ InsertItemComponent, insertable, items, title }) => {
 	const [insertingListItem, setInsertingListItem] = useState(false);
 	const [display, setDisplay] = useState('none');
 
@@ -18,15 +18,19 @@ export const SegmentedList = ({ children, insertable, title }) => {
 
 	return (
 		<div className="mui-segmented-list">
-			{ (title || insertable) &&
+			{ (title || (insertable && React.isValidElement(InsertItemComponent))) &&
 				<Title
-					insertable={insertable}
+					insertable={insertable && React.isValidElement(InsertItemComponent)}
 					onInsertClick={onInsertClick}
 					title={title}
 				/>
 			}
 			<ul className="mui-segmented-list-ul">
-				{children}
+				{ items.map((item, i) => (
+					<ListItem key={`mui-item-${i}`}>
+						{item}
+					</ListItem>
+				))}
 				<Spring
 					config={key => (key === 'left' ? config.slow : config.default)}
 					from={{ left: 75, opacity: 0 }}
@@ -37,7 +41,7 @@ export const SegmentedList = ({ children, insertable, title }) => {
 				>
 					{ props => (
 						<ListItem style={{ display, position: 'relative', ...props }}>
-							Custom insert list item goes here
+							{ React.cloneElement(InsertItemComponent) }
 						</ListItem>
 					)}
 				</Spring>
@@ -48,10 +52,12 @@ export const SegmentedList = ({ children, insertable, title }) => {
 
 SegmentedList.propTypes = {
 	insertable: PropTypes.bool,
+	items: PropTypes.array,
 	title: PropTypes.string
 };
 
 SegmentedList.defaultProps = {
 	insertable: false,
+	items: [],
 	title: ''
 };
