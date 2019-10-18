@@ -33,7 +33,7 @@ const ExampleList = props => {
 	return (
 		<SegmentedList
 			insertable={true}
-			InsertItemComponent={<AddItem />}
+			InsertItemComponent={AddItem}
 			items={list}
 			title="Segmented List Title"
 		/>

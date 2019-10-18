@@ -10,7 +10,7 @@ export const InsertListItem = ({ onClick }) => {
 			onClick={onClick}
 			type="button"
 		>
-			<i className="fas fa-plus" /> Add Item
+			<i className="fas fa-plus" /> Add Items
 		</Button>
 	);
 };

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Spring } from 'react-spring/renderprops';
 import classNames from 'classnames';
 
-export const ToggleListItem = ({ content, customClasses, title }) => {
-	const [expanded, setExpanded] = useState(false);
+export const ToggleListItem = ({ content, customClasses, expanded, title }) => {
+	const [toggleExpand, setToggleExpand] = useState(expanded);
 
 	const titleClasses = classNames(
 		'title',
@@ -17,16 +17,16 @@ export const ToggleListItem = ({ content, customClasses, title }) => {
 
 	return (
 		<div className="mui-toggle-list-item">
-			<div className={titleClasses} onClick={() => setExpanded(!expanded)}>
+			<div className={titleClasses} onClick={() => setToggleExpand(!toggleExpand)}>
 				<Spring
 					from={{ transform: 'rotate(0deg)' }}
-					to={{ transform: `rotate(${expanded ? 90 : 0}deg)` }}
+					to={{ transform: `rotate(${toggleExpand ? 90 : 0}deg)` }}
 				>
 					{ props => <i className="fas fa-caret-right icon" style={props} /> }
 				</Spring>
 				{title}
 			</div>
-			{ expanded &&
+			{ toggleExpand &&
 				<Spring
 					from={{ opacity: 0 }}
 					to={{ opacity: 1 }}
@@ -44,9 +44,14 @@ export const ToggleListItem = ({ content, customClasses, title }) => {
 
 ToggleListItem.propTypes = {
 	content: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+	customClasses: PropTypes.shape({
+		content: PropTypes.string,
+		title: PropTypes.string
+	}),
+	expanded: PropTypes.bool,
 	title: PropTypes.string.isRequired
 };
 
 ToggleListItem.defaultProps = {
-	customClasses: {}
+	customClasses: {},
 };

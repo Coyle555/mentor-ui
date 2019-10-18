@@ -18,7 +18,7 @@ export const PanelButton = ({
 	<button
 		className={cn(
 			className,
-		  { "APMPanel-buttons-active": isActive },
+			{ "APMPanel-buttons-active": isActive },
 			"btn",
 		)}
 		data-for="apm-tooltip"
@@ -39,21 +39,21 @@ PanelButton.propTypes = {
 }
 
 export const Panel = ({
-  className,
-  isDraggable,
-  ...props }) => {
+	className,
+	isDraggable,
+	...props }) => {
 	const cc = composeClass('APMPanel', className);
 
 	return (
 		<div
-      className={cn(
-        cc(),
-      { 'APMPanel-draggable': isDraggable },
-      )}
+			className={cn(
+				cc(),
+			{ 'APMPanel-draggable': isDraggable },
+			)}
 			style={props.containerStyle}
 		>
 			<div
-        className={cc('header')}
+				className={cc('header')}
 				style={props.headerStyle}
 			>
 				<div className={cc('header-title')} >

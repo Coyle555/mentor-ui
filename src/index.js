@@ -5,6 +5,7 @@ import d from './components/Token';
 import e from './components/Hierarchy';
 import f from './components/ToggleList';
 import g from './components/SegmentedList';
+import { Table as h, TableComponent as i } from './components/kyle-tables/index';
 
 import './styles/index.less';
 
@@ -18,11 +19,9 @@ export * from './components/Panel/index';
 export * from './components/Panel/PanelSeries/index';
 export * from './components/Spinner';
 export * from './components/ToggleButton';
-export * from './components/DatePicker';
 
 
 export * from './components/mentor-inputs/src/index';
-export * from './components/kyle-tables/index';
 export * from './components/structured-query/src/index';
 
 export const Button = a; 
@@ -32,3 +31,5 @@ export const Token = d;
 export const Hierarchy = e;
 export const ToggleList = f;
 export const SegmentedList = g;
+export const Table = h;
+export const TableComponent = i;
