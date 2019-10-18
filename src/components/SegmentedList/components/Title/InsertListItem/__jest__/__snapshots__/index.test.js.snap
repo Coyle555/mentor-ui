@@ -9,6 +9,6 @@ exports[`Default render of insert list item button 1`] = `
   <i
     className="fas fa-plus"
   />
-   Add Item
+   Add Items
 </button>
 `;

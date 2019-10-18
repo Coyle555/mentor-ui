@@ -16,6 +16,6 @@ test('Clicking the insert list item button', () => {
 	const onClick = jest.fn();
 	const { getByText } = render(<InsertListItem onClick={onClick} />);
 
-	fireEvent.click(getByText('Add Item'));
+	fireEvent.click(getByText('Add Items'));
 	expect(onClick).toHaveBeenCalled();
 });

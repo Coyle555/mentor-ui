@@ -20,6 +20,12 @@ test('Default toggle list item', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Expanded toggle list item', () => {
+	const tree = renderer.create(<ToggleListItem content="Foo content" expanded={true} title="Foo" />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('Opening content on a toggle list item', () => {
 	const { getByText } = render(<ToggleListItem content="content" title="Foo" />);
 

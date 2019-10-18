@@ -12,7 +12,7 @@ exports[`Rendering title with just inserting functionality 1`] = `
     <i
       className="fas fa-plus"
     />
-     Add Item
+     Add Items
   </button>
 </div>
 `;
@@ -46,7 +46,7 @@ exports[`Rendering with both title and insertability 1`] = `
     <i
       className="fas fa-plus"
     />
-     Add Item
+     Add Items
   </button>
 </div>
 `;
