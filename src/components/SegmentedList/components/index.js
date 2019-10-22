@@ -27,7 +27,7 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 			}
 			<ul className="mui-segmented-list-ul">
 				{ items.map((item, i) => (
-					<ListItem key={`mui-sl-item-${i}`}>
+					<ListItem key={`mui-sl-item-${title}-${i}`}>
 						{item}
 					</ListItem>
 				))}

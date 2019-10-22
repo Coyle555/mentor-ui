@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 import { Calendar } from '../Calendar';
 import { Time } from '../Time';
-import { TabNav } from 'components/TabNav';
+import { TabNav } from './components/TabNav';
 import { OptionalControl } from './components/OptionalControl';
 import { composeNamespace } from 'compose-namespace';
 

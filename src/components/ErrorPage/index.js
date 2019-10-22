@@ -13,7 +13,7 @@ const statusText = {
 };
 
 export const ErrorPage = props => (
-	<div className="APM-errorpage">
+	<div className="mui-errorpage">
 		<h1>{props.status}</h1>
 		<h3>{statusText[props.status] || 'Something went wrong'}</h3>
 		<div className="error-desc">
