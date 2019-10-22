@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
@@ -8,6 +8,7 @@ import Button from '../';
 
 const optionsConfig = {
 	block: 'block',
+	circular: 'circular',
 	disabled: 'disabled',
 	isCapless: 'isCapless',	
 	isLight: 'isLight',
@@ -29,20 +30,27 @@ storiesOf('Button', module)
 		
 		const buttonText = text('children', 'Button Text');
 		return (
-			<Button 
-				block={boolean('block', false)}
-				disabled={boolean('disabled', false)}
-				isBlue={boolean('isBlue', false)}
-				isCapless={boolean('isCapless', false)}
-				isLight={boolean('isLight', false)}
-				isLeftEndCap={boolean('isLeftEndCap', false)}
-				isMini={boolean('isMini', false)}
-				isRightEndCap={boolean('isRightEndCap', false)}
-				isOutline={boolean('isOutline', false)}
-				medium={boolean('medium', false)}
-				onClick={action('onClick')}
-			>
-				{ buttonText }
-			</Button>
-		)
+			<Fragment>
+				<Button 
+					block={boolean('block', false)}
+					disabled={boolean('disabled', false)}
+					isBlue={boolean('isBlue', false)}
+					isCapless={boolean('isCapless', false)}
+					isCircular={boolean('isCircular', false)}
+					isLight={boolean('isLight', false)}
+					isLeftEndCap={boolean('isLeftEndCap', false)}
+					isMini={boolean('isMini', false)}
+					isRightEndCap={boolean('isRightEndCap', false)}
+					isOutline={boolean('isOutline', false)}
+					medium={boolean('medium', false)}
+					onClick={action('onClick')}
+				>
+					{ buttonText }
+				</Button>
+				<br />
+				<Button isCircular={true}>
+					<i className="far fa-plus fa-sm" />
+				</Button>
+			</Fragment>
+		);
 })

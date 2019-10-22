@@ -14,6 +14,7 @@ const Button = (props) => {
 		children,
 		medium,
 		isBlue,
+		isCircular,
 		isLight,
 		isLightBlue,
 		isMini,
@@ -37,6 +38,7 @@ const Button = (props) => {
 		{ "APMButton-end-cap-right": isRightEndCap },
 		{ "APMButton-is-capless": isCapless },
 		{ "APMButton-is-medium": medium },
+		{ "APMButton-is-circular": isCircular },
 		className,
 	);
 
@@ -57,6 +59,7 @@ Button.propTypes = {
 	block: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
+	circular: PropTypes.bool,
 	disabled: PropTypes.bool,
 	onClick: PropTypes.func,
 	medium: PropTypes.bool,

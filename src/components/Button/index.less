@@ -6,7 +6,7 @@
 	background-color: @green-primary;
 	border: none;
 	color: @white;
-	padding: 0px 18px;
+	padding: .5em 1em;
 	transition: all .1s ease;
 	cursor: pointer;
 
@@ -45,7 +45,6 @@
 		width: 95%;
 		margin: 2px auto;
 		font-size: 24px;
-		font-weight: bolder;
 		line-height: 2px;
 		height: 40px;
 	}
@@ -130,5 +129,12 @@
 		border-right: none;
 		border-left: none;
 		border-radius: 0;
+	}
+
+	&-is-circular {
+		border-radius: 10px;
+		width: 20px;
+		height: 20px;
+		padding: 0;
 	}
 }
