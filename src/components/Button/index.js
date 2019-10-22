@@ -16,13 +16,11 @@ const Button = (props) => {
 		isBlue,
 		isCircular,
 		isLight,
-		isLightBlue,
 		isMini,
 		isOutline,
 		isLeftEndCap,
 		isRightEndCap,
 		isCapless,
-		text,
 		...btnAttributes
 	} = props;
 
@@ -53,17 +51,14 @@ const Button = (props) => {
 }
 
 Button.propTypes = {
-	/**
-		Makes the component have more prominent text with a width that spans it's container
-	*/
 	block: PropTypes.bool,
 	className: PropTypes.string,
 	children: PropTypes.node,
-	circular: PropTypes.bool,
 	disabled: PropTypes.bool,
 	onClick: PropTypes.func,
 	medium: PropTypes.bool,
 	isBlue: PropTypes.bool,
+	isCircular: PropTypes.bool,
 	isLight: PropTypes.bool,
 	isMini: PropTypes.bool,
 	isOutline: PropTypes.bool,
