@@ -16,7 +16,6 @@ export const TableMain = ({
 	dragProperties,
 	dropType,
 	events,
-	expandable,
 	id,
 	numRowsSelected,
 	pageProperties,
@@ -43,7 +42,7 @@ export const TableMain = ({
 								&& numRowsSelected === rowProperties.data.length}
 							columns={columns}
 							customClasses={customClasses}
-							expandable={expandable}
+							expandable={!!rowProperties.ExpandComponent}
 							rowButtons={rowButtons}
 							sort={sort}
 							_onRowSelectAll={_onRowSelectAll}
@@ -58,7 +57,7 @@ export const TableMain = ({
 							dropType={dropType}
 							rowButtons={rowButtons}
 							ExpandComponent={rowProperties.ExpandComponent}
-							expandable={expandable}
+							expandable={!!rowProperties.ExpandComponent}
 							rowData={rowProperties.data}
 							selectedRows={selectedRows}
 							_onRowSelect={_onRowSelect}
@@ -70,7 +69,7 @@ export const TableMain = ({
 			{ pageProperties.enabled &&
 				<TableFooter
 					currentPage={pageProperties.currentPage}
-					entriesViewable={pageProperties.entriesViewable}
+					entriesViewable={rowProperties.data.length || 0}
 					onNext={events.onNext}
 					onPrevious={events.onPrevious}
 					onGetPage={events.onGetPage}
@@ -112,8 +111,8 @@ TableMain.propTypes = {
 		ExpandComponent: PropTypes.element
 	}),
 	sort: PropTypes.shape({
-		icons: PropTypes.object,
-		properties: PropTypes.object
+		id: PropTypes.string,
+		ascending: PropTypes.bool
 	}),
 	_onRowSelect: PropTypes.func,
 	_onRowSelectAll: PropTypes.func
@@ -129,7 +128,8 @@ TableMain.defaultProps = {
 	selectedRows: {},
 	sort: {},
 	rowProperties: {
-		allowSelection: false
+		allowSelection: false,
+		data: []
 	},
 	_onRowSelect: null,
 	_onRowSelectAll: null

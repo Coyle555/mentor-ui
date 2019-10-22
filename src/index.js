@@ -5,10 +5,10 @@ import e from './components/Hierarchy';
 import f from './components/ToggleList';
 import g from './components/SegmentedList';
 import { Table as h, TableComponent as i } from './components/kyle-tables/index';
+import { DatePicker as j } from './components/DatePicker';
 
 import './styles/index.less';
 
-export * from './components/DatePicker';
 export * from './components/Dropdown';
 export * from './components/ErrorPage';
 export * from './components/Modal';
@@ -28,3 +28,4 @@ export const ToggleList = f;
 export const SegmentedList = g;
 export const Table = h;
 export const TableComponent = i;
+export const DatePicker = j;
