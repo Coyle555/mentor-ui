@@ -224,7 +224,7 @@ export default class InsertForm extends Component {
 				acc[fieldId] = this.insertData[fieldId];
 				const field = this.state.formModel.find(field => field.id === fieldId);
 
-				if (typeof field.parseMatchedValue === 'function') {
+				if (!!field && typeof field.parseMatchedValue === 'function') {
 					acc[fieldId] = field.parseMatchedValue(this.insertData[fieldId]);
 				}
 
