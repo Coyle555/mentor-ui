@@ -137,7 +137,6 @@ export class Toolbar extends Component {
 						onClick={btn.onClick}
 						selectedRows={selectedRows}
 						tip={btn.tip}
-						validation={btn.validation}
 					/>
 				))}
 				{ quickViews.length > 0 &&

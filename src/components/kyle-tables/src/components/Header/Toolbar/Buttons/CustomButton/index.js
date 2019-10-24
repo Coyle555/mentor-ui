@@ -10,7 +10,6 @@ export class CustomButton extends PureComponent {
 		onClick: PropTypes.func,
 		selectedRows: PropTypes.object,
 		tip: PropTypes.string,
-		validation: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -31,9 +30,6 @@ export class CustomButton extends PureComponent {
 			validation
 		} = this.props;
 
-		const isDisabled = disabled
-			|| (typeof validation === 'function' && !validation(selectedRows));
-
 		return (
 			<span 
 				data-for="table-tooltip"
@@ -41,7 +37,7 @@ export class CustomButton extends PureComponent {
 			>
 				<button
 					className="btn-table"
-					disabled={isDisabled}
+					disabled={disabled}
 					onClick={this.onClick}
 					type="button"
 				>

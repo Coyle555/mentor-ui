@@ -57,8 +57,7 @@ export class Table extends Component {
 		customToolbarButtons: PropTypes.arrayOf(PropTypes.shape({
 			icon: PropTypes.element.isRequired,
 			onClick: PropTypes.func.isRequired,
-			tip: PropTypes.string.isRequired,
-			validation: PropTypes.func
+			tip: PropTypes.string.isRequired
 		})),
 		data: PropTypes.arrayOf(PropTypes.object),
 		deletable: PropTypes.bool,
