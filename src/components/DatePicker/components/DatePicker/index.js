@@ -18,6 +18,7 @@ import './style.less';
 export const TYPES = Object.freeze({
 	date: 'date',
 	datetime: 'datetime',
+	time: 'time'
 });
 
 const TAB_OPTIONS = Object.freeze([
@@ -26,7 +27,7 @@ const TAB_OPTIONS = Object.freeze([
 		iconClass: 'fal fa-calendar-alt',
 	},
 	{
-		label: 'time',
+		label: TYPES.time,
 		iconClass: 'fal fa-clock',
 	},
 ]);

@@ -9,19 +9,12 @@ import { getInputComponent } from './utils/getInputComponent';
 
 import './styles/form.less';
 
-
-// Insert form pops up a transparent background with a form that asks one
-// question at a time based on the formFields inputted. Once an input is
-// filled out, it jumps to the next input. It allows for navigation using the
-// Enter, Tab, and arrow up and down keys.
 export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
-			filter: PropTypes.func,
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
-			multiline: PropTypes.bool,
 			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 			parse: PropTypes.func,
 			parseMatchedValue: PropTypes.func,

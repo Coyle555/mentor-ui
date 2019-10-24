@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Slider } from 'components/Slider';
+import { Slider } from './components/Slider';
 import { composeNamespace } from 'compose-namespace';
 
 import './style.less';
 
 
 export const Time = (props) => {
-    const {
+	const {
 		className,
 		minHour,
 		maxHour,
@@ -17,9 +17,9 @@ export const Time = (props) => {
 		maxMinute,
 		moment,
 		onChange,
-    } = props;
+	} = props;
 
-    const cc = composeNamespace('APMTime', className);
+	const cc = composeNamespace('APMTime', className);
 
 	return (
 		<div className={cn(

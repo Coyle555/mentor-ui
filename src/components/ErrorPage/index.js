@@ -12,12 +12,12 @@ const statusText = {
 	502: 'Forbidden Gateway'
 };
 
-export const ErrorPage = props => (
+export const ErrorPage = ({ children, status }) => (
 	<div className="mui-errorpage">
-		<h1>{props.status}</h1>
-		<h3>{statusText[props.status] || 'Something went wrong'}</h3>
+		<h1>{status}</h1>
+		<h3>{statusText[status] || 'Something went wrong'}</h3>
 		<div className="error-desc">
-			{ props.children }
+			{ children }
 		</div>
 	</div>
 );
@@ -25,5 +25,3 @@ export const ErrorPage = props => (
 ErrorPage.propTypes = {
 	status: PropTypes.number,
 };
-
-

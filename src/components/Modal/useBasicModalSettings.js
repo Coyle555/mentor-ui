@@ -15,20 +15,20 @@ export const useBasicModalSettings = () => {
 		onClick() {
 			setIsOpen(true);
 		}
-	}
+	};
 
 	const modalComponentProps = {
 		display: isOpen,
 		onClose() {
 			setIsOpen(false)
 		}
-	}
+	};
 
 	return [
 		triggerProps,
 		modalComponentProps,
 		setIsOpen
-	]
+	];
 }
 
 /*
