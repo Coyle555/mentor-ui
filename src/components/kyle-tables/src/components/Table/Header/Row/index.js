@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { TableHeaderCell } from './Cell';
-import { TableHeaderCheckboxCell } from './Cell/CheckboxCell';
+import { TableHeaderCheckboxCell } from './CheckboxCell';
 
 const sortDescendingIcon = <i className="fas fa-sort-down" />;
 const sortAscendingIcon = <i className="fas fa-sort-up" />;

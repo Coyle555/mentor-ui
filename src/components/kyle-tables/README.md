@@ -44,14 +44,14 @@ viewColumns | Boolean | No | Renders a toolbar button to allow users to turn on/
 
 Column object takes the following keys:
 
-- display(*boolean*): true to display the column on render
-- id(*string*): id of the column
-- insertable(*boolean*): true to allow the user to insert data against this column when inserting a new record
-- label(*string*): header label of the column
-- options(*[string] | function*): display a list of string options when editing or inserting against this column; a function can be used to return a list of options to use
-- required(*boolean*): renders a required field when inserting or editing the column
-- type(*enum*): the data type of the column; see below
-- updateable(*boolean*): allows the user to edit the data in the column
+- **display**(*boolean*): true to display the column on render
+- **id**(*string*): id of the column
+- **insertable**(*boolean*): true to allow the user to insert data against this column when inserting a new record
+- **label**(*string*): header label of the column
+- **options**(*[string] | function*): display a list of string options when editing or inserting against this column; a function can be used to return a list of options to use
+- **required**(*boolean*): renders a required field when inserting or editing the column
+- **type**(*enum*): the data type of the column; see below
+- **updateable**(*boolean*): allows the user to edit the data in the column
 
 #### Types allowed::
 
@@ -76,11 +76,11 @@ Column object takes the following keys:
 
 The following keys apply a css class to different parts of the table
 
-- container: outermost element of the table
-- table: table element
-- tableBody: tbody in the table element
-- tableHeader: thead in the table element
-- tableHeaderRow: row rendered in the thead element
-- tableHeaderCell: each cell rendered in the row of the thead element
-- tableRow: each row rendered in the table body
-- tableCell: each cell in the rows rendered in the table body
+- **container**: outermost element of the table
+- **table**: table element
+- **tableBody**: tbody in the table element
+- **tableHeader**: thead in the table element
+- **tableHeaderRow**: row rendered in the thead element
+- **tableHeaderCell**: each cell rendered in the row of the thead element
+- **tableRow**: each row rendered in the table body
+- **tableCell**: each cell in the rows rendered in the table body

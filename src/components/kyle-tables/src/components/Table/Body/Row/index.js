@@ -45,8 +45,8 @@ export class TableRow extends PureComponent {
 	}
 
 	_onRowSelect = (event) => {
-		if (typeof this.props.onRowSelect === 'function') {
-			this.props._onRowSelect(this.props.row);
+		if (typeof this.props._onRowSelect === 'function') {
+			this.props._onRowSelect(this.props.row, event);
 		}
 	}
 

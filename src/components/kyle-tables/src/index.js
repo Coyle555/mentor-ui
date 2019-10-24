@@ -146,6 +146,7 @@ export class Table extends Component {
 		super(props);
 
 		this.allRowsSelected = false;
+		this.lastSelectedRowIndexStack = [];
 
 		this.el = document.createElement('div');
 		this.el.id = 'mui-table-edit-root';
@@ -193,10 +194,7 @@ export class Table extends Component {
 				numRowsSelected,
 				selectedRows: newSelectedRows
 			});
-		}
-
-		if (this.props.columns !== prevProps.columns) {
-			this.setState({ columns: cloneDeep(this.props.columns) });
+			this.lastSelectedRowIndex = -1;
 		}
 	}
 
@@ -406,21 +404,51 @@ export class Table extends Component {
 		}
 	}
 
-	_onRowSelect = (row) => {
+	_onRowSelect = (row, event) => {
 		const { data } = this.props;
 		const { numRowsSelected, selectedRows } = this.state;
 
 		const isRowSelected = !selectedRows[row.id];
+		const rowIndex = data.findIndex(d => d.id === row.id);
+		const hasShift = event.nativeEvent.shiftKey;
 		const numSelected = isRowSelected
 			? numRowsSelected + 1
 			: numRowsSelected - 1;
 		const newSelectedRows = Object.assign({}, selectedRows);
 
 		if (isRowSelected) {
+			if (hasShift && this.lastSelectedRowIndexStack.length > 0) {
+				let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
+
+				while (currentIndex !== rowIndex) {
+					newSelectedRows[data[currentIndex].id] = data[currentIndex];
+
+					currentIndex = rowIndex > currentIndex
+						? currentIndex + 1
+						: currentIndex - 1;
+				}
+			}
+
 			newSelectedRows[row.id] = row;
+			this.lastSelectedRowIndexStack.push(rowIndex);
 		} else {
+			if (hasShift && this.lastSelectedRowIndexStack.length > 0) {
+				let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
+
+				while (currentIndex !== rowIndex) {
+					delete newSelectedRows[data[currentIndex].id];
+
+					currentIndex = rowIndex > currentIndex
+						? currentIndex + 1
+						: currentIndex - 1;
+				}
+			}
+
 			delete newSelectedRows[row.id];
+			this.lastSelectedRowIndexStack.pop();
 		}
+
+		console.log('new selected rows', newSelectedRows, data.length);
 
 		// user manually selected all rows
 		this.allRowsSelected = Object.keys(newSelectedRows).length === data.length;
@@ -438,6 +466,7 @@ export class Table extends Component {
 
 		const { data } = this.props;
 		this.allRowsSelected = !this.allRowsSelected;
+		this.lastSelectedRowIndex = [];
 		const newSelectedRows = {};
 
 		if (this.allRowsSelected) {
