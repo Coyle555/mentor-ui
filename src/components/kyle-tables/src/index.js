@@ -25,8 +25,6 @@ export class Table extends Component {
 	static propTypes = {
 		allowSelection: PropTypes.bool,
 		csvURL: PropTypes.string,
-		excelURL: PropTypes.string,
-		pdfURL: PropTypes.string,
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			display: PropTypes.bool,
 			id: PropTypes.string,
@@ -37,7 +35,7 @@ export class Table extends Component {
 			type: PropTypes.oneOf([
 				'string', 'integer', 'float', 'multiline',
 				'email', 'money', 'url', 'datetime',
-				'date', 'time', 'image', 'listfilter',
+				'date', 'image', 'listfilter',
 				'file', 'color', 'boolean', 'select',
 				'textarea'
 			]),
@@ -102,8 +100,6 @@ export class Table extends Component {
 	static defaultProps = {
 		allowSelection: true,
 		csvURL: '',
-		excelURL: '',
-		pdfURL: '',
 		columns: [],
 		customClasses: {
 			container: '',
@@ -511,7 +507,6 @@ export class Table extends Component {
 					deletable: this.props.deletable,
 					editable: this.props.editable,
 					editMode: this.state.editMode,
-					excelURL: this.props.excelURL,
 					tableId: this.props.id,
 					insertable: this.props.insertable,
 					loading: this.props.loading,
@@ -522,7 +517,6 @@ export class Table extends Component {
 					onEditClick: this._onEditClick,
 					onInsertClick: this._onInsertClick,
 					onQuickViewColChange: this._onQuickViewColChange,
-					pdfURL: this.props.pdfURL,
 					quickViews: this.props.quickViews,
 					selectedRows: this.state.selectedRows,
 					singleInsertion: this.props.singleInsertion,
