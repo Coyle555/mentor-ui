@@ -145,7 +145,6 @@ export class Table extends Component {
 	constructor(props) {
 		super(props);
 
-		this.allRowsSelected = false;
 		this.lastSelectedRowIndexStack = [];
 
 		this.el = document.createElement('div');
@@ -405,60 +404,74 @@ export class Table extends Component {
 	}
 
 	_onRowSelect = (row, event) => {
-		const { data } = this.props;
-		const { numRowsSelected, selectedRows } = this.state;
-
-		const isRowSelected = !selectedRows[row.id];
-		const rowIndex = data.findIndex(d => d.id === row.id);
-		const hasShift = event.nativeEvent.shiftKey;
-		const newSelectedRows = Object.assign({}, selectedRows);
+		const isRowSelected = !!this.state.selectedRows[row.id];
 
 		if (isRowSelected) {
-			if (hasShift && this.lastSelectedRowIndexStack.length > 0) {
-				let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
-
-				while (currentIndex !== rowIndex) {
-					newSelectedRows[data[currentIndex].id] = data[currentIndex];
-
-					currentIndex = rowIndex > currentIndex
-						? currentIndex + 1
-						: currentIndex - 1;
-				}
-			} 
-
-			newSelectedRows[row.id] = row;
-			this.lastSelectedRowIndexStack.push(rowIndex);
+			this.handleRowDeselection(row, event);
 		} else {
-			if (hasShift && this.lastSelectedRowIndexStack.length > 0) {
-				let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
+			this.handleRowSelection(row, event);
+		}
+	}
 
-				while (currentIndex !== rowIndex) {
-					delete newSelectedRows[data[currentIndex].id];
+	handleRowSelection = (row, event) => {
+		const { data } = this.props;
+		const rowIndex = data.findIndex(d => d.id === row.id);
+		const newSelectedRows = Object.assign({}, this.state.selectedRows);
 
-					currentIndex = rowIndex > currentIndex
-						? currentIndex + 1
-						: currentIndex - 1;
-				}
+		// when the user holds shift select all rows between the selected row and the last
+		// row that the user selected
+		if (event.nativeEvent.shiftKey && this.lastSelectedRowIndexStack.length > 0) {
+			let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
 
-				const lastSelectedRowIndex = this.lastSelectedRowIndexStack.pop();
+			while (currentIndex !== rowIndex) {
+				newSelectedRows[data[currentIndex].id] = data[currentIndex];
 
-				console.log('selected row', rowIndex);
-				this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => (
-					rowIndex > lastSelectedRowIndex
-						? idx > rowIndex || idx < lastSelectedRowIndex
-						: idx < rowIndex || idx > lastSelectedRowIndex
-				));
+				currentIndex = rowIndex > currentIndex
+					? currentIndex + 1
+					: currentIndex - 1;
+			}
+		} 
+
+		newSelectedRows[row.id] = row;
+		this.lastSelectedRowIndexStack.push(rowIndex);
+
+		this.setState({
+			numRowsSelected: Object.keys(newSelectedRows).length,
+			selectedRows: newSelectedRows
+		});
+	}
+
+	handleRowDeselection = (row, event) => {
+		const { data } = this.props;
+		const rowIndex = data.findIndex(d => d.id === row.id);
+		const newSelectedRows = Object.assign({}, this.state.selectedRows);
+
+		// when the user holds shift deselect all rows between the selected row and the last
+		// row that the user selected
+		if (event.nativeEvent.shiftKey && this.lastSelectedRowIndexStack.length > 0) {
+			let currentIndex = this.lastSelectedRowIndexStack[this.lastSelectedRowIndexStack.length - 1];
+
+			while (currentIndex !== rowIndex) {
+				delete newSelectedRows[data[currentIndex].id];
+
+				currentIndex = rowIndex > currentIndex
+					? currentIndex + 1
+					: currentIndex - 1;
 			}
 
-			delete newSelectedRows[row.id];
-			this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => idx !== rowIndex);
+			const lastSelectedRowIndex = this.lastSelectedRowIndexStack.pop();
+
+			// clear out all saved selected row indices between the deselected row
+			// and the last selected row
+			this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => (
+				rowIndex > lastSelectedRowIndex
+					? idx > rowIndex || idx < lastSelectedRowIndex
+					: idx < rowIndex || idx > lastSelectedRowIndex
+			));
 		}
 
-		// user manually selected all rows
-		this.allRowsSelected = Object.keys(newSelectedRows).length === data.length;
-
-		console.log('new selected rows', newSelectedRows, this.allRowsSelected, Object.keys(newSelectedRows).length);
-		console.log('current selected row stack', this.lastSelectedRowIndexStack);
+		delete newSelectedRows[row.id];
+		this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => idx !== rowIndex);
 
 		this.setState({
 			numRowsSelected: Object.keys(newSelectedRows).length,
@@ -472,18 +485,19 @@ export class Table extends Component {
 		event.stopPropagation();
 
 		const { data } = this.props;
-		this.allRowsSelected = !this.allRowsSelected;
-		this.lastSelectedRowIndex = [];
+		const allRowsSelected = this.state.numRowsSelected === data.length;
 		const newSelectedRows = {};
 
-		if (this.allRowsSelected) {
+		if (!allRowsSelected) {
 			data.forEach(row => {
 				newSelectedRows[row.id] = row;
 			});
+		} else {
+			this.lastSelectedRowIndexStack = [];
 		}
 
 		this.setState({
-			numRowsSelected: this.allRowsSelected ? data.length : 0,
+			numRowsSelected: !allRowsSelected ? data.length : 0,
 			selectedRows: newSelectedRows
 		});
 	}
