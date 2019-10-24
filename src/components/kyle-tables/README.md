@@ -7,12 +7,12 @@ so you can retrieve new pages of data from an api as the user sorts, goes to the
 
 Props | Type | Required | Description
 ----- | ---- | -------- | -----------
-currentPage | Number | Yes | The current page displayed
-data | [Object] | Yes | Data to display in the table
-recordCount | Number | Yes | Total number of records in the data set of the table
+[columns](#columns) | [Object] | **Yes** | List of objects describing the columns structure
+currentPage | Number | **Yes** | The current page displayed
+data | [Object] | **Yes** | Data to display in the table
+recordCount | Number | **Yes** | Total number of records in the data set of the table
 allowSelection | Boolean | No | Allows rows to be selected when true
 csvURL | String | No | Generate an icon that can be clicked to call a url for a data dump of the table
-[columns](#columns) | [Object] | Yes | List of objects describing the columns structure
 [customClasses](#customClasses) | Object | No | Custom classes to apply to different parts of the table
 customColumns | Object | No | Render a column in view mode using a callback. Each key-value pair in the object has a key for the column and a callback as the value. Signature *(row, { colId, value, _origValue }) => element*
 customLayout | Function | No | Callback to render the two components of the table. Signature *(HeaderComponent, TableComponent) => element*
@@ -104,5 +104,5 @@ Each quick view has the following shape:
 
 Buttons that render at the beginning of each row
 
-- icon(*element*): React element to render as the button
-- onClick(*function*): Callback when the button is clicked. Signature *(row) => {}*
+- **icon**(*element*): React element to render as the button
+- **onClick**(*function*): Callback when the button is clicked. Signature *(row) => {}*

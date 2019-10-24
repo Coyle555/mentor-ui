@@ -30,7 +30,7 @@ export function getInputComponent(field, props) {
 			/>
 		);
 
-	} else if (field.type === 'date' || field.type === 'datetime' || field.type === 'time') {
+	} else if (field.type === 'date' || field.type === 'datetime') {
 
 		return (
 			<DatePickerInput
