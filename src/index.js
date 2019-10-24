@@ -18,7 +18,7 @@ export * from './components/Panel/PanelSeries/index';
 export * from './components/Spinner';
 
 export * from './components/mentor-inputs/src/index';
-export * from './components/structured-query/src/index';
+export * from './components/structured-query/index';
 
 export const Button = a; 
 export const Drawer = b;
