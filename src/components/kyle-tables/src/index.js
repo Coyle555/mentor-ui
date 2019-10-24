@@ -411,9 +411,6 @@ export class Table extends Component {
 		const isRowSelected = !selectedRows[row.id];
 		const rowIndex = data.findIndex(d => d.id === row.id);
 		const hasShift = event.nativeEvent.shiftKey;
-		const numSelected = isRowSelected
-			? numRowsSelected + 1
-			: numRowsSelected - 1;
 		const newSelectedRows = Object.assign({}, selectedRows);
 
 		if (isRowSelected) {
@@ -427,7 +424,7 @@ export class Table extends Component {
 						? currentIndex + 1
 						: currentIndex - 1;
 				}
-			}
+			} 
 
 			newSelectedRows[row.id] = row;
 			this.lastSelectedRowIndexStack.push(rowIndex);
@@ -442,19 +439,29 @@ export class Table extends Component {
 						? currentIndex + 1
 						: currentIndex - 1;
 				}
+
+				const lastSelectedRowIndex = this.lastSelectedRowIndexStack.pop();
+
+				console.log('selected row', rowIndex);
+				this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => (
+					rowIndex > lastSelectedRowIndex
+						? idx > rowIndex || idx < lastSelectedRowIndex
+						: idx < rowIndex || idx > lastSelectedRowIndex
+				));
 			}
 
 			delete newSelectedRows[row.id];
-			this.lastSelectedRowIndexStack.pop();
+			this.lastSelectedRowIndexStack = this.lastSelectedRowIndexStack.filter(idx => idx !== rowIndex);
 		}
-
-		console.log('new selected rows', newSelectedRows, data.length);
 
 		// user manually selected all rows
 		this.allRowsSelected = Object.keys(newSelectedRows).length === data.length;
 
+		console.log('new selected rows', newSelectedRows, this.allRowsSelected, Object.keys(newSelectedRows).length);
+		console.log('current selected row stack', this.lastSelectedRowIndexStack);
+
 		this.setState({
-			numRowsSelected: numSelected,
+			numRowsSelected: Object.keys(newSelectedRows).length,
 			selectedRows: newSelectedRows
 		});
 	}
