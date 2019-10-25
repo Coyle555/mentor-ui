@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Button from 'components/Button';
-import SegmentedList, { ListItem } from '../index';
+import SegmentedList from '../index';
 
 const ExampleList = props => {
 	const [list, setList] = useState([
@@ -11,7 +11,7 @@ const ExampleList = props => {
 		<div style={{ color: 'red' }}>Baz</div>
 	]);
 
-	const AddItem = useCallback(() => {
+	const AddItem = useCallback((props) => {
 		const [value, setValue] = useState('');
 
 		return (
@@ -21,7 +21,7 @@ const ExampleList = props => {
 					type="text"
 				/>
 				<Button
-					onClick={() => setList(list.concat(<div>{value}</div>))}
+					onClick={() => props.addItem(value)}
 					type="button"
 				>
 					Add

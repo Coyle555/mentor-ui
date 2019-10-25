@@ -8,12 +8,17 @@ import { ListItem } from './ListItem';
 import '../styles.less';
 
 export const SegmentedList = ({ InsertItemComponent, items, title }) => {
+	const [listItems, setListItems] = useState(items);
 	const [insertingListItem, setInsertingListItem] = useState(false);
 	const [display, setDisplay] = useState('none');
 
 	const onInsertClick = () => {
 		setDisplay('block');
 		setInsertingListItem(!insertingListItem);
+	};
+
+	const addItem = (item) => {
+		setListItems(listItems.concat(item));
 	};
 
 	return (
@@ -26,7 +31,7 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 				/>
 			}
 			<ul className="mui-segmented-list-ul">
-				{ items.map((item, i) => (
+				{ listItems.map((item, i) => (
 					<ListItem key={`mui-sl-item-${title}-${i}`}>
 						{item}
 					</ListItem>
@@ -49,7 +54,7 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 								position: 'relative',
 								...props
 							}}>
-								<InsertItemComponent />
+								<InsertItemComponent addItem={addItem} />
 							</ListItem>
 						)}
 					</Spring>
@@ -61,7 +66,7 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 
 SegmentedList.propTypes = {
 	InsertItemComponent: PropTypes.func,
-	items: PropTypes.array,
+	items: PropTypes.array.isRequired,
 	title: PropTypes.string
 };
 

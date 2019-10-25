@@ -5,3 +5,18 @@
 Discrete react components that work together like legos to build functional and practical user interfaces. Think composable, modular, and flexible.
 
 Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/mentor-code-styleguide/blob/master/README.md) when contributing to this project.
+
+### Components
+
+- [Button]('./src/components/Button')
+- [DatePicker]('./src/components/DatePicker')
+- [Error Page]('./src/components/ErrorPage')
+- [Hierarchy]('./src/components/Hierarchy')
+- [Inputs]('./src/components/mentor-inputs')
+- [Insert Popup Form]('./src/components/InsertPopupForm')
+- [Modal]('./src/components/Modal')
+- [Panel]('./src/components/Panel')
+- [SegmentedList]('./src/components/SegmentedList')
+- [Structured Query]('./src/components/structured-query')
+- [Table]('./src/components/kyle-tables')
+- [Toggle List]('./src/components/ToggleList')

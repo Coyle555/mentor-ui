@@ -18,17 +18,15 @@ export const PanelSeries = props => {
 		>
 			<div className={cn(
 				cc('main'),
-			  { [cc('main-flat')] : isFlat },
+				{ [cc('main-flat')] : isFlat },
 			)} >
 				{children}
 			</div>
 		</Panel>
 	)
-}
+};
 
 PanelSeries.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-}
-
-
+	className: PropTypes.string,
+	children: PropTypes.node,
+};

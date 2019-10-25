@@ -85,4 +85,3 @@ Panel.propTypes = {
 Panel.defaultProps = {
 	title: ''
 };
-
