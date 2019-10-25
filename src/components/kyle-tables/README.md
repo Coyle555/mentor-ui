@@ -17,16 +17,13 @@ csvURL | String | No | Generate an icon that can be clicked to call a url for a 
 customColumns | Object | No | Render a column in view mode using a callback. Each key-value pair in the object has a key for the column and a callback as the value. Signature *(row, { colId, value, _origValue }) => element*
 customLayout | Function | No | Callback to render the two components of the table. Signature *(HeaderComponent, TableComponent) => element*
 [customToolbarButtons](#customToolbarButtons) | [Object] | No | Adds buttons to the toolbar of the table
-deletable | Boolean | No | Renders a toolbar button to let rows be deleted when true
 deleteCb | Function | No | Callback when the delete toolbar button is called. Signature *([rowIds]) => {}*. Function receives a list of selected row ids to be deleted.
-editable | Boolean | No | Renders a toolbar button to let rows be edited when true
 ExpandComponent | Function | No | React component to render when a row gets expanded. Signature *({ row }) => element*
 exportTable | Function | No | Callback to export the current state of the table. Signature *(filters) => {}*
 formFields | [Object] | No | Form fields to use when the user inserts a record
 getRowName | Function | No | Callback to use to get the row name for the edit modal. Signature *(row) => string*
 id | String | No | Id attached to the table DOM
 initInsertData | Object | No | Initial insertion data to add to a record when being inserted
-insertable | Boolean | No | Renders a toolbar button to insert records when true
 insertCb | Function | No | Callback to use when the user finishes inserting data for a new record. Signature *(insertData, insertType) => {}*. Insert type is either single or multiple
 loading | Boolean | No | Renders a loading icon on the table. Useful when the table relies on external data to render.
 multipleInsertion | Boolean | No | Renders a toolbar button to allow the user to insert multiple records at a time.
