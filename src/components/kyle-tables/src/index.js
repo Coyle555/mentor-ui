@@ -27,7 +27,7 @@ export class Table extends Component {
 		csvURL: PropTypes.string,
 		columns: PropTypes.arrayOf(PropTypes.shape({
 			display: PropTypes.bool,
-			id: PropTypes.string,
+			id: PropTypes.string.isRequired,
 			insertable: PropTypes.bool,
 			label: PropTypes.string,
 			options: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.string)]),
@@ -193,6 +193,10 @@ export class Table extends Component {
 				selectedRows: newSelectedRows
 			});
 			this.lastSelectedRowIndex = -1;
+		}
+
+		if (this.props.columns !== prevProps.columns) {
+			this.setState({ columns: cloneDeep(this.props.columns) });
 		}
 	}
 

@@ -110,7 +110,10 @@ export class TableBody extends Component {
 							className="table-row-expanded"
 							colSpan={rowButtons.length + 1}
 						/>
-						<td colSpan={columns.length + 1}>
+						<td colSpan={allowSelection
+							? columns.length + 1
+							: columns.length
+						}>
 							{ React.cloneElement(
 								ExpandComponent,
 								{ row }
