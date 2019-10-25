@@ -30,7 +30,7 @@ export class FilterItem extends Component {
 
 			return this.props.parse(val);
 
-		} else if (this.props.type === 'datetime') {
+		} /*else if (this.props.type === 'datetime') {
 
 			const date = Date.parse(new Date(val));
 			const region = new Intl.DateTimeFormat().resolvedOptions();
@@ -58,7 +58,7 @@ export class FilterItem extends Component {
 					{ new moment(date).format('MMMM D, YYYY h:mm A') }
 				</span>
 			);
-		}
+		}*/
 
 		return val;
 	}

@@ -1,41 +1,25 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { DatePickerInput } from 'mentor-inputs';
+
+import { DatePicker as Picker } from 'components/DatePicker';
 
 export class DatePicker extends Component {
 
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			datetime: moment()
-		};
-	}
-
-	componentDidMount() {
-		const { datetime } = this.state;
-
-		this.props.updateDateValue(datetime.format('YYYY-MM-DD HH:mm'));
-	}
-
 	handleChange = (newDatetime) => {
-		this.setState({ datetime: newDatetime });
-
-		this.props.updateDateValue(newDatetime.format('YYYY-MM-DD HH:mm'));
+		this.props.updateDateValue(newDatetime);
 	}
 
 	render() {
-		const { clearInput, handleClose, saveDate } = this.props;
-		const { datetime } = this.state;
+		const { clearInput, handleClose, saveDate, type } = this.props;
 
 		return (
 			<div className="datepicker">
-				<DatePickerInput
-					clearInput={clearInput}
+				<Picker
 					handleClose={handleClose}
-					moment={datetime}
 					onChange={this.handleChange}
-					saveDate={saveDate}
+					onClearHandler={clearInput}
+					onSaveHandler={saveDate}
+					type={type}
 				/>
 			</div>
 		);

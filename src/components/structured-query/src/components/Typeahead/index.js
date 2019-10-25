@@ -60,9 +60,9 @@ export class TypeaheadComponent extends Component {
 		this.getOptions(this.props.options);
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		if (!!nextProps.options && this.props.options !== nextProps.options) {
-			this.getOptions(nextProps.options);
+	componentDidUpdate(prevProps) {
+		if (!!this.props.options && this.props.options !== prevProps.options) {
+			this.getOptions(this.props.options);
 		}
 	}
 
@@ -239,6 +239,8 @@ export class TypeaheadComponent extends Component {
 			&& !!this.state.value) {
 			
 			addTokenForValue(value);
+			this.setState({ value: '' });
+
 			return;
 		}
 
@@ -334,6 +336,7 @@ export class TypeaheadComponent extends Component {
 					handleClose={this.handleDatepickerClose}
 					onOptionSelected={this._onOptionSelected}
 					saveDate={this.saveDatepickerValue}
+					type={this.props.datatype}
 					updateDateValue={this.updateDateValue}
 				/>
 		       );
