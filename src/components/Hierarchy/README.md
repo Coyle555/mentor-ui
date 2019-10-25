@@ -1,16 +1,21 @@
+# Hierarchy
+
 Props | Type | Required | Description
 ----- | ---- | -------- | -----------
-tree | Object | Yes | The tree object describing the hierarchy. See below for format.
+[tree](#tree) | Object | Yes | The tree object describing the hierarchy. See below for format.
 canDrag | Boolean | No | Allows nodes in the hierarchy to be dragged. Defaults to false.
-customButtons | Function:(node: Node) => [React.Elements] or Array(*React elements*) | No | Render custom buttons that can be activated on each node. Array must be react elements.
-customHandle | Function:(node: Node) => React.Element | No | Renders a custom handler on each node.
+customButtons | Function | No | Render custom buttons that can be activated on each node. Array must be react elements. Signature *(node) => [element]*
+customHandle | Function | No | Renders a custom handler on each node. Signature *(node) => element*
 isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to false.
-onExpandNode | Function:(node: Node) => [Node] | No | Callback that will receive the children of a node that gets expanded.
-onTreeChange | Function:(tree: [Node]) => void | No | Callback that receives the new tree when the tree initializes, expands, or collapses.
-subtitle | Function(node: Node) => String | No | Callback to render subtitles.
+onExpandNode | Function | No | Callback that will receive the children of a node that gets expanded. Signature *(node) => [node]*
+onNodeClick | Function | No | Called when a user clicks a node. Signature *(node) => {}*
+onTreeChange | Function | No | Callback that receives the new tree when the tree initializes, expands, or collapses. Signature *(tree) => {}*
+subtitle | Function | No | Callback to render subtitles. Signature *(node) => string*
 nodeStyle | Object or Function(node: Node) => Object | No | An object or a function to call to apply a style to nodes.
 
-### Tree format
+### Tree
+
+A tree is an object made up of nodes.
 
 #### Node Format
 

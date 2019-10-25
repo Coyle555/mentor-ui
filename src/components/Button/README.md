@@ -1,7 +1,5 @@
 # Button
 
-The data table without the header
-
 Props | Type | Required | Description
 ----- | ---- | -------- | -----------
 block | Boolean | No | Renders button as a block
