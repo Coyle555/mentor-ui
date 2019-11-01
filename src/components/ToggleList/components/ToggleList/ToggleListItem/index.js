@@ -7,13 +7,10 @@ export const ToggleListItem = ({ content, customClasses, expanded, title }) => {
 	const [toggleExpand, setToggleExpand] = useState(expanded);
 
 	const titleClasses = classNames(
-		'title',
+		'mui-toggle-list-item-title',
 		{ [customClasses.title]: !!customClasses.title }
 	);
-	const contentClasses = classNames(
-		'content',
-		{ [customClasses.content]: !!customClasses.content }
-	);
+	const contentClasses = classNames({ [customClasses.content]: !!customClasses.content });
 
 	return (
 		<div className="mui-toggle-list-item">
