@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Spring, config } from 'react-spring/renderprops';
+import classNames from 'classnames';
 
 import { Title } from './Title';
 import { ListItem } from './ListItem';
 
 import '../styles.less';
 
-export const SegmentedList = ({ InsertItemComponent, items, title }) => {
+export const SegmentedList = ({ customClasses, InsertItemComponent, insertOrientation, items, title }) => {
 	const [listItems, setListItems] = useState(items);
 	const [insertingListItem, setInsertingListItem] = useState(false);
-	const [display, setDisplay] = useState('none');
 
 	const onInsertClick = () => {
-		setDisplay('block');
 		setInsertingListItem(!insertingListItem);
 	};
 
@@ -21,43 +19,48 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 		setListItems(listItems.concat(item));
 	};
 
+	const containerClasses = classNames(
+		'mui-segmented-list',
+		{ [customClasses.container]: !!customClasses.container }
+	);
+
+	const titleClasses = classNames(
+		'title-container',
+		{ [customClasses.title]: !!customClasses.title }
+	);
+
+	const listClasses = classNames(
+		'mui-segmented-list-ul',
+		{ [customClasses.list]: !!customClasses.list }
+	);
+
 	return (
-		<div className="mui-segmented-list">
+		<div className={containerClasses}>
 			{ (title || typeof InsertItemComponent === 'function') &&
 				<Title
+					classes={titleClasses}
 					insertable={typeof InsertItemComponent === 'function'}
 					onInsertClick={onInsertClick}
 					title={title}
 				/>
 			}
-			<ul className="mui-segmented-list-ul">
+			<ul className={listClasses}>
+				{ typeof InsertItemComponent === 'function' && insertOrientation === 'before' && insertingListItem
+					? <ListItem>
+						<InsertItemComponent addItem={addItem} />
+					</ListItem>
+					: null
+				}
 				{ listItems.map((item, i) => (
 					<ListItem key={`mui-sl-item-${title}-${i}`}>
 						{item}
 					</ListItem>
 				))}
-				{ typeof InsertItemComponent === 'function' &&
-					<Spring
-						config={key => (key === 'left'
-							? config.slow
-							: config.default
-						)}
-						from={{ left: 75, opacity: 0 }}
-						to={{ left: 0, opacity: 1 }}
-						onRest={() => !insertingListItem && setDisplay('none')}
-						reset={true}
-						reverse={!insertingListItem}
-					>
-						{ props => (
-							<ListItem style={{
-								display,
-								position: 'relative',
-								...props
-							}}>
-								<InsertItemComponent addItem={addItem} />
-							</ListItem>
-						)}
-					</Spring>
+				{ typeof InsertItemComponent === 'function' && insertOrientation === 'after' && insertingListItem
+					?  <ListItem>
+						<InsertItemComponent addItem={addItem} />
+					</ListItem>
+					: null
 				}
 			</ul>
 		</div>
@@ -65,13 +68,21 @@ export const SegmentedList = ({ InsertItemComponent, items, title }) => {
 };
 
 SegmentedList.propTypes = {
+	customClasses: PropTypes.shape({
+		container: PropTypes.string,
+		list: PropTypes.string,
+		title: PropTypes.string
+	}),
 	InsertItemComponent: PropTypes.func,
+	insertOrientation: PropTypes.oneOf(['after', 'before']),
 	items: PropTypes.array.isRequired,
 	title: PropTypes.string
 };
 
 SegmentedList.defaultProps = {
+	customClasses: {},
 	InsertItemComponent: null,
+	insertOrientation: 'after',
 	items: [],
 	title: ''
 };

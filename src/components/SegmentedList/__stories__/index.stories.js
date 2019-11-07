@@ -34,6 +34,7 @@ const ExampleList = props => {
 		<SegmentedList
 			insertable={true}
 			InsertItemComponent={AddItem}
+			insertOrientation="before"
 			items={list}
 			title="Segmented List Title"
 		/>
