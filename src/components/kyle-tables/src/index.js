@@ -76,6 +76,7 @@ export class Table extends Component {
 		insertCb: PropTypes.func,
 		loading: PropTypes.bool,
 		multipleInsertion: PropTypes.bool,
+		onRowSelect: PropTypes.func,
 		pagination: PropTypes.bool,
 		quickViews: PropTypes.arrayOf(PropTypes.object),
 		recordCount: PropTypes.number,
@@ -126,6 +127,7 @@ export class Table extends Component {
 		initInsertData: null,
 		insertCb: null,
 		multipleInsertion: true,
+		onRowSelect: null,
 		pagination: true,
 		quickViews: [],
 		rowButtons: [],
@@ -322,7 +324,6 @@ export class Table extends Component {
 		});
 	}
 
-
 	// Show a quick view of preset columns
 	// @colIds(object): columns that are to be displayed; if it is
 	// 	to be displayed, it will have a field entry
@@ -435,6 +436,10 @@ export class Table extends Component {
 		this.setState({
 			numRowsSelected: Object.keys(newSelectedRows).length,
 			selectedRows: newSelectedRows
+		}, () => {
+			if (typeof this.props.onRowSelect === 'function') {
+				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+			}
 		});
 	}
 
@@ -473,6 +478,10 @@ export class Table extends Component {
 		this.setState({
 			numRowsSelected: Object.keys(newSelectedRows).length,
 			selectedRows: newSelectedRows
+		}, () => {
+			if (typeof this.props.onRowSelect === 'function') {
+				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+			}
 		});
 	}
 
@@ -496,6 +505,10 @@ export class Table extends Component {
 		this.setState({
 			numRowsSelected: !allRowsSelected ? data.length : 0,
 			selectedRows: newSelectedRows
+		}, () => {
+			if (typeof this.props.onRowSelect === 'function') {
+				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+			}
 		});
 	}
 

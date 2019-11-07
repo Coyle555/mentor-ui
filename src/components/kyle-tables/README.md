@@ -27,6 +27,7 @@ initInsertData | Object | No | Initial insertion data to add to a record when be
 insertCb | Function | No | Callback to use when the user finishes inserting data for a new record. Signature *(insertData, insertType) => {}*. Insert type is either single or multiple
 loading | Boolean | No | Renders a loading icon on the table. Useful when the table relies on external data to render.
 multipleInsertion | Boolean | No | Renders a toolbar button to allow the user to insert multiple records at a time.
+onRowSelect | Function | No | Callback when a row is selected/deselected in the table. Sends all currently selected rows as an argument. Signature *([rows]) => {}*
 pagination | Boolean | No | Renders the pagination on the table when true
 [quickViews](#quickViews) | [Object] | No | List of preset column configurations the user can select
 [rowButtons](#rowButtons) | [Object] | No | List of buttons to render at the beginning of each row
