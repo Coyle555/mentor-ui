@@ -438,7 +438,7 @@ export class Table extends Component {
 			selectedRows: newSelectedRows
 		}, () => {
 			if (typeof this.props.onRowSelect === 'function') {
-				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+				this.props.onRowSelect(Object.values(this.state.selectedRows));
 			}
 		});
 	}
@@ -480,7 +480,7 @@ export class Table extends Component {
 			selectedRows: newSelectedRows
 		}, () => {
 			if (typeof this.props.onRowSelect === 'function') {
-				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+				this.props.onRowSelect(Object.values(this.state.selectedRows));
 			}
 		});
 	}
@@ -507,7 +507,7 @@ export class Table extends Component {
 			selectedRows: newSelectedRows
 		}, () => {
 			if (typeof this.props.onRowSelect === 'function') {
-				this.props.onRowSelect(Object.values(this.state.numRowsSelected));
+				this.props.onRowSelect(Object.values(this.state.selectedRows));
 			}
 		});
 	}
