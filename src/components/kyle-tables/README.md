@@ -17,14 +17,14 @@ csvURL | String | No | Generate an icon that can be clicked to call a url for a 
 customColumns | Object | No | Render a column in view mode using a callback. Each key-value pair in the object has a key for the column and a callback as the value. Signature *(row, { colId, value, _origValue }) => element*
 customLayout | Function | No | Callback to render the two components of the table. Signature *(HeaderComponent, TableComponent) => element*
 [customToolbarButtons](#customToolbarButtons) | [Object] | No | Adds buttons to the toolbar of the table
-deleteCb | Function | No | Callback when the delete toolbar button is called. Signature *([rowIds]) => {}*. Function receives a list of selected row ids to be deleted.
+deleteCb | Function | No | Callback when the delete toolbar button is called. Will render a delete toolbar button when passed in. Signature *([rowIds]) => {}*. Function receives a list of selected row ids to be deleted.
 ExpandComponent | Function | No | React component to render when a row gets expanded. Signature *({ row }) => element*
 exportTable | Function | No | Callback to export the current state of the table. Signature *(filters) => {}*
 formFields | [Object] | No | Form fields to use when the user inserts a record
 getRowName | Function | No | Callback to use to get the row name for the edit modal. Signature *(row) => string*
 id | String | No | Id attached to the table DOM
 initInsertData | Object | No | Initial insertion data to add to a record when being inserted
-insertCb | Function | No | Callback to use when the user finishes inserting data for a new record. Signature *(insertData, insertType) => {}*. Insert type is either single or multiple
+insertCb | Function | No | Callback to use when the user finishes inserting data for a new record. Will render an insert toolbar button when passed in. Signature *(insertData, insertType) => {}*. Insert type is either single or multiple
 loading | Boolean | No | Renders a loading icon on the table. Useful when the table relies on external data to render.
 multipleInsertion | Boolean | No | Renders a toolbar button to allow the user to insert multiple records at a time.
 onRowSelect | Function | No | Callback when a row is selected/deselected in the table. Sends all currently selected rows as an argument. Signature *([rows]) => {}*
@@ -34,7 +34,7 @@ pagination | Boolean | No | Renders the pagination on the table when true
 singleInsertion | Boolean | No | Renders a toolbar button to allow the user to insert a single record at at a time.
 sortDir | [ASC, DESC] | No | The direction of a sorted column
 sortId | String | No | The id of a column being sorted
-updateCb | Function | No | Update callback to call when the user edits a record. Signature *(rowId, colId, value) => {}*
+updateCb | Function | No | Update callback to call when the user edits a record. Will render a edit toolbar button when passed in. Signature *(rowId, colId, value) => {}*
 viewColumns | Boolean | No | Renders a toolbar button to allow users to turn on/off columns when true
 
 

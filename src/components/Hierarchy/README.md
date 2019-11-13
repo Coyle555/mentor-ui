@@ -4,7 +4,7 @@ Props | Type | Required | Description
 ----- | ---- | -------- | -----------
 [tree](#tree) | Object | Yes | The tree object describing the hierarchy. See below for format.
 canDrag | Boolean | No | Allows nodes in the hierarchy to be dragged. Defaults to false.
-customButtons | Function | No | Render custom buttons that can be activated on each node. Array must be react elements. Signature *(node) => [element]*
+customButtons | [[element], Function] | No | Render custom buttons that can be activated on each node. Array must be react elements. Signature *(node) => [element]*
 customHandle | Function | No | Renders a custom handler on each node. Signature *(node) => element*
 isVirtualized | Boolean | No | Enable windowing of the hierarchy. Defaults to false.
 onExpandNode | Function | No | Callback that will receive the children of a node that gets expanded. Signature *(node) => [node]*
