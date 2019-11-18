@@ -48,7 +48,7 @@ export const Panel = ({
 		<div
 			className={cn(
 				cc(),
-			{ 'APMPanel-draggable': isDraggable },
+				{ 'APMPanel-draggable': isDraggable },
 			)}
 			style={props.containerStyle}
 		>

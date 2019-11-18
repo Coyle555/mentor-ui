@@ -19,4 +19,5 @@ Classes can be applied to the following:
 
 - **container**: Segmented list container
 - **list**: Container for just the list
+- **listItem**: An individual list item
 - **title**: Container for just the title

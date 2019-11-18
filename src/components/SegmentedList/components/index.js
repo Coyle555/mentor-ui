@@ -52,7 +52,10 @@ export const SegmentedList = ({ customClasses, InsertItemComponent, insertOrient
 					: null
 				}
 				{ listItems.map((item, i) => (
-					<ListItem key={`mui-sl-item-${title}-${i}`}>
+					<ListItem
+						customClasses={customClasses}
+						key={`mui-sl-item-${title}-${i}`}
+					>
 						{item}
 					</ListItem>
 				))}
