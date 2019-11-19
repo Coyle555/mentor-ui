@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import Button from 'components/Button';
 
-export const InsertListItem = ({ onClick }) => {
+export const InsertListItem = ({ label, onClick }) => {
 	return (
 		<Button
 			className="insert-btn"
 			onClick={onClick}
 			type="button"
 		>
-			<i className="fas fa-plus" /> Add Items
+			<i className="fas fa-plus" /> {label}
 		</Button>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,7 +7,14 @@ import { ListItem } from './ListItem';
 
 import '../styles.less';
 
-export const SegmentedList = ({ customClasses, InsertItemComponent, insertOrientation, items, title }) => {
+export const SegmentedList = ({
+	customClasses,
+	InsertItemComponent,
+	insertItemLabel,
+	insertOrientation,
+	items,
+	title
+}) => {
 	const [listItems, setListItems] = useState(items);
 	const [insertingListItem, setInsertingListItem] = useState(false);
 
@@ -18,6 +25,10 @@ export const SegmentedList = ({ customClasses, InsertItemComponent, insertOrient
 	const addItem = (item) => {
 		setListItems(listItems.concat(item));
 	};
+
+	useEffect(() => {
+		setListItems(items);
+	}, [items]);
 
 	const containerClasses = classNames(
 		'mui-segmented-list',
@@ -40,6 +51,7 @@ export const SegmentedList = ({ customClasses, InsertItemComponent, insertOrient
 				<Title
 					classes={titleClasses}
 					insertable={typeof InsertItemComponent === 'function'}
+					insertItemLabel={insertItemLabel}
 					onInsertClick={onInsertClick}
 					title={title}
 				/>
@@ -77,6 +89,7 @@ SegmentedList.propTypes = {
 		title: PropTypes.string
 	}),
 	InsertItemComponent: PropTypes.func,
+	insertItemLabel: PropTypes.string,
 	insertOrientation: PropTypes.oneOf(['after', 'before']),
 	items: PropTypes.array.isRequired,
 	title: PropTypes.string
@@ -85,6 +98,7 @@ SegmentedList.propTypes = {
 SegmentedList.defaultProps = {
 	customClasses: {},
 	InsertItemComponent: null,
+	insertItemLabel: 'Add Items',
 	insertOrientation: 'after',
 	items: [],
 	title: ''
