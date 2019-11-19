@@ -1,9 +1,8 @@
 @import '~mentor-ui-constants';
 
 .APMButton {
-	font-size: 16px;
+	font-size: 1rem;
 	border-radius: 3px;
-	background-color: @green-primary;
 	border: none;
 	color: @white;
 	padding: .5em 1em;
@@ -17,19 +16,71 @@
 		cursor: not-allowed;
 	}
 
-	&:hover:not([disabled]) {
-		background-color: lighten(@green-primary, 10%);
-	}
-
 	&:focus {
 		outline: none;
 	}
 
-	&:active:not([disabled]) {
-		background-color: @green-secondary;
+	&-primary {
+		background-color: @green-primary;
+
+		&:hover:not([disabled]) {
+			background-color: lighten(@green-primary, 10%);
+		}
+
+		&:active:not([disabled]) {
+			background-color: @green-secondary;
+		}
 	}
 
-	&-blue {
+	&-primary-light {
+		background-color: @white;
+		border: 1px solid @green-primary;
+		color: @green-primary;
+
+		&:hover:not([disabled]) {
+			background-color: @green-primary;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: @green-secondary;
+			border-color: @green-secondary;
+			color: @white;
+		}
+	}
+
+	&-default {
+		background-color: @blue-gray-dark;
+
+		&:hover:not([disabled]) {
+			background-color: lighten(@blue-gray-dark, 10%);
+		}
+
+		&:active:not([disabled]) {
+			background-color: @blue-gray-light;
+		}
+	}
+
+	&-default-light {
+		background-color: @white;
+		border: 1px solid @blue-gray-dark;
+		color: @blue-gray-dark;
+
+		&:hover:not([disabled]) {
+			background-color: @blue-gray-dark;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: @blue-gray-light;
+			border-color: @blue-gray-light;
+			color: @white;
+		}
+	}
+
+	&-success {
 		background-color: @blue-primary;
 
 		&:hover:not([disabled]) {
@@ -38,6 +89,54 @@
 
 		&:active:not([disabled]) {
 			background-color: @blue-secondary;
+		}
+	}
+
+	&-success-light {
+		background-color: @white;
+		border: 1px solid @blue-primary;
+		color: @blue-primary;
+
+		&:hover:not([disabled]) {
+			background-color: @blue-primary;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: @blue-secondary;
+			border-color: @blue-secondary;
+			color: @white;
+		}
+	}
+
+	&-danger {
+		background-color: @ketchup;
+
+		&:hover:not([disabled]) {
+			background-color: lighten(@ketchup, 15%);
+		}
+
+		&:active:not([disabled]) {
+			background-color: darken(@ketchup, 15%);
+		}
+	}
+
+	&-danger-light {
+		background-color: @white;
+		border: 1px solid @ketchup;
+		color: @ketchup;
+
+		&:hover:not([disabled]) {
+			background-color: @ketchup;
+			color: @white;
+		}
+
+		&:active:not([disabled]) {
+			transition: none;
+			background-color: darken(@ketchup, 15%);
+			border-color: darkten(@ketchup, 15%);
+			color: @white;
 		}
 	}
 
@@ -61,42 +160,6 @@
 		}
 	}
 
-	&-light {
-		background-color: @white;
-		border: 1px solid @green-primary;
-		color: @green-primary;
-
-		&:hover:not([disabled]) {
-			background-color: @green-primary;
-			color: @white;
-		}
-
-		&:active:not([disabled]) {
-			transition: none;
-			background-color: @green-secondary;
-			border-color: @green-secondary;
-			color: @white;
-		}
-	}
-
-	&-light-blue {
-		background-color: @white;
-		border: 1px solid @blue-primary;
-		color: @blue-primary;
-
-		&:hover:not([disabled]) {
-			background-color: @blue-primary;
-			color: @white;
-		}
-
-		&:active:not([disabled]) {
-			transition: none;
-			background-color: @blue-secondary;
-			border-color: @blue-secondary;
-			color: @white;
-		}
-	}
-
 	&-outline {
 		background-color: @charcoal !important;
 		border: 1px solid @blue-gray-dark;
@@ -115,7 +178,7 @@
 	}
 
 	&-is-mini {
-		font-size: 14px;
+		font-size: .85rem;
 		padding: 2px 8px;
 	}
 
@@ -129,12 +192,5 @@
 		border-right: none;
 		border-left: none;
 		border-radius: 0;
-	}
-
-	&-is-circular {
-		border-radius: 10px;
-		width: 20px;
-		height: 20px;
-		padding: 0;
 	}
 }

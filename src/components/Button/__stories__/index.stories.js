@@ -8,7 +8,6 @@ import Button from '../';
 
 const optionsConfig = {
 	block: 'block',
-	circular: 'circular',
 	disabled: 'disabled',
 	isCapless: 'isCapless',	
 	isLight: 'isLight',
@@ -30,27 +29,32 @@ storiesOf('Button', module)
 		
 		const buttonText = text('children', 'Button Text');
 		return (
-			<Fragment>
-				<Button 
-					block={boolean('block', false)}
-					disabled={boolean('disabled', false)}
-					isBlue={boolean('isBlue', false)}
-					isCapless={boolean('isCapless', false)}
-					isCircular={boolean('isCircular', false)}
-					isLight={boolean('isLight', false)}
-					isLeftEndCap={boolean('isLeftEndCap', false)}
-					isMini={boolean('isMini', false)}
-					isRightEndCap={boolean('isRightEndCap', false)}
-					isOutline={boolean('isOutline', false)}
-					medium={boolean('medium', false)}
-					onClick={action('onClick')}
-				>
-					{ buttonText }
-				</Button>
-				<br />
-				<Button isCircular={true}>
-					<i className="far fa-plus fa-sm" />
-				</Button>
-			</Fragment>
-		);
-})
+			<Button 
+				block={boolean('block', false)}
+				disabled={boolean('disabled', false)}
+				isBlue={boolean('isBlue', false)}
+				isCapless={boolean('isCapless', false)}
+				isLight={boolean('isLight', false)}
+				isLeftEndCap={boolean('isLeftEndCap', false)}
+				isMini={boolean('isMini', false)}
+				isRightEndCap={boolean('isRightEndCap', false)}
+				isOutline={boolean('isOutline', false)}
+				medium={boolean('medium', false)}
+				onClick={action('onClick')}
+			>
+				{ buttonText }
+			</Button>
+		)
+	})
+	.add('Default', () => {
+		return <Button theme="default">Default</Button>;
+	})
+	.add('Success', () => {
+		return <Button theme="success">Success</Button>;
+	})
+	.add('Danger', () => {
+		return <Button theme="danger">Danger</Button>;
+	})
+	.add('Primary', () => {
+		return <Button theme="primary">Primary</Button>;
+	})

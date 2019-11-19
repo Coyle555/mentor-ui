@@ -14,3 +14,7 @@ export const ListItem = ({ children, customClasses }) => {
 		</li>
 	);
 };
+
+ListItem.defaultProps = {
+	customClasses: {}
+};

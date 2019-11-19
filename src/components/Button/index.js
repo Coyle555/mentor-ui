@@ -14,29 +14,33 @@ const Button = (props) => {
 		children,
 		medium,
 		isBlue,
-		isCircular,
 		isLight,
 		isMini,
 		isOutline,
 		isLeftEndCap,
 		isRightEndCap,
 		isCapless,
+		theme,
 		...btnAttributes
 	} = props;
 
 	const btnClass = classNames(
-		"APMButton",
-		{ "APMButton-blue": isBlue },
-		{ "APMButton-block": block },
-		{ "APMButton-light": isLight && !isBlue },
-		{ "APMButton-light-blue": isLight && isBlue },
-		{ "APMButton-outline": isOutline },
-		{ "APMButton-is-mini": isMini },
-		{ "APMButton-end-cap-left": isLeftEndCap },
-		{ "APMButton-end-cap-right": isRightEndCap },
-		{ "APMButton-is-capless": isCapless },
-		{ "APMButton-is-medium": medium },
-		{ "APMButton-is-circular": isCircular },
+		'APMButton',
+		{ 'APMButton-default': theme === 'default' },
+		{ 'APMButton-default-light': theme === 'default' && isLight },
+		{ 'APMButton-primary': theme === 'primary' },
+		{ 'APMButton-primary-light': theme === 'primary' && isLight },
+		{ 'APMButton-success': theme === 'success' },
+		{ 'APMButton-success-light': theme === 'success' && isLight },
+		{ 'APMButton-danger': theme === 'danger' },
+		{ 'APMButton-danger-light': theme === 'danger' && isLight },
+		{ 'APMButton-block': block },
+		{ 'APMButton-outline': isOutline },
+		{ 'APMButton-is-mini': isMini },
+		{ 'APMButton-end-cap-left': isLeftEndCap },
+		{ 'APMButton-end-cap-right': isRightEndCap },
+		{ 'APMButton-is-capless': isCapless },
+		{ 'APMButton-is-medium': medium },
 		className,
 	);
 
@@ -58,14 +62,18 @@ Button.propTypes = {
 	onClick: PropTypes.func,
 	medium: PropTypes.bool,
 	isBlue: PropTypes.bool,
-	isCircular: PropTypes.bool,
 	isLight: PropTypes.bool,
 	isMini: PropTypes.bool,
 	isOutline: PropTypes.bool,
 	isLeftEndCap: PropTypes.bool,
 	isRightEndCap: PropTypes.bool,
-	isCapless: PropTypes.bool
-}
+	isCapless: PropTypes.bool,
+	theme: PropTypes.oneOf(['primary', 'danger', 'success', 'default'])
+};
+
+Button.defaultProps = {
+	theme: 'default'
+};
 
 
 export default Button;
