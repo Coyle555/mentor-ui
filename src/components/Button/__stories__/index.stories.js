@@ -47,14 +47,54 @@ storiesOf('Button', module)
 		)
 	})
 	.add('Default', () => {
-		return <Button theme="default">Default</Button>;
+		return (
+			<>
+				<Button theme="default">Default</Button>
+				<br />
+				<br />
+				<Button theme="default" isLight={true}>Default Light</Button>
+				<br />
+				<br />
+				<Button theme="default" disabled={true}>Default Disabled</Button>
+			</>
+		);
 	})
 	.add('Success', () => {
-		return <Button theme="success">Success</Button>;
+		return (
+			<>
+				<Button theme="success">Success</Button>
+				<br />
+				<br />
+				<Button theme="success" isLight>Success Light</Button>
+				<br />
+				<br />
+				<Button theme="success" disabled>Success Disabled</Button>
+			</>
+		);
 	})
 	.add('Danger', () => {
-		return <Button theme="danger">Danger</Button>;
+		return (
+			<>
+				<Button theme="danger">Danger</Button>
+				<br />
+				<br />
+				<Button theme="danger" isLight>Danger Light</Button>
+				<br />
+				<br />
+				<Button theme="danger" disabled>Danger Disabled</Button>
+			</>
+		);
 	})
 	.add('Primary', () => {
-		return <Button theme="primary">Primary</Button>;
+		return (
+			<>
+				<Button theme="primary">Primary</Button>
+				<br />
+				<br />
+				<Button theme="primary" isLight>Primary Light</Button>
+				<br />
+				<br />
+				<Button theme="primary" disabled>Primary Disabled</Button>
+			</>
+		);
 	})
