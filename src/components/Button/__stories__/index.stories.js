@@ -48,7 +48,7 @@ storiesOf('Button', module)
 	})
 	.add('Default', () => {
 		return (
-			<>
+			<div style={{ padding: '10px' }}>
 				<Button theme="default">Default</Button>
 				<br />
 				<br />
@@ -56,12 +56,12 @@ storiesOf('Button', module)
 				<br />
 				<br />
 				<Button theme="default" disabled={true}>Default Disabled</Button>
-			</>
+			</div>
 		);
 	})
 	.add('Success', () => {
 		return (
-			<>
+			<div style={{ padding: '10px' }}>
 				<Button theme="success">Success</Button>
 				<br />
 				<br />
@@ -69,12 +69,12 @@ storiesOf('Button', module)
 				<br />
 				<br />
 				<Button theme="success" disabled>Success Disabled</Button>
-			</>
+			</div>
 		);
 	})
 	.add('Danger', () => {
 		return (
-			<>
+			<div style={{ padding: '10px' }}>
 				<Button theme="danger">Danger</Button>
 				<br />
 				<br />
@@ -82,12 +82,12 @@ storiesOf('Button', module)
 				<br />
 				<br />
 				<Button theme="danger" disabled>Danger Disabled</Button>
-			</>
+			</div>
 		);
 	})
 	.add('Primary', () => {
 		return (
-			<>
+			<div style={{ padding: '10px' }}>
 				<Button theme="primary">Primary</Button>
 				<br />
 				<br />
@@ -95,6 +95,6 @@ storiesOf('Button', module)
 				<br />
 				<br />
 				<Button theme="primary" disabled>Primary Disabled</Button>
-			</>
+			</div>
 		);
 	})
