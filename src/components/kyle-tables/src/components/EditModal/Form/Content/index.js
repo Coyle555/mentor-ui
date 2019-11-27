@@ -13,7 +13,7 @@ export const Content = ({
 	sections,
 	uploadFile
 }) => {
-	const [content, setContent] = useState(
+	const FieldsSectionComponent = (
 		<Fields
 			data={data}
 			fields={fields}
@@ -24,20 +24,24 @@ export const Content = ({
 		/>
 	);
 
-	const openSection = (content) => {
-		if (React.isValidElement(content)) {
-			setContent(React.cloneElement(content, { row: data }));
-		} else if (typeof content === 'function') {
-			setContent(content(data));
-		} else {
-			setContent(null);
-		}
+	const [fieldsOpen, setFieldsOpen] = useState(true);
+	const [content, setContent] = useState(FieldsSectionComponent);
+	sections = [{ label: 'Fields', content: FieldsSectionComponent }].concat(sections);
+
+	const openSection = ({ content, label }) => {
+		setFieldsOpen(label === 'Fields');
+		setContent(React.isValidElement(content)
+			? React.cloneElement(content, { row: data })
+			: typeof content === 'function'
+				? content(data)
+				: null);
 	};
 
 	return (
 		<div className="content-container">
 			<Sections
 				fields={fields}
+				fieldsOpen={fieldsOpen}
 				openSection={openSection}
 				sections={sections}
 			/>

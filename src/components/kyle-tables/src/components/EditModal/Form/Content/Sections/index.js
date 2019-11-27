@@ -7,34 +7,23 @@ import { useSpring, animated } from 'react-spring';
 import { ListOfFields } from './ListOfFields';
 import { TextInput } from 'mentor-inputs';
 
-export const Sections = ({ fields, openSection, sections }) => {
-	const [fieldsOpen, setFieldsOpen] = useState(true);
-
-	const fieldClasses = classNames({
-		'fas': true,
-		'fa-chevron-left': !fieldsOpen,
-		'fa-chevron-down': fieldsOpen,
-		'fa-sm': true
-	});
-
+export const Sections = ({ fields, fieldsOpen, openSection, sections }) => {
 	return (
 		<div className="sections">
-			<div
-				className="section-label"
-				onClick={() => setFieldsOpen(!fieldsOpen)}
-			>
-				Fields
-				<i className={fieldClasses} style={{ marginRight: '3px' }} />
-			</div>
-			{ fieldsOpen && <ListOfFields fields={fields} /> }
 			{ sections.map((section, i) => (
-				<div
-					className="section-label"
-					key={section.label + i}
-					onClick={() => openSection(section.content)}
-				>
-					{section.label}
-				</div>
+				<Fragment>
+					<div
+						className="section-label"
+						key={section.label + i}
+						onClick={() => openSection(section)}
+					>
+						{section.label}
+					</div>
+					{ fieldsOpen
+						&& section.label === 'Fields'
+						&& <ListOfFields fields={fields} />
+					}
+				</Fragment>
 			))}
 		</div>
 	);
