@@ -175,10 +175,20 @@ const customToolbarButtons = [{
 
 const filters = [{ label: 'Color', id: 'color', operator: 'equals', value: 'white' }];
 
+const Section3 = ({ row = {} }) => {
+	return <h2>{Object.keys(row).toString()}</h2>;
+};
+
 const editSections = [
 	{ label: 'Edit section 1', content: <h2>Edit Section 1</h2> },
-	{ label: 'Edit section 2', content: ({ row }) => <span>{JSON.stringify(row)}</span> },
-	{ label: 'Edit section 3', content: <h2>Edit Section 3</h2> },
+	{
+		label: 'Edit section 2',
+		content: (row) => {
+			console.log('generating content', row);
+			return <span>{JSON.stringify(row)}</span>;
+		}
+	},
+	{ label: 'Edit section 3', content: <Section3 /> }
 ];
 
 const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) =>

@@ -7,19 +7,8 @@ import { useSpring, animated } from 'react-spring';
 import { ListOfFields } from './ListOfFields';
 import { TextInput } from 'mentor-inputs';
 
-const secStyle = {
-	borderBottom: '2px solid green',
-	cursor: 'pointer',
-	marginBottom: '5px',
-	paddingBottom: '2px',
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'center'
-};
-
-export const Sections = ({ fields, sections }) => {
+export const Sections = ({ fields, openSection, sections }) => {
 	const [fieldsOpen, setFieldsOpen] = useState(true);
-	console.log('sections', sections);
 
 	const fieldClasses = classNames({
 		'fas': true,
@@ -31,21 +20,29 @@ export const Sections = ({ fields, sections }) => {
 	return (
 		<div className="sections">
 			<div
+				className="section-label"
 				onClick={() => setFieldsOpen(!fieldsOpen)}
-				style={secStyle}
 			>
 				Fields
 				<i className={fieldClasses} style={{ marginRight: '3px' }} />
 			</div>
 			{ fieldsOpen && <ListOfFields fields={fields} /> }
-			{ sections.map(section => (
-				<div style={secStyle}>{section.label}</div>
+			{ sections.map((section, i) => (
+				<div
+					className="section-label"
+					key={section.label + i}
+					onClick={() => openSection(section.content)}
+				>
+					{section.label}
+				</div>
 			))}
 		</div>
 	);
 };
 
 Sections.propTypes = {
+	fields: PropTypes.array,
+	openSection: PropTypes.func,
 	sections: PropTypes.arrayOf(PropTypes.shape({
 		label: PropTypes.string.isRequired
 	}))
