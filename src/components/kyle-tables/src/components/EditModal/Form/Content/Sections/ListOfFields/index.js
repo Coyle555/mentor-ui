@@ -17,10 +17,10 @@ export const ListOfFields = ({ fields }) => {
 	});
 
 	return (
-		<Fragment>
+		<div className="list-of-fields">
 			<TextInput
 				onChange={onInputChange}
-				placeholder="Search fields"
+				placeholder="Search Fields"
 				value={searchValue}
 			/>
 			<ul className="fields-ul">
@@ -33,6 +33,6 @@ export const ListOfFields = ({ fields }) => {
 					</li>
 				))}
 			</ul>
-		</Fragment>
+		</div>
 	);
 };

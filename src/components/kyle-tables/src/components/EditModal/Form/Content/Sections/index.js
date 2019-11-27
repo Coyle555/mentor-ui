@@ -9,23 +9,23 @@ import { TextInput } from 'mentor-inputs';
 
 export const Sections = ({ fields, fieldsOpen, openSection, sections }) => {
 	return (
-		<div className="sections">
+		<ul className="sections">
 			{ sections.map((section, i) => (
 				<Fragment>
-					<div
+					<li
 						className="section-label"
 						key={section.label + i}
 						onClick={() => openSection(section)}
 					>
 						{section.label}
-					</div>
+					</li>
 					{ fieldsOpen
 						&& section.label === 'Fields'
-						&& <ListOfFields fields={fields} />
+						&& <li><ListOfFields fields={fields} /></li>
 					}
 				</Fragment>
 			))}
-		</div>
+		</ul>
 	);
 };
 

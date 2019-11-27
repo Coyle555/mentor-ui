@@ -40,33 +40,41 @@
 		overflow: hidden;
 		height: 100%;
 		
-		> .sections {
+		> ul.sections {
 			width: 20%;
 			padding-right: 12.5px;
 			padding-left: 5px;
 			border-right: 1px solid @gray-dark;
 			min-height: 100%;
 			overflow-y: auto;
+			list-style: none outside none;
 
-			> .section-label {
-				border-bottom: 2px solid green;
-				cursor: pointer;
-				margin-bottom: 5px;
-				padding-bottom: 2px;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
+			> li.section-label:first-child {
+				margin-top: 0;
+				border-top: none;
 			}
 
-			> .fields-ul {
-				margin: 10px 0 0 0;
-				padding: 0;
-				list-style: none outside none;
+			> li.section-label {
+				border-top: 1px solid @gray-dark;
+				cursor: pointer;
+				margin: 5px 0;
+				padding-bottom: 2px;
+			}
 
-				> .field-li {
-					color: @link;
-					margin: 12.5px 0;
-					cursor: pointer;
+			> li > .list-of-fields {
+				border-top: 1px solid @gray-dark;
+				margin: 0;
+				padding: 10px 0;
+
+				> .fields-ul {
+					list-style: none outside none;
+					padding: 0 0 0 10px;
+
+					> .field-li {
+						color: @link;
+						margin: 7.5px 0;
+						cursor: pointer;
+					}
 				}
 			}
 		}
