@@ -16,7 +16,6 @@ Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/me
 - [Insert Popup Form](./src/components/InsertPopupForm)
 - [Modal](./src/components/Modal)
 - [Panel](./src/components/Panel)
-- [SegmentedList](./src/components/SegmentedList)
 - [Structured Query](./src/components/structured-query)
 - [Table](./src/components/kyle-tables)
 - [Toggle List](./src/components/ToggleList)

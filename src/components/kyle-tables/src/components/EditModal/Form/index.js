@@ -7,6 +7,7 @@ import { FieldList } from './FieldList';
 import { Footer } from './Footer';
 
 export const Form = ({
+	closeEditMode,
 	currentIndex,
 	data,
 	fields,
@@ -35,7 +36,10 @@ export const Form = ({
 
 	return (
 		<animated.div className="edit-form" style={motionProps}>
-			<h2 className="title">{title}</h2>
+			<div className="title-container">
+				<h2 className="title">{title}</h2>
+				<i className="fal fa-times fa-lg close-form" onClick={closeEditMode} />
+			</div>
 			<div className="field-container">
 				<div className="list-of-fields">
 					<FieldList fields={fields} />

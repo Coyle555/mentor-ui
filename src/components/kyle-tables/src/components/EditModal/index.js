@@ -54,6 +54,7 @@ export const EditModal = ({
 				onPreviousClick={onPreviousClick}
 			/>
 			<Form
+				closeEditMode={closeEditMode}
 				currentIndex={recordIndex}
 				data={data[recordIndex]}
 				fields={fields}
