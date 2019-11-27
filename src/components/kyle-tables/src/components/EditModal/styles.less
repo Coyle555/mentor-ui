@@ -42,8 +42,8 @@
 		
 		> ul.sections {
 			width: 20%;
-			padding-right: 12.5px;
-			padding-left: 5px;
+			margin: 0;
+			padding: 0 12.5px 0 5px;
 			border-right: 1px solid @gray-dark;
 			min-height: 100%;
 			overflow-y: auto;
@@ -64,7 +64,7 @@
 			> li > .list-of-fields {
 				border-top: 1px solid @gray-dark;
 				margin: 0;
-				padding: 10px 0;
+				padding: 10px 0 5px 0;
 
 				> .fields-ul {
 					list-style: none outside none;
@@ -85,13 +85,16 @@
 			padding-right: 5px;
 			padding-left: 12.5px;
 			overflow-y: auto;
+
+			> .field-highlighted {
+				background: @blue-gray-light;
+			}
 		
 			> .field {
 				font-size: 1rem;
 				font-weight: 600;
 				color: @charcoal;
-				margin-bottom: 10px;
-				padding: 0 12.5px;
+				padding: 5px 12.5px;
 
 				> label {
 					display: inline-block;

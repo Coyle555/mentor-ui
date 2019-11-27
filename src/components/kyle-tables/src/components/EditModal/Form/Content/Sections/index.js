@@ -1,29 +1,33 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import fuzzy from 'fuzzy';
-import { useSpring, animated } from 'react-spring';
 
 import { ListOfFields } from './ListOfFields';
-import { TextInput } from 'mentor-inputs';
 
-export const Sections = ({ fields, fieldsOpen, openSection, sections }) => {
+export const Sections = ({ fields, fieldsOpen, openSection, sections, selectField }) => {
 	return (
 		<ul className="sections">
+			<li
+				className="section-label"
+				onClick={() => openSection({ content: null, label: 'Fields' })}
+			>
+				Fields
+			</li>
+			{ fieldsOpen && (
+				<li>
+					<ListOfFields
+						fields={fields}
+						selectField={selectField}
+					/>
+				</li>
+			)}
 			{ sections.map((section, i) => (
-				<Fragment>
-					<li
-						className="section-label"
-						key={section.label + i}
-						onClick={() => openSection(section)}
-					>
-						{section.label}
-					</li>
-					{ fieldsOpen
-						&& section.label === 'Fields'
-						&& <li><ListOfFields fields={fields} /></li>
-					}
-				</Fragment>
+				<li
+					className="section-label"
+					key={section.label + i}
+					onClick={() => openSection(section)}
+				>
+					{section.label}
+				</li>
 			))}
 		</ul>
 	);

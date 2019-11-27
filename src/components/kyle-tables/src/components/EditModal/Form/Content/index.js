@@ -13,20 +13,9 @@ export const Content = ({
 	sections,
 	uploadFile
 }) => {
-	const FieldsSectionComponent = (
-		<Fields
-			data={data}
-			fields={fields}
-			onBlur={onBlur}
-			onDeleteFileClick={onDeleteFileClick}
-			onOptionMatch={onOptionMatch}
-			uploadFile={uploadFile}
-		/>
-	);
-
 	const [fieldsOpen, setFieldsOpen] = useState(true);
-	const [content, setContent] = useState(FieldsSectionComponent);
-	sections = [{ label: 'Fields', content: FieldsSectionComponent }].concat(sections);
+	const [selectedField, setSelectedField] = useState('');
+	const [content, setContent] = useState(null);
 
 	const openSection = ({ content, label }) => {
 		setFieldsOpen(label === 'Fields');
@@ -44,8 +33,20 @@ export const Content = ({
 				fieldsOpen={fieldsOpen}
 				openSection={openSection}
 				sections={sections}
+				selectField={setSelectedField}
 			/>
 			<div className="content">
+				{ fieldsOpen &&
+					<Fields
+						data={data}
+						fields={fields}
+						onBlur={onBlur}
+						onDeleteFileClick={onDeleteFileClick}
+						onOptionMatch={onOptionMatch}
+						selectedField={selectedField}
+						uploadFile={uploadFile}
+					/>
+				}
 				{content}
 			</div>
 		</div>

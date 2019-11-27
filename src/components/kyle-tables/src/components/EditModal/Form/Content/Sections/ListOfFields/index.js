@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 
 import { TextInput } from 'mentor-inputs';
 
-export const ListOfFields = ({ fields }) => {
+export const ListOfFields = ({ fields, selectField }) => {
 	const [fieldLabels, setFieldLabels] = useState(fields);
 	const [searchValue, setSearchValue] = useState('');
 
@@ -28,6 +28,7 @@ export const ListOfFields = ({ fields }) => {
 					<li
 						className="field-li"
 						key={'label' + field.id}
+						onClick={() => selectField(field.label)}
 					>
 						{field.label}
 					</li>
