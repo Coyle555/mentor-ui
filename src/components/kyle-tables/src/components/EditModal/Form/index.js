@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
+import classNames from 'classnames';
 
 import { Field } from './Field';
-import { FieldList } from './FieldList';
 import { Footer } from './Footer';
+import { Sections } from './Sections';
 
 export const Form = ({
 	closeEditMode,
@@ -41,8 +42,8 @@ export const Form = ({
 				<i className="fal fa-times fa-lg close-form" onClick={closeEditMode} />
 			</div>
 			<div className="field-container">
-				<div className="list-of-fields">
-					<FieldList fields={fields} />
+				<div className="sections">
+					<Sections fields={fields} />
 				</div>
 				<div className="fields">
 					{ fields.map(field => (

@@ -1,10 +1,11 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import fuzzy from 'fuzzy';
+import { useSpring, animated } from 'react-spring';
 
 import { TextInput } from 'mentor-inputs';
 
-export const FieldList = ({ fields }) => {
+export const ListOfFields = ({ fields }) => {
 	const [fieldLabels, setFieldLabels] = useState(fields);
 	const [searchValue, setSearchValue] = useState('');
 
