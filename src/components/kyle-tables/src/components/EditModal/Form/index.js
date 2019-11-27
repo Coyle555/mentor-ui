@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { useSpring, animated } from 'react-spring';
 import classNames from 'classnames';
 
-import { Field } from './Field';
+import { Content } from './Content';
 import { Footer } from './Footer';
-import { Sections } from './Sections';
 
 export const Form = ({
 	closeEditMode,
@@ -19,6 +18,7 @@ export const Form = ({
 	onNextClick,
 	onOptionMatch,
 	onPreviousClick,
+	sections,
 	title,
 	totalRecords,
 	uploadFile
@@ -41,33 +41,15 @@ export const Form = ({
 				<h2 className="title">{title}</h2>
 				<i className="fal fa-times fa-lg close-form" onClick={closeEditMode} />
 			</div>
-			<div className="field-container">
-				<div className="sections">
-					<Sections fields={fields} />
-				</div>
-				<div className="fields">
-					{ fields.map(field => (
-						<div className="field" key={'field' + field.id}>
-							<label>{field.label}</label>
-							{ field.updateable === false
-								&& <span className="cannot-update">
-									Field cannot be changed
-								</span>
-							}
-							<Field
-								{...field}
-								fieldId={field.id}
-								onBlur={onBlur}
-								onDeleteFileClick={onDeleteFileClick}
-								onOptionMatch={onOptionMatch}
-								rowId={data.id}
-								value={data[field.id]}
-								uploadFile={uploadFile}
-							/>
-						</div>
-					))}
-				</div>
-			</div>
+			<Content
+				data={data}
+				fields={fields}
+				onBlur={onBlur}
+				onDeleteFileClick={onDeleteFileClick}
+				onOptionMatch={onOptionMatch}
+				sections={sections}
+				uploadFile={uploadFile}
+			/>
 			<Footer
 				currentIndex={currentIndex + 1}
 				hasNext={hasNext}

@@ -67,6 +67,10 @@ export class Table extends Component {
 			dragCb: PropTypes.func
 		}),
 		dropType: PropTypes.string,
+		editSections: PropTypes.arrayOf(PropTypes.shape({
+			label: PropTypes.string.isRequired,
+			content: PropTypes.oneOfType([PropTypes.func, PropTypes.element])
+		})),
 		ExpandComponent: PropTypes.element,
 		exportTable: PropTypes.func,
 		formFields: PropTypes.arrayOf(PropTypes.object),
@@ -118,6 +122,7 @@ export class Table extends Component {
 		displayCols: [],
 		draggable: null,
 		dropType: '',
+		editSections: [],
 		ExpandComponent: null,
 		exportTable: null,
 		filters: [],
@@ -653,7 +658,7 @@ export class Table extends Component {
 	}
 
 	render() {
-		const { data, formFields, getRowName, initInsertData } = this.props;
+		const { data, editSections, formFields, getRowName, initInsertData } = this.props;
 		const { columns, editMode, insertMode, insertType, selectedRows } = this.state;
 
 		return (
@@ -681,6 +686,7 @@ export class Table extends Component {
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}
 					onOptionMatch={this._onOptionMatch}
+					sections={editSections}
 					uploadFile={this._uploadFile}
 				/>
 				{ this.renderLayout() }

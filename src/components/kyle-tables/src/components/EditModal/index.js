@@ -17,6 +17,7 @@ export const EditModal = ({
 	onBlur,
 	onDeleteFileClick,
 	onOptionMatch,
+	sections,
 	uploadFile
 }) => {
 
@@ -65,6 +66,7 @@ export const EditModal = ({
 				onNextClick={onNextClick}
 				onOptionMatch={onOptionMatch}
 				onPreviousClick={onPreviousClick}
+				sections={sections}
 				title={typeof getRowName === 'function'
 					? getRowName(data[recordIndex])
 					: data[recordIndex].id

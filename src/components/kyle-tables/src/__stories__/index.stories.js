@@ -175,6 +175,12 @@ const customToolbarButtons = [{
 
 const filters = [{ label: 'Color', id: 'color', operator: 'equals', value: 'white' }];
 
+const editSections = [
+	{ label: 'Edit section 1', content: <h2>Edit Section 1</h2> },
+	{ label: 'Edit section 2', content: ({ row }) => <span>{JSON.stringify(row)}</span> },
+	{ label: 'Edit section 3', content: <h2>Edit Section 3</h2> },
+];
+
 const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) =>
 	editMode && rowSelected
 		? null
@@ -191,6 +197,7 @@ storiesOf('Table', module)
 			customToolbarButtons={customToolbarButtons}
 			data={data}
 			deleteCb={action('onDeleteClick')}
+			editSections={editSections}
 			exportTable={action('exportTable')}
 			filters={filters}
 			handleTableChange={action('handleTableChange')}
