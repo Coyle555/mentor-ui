@@ -58,7 +58,7 @@
 				border-top: 1px solid @gray-dark;
 				cursor: pointer;
 				margin: 0;
-				padding: 6px 0;
+				padding: 6px 4px;
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
@@ -74,14 +74,30 @@
 				padding: 10px 0 5px 0;
 
 				> .fields-ul {
-					list-style: none outside none;
+					list-style: circle inside none;
 					padding: 0 0 0 5px;
+					word-break: break-word;
 
 					> .field-li {
 						color: @link;
 						margin: 7.5px 0;
 						cursor: pointer;
+
+						&:active {
+							color: @blue-primary-dark;
+						}
+
+						&:hover {
+							color: @blue-primary;
+							outline: 0;
+							text-decoration: underline;
+						}
+
+						> .label {
+							margin-left: -10px;
+						}
 					}
+					
 				}
 			}
 		}

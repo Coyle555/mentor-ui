@@ -30,7 +30,7 @@ export const ListOfFields = ({ fields, selectField }) => {
 						key={'label' + field.id}
 						onClick={() => selectField(field.label)}
 					>
-						{field.label}
+						<span className="label">{field.label}</span>
 					</li>
 				))}
 			</ul>
