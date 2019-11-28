@@ -4,7 +4,14 @@ import classNames from 'classnames';
 
 import { ListOfFields } from './ListOfFields';
 
-export const Sections = ({ fields, fieldsOpen, openSection, sections, selectField }) => {
+export const Sections = ({
+	fields,
+	fieldsOpen,
+	openSection,
+	sections,
+	selectedSectionLabel,
+	selectField
+}) => {
 	const iconClasses = classNames({
 		'fas': true,
 		'fa-chevron-left': !fieldsOpen,
@@ -14,7 +21,10 @@ export const Sections = ({ fields, fieldsOpen, openSection, sections, selectFiel
 	return (
 		<ul className="sections">
 			<li
-				className="section-label"
+				className={classNames({
+					'section-label': true,
+					'section-highlighted': selectedSectionLabel === 'Fields'
+				})}
 				onClick={() => openSection({ content: null, label: 'Fields' })}
 			>
 				Fields
@@ -30,7 +40,10 @@ export const Sections = ({ fields, fieldsOpen, openSection, sections, selectFiel
 			)}
 			{ sections.map((section, i) => (
 				<li
-					className="section-label"
+					className={classNames({
+						'section-label': true,
+						'section-highlighted': section.label === selectedSectionLabel
+					})}
 					key={section.label + i}
 					onClick={() => openSection(section)}
 				>

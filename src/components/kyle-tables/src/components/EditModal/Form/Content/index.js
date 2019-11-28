@@ -15,16 +15,12 @@ export const Content = ({
 }) => {
 	const [fieldsOpen, setFieldsOpen] = useState(true);
 	const [selectedField, setSelectedField] = useState('');
-	const [content, setContent] = useState(null);
+	const [section, setSection] = useState({ content: null, label: 'Fields' });
 
-	const openSection = ({ content, label }) => {
-		setFieldsOpen(label === 'Fields');
+	const openSection = (section) => {
+		setFieldsOpen(section.label === 'Fields');
 		setSelectedField('');
-		setContent(React.isValidElement(content)
-			? React.cloneElement(content, { row: data })
-			: typeof content === 'function'
-				? content(data)
-				: null);
+		setSection(section);
 	};
 
 	return (
@@ -34,6 +30,7 @@ export const Content = ({
 				fieldsOpen={fieldsOpen}
 				openSection={openSection}
 				sections={sections}
+				selectedSectionLabel={section.label}
 				selectField={setSelectedField}
 			/>
 			<div className="content">
@@ -48,7 +45,12 @@ export const Content = ({
 						uploadFile={uploadFile}
 					/>
 				}
-				{content}
+				{ React.isValidElement(section.content)
+					? React.cloneElement(section.content, { row: data })
+					: typeof section.content === 'function'
+						? section.content(data)
+						: null
+				}
 			</div>
 		</div>
 	);
