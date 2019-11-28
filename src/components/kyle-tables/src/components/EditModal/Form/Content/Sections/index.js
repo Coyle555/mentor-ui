@@ -1,9 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { ListOfFields } from './ListOfFields';
 
 export const Sections = ({ fields, fieldsOpen, openSection, sections, selectField }) => {
+	const iconClasses = classNames({
+		'fas': true,
+		'fa-chevron-left': !fieldsOpen,
+		'fa-chevron-down': fieldsOpen,
+	});
+
 	return (
 		<ul className="sections">
 			<li
@@ -11,6 +18,7 @@ export const Sections = ({ fields, fieldsOpen, openSection, sections, selectFiel
 				onClick={() => openSection({ content: null, label: 'Fields' })}
 			>
 				Fields
+				<i className={iconClasses} />
 			</li>
 			{ fieldsOpen && (
 				<li>

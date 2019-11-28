@@ -19,6 +19,7 @@ export const Content = ({
 
 	const openSection = ({ content, label }) => {
 		setFieldsOpen(label === 'Fields');
+		setSelectedField('');
 		setContent(React.isValidElement(content)
 			? React.cloneElement(content, { row: data })
 			: typeof content === 'function'

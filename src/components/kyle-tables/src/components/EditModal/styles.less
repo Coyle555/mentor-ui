@@ -57,8 +57,15 @@
 			> li.section-label {
 				border-top: 1px solid @gray-dark;
 				cursor: pointer;
-				margin: 5px 0;
-				padding-bottom: 2px;
+				margin: 0;
+				padding: 6px 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				&:hover {
+					background-color: @green-light;
+				}
 			}
 
 			> li > .list-of-fields {
@@ -68,7 +75,7 @@
 
 				> .fields-ul {
 					list-style: none outside none;
-					padding: 0 0 0 10px;
+					padding: 0 0 0 5px;
 
 					> .field-li {
 						color: @link;
@@ -86,11 +93,11 @@
 			padding-left: 12.5px;
 			overflow-y: auto;
 
-			> .field-highlighted {
+			.field-highlighted {
 				background: @blue-gray-light;
 			}
 		
-			> .field {
+			.field {
 				font-size: 1rem;
 				font-weight: 600;
 				color: @charcoal;
