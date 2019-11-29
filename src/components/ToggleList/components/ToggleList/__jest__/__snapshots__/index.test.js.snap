@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Default render of a nonexpanded toggle list 1`] = `
+<div
+  className="mui-toggle-list"
+>
+  <div>
+    {"customClasses":{},"content":"Foo content","expanded":false,"title":"Foo"}
+  </div>
+  <div>
+    {"customClasses":{},"content":"Bar content","expanded":false,"title":"Bar"}
+  </div>
+  <div>
+    {"customClasses":{},"content":"Baz content","expanded":false,"title":"Baz"}
+  </div>
+</div>
+`;
+
 exports[`Default render of a toggle list 1`] = `
 <div
   className="mui-toggle-list"
@@ -12,6 +28,22 @@ exports[`Default render of a toggle list 1`] = `
   </div>
   <div>
     {"customClasses":{},"content":"Baz content","title":"Baz"}
+  </div>
+</div>
+`;
+
+exports[`Default render of an expanded toggle list 1`] = `
+<div
+  className="mui-toggle-list"
+>
+  <div>
+    {"customClasses":{},"content":"Foo content","expanded":true,"title":"Foo"}
+  </div>
+  <div>
+    {"customClasses":{},"content":"Bar content","expanded":true,"title":"Bar"}
+  </div>
+  <div>
+    {"customClasses":{},"content":"Baz content","expanded":true,"title":"Baz"}
   </div>
 </div>
 `;

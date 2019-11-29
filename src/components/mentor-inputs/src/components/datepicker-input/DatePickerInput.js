@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import onClickOutside from 'react-onclickoutside';
 import cn from 'classnames';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
 
 import { keyEvent as KeyEvent } from 'utils';
-import { DatePicker } from 'datepicker';
 import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
+
+import './styles.less';
 
 class DatePickerContainer extends Component {
 
@@ -26,53 +28,32 @@ class DatePickerContainer extends Component {
 		// @showPicker(bool) - if the date picker popup is open
 		// @hasError(bool) - if there is an error with the users
 		// 	selected date
-		// @pickerEnabled - enabled if the datepicker can fit in the viewport;
-		// 	otherwise the user enters the date directly
 		// @value(string) - current value in the input field
 		this.state = {
 			showPicker: this.props.autoFocus,
 			hasError: !!required & !isValid,
-			pickerEnabled: true,
 			moment: firstMoment,
 			value: !isValid ? '' : firstMoment.format(mask),
 		};
 
 	}
 
-	componentDidMount() {
-		this.isPickerEnabled();
-	}
-
-	UNSAFE_componentWillReceiveProps(nextProps) {
+	componentDidUpdate(prevProps) {
 		const { type } = this.props;
 
-		if (!!nextProps.value
-			&& new moment(this.state.value, getDateFormat(type)).toISOString() !== nextProps.value.toString()) {
+		if (!!this.props.value
+			&& new moment(this.state.value, getDateFormat(type)).toISOString() !== this.props.value.toString()) {
 
 			let val = '';
 
-			if (!!nextProps.value) {
-				val = nextProps.value;
+			if (!!this.props.value) {
+				val = this.props.value;
 			}
 
 			this.setState({
-				hasError: !!this.props.required && !nextProps.value,
+				hasError: !!this.props.required && !this.props.value,
 				value: val
 			});
-		}
-	}
-
-	// checks if the datepicker is in picker mode depending if the date picker
-	// can render inside the viewport; if it can't the date will be entered
-	// directly by the user
-	isPickerEnabled = () => {
-		if (!this.pickerRef) return false;
-
-		const pickerBound = this.pickerRef.getBoundingClientRect();
-		const windowHeight = window.innerHeight;
-
-		if (pickerBound.bottom > windowHeight) {
-			this.setState({ pickerEnabled: false });
 		}
 	}
 
@@ -110,7 +91,6 @@ class DatePickerContainer extends Component {
 		}
 
 		this.setState({
-			//pickerEnabled: !value.length > 0,
 			hasError,
 			value
 		}, () => {
@@ -201,7 +181,7 @@ class DatePickerContainer extends Component {
 	}
 
 	render() {
-		const { hasError, pickerEnabled, showPicker, value } = this.state;
+		const { hasError, showPicker, value } = this.state;
 		const { className, disabled, error, name, type } = this.props;
 
 		const inputClasses = cn({
@@ -223,10 +203,6 @@ class DatePickerContainer extends Component {
 					type="text"
 					value={value}
 				/>
-				{ pickerEnabled
-					&& showPicker
-					&& this.renderPicker()
-				}
 			</div>
 		);
 	}

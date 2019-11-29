@@ -22,6 +22,39 @@ exports[`Default toggle list item 1`] = `
 </div>
 `;
 
+exports[`Expanded toggle list item 1`] = `
+<div
+  className="mui-toggle-list-item"
+>
+  <div
+    className="mui-toggle-list-item-title"
+    onClick={[Function]}
+  >
+    <div>
+      <div>
+        {"from":{"transform":"rotate(0deg)"},"to":{"transform":"rotate(90deg)"}}
+      </div>
+      <i
+        className="fas fa-caret-right icon"
+        style={Object {}}
+      />
+    </div>
+    Foo
+  </div>
+  <div>
+    <div>
+      {"from":{"opacity":0},"to":{"opacity":1}}
+    </div>
+    <div
+      className=""
+      style={Object {}}
+    >
+      Foo content
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Toggle list item with custom class for the title 1`] = `
 <div
   className="mui-toggle-list-item"
