@@ -1,15 +1,13 @@
 import moment from 'moment';
 
 const DEFAULT_FORMAT_MASKS = {
-	datetime: 'MMM DD, YYYY - hh:mm a',
+	datetime: 'MMM DD, YYYY, hh:mm a',
 	date: 'MMM DD, YYYY',
-	time: 'hh:mm a'
 };
 
 const PLACEHOLDER = {
-	datetime: 'Enter date and time - [mon dd, yyyy - hh:mm am/pm]',
-	date: 'Enter date - [mon dd, yyyy]',
-	time: 'Enter time - [hh:mm am/pm]'
+	datetime: 'Enter date and time',
+	date: 'Enter date'
 };
 
 export function getDateFormat(type) {

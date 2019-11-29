@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import fuzzy from 'fuzzy';
-import { useSpring, animated } from 'react-spring';
 
 import { TextInput } from 'mentor-inputs';
 

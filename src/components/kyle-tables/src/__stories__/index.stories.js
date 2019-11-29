@@ -183,10 +183,7 @@ const editSections = [
 	{ label: 'Edit section 1', content: <h2>Edit Section 1</h2> },
 	{
 		label: 'Edit section 2',
-		content: (row) => {
-			console.log('generating content', row);
-			return <span>{JSON.stringify(row)}</span>;
-		}
+		content: (row) => <span>{JSON.stringify(row)}</span>
 	},
 	{ label: 'Edit section 3', content: <Section3 /> }
 ];

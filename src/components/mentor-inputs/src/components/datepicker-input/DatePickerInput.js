@@ -8,12 +8,6 @@ import { keyEvent as KeyEvent } from 'utils';
 import { DatePicker } from 'datepicker';
 import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
 
-// default format masks for different datepicker types
-const DEFAULT_FORMAT_MASKS = Object.freeze({
-	datetime: 'MMM DD, YYYY - hh:mm a',
-	date: 'MMM DD, YYYY',
-});
-
 class DatePickerContainer extends Component {
 
 	constructor(props) {
@@ -187,7 +181,7 @@ class DatePickerContainer extends Component {
 			>
 
 				<DatePicker
-					format={DEFAULT_FORMAT_MASKS[this.props.type]}
+					format={getDateFormat(this.props.type)}
 					onCloseHandler={this.handleClose}
 					onChange={this.handleDateTimeChange}
 					onClearHandler={this.clearInput}
