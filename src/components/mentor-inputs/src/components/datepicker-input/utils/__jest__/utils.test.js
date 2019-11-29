@@ -1,4 +1,5 @@
 import { getDateFormat, getPlaceholder, isValidDate } from '../utils';
+import moment from 'moment';
 
 const datetime = 'MMM DD, YYYY, hh:mm a';
 const date = 'MMM DD, YYYY';
@@ -31,12 +32,14 @@ describe('Get placeholder util function', () => {
 describe('isValidDate util function', () => {
 	
 	describe('Datetime values', () => {
-		test.only('Value is not same length as mask', () => {
+		test('Value is not same length as mask', () => {
 			expect(isValidDate('Aug', datetime)).toBe(false);
+			expect(isValidDate('', datetime)).toBe(false);
 		});
 
 		test('In correct format', () => {
 			expect(isValidDate('Aug 31, 1999, 12:35 pm', datetime, 'datetime')).toBe(true);
+			expect(isValidDate('2019-10-24 16:29:45.3280000', moment.ISO_8601)).toBe(true);
 		});
 
 		test('Not in correct format', () => {
@@ -53,10 +56,12 @@ describe('isValidDate util function', () => {
 	describe('Date values', () => {
 		test('Value is not same length as mask', () => {
 			expect(isValidDate('Aug', date, 'date')).toBe(false);
+			expect(isValidDate('', date)).toBe(false);
 		});
 
 		test('In correct format', () => {
 			expect(isValidDate('Aug 31, 1999', date, 'date')).toBe(true);
+			expect(isValidDate('2019-10-24', moment.ISO_8601)).toBe(true);
 		});
 
 		test('Not in correct format', () => {

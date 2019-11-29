@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import onClickOutside from 'react-onclickoutside';
 import cn from 'classnames';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
@@ -8,32 +7,81 @@ import DatePicker from 'react-datepicker';
 import { keyEvent as KeyEvent } from 'utils';
 import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
 
+import 'react-datepicker/dist/react-datepicker.css';
 import './styles.less';
 
 class DatePickerContainer extends Component {
+
+	static propTypes = {
+		className: PropTypes.string,
+		disabled: PropTypes.bool,
+		error: PropTypes.bool,
+		maxDate: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.instanceOf(Date)
+		]),
+		minDate: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.instanceOf(Date)
+		]),
+		maxHour: PropTypes.number,
+		minHour: PropTypes.number,
+		minMinute: PropTypes.number,
+		maxMinute: PropTypes.number,
+		name: PropTypes.string,
+		onBlur: PropTypes.func,
+		onChange: PropTypes.func,
+		pickerStyle: PropTypes.shape({
+			container: PropTypes.object
+		}),
+		required: PropTypes.bool,
+		type: PropTypes.oneOf(['date', 'datetime']).isRequired,
+		value: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.instanceOf(Date)
+		])
+	}
+
+	static defaultProps = {
+		className: '',
+		disabled: false,
+		error: null,
+		maxDate: null,
+		minDate: null,
+		minHour: 0,
+		maxHour: 23,
+		minMinute: 0,
+		maxMinute: 59,
+		pickerStyle: {
+			container: {},
+		},
+		name: '',
+		onBlur: null,
+		onChange: null,
+		required: false,
+		type: 'datetime',
+		value: ''
+	}
 
 	constructor(props) {
 		super(props);
 
 		const { required, type, value } = this.props;
+
 		const mask = getDateFormat(type);
+		const isValid = isValidDate(value, moment.ISO_8601);
+		const initValue = isValid
+			? moment(value, moment.ISO_8601).format(mask)
+			: '';
 
-		const isValid = moment(value).isValid();
-		const firstMoment = isValid
-			? new moment(value)
-			: new moment(new Date());
+		this.lastVal = initValue;
 
-		this.lastVal = firstMoment.format(mask);
-
-		// @showPicker(bool) - if the date picker popup is open
 		// @hasError(bool) - if there is an error with the users
 		// 	selected date
 		// @value(string) - current value in the input field
 		this.state = {
-			showPicker: this.props.autoFocus,
 			hasError: !!required & !isValid,
-			moment: firstMoment,
-			value: !isValid ? '' : firstMoment.format(mask),
+			value: initValue
 		};
 
 	}
@@ -57,51 +105,9 @@ class DatePickerContainer extends Component {
 		}
 	}
 
-	handleClickOutside = () => {
-		const { name, onBlur } = this.props;
-		const { hasError, value } = this.state;
-
-		if (!this.state.showPicker) return;
-
-		this.setState({
-			showPicker: false
-		}, () => {
-			if (typeof onBlur === 'function' && this.lastVal !== value) {
-				onBlur(hasError, this.convertValueToISOString(), name);
-				this.lastVal = value;
-			}
-		});
-	}
-
-	onFocus = () => {
-		this.setState({ showPicker: true });
-	}
-
-
-	handleInputChange = evt => {
-		const { name, onChange, required, type } = this.props;
-		const mask = getDateFormat(type);
-
-		const value = evt.target.value;
-		const isValidValue = isValidDate(value, mask, type);
-		const hasError = (value.length > 0 && !isValidValue) || (!value && !!required);
-
-		if (isValidValue) {
-			this.setState({ moment: new moment(value, mask) });
-		}
-
-		this.setState({
-			hasError,
-			value
-		}, () => {
-			if (typeof onChange === 'function') {
-				onChange(hasError, this.convertValueToISOString(), name);
-			}
-		});
-	}
-
 	// when user selects a date or time on the datetime picker
-	handleDateTimeChange = (value) => {
+	handleChange = (value) => {
+		console.log('value on change', value);
 		const { name, onChange, required, type } = this.props;
 
 		// if user clears the input from the datepicker
@@ -150,36 +156,6 @@ class DatePickerContainer extends Component {
 		}
 	}
 
-	renderPicker = () => {
-		const { pickerStyle, portalRef } = this.props;
-
-		const picker = (
-			<div
-				className="mui-mi-datepicker ignore-react-onclickoutside"
-				ref={ref => this.pickerRef = ref}
-				style={pickerStyle.container}
-			>
-
-				<DatePicker
-					format={getDateFormat(this.props.type)}
-					onCloseHandler={this.handleClose}
-					onChange={this.handleDateTimeChange}
-					onClearHandler={this.clearInput}
-					maxDate={this.props.maxDate}
-					minDate={this.props.minDate}
-					maxHour={this.props.maxHour}
-					minHour={this.props.minHour}
-					maxMinute={this.props.maxMinute}
-					minMinute={this.props.minMinute}
-					moment={this.state.moment}
-					type={this.props.type}
-				/>
-			</div>
-		);
-
-		return picker;
-	}
-
 	render() {
 		const { hasError, showPicker, value } = this.state;
 		const { className, disabled, error, name, type } = this.props;
@@ -190,73 +166,25 @@ class DatePickerContainer extends Component {
 			'mui-mi-input-field-has-error': hasError
 		});
 
+		const CustomInput = ({ value }) => (
+			<input
+				data-testid={'datepicker-input-' + name}
+				className={inputClasses}
+				disabled={disabled}
+				placeholder={getPlaceholder(type)}
+				type="text"
+				value={value}
+			/>
+		);
+
 		return (
-			<div className="mui-mi-container">
-				<input
-					data-testid={'datepicker-input-' + name}
-					className={inputClasses}
-					disabled={disabled}
-					onChange={this.handleInputChange}
-					onFocus={this.onFocus}
-					onKeyDown={this.onKeyDown}
-					placeholder={getPlaceholder(type)}
-					type="text"
-					value={value}
-				/>
-			</div>
+			<DatePicker
+				fixedHeight
+				onChange={this.handleChange}
+				selected={new Date()}
+			/>
 		);
 	}
 }
 
-DatePickerContainer.propTypes = {
-	className: PropTypes.string,
-	disabled: PropTypes.bool,
-	error: PropTypes.bool,
-	maxDate: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.instanceOf(Date)
-	]),
-	minDate: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.instanceOf(Date)
-	]),
-	maxHour: PropTypes.number,
-	minHour: PropTypes.number,
-	minMinute: PropTypes.number,
-	maxMinute: PropTypes.number,
-	name: PropTypes.string,
-	onBlur: PropTypes.func,
-	onChange: PropTypes.func,
-	pickerStyle: PropTypes.shape({
-		container: PropTypes.object
-	}),
-	required: PropTypes.bool,
-	type: PropTypes.oneOf(['date', 'datetime']).isRequired,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.instanceOf(Date)
-	])
-}
-
-DatePickerContainer.defaultProps = {
-	className: '',
-	disabled: false,
-	error: null,
-	maxDate: null,
-	minDate: null,
-	minHour: 0,
-	maxHour: 23,
-	minMinute: 0,
-	maxMinute: 59,
-	pickerStyle: {
-		container: {},
-	},
-	name: '',
-	onBlur: null,
-	onChange: null,
-	required: false,
-	type: 'datetime',
-	value: ''
-}
-
-export default onClickOutside(DatePickerContainer);
+export default DatePickerContainer;
