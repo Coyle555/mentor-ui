@@ -5,12 +5,17 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
 import { keyEvent as KeyEvent } from 'utils';
-import { getDateFormat, getPlaceholder, isValidDate } from './utils/utils';
+import {
+	getDateFormat,
+	getDateFormatForPicker,
+	getPlaceholder,
+	isValidDate
+} from './utils/utils';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.less';
 
-class DatePickerContainer extends Component {
+class DatePickerInput extends Component {
 
 	static propTypes = {
 		className: PropTypes.string,
@@ -107,21 +112,18 @@ class DatePickerContainer extends Component {
 
 	// when user selects a date or time on the datetime picker
 	handleChange = (value) => {
+		const { name, onChange, required } = this.props;
 		console.log('value on change', value);
-		const { name, onChange, required, type } = this.props;
-
-		// if user clears the input from the datepicker
-		let hasError = !!required && !value;
 
 		this.setState({
-			hasError,
-			value
+			hasError: !!required && !value,
+			value: !!value ? value : ''
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(hasError, this.convertValueToISOString(), name);
+				onChange(hasError, value, name);
 			};
 		});
-	};
+	}
 
 	convertValueToISOString = () => {
 		const { type } = this.props;
@@ -146,16 +148,6 @@ class DatePickerContainer extends Component {
 		});
 	}
 
-	handleClose = () => {
-		this.setState({ showPicker: false });
-	}
-
-	onKeyDown = (evt) => {
-		if (evt.keyCode === KeyEvent.DOM_VK_TAB) {
-			this.handleClose();
-		}
-	}
-
 	render() {
 		const { hasError, showPicker, value } = this.state;
 		const { className, disabled, error, name, type } = this.props;
@@ -177,14 +169,16 @@ class DatePickerContainer extends Component {
 			/>
 		);
 
+		console.log('new value to render', value);
 		return (
 			<DatePicker
+				dateFormat={getDateFormatForPicker(type)}
 				fixedHeight
 				onChange={this.handleChange}
-				selected={new Date()}
+				selected={value}
 			/>
 		);
 	}
 }
 
-export default DatePickerContainer;
+export default DatePickerInput;

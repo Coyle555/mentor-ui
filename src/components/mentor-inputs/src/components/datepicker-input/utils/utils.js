@@ -5,6 +5,11 @@ const DEFAULT_FORMAT_MASKS = {
 	date: 'MMM DD, YYYY',
 };
 
+const DEFAULT_FORMAT_MASKS_FOR_PICKER = {
+	datetime: 'MMM dd, yyyy, h:mm a',
+	date: 'MMM dd, yyyy',
+};
+
 const PLACEHOLDER = {
 	datetime: 'Enter date and time',
 	date: 'Enter date'
@@ -12,6 +17,10 @@ const PLACEHOLDER = {
 
 export function getDateFormat(type) {
 	return DEFAULT_FORMAT_MASKS[type];
+}
+
+export function getDateFormatForPicker(type) {
+	return DEFAULT_FORMAT_MASKS_FOR_PICKER[type];
 }
 
 export function getPlaceholder(type) {
