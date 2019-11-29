@@ -53,15 +53,15 @@ class DatePickerInput extends Component {
 		const isValid = isValidDate(value, moment.ISO_8601);
 		const initValue = isValid
 			? moment(value, moment.ISO_8601).toDate()
-			: '';
+			: null;
 
 		this.lastVal = initValue;
 
 		// @hasError(bool) - if there is an error with the users selected date
-		// @value(string) - current value in the input field
+		// @inputValue(string) - current value in the input field
 		this.state = {
 			hasError: !!required & !isValid,
-			value: initValue
+			inputValue: initValue
 		};
 
 	}
@@ -80,7 +80,7 @@ class DatePickerInput extends Component {
 
 			this.setState({
 				hasError: !!this.props.required && !this.props.value,
-				value: val
+				inputValue: val
 			});
 		}
 	}
@@ -88,50 +88,33 @@ class DatePickerInput extends Component {
 	// when user selects a date or time on the datetime picker
 	handleChange = (value) => {
 		const { name, onChange, required } = this.props;
-		console.log('value on change', value);
 
 		this.setState({
 			hasError: !!required && !value,
-			value: !!value ? value : ''
+			inputValue: !!value ? value : ''
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(hasError, value, name);
+				onChange(this.state.hasError, value, name);
 			};
 		});
 	}
 
 	handleBlur = ({ target: { value } }) => {
-		const date = new Date(value);
-		console.log('date on blur', date);
-	}
+		const { name, onBlur, type } = this.props;
+		const { hasError } = this.state;
 
-	convertValueToISOString = () => {
-		const { type } = this.props;
-		const { value } = this.state;
-		
-		return new moment(value, DEFAULT_FORMAT_MASKS[type]).toISOString();
-	}
+		if (typeof onBlur === 'function' && this.lastVal !== value) {
+			const mask = getDateFormat(type);
+			const isoDate = moment(value, mask).toDate();
 
-	// clear the date from the input box
-	clearInput = () => {
-		const { name, onChange } = this.props;
-		const value = '';
-		const hasError = !!this.props.required;
-
-		this.setState({
-			hasError,
-			value
-		}, () => {
-			if (typeof onChange === 'function') {
-				onChange(hasError, this.convertValueToISOString(), name)
-			}
-		});
+			onBlur(hasError, isoDate, name);
+			this.lastVal = value;
+		}
 	}
 
 	render() {
 		const { 
 			className,
-			disabled,
 			error,
 			name,
 			onBlur,
@@ -141,7 +124,7 @@ class DatePickerInput extends Component {
 			value,
 			...props
 		} = this.props;
-		const { hasError, value } = this.state;
+		const { hasError, inputValue } = this.state;
 
 		const inputClasses = cn({
 			'mui-mi-input-field': true,
@@ -153,13 +136,12 @@ class DatePickerInput extends Component {
 			<DatePicker
 				className={inputClasses}
 				dateFormat={getDateFormatForPicker(type)}
-				disabled={disabled}
 				fixedHeight
 				onBlur={this.handleBlur}
 				onChange={this.handleChange}
-				openToDate={value}
+				openToDate={inputValue}
 				placeholderText={getPlaceholder(type)}
-				selected={value}
+				selected={inputValue}
 				shouldCloseOnSelect={false}
 				showTimeSelect={type === 'datetime'}
 				timeIntervals={15}
