@@ -21,24 +21,9 @@ class DatePickerInput extends Component {
 		className: PropTypes.string,
 		disabled: PropTypes.bool,
 		error: PropTypes.bool,
-		maxDate: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.instanceOf(Date)
-		]),
-		minDate: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.instanceOf(Date)
-		]),
-		maxHour: PropTypes.number,
-		minHour: PropTypes.number,
-		minMinute: PropTypes.number,
-		maxMinute: PropTypes.number,
 		name: PropTypes.string,
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
-		pickerStyle: PropTypes.shape({
-			container: PropTypes.object
-		}),
 		required: PropTypes.bool,
 		type: PropTypes.oneOf(['date', 'datetime']).isRequired,
 		value: PropTypes.oneOfType([
@@ -50,16 +35,7 @@ class DatePickerInput extends Component {
 	static defaultProps = {
 		className: '',
 		disabled: false,
-		error: null,
-		maxDate: null,
-		minDate: null,
-		minHour: 0,
-		maxHour: 23,
-		minMinute: 0,
-		maxMinute: 59,
-		pickerStyle: {
-			container: {},
-		},
+		error: false,
 		name: '',
 		onBlur: null,
 		onChange: null,
@@ -76,13 +52,12 @@ class DatePickerInput extends Component {
 		const mask = getDateFormat(type);
 		const isValid = isValidDate(value, moment.ISO_8601);
 		const initValue = isValid
-			? moment(value, moment.ISO_8601).format(mask)
+			? moment(value, moment.ISO_8601).toDate()
 			: '';
 
 		this.lastVal = initValue;
 
-		// @hasError(bool) - if there is an error with the users
-		// 	selected date
+		// @hasError(bool) - if there is an error with the users selected date
 		// @value(string) - current value in the input field
 		this.state = {
 			hasError: !!required & !isValid,
@@ -125,6 +100,11 @@ class DatePickerInput extends Component {
 		});
 	}
 
+	handleBlur = ({ target: { value } }) => {
+		const date = new Date(value);
+		console.log('date on blur', date);
+	}
+
 	convertValueToISOString = () => {
 		const { type } = this.props;
 		const { value } = this.state;
@@ -149,33 +129,41 @@ class DatePickerInput extends Component {
 	}
 
 	render() {
-		const { hasError, showPicker, value } = this.state;
-		const { className, disabled, error, name, type } = this.props;
+		const { 
+			className,
+			disabled,
+			error,
+			name,
+			onBlur,
+			onChange,
+			required,
+			type,
+			value,
+			...props
+		} = this.props;
+		const { hasError, value } = this.state;
 
 		const inputClasses = cn({
 			'mui-mi-input-field': true,
 			[this.props.className]: !!this.props.className,
-			'mui-mi-input-field-has-error': hasError
+			'mui-mi-input-field-has-error': hasError || error
 		});
 
-		const CustomInput = ({ value }) => (
-			<input
-				data-testid={'datepicker-input-' + name}
-				className={inputClasses}
-				disabled={disabled}
-				placeholder={getPlaceholder(type)}
-				type="text"
-				value={value}
-			/>
-		);
-
-		console.log('new value to render', value);
 		return (
 			<DatePicker
+				className={inputClasses}
 				dateFormat={getDateFormatForPicker(type)}
+				disabled={disabled}
 				fixedHeight
+				onBlur={this.handleBlur}
 				onChange={this.handleChange}
+				openToDate={value}
+				placeholderText={getPlaceholder(type)}
 				selected={value}
+				shouldCloseOnSelect={false}
+				showTimeSelect={type === 'datetime'}
+				timeIntervals={15}
+				{...props}
 			/>
 		);
 	}
