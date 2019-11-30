@@ -69,7 +69,7 @@ class DatePickerInput extends Component {
 	componentDidUpdate(prevProps) {
 		const { type } = this.props;
 
-		if (!!this.props.value
+		/*if (!!this.props.value
 			&& new moment(this.state.value, getDateFormat(type)).toISOString() !== this.props.value.toString()) {
 
 			let val = '';
@@ -82,7 +82,7 @@ class DatePickerInput extends Component {
 				hasError: !!this.props.required && !this.props.value,
 				inputValue: val
 			});
-		}
+		}*/
 	}
 
 	// when user selects a date or time on the datetime picker
@@ -141,6 +141,7 @@ class DatePickerInput extends Component {
 				onChange={this.handleChange}
 				openToDate={inputValue}
 				placeholderText={getPlaceholder(type)}
+				popperClassName="mui-datepicker-popper"
 				selected={inputValue}
 				shouldCloseOnSelect={false}
 				showTimeSelect={type === 'datetime'}

@@ -1,8 +1,16 @@
-import { getDateFormat, getPlaceholder, isValidDate } from '../utils';
+import {
+	getDateFormat,
+	getDateFormatForPicker,
+	getPlaceholder,
+	isValidDate
+} from '../utils';
 import moment from 'moment';
 
 const datetime = 'MMM DD, YYYY, hh:mm a';
 const date = 'MMM DD, YYYY';
+
+const datetimePicker = 'MMM dd, yyyy, h:mm a';
+const datePicker = 'MMM dd, yyyy';
 
 const datetimePlaceholder = 'Enter date and time';
 const datePlaceholder = 'Enter date';
@@ -15,6 +23,13 @@ describe('Get date format util function', () => {
 
 	test('Date format', () => {
 		expect(getDateFormat('date')).toBe(date);
+	});
+});
+
+describe('Get date format for picker util function', () => {
+	test('Datetime format', () => {
+		expect(getDateFormatForPicker('datetime')).toBe(datetimePicker);
+		expect(getDateFormatForPicker('date')).toBe(datePicker);
 	});
 });
 
