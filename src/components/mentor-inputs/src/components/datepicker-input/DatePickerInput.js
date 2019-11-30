@@ -76,7 +76,7 @@ class DatePickerInput extends Component {
 			this.lastVal = inputValue;
 
 			this.setState({
-				hasError: !!required && !isValid,
+				hasError: !!this.props.required && !isValid,
 				inputValue
 			});
 		}
@@ -139,6 +139,13 @@ class DatePickerInput extends Component {
 				openToDate={inputValue}
 				placeholderText={getPlaceholder(type)}
 				popperClassName="mui-datepicker-popper"
+				popperModifiers={{
+					preventOverflow: {
+						enabled: true,
+						escapeWithReference: false,
+						boundariesElement: 'viewport'
+					}
+				}}
 				selected={inputValue}
 				shouldCloseOnSelect={false}
 				showTimeSelect={type === 'datetime'}
