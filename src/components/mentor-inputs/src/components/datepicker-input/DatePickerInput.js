@@ -49,7 +49,6 @@ class DatePickerInput extends Component {
 
 		const { required, type, value } = this.props;
 
-		const mask = getDateFormat(type);
 		const isValid = isValidDate(value, moment.ISO_8601);
 		const initValue = isValid
 			? moment(value, moment.ISO_8601).toDate()
@@ -67,22 +66,20 @@ class DatePickerInput extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		const { type } = this.props;
+		// new date passed down
+		if (this.props.value !== prevProps.value) {
+			const isValid = isValidDate(this.props.value, moment.ISO_8601);
+			const inputValue = isValid
+				? moment(this.props.value, moment.ISO_8601).toDate()
+				: null;
 
-		/*if (!!this.props.value
-			&& new moment(this.state.value, getDateFormat(type)).toISOString() !== this.props.value.toString()) {
-
-			let val = '';
-
-			if (!!this.props.value) {
-				val = this.props.value;
-			}
+			this.lastVal = inputValue;
 
 			this.setState({
-				hasError: !!this.props.required && !this.props.value,
-				inputValue: val
+				hasError: !!required && !isValid,
+				inputValue
 			});
-		}*/
+		}
 	}
 
 	// when user selects a date or time on the datetime picker
