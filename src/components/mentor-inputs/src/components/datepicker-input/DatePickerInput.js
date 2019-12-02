@@ -21,6 +21,7 @@ class DatePickerInput extends Component {
 		className: PropTypes.string,
 		disabled: PropTypes.bool,
 		error: PropTypes.bool,
+		isUtc: PropTypes.bool,
 		name: PropTypes.string,
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
@@ -36,6 +37,7 @@ class DatePickerInput extends Component {
 		className: '',
 		disabled: false,
 		error: false,
+		isUtc: false,
 		name: '',
 		onBlur: null,
 		onChange: null,
@@ -47,12 +49,16 @@ class DatePickerInput extends Component {
 	constructor(props) {
 		super(props);
 
-		const { required, type, value } = this.props;
+		const { isUtc, required, type, value } = this.props;
 
 		const isValid = isValidDate(value, moment.ISO_8601);
-		const initValue = isValid
-			? moment(value, moment.ISO_8601).toDate()
-			: null;
+		let initValue = null;
+
+		if (isValid) {
+			initValue = isUtc
+				? moment.utc(value).local().toDate()
+				: moment(value, moment.ISO_8601).toDate();
+		}
 
 		this.lastVal = isValid
 			? moment(initValue).format(getDateFormat(type))
@@ -64,16 +70,19 @@ class DatePickerInput extends Component {
 			hasError: !!required & !isValid,
 			inputValue: initValue
 		};
-
 	}
 
 	componentDidUpdate(prevProps) {
 		// new date passed down
 		if (this.props.value !== prevProps.value) {
 			const isValid = isValidDate(this.props.value, moment.ISO_8601);
-			const inputValue = isValid
-				? moment(this.props.value, moment.ISO_8601).toDate()
-				: null;
+			let inputValue = null;
+
+			if (isValid) {
+				inputValue = this.props.isUtc
+					? moment.utc(this.props.value).local().toDate()
+					: moment(this.props.value, moment.ISO_8601).toDate();
+			}
 
 			this.lastVal = isValid
 				? moment(inputValue).format(getDateFormat(this.props.type))

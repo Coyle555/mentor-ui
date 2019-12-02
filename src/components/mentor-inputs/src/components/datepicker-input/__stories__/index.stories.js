@@ -7,12 +7,12 @@ import DatePickerInput from '../DatePickerInput';
 storiesOf('Inputs/DatePickerInput', module)
 	.add('Datetime Input', () =>
 		<DatePickerInput
+			isUtc={true}
 			name="datepicker-input"
 			onBlur={action('onBlur')}
 			onChange={action('onChange')}
 			type="datetime"
-			utcOffset={-5}
-			value={new Date('2019-09-05 17:04:41.2350000')}
+			value={'2019-09-05 17:04:41.2350000'}
 		/>
 	)
 	.add('Date Input', () =>
@@ -21,7 +21,8 @@ storiesOf('Inputs/DatePickerInput', module)
 			onBlur={action('onBlur')}
 			onChange={action('onChange')}
 			type="date"
-			value={new Date('2019-09-05')}
+			isUtc={false}
+			value={'2019-09-05'}
 		/>
 	)
 	.add('Required Date Input', () =>

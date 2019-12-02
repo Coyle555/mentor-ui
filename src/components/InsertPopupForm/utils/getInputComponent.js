@@ -7,7 +7,7 @@ import {
 	SelectInput
 } from 'mentor-inputs';
 
-export function getInputComponent(field, props) {
+export function getInputComponent(field, props, utcSettings) {
 	if (field.type === 'listfilter') {
 		delete props.onBlur;
 
@@ -35,6 +35,7 @@ export function getInputComponent(field, props) {
 		return (
 			<DatePickerInput
 				{...props}
+				isUtc={utcSettings[field.type]}
 				type={field.type}
 			/>
 		);
