@@ -54,7 +54,9 @@ class DatePickerInput extends Component {
 			? moment(value, moment.ISO_8601).toDate()
 			: null;
 
-		this.lastVal = initValue;
+		this.lastVal = isValid
+			? moment(initValue).format(getDateFormat(type))
+			: null;
 
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
@@ -73,7 +75,9 @@ class DatePickerInput extends Component {
 				? moment(this.props.value, moment.ISO_8601).toDate()
 				: null;
 
-			this.lastVal = inputValue;
+			this.lastVal = isValid
+				? moment(inputValue).format(getDateFormat(this.props.type))
+				: null;
 
 			this.setState({
 				hasError: !!this.props.required && !isValid,

@@ -11,6 +11,7 @@ storiesOf('Inputs/DatePickerInput', module)
 			onBlur={action('onBlur')}
 			onChange={action('onChange')}
 			type="datetime"
+			utcOffset={-5}
 			value={new Date('2019-09-05 17:04:41.2350000')}
 		/>
 	)

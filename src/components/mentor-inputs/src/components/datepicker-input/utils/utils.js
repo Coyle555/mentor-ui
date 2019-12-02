@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const DEFAULT_FORMAT_MASKS = {
-	datetime: 'MMM DD, YYYY, hh:mm a',
+	datetime: 'MMM DD, YYYY, h:mm A',
 	date: 'MMM DD, YYYY',
 };
 
