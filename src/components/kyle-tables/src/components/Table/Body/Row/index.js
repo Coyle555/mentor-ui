@@ -121,6 +121,7 @@ export class TableRow extends PureComponent {
 						colId={col.id}
 						customClasses={customClasses}
 						customColumn={customColumns[col.id]}
+						isUtc={col.utc}
 						key={col.id}
 						parse={col.parse}
 						row={row}

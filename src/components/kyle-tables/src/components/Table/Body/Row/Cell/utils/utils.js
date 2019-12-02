@@ -1,56 +1,51 @@
-import { convertToTimeZone } from 'date-fns-timezone';
+import moment from 'moment';
 
-function convertDateTime(datetimeValue) {
-	const datetime = Date.parse(new Date(datetimeValue));
-	const region = new Intl.DateTimeFormat().resolvedOptions();
-	const convertedDate = convertToTimeZone(datetime, { timeZone: region.timeZone });
-	const options = {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric'
-	};
+const datetimeFormat = 'MMM DD, YYYY, h:mm A';
+const dateFormat = 'MMM DD, YYYY';
 
-	return new Intl.DateTimeFormat('default', options).format(convertedDate);
+function convertDateTime(datetimeValue, isUtc) {
+	console.log('datetime vlaue', datetimeValue);
+	return isUtc
+		? moment.utc(datetimeValue).local().format(datetimeFormat)
+		: moment(datetimeValue, moment.ISO_8601).format(datetimeFormat);
 }
 
-function convertDate(dateValue) {
-	const date = Date.parse(new Date(dateValue));
-	const region = new Intl.DateTimeFormat().resolvedOptions();
-	const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
-	const options = {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric'
-	};
-
-	return new Intl.DateTimeFormat('default', options).format(convertedDate);
+function convertDate(dateValue, isUtc) {
+	return isUtc
+		? moment.utc(dateValue).local().format(dateFormat)
+		: moment(dateValue, moment.ISO_8601).format(dateFormat);
 }
 
 // Converts a cell value to a string
 //
 // @value(string|object|null|[object]) - the value passed into a cell
 // @return(string) - the value in string format
-export function convertCellToString(value, type) {
+export function convertCellToString(value, type, isUtc) {
 	if (value === null || value === undefined) {
 		return '';
 	}
 
 	const valueType = typeof value;
 
-	// handle primitive data types
-	if (valueType === 'string' || valueType === 'number') {
-		return value.toString();
-	} else if (valueType === 'boolean') {
-		return value.toString();
-	} else if (type === 'datetime' && Date.parse(value)) {
-		return convertDateTime(value);
+	if (type === 'datetime' && Date.parse(value)) {
+
+		return convertDateTime(value, isUtc);
+
 	} else if (type === 'date' && Date.parse(value)) {
-		return convertDate(value);
+
+		return convertDate(value, isUtc);
+
+	// handle primitive data types
+	} else if (valueType === 'string' || valueType === 'number' || valueType === 'boolean') {
+
+		return value.toString();
+
+
 	// default to name field for objects
 	} else if (valueType === 'object' && value.name) {
+
 		return value.name;
+
 	}
 
 	return '';

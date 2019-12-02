@@ -18,11 +18,13 @@ const columns = [
 		label: 'Number',
 		id: 'num',
 		type: 'integer',
+		display: false
 	},
 	{
 		label: 'Float',
 		id: 'float',
-		type: 'float'
+		type: 'float',
+		display: false
 	},
 	{
 		label: 'String',
@@ -33,32 +35,37 @@ const columns = [
 		label: 'Multiline',
 		id: 'multiline',
 		type: 'multiline',
+		display: false
 	},
 	{
 		label: 'Email',
 		id: 'email',
-		type: 'email'
+		type: 'email',
+		display: false
 	},
 	{
 		label: 'Money',
 		id: 'money',
-		type: 'money'
+		type: 'money',
+		display: false
 	},
 	{
 		label: 'URL',
 		id: 'url',
-		type: 'url'
+		type: 'url',
+		display: false
 	},
 	{
 		label: 'DateTime',
 		id: 'datetime',
 		type: 'datetime',
-		display: false
+		utc: true
 	},
 	{
 		label: 'Date',
 		id: 'date',
-		type: 'date'
+		type: 'date',
+		utc: false
 	},
 	{
 		label: 'Object',
@@ -69,7 +76,8 @@ const columns = [
 	{
 		label: 'Image',
 		id: 'img',
-		type: 'image'
+		type: 'image',
+		display: false
 	},
 	{
 		label: 'List Filter w/ array',
@@ -111,7 +119,7 @@ const columns = [
 
 const data = [
 	{
-		datetime: new Date(),
+		datetime: '2019-09-05 17:04:41.2350000',
 		float: 13.5,
 		id: 'row1',
 		num: 3,
@@ -123,7 +131,7 @@ const data = [
 		customColumnId: 'custom 1'
 	},
 	{
-		date: new Date(),
+		date: '2019-09-05',
 		float: 5,
 		id: 'row2',
 		num: 31,

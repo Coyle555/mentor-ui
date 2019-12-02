@@ -25,10 +25,6 @@ export default class InsertForm extends Component {
 		onDisable: PropTypes.func,
 		onSubmit: PropTypes.func,
 		resetForm: PropTypes.bool,
-		utcSettings: PropTypes.shape({
-			date: PropTypes.bool,
-			datetime: PropTypes.bool
-		}),
 	}
 
 	static defaultProps = {
@@ -37,10 +33,6 @@ export default class InsertForm extends Component {
 		onDisable: null,
 		onSubmit: null,
 		resetForm: false,
-		utcSettings: {
-			date: false,
-			datetime: false
-		},
 	}
 
 	constructor(props) {
@@ -98,7 +90,7 @@ export default class InsertForm extends Component {
 	}
 
 	initializeInsertForm = () => {
-		const { formFields, utcSettings } = this.props;
+		const { formFields } = this.props;
 
 		this.insertData = {};
 		const initInsertData = Object.assign({}, this.props.initInsertData);
@@ -125,7 +117,7 @@ export default class InsertForm extends Component {
 				value: ''
 			};
 
-			InputComponent = getInputComponent(field, inputProps, utcSettings);
+			InputComponent = getInputComponent(field, inputProps);
 			
 			this.insertData[field.id] = '';	// initialize insert data
 

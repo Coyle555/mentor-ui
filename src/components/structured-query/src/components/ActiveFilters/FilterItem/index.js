@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { convertToTimeZone } from 'date-fns-timezone';
 
 export class FilterItem extends Component {
 

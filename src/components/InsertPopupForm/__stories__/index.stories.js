@@ -17,8 +17,8 @@ storiesOf('InsertPopupForm', module)
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
-					{ id: 'date', label: 'Date', type: 'date' },
-					{ id: 'datetime', label: 'DateTime', type: 'datetime' },
+					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
 					{
@@ -41,11 +41,15 @@ storiesOf('InsertPopupForm', module)
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 				]}
 				initInsertData={{
 					text: 'Initial',
 					requiredText: 'Initial on required',
-					extra: 'Not in form fields'
+					extra: 'Not in form fields',
+					datetime: '2019-09-05 17:04:41.2350000',
+					date: '2019-09-05'
 				}}
 				onSubmit={action('onSubmit')}
 			/>

@@ -11,9 +11,9 @@ export const Cell = ({
 	colId,
 	customClasses,
 	customColumn,
+	isUtc,
 	parse,
 	row,
-	rowSelected,
 	type,
 	uploadFileCb,
 	value
@@ -29,7 +29,7 @@ export const Cell = ({
 	// convert different data types to the proper string
 	value = typeof parse === 'function'
 		? parse(value)
-		: convertCellToString(value, type);
+		: convertCellToString(value, type, isUtc);
 
 	let cell = value;
 	
