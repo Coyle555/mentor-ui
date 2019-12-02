@@ -91,6 +91,10 @@ export const Field = ({
 			inputProps.parse = parse;
 			inputProps.parseMatchedValue = parseMatchedValue;
 
+		} else if (type === 'date' || type === 'datetime') {
+
+			inputProps.isUtc = !!props.utc;
+
 		}
 
 		Input = <Input {...inputProps} />;

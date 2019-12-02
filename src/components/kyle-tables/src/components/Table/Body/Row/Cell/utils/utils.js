@@ -4,7 +4,6 @@ const datetimeFormat = 'MMM DD, YYYY, h:mm A';
 const dateFormat = 'MMM DD, YYYY';
 
 function convertDateTime(datetimeValue, isUtc) {
-	console.log('datetime vlaue', datetimeValue);
 	return isUtc
 		? moment.utc(datetimeValue).local().format(datetimeFormat)
 		: moment(datetimeValue, moment.ISO_8601).format(datetimeFormat);
