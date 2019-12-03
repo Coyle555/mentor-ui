@@ -69,12 +69,15 @@ module.exports = {
 	},
 
 	plugins: [
-  	new TerserPlugin({
-    	parallel: true,
-    	terserOptions: { ecma: 6 }
-    }),
+		new TerserPlugin({
+			parallel: true,
+			terserOptions: { ecma: 6 }
+		}),
 		new webpack.ProgressPlugin({ profile: false }),
 		new CaseSensitivePathsPlugin(),
+		new MiniCssExtractPlugin({
+			filename: '[name].style.css'
+		})
 	],
 	externals: {
 		react: {
