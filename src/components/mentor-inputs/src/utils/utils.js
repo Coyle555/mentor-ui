@@ -46,8 +46,6 @@ export function getMentorInput(type = '') {
 			return MoneyInput;
 		//case 'maskedinput':
 			//return MaskedInput;
-		// case 'table':
-		// 	return TableInput;
 		case 'url':
 			return URLInput;
 		case 'string':

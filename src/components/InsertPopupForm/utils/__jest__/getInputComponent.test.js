@@ -3,7 +3,6 @@ jest.mock('mentor-inputs', () => {
 		getMentorInput: () => props => <div>{JSON.stringify(props)}</div>,
 		ListFilter: props => <div>{JSON.stringify(props)}</div>,
 		SelectInput: props => <div>{JSON.stringify(props)}</div>,
-		TableInput: props => <div>{JSON.stringify(props)}</div>,
 	};
 });
 

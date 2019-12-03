@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	getMentorInput,
-	DatePickerInput,
-	ListFilter,
-	TableInput,
-	SelectInput
-} from 'mentor-inputs';
+import { getMentorInput, DatePickerInput, ListFilter, SelectInput } from 'mentor-inputs';
 
 export function getInputComponent(field, props) {
 	if (field.type === 'listfilter') {
@@ -38,16 +32,6 @@ export function getInputComponent(field, props) {
 				type={field.type}
 			/>
 		);
-
-	/*} else if (!!field.tableOnInsert) {
-
-		InputComponent = (
-			<TableInput
-				{...props}
-				apiInfo={field.tableOnInsert}
-				onSelectData={this._handleOptionMatch}
-			/>
-		);*/
 
 	} else {
 		delete props.onMatch;
