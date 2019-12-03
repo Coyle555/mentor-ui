@@ -7,7 +7,6 @@ import onClickOutside from 'react-onclickoutside';
 import DatePicker from 'react-datepicker';
 
 import { TypeaheadSelector } from './Selector';
-//import { DatePicker } from './Datepicker';
 import { keyEvent } from 'utils';
 
 const DATE_FORMATS = {
@@ -46,7 +45,6 @@ export class TypeaheadComponent extends Component {
 		super(props);
 
 		this.rawOptions = this.props.options;
-		console.clear();
 
 		// @focused: form is focused by user
 		// @visibleOptions: currently visible set of options
@@ -306,10 +304,6 @@ export class TypeaheadComponent extends Component {
 	}
 
 	_focusTypeahead = () => {
-		if (!!this.inputRef) {
-			this.inputRef.focus();
-		}
-
 		this.setState({ focused: true });
 	}
 
