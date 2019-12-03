@@ -4,10 +4,16 @@ import fuzzy from 'fuzzy';
 import classNames from 'classnames';
 import moment from 'moment';
 import onClickOutside from 'react-onclickoutside';
+import DatePicker from 'react-datepicker';
 
 import { TypeaheadSelector } from './Selector';
-import { DatePicker } from './Datepicker';
+//import { DatePicker } from './Datepicker';
 import { keyEvent } from 'utils';
+
+const DATE_FORMATS = {
+	datetime: 'MMM dd, yyyy, h:mm a',
+	date: 'MMM dd, yyyy'
+};
 
 // Typeahead an auto-completion text input
 //
@@ -40,6 +46,7 @@ export class TypeaheadComponent extends Component {
 		super(props);
 
 		this.rawOptions = this.props.options;
+		console.clear();
 
 		// @focused: form is focused by user
 		// @visibleOptions: currently visible set of options
@@ -295,7 +302,10 @@ export class TypeaheadComponent extends Component {
 	}
 
 	_focusTypeahead = () => {
-		this.inputRef.focus();
+		if (!!this.inputRef) {
+			this.inputRef.focus();
+		}
+
 		this.setState({ focused: true });
 	}
 
@@ -306,71 +316,64 @@ export class TypeaheadComponent extends Component {
 		});
 	}
 
-	handleDatepickerClose = (event) => {
-		event.stopPropagation();
-		this.setState({ focused: false });
+	handleDatePickerChange = (date) => {
+		this.setState({ value: !!date ? date : '' });
 	}
 
-	clearDatepickerInput = () => {
-		this.setState({ value: '' });
-	}
-
-	saveDatepickerValue = () => {
-		this.props.addTokenForValue(this.state.value);
-		this.setState({ value: '' });
-	}
-
-	// This will show the user the header of the label and the
-	// options depending on the label of the search he is in and 
-	// what he has entered
-	_renderIncrementalSearchResults() {
-		if (!this.state.focused) {
-			return null;
-		}
-
-		// handle special case for date time querying
-		if (this.props.datatype === 'datetime' || this.props.datatype === 'date') {
-			return (
-				<DatePicker
-					clearInput={this.clearDatepickerInput}
-					handleClose={this.handleDatepickerClose}
-					onOptionSelected={this._onOptionSelected}
-					saveDate={this.saveDatepickerValue}
-					type={this.props.datatype}
-					updateDateValue={this.updateDateValue}
-				/>
-		       );
-		}
-
-		// there are no typeahead/autocomplete suggestions, 
-		// so render nothing
-		if (!this.state.visibleOptions.length) {
-			return null;
-		}
+	renderDatePicker = () => {
+		const { datatype } = this.props;
 
 		return (
-			<TypeaheadSelector
-				customClasses={this.props.customClasses}
-				options={this.state.visibleOptions}
-				header={this.props.header}
-				onOptionSelected={this._onOptionSelected}
-				selectedOptionIndex={this.state.selectedOptionIndex}
+			<DatePicker
+				autoFocus={this.state.focused}
+				dateFormat={DATE_FORMATS[datatype]}
+				onKeyDown={this._onKeyDown}
+				onChange={this.handleDatePickerChange}
+				selected={this.state.value}
+				shouldCloseOnSelect={false}
+				showTimeSelect={datatype === 'datetime'}
+				timeIntervals={15}
 			/>
 		);
 	}
 
-	render() {
-		const { customClasses, label, operator } = this.props;
+	renderNormalInput = () => {
+		const { customClasses } = this.props;
 
-		let inputClassList = classNames({
+		const inputClassList = classNames({
 			[customClasses.input]: !!customClasses.input
 		});
 
 		return (
-			<div
-				className="filter-input-group"
-				onClick={this._focusTypeahead}
-			>
+			<>
+				<input
+					className={inputClassList}
+					onChange={this._onTextEntryUpdated}
+					onFocus={this._focusTypeahead}
+					onKeyDown={this._onKeyDown}
+					ref={ref => this.inputRef = ref}
+					type="text"
+					value={this.state.value}
+				/>
+				{ this.state.focused && this.state.visibleOptions.length > 0
+					? <TypeaheadSelector
+						customClasses={this.props.customClasses}
+						options={this.state.visibleOptions}
+						header={this.props.header}
+						onOptionSelected={this._onOptionSelected}
+						selectedOptionIndex={this.state.selectedOptionIndex}
+					/>
+					: null
+				}
+			</>
+		);
+	}
+
+	render() {
+		const { label, operator } = this.props;
+
+		return (
+			<div className="filter-input-group">
 				<div className="filter-category">
 					{label}
 				</div>
@@ -378,15 +381,10 @@ export class TypeaheadComponent extends Component {
 					{operator}
 				</div>
 				<div className="typeahead">
-					<input
-						className={inputClassList}
-						onChange={this._onTextEntryUpdated}
-						onKeyDown={this._onKeyDown}
-						ref={ref => this.inputRef = ref}
-						type="text"
-						value={this.state.value}
-					/>
-					{this._renderIncrementalSearchResults()}
+					{ this.props.datatype !== 'datetime' && this.props.datatype !== 'date'
+						? this.renderNormalInput()
+						: this.renderDatePicker()
+					}
 				</div>
 			</div>
 	       );

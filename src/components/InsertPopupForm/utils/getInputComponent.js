@@ -35,7 +35,6 @@ export function getInputComponent(field, props) {
 		return (
 			<DatePickerInput
 				{...props}
-				isUtc={!!field.utc}
 				type={field.type}
 			/>
 		);

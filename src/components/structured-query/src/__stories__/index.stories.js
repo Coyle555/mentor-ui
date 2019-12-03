@@ -40,8 +40,8 @@ storiesOf('Structured Query', module)
 	})
 	.add('Datepicker', () => {
 		const fields = [
-			{ id: 'foo', label: 'DateTime', type: 'datetime', utc: true },
-			{ id: 'bar', label: 'Date', type: 'date', utc: false }
+			{ id: 'foo', label: 'DateTime', type: 'datetime' },
+			{ id: 'bar', label: 'Date', type: 'date' }
 		];
 
 		return (

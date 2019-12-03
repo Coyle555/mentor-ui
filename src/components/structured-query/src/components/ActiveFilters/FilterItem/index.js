@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+const DATETIME_FORMAT = 'MMM DD, YYYY, h:mm A';
+const DATE_FORMAT = 'MMM DD, YYYY';
+
 export class FilterItem extends Component {
 
 	static propTypes = {
@@ -25,39 +28,21 @@ export class FilterItem extends Component {
 	}
 
 	renderValue = (val) => {
+		console.log('render type', this.props.type);
+			console.log('value', val);
 		if (typeof this.props.parse === 'function') {
 
 			return this.props.parse(val);
 
-		} /*else if (this.props.type === 'datetime') {
+		} else if (this.props.type === 'datetime') {
 
-			const date = Date.parse(new Date(val));
-			const region = new Intl.DateTimeFormat().resolvedOptions();
-			const convertedDate = convertToTimeZone(date, { timeZone: region.timeZone });
-			const options = {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-				hour: 'numeric',
-				minute: 'numeric'
-			};
-
-			return (
-				<span>
-					{ new Intl.DateTimeFormat('default', options).format(convertedDate) }
-				</span>
-			);
+			return moment(val, moment.ISO_8601).format(DATETIME_FORMAT);
 
 		} else if (this.props.type === 'date') {
 
-			const date = Date.parse(new Date(val));
+			return moment(val, moment.ISO_8601).format(DATE_FORMAT);
 
-			return (
-				<span>
-					{ new moment(date).format('MMMM D, YYYY h:mm A') }
-				</span>
-			);
-		}*/
+		}
 
 		return val;
 	}
