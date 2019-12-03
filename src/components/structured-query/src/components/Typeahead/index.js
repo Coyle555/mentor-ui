@@ -71,6 +71,10 @@ export class TypeaheadComponent extends Component {
 		if (!!this.props.options && this.props.options !== prevProps.options) {
 			this.getOptions(this.props.options);
 		}
+
+		if (this.state.focused && this.inputRef) {
+			this.inputRef.focus();
+		}
 	}
 
 	getOptions = (options) => {
@@ -327,8 +331,10 @@ export class TypeaheadComponent extends Component {
 			<DatePicker
 				autoFocus={this.state.focused}
 				dateFormat={DATE_FORMATS[datatype]}
-				onKeyDown={this._onKeyDown}
+				onBlur={this.handleClickOutside}
 				onChange={this.handleDatePickerChange}
+				onFocus={this._focusTypeahead}
+				onKeyDown={this._onKeyDown}
 				selected={this.state.value}
 				shouldCloseOnSelect={false}
 				showTimeSelect={datatype === 'datetime'}
