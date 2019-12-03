@@ -28,8 +28,6 @@ export class FilterItem extends Component {
 	}
 
 	renderValue = (val) => {
-		console.log('render type', this.props.type);
-			console.log('value', val);
 		if (typeof this.props.parse === 'function') {
 
 			return this.props.parse(val);
