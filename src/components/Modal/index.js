@@ -5,8 +5,6 @@ import { defaults } from 'lodash';
 import cn from 'classnames';
 import fscreen from 'fscreen';
 
-import Button from '../Button/index';
-
 import './style.less';
 
 /// reuse this hook for all full screen components
@@ -70,10 +68,12 @@ export const Modal = props => {
 	);
 
 	const fullScreenButtonIcon = cn(
-		'fa',
-	  { 'fa-compress-wide': isFullScreen },
-	  { 'fal fa-expand-wide fa-lg': !isFullScreen },
-		'fa-lg',
+		'far',
+		{
+			'fa-compress-arrows-alt': isFullScreen,
+			'fa-expand-arrows-alt': !isFullScreen
+		},
+		'full-screen-toggle'
 	);
 
 	const contentStyle = defaults({
@@ -109,28 +109,10 @@ export const Modal = props => {
 				style={contentStyle}
 			>
 				<div className="apm-modal-actions">
-					{
-						props.fullScreenToggle &&
-						<Button
-							className="apm-modal-actions-button"
-							medium
-							isLight
-							onClick={toggle}
-						>
-							<i className={fullScreenButtonIcon}></i>
-						</Button>
-					}
-					{
-						!props.hideCloseButton &&
-						<Button
-							className="apm-modal-actions-button"
-							medium
-							isLight
-							onClick={props.onClose}
-						>
-							<i className="fal fa-times fa-lg"/>
-						</Button>
-					}
+					{ props.fullScreenToggle
+						&& <i className={fullScreenButtonIcon} onClick={toggle} /> }
+					{ !props.hideCloseButton
+						&& <i className="fal fa-times fa-lg close-modal" onClick={props.onClose} /> }
  				</div>
 				<div className="apm-modal-body">
 					{ props.children }
@@ -162,5 +144,3 @@ Modal.propTypes = {
 };
 
 export default Modal;
-export * from './useBasicModalSettings';
-

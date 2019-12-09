@@ -23,7 +23,7 @@ storiesOf('Modal', module)
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={modalVisibility}
-					fullScreenToggle={boolean('fullScreenToggle', false)}
+					fullScreenToggle={boolean('fullScreenToggle', true)}
 					hideCloseButton={boolean('hideCloseButton', false)}
 					onClose={() => setModalVisibility(false)}
 					height={number('Override height', null)}
