@@ -1,47 +1,33 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { defaults } from 'lodash';
 import cn from 'classnames';
-import fscreen from 'fscreen';
 
 import './style.less';
 
-/// reuse this hook for all full screen components
-const useFullScreen = (wrapper) => {
-
-	const [ isFullScreen, setIsFullScreen ] = useState(false);
-
-	const toggle = () => {
-
-		if (isFullScreen) {
-			setIsFullScreen(false);
-			fscreen.exitFullscreen();
-			// wrapper.current.style.width = null;
-			// wrapper.current.style.height = null;
-		} else {
-
-			fscreen.requestFullscreen(wrapper.current);
-
-			setIsFullScreen(true);
-		}
-	}
-
-	return { isFullScreen,  toggle };
-}
-
+const ESCAPE_KEYCODE = 27;
 
 export const Modal = props => {
 
-	const modalRef = useRef(null);
-
 	const el = useMemo(() => {
-		const div = document.createElement('div');
-		div.className = 'APM-modal-wrapper'
+		let div = document.getElementById('mui-modal');
+
+		if (!div) {
+			div = document.createElement('div');
+			div.className = 'APM-modal-wrapper';
+			div.id = 'mui-modal';
+		}
+
 		return div;
 	}, []);
 
-	const { isFullScreen, toggle } = useFullScreen(modalRef);
+	const closeModalOnKeyDown = useCallback(evt => {
+		if (evt.keyCode === ESCAPE_KEYCODE && typeof props.onClose === 'function') {
+			evt.stopPropagation();
+			props.onClose();
+		}
+	}, [props.onClose]);
 
 	useEffect(() => {
 		document.body.appendChild(el);
@@ -53,27 +39,31 @@ export const Modal = props => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (!props.display) return;
+
+		window.addEventListener('keydown', closeModalOnKeyDown);
+
+		return () => {
+			window.removeEventListener('keydown', closeModalOnKeyDown);
+		}
+	}, [props.display]);
+
 	if (!props.display) return null;
 
 	const overlayClassName = cn(
-		props.overlayClassName,
-		'APM-modal-overlay',
-		{ 'apm-fullscreen': isFullScreen }
+		{ [props.overlayClassName]: !!props.customClasses.overlay },
+		'APM-modal-overlay'
 	);
 
 	const contentClassName = cn(
 		'apm-modal-content',
-		props.contentClassName,
-		{ 'apm-fullscreen': isFullScreen }
+		{ [props.customClasses.content]: !!props.customClasses.content }
 	);
 
-	const fullScreenButtonIcon = cn(
-		'far',
-		{
-			'fa-compress-arrows-alt': isFullScreen,
-			'fa-expand-arrows-alt': !isFullScreen
-		},
-		'full-screen-toggle'
+	const bodyClassName = cn(
+		'apm-modal-body',
+		{ [props.customClasses.body]: !!props.customClasses.body }
 	);
 
 	const contentStyle = defaults({
@@ -98,7 +88,6 @@ export const Modal = props => {
 
 	return createPortal(
 		<div
-			ref={modalRef}
 			className={overlayClassName}
 			style={props.overlayStyle}
 			onClick={handleClickOutside}
@@ -108,12 +97,11 @@ export const Modal = props => {
 				className={contentClassName}
 				style={contentStyle}
 			>
-				<div className="apm-modal-actions">
-					{ props.fullScreenToggle
-						&& <i className={fullScreenButtonIcon} onClick={toggle} /> }
-					{ !props.hideCloseButton
-						&& <i className="fal fa-times fa-lg close-modal" onClick={props.onClose} /> }
- 				</div>
+				{ !props.hideCloseButton &&
+					<div className="apm-modal-actions">
+						<i className="fal fa-times fa-lg close-modal" onClick={props.onClose} />
+					</div>
+				}
 				<div className="apm-modal-body">
 					{ props.children }
 				</div>
@@ -126,19 +114,23 @@ export const Modal = props => {
 Modal.defaultProps = {
 	closeOnOutsideClick: true,
 	contentStyle: {},
-	onClose: () => { return true; },
+	customClasses: {},
+	onClose: () => {},
 	overlayStyle: {},
 }
 
 Modal.propTypes = {
 	closeOnOutsideClick: PropTypes.bool,
-	contentClassName: PropTypes.string,
 	contentStyle: PropTypes.object,
+	customClasses: PropTypes.shape({
+		overlay: PropTypes.string,
+		content: PropTypes.string,
+		body: PropTypes.string
+	}),
 	display: PropTypes.bool,
 	height: PropTypes.number,
 	hideCloseButton: PropTypes.bool,
 	onClose: PropTypes.func,
-	overlayClassName: PropTypes.string,
 	overlayStyle: PropTypes.object,
 	width: PropTypes.number,
 };

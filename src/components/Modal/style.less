@@ -9,7 +9,6 @@
 	overflow: hidden;
 	background: rgba(0,0,0,0.7);
 	z-index: @zIndex-modal;
-	text-align: center;
 	-webkit-animation: FADEIN 0.3s; /* Safari 4+ */
 	-moz-animation:    FADEIN 0.3s; /* Fx 5+ */
 	-o-animation:      FADEIN 0.3s; /* Opera 12+ */
@@ -21,51 +20,30 @@
 	background: none;
 }
 
-.APM-modal-overlay.apm-fullscreen {
-	//position: initial;
-}
-
-.apm-modal-content.apm-fullscreen {
-	// margin-top: 0;
-}
-
 .apm-modal-content {
 	position: relative;
 	overflow: auto;
-	border-radius: 3px;
-	height: calc(95vh - 48px);
+	border-radius: 4px;
+	height: 95%;
 	background: #fff;
 	width: 95%;
-	padding: 15px;
+	padding: 25px;
 	margin: 24px auto;
 
-	& &-no-padding {
-		padding: 0;
-	}
-
 	.apm-modal-body {
-		clear: right;
 		width: 100%;
-		height: 100%;
 	}
 }
 
 .apm-modal-actions {
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: 10px;
+	right: 10px;
 	z-index: 10;
-	display: flex;
 
 	> .close-modal {
 		cursor: pointer;
 		color: @ketchup;
-	}
-
-	> .full-screen-toggle {
-		cursor: pointer;
-		margin-right: 10px;
-		color: @green-primary;
 	}
 }
 

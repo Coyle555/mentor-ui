@@ -23,13 +23,12 @@ storiesOf('Modal', module)
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={modalVisibility}
-					fullScreenToggle={boolean('fullScreenToggle', true)}
 					hideCloseButton={boolean('hideCloseButton', false)}
 					onClose={() => setModalVisibility(false)}
 					height={number('Override height', null)}
 					width={number('Override width', null)}
 				>
-					<p>Modal Content</p>
+					Modal Content
 				</Modal>
 			</React.Fragment>
 		)
@@ -46,7 +45,6 @@ storiesOf('Modal', module)
 				<Modal 
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={modal1Visibility}
-					// fullScreenToggle
 					onClose={() => setModal1Visibility(false)}
 					height={300}
 					width={300}
@@ -60,7 +58,6 @@ storiesOf('Modal', module)
 						// overlayStyle={{ background: 'none' }}
 						height={400}
 						onClose={() => setModal2Visibility(false)}
-						// fullScreenToggle
 						width={400}
 					>
 						<p>Modal 2 Content</p>
