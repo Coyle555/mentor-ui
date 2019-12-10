@@ -59,7 +59,7 @@ export const useInputState = (props = {}) => {
 		onBlur: useCallback(evt => {
 			if (typeof onBlur !== 'function') return;
 			
-			if (String(currentValue).trim() !== String(lastVal).trim()) {
+			if (String(currentValue).trim() !== String(lastVal.current).trim()) {
 				lastVal.current = currentValue;
 				onBlur(error, currentValue, input.name);
 			}

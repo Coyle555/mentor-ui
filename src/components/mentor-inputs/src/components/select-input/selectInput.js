@@ -52,7 +52,7 @@ const SelectInput = ({
 	const onBlur = useCallback(evt => {
 		if (typeof props.onBlur !== 'function') return;
 		
-		if (currentValue !== lastVal) {
+		if (currentValue !== lastVal.current) {
 			lastVal.current = currentValue;
 
 			let actualValue = typeof parse === 'function'
