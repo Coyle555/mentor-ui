@@ -192,7 +192,10 @@ export class ListFilter extends Component {
 		const { name, validation } = this.props;
 
 		let hasError = !value && !!required;
-		const validInput = options.find(option => option === value);
+		const validInput = options.find(option => typeof option === 'object'
+			? option.title === value
+			: option === value
+		);
 
 		if (!hasError && !!value && !validInput) {
 			hasError = true;
@@ -227,18 +230,24 @@ export class ListFilter extends Component {
 	// 	can be a list of strings or objects
 	filterMatches = (value, options = []) => {
 		const { parse } = this.props;
-
 		let extract;
 
 		if (typeof parse === 'function') {
 			extract = parse;
-		} else if (typeof this.rawOptions.length > 0 && typeof this.rawOptions[0] === 'object') {
-			extract = val => val.title;
+		} else if (Array.isArray(this.props.options)
+			&& this.props.options.length > 0
+			&& typeof this.props.options[0] === 'object') {
+
+			extract = el => el.title;
 		}
 
 		return fuzzy
 			.filter(value, options, { extract })
-			.map(option => option.string);
+			.map(option => (
+				typeof option.original === 'object' && option.original.title && option.original.subtitle
+					? option.original
+					: option.string
+			));
 	}
 
 	// @value(string): value to filter against
@@ -463,6 +472,7 @@ export class ListFilter extends Component {
 		const { listClasses, listStyle, portalRef } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
+		console.log('options to render', options);
 		const listContainerClasses = classNames(
 			'mui-list-filter-menu-ul',
 			{ [listClasses.container]: !!listClasses.container },

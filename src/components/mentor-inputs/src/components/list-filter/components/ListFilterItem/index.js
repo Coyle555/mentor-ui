@@ -56,7 +56,9 @@ export class ListFilterItem extends Component {
 				{ typeof option === 'object' && option.subtitle
 					&& <>
 						<br />
-						{option.subtitle}
+						<span className="subtitle">
+							{option.subtitle}
+						</span>
 					</>
 				}
 			</li>
