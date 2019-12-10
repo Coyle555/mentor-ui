@@ -28,7 +28,6 @@ export class ListFilter extends Component {
 	static propTypes = {
 		autoFocus: PropTypes.bool,
 		className: PropTypes.string,
-		CustomListItem: PropTypes.func,
 		disabled: PropTypes.bool,
 		listClasses: PropTypes.shape({
 			container: PropTypes.string,
@@ -52,7 +51,6 @@ export class ListFilter extends Component {
 	static defaultProps = {
 		autoFocus: false,
 		className: '',
-		CustomListItem: null,
 		disabled: false,
 		listClasses: {},
 		listStyle: {
@@ -230,11 +228,17 @@ export class ListFilter extends Component {
 	filterMatches = (value, options = []) => {
 		const { parse } = this.props;
 
-		return fuzzy.filter(
-			value,
-			options,
-			{ extract: typeof parse === 'function' ? parse : undefined }
-		).map(option => option.string);
+		let extract;
+
+		if (typeof parse === 'function') {
+			extract = parse;
+		} else if (typeof this.rawOptions.length > 0 && typeof this.rawOptions[0] === 'object') {
+			extract = val => val.title;
+		}
+
+		return fuzzy
+			.filter(value, options, { extract })
+			.map(option => option.string);
 	}
 
 	// @value(string): value to filter against
@@ -473,7 +477,6 @@ export class ListFilter extends Component {
 				{ Array.isArray(options) && options.length > 0
 					? options.map((option, i) => (
 						<ListFilterItem
-							CustomListItem={this.props.CustomListItem}
 							index={i}
 							key={i}
 							listClasses={listClasses}
@@ -498,7 +501,6 @@ export class ListFilter extends Component {
 
 	render() {
 		const { 
-			CustomListItem,
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,

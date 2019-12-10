@@ -5,7 +5,6 @@ import classNames from 'classnames';
 export class ListFilterItem extends Component {
 
 	static propTypes = {
-		CustomListItem: PropTypes.func,
 		listClasses: PropTypes.object,
 		onClick: PropTypes.func,
 		option: PropTypes.string,
@@ -13,7 +12,6 @@ export class ListFilterItem extends Component {
 	}
 
 	static defaultProps = {
-		CustomListItem: null,
 		listClasses: {},
 		selected: false
 	}
@@ -30,7 +28,6 @@ export class ListFilterItem extends Component {
 	
 	render() {
 		const {
-			CustomListItem,
 			listClasses,
 			option,
 			selected,
@@ -52,9 +49,15 @@ export class ListFilterItem extends Component {
 				onMouseOver={this.onMouseOver}
 				style={style}
 			>
-				{ typeof CustomListItem === 'function' && React.isValidElement(<CustomListItem />) 
-					? <CustomListItem option={option} />
+				{ typeof option === 'object' && option.title
+					? option.title
 					: option
+				}
+				{ typeof option === 'object' && option.subtitle
+					&& <>
+						<br />
+						{option.subtitle}
+					</>
 				}
 			</li>
 		);
