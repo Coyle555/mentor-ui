@@ -28,7 +28,6 @@ export class ListFilter extends Component {
 	static propTypes = {
 		autoFocus: PropTypes.bool,
 		className: PropTypes.string,
-		CustomListItem: PropTypes.func,
 		disabled: PropTypes.bool,
 		listClasses: PropTypes.shape({
 			container: PropTypes.string,
@@ -52,7 +51,6 @@ export class ListFilter extends Component {
 	static defaultProps = {
 		autoFocus: false,
 		className: '',
-		CustomListItem: null,
 		disabled: false,
 		listClasses: {},
 		listStyle: {
@@ -489,7 +487,6 @@ export class ListFilter extends Component {
 				{ Array.isArray(options) && options.length > 0
 					? options.map((option, i) => (
 						<ListFilterItem
-							CustomListItem={this.props.CustomListItem}
 							index={i}
 							key={i}
 							listClasses={listClasses}
@@ -514,7 +511,6 @@ export class ListFilter extends Component {
 
 	render() {
 		const { 
-			CustomListItem,
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,
