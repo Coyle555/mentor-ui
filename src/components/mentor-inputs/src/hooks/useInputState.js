@@ -23,8 +23,13 @@ export const useInputState = (props = {}) => {
 	const inputRef = useRef(null);
 	const lastVal = useRef(validateValue(value));
 
-	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
-	const [ error, setError ] = useState(hasError(currentValue, required, validate));
+	const [ currentValue, setCurrentValue ] = useState(() => 
+		validateValue(value)
+	);
+	
+	const [ error, setError ] = useState(() => 
+		hasError(currentValue, required, validate)
+	);
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
@@ -61,7 +66,7 @@ export const useInputState = (props = {}) => {
 			
 			if (String(currentValue).trim() !== String(lastVal.current).trim()) {
 				lastVal.current = currentValue;
-				onBlur(error, currentValue, input.name);
+				onBlur(error, currentValue, input.name, evt);
 			}
 		}),
 		
@@ -81,7 +86,7 @@ export const useInputState = (props = {}) => {
 			}
 
 			if (typeof onChange === 'function') {
-				onChange(error, newValue, input.name);
+				onChange(error, newValue, input.name, evt);
 			}
 		}),
 
