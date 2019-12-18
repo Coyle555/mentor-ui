@@ -15,6 +15,25 @@ storiesOf('Inputs/ListFilterInput', module)
 			/>
 		)
 	})
+	.addWithJSX('Options with subtitles', () => {
+		return (
+			<ListFilterInput
+				name="listFilter"
+				onChange={action('onChange')}
+				onMatch={action('onMatch')}
+				options={[{
+					title: 'foo',
+					subtitle: 'Foo subtitle'
+				}, {
+					title: 'bar',
+					subtitle: 'Bar subtitle'
+				}, {
+					title: 'baz',
+					subtitle: 'Baz subtitle'
+				}]}
+			/>
+		)
+	})
 	.addWithJSX('Required', () => {
 		return (
 			<ListFilterInput

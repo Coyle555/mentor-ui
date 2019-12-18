@@ -28,7 +28,6 @@ export class ListFilter extends Component {
 	static propTypes = {
 		autoFocus: PropTypes.bool,
 		className: PropTypes.string,
-		CustomListItem: PropTypes.func,
 		disabled: PropTypes.bool,
 		listClasses: PropTypes.shape({
 			container: PropTypes.string,
@@ -52,7 +51,6 @@ export class ListFilter extends Component {
 	static defaultProps = {
 		autoFocus: false,
 		className: '',
-		CustomListItem: null,
 		disabled: false,
 		listClasses: {},
 		listStyle: {
@@ -194,7 +192,10 @@ export class ListFilter extends Component {
 		const { name, validation } = this.props;
 
 		let hasError = !value && !!required;
-		const validInput = options.find(option => option === value);
+		const validInput = options.find(option => typeof option === 'object'
+			? option.title === value
+			: option === value
+		);
 
 		if (!hasError && !!value && !validInput) {
 			hasError = true;
@@ -229,12 +230,24 @@ export class ListFilter extends Component {
 	// 	can be a list of strings or objects
 	filterMatches = (value, options = []) => {
 		const { parse } = this.props;
+		let extract;
 
-		return fuzzy.filter(
-			value,
-			options,
-			{ extract: typeof parse === 'function' ? parse : undefined }
-		).map(option => option.string);
+		if (typeof parse === 'function') {
+			extract = parse;
+		} else if (Array.isArray(this.props.options)
+			&& this.props.options.length > 0
+			&& typeof this.props.options[0] === 'object') {
+
+			extract = el => el.title;
+		}
+
+		return fuzzy
+			.filter(value, options, { extract })
+			.map(option => (
+				typeof option.original === 'object' && option.original.title && option.original.subtitle
+					? option.original
+					: option.string
+			));
 	}
 
 	// @value(string): value to filter against
@@ -459,6 +472,7 @@ export class ListFilter extends Component {
 		const { listClasses, listStyle, portalRef } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
+		console.log('options to render', options);
 		const listContainerClasses = classNames(
 			'mui-list-filter-menu-ul',
 			{ [listClasses.container]: !!listClasses.container },
@@ -473,7 +487,6 @@ export class ListFilter extends Component {
 				{ Array.isArray(options) && options.length > 0
 					? options.map((option, i) => (
 						<ListFilterItem
-							CustomListItem={this.props.CustomListItem}
 							index={i}
 							key={i}
 							listClasses={listClasses}
@@ -498,7 +511,6 @@ export class ListFilter extends Component {
 
 	render() {
 		const { 
-			CustomListItem,
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,

@@ -7,7 +7,7 @@
 	color: @charcoal-dark;
 	padding: 6px 12px;
 	border-radius: 2px;
-	font-size: .9rem;
+	font-size: 1rem;
 	font-weight: 500;
 	transition: background-color 0.15s ease-in-out 0s, border 0.15s ease-in-out 0s;
 	font-family: Arial, Helvetica, sans-serif;
@@ -37,14 +37,6 @@
 	margin: 0;
 	padding: 0;
 
-	> .mui-mi-datepicker {
-		position: absolute;
-		z-index: @coverAll_zIndex;
-		max-width: 400px;
-		font-size: .9rem;
-		background-color: @white;
-	}
-
 	> .mui-mi-list-filter {
 		margin: 0;
 		padding-right: 30px;
@@ -66,7 +58,6 @@
 		text-shadow: none;
 		padding: 0;
 		list-style: none outside none;
-		font-size: 12px;
 		box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 		border-radius: 3px;
 		border-top: 1px solid @steel-blue;
@@ -91,6 +82,11 @@
 				text-decoration: none;
 				background-color: @blue-primary;
 				outline: 0;
+			}
+
+			> .subtitle {
+				color: @blue-gray-dark;
+				font-size: .8rem;
 			}
 		}
 
@@ -132,7 +128,6 @@
 	margin: 0 auto;
 	padding: 5px 20px;
 	text-align: center;
-	font-size: .9rem;
 	font-weight: 500;
 	transition: border-style 0.15s ease-in-out 0s;
 	font-family: Arial, Helvetica, sans-serif;
