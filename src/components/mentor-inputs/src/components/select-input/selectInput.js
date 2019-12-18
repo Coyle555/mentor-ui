@@ -22,7 +22,9 @@ const SelectInput = ({
 	const lastVal = useRef(value);
 	const inputRef = useRef(null);
 	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(hasError(value, required, validate));
+	const [ error, setError ] = useState(() => 
+		hasError(value, required, validate)
+	);
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
@@ -63,7 +65,7 @@ const SelectInput = ({
 				actualValue = parseMatchedValue(actualValue);
 			}
 
-			props.onBlur(error, actualValue, props.name);
+			props.onBlur(error, actualValue, props.name, evt);
 		}
 	});
 
@@ -71,17 +73,15 @@ const SelectInput = ({
 		const newValue = evt.target.value;
 		setCurrentValue(newValue);
 
-		const error = hasError(newValue, required, validate);
+		const error = hasError(newValue, required, validate, evt.target);
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
+			
 			let actualValue = typeof parse === 'function'
-				? options.find(opt => parse(opt) === newValue)
-				: newValue;
-
-			if (typeof parseMatchedValue === 'function') {
-				actualValue = parseMatchedValue(actualValue);
-			}
+				&& typeof parseMatchedValue !== 'function'
+					? options.find(opt => parse(opt) === newValue)
+					: newValue;
 
 			if (inputRef.current) {
 				if (error) {
@@ -91,7 +91,7 @@ const SelectInput = ({
 				}
 			}
 
-			props.onChange(error, actualValue, props.name);
+			props.onChange(error, actualValue, props.name, evt);
 		}
 	});
 
@@ -104,6 +104,7 @@ const SelectInput = ({
 	return (
 		<select
 			{...props}
+			required={required}
 			className={inputClasses}
 			name={props.name}
 			onBlur={onBlur}
@@ -118,14 +119,19 @@ const SelectInput = ({
 				{ placeholder }
 			</option>
 			{ options.map(option => {
+
 				const value = typeof parse === 'function'
 					? parse(option)
 					: option;
 
+				const returnValue = typeof parseMatchedValue === 'function' 
+					? parseMatchedValue(option)
+					: value;
+
 				return (
 					<option
 						key={value}
-						value={value}
+						value={returnValue}
 					>
 						{value}
 					</option>
