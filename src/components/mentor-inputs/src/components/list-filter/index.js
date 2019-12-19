@@ -472,7 +472,6 @@ export class ListFilter extends Component {
 		const { listClasses, listStyle, portalRef } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
-		console.log('options to render', options);
 		const listContainerClasses = classNames(
 			'mui-list-filter-menu-ul',
 			{ [listClasses.container]: !!listClasses.container },
