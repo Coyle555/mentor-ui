@@ -187,23 +187,13 @@ export default class InsertForm extends Component {
 	}
 
 	handleFieldError = (error, fieldId) => {
-		const { fieldIndex, fieldsWithError, steps } = this.state;
+		const { formFields, fieldIndex, fieldsWithError, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
 
 		if (error) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
-			
-			const field = this.getField();
-
-			if (Array.isArray(field.dependencies)) {
-				field.dependencies.forEach(dependency => {
-					if (this.insertData[dependency] === '' || fieldsWithError[dependency]) {
-						newFieldsWithError[fieldId] = `${field.label} required`;
-					}
-				});
-			}
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -213,6 +203,18 @@ export default class InsertForm extends Component {
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
+		});
+	}
+
+	checkDependencies = (fieldId) => {
+		const { formFields } = this.props;
+
+		formFields.forEach(field => {
+			if (Array.isArray(field.dependencies)
+				&& field.dependencies.includes(fieldId)) {
+
+				newFieldsWithError[fieldId] = `${field.label} required`;
+			}
 		});
 	}
 
@@ -322,7 +324,7 @@ export default class InsertForm extends Component {
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
 
-		console.log(fieldsWithError[field.id]);
+		console.log(fieldsWithError);
 
 		return (
 			<Portal>
