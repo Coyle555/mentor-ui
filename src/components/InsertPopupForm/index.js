@@ -40,7 +40,6 @@ export default class InsertForm extends Component {
 
 		// insertion data taken from the form
 		this.insertData = {};
-		this.groups = {};
 
 		// @currentInputLabel: the current input label viewable by the user
 		// @fieldIndex: index of the current form field that is active
@@ -96,6 +95,7 @@ export default class InsertForm extends Component {
 		const newFormModel = [];
 		const newFieldsWithError = {};
 		const newSteps = [];
+		const linkedFields = {};
 
 		let InputComponent = null;
 		let MentorInput = null;
@@ -124,14 +124,6 @@ export default class InsertForm extends Component {
 				newFieldsWithError[field.id] = true;
 			}
 
-			if (field.group) {
-				if (Array.isArray(this.groups[field.group])) {
-					this.groups[field.group].push(field.id);
-				} else {
-					this.groups[field.group] = [field.id];
-				}
-			}
-
 			newSteps.push({
 				id: field.id,
 				title: field.label,
@@ -140,8 +132,6 @@ export default class InsertForm extends Component {
 
 			newFormModel.push(Object.assign({}, field, { InputComponent }));
 		});
-
-		console.log('groups', this.groups);
 
 		// initial data passed in to load into the form
 		Object.keys(initInsertData).forEach(key => {
@@ -356,7 +346,6 @@ export default class InsertForm extends Component {
 							<div className="insert-popup-stepper">
 								<Stepper 
 									activeStep={fieldIndex}
-									groups={this.groups}
 									onClick={this.onStepperClick}
 									steps={steps}
 								/>
