@@ -88,7 +88,6 @@ storiesOf('InsertPopupForm', module)
 						id: 'dependentField',
 						label: 'Dependent field',
 						dependencies: ['text'],
-						required: true
 					}
 				]}
 				onSubmit={action('onSubmit')}

@@ -294,3 +294,35 @@ describe('Form stepper interaction', () => {
 		});
 	});
 });
+
+describe.only('Dependency errors', () => {
+	const formFields = [
+		{ id: 'text', label: 'Text Input' },
+		{
+			id: 'dependentField',
+			label: 'Dependent field',
+			dependencies: ['text'],
+		}
+	];
+
+	test('Checking for dependencies on mount', () => {
+		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+
+	test('Checking for dependencies on mount 2', () => {
+		const tree = renderer.create(<InsertForm formFields={formFields.slice().reverse()} />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+
+	test('No dependency error when input is filled in', async () => {
+		const { container, debug, getByTestId } = await render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		const el = container.querySelector('div.stepper-step-circle.stepper-error');
+		console.log(el.className);
+		expect(el.className).toEqual(expect.not.stringContaining('stepper-error'));
+	});
+});

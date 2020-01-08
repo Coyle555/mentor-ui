@@ -121,14 +121,18 @@ export default class InsertForm extends Component {
 			
 			this.insertData[field.id] = '';	// initialize insert data
 
-			if (field.required && !initInsertData[field.id]) {
+			if (Array.isArray(field.dependencies) && field.dependencies.length > 0) {
+				const dependentField = formFields.find(fld => fld.id === field.dependencies[0]);
+
+				newFieldsWithError[field.id] = `${dependentField.label} required`;
+			} else if (field.required && !initInsertData[field.id]) {
 				newFieldsWithError[field.id] = true;
 			}
 
 			newSteps.push({
 				id: field.id,
 				title: field.label,
-				error: !!field.required && !initInsertData[field.id]
+				error: !!newFieldsWithError[field.id]
 			});
 
 			newFormModel.push(Object.assign({}, field, { InputComponent }));
@@ -206,7 +210,7 @@ export default class InsertForm extends Component {
 		});
 	}
 
-	checkDependencies = (fieldId) => {
+	checkDependenciesForError = (fieldId) => {
 		const { formFields } = this.props;
 
 		formFields.forEach(field => {
@@ -323,8 +327,6 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
-
-		console.log(fieldsWithError);
 
 		return (
 			<Portal>
