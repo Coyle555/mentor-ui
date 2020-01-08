@@ -60,6 +60,7 @@ export class Step extends Component {
 		return (
 			<div
 				className="stepper-step"
+				data-testid={`stepper-${step.id}`}
 				style={{ width }}
 			>
 				<div

@@ -3,6 +3,7 @@
 exports[`Default render of a step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -28,6 +29,7 @@ exports[`Default render of a step 1`] = `
 exports[`Render of a step with a title 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -55,6 +57,7 @@ exports[`Render of a step with a title 1`] = `
 exports[`Step that has a next step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -83,6 +86,7 @@ exports[`Step that has a next step 1`] = `
 exports[`Step that has a next step and an active step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -113,6 +117,7 @@ exports[`Step that has a next step and an active step 1`] = `
 exports[`Step that has a next step and an inactive(default) step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -141,6 +146,7 @@ exports[`Step that has a next step and an inactive(default) step 1`] = `
 exports[`Step that has a previous step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -169,6 +175,7 @@ exports[`Step that has a previous step 1`] = `
 exports[`Step that has a previous step and an active step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -197,6 +204,7 @@ exports[`Step that has a previous step and an active step 1`] = `
 exports[`Step that has a previous step and an inactive(default) step 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -225,6 +233,7 @@ exports[`Step that has a previous step and an inactive(default) step 1`] = `
 exports[`Step that has an error 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -252,6 +261,7 @@ exports[`Step that has an error 1`] = `
 exports[`Step that has been completed with no error 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -279,6 +289,7 @@ exports[`Step that has been completed with no error 1`] = `
 exports[`Step that is active 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "100%",
@@ -304,6 +315,7 @@ exports[`Step that is active 1`] = `
 exports[`Step with a custom width 1`] = `
 <div
   className="stepper-step"
+  data-testid="stepper-undefined"
   style={
     Object {
       "width": "50%",

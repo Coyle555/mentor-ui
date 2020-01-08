@@ -40,6 +40,7 @@ export default class InsertForm extends Component {
 
 		// insertion data taken from the form
 		this.insertData = {};
+		this.idToLabel = {};
 
 		// @currentInputLabel: the current input label viewable by the user
 		// @fieldIndex: index of the current form field that is active
@@ -120,6 +121,7 @@ export default class InsertForm extends Component {
 			InputComponent = getInputComponent(field, inputProps);
 			
 			this.insertData[field.id] = '';	// initialize insert data
+			this.idToLabel[field.id] = field.label;
 
 			if (Array.isArray(field.dependencies) && field.dependencies.length > 0) {
 				const dependentField = formFields.find(fld => fld.id === field.dependencies[0]);
@@ -191,18 +193,31 @@ export default class InsertForm extends Component {
 	}
 
 	handleFieldError = (error, fieldId) => {
-		const { formFields, fieldIndex, fieldsWithError, steps } = this.state;
+		const { formFields } = this.props;
+		const { fieldIndex, fieldsWithError, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
+		console.log('old error state', newFieldsWithError);
 
 		if (error) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
+
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
+		// check if any fields are dependent on this field
+		} else {
+			formFields.forEach((field, i) => {
+				if (Array.isArray(field.dependencies) && field.dependencies.includes(fieldId)) {
+					delete newFieldsWithError[field.id];
+					newSteps[i].error = false;
+				}
+			});
 		}
+
+		console.log('new error state', newFieldsWithError);
 
 		this.setState({
 			fieldsWithError: newFieldsWithError,

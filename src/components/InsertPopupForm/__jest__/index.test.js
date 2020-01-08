@@ -315,14 +315,13 @@ describe.only('Dependency errors', () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('No dependency error when input is filled in', async () => {
-		const { container, debug, getByTestId } = await render(
+	test.only('Single dependency when input is filled in', async () => {
+		const { container, debug, getByTestId } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-		const el = container.querySelector('div.stepper-step-circle.stepper-error');
-		console.log(el.className);
+		const el = getByTestId('stepper-dependentField');
 		expect(el.className).toEqual(expect.not.stringContaining('stepper-error'));
 	});
 });
