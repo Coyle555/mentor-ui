@@ -295,27 +295,24 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe.only('Dependency errors', () => {
+describe.only('Grouping fields', () => {
 	const formFields = [
 		{ id: 'text', label: 'Text Input' },
-		{
-			id: 'dependentField',
-			label: 'Dependent field',
-			dependencies: ['text'],
-		}
+		{ id: 'text2', label: 'Text Input 2', group: 'foo' },
+		{ id: 'dependentField', label: 'Dependent field', group: 'foo' }
 	];
 
-	test('Checking for dependencies on mount', () => {
+	test('Checking for groupings on mount', () => {
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Checking for dependencies on mount 2', () => {
+	test.skip('Checking for dependencies on mount 2', () => {
 		const tree = renderer.create(<InsertForm formFields={formFields.slice().reverse()} />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Single dependency when input is filled in', () => {
+	test.skip('Single dependency when input is filled in', () => {
 		const { getByTestId } = render(
 			<InsertForm formFields={formFields} />
 		);
@@ -325,14 +322,14 @@ describe.only('Dependency errors', () => {
 		expect(el.className).toEqual(expect.not.stringContaining('stepper-error'));
 	});
 
-	test('Field with multiple dependencies when a single dependency is filled in', () => {
+	test.skip('Field with multiple dependencies when a single dependency is filled in', () => {
 		const formFields = [
 			{ id: 'text', label: 'Text Input' },
 			{ id: 'text2', label: 'Text Input 2' },
 			{
 				id: 'dependentField',
 				label: 'Dependent field',
-				dependencies: ['text'],
+				dependencies: ['text', 'text2'],
 			}
 		];
 

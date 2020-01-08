@@ -84,10 +84,11 @@ storiesOf('InsertPopupForm', module)
 			<InsertPopupForm 
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
+					{ id: 'text2', label: 'Text Input', group: 'foo' },
 					{
 						id: 'dependentField',
 						label: 'Dependent field',
-						dependencies: ['text'],
+						group: 'foo'
 					}
 				]}
 				onSubmit={action('onSubmit')}

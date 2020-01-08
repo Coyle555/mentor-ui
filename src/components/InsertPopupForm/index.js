@@ -40,7 +40,7 @@ export default class InsertForm extends Component {
 
 		// insertion data taken from the form
 		this.insertData = {};
-		this.idToLabel = {};
+		this.groups = {};
 
 		// @currentInputLabel: the current input label viewable by the user
 		// @fieldIndex: index of the current form field that is active
@@ -119,14 +119,17 @@ export default class InsertForm extends Component {
 			InputComponent = getInputComponent(field, inputProps);
 			
 			this.insertData[field.id] = '';	// initialize insert data
-			this.idToLabel[field.id] = field.label;
 
-			if (Array.isArray(field.dependencies) && field.dependencies.length > 0) {
-				const dependentField = formFields.find(fld => fld.id === field.dependencies[0]);
-
-				newFieldsWithError[field.id] = `${dependentField.label} required`;
-			} else if (field.required && !initInsertData[field.id]) {
+			if (field.required && !initInsertData[field.id]) {
 				newFieldsWithError[field.id] = true;
+			}
+
+			if (field.group) {
+				if (Array.isArray(this.groups[field.group])) {
+					this.groups[field.group].push(field.id);
+				} else {
+					this.groups[field.group] = [field.id];
+				}
 			}
 
 			newSteps.push({
@@ -137,6 +140,8 @@ export default class InsertForm extends Component {
 
 			newFormModel.push(Object.assign({}, field, { InputComponent }));
 		});
+
+		console.log('groups', this.groups);
 
 		// initial data passed in to load into the form
 		Object.keys(initInsertData).forEach(key => {
@@ -202,17 +207,8 @@ export default class InsertForm extends Component {
 			newSteps[fieldIndex].error = true;
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
-
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
-		// check if any fields are dependent on this field
-		} else {
-			formFields.forEach((field, i) => {
-				if (Array.isArray(field.dependencies) && field.dependencies.includes(fieldId)) {
-					delete newFieldsWithError[field.id];
-					newSteps[i].error = false;
-				}
-			});
 		}
 
 		console.log('new error state', newFieldsWithError);
@@ -220,18 +216,6 @@ export default class InsertForm extends Component {
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
-		});
-	}
-
-	checkDependenciesForError = (fieldId) => {
-		const { formFields } = this.props;
-
-		formFields.forEach(field => {
-			if (Array.isArray(field.dependencies)
-				&& field.dependencies.includes(fieldId)) {
-
-				newFieldsWithError[fieldId] = `${field.label} required`;
-			}
 		});
 	}
 
@@ -362,14 +346,9 @@ export default class InsertForm extends Component {
 									canGoLeft={canGoLeft}
 									canGoRight={canGoRight}
 									canSubmit={!canGoRight && Object.keys(fieldsWithError).length === 0}
-									disabled={typeof fieldsWithError[field.id] === 'string'}
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={field.InputComponent}
-									placeholder={typeof fieldsWithError[field.id] === 'string'
-										? fieldsWithError[field.id]
-										: undefined
-									}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
 								/>
@@ -377,6 +356,7 @@ export default class InsertForm extends Component {
 							<div className="insert-popup-stepper">
 								<Stepper 
 									activeStep={fieldIndex}
+									groups={this.groups}
 									onClick={this.onStepperClick}
 									steps={steps}
 								/>
