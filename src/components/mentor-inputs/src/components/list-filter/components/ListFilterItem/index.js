@@ -49,11 +49,11 @@ export class ListFilterItem extends Component {
 				onMouseOver={this.onMouseOver}
 				style={style}
 			>
-				{ typeof option === 'object' && option.title
+				{ !!option && typeof option === 'object' && option.title
 					? option.title
 					: option
 				}
-				{ typeof option === 'object' && option.subtitle
+				{ !!option && typeof option === 'object' && option.subtitle
 					&& <>
 						<br />
 						<span className="subtitle">

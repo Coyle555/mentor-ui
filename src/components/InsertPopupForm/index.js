@@ -194,6 +194,16 @@ export default class InsertForm extends Component {
 		if (error) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
+			
+			const field = this.getField();
+
+			if (Array.isArray(field.dependencies)) {
+				field.dependencies.forEach(dependency => {
+					if (this.insertData[dependency] === '' || fieldsWithError[dependency]) {
+						newFieldsWithError[fieldId] = `${field.label} required`;
+					}
+				});
+			}
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -310,7 +320,9 @@ export default class InsertForm extends Component {
 
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
-		const fieldId = this.getField().id;
+		const field = this.getField();
+
+		console.log(fieldsWithError[field.id]);
 
 		return (
 			<Portal>
@@ -327,19 +339,22 @@ export default class InsertForm extends Component {
 							<div className="form">
 								<Label
 									label={currentInputLabel}
-									required={this.getField().required}
+									required={field.required}
 								/>
 								<Field
 									canGoLeft={canGoLeft}
 									canGoRight={canGoRight}
-									canSubmit={!canGoRight
-										&& Object.keys(fieldsWithError).length === 0}
+									canSubmit={!canGoRight && Object.keys(fieldsWithError).length === 0}
+									disabled={typeof fieldsWithError[field.id] === 'string'}
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
-									InputComponent={this.getField().InputComponent}
-									value={this.insertData[fieldId]}
+									InputComponent={field.InputComponent}
+									placeholder={typeof fieldsWithError[field.id] === 'string'
+										? fieldsWithError[field.id]
+										: undefined
+									}
+									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
-
 								/>
 							</div>
 							<div className="insert-popup-stepper">

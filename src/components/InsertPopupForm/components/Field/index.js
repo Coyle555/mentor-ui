@@ -5,9 +5,11 @@ export const Field = ({
 	canGoLeft,
 	canGoRight,
 	canSubmit,
+	disabled,
 	handleGoingLeft,
 	handleGoingRight,
 	InputComponent,
+	placeholder,
 	value,
 	_onSubmit
 }) => (
@@ -28,7 +30,12 @@ export const Field = ({
 			{ !!InputComponent &&
 				React.cloneElement(
 					InputComponent,
-					{ 'data-testid': 'field-input', value }
+					{
+						'data-testid': 'field-input',
+						disabled,
+						placeholder,
+						value
+					}
 				)
 			}
 		</div>
@@ -61,9 +68,11 @@ Field.propTypes = {
 	canGoLeft: PropTypes.bool,
 	canGoRight: PropTypes.bool,
 	canSubmit: PropTypes.bool,
+	disabled: PropTypes.bool,
 	handleGoingLeft: PropTypes.func,
 	handleGoingRight: PropTypes.func,
 	InputComponent: PropTypes.element,
+	placeholder: PropTypes.string,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 	_onSubmit: PropTypes.func
 };
@@ -72,6 +81,7 @@ Field.defaultProps = {
 	canGoLeft: false,
 	canGoRight: false,
 	canSubmit: false,
+	disabled: false,
 	handleGoingLeft: null,
 	handleGoingRight: null,
 	InputComponent: null,

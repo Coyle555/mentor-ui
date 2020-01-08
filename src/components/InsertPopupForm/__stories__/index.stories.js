@@ -60,11 +60,38 @@ storiesOf('InsertPopupForm', module)
 			<InsertPopupForm 
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
-					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
+					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
+					{
+						id: 'listfilter2',
+						label: 'List Filter w/ Filter',
+						type: 'listfilter',
+						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+						parse: val => val.name
+					}
 				]}
 				onSubmit={action('onSubmit')}
 				resetForm={true}
 			/>
-		)
+		);
 	})
+	.add('Field dependent on another', () => {
+		return (
+			<InsertPopupForm 
+				formFields={[
+					{ id: 'text', label: 'Text Input' },
+					{
+						id: 'dependentField',
+						label: 'Dependent field',
+						dependencies: ['text'],
+						required: true
+					}
+				]}
+				onSubmit={action('onSubmit')}
+			/>
+		);
+	});
