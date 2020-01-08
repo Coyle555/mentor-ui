@@ -47,12 +47,14 @@ export class Step extends Component {
 
 		let leftBarClasses = classNames({
 			'stepper-step-left-bar': true,
+			'stepper-bar-link-prev': step.linkPrev,
 			'stepper-bar-active': index <= activeStep,
 			'stepper-bar-default': index > activeStep
 		});
 
 		let rightBarClasses = classNames({
 			'stepper-step-right-bar': true,
+			'stepper-bar-link-next': step.linkNext,
 			'stepper-bar-active': index < activeStep,
 			'stepper-bar-default': index >= activeStep
 		});

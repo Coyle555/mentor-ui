@@ -19,7 +19,7 @@ test('Sort form fields with the linked field position > 1 behind the field', () 
 		.toEqual([{ id: 'foo' }, { id: 'baz', linkTo: 'foo' }, { id: 'bar' }]);
 });
 
-test.only('Sort form fields with the linked field position before the field', () => {
+test('Sort form fields with the linked field position before the field', () => {
 	expect(sortFormFields([{ id: 'foo', linkTo: 'baz' }, { id: 'bar' }, { id: 'baz' } ]))
 		.toEqual([{ id: 'baz' }, { id: 'foo', linkTo: 'baz' }, { id: 'bar' }]);
 });

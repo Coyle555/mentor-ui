@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
 import { keyEvent as KeyEvent } from 'utils';
-import { getInputComponent } from './utils/getInputComponent';
+import { getInputComponent, sortFormFields } from './utils';
 
 import './styles/form.less';
 
@@ -101,8 +101,10 @@ export default class InsertForm extends Component {
 		let MentorInput = null;
 		let inputProps = {};
 
+		const sortedFormFields = sortFormFields(formFields);
+
 		// initialize insert data
-		formFields.forEach(field => {
+		sortedFormFields.forEach(field => {
 			inputProps = {
 				autoFocus: true,
 				className: 'form-input',
@@ -129,6 +131,11 @@ export default class InsertForm extends Component {
 				title: field.label,
 				error: !!newFieldsWithError[field.id]
 			});
+
+			if (field.linkTo) {
+				newSteps[newSteps.length - 2].linkNext = true;
+				newSteps[newSteps.length - 1].linkPrev = true;
+			}
 
 			newFormModel.push(Object.assign({}, field, { InputComponent }));
 		});

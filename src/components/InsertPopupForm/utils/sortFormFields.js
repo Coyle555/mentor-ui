@@ -13,8 +13,6 @@ export function sortFormFields(formFields = []) {
 
 		const linkedFieldIndex = formFields.findIndex(fld => fld.id === field.linkTo);
 
-		console.log('linked field index', linkedFieldIndex, i);
-
 		// linked field is right behind the field
 		if (linkedFieldIndex === i - 1) {
 			sortedFormFields.push(field);
