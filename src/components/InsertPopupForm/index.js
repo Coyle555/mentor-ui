@@ -82,8 +82,6 @@ export default class InsertForm extends Component {
 				this.handleGoingLeft();
 			} else if (fieldIndex + 1 < formModel.length) {
 				this.handleGoingRight();
-			} else {
-				this._onSubmit();
 			}
 		} else if (event.keyCode === KeyEvent.DOM_VK_ESCAPE) {
 			this.onDisable();

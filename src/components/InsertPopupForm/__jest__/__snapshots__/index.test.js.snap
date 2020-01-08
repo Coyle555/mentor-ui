@@ -92,6 +92,7 @@ exports[`Dependency errors Checking for dependencies on mount 1`] = `
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "50%",
@@ -119,6 +120,7 @@ exports[`Dependency errors Checking for dependencies on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
+                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "50%",
@@ -246,6 +248,7 @@ exports[`Dependency errors Checking for dependencies on mount 2 1`] = `
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "50%",
@@ -273,6 +276,7 @@ exports[`Dependency errors Checking for dependencies on mount 2 1`] = `
               </div>
               <div
                 className="stepper-step"
+                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "50%",

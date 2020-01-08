@@ -315,13 +315,33 @@ describe.only('Dependency errors', () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	test.only('Single dependency when input is filled in', async () => {
-		const { container, debug, getByTestId } = render(
+	test('Single dependency when input is filled in', () => {
+		const { getByTestId } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		const el = getByTestId('stepper-dependentField');
 		expect(el.className).toEqual(expect.not.stringContaining('stepper-error'));
+	});
+
+	test('Field with multiple dependencies when a single dependency is filled in', () => {
+		const formFields = [
+			{ id: 'text', label: 'Text Input' },
+			{ id: 'text2', label: 'Text Input 2' },
+			{
+				id: 'dependentField',
+				label: 'Dependent field',
+				dependencies: ['text'],
+			}
+		];
+
+		const { getByTestId } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		const el = getByTestId('stepper-dependentField');
+		expect(el.className).toEqual(expect.stringContaining('stepper-error'));
 	});
 });
