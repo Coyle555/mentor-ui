@@ -72,7 +72,6 @@ export class ListFilter extends Component {
 		super(props);
 
 		const { options, parse, value } = this.props;
-		const initValue = !!value && typeof parse === 'function' ? parse(value) : value;
 		const initOptions = Array.isArray(options) && typeof parse === 'function'
 			? options.map(val => parse(val))
 			: options;
@@ -97,7 +96,7 @@ export class ListFilter extends Component {
 				? initOptions
 				: [],
 			selectedOptionIndex: -1,
-			value: initValue
+			value
 		};
 	}
 

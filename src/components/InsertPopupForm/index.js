@@ -146,8 +146,8 @@ export default class InsertForm extends Component {
 		});
 
 		this.setState({
-			currentInputLabel: formFields.length > 0
-				? formFields[0].label
+			currentInputLabel: newFormModel.length > 0
+				? newFormModel[0].label
 				: '',
 			fieldIndex: 0,
 			fieldsWithError: newFieldsWithError,
@@ -193,7 +193,6 @@ export default class InsertForm extends Component {
 	}
 
 	handleFieldError = (error, fieldId) => {
-		const { formFields } = this.props;
 		const { fieldIndex, fieldsWithError, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
@@ -271,8 +270,8 @@ export default class InsertForm extends Component {
 			const newIndex = fieldIndex + 1;
 
 			this.setState({
+				currentInputLabel: formModel[newIndex].label,
 				fieldIndex: newIndex,
-				currentInputLabel: formModel[newIndex].label
 			});
 		}
 	}

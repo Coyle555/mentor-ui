@@ -831,6 +831,7 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 required={true}
                 type="text"
                 value="test"
@@ -863,6 +864,7 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",
@@ -961,6 +963,7 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 required={true}
                 type="text"
                 value=""
@@ -982,6 +985,7 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",
@@ -1074,6 +1078,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 type="text"
                 value=""
               />
@@ -1105,6 +1110,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "50%",
@@ -1132,6 +1138,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
               </div>
               <div
                 className="stepper-step"
+                data-testid="stepper-ttt"
                 style={
                   Object {
                     "width": "50%",
@@ -1227,6 +1234,7 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
                 type="text"
                 value=""
               />
@@ -1258,6 +1266,7 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
             >
               <div
                 className="stepper-step"
+                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",

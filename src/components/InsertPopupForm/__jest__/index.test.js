@@ -54,6 +54,77 @@ describe('Rendering the insert form', () => {
 	});
 });
 
+describe('Partially filled data', () => {
+	const formFields = [
+		{ id: 'text', label: 'Text Input' },
+		{ id: 'requiredText', label: 'Required Text Input', required: true },
+		{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+		{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+		{
+			id: 'listfilter1',
+			label: 'List Filter w/ Options',
+			options: ['foo', 'bar', 'baz'],
+			type: 'listfilter'
+		},
+		{
+			id: 'listfilter2',
+			label: 'List Filter w/ Filter',
+			type: 'listfilter',
+			options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+			parse: val => val.name
+		}
+	];
+
+	test('Saving text input', () => {
+		const { baseElement, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('2'));
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+		expect(getByTestId('field-input').value).toEqual('Test');
+	});
+
+	test('Saving input on an options list', () => {
+		const { baseElement, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.click(getByText('4'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+		expect(getByTestId('field-input').value).toEqual('foo');
+	});
+
+	test('Saving input on a list filter', () => {
+		const { baseElement, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.click(getByText('5'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+		expect(getByTestId('field-input').value).toEqual('f');
+	});
+
+	test('Saving input on a list filter with a custom filter', async () => {
+		const { baseElement, debug, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.click(getByText('6'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
+		await wait(() => {
+			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+			expect(getByTestId('field-input').value).toEqual('f');
+		});
+	});
+});
+
 describe('Turning off insert form', () => {
 	test('Disabling the insert form', () => {
 		const onDisable = jest.fn();
@@ -100,7 +171,9 @@ describe('Going forwards and backwards through the fields', () => {
 				{ label: 'Baz', id: 'ttt', type: 'string' }
 			];
 
-			const { getByText, getAllByText } = render(<InsertForm formFields={formFields} />);
+			const { getByText, getAllByText } = render(
+				<InsertForm formFields={formFields} />
+			);
 
 			fireEvent.click(getByText('Next'));
 			fireEvent.click(getByText('Back'));
@@ -115,7 +188,9 @@ describe('Going forwards and backwards through the fields', () => {
 				{ label: 'Baz', id: 'ttt', type: 'string' }
 			];
 
-			const { baseElement, getAllByText } = render(<InsertForm formFields={formFields} />);
+			const { baseElement, getAllByText } = render(
+				<InsertForm formFields={formFields} />
+			);
 
 			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
 			expect(getAllByText('Baz')).toHaveLength(2);
@@ -127,7 +202,9 @@ describe('Going forwards and backwards through the fields', () => {
 				{ label: 'Baz', id: 'ttt', type: 'string' }
 			];
 
-			const { baseElement, getAllByText } = render(<InsertForm formFields={formFields} />);
+			const { baseElement, getAllByText } = render(
+				<InsertForm formFields={formFields} />
+			);
 
 			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
 			fireEvent.keyUp(baseElement);
@@ -221,24 +298,6 @@ describe('Submitting an insert form', () => {
 			expect(getByTestId('field-input').value).toBe('');
 		});
 	});
-
-	describe('Submitting using tab keystroke', () => {
-		test('Using tab keystroke to submit', () => {
-			const onSubmit = jest.fn();
-			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
-
-			const { baseElement, getByTestId } = render(
-				<InsertForm
-					formFields={formFields}
-					onSubmit={onSubmit}
-				/>
-			);
-
-			fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
-			expect(onSubmit).toHaveBeenCalledWith({ foo: 'Test' });
-		});
-	});
 });
 
 describe('Initializing the form with data', () => {
@@ -295,7 +354,7 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe.only('Linking fields', () => {
+describe('Linking fields', () => {
 	const formFields = [
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'text2', label: 'Text Input 2' },
@@ -386,5 +445,31 @@ describe.only('Linking fields', () => {
 
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
+	});
+
+	test('Submitting linked fields', () => {
+		const onSubmit = jest.fn();
+		const formFields = [
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{
+				id: 'dependentField',
+				label: 'Dependent field',
+				link: { to: 'text' },
+				required: true
+			},
+		];
+
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} onSubmit={onSubmit} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('2'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Submit'));
+		expect(onSubmit).toHaveBeenCalledWith({
+			text: 'Test',
+			dependentField: 'Test'
+		});
 	});
 });

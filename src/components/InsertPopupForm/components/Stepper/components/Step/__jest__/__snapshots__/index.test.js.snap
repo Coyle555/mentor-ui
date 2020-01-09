@@ -312,6 +312,64 @@ exports[`Step that is active 1`] = `
 </div>
 `;
 
+exports[`Step that links to next step 1`] = `
+<div
+  className="stepper-step"
+  data-testid="stepper-undefined"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-right-bar stepper-bar-link-next"
+  />
+</div>
+`;
+
+exports[`Step that links to prev step 1`] = `
+<div
+  className="stepper-step"
+  data-testid="stepper-undefined"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-left-bar stepper-bar-link-prev"
+  />
+</div>
+`;
+
 exports[`Step with a custom width 1`] = `
 <div
   className="stepper-step"
