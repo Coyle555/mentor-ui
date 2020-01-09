@@ -9,12 +9,12 @@ export function sortFormFields(formFields = []) {
 	formFields.forEach((field, i) => {
 		if (movedIds.hasOwnProperty(field.id)) return;
 
-		if (!field.linkTo) {
+		if (!field.link || !field.link.to) {
 			sortedFormFields.push(field);
 			return;
 		}
 
-		const linkedFieldIndex = formFields.findIndex(fld => fld.id === field.linkTo);
+		const linkedFieldIndex = formFields.findIndex(fld => fld.id === field.link.to);
 
 		// linked field is right behind the field
 		if (linkedFieldIndex === i - 1) {

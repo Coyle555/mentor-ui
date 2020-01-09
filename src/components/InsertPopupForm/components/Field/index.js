@@ -8,18 +8,22 @@ export const Field = ({
 	handleGoingLeft,
 	handleGoingRight,
 	InputComponent,
-	linked,
+	link,
 	value,
 	_onSubmit
 }) => {
 	const inputProps = {
 		'data-testid': 'field-input',
-		disabled: linked === false,
+		disabled: link.linked === false,
 		value
 	};
 
-	if (linked === false) {
+	if (link.linked === false) {
 		inputProps.placeholder = 'Enter a value into the linked field';
+	}
+
+	if (!!link.linked && typeof link.onLink === 'function') {
+		link.onLink(link.value);
 	}
 
 	return (

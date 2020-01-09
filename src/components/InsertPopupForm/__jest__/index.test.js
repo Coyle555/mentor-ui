@@ -299,10 +299,21 @@ describe.only('Linking fields', () => {
 	const formFields = [
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'text2', label: 'Text Input 2' },
-		{ id: 'dependentField', label: 'Dependent field', linkTo: 'text2' },
+		{
+			id: 'dependentField',
+			label: 'Dependent field',
+			link: {
+				to: 'text2',
+				onLink: (val) => ''
+			}
+		},
 		{ id: 'text3', label: 'Text Input 3' },
 		{ id: 'text4', label: 'Text Input 4' },
-		{ id: 'text5', label: 'Text Input 5', linkTo: 'text' },
+		{
+			id: 'text5',
+			label: 'Text Input 5',
+			link: { to: 'text' }
+		},
 	];
 
 	test('Checking for links on mount', () => {
@@ -339,7 +350,7 @@ describe.only('Linking fields', () => {
 			{
 				id: 'dependentField',
 				label: 'Dependent field',
-				linkTo: 'text',
+				link: { to: 'text', },
 				required: true
 			},
 		];
@@ -354,7 +365,7 @@ describe.only('Linking fields', () => {
 			{
 				id: 'dependentField',
 				label: 'Dependent field',
-				linkTo: 'text',
+				link: { to: 'text', }
 			},
 		];
 
@@ -368,7 +379,7 @@ describe.only('Linking fields', () => {
 			{
 				id: 'dependentField',
 				label: 'Dependent field',
-				linkTo: 'text',
+				link: { to: 'text' },
 				required: true
 			},
 		];

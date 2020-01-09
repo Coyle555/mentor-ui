@@ -132,7 +132,7 @@ export default class InsertForm extends Component {
 				error: !!newFieldsWithError[field.id]
 			});
 
-			if (field.linkTo) {
+			if (field.link && field.link.to) {
 				newSteps[newSteps.length - 2].linkNext = true;
 				newSteps[newSteps.length - 1].linkPrev = true;
 			}
@@ -197,7 +197,6 @@ export default class InsertForm extends Component {
 		const { fieldIndex, fieldsWithError, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
-		console.log('old error state', newFieldsWithError);
 
 		if (error) {
 			newFieldsWithError[fieldId] = true;
@@ -207,8 +206,6 @@ export default class InsertForm extends Component {
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
 		}
-
-		console.log('new error state', newFieldsWithError);
 
 		this.setState({
 			fieldsWithError: newFieldsWithError,
@@ -322,6 +319,18 @@ export default class InsertForm extends Component {
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
 
+		const link = {
+			linked: !!field.link && !!field.link.to
+				? !fieldsWithError[field.link.to]
+					&& !!this.insertData[field.link.to]
+				: null
+		};
+
+		if (link.linked) {
+			link.onLink = !!field.link && field.link.onLink;
+			link.value = this.insertData[field.link.to];
+		}
+
 		return (
 			<Portal>
 				<div className="insert-popup-overlay">
@@ -346,11 +355,7 @@ export default class InsertForm extends Component {
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={field.InputComponent}
-									linked={!!field.linkTo
-										? !fieldsWithError[field.linkTo]
-											&& !!this.insertData[field.linkTo]
-										: null
-									}
+									link={link}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
 								/>
