@@ -12,18 +12,21 @@ export const Field = ({
 	value,
 	_onSubmit
 }) => {
-	const inputProps = {
+	let inputProps = {
 		'data-testid': 'field-input',
-		disabled: link.linked === false,
+		disabled: link.valid === false,
 		value
 	};
 
-	if (link.linked === false) {
+	if (link.valid === false) {
 		inputProps.placeholder = 'Enter a value into the linked field';
 	}
 
-	if (!!link.linked && typeof link.onLink === 'function') {
-		link.onLink(link.value);
+	if (!!link.valid && typeof link.onLink === 'function') {
+		inputProps = {
+			...inputProps,
+			...link.onLink(link.value)
+		};
 	}
 
 	return (
@@ -73,11 +76,13 @@ Field.propTypes = {
 	canGoLeft: PropTypes.bool,
 	canGoRight: PropTypes.bool,
 	canSubmit: PropTypes.bool,
-	disabled: PropTypes.bool,
 	handleGoingLeft: PropTypes.func,
 	handleGoingRight: PropTypes.func,
 	InputComponent: PropTypes.element,
-	placeholder: PropTypes.string,
+	link: PropTypes.shape({
+		valid: PropTypes.bool,
+		onLink: PropTypes.func
+	}),
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 	_onSubmit: PropTypes.func
 };
@@ -86,10 +91,10 @@ Field.defaultProps = {
 	canGoLeft: false,
 	canGoRight: false,
 	canSubmit: false,
-	disabled: false,
 	handleGoingLeft: null,
 	handleGoingRight: null,
 	InputComponent: null,
+	link: {},
 	value: '',
 	_onSubmit: null
 };

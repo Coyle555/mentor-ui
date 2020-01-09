@@ -320,7 +320,7 @@ export default class InsertForm extends Component {
 		const field = this.getField();
 
 		const link = {
-			linked: !!field.link && !!field.link.to
+			valid: !!field.link && !!field.link.to
 				? !fieldsWithError[field.link.to]
 					&& !!this.insertData[field.link.to]
 				: null

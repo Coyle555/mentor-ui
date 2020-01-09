@@ -107,7 +107,7 @@ storiesOf('InsertPopupForm', module)
 						link: {
 							to: 'listfilter2',
 							onLink: (val) => {
-								console.log('value in text input', val);
+								return { value: 'overwrite value' };
 							}
 						},
 						required: true
