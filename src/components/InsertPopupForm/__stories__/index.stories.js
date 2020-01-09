@@ -83,12 +83,23 @@ storiesOf('InsertPopupForm', module)
 		return (
 			<InsertPopupForm 
 				formFields={[
-					{ id: 'text', label: 'Text Input 1' },
+					{ id: 'text', label: 'Text Input 1', required: true },
 					{ id: 'text2', label: 'Text Input 2' },
-					{ id: 'dependentField', label: 'Dependent field', linkTo: 'text2' },
+					{
+						id: 'dependentField',
+						label: 'Dependent field',
+						linkTo: 'text2',
+						required: true
+					},
 					{ id: 'text3', label: 'Text Input 3' },
-					{ id: 'text4', label: 'Text Input 4' },
-					{ id: 'text5', label: 'Text Input 5', linkTo: 'text' },
+					{ id: 'text4', label: 'Text Input 4', required: true },
+					{
+						id: 'text5',
+						label: 'Text Input 5',
+						linkTo: 'text',
+						required: true
+					},
+					{ id: 'text6', label: 'Text Input 6', linkTo: 'text3', }
 				]}
 				onSubmit={action('onSubmit')}
 			/>

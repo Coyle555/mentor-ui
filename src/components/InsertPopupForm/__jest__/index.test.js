@@ -295,50 +295,85 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe.only('Grouping fields', () => {
+describe.only('Linking fields', () => {
 	const formFields = [
-		{ id: 'text', label: 'Text Input' },
-		{ id: 'text2', label: 'Text Input 2', group: 'foo' },
-		{ id: 'dependentField', label: 'Dependent field', group: 'foo' }
+		{ id: 'text', label: 'Text Input 1' },
+		{ id: 'text2', label: 'Text Input 2' },
+		{ id: 'dependentField', label: 'Dependent field', linkTo: 'text2' },
+		{ id: 'text3', label: 'Text Input 3' },
+		{ id: 'text4', label: 'Text Input 4' },
+		{ id: 'text5', label: 'Text Input 5', linkTo: 'text' },
 	];
 
-	test('Checking for groupings on mount', () => {
+	test('Checking for links on mount', () => {
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
-	test.skip('Checking for dependencies on mount 2', () => {
-		const tree = renderer.create(<InsertForm formFields={formFields.slice().reverse()} />).toJSON();
-		expect(tree).toMatchSnapshot();
+	test('Linked field is not filled out', () => {
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.click(getByText('2'));
+		const el = getByTestId('field-input');
+		expect(el.disabled).toEqual(true);
+		expect(el.placeholder).toEqual('Enter a value into the linked field');
 	});
 
-	test.skip('Single dependency when input is filled in', () => {
-		const { getByTestId } = render(
+	test('Linked field is filled in', () => {
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-		const el = getByTestId('stepper-dependentField');
-		expect(el.className).toEqual(expect.not.stringContaining('stepper-error'));
+		fireEvent.click(getByText('2'));
+		const el = getByTestId('field-input');
+		expect(el.disabled).toEqual(false);
+		expect(el.placeholder).toEqual('Enter text');
 	});
 
-	test.skip('Field with multiple dependencies when a single dependency is filled in', () => {
+	test('Required linked field', () => {
 		const formFields = [
-			{ id: 'text', label: 'Text Input' },
-			{ id: 'text2', label: 'Text Input 2' },
+			{ id: 'text', label: 'Text Input 1' },
 			{
 				id: 'dependentField',
 				label: 'Dependent field',
-				dependencies: ['text', 'text2'],
-			}
+				linkTo: 'text',
+				required: true
+			},
 		];
 
-		const { getByTestId } = render(
-			<InsertForm formFields={formFields} />
-		);
+		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
 
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-		const el = getByTestId('stepper-dependentField');
-		expect(el.className).toEqual(expect.stringContaining('stepper-error'));
+	test('Linked field connected to a required field', () => {
+		const formFields = [
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{
+				id: 'dependentField',
+				label: 'Dependent field',
+				linkTo: 'text',
+			},
+		];
+
+		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+
+	test('Both linked fields required', () => {
+		const formFields = [
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{
+				id: 'dependentField',
+				label: 'Dependent field',
+				linkTo: 'text',
+				required: true
+			},
+		];
+
+		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		expect(tree).toMatchSnapshot();
 	});
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Grouping fields Checking for groupings on mount 1`] = `
+exports[`Linking fields Both linked fields required 1`] = `
 <div>
   <div
     className="insert-popup-overlay"
@@ -35,12 +35,18 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
               <label
                 className="label"
               >
-                Text Input
+                Text Input 1
               </label>
             </div>
             <div
               className="col-1 text-right"
-            />
+            >
+              <label
+                className="required-input"
+              >
+                Required
+              </label>
+            </div>
           </div>
           <div
             className="row"
@@ -54,13 +60,15 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
               <input
                 autoComplete="false"
                 autoFocus={true}
-                className="mui-mi-input-field form-input"
+                className="mui-mi-input-field form-input mui-mi-input-field-has-error"
                 data-testid="field-input"
                 disabled={false}
                 name="text"
                 onBlur={[Function]}
                 onChange={[Function]}
                 onKeyDown={[Function]}
+                placeholder="Enter text"
+                required={true}
                 type="text"
                 value=""
               />
@@ -95,7 +103,163 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
                 data-testid="stepper-text"
                 style={
                   Object {
-                    "width": "33.333333333333336%",
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-error"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-error-title"
+                >
+                  Text Input 1
+                </div>
+                <div
+                  className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-dependentField"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-error"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-error-title"
+                >
+                  Dependent field
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-link-prev stepper-bar-default"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Linking fields Checking for links on mount 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Text Input 1
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            />
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="mui-mi-input-field form-input"
+                data-testid="field-input"
+                disabled={false}
+                name="text"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Enter text"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-chevron-right fa-2x"
+                />
+                <br />
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                data-testid="stepper-text"
+                style={
+                  Object {
+                    "width": "16.666666666666668%",
                   }
                 }
               >
@@ -112,18 +276,18 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
                 <div
                   className="stepper-step-title stepper-active-title"
                 >
-                  Text Input
+                  Text Input 1
                 </div>
                 <div
-                  className="stepper-step-right-bar stepper-bar-default"
+                  className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
                 />
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-text2"
+                data-testid="stepper-text5"
                 style={
                   Object {
-                    "width": "33.333333333333336%",
+                    "width": "16.666666666666668%",
                   }
                 }
               >
@@ -140,10 +304,10 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
                 <div
                   className="stepper-step-title stepper-default-title"
                 >
-                  Text Input 2
+                  Text Input 5
                 </div>
                 <div
-                  className="stepper-step-left-bar stepper-bar-default"
+                  className="stepper-step-left-bar stepper-bar-link-prev stepper-bar-default"
                 />
                 <div
                   className="stepper-step-right-bar stepper-bar-default"
@@ -151,10 +315,10 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-dependentField"
+                data-testid="stepper-text2"
                 style={
                   Object {
-                    "width": "33.333333333333336%",
+                    "width": "16.666666666666668%",
                   }
                 }
               >
@@ -171,10 +335,422 @@ exports[`Grouping fields Checking for groupings on mount 1`] = `
                 <div
                   className="stepper-step-title stepper-default-title"
                 >
-                  Dependent field
+                  Text Input 2
                 </div>
                 <div
                   className="stepper-step-left-bar stepper-bar-default"
+                />
+                <div
+                  className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-dependentField"
+                style={
+                  Object {
+                    "width": "16.666666666666668%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-default"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    4
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-default-title"
+                >
+                  Dependent field
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-link-prev stepper-bar-default"
+                />
+                <div
+                  className="stepper-step-right-bar stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-text3"
+                style={
+                  Object {
+                    "width": "16.666666666666668%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-default"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    5
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-default-title"
+                >
+                  Text Input 3
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-default"
+                />
+                <div
+                  className="stepper-step-right-bar stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-text4"
+                style={
+                  Object {
+                    "width": "16.666666666666668%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-default"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    6
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-default-title"
+                >
+                  Text Input 4
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-default"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Linking fields Linked field connected to a required field 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Text Input 1
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            >
+              <label
+                className="required-input"
+              >
+                Required
+              </label>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="mui-mi-input-field form-input mui-mi-input-field-has-error"
+                data-testid="field-input"
+                disabled={false}
+                name="text"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Enter text"
+                required={true}
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-chevron-right fa-2x"
+                />
+                <br />
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                data-testid="stepper-text"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-error"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-error-title"
+                >
+                  Text Input 1
+                </div>
+                <div
+                  className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-dependentField"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-default"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-default-title"
+                >
+                  Dependent field
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-link-prev stepper-bar-default"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Linking fields Required linked field 1`] = `
+<div>
+  <div
+    className="insert-popup-overlay"
+  >
+    <div
+      className="insert-popup-container"
+    >
+      <div
+        className="close-form"
+      >
+        <i
+          className="far fa-2x fa-times apm-cursor-p apm-color-red"
+          data-testid="disable-form"
+          onClick={[Function]}
+        />
+      </div>
+      <div
+        className="layout"
+      >
+        <div
+          className="form"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-2"
+            />
+            <div
+              className="col-7"
+            >
+              <label
+                className="label"
+              >
+                Text Input 1
+              </label>
+            </div>
+            <div
+              className="col-1 text-right"
+            />
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-2 text-right"
+            />
+            <div
+              className="col-8"
+            >
+              <input
+                autoComplete="false"
+                autoFocus={true}
+                className="mui-mi-input-field form-input"
+                data-testid="field-input"
+                disabled={false}
+                name="text"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Enter text"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              className="col-2"
+            >
+              <button
+                className="nav-btn"
+                onClick={[Function]}
+              >
+                <i
+                  className="far fa-chevron-right fa-2x"
+                />
+                <br />
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="insert-popup-stepper"
+        >
+          <div
+            className="stepper-container"
+          >
+            <div
+              className="stepper"
+            >
+              <div
+                className="stepper-step"
+                data-testid="stepper-text"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-active"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-active-title"
+                >
+                  Text Input 1
+                </div>
+                <div
+                  className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
+                />
+              </div>
+              <div
+                className="stepper-step"
+                data-testid="stepper-dependentField"
+                style={
+                  Object {
+                    "width": "50%",
+                  }
+                }
+              >
+                <div
+                  className="stepper-step-circle stepper-error"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="stepper-step-text"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  className="stepper-step-title stepper-error-title"
+                >
+                  Dependent field
+                </div>
+                <div
+                  className="stepper-step-left-bar stepper-bar-link-prev stepper-bar-default"
                 />
               </div>
             </div>

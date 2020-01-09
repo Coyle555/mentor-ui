@@ -5,64 +5,65 @@ export const Field = ({
 	canGoLeft,
 	canGoRight,
 	canSubmit,
-	disabled,
 	handleGoingLeft,
 	handleGoingRight,
 	InputComponent,
-	placeholder,
+	linked,
 	value,
 	_onSubmit
-}) => (
-	<div className="row">
-		<div className="col-2 text-right">
-			{ canGoLeft && 
-				<button
-					className="nav-btn"
-					onClick={handleGoingLeft}
-				>
-					<i className="far fa-chevron-left fa-2x" />
-					<br />
-					Back
-				</button>
-			}
+}) => {
+	const inputProps = {
+		'data-testid': 'field-input',
+		disabled: linked === false,
+		value
+	};
+
+	if (linked === false) {
+		inputProps.placeholder = 'Enter a value into the linked field';
+	}
+
+	return (
+		<div className="row">
+			<div className="col-2 text-right">
+				{ canGoLeft && 
+					<button
+						className="nav-btn"
+						onClick={handleGoingLeft}
+					>
+						<i className="far fa-chevron-left fa-2x" />
+						<br />
+						Back
+					</button>
+				}
+			</div>
+			<div className="col-8">
+				{ !!InputComponent && React.cloneElement(InputComponent, inputProps) }
+			</div>
+			<div className="col-2">
+				{ canGoRight &&
+					<button
+						className="nav-btn"
+						onClick={handleGoingRight}
+					>
+						<i className="far fa-chevron-right fa-2x" />
+						<br />
+						Next
+					</button>
+				}
+				{ canSubmit &&
+					<button
+						className="nav-btn nav-btn-submit"
+						onClick={_onSubmit}
+					>
+						<i className="far fa-check fa-2x" />
+						<br />
+						Submit
+					</button>
+				}
+			</div>
 		</div>
-		<div className="col-8">
-			{ !!InputComponent &&
-				React.cloneElement(
-					InputComponent,
-					{
-						'data-testid': 'field-input',
-						disabled,
-						placeholder,
-						value
-					}
-				)
-			}
-		</div>
-		<div className="col-2">
-			{ canGoRight &&
-				<button
-					className="nav-btn"
-					onClick={handleGoingRight}
-				>
-					<i className="far fa-chevron-right fa-2x" />
-					<br />
-					Next
-				</button>
-			}
-			{ canSubmit &&
-				<button
-					className="nav-btn nav-btn-submit"
-					onClick={_onSubmit}
-				>
-					<i className="far fa-check fa-2x" />
-					<br />
-					Submit
-				</button>
-			}
-		</div>
-	</div>
-);
+	);
+};
 
 Field.propTypes = {
 	canGoLeft: PropTypes.bool,

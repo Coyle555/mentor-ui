@@ -346,6 +346,11 @@ export default class InsertForm extends Component {
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={field.InputComponent}
+									linked={!!field.linkTo
+										? !fieldsWithError[field.linkTo]
+											&& !!this.insertData[field.linkTo]
+										: null
+									}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
 								/>
