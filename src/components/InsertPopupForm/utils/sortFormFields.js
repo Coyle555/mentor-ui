@@ -2,6 +2,9 @@
 export function sortFormFields(formFields = []) {
 	const sortedFormFields = [];
 	const movedIds = {};
+	// handle the number of shifted elements when splicing since the
+	// original array gets out of sync
+	let shifted = 0;
 
 	formFields.forEach((field, i) => {
 		if (movedIds.hasOwnProperty(field.id)) return;
@@ -18,7 +21,8 @@ export function sortFormFields(formFields = []) {
 			sortedFormFields.push(field);
 		// linked field is an arbitrary number of positions behind the field
 		} else if (linkedFieldIndex < i - 1) {
-			sortedFormFields.splice(linkedFieldIndex + 1, 0, field);
+			sortedFormFields.splice(linkedFieldIndex + shifted + 1, 0, field);
+			shifted++;
 		// linked field is in a position before the field it links to
 		} else if (linkedFieldIndex > i) {
 			sortedFormFields.push(formFields[linkedFieldIndex]);

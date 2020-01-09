@@ -99,7 +99,8 @@ storiesOf('InsertPopupForm', module)
 						linkTo: 'text',
 						required: true
 					},
-					{ id: 'text6', label: 'Text Input 6', linkTo: 'text3', }
+					{ id: 'text6', label: 'Text Input 6', linkTo: 'text3', },
+					{ id: 'text7', label: 'Text Input 7', linkTo: 'text4', }
 				]}
 				onSubmit={action('onSubmit')}
 			/>

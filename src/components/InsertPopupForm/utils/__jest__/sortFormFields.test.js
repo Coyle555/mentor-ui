@@ -23,3 +23,25 @@ test('Sort form fields with the linked field position before the field', () => {
 	expect(sortFormFields([{ id: 'foo', linkTo: 'baz' }, { id: 'bar' }, { id: 'baz' } ]))
 		.toEqual([{ id: 'baz' }, { id: 'foo', linkTo: 'baz' }, { id: 'bar' }]);
 });
+
+test('Larger list of fields with multiple connects', () => {
+	expect(sortFormFields([
+		{ id: 'text' },
+		{ id: 'text2' },
+		{ id: 'dependentField', linkTo: 'text2' },
+		{ id: 'text3' },
+		{ id: 'text4' },
+		{ id: 'text5', linkTo: 'text' },
+		{ id: 'text6', linkTo: 'text3' },
+		{ id: 'text7', linkTo: 'text4' }
+	])).toEqual([
+		{ id: 'text' },
+		{ id: 'text5', linkTo: 'text' },
+		{ id: 'text2' },
+		{ id: 'dependentField', linkTo: 'text2' },
+		{ id: 'text3' },
+		{ id: 'text6', linkTo: 'text3' },
+		{ id: 'text4' },
+		{ id: 'text7', linkTo: 'text4' },
+	]);
+});
