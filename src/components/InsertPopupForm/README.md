@@ -20,6 +20,8 @@ Each form field object has the following shape:
 
 - **id**(*string*) **REQUIRED**: id of the input field
 - **label**(*string*) **REQUIRED**: label to render for the input field
+- **linkTo**(*string*): Id of another field to link to. Linking fields means the linked to field must be 
+filled out before this field can be filled out.
 - **options**(*[] | function*): Either a list of options or a function callback to use that 
 will generate a list of options. Can be used in conjunction with parse and parseMatchedValue to 
 use any data form as it is a list. Function signature *(value) => []*

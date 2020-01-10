@@ -15,6 +15,10 @@ export default class InsertForm extends Component {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string.isRequired,
+			link: PropTypes.shape({
+				onLink: PropTypes.func,
+				to: PropTypes.string,
+			}),
 			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 			parse: PropTypes.func,
 			parseMatchedValue: PropTypes.func,
@@ -325,7 +329,7 @@ export default class InsertForm extends Component {
 				: null
 		};
 
-		if (link.linked) {
+		if (link.valid) {
 			link.onLink = !!field.link && field.link.onLink;
 			link.value = this.insertData[field.link.to];
 		}

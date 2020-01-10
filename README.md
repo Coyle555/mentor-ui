@@ -18,4 +18,5 @@ Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/me
 - [Panel](./src/components/Panel)
 - [Structured Query](./src/components/structured-query)
 - [Table](./src/components/kyle-tables)
+  - [Table Component](./src/components/kyle-tables/src/components/Table)
 - [Toggle List](./src/components/ToggleList)
