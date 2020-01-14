@@ -71,7 +71,7 @@ describe('Partially filled data', () => {
 			label: 'List Filter w/ Filter',
 			type: 'listfilter',
 			options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
-			parse: val => val.name
+			parse: val => typeof val === 'object' ? val.name : val
 		}
 	];
 
@@ -218,85 +218,83 @@ describe('Going forwards and backwards through the fields', () => {
 	});
 });
 
-describe('Submitting an insert form', () => {
-	describe('Submitting using the button', () => {
-		test('Submit button renders on no errors', () => {
-			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
+describe('Submitting an insert form using submit button', () => {
+	test('Submit button renders on no errors', () => {
+		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 
-			const { getByText } = render(<InsertForm formFields={formFields} />);
+		const { getByText } = render(<InsertForm formFields={formFields} />);
 
-			expect(getByText('Submit')).toBeTruthy();
-		});
+		expect(getByText('Submit')).toBeTruthy();
+	});
 
-		test('onSubmit callback', () => {
-			const onSubmit = jest.fn();
-			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
+	test('onSubmit callback', () => {
+		const onSubmit = jest.fn();
+		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 
-			const { getByTestId, getByText } = render(
-				<InsertForm
-					formFields={formFields}
-					onSubmit={onSubmit}
-				/>
-			);
+		const { getByTestId, getByText } = render(
+			<InsertForm
+				formFields={formFields}
+				onSubmit={onSubmit}
+			/>
+		);
 
-			fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-			fireEvent.click(getByText('Submit'));
-			expect(onSubmit).toHaveBeenCalledWith({ foo: 'Test' });
-		});
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Submit'));
+		expect(onSubmit).toHaveBeenCalledWith({ foo: 'Test' });
+	});
 
-		test('onSubmit with a parsed field of objects', () => {
-			const onSubmit = jest.fn();
-			const formFields = [{
-				label: 'Bar',
-				id: 'foo',
-				options: [{ name: 'foo' }],
-				parse: val => val.name,
-				type: 'listfilter'
-			}];
+	test('onSubmit with a parsed field of objects', () => {
+		const onSubmit = jest.fn();
+		const formFields = [{
+			label: 'Bar',
+			id: 'foo',
+			options: [{ name: 'foo' }],
+			parse: val => val.name,
+			type: 'listfilter'
+		}];
 
-			const { getByTestId, getByText } = render(
-				<InsertForm formFields={formFields} onSubmit={onSubmit} />
-			);
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} onSubmit={onSubmit} />
+		);
 
-			fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
-			fireEvent.click(getByText('Submit'));
-			expect(onSubmit).toHaveBeenCalledWith({ foo: { name: 'foo' } });
-		});
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
+		fireEvent.click(getByText('Submit'));
+		expect(onSubmit).toHaveBeenCalledWith({ foo: { name: 'foo' } });
+	});
 
-		test('onSubmit with a parsing a matched field', () => {
-			const parseMatchedValue = jest.fn(val => val.id);
-			const onSubmit = jest.fn();
-			const formFields = [{
-				label: 'Bar',
-				id: 'foo',
-				options: [{ id: 'foo', name: 'Foo' }],
-				parse: val => val.name,
-				parseMatchedValue,
-				type: 'listfilter'
-			}];
+	test('onSubmit with a parsing a matched field', () => {
+		const parseMatchedValue = jest.fn(val => val.id);
+		const onSubmit = jest.fn();
+		const formFields = [{
+			label: 'Bar',
+			id: 'foo',
+			options: [{ id: 'foo', name: 'Foo' }],
+			parse: val => val.name,
+			parseMatchedValue,
+			type: 'listfilter'
+		}];
 
-			const { getByTestId, getByText } = render(
-				<InsertForm formFields={formFields} onSubmit={onSubmit} />
-			);
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} onSubmit={onSubmit} />
+		);
 
-			fireEvent.change(getByTestId('field-input'), { target: { value: 'Foo' } });
-			fireEvent.click(getByText('Submit'));
-			expect(parseMatchedValue).toHaveBeenCalledWith({ id: 'foo', name: 'Foo' });
-			expect(onSubmit).toHaveBeenCalledWith({ foo: 'foo' });
-		});
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Foo' } });
+		fireEvent.click(getByText('Submit'));
+		expect(parseMatchedValue).toHaveBeenCalledWith({ id: 'foo', name: 'Foo' });
+		expect(onSubmit).toHaveBeenCalledWith({ foo: 'foo' });
+	});
 
-		test('Resetting after a submission', () => {
-			const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
-			
-			const { getByDisplayValue, getByTestId, getByText } = render(
-				<InsertForm formFields={formFields} resetForm={true} />);
+	test('Resetting after a submission', async () => {
+		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
+		
+		const { getByDisplayValue, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} resetForm={true} />);
 
-			fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-			expect(getByTestId('field-input').value).toBe('Test');
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		expect(getByTestId('field-input').value).toBe('Test');
 
-			fireEvent.click(getByText('Submit'));
-			expect(getByTestId('field-input').value).toBe('');
-		});
+		fireEvent.click(getByText('Submit'));
+		expect(getByTestId('field-input').value).toBe('');
 	});
 });
 
