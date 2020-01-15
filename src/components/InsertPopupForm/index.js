@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
 import { keyEvent as KeyEvent } from 'utils';
-import { getInputComponent, sortFormFields } from './utils';
+import { getInputComponent } from './utils';
 
 import './styles/form.less';
 
@@ -152,7 +152,8 @@ export default class InsertForm extends Component {
 				field.forEach((linkedField, i, arr) => {
 					linkedField.required = !!isRequired;
 					linkedField.disabled = i > 0;
-					linkedField.linkTo = i > 0 ? arr[i - 1].id : undefined;
+					linkedField.linkToNext = i < arr.length - 1;
+					linkedField.linkToPrev = i > 0;
 
 					const {
 						processedField,
@@ -192,6 +193,8 @@ export default class InsertForm extends Component {
 		Object.keys(initInsertData).forEach(key => {
 			this.insertData[key] = initInsertData[key];
 		});
+
+		console.log('form model', newFormModel);
 
 		this.setState({
 			currentInputLabel: newFormModel.length > 0
@@ -256,7 +259,7 @@ export default class InsertForm extends Component {
 
 		// if current field has an error or empty value and is linked to
 		// the next field, place an error on the next field
-		if (steps[fieldIndex].linkNext) {
+		if (formModel[fieldIndex].linkToNext) {
 			newFieldsWithError[formModel[fieldIndex + 1].id] = !!newFieldsWithError[fieldId];
 			newSteps[fieldIndex + 1].error = !!newFieldsWithError[fieldId];
 		}

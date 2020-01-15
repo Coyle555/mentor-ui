@@ -401,45 +401,11 @@ describe('Linking fields', () => {
 		expect(el.placeholder).toEqual('Enter text');
 	});
 
-	test('Required linked field', () => {
-		const formFields = [
-			{ id: 'text', label: 'Text Input 1' },
-			{
-				id: 'dependentField',
-				label: 'Dependent field',
-				link: { to: 'text', },
-				required: true
-			},
-		];
-
-		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
-		expect(tree).toMatchSnapshot();
-	});
-
-	test('Linked field connected to a required field', () => {
-		const formFields = [
+	test('Required Linked fields', () => {
+		const formFields = [[
 			{ id: 'text', label: 'Text Input 1', required: true },
-			{
-				id: 'dependentField',
-				label: 'Dependent field',
-				link: { to: 'text', }
-			},
-		];
-
-		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
-		expect(tree).toMatchSnapshot();
-	});
-
-	test('Both linked fields required', () => {
-		const formFields = [
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{
-				id: 'dependentField',
-				label: 'Dependent field',
-				link: { to: 'text' },
-				required: true
-			},
-		];
+			{ id: 'dependentField', label: 'Dependent field' },
+		]];
 
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
@@ -447,40 +413,34 @@ describe('Linking fields', () => {
 
 	test('Submitting linked fields', () => {
 		const onSubmit = jest.fn();
-		const formFields = [
+		const formFields = [[
 			{ id: 'text', label: 'Text Input 1', required: true },
-			{
-				id: 'dependentField',
-				label: 'Dependent field',
-				link: { to: 'text' },
-				required: true
-			},
-		];
+			{ id: 'dependentField', label: 'Dependent field' }
+		]];
 
 		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} onSubmit={onSubmit} />
 		);
 
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test1' } });
 		fireEvent.click(getByText('2'));
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test2' } });
 		fireEvent.click(getByText('Submit'));
 		expect(onSubmit).toHaveBeenCalledWith({
-			text: 'Test',
-			dependentField: 'Test'
+			text: 'Test1',
+			dependentField: 'Test2'
 		});
 	});
 });
 
-describe.only('Linking field error handling', () => {
+describe.only('Linking fields error handling', () => {
+	const formFields = [[
+		{ id: 'text', label: 'Text Input 1', required: true },
+		{ id: 'dependentField', label: 'Dependent field' }
+	]];
 
 	test('Linked field throws an error if it has a value and the original field has an error', () => {
-		const formFields = [
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field', link: { to: 'text' } }
-		];
-
-		const { container, debug, getByTestId, getByText } = render(
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
@@ -494,13 +454,8 @@ describe.only('Linking field error handling', () => {
 			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
-	test.only('Linked field has no error if it has a value and the original field has an error corrected', () => {
-		const formFields = [
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field', link: { to: 'text' } }
-		];
-
-		const { container, debug, getByTestId, getByText } = render(
+	test('Linked field has no error if it has a value and the original field has an error corrected', () => {
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
@@ -516,5 +471,19 @@ describe.only('Linking field error handling', () => {
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.not.stringContaining('stepper-error'));
+	});
+
+	test('Linked fields has an error if the original field has a value', () => {
+
+	});
+
+	test('Linked fields have no errors if linked fields have valid values', () => {
+
+	});
+
+	test('Linked fields have errors if required and no values have been input', () => {
+		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+
+		expect(tree).toMatchSnapshot();
 	});
 });

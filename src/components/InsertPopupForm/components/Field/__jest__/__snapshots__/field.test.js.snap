@@ -55,8 +55,6 @@ exports[`Rendering a field with a false valid linked value 1`] = `
   >
     <input
       data-testid="field-input"
-      disabled={true}
-      placeholder="Enter a value into the linked field"
       type="text"
       value=""
     />
@@ -101,7 +99,6 @@ exports[`Rendering a field with a valid linked value 1`] = `
   >
     <input
       data-testid="field-input"
-      disabled={false}
       type="text"
       value=""
     />
@@ -216,7 +213,6 @@ exports[`Rendering field with a onLink callback 1`] = `
   >
     <input
       data-testid="field-input"
-      disabled={false}
       type="text"
       value="test"
     />
