@@ -26,22 +26,26 @@
 					border-radius: 50%;
 					text-align: center;
 					padding: 1px;
-					font-size: 16px;
+					font-size: 1rem;
 					color: #fff;
-					display: block;
 					border-width: 0;
 					position: relative;
 					z-index: 1;
 					cursor: pointer;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 
 					.stepper-step-text {
 						user-select: none;
-						line-height: 50px;
 						color: #fff;
-						font-size: 22px;
+						font-size: 1.35rem;
 						font-weight: 700;
 					}
+				}
 
+				.stepper-step-circle-link {
+					border: 2px solid @blue-primary;
 				}
 
 				.stepper-error {
