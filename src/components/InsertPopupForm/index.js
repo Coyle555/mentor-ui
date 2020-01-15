@@ -95,7 +95,7 @@ export default class InsertForm extends Component {
 		}
 	}
 
-	processField = (field, initInsertData) => {
+	processField = (field) => {
 		let hasError = false;
 		let step;
 		let InputComponent = null;
@@ -116,16 +116,21 @@ export default class InsertForm extends Component {
 
 		InputComponent = getInputComponent(field, inputProps);
 		
-		this.insertData[field.id] = '';	// initialize insert data
+		// initialize insert data
+		if (!this.insertData[field.id]) {
+			this.insertData[field.id] = '';
+		}
 
-		if (field.required && !initInsertData[field.id]) {
+		if (field.required && !this.insertData[field.id]) {
 			hasError = true;
 		}
 
 		step = {
 			id: field.id,
 			title: field.label,
-			error: hasError
+			error: hasError,
+			linkNext: field.linkToNext,
+			linkPrev: field.linkToPrev
 		};
 
 		return {
@@ -136,10 +141,16 @@ export default class InsertForm extends Component {
 	}
 
 	initializeInsertForm = () => {
-		const { formFields } = this.props;
+		const { formFields, initInsertData } = this.props;
 
-		this.insertData = {};
-		const initInsertData = Object.assign({}, this.props.initInsertData);
+		// initial insertion data to load into the form
+		this.insertData = Object.keys(initInsertData).reduce((acc, key) => {
+			acc[key] = initInsertData[key] !== null && initInsertData[key] !== undefined
+				? initInsertData[key]
+				: '';
+
+			return acc;
+		}, {});
 		const newFormModel = [];
 		const newFieldsWithError = {};
 		const newSteps = [];
@@ -159,15 +170,10 @@ export default class InsertForm extends Component {
 						processedField,
 						hasError,
 						step
-					} = this.processField(linkedField, initInsertData);
+					} = this.processField(linkedField);
 
 					newSteps.push(step);
 					newFormModel.push(processedField);
-
-					if (i > 0) {
-						newSteps[newSteps.length - 2].linkNext = true;
-						newSteps[newSteps.length - 1].linkPrev = true;
-					}
 
 					if (hasError) {
 						newFieldsWithError[field.id] = true;
@@ -178,23 +184,16 @@ export default class InsertForm extends Component {
 					processedField,
 					hasError,
 					step
-				} = this.processField(field, initInsertData);
+				} = this.processField(field);
+
+				newSteps.push(step);
+				newFormModel.push(processedField);
 
 				if (hasError) {
 					newFieldsWithError[field.id] = true;
 				}
-
-				newSteps.push(step);
-				newFormModel.push(processedField);
 			}
 		});
-
-		// initial data passed in to load into the form
-		Object.keys(initInsertData).forEach(key => {
-			this.insertData[key] = initInsertData[key];
-		});
-
-		console.log('form model', newFormModel);
 
 		this.setState({
 			currentInputLabel: newFormModel.length > 0
@@ -260,19 +259,16 @@ export default class InsertForm extends Component {
 		// if current field has an error or empty value and is linked to
 		// the next field, place an error on the next field
 		if (formModel[fieldIndex].linkToNext) {
-			newFieldsWithError[formModel[fieldIndex + 1].id] = !!newFieldsWithError[fieldId];
-			newSteps[fieldIndex + 1].error = !!newFieldsWithError[fieldId];
+			newFieldsWithError[formModel[fieldIndex + 1].id] = !!newFieldsWithError[fieldId]
+				&& !formModel[fieldIndex + 1].required;
+			newSteps[fieldIndex + 1].error = !!newFieldsWithError[fieldId]
+				&& !formModel[fieldIndex + 1].required;
 		}
 
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
 		});
-	}
-
-	handleLinkError = (fieldId) => {
-		const { steps } = this.state;
-
 	}
 
 	// handle submitting insertion data to the backend
@@ -312,7 +308,10 @@ export default class InsertForm extends Component {
 		});
 
 		Object.keys(initInsertData).forEach(field => {
-			this.insertData[field] = initInsertData[field];
+			this.insertData[field] = initInsertData[field] !== null 
+				&& initInsertData[field] !== undefined
+					? initInsertData[field]
+					: '';
 		});
 
 		this.setState({
@@ -382,9 +381,9 @@ export default class InsertForm extends Component {
 		const field = this.getField();
 		const link = {};
 
-		if (field.linkTo) {
+		if (field.linkToPrev) {
 			link.onLink = field.onLink;
-			link.value = this.insertData[field.linkTo];
+			link.value = this.insertData[formModel[fieldIndex - 1].id];
 		}
 
 		return (

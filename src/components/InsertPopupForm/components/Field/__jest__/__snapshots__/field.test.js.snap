@@ -213,6 +213,7 @@ exports[`Rendering field with a onLink callback 1`] = `
   >
     <input
       data-testid="field-input"
+      disabled={false}
       type="text"
       value="test"
     />

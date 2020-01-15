@@ -352,33 +352,18 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe('Linking fields', () => {
-	const formFields = [
+describe.only('Linking fields', () => {
+	const formFields = [[
 		{ id: 'text', label: 'Text Input 1' },
-		{ id: 'text2', label: 'Text Input 2' },
-		{
-			id: 'dependentField',
-			label: 'Dependent field',
-			link: {
-				to: 'text2',
-				onLink: (val) => ''
-			}
-		},
-		{ id: 'text3', label: 'Text Input 3' },
-		{ id: 'text4', label: 'Text Input 4' },
-		{
-			id: 'text5',
-			label: 'Text Input 5',
-			link: { to: 'text' }
-		},
-	];
+		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
+	]];
 
-	test('Checking for links on mount', () => {
+	test('Render links on paint', () => {
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Linked field is not filled out', () => {
+	test('Original field has no value', () => {
 		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
@@ -386,10 +371,9 @@ describe('Linking fields', () => {
 		fireEvent.click(getByText('2'));
 		const el = getByTestId('field-input');
 		expect(el.disabled).toEqual(true);
-		expect(el.placeholder).toEqual('Enter a value into the linked field');
 	});
 
-	test('Linked field is filled in', () => {
+	test('Original field has a value', () => {
 		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
@@ -398,7 +382,19 @@ describe('Linking fields', () => {
 		fireEvent.click(getByText('2'));
 		const el = getByTestId('field-input');
 		expect(el.disabled).toEqual(false);
-		expect(el.placeholder).toEqual('Enter text');
+	});
+
+	test.only('Required linked fields and original field has a value', () => {
+		const formFields = [[
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
+		]];
+
+		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
 	test('Required Linked fields', () => {
@@ -411,13 +407,46 @@ describe('Linking fields', () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	test('Submitting linked fields', () => {
-		const onSubmit = jest.fn();
+	test('onLink callback gets called with value when original field is filled in w/ a string', () => {
+		const onLink = jest.fn();
 		const formFields = [[
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field' }
+			{ id: 'text', label: 'Text Input 1' },
+			{ id: 'dependentField', label: 'Dependent field', onLink },
 		]];
 
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test1' } });
+		fireEvent.click(getByText('Next'));
+		expect(onLink).toHaveBeenCalledWith('Test1');
+	});
+
+	test('onLink callback gets called with value when original field is filled in w/ an object', () => {
+		const onLink = jest.fn();
+		const formFields = [[
+			{
+				id: 'listfilter2',
+				label: 'List Filter w/ Filter',
+				type: 'listfilter',
+				options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+				parse: val => typeof val === 'object' ? val.name : val
+			},
+			{ id: 'dependentField', label: 'Dependent field', onLink },
+		]];
+
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
+		fireEvent.click(getByText('Next'));
+		expect(onLink).toHaveBeenCalledWith({ name: 'foo' });
+	});
+
+	test('Submitting linked fields', () => {
+		const onSubmit = jest.fn();
 		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} onSubmit={onSubmit} />
 		);
@@ -433,7 +462,7 @@ describe('Linking fields', () => {
 	});
 });
 
-describe.only('Linking fields error handling', () => {
+describe('Linking fields error handling', () => {
 	const formFields = [[
 		{ id: 'text', label: 'Text Input 1', required: true },
 		{ id: 'dependentField', label: 'Dependent field' }

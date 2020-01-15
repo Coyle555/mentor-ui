@@ -17,10 +17,11 @@ export const Field = ({
 		value
 	};
 
-	if (typeof link.onLink === 'function') {
+	if (link.value !== '' && typeof link.onLink === 'function') {
 		inputProps = {
 			...inputProps,
-			...link.onLink(link.value)
+			...link.onLink(link.value),
+			disabled: false
 		};
 	}
 

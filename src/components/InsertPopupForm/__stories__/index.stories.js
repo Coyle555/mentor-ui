@@ -94,7 +94,7 @@ storiesOf('InsertPopupForm', module)
 					{
 						id: 'text5',
 						label: 'Text Input 5',
-						onLink: (val) => ({ value: `overwrite ${JSON.stringify(val)}` })
+						onLink: (val) => ({})
 					}],
 					[
 						{ id: 'text2', label: 'Text Input 2' },
