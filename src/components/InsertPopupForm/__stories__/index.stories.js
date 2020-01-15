@@ -84,48 +84,28 @@ storiesOf('InsertPopupForm', module)
 			<InsertPopupForm 
 				formFields={[
 					{
-						id: 'listfilter2',
-						label: 'List Filter w/ Filter',
-						type: 'listfilter',
-						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
-						parse: val => val.name
-					},
-					{ id: 'text2', label: 'Text Input 2' },
-					{
-						id: 'dependentField',
-						label: 'Dependent field',
-						link: {
-							to: 'text2',
+						links: [{
+							id: 'listfilter2',
+							label: 'List Filter w/ Filter',
+							type: 'listfilter',
+							options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+							parse: val => typeof val === 'object' ? val.name : val
 						},
+						{
+							id: 'text5',
+							label: 'Text Input 5',
+							onLink: (val) => ({ value: `overwrite ${val}` })
+						}],
 						required: true
+					},
+					{
+						links: [
+							{ id: 'text2', label: 'Text Input 2' },
+							{ id: 'dependentField', label: 'Dependent field' }
+						],
 					},
 					{ id: 'text3', label: 'Text Input 3' },
-					{ id: 'text4', label: 'Text Input 4', required: true },
-					{
-						id: 'text5',
-						label: 'Text Input 5',
-						link: {
-							to: 'listfilter2',
-							onLink: (val) => {
-								return { value: 'overwrite value' };
-							}
-						},
-						required: true
-					},
-					{
-						id: 'text6',
-						label: 'Text Input 6',
-						link: {
-							to: 'text3',
-						}
-					},
-					{
-						id: 'text7',
-						label: 'Text Input 7',
-						link: {
-							to: 'text4',
-						}
-					}
+					{ id: 'text4', label: 'Text Input 4' }
 				]}
 				onSubmit={action('onSubmit')}
 			/>

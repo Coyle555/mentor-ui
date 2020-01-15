@@ -13,12 +13,16 @@ export default class InsertForm extends Component {
 
 	static propTypes = {
 		formFields: PropTypes.arrayOf(PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			label: PropTypes.string.isRequired,
-			link: PropTypes.shape({
-				onLink: PropTypes.func,
-				to: PropTypes.string,
-			}),
+			id: PropTypes.string,
+			label: PropTypes.string,
+			links: PropTypes.arrayOf(PropTypes.shape({
+				id: PropTypes.string,
+				label: PropTypes.string,
+				options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+				parse: PropTypes.func,
+				parseMatchedValue: PropTypes.func,
+				type: PropTypes.string
+			})),
 			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 			parse: PropTypes.func,
 			parseMatchedValue: PropTypes.func,
@@ -91,6 +95,51 @@ export default class InsertForm extends Component {
 		}
 	}
 
+	processField = ({ field, initInsertData }) => {
+		let hasError = false;
+		let step;
+		let InputComponent = null;
+		console.log('processing field', field);
+		
+		let inputProps = {
+			autoFocus: true,
+			className: 'form-input',
+			key: field.id,
+			name: field.id,
+			onBlur: this._handleInputBlur,
+			onChange: this._handleInputChange,
+			onKeyDown: this.onKeyDown,
+			onMatch: this._handleOptionMatch,
+			required: field.required,
+			value: ''
+		};
+
+		InputComponent = getInputComponent(field, inputProps);
+		
+		this.insertData[field.id] = '';	// initialize insert data
+
+		if (field.required && !initInsertData[field.id]) {
+			hasError = true;
+		}
+
+		step = {
+			id: field.id,
+			title: field.label,
+			error: hasError
+		};
+
+		if (field.link && field.link.to) {
+			newSteps[newSteps.length - 2].linkNext = true;
+			newSteps[newSteps.length - 1].linkPrev = true;
+		}
+
+		return {
+			hasError,
+			processedField: Object.assign({}, field, { InputComponent }),
+			step
+		};
+	}
+
 	initializeInsertForm = () => {
 		const { formFields } = this.props;
 
@@ -99,49 +148,39 @@ export default class InsertForm extends Component {
 		const newFormModel = [];
 		const newFieldsWithError = {};
 		const newSteps = [];
-		const linkedFields = {};
-
-		let InputComponent = null;
-		let MentorInput = null;
-		let inputProps = {};
-
-		const sortedFormFields = sortFormFields(formFields);
 
 		// initialize insert data
-		sortedFormFields.forEach((field, i, arr) => {
-			inputProps = {
-				autoFocus: true,
-				className: 'form-input',
-				key: field.id,
-				name: field.id,
-				onBlur: this._handleInputBlur,
-				onChange: this._handleInputChange,
-				onKeyDown: this.onKeyDown,
-				onMatch: this._handleOptionMatch,
-				required: field.required,
-				value: ''
-			};
+		formFields.forEach(field => {
+			if (field.links && Array.isArray(field.links)) {
+				field.links.forEach((linkedField, i) => {
+					const {
+						processedField,
+						hasError,
+						step
+					} = this.processField(linkedField);
 
-			InputComponent = getInputComponent(field, inputProps);
-			
-			this.insertData[field.id] = '';	// initialize insert data
+					if (hasError) {
+						newFieldsWithError[field.id] = true;
+					}
 
-			if (field.required && !initInsertData[field.id]) {
-				newFieldsWithError[field.id] = true;
+					newSteps.push(step);
+					newFormModel.push(processedField);
+
+					if (i > 0) {
+						newSteps[newSteps.length - 2].linkNext = true;
+						newSteps[newSteps.length - 1].linkPrev = true;
+					}
+				});
+			} else {
+				const { processedField, hasError, step } = this.processField(field);
+
+				if (hasError) {
+					newFieldsWithError[field.id] = true;
+				}
+
+				newSteps.push(step);
+				newFormModel.push(processedField);
 			}
-
-			newSteps.push({
-				id: field.id,
-				title: field.label,
-				error: !!newFieldsWithError[field.id]
-			});
-
-			if (field.link && field.link.to) {
-				newSteps[newSteps.length - 2].linkNext = true;
-				newSteps[newSteps.length - 1].linkPrev = true;
-			}
-
-			newFormModel.push(Object.assign({}, field, { InputComponent }));
 		});
 
 		// initial data passed in to load into the form
@@ -212,15 +251,20 @@ export default class InsertForm extends Component {
 
 		// if current field has an error or empty value and is linked to
 		// the next field, place an error on the next field
-		if (steps[fieldIndex].linkNext && newFieldsWithError[fieldId]) {
-			newFieldsWithError[formModel[fieldIndex + 1].id] = true;
-			newSteps[fieldIndex + 1].error = true;
+		if (steps[fieldIndex].linkNext) {
+			newFieldsWithError[formModel[fieldIndex + 1].id] = !!newFieldsWithError[fieldId];
+			newSteps[fieldIndex + 1].error = !!newFieldsWithError[fieldId];
 		}
 
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
 		});
+	}
+
+	handleLinkError = (fieldId) => {
+		const { steps } = this.state;
+
 	}
 
 	// handle submitting insertion data to the backend
