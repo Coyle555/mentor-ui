@@ -19,7 +19,6 @@ exports[`Stepper with steps 1`] = `
   >
     <div
       className="stepper-step"
-      data-testid="stepper-foo"
       style={
         Object {
           "width": "50%",
@@ -28,6 +27,7 @@ exports[`Stepper with steps 1`] = `
     >
       <div
         className="stepper-step-circle stepper-active"
+        data-testid="stepper-foo"
         onClick={[Function]}
       >
         <span
@@ -45,7 +45,6 @@ exports[`Stepper with steps 1`] = `
     </div>
     <div
       className="stepper-step"
-      data-testid="stepper-bar"
       style={
         Object {
           "width": "50%",
@@ -54,6 +53,7 @@ exports[`Stepper with steps 1`] = `
     >
       <div
         className="stepper-step-circle stepper-default"
+        data-testid="stepper-bar"
         onClick={[Function]}
       >
         <span
@@ -82,7 +82,6 @@ exports[`Stepper with steps and an active step 1`] = `
   >
     <div
       className="stepper-step"
-      data-testid="stepper-foo"
       style={
         Object {
           "width": "50%",
@@ -91,6 +90,7 @@ exports[`Stepper with steps and an active step 1`] = `
     >
       <div
         className="stepper-step-circle stepper-active"
+        data-testid="stepper-foo"
         onClick={[Function]}
       >
         <span
@@ -108,7 +108,6 @@ exports[`Stepper with steps and an active step 1`] = `
     </div>
     <div
       className="stepper-step"
-      data-testid="stepper-bar"
       style={
         Object {
           "width": "50%",
@@ -117,6 +116,7 @@ exports[`Stepper with steps and an active step 1`] = `
     >
       <div
         className="stepper-step-circle stepper-default"
+        data-testid="stepper-bar"
         onClick={[Function]}
       >
         <span

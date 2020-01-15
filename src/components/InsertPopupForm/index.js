@@ -108,7 +108,7 @@ export default class InsertForm extends Component {
 		const sortedFormFields = sortFormFields(formFields);
 
 		// initialize insert data
-		sortedFormFields.forEach(field => {
+		sortedFormFields.forEach((field, i, arr) => {
 			inputProps = {
 				autoFocus: true,
 				className: 'form-input',
@@ -197,7 +197,7 @@ export default class InsertForm extends Component {
 	}
 
 	handleFieldError = (error, fieldId) => {
-		const { fieldIndex, fieldsWithError, steps } = this.state;
+		const { fieldIndex, fieldsWithError, formModel, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
 
@@ -208,6 +208,13 @@ export default class InsertForm extends Component {
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
+		}
+
+		// if current field has an error or empty value and is linked to
+		// the next field, place an error on the next field
+		if (steps[fieldIndex].linkNext && newFieldsWithError[fieldId]) {
+			newFieldsWithError[formModel[fieldIndex + 1].id] = true;
+			newSteps[fieldIndex + 1].error = true;
 		}
 
 		this.setState({

@@ -62,11 +62,11 @@ export class Step extends Component {
 		return (
 			<div
 				className="stepper-step"
-				data-testid={`stepper-${step.id}`}
 				style={{ width }}
 			>
 				<div
 					className={`stepper-step-circle ${circleStatus}`}
+					data-testid={`stepper-${step.id}`}
 					onClick={this.onClick}
 				>
 					<span className="stepper-step-text">

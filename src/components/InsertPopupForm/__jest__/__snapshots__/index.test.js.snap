@@ -100,7 +100,6 @@ exports[`Linking fields Both linked fields required 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "50%",
@@ -109,6 +108,7 @@ exports[`Linking fields Both linked fields required 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-error"
+                  data-testid="stepper-text"
                   onClick={[Function]}
                 >
                   <span
@@ -128,7 +128,6 @@ exports[`Linking fields Both linked fields required 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "50%",
@@ -137,6 +136,7 @@ exports[`Linking fields Both linked fields required 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-error"
+                  data-testid="stepper-dependentField"
                   onClick={[Function]}
                 >
                   <span
@@ -256,7 +256,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -265,6 +264,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-active"
+                  data-testid="stepper-text"
                   onClick={[Function]}
                 >
                   <span
@@ -284,7 +284,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-text5"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -293,6 +292,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-text5"
                   onClick={[Function]}
                 >
                   <span
@@ -315,7 +315,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-text2"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -324,6 +323,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-text2"
                   onClick={[Function]}
                 >
                   <span
@@ -346,7 +346,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -355,6 +354,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-dependentField"
                   onClick={[Function]}
                 >
                   <span
@@ -377,7 +377,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-text3"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -386,6 +385,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-text3"
                   onClick={[Function]}
                 >
                   <span
@@ -408,7 +408,6 @@ exports[`Linking fields Checking for links on mount 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-text4"
                 style={
                   Object {
                     "width": "16.666666666666668%",
@@ -417,6 +416,7 @@ exports[`Linking fields Checking for links on mount 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-text4"
                   onClick={[Function]}
                 >
                   <span
@@ -543,7 +543,6 @@ exports[`Linking fields Linked field connected to a required field 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "50%",
@@ -552,6 +551,7 @@ exports[`Linking fields Linked field connected to a required field 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-error"
+                  data-testid="stepper-text"
                   onClick={[Function]}
                 >
                   <span
@@ -571,7 +571,6 @@ exports[`Linking fields Linked field connected to a required field 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "50%",
@@ -580,6 +579,7 @@ exports[`Linking fields Linked field connected to a required field 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-dependentField"
                   onClick={[Function]}
                 >
                   <span
@@ -699,7 +699,6 @@ exports[`Linking fields Required linked field 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-text"
                 style={
                   Object {
                     "width": "50%",
@@ -708,6 +707,7 @@ exports[`Linking fields Required linked field 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-active"
+                  data-testid="stepper-text"
                   onClick={[Function]}
                 >
                   <span
@@ -727,7 +727,6 @@ exports[`Linking fields Required linked field 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-dependentField"
                 style={
                   Object {
                     "width": "50%",
@@ -736,6 +735,7 @@ exports[`Linking fields Required linked field 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-error"
+                  data-testid="stepper-dependentField"
                   onClick={[Function]}
                 >
                   <span
@@ -864,7 +864,6 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",
@@ -873,6 +872,7 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
               >
                 <div
                   className="stepper-step-circle stepper-active"
+                  data-testid="stepper-foo"
                   onClick={[Function]}
                 >
                   <span
@@ -985,7 +985,6 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",
@@ -994,6 +993,7 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
               >
                 <div
                   className="stepper-step-circle stepper-error"
+                  data-testid="stepper-foo"
                   onClick={[Function]}
                 >
                   <span
@@ -1110,7 +1110,6 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "50%",
@@ -1119,6 +1118,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-active"
+                  data-testid="stepper-foo"
                   onClick={[Function]}
                 >
                   <span
@@ -1138,7 +1138,6 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
               </div>
               <div
                 className="stepper-step"
-                data-testid="stepper-ttt"
                 style={
                   Object {
                     "width": "50%",
@@ -1147,6 +1146,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-default"
+                  data-testid="stepper-ttt"
                   onClick={[Function]}
                 >
                   <span
@@ -1266,7 +1266,6 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
             >
               <div
                 className="stepper-step"
-                data-testid="stepper-foo"
                 style={
                   Object {
                     "width": "100%",
@@ -1275,6 +1274,7 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
               >
                 <div
                   className="stepper-step-circle stepper-active"
+                  data-testid="stepper-foo"
                   onClick={[Function]}
                 >
                   <span

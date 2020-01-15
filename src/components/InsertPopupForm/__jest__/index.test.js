@@ -471,3 +471,26 @@ describe('Linking fields', () => {
 		});
 	});
 });
+
+describe.only('Linking field error handling', () => {
+
+	test.only('Linked field throws an error if it has a value and the original field has an error', () => {
+		const formFields = [
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{ id: 'dependentField', label: 'Dependent field', link: { to: 'text' } }
+		];
+
+		const { container, debug, getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Next'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Back'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: '' } });
+
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.stringContaining('stepper-error'));
+	});
+});
