@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldList } from '../index';
+import { Sections } from '../index';
 import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
@@ -12,13 +12,13 @@ const fields = [
 ];
 
 test('List of fields', () => {
-	const tree = renderer.create(<FieldList fields={fields} />).toJSON();
+	const tree = renderer.create(<Sections fields={fields} />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
 test('Filtering a field', () => {
-	const { container, queryByText } = render(<FieldList fields={fields} />);
+	const { container, queryByText } = render(<Sections fields={fields} />);
 
 	fireEvent.change(container.querySelector('input'), { target: { value: 'f' } });
 	expect(queryByText('Foo')).toBeTruthy();

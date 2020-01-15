@@ -35,13 +35,16 @@ const columns = [
 		label: 'Multiline',
 		id: 'multiline',
 		type: 'multiline',
-		display: false
+		display: false,
 	},
 	{
 		label: 'Email',
 		id: 'email',
 		type: 'email',
-		display: false
+		display: false,
+		link: {
+			to: 'multiline'
+		}
 	},
 	{
 		label: 'Money',
@@ -216,6 +219,7 @@ storiesOf('Table', module)
 			exportTable={action('exportTable')}
 			filters={filters}
 			handleTableChange={action('handleTableChange')}
+			insertCb={action('insertCb')}
 			onDisplayColChange={action('onDisplayColChange')}
 			pageSize={5}
 			quickViews={quickViews}

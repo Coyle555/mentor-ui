@@ -10,106 +10,20 @@ exports[`Rendering edit modal form Fields in the form 1`] = `
     }
   }
 >
-  <h2
-    className="title"
-  >
-    
-  </h2>
   <div
-    className="field-container"
+    className="title-container"
   >
-    <div
-      className="list-of-fields"
+    <h2
+      className="title"
     >
-      <div>
-        {"fields":[{"id":"foo","label":"Foo"},{"id":"bar","label":"Bar"}]}
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="field"
-      >
-        <label>
-          Foo
-        </label>
-        <div>
-          {"id":"foo","label":"Foo","fieldId":"foo"}
-        </div>
-      </div>
-      <div
-        className="field"
-      >
-        <label>
-          Bar
-        </label>
-        <div>
-          {"id":"bar","label":"Bar","fieldId":"bar"}
-        </div>
-      </div>
-    </div>
+      
+    </h2>
+    <i
+      className="fal fa-times fa-lg close-form"
+    />
   </div>
   <div>
-    {"currentIndex":null}
-  </div>
-</div>
-`;
-
-exports[`Rendering edit modal form Fields in the form with one not updateable 1`] = `
-<div
-  className="edit-form"
-  style={
-    Object {
-      "opacity": 0,
-      "transform": "translateX(200px)",
-    }
-  }
->
-  <h2
-    className="title"
-  >
-    
-  </h2>
-  <div
-    className="field-container"
-  >
-    <div
-      className="list-of-fields"
-    >
-      <div>
-        {"fields":[{"id":"foo","label":"Foo","updateable":false},{"id":"bar","label":"Bar"}]}
-      </div>
-    </div>
-    <div
-      className="fields"
-    >
-      <div
-        className="field"
-      >
-        <label>
-          Foo
-        </label>
-        <span
-          className="cannot-update"
-        >
-          Field cannot be changed
-        </span>
-        <div>
-          {"id":"foo","label":"Foo","updateable":false,"fieldId":"foo"}
-        </div>
-      </div>
-      <div
-        className="field"
-      >
-        <label>
-          Bar
-        </label>
-        <div>
-          {"id":"bar","label":"Bar","fieldId":"bar"}
-        </div>
-      </div>
-    </div>
+    {"data":{},"fields":[{"id":"foo","label":"Foo"},{"id":"bar","label":"Bar"}]}
   </div>
   <div>
     {"currentIndex":null}
@@ -127,24 +41,20 @@ exports[`Rendering edit modal form Title of the form 1`] = `
     }
   }
 >
-  <h2
-    className="title"
-  >
-    Test Record
-  </h2>
   <div
-    className="field-container"
+    className="title-container"
   >
-    <div
-      className="list-of-fields"
+    <h2
+      className="title"
     >
-      <div>
-        {"fields":[]}
-      </div>
-    </div>
-    <div
-      className="fields"
+      Test Record
+    </h2>
+    <i
+      className="fal fa-times fa-lg close-form"
     />
+  </div>
+  <div>
+    {"data":{},"fields":[]}
   </div>
   <div>
     {"currentIndex":null}

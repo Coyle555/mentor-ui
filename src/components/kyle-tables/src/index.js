@@ -19,6 +19,19 @@ const sortMap = {
 
 const DEFAULT_PAGE = 1;
 
+function cloneFieldsForEdit(columns) {
+	const clonedColumns = cloneDeep(columns);
+
+	clonedColumns.forEach((col, i, arr) => {
+		if (!!col.link && !!col.link.to) {
+			arr[i - 1].linkNext = true;
+			col.linkPrev = true;
+		}
+	});
+
+	return clonedColumns;
+}
+
 // Table with filters to be rendered after data is loaded
 export class Table extends Component {
 
@@ -681,7 +694,7 @@ export class Table extends Component {
 						: data
 					}
 					editMode={editMode}
-					fields={cloneDeep(columns)}
+					fields={cloneFieldsForEdit(columns)}
 					getRowName={getRowName}
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}

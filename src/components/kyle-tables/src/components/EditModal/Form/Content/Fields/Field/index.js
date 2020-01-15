@@ -7,6 +7,7 @@ import { ImageField } from './Image';
 import { getMentorInput } from 'mentor-inputs';
 
 export const Field = ({
+	disabled,
 	fieldId,
 	onDeleteFileClick,
 	options,
@@ -15,7 +16,6 @@ export const Field = ({
 	required,
 	rowId,
 	type,
-	updateable,
 	uploadFile,
 	value,
 	...props
@@ -34,7 +34,7 @@ export const Field = ({
 
 	let Input;
 	let inputProps = {
-		disabled: !updateable,
+		disabled,
 		name: fieldId,
 		onBlur,
 		required,
@@ -104,6 +104,7 @@ export const Field = ({
 }
 
 Field.propTypes = {
+	disabled: PropTypes.bool,
 	fieldId: PropTypes.string,
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
@@ -112,11 +113,9 @@ Field.propTypes = {
 	parse: PropTypes.func,
 	required: PropTypes.bool,
 	type: PropTypes.string,
-	updateable: PropTypes.bool,
 	uploadFile: PropTypes.func,
 	value: PropTypes.any
 };
 
 Field.defaultProps = {
-	updateable: true
 };

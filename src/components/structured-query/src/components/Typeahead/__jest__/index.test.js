@@ -1,5 +1,5 @@
-jest.mock('../Datepicker', () => {
-	return { DatePicker: (props) => <div>Datepicker: {JSON.stringify(props)}</div> };
+jest.mock('react-datepicker', () => {
+	return (props) => <div>Datepicker: {JSON.stringify(props)}</div>;
 });
 
 import React from 'react';
