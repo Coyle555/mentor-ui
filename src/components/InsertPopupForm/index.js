@@ -95,15 +95,15 @@ export default class InsertForm extends Component {
 		}
 	}
 
-	processField = ({ field, initInsertData }) => {
+	processField = (field, initInsertData) => {
 		let hasError = false;
 		let step;
 		let InputComponent = null;
-		console.log('processing field', field);
 		
-		let inputProps = {
+		const inputProps = {
 			autoFocus: true,
 			className: 'form-input',
+			disabled: !!field.disabled,
 			key: field.id,
 			name: field.id,
 			onBlur: this._handleInputBlur,
@@ -128,11 +128,6 @@ export default class InsertForm extends Component {
 			error: hasError
 		};
 
-		if (field.link && field.link.to) {
-			newSteps[newSteps.length - 2].linkNext = true;
-			newSteps[newSteps.length - 1].linkPrev = true;
-		}
-
 		return {
 			hasError,
 			processedField: Object.assign({}, field, { InputComponent }),
@@ -151,17 +146,19 @@ export default class InsertForm extends Component {
 
 		// initialize insert data
 		formFields.forEach(field => {
-			if (field.links && Array.isArray(field.links)) {
-				field.links.forEach((linkedField, i) => {
+			if (Array.isArray(field)) {
+				const isRequired = field.some(fld => fld.required);
+
+				field.forEach((linkedField, i, arr) => {
+					linkedField.required = !!isRequired;
+					linkedField.disabled = i > 0;
+					linkedField.linkTo = i > 0 ? arr[i - 1].id : undefined;
+
 					const {
 						processedField,
 						hasError,
 						step
-					} = this.processField(linkedField);
-
-					if (hasError) {
-						newFieldsWithError[field.id] = true;
-					}
+					} = this.processField(linkedField, initInsertData);
 
 					newSteps.push(step);
 					newFormModel.push(processedField);
@@ -170,9 +167,17 @@ export default class InsertForm extends Component {
 						newSteps[newSteps.length - 2].linkNext = true;
 						newSteps[newSteps.length - 1].linkPrev = true;
 					}
+
+					if (hasError) {
+						newFieldsWithError[field.id] = true;
+					}
 				});
 			} else {
-				const { processedField, hasError, step } = this.processField(field);
+				const {
+					processedField,
+					hasError,
+					step
+				} = this.processField(field, initInsertData);
 
 				if (hasError) {
 					newFieldsWithError[field.id] = true;
@@ -372,17 +377,11 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
+		const link = {};
 
-		const link = {
-			valid: !!field.link && !!field.link.to
-				? !fieldsWithError[field.link.to]
-					&& !!this.insertData[field.link.to]
-				: null
-		};
-
-		if (link.valid) {
-			link.onLink = !!field.link && field.link.onLink;
-			link.value = this.insertData[field.link.to];
+		if (field.linkTo) {
+			link.onLink = field.onLink;
+			link.value = this.insertData[field.linkTo];
 		}
 
 		return (

@@ -14,15 +14,10 @@ export const Field = ({
 }) => {
 	let inputProps = {
 		'data-testid': 'field-input',
-		disabled: link.valid === false,
 		value
 	};
 
-	if (link.valid === false) {
-		inputProps.placeholder = 'Enter a value into the linked field';
-	}
-
-	if (!!link.valid && typeof link.onLink === 'function') {
+	if (typeof link.onLink === 'function') {
 		inputProps = {
 			...inputProps,
 			...link.onLink(link.value)
