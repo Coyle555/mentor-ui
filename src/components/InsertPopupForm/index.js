@@ -224,6 +224,7 @@ export default class InsertForm extends Component {
 	_handleInputChange = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
 		this.handleFieldError(error, fieldId, this.state.fieldIndex);
+		this.handleLinkedFields(error, newValue, fieldId);
 	}
 
 	// handle input after user blurs an input form, add new
@@ -235,6 +236,7 @@ export default class InsertForm extends Component {
 	_handleInputBlur = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
 		this.handleFieldError(error, fieldId, this.state.fieldIndex);
+		this.handleLinkedFields(error, newValue, fieldId);
 	}
 
 	// handle matches in list filter for options
@@ -243,6 +245,7 @@ export default class InsertForm extends Component {
 	_handleOptionMatch = (option, fieldId) => {
 		this.insertData[fieldId] = option; 
 		this.handleFieldError(false, fieldId, this.state.fieldIndex);
+		this.handleLinkedFields(false, option, fieldId);
 	}
 
 	handleFieldError = (error, fieldId, fieldIndex) => {
@@ -260,27 +263,27 @@ export default class InsertForm extends Component {
 			newSteps[fieldIndex].error = false;
 		}
 
-		// if current field has an error or empty value and is linked to
-		// the next field, place an error on the next field
-		if (formModel[fieldIndex].linkToNext) {
-			const nextField = formModel[fieldIndex + 1];
-
-			if (error) {
-				this.insertData[nextField.id] = '';
-			}
-
-			this.handleFieldError(
-				!!newFieldsWithError[fieldId]
-					|| (nextField.required && !this.insertData[nextField.id]),
-				formModel[fieldIndex + 1].id,
-				fieldIndex + 1
-			);
-		}
-
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
 		});
+	}
+
+	handleLinkedFields = (error, newValue, fieldId) => {
+		const { fieldIndex, formModel } = this.state;
+
+		// if current field has an error or empty value and is linked to
+		// the next field, place an error on the next field
+		if (formModel[fieldIndex].linkToNext) {
+			const nextField = formModel[fieldIndex + 1];
+			this.insertData[nextField.id] = '';
+
+			this.handleFieldError(
+				error || (!error && newValue !== ''),
+				nextField.id,
+				fieldIndex + 1
+			);
+		}
 	}
 
 	// handle submitting insertion data to the backend
@@ -394,9 +397,11 @@ export default class InsertForm extends Component {
 		const link = {};
 
 		if (field.linkToPrev) {
-			link.error = fieldsWithError[formModel[fieldIndex - 1].id];
+			const prevFieldId = formModel[fieldIndex - 1];
+
+			link.disabled = this.insertData[prevFieldId] === '' || fieldsWithError[prevFieldId];
 			link.onLink = field.onLink;
-			link.value = this.insertData[formModel[fieldIndex - 1].id];
+			link.value = this.insertData[prevFieldId];
 		}
 
 		return (

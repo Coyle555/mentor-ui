@@ -352,7 +352,7 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe.only('Linking fields', () => {
+describe('Linking fields', () => {
 	const formFields = [[
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
@@ -499,9 +499,14 @@ describe.only('Linking fields', () => {
 	});
 });
 
-describe('Linking fields error handling', () => {
-	const formFields = [[
+describe.only('Linking fields error handling', () => {
+	const requiredFormFields = [[
 		{ id: 'text', label: 'Text Input 1', required: true },
+		{ id: 'dependentField', label: 'Dependent field' }
+	]];
+
+	const formFields = [[
+		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'dependentField', label: 'Dependent field' }
 	]];
 
@@ -520,23 +525,16 @@ describe('Linking fields error handling', () => {
 			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
-	test('Linked field has no error if it has a value and the original field has an error corrected', () => {
+	test('Linked field has an error if it has a value and the original field has a valid value', () => {
 		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		fireEvent.click(getByText('Next'));
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
-		fireEvent.click(getByText('Back'));
 
-		fireEvent.change(getByTestId('field-input'), { target: { value: '' } });
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.stringContaining('stepper-error'));
-
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
-		expect(getByTestId('stepper-dependentField').className)
-			.toEqual(expect.not.stringContaining('stepper-error'));
 	});
 
 	test('Linked fields has an error if the original field has a value', () => {
@@ -556,7 +554,7 @@ describe('Linking fields error handling', () => {
 	});
 
 	test('Linked fields have errors if required and no values have been input', () => {
-		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		const tree = renderer.create(<InsertForm formFields={requiredFormFields} />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});

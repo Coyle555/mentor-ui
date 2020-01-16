@@ -83,6 +83,10 @@ storiesOf('InsertPopupForm', module)
 		return (
 			<InsertPopupForm 
 				formFields={[
+					[
+						{ id: 'text2', label: 'Text Input 2' },
+						{ id: 'dependentField', label: 'Dependent field' }
+					],
 					[{
 						id: 'listfilter2',
 						label: 'List Filter w/ Filter',
@@ -95,12 +99,7 @@ storiesOf('InsertPopupForm', module)
 						id: 'text5',
 						label: 'Text Input 5',
 						onLink: (val) => ({})
-					}],
-					[
-						{ id: 'text2', label: 'Text Input 2' },
-						{ id: 'dependentField', label: 'Dependent field' }
-					],
-					{ id: 'text3', label: 'Text Input 3' },
+					}]
 				]}
 				onSubmit={action('onSubmit')}
 			/>

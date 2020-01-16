@@ -14,14 +14,14 @@ export const Field = ({
 }) => {
 	let inputProps = {
 		'data-testid': 'field-input',
+		disabled: !!link.disabled,
 		value
 	};
 
 	if (link.value !== '' && typeof link.onLink === 'function') {
 		inputProps = {
 			...inputProps,
-			...link.onLink(link.value),
-			disabled: link.error
+			...link.onLink(link.value)
 		};
 	}
 
