@@ -21,7 +21,7 @@ export const Field = ({
 		inputProps = {
 			...inputProps,
 			...link.onLink(link.value),
-			disabled: false
+			disabled: link.error
 		};
 	}
 

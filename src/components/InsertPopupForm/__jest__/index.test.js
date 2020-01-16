@@ -384,7 +384,26 @@ describe.only('Linking fields', () => {
 		expect(el.disabled).toEqual(false);
 	});
 
-	test.only('Required linked fields and original field has a value', () => {
+	test('Original field value changes and the linked field value changes', async () => {
+		const { getByTestId, getByText } = render(
+			<InsertForm formFields={formFields} />
+		);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Next'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Foo' } });
+		fireEvent.click(getByText('Back'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'bar' } });
+
+		await wait(() => {
+			fireEvent.click(getByText('Next'));
+			const el = getByTestId('field-input');
+			expect(el.value).toEqual('');
+			expect(el.disabled).toEqual(false);
+		});
+	});
+
+	test('Required linked fields and original field has a value', () => {
 		const formFields = [[
 			{ id: 'text', label: 'Text Input 1', required: true },
 			{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
@@ -395,6 +414,22 @@ describe.only('Linking fields', () => {
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.stringContaining('stepper-error'));
+	});
+
+	test('Required linked fields and original field and linked field has a value', () => {
+		const formFields = [[
+			{ id: 'text', label: 'Text Input 1', required: true },
+			{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
+		]];
+
+		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		fireEvent.click(getByText('Next'));
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
+		fireEvent.click(getByText('Back'));
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.not.stringContaining('stepper-error'));
 	});
 
 	test('Required Linked fields', () => {
@@ -423,7 +458,7 @@ describe.only('Linking fields', () => {
 		expect(onLink).toHaveBeenCalledWith('Test1');
 	});
 
-	test('onLink callback gets called with value when original field is filled in w/ an object', () => {
+	test('onLink callback gets called with value when original field is filled in w/ an object', async () => {
 		const onLink = jest.fn();
 		const formFields = [[
 			{
@@ -436,13 +471,15 @@ describe.only('Linking fields', () => {
 			{ id: 'dependentField', label: 'Dependent field', onLink },
 		]];
 
-		const { getByTestId, getByText } = render(
+		const { debug, getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
-		fireEvent.click(getByText('Next'));
-		expect(onLink).toHaveBeenCalledWith({ name: 'foo' });
+		await wait(() => {
+			fireEvent.click(getByText('Next'));
+			expect(onLink).toHaveBeenCalledWith({ name: 'foo' });
+		});
 	});
 
 	test('Submitting linked fields', () => {
@@ -507,6 +544,14 @@ describe('Linking fields error handling', () => {
 	});
 
 	test('Linked fields have no errors if linked fields have valid values', () => {
+
+	});
+
+	test('Linked field gets cleared when original field throws an error', () => {
+
+	});
+
+	test('Linked field gets cleared when original field value changes', () => {
 
 	});
 

@@ -79,7 +79,7 @@ storiesOf('InsertPopupForm', module)
 			/>
 		);
 	})
-	.add('Field dependent on another', () => {
+	.add('Linked fields', () => {
 		return (
 			<InsertPopupForm 
 				formFields={[

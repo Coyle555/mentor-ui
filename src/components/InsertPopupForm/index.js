@@ -12,23 +12,26 @@ import './styles/form.less';
 export default class InsertForm extends Component {
 
 	static propTypes = {
-		formFields: PropTypes.arrayOf(PropTypes.shape({
-			id: PropTypes.string,
-			label: PropTypes.string,
-			links: PropTypes.arrayOf(PropTypes.shape({
+		formFields: PropTypes.arrayOf(PropTypes.oneOfType([
+			PropTypes.shape({
 				id: PropTypes.string,
 				label: PropTypes.string,
 				options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 				parse: PropTypes.func,
 				parseMatchedValue: PropTypes.func,
+				required: PropTypes.bool,
+				type: PropTypes.string
+			}),
+			PropTypes.arrayOf(PropTypes.shape({
+				id: PropTypes.string,
+				label: PropTypes.string,
+				options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+				parse: PropTypes.func,
+				parseMatchedValue: PropTypes.func,
+				required: PropTypes.bool,
 				type: PropTypes.string
 			})),
-			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-			parse: PropTypes.func,
-			parseMatchedValue: PropTypes.func,
-			required: PropTypes.bool,
-			type: PropTypes.string
-		})).isRequired,
+		])).isRequired,
 		initInsertData: PropTypes.object,
 		onDisable: PropTypes.func,
 		onSubmit: PropTypes.func,
@@ -116,7 +119,7 @@ export default class InsertForm extends Component {
 
 		InputComponent = getInputComponent(field, inputProps);
 		
-		// initialize insert data
+		// initialize insert data if not loaded from props
 		if (!this.insertData[field.id]) {
 			this.insertData[field.id] = '';
 		}
@@ -176,7 +179,7 @@ export default class InsertForm extends Component {
 					newFormModel.push(processedField);
 
 					if (hasError) {
-						newFieldsWithError[field.id] = true;
+						newFieldsWithError[linkedField.id] = true;
 					}
 				});
 			} else {
@@ -220,7 +223,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId);
+		this.handleFieldError(error, fieldId, this.state.fieldIndex);
 	}
 
 	// handle input after user blurs an input form, add new
@@ -231,7 +234,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputBlur = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId);
+		this.handleFieldError(error, fieldId, this.state.fieldIndex);
 	}
 
 	// handle matches in list filter for options
@@ -239,17 +242,18 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
 		this.insertData[fieldId] = option; 
-		this.handleFieldError(false, fieldId);
+		this.handleFieldError(false, fieldId, this.state.fieldIndex);
 	}
 
-	handleFieldError = (error, fieldId) => {
-		const { fieldIndex, fieldsWithError, formModel, steps } = this.state;
+	handleFieldError = (error, fieldId, fieldIndex) => {
+		const { fieldsWithError, formModel, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
 
 		if (error) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
+
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -259,10 +263,18 @@ export default class InsertForm extends Component {
 		// if current field has an error or empty value and is linked to
 		// the next field, place an error on the next field
 		if (formModel[fieldIndex].linkToNext) {
-			newFieldsWithError[formModel[fieldIndex + 1].id] = !!newFieldsWithError[fieldId]
-				&& !formModel[fieldIndex + 1].required;
-			newSteps[fieldIndex + 1].error = !!newFieldsWithError[fieldId]
-				&& !formModel[fieldIndex + 1].required;
+			const nextField = formModel[fieldIndex + 1];
+
+			if (error) {
+				this.insertData[nextField.id] = '';
+			}
+
+			this.handleFieldError(
+				!!newFieldsWithError[fieldId]
+					|| (nextField.required && !this.insertData[nextField.id]),
+				formModel[fieldIndex + 1].id,
+				fieldIndex + 1
+			);
 		}
 
 		this.setState({
@@ -382,6 +394,7 @@ export default class InsertForm extends Component {
 		const link = {};
 
 		if (field.linkToPrev) {
+			link.error = fieldsWithError[formModel[fieldIndex - 1].id];
 			link.onLink = field.onLink;
 			link.value = this.insertData[formModel[fieldIndex - 1].id];
 		}
