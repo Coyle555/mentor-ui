@@ -18,10 +18,11 @@ export const Field = ({
 		value
 	};
 
-	if (link.value !== '' && typeof link.onLink === 'function') {
+	if (typeof link === 'object' && link.value !== '' && link.disabled === false) {
 		inputProps = {
 			...inputProps,
-			...link.onLink(link.value)
+			...link.onLink(link.value),
+			required: true
 		};
 	}
 

@@ -85,7 +85,7 @@ storiesOf('InsertPopupForm', module)
 				formFields={[
 					[
 						{ id: 'text2', label: 'Text Input 2' },
-						{ id: 'dependentField', label: 'Dependent field' }
+						{ id: 'dependentField', label: 'Dependent field', onLink: (val) => ({}) }
 					],
 					[{
 						id: 'listfilter2',

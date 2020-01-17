@@ -249,13 +249,8 @@ export default class InsertForm extends Component {
 		const { fieldsWithError, formModel, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
-		const prevField = fieldIndex >= 0
-			? formModel[fieldIndex - 1]
-			: null;
-		console.log('checking prev field', prevField);
-		console.log('value', value);
 
-		if (error || (!!prevField && prevField.linkToPrev && value === '')) {
+		if (error || (formModel[fieldIndex].linkToPrev && value === '')) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
 		// if old error is no longer valid, delete it
@@ -396,14 +391,18 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
-		const link = {};
+		let link;
 
 		if (field.linkToPrev) {
 			const prevFieldId = formModel[fieldIndex - 1].id;
 
-			link.disabled = this.insertData[prevFieldId] === '' || fieldsWithError[prevFieldId];
-			link.onLink = field.onLink;
-			link.value = this.insertData[prevFieldId];
+			link = {
+				disabled: this.insertData[prevFieldId] === ''
+					|| fieldsWithError[prevFieldId]
+					|| typeof field.onLink !== 'function',
+				onLink: field.onLink,
+				value: this.insertData[prevFieldId]
+			};
 		}
 
 		return (

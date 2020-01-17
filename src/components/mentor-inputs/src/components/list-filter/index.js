@@ -251,6 +251,7 @@ export class ListFilter extends Component {
 	}
 
 	// @value(string): value to filter against
+	// TODO need to fix firing a match on a custom filter; its breaking insert form linked fields
 	customFilterMatches = (value) => {
 		this.setState({
 			loadingFilter: true,
