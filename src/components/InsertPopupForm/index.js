@@ -272,12 +272,15 @@ export default class InsertForm extends Component {
 
 		if (formModel[fieldIndex].linkToNext) {
 			const nextField = formModel[fieldIndex + 1];
-			this.insertData[nextField.id] = '';
+
+			if (this.insertData[formModel[fieldIndex].id] !== value) {
+				this.insertData[nextField.id] = '';
+			}
 
 			this.handleFieldError(
-				error || (!error && value !== ''),
+				error || value === '',
 				nextField.id,
-				'',
+				this.insertData[nextField.id],
 				fieldIndex + 1
 			);
 		}

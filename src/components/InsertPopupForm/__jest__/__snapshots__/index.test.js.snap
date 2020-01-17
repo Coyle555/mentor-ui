@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Linking fields Render links on paint 1`] = `
+exports[`Linking fields Render regular links on mount 1`] = `
 <div>
   <div
     className="insert-popup-overlay"
@@ -157,7 +157,7 @@ exports[`Linking fields Render links on paint 1`] = `
 </div>
 `;
 
-exports[`Linking fields Required Linked fields 1`] = `
+exports[`Linking fields Render required links on mount 1`] = `
 <div>
   <div
     className="insert-popup-overlay"

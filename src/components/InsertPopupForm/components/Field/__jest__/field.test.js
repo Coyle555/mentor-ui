@@ -91,30 +91,13 @@ test('Rendering field with a onLink callback', () => {
 		<Field
 			InputComponent={<Input />}
 			link={{
-				valid: true,
-				onLink
+				disabled: false,
+				onLink,
+				value: 'foo',
 			}}
 		/>
 	).toJSON();
 
-	expect(onLink).toHaveBeenCalled();
-	expect(tree).toMatchSnapshot();
-});
-
-test('Rendering field with a onLink callback and a link value', () => {
-	const onLink = jest.fn((val) => ({}));
-	const Input = (props) => <input {...props} type="text" />;
-
-	const tree = renderer.create(
-		<Field
-			InputComponent={<Input />}
-			link={{
-				valid: true,
-				onLink,
-				value: 'foo'
-			}}
-		/>
-	);
-
 	expect(onLink).toHaveBeenCalledWith('foo');
+	expect(tree).toMatchSnapshot();
 });

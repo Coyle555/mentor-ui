@@ -352,14 +352,24 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe('Linking fields', () => {
+describe.only('Linking fields', () => {
 	const formFields = [[
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
 	]];
 
-	test('Render links on paint', () => {
+	const requiredFormFields = [[
+		{ id: 'text', label: 'Text Input 1', required: true },
+		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
+	]];
+
+	test('Render regular links on mount', () => {
 		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+
+	test('Render required links on mount', () => {
+		const tree = renderer.create(<InsertForm formFields={requiredFormFields} />).toJSON();
 		expect(tree).toMatchSnapshot();
 	});
 
@@ -380,8 +390,11 @@ describe('Linking fields', () => {
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		fireEvent.click(getByText('2'));
+
 		const el = getByTestId('field-input');
 		expect(el.disabled).toEqual(false);
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
 	test('Original field value changes and the linked field value changes', async () => {
@@ -400,46 +413,31 @@ describe('Linking fields', () => {
 			const el = getByTestId('field-input');
 			expect(el.value).toEqual('');
 			expect(el.disabled).toEqual(false);
+			expect(getByTestId('stepper-dependentField').className)
+				.toEqual(expect.stringContaining('stepper-error'));
 		});
 	});
 
 	test('Required linked fields and original field has a value', () => {
-		const formFields = [[
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
-		]];
+		const { getByTestId, getByText } = render(<InsertForm formFields={requiredFormFields} />);
 
-		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
-
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
+		expect(getByTestId('stepper-text').className)
+			.toEqual(expect.stringContaining('stepper-error'));
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
 	test('Required linked fields and original field and linked field has a value', () => {
-		const formFields = [[
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
-		]];
-
-		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+		const { getByTestId, getByText } = render(<InsertForm formFields={requiredFormFields} />);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		fireEvent.click(getByText('Next'));
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
 		fireEvent.click(getByText('Back'));
+		expect(getByTestId('stepper-text').className)
+			.toEqual(expect.not.stringContaining('stepper-error'));
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.not.stringContaining('stepper-error'));
-	});
-
-	test('Required Linked fields', () => {
-		const formFields = [[
-			{ id: 'text', label: 'Text Input 1', required: true },
-			{ id: 'dependentField', label: 'Dependent field' },
-		]];
-
-		const tree = renderer.create(<InsertForm formFields={formFields} />).toJSON();
-		expect(tree).toMatchSnapshot();
 	});
 
 	test('onLink callback gets called with value when original field is filled in w/ a string', () => {
@@ -499,7 +497,7 @@ describe('Linking fields', () => {
 	});
 });
 
-describe.only('Linking fields error handling', () => {
+describe('Linking fields error handling', () => {
 	const requiredFormFields = [[
 		{ id: 'text', label: 'Text Input 1', required: true },
 		{ id: 'dependentField', label: 'Dependent field' }
