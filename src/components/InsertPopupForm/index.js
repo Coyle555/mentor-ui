@@ -223,8 +223,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId, this.state.fieldIndex);
-		this.handleLinkedFields(error, newValue, fieldId);
+		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
 	// handle input after user blurs an input form, add new
@@ -235,8 +234,7 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputBlur = (error, newValue, fieldId) => {
 		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId, this.state.fieldIndex);
-		this.handleLinkedFields(error, newValue, fieldId);
+		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
 	// handle matches in list filter for options
@@ -244,19 +242,22 @@ export default class InsertForm extends Component {
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
 		this.insertData[fieldId] = option; 
-		this.handleFieldError(false, fieldId, this.state.fieldIndex);
-		this.handleLinkedFields(false, option, fieldId);
+		this.handleFieldError(false, fieldId, option, this.state.fieldIndex);
 	}
 
-	handleFieldError = (error, fieldId, fieldIndex) => {
+	handleFieldError = (error, fieldId, value, fieldIndex) => {
 		const { fieldsWithError, formModel, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
+		const prevField = fieldIndex >= 0
+			? formModel[fieldIndex - 1]
+			: null;
+		console.log('checking prev field', prevField);
+		console.log('value', value);
 
-		if (error) {
+		if (error || (!!prevField && prevField.linkToPrev && value === '')) {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
-
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -266,21 +267,22 @@ export default class InsertForm extends Component {
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
+		}, () => {
+			this.handleLinkedFieldError(error, value, fieldIndex);
 		});
 	}
 
-	handleLinkedFields = (error, newValue, fieldId) => {
-		const { fieldIndex, formModel } = this.state;
+	handleLinkedFieldError = (error, value, fieldIndex) => {
+		const { formModel } = this.state;
 
-		// if current field has an error or empty value and is linked to
-		// the next field, place an error on the next field
 		if (formModel[fieldIndex].linkToNext) {
 			const nextField = formModel[fieldIndex + 1];
 			this.insertData[nextField.id] = '';
 
 			this.handleFieldError(
-				error || (!error && newValue !== ''),
+				error || (!error && value !== ''),
 				nextField.id,
+				'',
 				fieldIndex + 1
 			);
 		}
@@ -397,7 +399,7 @@ export default class InsertForm extends Component {
 		const link = {};
 
 		if (field.linkToPrev) {
-			const prevFieldId = formModel[fieldIndex - 1];
+			const prevFieldId = formModel[fieldIndex - 1].id;
 
 			link.disabled = this.insertData[prevFieldId] === '' || fieldsWithError[prevFieldId];
 			link.onLink = field.onLink;
