@@ -397,8 +397,8 @@ describe.only('Linking fields', () => {
 			.toEqual(expect.stringContaining('stepper-error'));
 	});
 
-	test('Original field value changes and the linked field value changes', async () => {
-		const { getByTestId, getByText } = render(
+	test.only('Original field value changes and the linked field value clears', async () => {
+		const { debug, getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
@@ -407,9 +407,9 @@ describe.only('Linking fields', () => {
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Foo' } });
 		fireEvent.click(getByText('Back'));
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'bar' } });
+		fireEvent.click(getByText('Next'));
 
 		await wait(() => {
-			fireEvent.click(getByText('Next'));
 			const el = getByTestId('field-input');
 			expect(el.value).toEqual('');
 			expect(el.disabled).toEqual(false);

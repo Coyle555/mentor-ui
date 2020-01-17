@@ -222,7 +222,7 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
-		this.insertData[fieldId] = newValue;
+		this.handleValue(newValue, this.state.fieldIndex);
 		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
@@ -233,7 +233,7 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputBlur = (error, newValue, fieldId) => {
-		this.insertData[fieldId] = newValue;
+		this.handleValue(newValue, this.state.fieldIndex);
 		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
@@ -241,8 +241,32 @@ export default class InsertForm extends Component {
 	// @option(string|object) - option that was matched
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
-		this.insertData[fieldId] = option; 
+		//this.insertData[fieldId] = option; 
+		this.handleValue(option, this.state.fieldIndex);
 		this.handleFieldError(false, fieldId, option, this.state.fieldIndex);
+	}
+
+	handleValue = (newValue, fieldIndex) => {
+		const { formModel } = this.state;
+		const field = formModel[fieldIndex];
+		let currentVal = this.insertData[field.id];
+
+		if (typeof field.parse === 'function') {
+			currentVal = field.parse(this.insertData[field.id]);
+		}
+
+		console.log('new value', newValue);
+		console.log('current value', currentVal);
+		console.log('insert data', this.insertData);
+
+		if (newValue !== currentVal) {
+			this.insertData[field.id] = newValue;
+
+			// on value changes clear all linked fields
+			if (field.linkToNext) {
+				this.handleValue('', fieldIndex + 1);
+			}
+		}
 	}
 
 	handleFieldError = (error, fieldId, value, fieldIndex) => {
@@ -272,10 +296,6 @@ export default class InsertForm extends Component {
 
 		if (formModel[fieldIndex].linkToNext) {
 			const nextField = formModel[fieldIndex + 1];
-
-			if (this.insertData[formModel[fieldIndex].id] !== value) {
-				this.insertData[nextField.id] = '';
-			}
 
 			this.handleFieldError(
 				error || value === '',
