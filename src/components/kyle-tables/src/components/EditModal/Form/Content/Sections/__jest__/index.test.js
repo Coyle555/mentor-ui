@@ -11,17 +11,60 @@ const fields = [
 	{ id: 'baz', label: 'Baz' }
 ];
 
-test('List of fields', () => {
-	const tree = renderer.create(<Sections fields={fields} />).toJSON();
+test('Default sections render', () => {
+	const tree = renderer.create(<Sections />).toJSON();
 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Filtering a field', () => {
-	const { container, queryByText } = render(<Sections fields={fields} />);
+test('Sections render with selected section', () => {
+	const tree = renderer.create(<Sections selectedSectionLabel="Fields" />).toJSON();
 
-	fireEvent.change(container.querySelector('input'), { target: { value: 'f' } });
-	expect(queryByText('Foo')).toBeTruthy();
-	expect(queryByText('Bar')).toBeNull();
-	expect(queryByText('Baz')).toBeNull();
+	expect(tree).toMatchSnapshot();
+});
+
+test('Sections field section clicked', () => {
+	const openSection = jest.fn();
+	const { getByText } = render(<Sections openSection={openSection} />);
+
+	fireEvent.click(getByText('Fields'));
+	expect(openSection).toHaveBeenCalledWith({ content: null, label: 'Fields' });
+});
+
+test('Sections with an open list of fields', () => {
+	const tree = renderer.create(<Sections fields={fields} fieldsOpen={true} />).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Sections list', () => {
+	const tree = renderer.create(
+		<Sections sections={[{ label: 'foo' }, { label: 'bar' }, { label: 'baz' }]} />
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Sections list with a highlighted section', () => {
+	const tree = renderer.create(
+		<Sections
+			sections={[{ label: 'foo' }, { label: 'bar' }, { label: 'baz' }]} 
+			selectedSectionLabel="foo"
+		/>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Section clicked on in the sections list', () => {
+	const openSection = jest.fn();
+	const { getByText } = render(
+		<Sections
+			sections={[{ label: 'foo' }, { label: 'bar' }, { label: 'baz' }]}
+			openSection={openSection}
+		/>
+	);
+
+	fireEvent.click(getByText('bar'));
+	expect(openSection).toHaveBeenCalledWith({ label: 'bar' });
 });
