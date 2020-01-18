@@ -98,51 +98,6 @@ export default class InsertForm extends Component {
 		}
 	}
 
-	processField = (field) => {
-		let hasError = false;
-		let step;
-		let InputComponent = null;
-		
-		const inputProps = {
-			autoFocus: true,
-			className: 'form-input',
-			disabled: !!field.disabled,
-			key: field.id,
-			name: field.id,
-			onBlur: this._handleInputBlur,
-			onChange: this._handleInputChange,
-			onKeyDown: this.onKeyDown,
-			onMatch: this._handleOptionMatch,
-			required: field.required,
-			value: ''
-		};
-
-		InputComponent = getInputComponent(field, inputProps);
-		
-		// initialize insert data if not loaded from props
-		if (!this.insertData[field.id]) {
-			this.insertData[field.id] = '';
-		}
-
-		if (field.required && !this.insertData[field.id]) {
-			hasError = true;
-		}
-
-		step = {
-			id: field.id,
-			title: field.label,
-			error: hasError,
-			linkNext: field.linkToNext,
-			linkPrev: field.linkToPrev
-		};
-
-		return {
-			hasError,
-			processedField: Object.assign({}, field, { InputComponent }),
-			step
-		};
-	}
-
 	initializeInsertForm = () => {
 		const { formFields, initInsertData } = this.props;
 
@@ -207,6 +162,51 @@ export default class InsertForm extends Component {
 			formModel: newFormModel,
 			steps: newSteps
 		});
+	}
+
+	processField = (field) => {
+		let hasError = false;
+		let step;
+		let InputComponent = null;
+		
+		const inputProps = {
+			autoFocus: true,
+			className: 'form-input',
+			disabled: !!field.disabled,
+			key: field.id,
+			name: field.id,
+			onBlur: this._handleInputBlur,
+			onChange: this._handleInputChange,
+			onKeyDown: this.onKeyDown,
+			onMatch: this._handleOptionMatch,
+			required: field.required,
+			value: ''
+		};
+
+		InputComponent = getInputComponent(field, inputProps);
+		
+		// initialize insert data if not loaded from props
+		if (!this.insertData[field.id]) {
+			this.insertData[field.id] = '';
+		}
+
+		if (field.required && !this.insertData[field.id]) {
+			hasError = true;
+		}
+
+		step = {
+			id: field.id,
+			title: field.label,
+			error: hasError,
+			linkNext: field.linkToNext,
+			linkPrev: field.linkToPrev
+		};
+
+		return {
+			hasError,
+			processedField: Object.assign({}, field, { InputComponent }),
+			step
+		};
 	}
 
 	getField = () => {

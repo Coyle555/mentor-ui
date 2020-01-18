@@ -31,7 +31,7 @@ const columns = [
 		id: 'string',
 		type: 'string',
 	},
-	{
+	[{
 		label: 'Multiline',
 		id: 'multiline',
 		type: 'multiline',
@@ -42,10 +42,8 @@ const columns = [
 		id: 'email',
 		type: 'email',
 		display: false,
-		link: {
-			to: 'multiline'
-		}
-	},
+		onLink: () => {}
+	}],
 	{
 		label: 'Money',
 		id: 'money',

@@ -35,17 +35,21 @@ export const Fields = ({
 				let disabled = field.updateable === false;
 
 				if (field.linkNext) {
-					style.borderLeft = '1px solid red';
-					style.borderRight = '1px solid red';
-					style.borderTop = '1px solid red';
-					style.background = 'lightgreen';
+					style.borderLeft = '1px solid blue';
+					style.borderRight = '1px solid blue';
+					style.borderTop = '1px solid blue';
+					style.borderTopLeftRadius = '5px';
+					style.borderTopRightRadius = '5px';
+					style.background = 'cyan';
 				}
 
 				if (field.linkPrev) {
-					style.borderLeft = '1px solid red';
-					style.borderRight = '1px solid red';
-					style.borderBottom = '1px solid red';
-					style.background = 'lightgreen';
+					style.borderBottom = '1px solid blue';
+					style.borderLeft = '1px solid blue';
+					style.borderRight = '1px solid blue';
+					style.borderBottomLeftRadius = '5px';
+					style.borderBottomRightRadius = '5px';
+					style.background = 'cyan';
 
 					const prevVal = data[arr[i - 1].id];
 

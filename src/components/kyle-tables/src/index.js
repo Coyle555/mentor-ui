@@ -160,10 +160,34 @@ export class Table extends Component {
 
 		this.lastSelectedRowIndexStack = [];
 
-		this.el = document.createElement('div');
-		this.el.id = 'mui-table-edit-root';
-		this.el.className = 'table-edit-mode';
-		document.body.appendChild(this.el);
+		this.el = document.getElementById('mui-table-edit-root');
+
+		if (!this.el) {
+			this.el = document.createElement('div');
+			this.el.id = 'mui-table-edit-root';
+			this.el.className = 'table-edit-mode';
+			document.body.appendChild(this.el);
+		}
+
+		let columns = [];
+
+		cloneDeep(this.props.columns).forEach(col => {
+			if (Array.isArray(col)) {
+				const isRequired = col.some(c => c.required);
+
+				col.forEach((c, i, arr) => {
+					c.required = !!isRequired;
+					c.linkToNext = i < arr.length -1;
+					c.linkToPrev = i > 0;
+
+					columns.push(c);
+				});
+			} else {
+				columns.push(col);
+			}
+		});
+
+		console.log('initialized columns', columns);
 
 		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
@@ -173,7 +197,7 @@ export class Table extends Component {
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
-			columns: cloneDeep(this.props.columns),
+			columns,
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
@@ -680,8 +704,13 @@ export class Table extends Component {
 					<InsertForm
 						initInsertData={initInsertData}
 						formFields={!!formFields
-							? cloneDeep(formFields.filter(field => field.insertable !== false))
-							: cloneDeep(columns.filter(col => col.insertable !== false))}
+							? cloneDeep(formFields.filter(field => (
+								field.insertable !== false
+							)))
+							: cloneDeep(columns.filter(col => (
+								col.insertable !== false
+							)))
+						}
 						onDisable={this._onInsertClick}
 						onSubmit={this._onSubmitInsertion}
 						resetForm={insertType === 'multiple'}
