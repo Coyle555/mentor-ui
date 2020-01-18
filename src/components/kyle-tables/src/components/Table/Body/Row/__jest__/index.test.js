@@ -1,5 +1,9 @@
-jest.mock('../Drag/Droppable');
-jest.mock('../Drag/Draggable');
+jest.mock('../Drag/Droppable', () => {
+	return { TableRowDroppable: (props) => null };
+});
+jest.mock('../Drag/Draggable', () => {
+	return { TableRowDraggable: (props) => null };
+});
 
 import React from 'react';
 import { TableRow } from '../index';
