@@ -241,7 +241,6 @@ export default class InsertForm extends Component {
 	// @option(string|object) - option that was matched
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
-		//this.insertData[fieldId] = option; 
 		this.handleValue(option, this.state.fieldIndex);
 		this.handleFieldError(false, fieldId, option, this.state.fieldIndex);
 	}
@@ -254,10 +253,6 @@ export default class InsertForm extends Component {
 		if (typeof field.parse === 'function') {
 			currentVal = field.parse(this.insertData[field.id]);
 		}
-
-		console.log('new value', newValue);
-		console.log('current value', currentVal);
-		console.log('insert data', this.insertData);
 
 		if (newValue !== currentVal) {
 			this.insertData[field.id] = newValue;
@@ -274,9 +269,13 @@ export default class InsertForm extends Component {
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
 
-		if (error || (formModel[fieldIndex].linkToPrev && value === '')) {
+		if (error || (formModel[fieldIndex].linkToPrev
+			&& this.insertData[formModel[fieldIndex - 1].id] !== ''
+			&& value === '')) {
+
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
+
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -298,7 +297,7 @@ export default class InsertForm extends Component {
 			const nextField = formModel[fieldIndex + 1];
 
 			this.handleFieldError(
-				error || value === '',
+				error || (value !== '' && this.insertData[nextField.id] === ''),
 				nextField.id,
 				this.insertData[nextField.id],
 				fieldIndex + 1
