@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render of list of fields 1`] = `
+<div
+  className="list-of-fields"
+>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    onBlur={[Function]}
+    onChange={[Function]}
+    placeholder="Search Fields"
+    type="text"
+    value=""
+  />
+  <ul
+    className="fields-ul"
+  />
+</div>
+`;
+
+exports[`List of fields render with a list 1`] = `
+<div
+  className="list-of-fields"
+>
+  <input
+    autoComplete="false"
+    className="mui-mi-input-field"
+    onBlur={[Function]}
+    onChange={[Function]}
+    placeholder="Search Fields"
+    type="text"
+    value=""
+  />
+  <ul
+    className="fields-ul"
+  >
+    <li
+      className="field-li"
+      onClick={[Function]}
+    >
+      <span
+        className="label"
+      >
+        Foo
+      </span>
+    </li>
+    <li
+      className="field-li"
+      onClick={[Function]}
+    >
+      <span
+        className="label"
+      >
+        Bar
+      </span>
+    </li>
+    <li
+      className="field-li"
+      onClick={[Function]}
+    >
+      <span
+        className="label"
+      >
+        Baz
+      </span>
+    </li>
+  </ul>
+</div>
+`;

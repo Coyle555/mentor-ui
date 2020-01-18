@@ -44,3 +44,7 @@ ListOfFields.propTypes = {
 	})),
 	selectField: PropTypes.func
 };
+
+ListOfFields.defaultProps = {
+	fields: []
+};
