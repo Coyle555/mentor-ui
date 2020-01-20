@@ -87,7 +87,7 @@ const columns = [
 		type: 'listfilter',
 		options: ['Option1', 'Option2', 'Option3']
 	},
-	{
+	[{
 		label: 'List Filter w/ func',
 		id: 'listfilterfunc',
 		type: 'listfilter',
@@ -96,13 +96,13 @@ const columns = [
 			{ id: 'bar', name: 'Bar' },
 			{ id: 'baz', name: 'Baz' }
 		]),
-		parse: val => !!val && typeof val ==='object' ? val.name : ''
+		parse: val => !!val && typeof val ==='object' ? val.name : val
 	},
 	{
 		label: 'Options',
 		id: 'options',
 		options: ['Option1', 'Option2', 'Option3']
-	},
+	}],
 	{
 		label: 'Link to File',
 		id: 'file',

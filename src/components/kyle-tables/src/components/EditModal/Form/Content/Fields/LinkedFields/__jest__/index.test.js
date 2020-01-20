@@ -30,7 +30,7 @@ test('Linked field with a list of fields', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-describe.only('Behavior where original field changes the linked field value', () => {
+describe('Behavior where original field changes the linked field value', () => {
 	const fields = [
 		{
 			label: 'Original Field',

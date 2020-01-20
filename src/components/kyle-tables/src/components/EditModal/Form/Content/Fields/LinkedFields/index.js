@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -8,7 +8,6 @@ export const LinkedFields = ({
 	data,
 	fields,
 	onDeleteFileClick,
-	onOptionMatch,
 	selectedField,
 	uploadFile,
 	...props
@@ -27,23 +26,44 @@ export const LinkedFields = ({
 	const [errors, setErrors] = useState({});
 
 	const onChange = (err, value, name) => {
+		console.log('changing field', err, value, name);
 		const data = Object.assign({}, newData, { [name]: value });
+		const errors = Object.assign({}, errors, { [name]: !!err });
 		const fieldIndex = fields.findIndex(field => field.id === name);
 
-		for (let i = fieldIndex + 1; i < fields.length; i++) {
+		for (let i = fieldIndex + 1; i < fields.length && value !== ''; i++) {
 			data[fields[i].id] = '';
+			errors[fields[i].id] = true;
 		}
 
 		setNewData(data);
-		setErrors(Object.assign({}, errors, { [name]: !!err }));
+		setErrors(errors);
 	}
 
-	const onBlur = (err, value, name) => {
+	const onBlur = useCallback((err, value, name) => {
+		console.log('blurring field', err, value, name);
+		props.onBlur(Object.values(errors).includes(true), value, name);
+	}, [props.onBlur]);
+
+	const onOptionMatch = useCallback((value, name) => {
+		console.log('changing field', value, name);
+
+		const data = Object.assign({}, newData, { [name]: value });
+		const errors = Object.assign({}, errors, { [name]: !!err });
+		const fieldIndex = fields.findIndex(field => field.id === name);
+
+		for (let i = fieldIndex + 1; i < fields.length && value !== ''; i++) {
+			data[fields[i].id] = '';
+			errors[fields[i].id] = true;
+		}
+
+		setNewData(data);
+		setErrors(errors);
+
 		if (Object.values(errors).includes(true)) return;
 
-		//newData[name] = value;
-		//props.onBlur(rowId, name, value);
-	};
+		props.onOptionMatch(value, name);
+	}, [props.onOptionMatch]);
 
 	return (
 		<div className="linked-fields">
