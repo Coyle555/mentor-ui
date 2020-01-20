@@ -8,6 +8,7 @@ import { TableMain } from './components/Table';
 import { Loading } from './components/Loading';
 import { EditModal } from './components/EditModal';
 import InsertForm from 'insert-popup-form';
+import { cloneFieldsForEdit, initializeColumns } from './utils';
 
 import './styles.less';
 
@@ -18,19 +19,6 @@ const sortMap = {
 };
 
 const DEFAULT_PAGE = 1;
-
-function cloneFieldsForEdit(columns) {
-	const clonedColumns = cloneDeep(columns);
-
-	clonedColumns.forEach((col, i, arr) => {
-		if (!!col.link && !!col.link.to) {
-			arr[i - 1].linkNext = true;
-			col.linkPrev = true;
-		}
-	});
-
-	return clonedColumns;
-}
 
 // Table with filters to be rendered after data is loaded
 export class Table extends Component {
@@ -169,26 +157,6 @@ export class Table extends Component {
 			document.body.appendChild(this.el);
 		}
 
-		let columns = [];
-
-		cloneDeep(this.props.columns).forEach(col => {
-			if (Array.isArray(col)) {
-				const isRequired = col.some(c => c.required);
-
-				col.forEach((c, i, arr) => {
-					c.required = !!isRequired;
-					c.linkToNext = i < arr.length -1;
-					c.linkToPrev = i > 0;
-
-					columns.push(c);
-				});
-			} else {
-				columns.push(col);
-			}
-		});
-
-		console.log('initialized columns', columns);
-
 		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
 		// @insertMode(bool) - toggle for insertion mode of table
@@ -197,7 +165,7 @@ export class Table extends Component {
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
-			columns,
+			columns: initializeColumns(this.props.columns),
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
@@ -234,7 +202,7 @@ export class Table extends Component {
 		}
 
 		if (this.props.columns !== prevProps.columns) {
-			this.setState({ columns: cloneDeep(this.props.columns) });
+			this.setState({ columns: initializeColumns(this.props.columns) });
 		}
 	}
 
@@ -588,7 +556,7 @@ export class Table extends Component {
 	renderLayout = () => {
 		const { customClasses } = this.props;
 
-		let filterFields = cloneDeep(this.props.columns);
+		let filterFields = cloneDeep(this.state.columns);
 		filterFields = this.sortFilterFields(filterFields);
 
 		const HeaderComponent = (
@@ -723,7 +691,7 @@ export class Table extends Component {
 						: data
 					}
 					editMode={editMode}
-					fields={cloneFieldsForEdit(columns)}
+					fields={cloneDeep(columns)}
 					getRowName={getRowName}
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}
