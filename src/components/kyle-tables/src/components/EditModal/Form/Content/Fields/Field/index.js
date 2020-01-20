@@ -9,6 +9,7 @@ import { getMentorInput } from 'mentor-inputs';
 export const Field = ({
 	disabled,
 	fieldId,
+	onChange,
 	onDeleteFileClick,
 	options,
 	parse,
@@ -37,6 +38,7 @@ export const Field = ({
 		disabled,
 		name: fieldId,
 		onBlur,
+		onChange,
 		required,
 		type,
 		value

@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import { Field } from './Field';
+import { LinkedFields } from './LinkedFields';
 
 export const Fields = ({
 	data,
@@ -25,51 +26,82 @@ export const Fields = ({
 		}
 	}, [selectedField]);
 
+	const fieldsToRender = [];
+	let linkedFields = [];
+
+	fields.forEach((field, i, arr) => {
+		const fieldClasses = classNames({
+			'field': true,
+			'field-highlighted': field.label === selectedField
+		});
+
+		let disabled = field.updateable === false;
+
+		// collect all linked fields to be processed together
+		if (field.linkToNext || field.linkToPrev) {
+			linkedFields.push(field);
+		} else {
+			if (linkedFields.length > 0) {
+				fieldsToRender.push(
+					<LinkedFields
+						data={data}
+						fields={linkedFields}
+						onBlur={onBlur}
+						onDeleteFileClick={onDeleteFileClick}
+						onOptionMatch={onOptionMatch}
+						selectedField={selectedField}
+						uploadFile={uploadFile}
+					/>
+				);
+
+				linkedFields = [];
+			}
+
+			fieldsToRender.push(
+				<div
+					className={fieldClasses}
+					key={'field' + field.id}
+				>
+					<label>{field.label}</label>
+					{ field.updateable === false
+						&& <span className="cannot-update">
+							Field cannot be changed
+						</span>
+					}
+					<Field
+						{...field}
+						disabled={disabled}
+						fieldId={field.id}
+						onBlur={onBlur}
+						onDeleteFileClick={onDeleteFileClick}
+						onOptionMatch={onOptionMatch}
+						rowId={data.id}
+						uploadFile={uploadFile}
+						value={data[field.id]}
+					/>
+				</div>
+			);
+		}
+	});
+
+	// flush linked fields if they are at the end of the list of linked fields
+	if (linkedFields.length > 0) {
+		fieldsToRender.push(
+			<LinkedFields
+				data={data}
+				fields={linkedFields}
+				onBlur={onBlur}
+				onDeleteFileClick={onDeleteFileClick}
+				onOptionMatch={onOptionMatch}
+				selectedField={selectedField}
+				uploadFile={uploadFile}
+			/>
+		);
+	}
+
 	return (
 		<div ref={containerEl}>
-			{ fields.map((field, i, arr) => {
-				const fieldClasses = classNames({
-					'field': true,
-					'field-highlighted': field.label === selectedField,
-					'field-link-to-next': !!field.linkToNext,
-					'field-link-to-prev': !!field.linkToPrev,
-				});
-
-				let disabled = field.updateable === false;
-
-				if (field.linkToPrev) {
-					const prevVal = data[arr[i - 1].id];
-
-					disabled = prevVal === ''
-						|| prevVal === undefined
-						|| prevVal === null;
-				}
-
-				return (
-					<div
-						className={fieldClasses}
-						key={'field' + field.id}
-					>
-						<label>{field.label}</label>
-						{ field.updateable === false
-							&& <span className="cannot-update">
-								Field cannot be changed
-							</span>
-						}
-						<Field
-							{...field}
-							disabled={disabled}
-							fieldId={field.id}
-							onBlur={onBlur}
-							onDeleteFileClick={onDeleteFileClick}
-							onOptionMatch={onOptionMatch}
-							rowId={data.id}
-							value={data[field.id]}
-							uploadFile={uploadFile}
-						/>
-					</div>
-				);
-			})}
+			{ fieldsToRender }
 		</div>
 	);
 };

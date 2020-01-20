@@ -51,7 +51,7 @@ test('Fields with a selected field', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Fields with a fields that link to each other', () => {
+test.skip('Fields with a fields that link to each other', () => {
 	const fields = [
 		{ id: 'foo', label: 'Foo', linkToNext: true }, 
 		{ id: 'bar', label: 'Bar', linkToPrev: true }
@@ -61,7 +61,7 @@ test('Fields with a fields that link to each other', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Fields with a field that links to a field with no value', () => {
+test.skip('Fields with a field that links to a field with no value', () => {
 	const fields = [
 		{ id: 'foo', label: 'Foo', linkToNext: true }, 
 		{ id: 'bar', label: 'Bar', linkToPrev: true }
@@ -72,7 +72,7 @@ test('Fields with a field that links to a field with no value', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Fields with a field that links to a field with empty string value', () => {
+test.skip('Fields with a field that links to a field with empty string value', () => {
 	const fields = [
 		{ id: 'foo', label: 'Foo', linkToNext: true }, 
 		{ id: 'bar', label: 'Bar', linkToPrev: true }
@@ -83,7 +83,7 @@ test('Fields with a field that links to a field with empty string value', () => 
 	expect(tree).toMatchSnapshot();
 });
 
-test('Fields with a field that links to a field with undefined value', () => {
+test.skip('Fields with a field that links to a field with undefined value', () => {
 	const fields = [
 		{ id: 'foo', label: 'Foo', linkToNext: true }, 
 		{ id: 'bar', label: 'Bar', linkToPrev: true }
