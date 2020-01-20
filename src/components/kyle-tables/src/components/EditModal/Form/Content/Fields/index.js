@@ -26,6 +26,7 @@ export const Fields = ({
 	}, [selectedField]);
 
 	const onBlur = useCallback((error, value, name) => {
+		console.log('blurring field', error, value, name);
 		if (error) return;
 
 		props.onBlur(data.id, name, value);

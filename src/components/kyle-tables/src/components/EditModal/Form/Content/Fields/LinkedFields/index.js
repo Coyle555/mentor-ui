@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -26,7 +26,6 @@ export const LinkedFields = ({
 	const [errors, setErrors] = useState({});
 
 	const onChange = (err, value, name) => {
-		console.log('changing field', err, value, name);
 		const data = Object.assign({}, newData, { [name]: value });
 		const errors = Object.assign({}, errors, { [name]: !!err });
 		const fieldIndex = fields.findIndex(field => field.id === name);
@@ -40,16 +39,17 @@ export const LinkedFields = ({
 		setErrors(errors);
 	}
 
-	const onBlur = useCallback((err, value, name) => {
-		console.log('blurring field', err, value, name);
-		props.onBlur(Object.values(errors).includes(true), value, name);
-	}, [props.onBlur]);
+	const onBlur = (err, value, name) => {
+		if (Object.values(errors).includes(true)) return;
 
-	const onOptionMatch = useCallback((value, name) => {
-		console.log('changing field', value, name);
+		Object.entries(newData).forEach(([fieldId, value]) => {
+			props.onBlur(false, value, fieldId);
+		});
+	};
 
+	const onOptionMatch = (value, name) => {
 		const data = Object.assign({}, newData, { [name]: value });
-		const errors = Object.assign({}, errors, { [name]: !!err });
+		const errors = Object.assign({}, errors, { [name]: false });
 		const fieldIndex = fields.findIndex(field => field.id === name);
 
 		for (let i = fieldIndex + 1; i < fields.length && value !== ''; i++) {
@@ -62,8 +62,10 @@ export const LinkedFields = ({
 
 		if (Object.values(errors).includes(true)) return;
 
-		props.onOptionMatch(value, name);
-	}, [props.onOptionMatch]);
+		Object.entries(data).forEach(([fieldId, value]) => {
+			props.onBlur(false, value, fieldId);
+		});
+	};
 
 	return (
 		<div className="linked-fields">
