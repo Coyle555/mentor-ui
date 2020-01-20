@@ -15,6 +15,8 @@ export const Fields = ({
 	const containerEl = useRef(null);
 
 	useLayoutEffect(() => {
+		if (!containerEl.current) return;
+
 		for (let i = 0; i < containerEl.current.children.length; i++) {
 			if (containerEl.current.children[i].className.includes('field-highlighted')) {
 				containerEl.current.children[i].scrollIntoView({ behavior: 'smooth' });
@@ -28,41 +30,25 @@ export const Fields = ({
 			{ fields.map((field, i, arr) => {
 				const fieldClasses = classNames({
 					'field': true,
-					'field-highlighted': field.label === selectedField
+					'field-highlighted': field.label === selectedField,
+					'field-link-to-next': !!field.linkToNext,
+					'field-link-to-prev': !!field.linkToPrev,
 				});
 
-				const style = {};
 				let disabled = field.updateable === false;
 
-				if (field.linkNext) {
-					style.borderLeft = '1px solid blue';
-					style.borderRight = '1px solid blue';
-					style.borderTop = '1px solid blue';
-					style.borderTopLeftRadius = '5px';
-					style.borderTopRightRadius = '5px';
-					style.background = 'cyan';
-				}
-
-				if (field.linkPrev) {
-					style.borderBottom = '1px solid blue';
-					style.borderLeft = '1px solid blue';
-					style.borderRight = '1px solid blue';
-					style.borderBottomLeftRadius = '5px';
-					style.borderBottomRightRadius = '5px';
-					style.background = 'cyan';
-
+				if (field.linkToPrev) {
 					const prevVal = data[arr[i - 1].id];
 
-					if (prevVal === '' || prevVal === undefined || prevVal === null) {
-						disabled = true;
-					}
+					disabled = prevVal === ''
+						|| prevVal === undefined
+						|| prevVal === null;
 				}
 
 				return (
 					<div
 						className={fieldClasses}
 						key={'field' + field.id}
-						style={style}
 					>
 						<label>{field.label}</label>
 						{ field.updateable === false
