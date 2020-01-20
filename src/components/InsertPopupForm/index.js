@@ -101,14 +101,17 @@ export default class InsertForm extends Component {
 	initializeInsertForm = () => {
 		const { formFields, initInsertData } = this.props;
 
-		// initial insertion data to load into the form
-		this.insertData = Object.keys(initInsertData).reduce((acc, key) => {
-			acc[key] = initInsertData[key] !== null && initInsertData[key] !== undefined
-				? initInsertData[key]
-				: '';
+		if (typeof initInsertData === 'object' && !!initInsertData) {
+			// initial insertion data to load into the form
+			this.insertData = Object.keys(initInsertData).reduce((acc, key) => {
+				acc[key] = initInsertData[key] !== null && initInsertData[key] !== undefined
+					? initInsertData[key]
+					: '';
 
-			return acc;
-		}, {});
+				return acc;
+			}, {});
+		}
+
 		const newFormModel = [];
 		const newFieldsWithError = {};
 		const newSteps = [];
@@ -341,12 +344,14 @@ export default class InsertForm extends Component {
 			this.insertData[field] = '';
 		});
 
-		Object.keys(initInsertData).forEach(field => {
-			this.insertData[field] = initInsertData[field] !== null 
-				&& initInsertData[field] !== undefined
-					? initInsertData[field]
-					: '';
-		});
+		if (typeof initInsertData === 'object' && !!initInsertData) {
+			Object.keys(initInsertData).forEach(field => {
+				this.insertData[field] = initInsertData[field] !== null 
+					&& initInsertData[field] !== undefined
+						? initInsertData[field]
+						: '';
+			});
+		}
 
 		this.setState({
 			fieldIndex: newIndex,

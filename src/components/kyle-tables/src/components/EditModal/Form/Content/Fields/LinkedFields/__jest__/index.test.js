@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkedFields } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -52,16 +52,19 @@ describe.only('Behavior where original field changes the linked field value', ()
 		expect(container.querySelector('input[name="linkedField"]').disabled).toEqual(true);
 	});
 
-	test('Linked fields are editable if the original field has a value', () => {
+	test('Linked fields are editable if the original field has a value', async () => {
 		const data = { id: 'data-id', origField: '' };
-		const { container } = render(<LinkedFields data={data} fields={fields} />);
+		const { container, debug } = render(<LinkedFields data={data} fields={fields} />);
 
 		fireEvent.change(
-			container.querySelector('input[name="linkedField"]'),
+			container.querySelector('input[name="origField"]'),
 			{ target: { value: 'foo' } }
 		);
 
-		expect(container.querySelector('input[name="linkedField"]').disabled).toEqual(false);
+		debug();
+
+		expect(container.querySelector('input[name="linkedField"]').disabled)
+			.toEqual(false);
 	});
 
 	test('Linked fields are cleared if the original field value changes', () => {

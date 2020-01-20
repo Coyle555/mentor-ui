@@ -30,6 +30,7 @@ const columns = [
 		label: 'String',
 		id: 'string',
 		type: 'string',
+		required: true
 	},
 	[{
 		label: 'Multiline',

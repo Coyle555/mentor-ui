@@ -130,7 +130,7 @@ export class Table extends Component {
 		formFields: null,
 		getRowName: null,
 		id: '',
-		initInsertData: null,
+		initInsertData: {},
 		insertCb: null,
 		multipleInsertion: true,
 		onRowSelect: null,

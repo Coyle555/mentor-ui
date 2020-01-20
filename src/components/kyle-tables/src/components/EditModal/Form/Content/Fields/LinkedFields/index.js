@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,16 +7,36 @@ import { Field } from '../Field';
 export const LinkedFields = ({
 	data,
 	fields,
-	onBlur,
 	onDeleteFileClick,
 	onOptionMatch,
 	selectedField,
-	uploadFile
+	uploadFile,
+	...props
 }) => {
+	// updates get fired only when all fields are valid and the user blurs from the
+	// linked fields
+	const [newData, setNewData] = useState(() => (
+		fields.reduce((acc, field) => {
+			acc[field.id] = data[field.id] !== undefined && data[field.id] !== null
+				? data[field.id]
+				: '';
 
-	const onChange = (err, val, name) => {
+			return acc;
+		}, {})
+	));
+	const [errors, setErrors] = useState({});
 
+	const onChange = (err, value, name) => {
+		setNewData(Object.assign({}, newData, { [name]: value }));
+		setErrors(Object.assign({}, errors, { [name]: err }));
 	}
+
+	const onBlur = (err, value, name) => {
+		if (err) return;
+
+		newData[name] = value;
+		//props.onBlur(rowId, name, value);
+	};
 
 	return (
 		<div className="linked-fields">
@@ -29,12 +49,10 @@ export const LinkedFields = ({
 				let disabled = field.updateable === false;
 
 				if (i > 0) {
-					const prevVal = data[arr[i - 1].id];
-
-					disabled = prevVal === ''
-						|| prevVal === undefined
-						|| prevVal === null;
+					const prevVal = arr[i - 1].id;
+					disabled = newData[prevVal] === '';
 				}
+				console.log('disabling field', field.id, disabled);
 
 				return (
 					<div
