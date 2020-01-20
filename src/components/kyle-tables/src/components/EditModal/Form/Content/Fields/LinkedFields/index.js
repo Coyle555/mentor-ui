@@ -27,14 +27,21 @@ export const LinkedFields = ({
 	const [errors, setErrors] = useState({});
 
 	const onChange = (err, value, name) => {
-		setNewData(Object.assign({}, newData, { [name]: value }));
-		setErrors(Object.assign({}, errors, { [name]: err }));
+		const data = Object.assign({}, newData, { [name]: value });
+		const fieldIndex = fields.findIndex(field => field.id === name);
+
+		for (let i = fieldIndex + 1; i < fields.length; i++) {
+			data[fields[i].id] = '';
+		}
+
+		setNewData(data);
+		setErrors(Object.assign({}, errors, { [name]: !!err }));
 	}
 
 	const onBlur = (err, value, name) => {
-		if (err) return;
+		if (Object.values(errors).includes(true)) return;
 
-		newData[name] = value;
+		//newData[name] = value;
 		//props.onBlur(rowId, name, value);
 	};
 
@@ -52,7 +59,6 @@ export const LinkedFields = ({
 					const prevVal = arr[i - 1].id;
 					disabled = newData[prevVal] === '';
 				}
-				console.log('disabling field', field.id, disabled);
 
 				return (
 					<div
@@ -75,7 +81,7 @@ export const LinkedFields = ({
 							onOptionMatch={onOptionMatch}
 							rowId={data.id}
 							uploadFile={uploadFile}
-							value={data[field.id]}
+							value={newData[field.id]}
 						/>
 					</div>
 				);

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import { Field } from './Field';
@@ -7,11 +7,10 @@ import { LinkedFields } from './LinkedFields';
 export const Fields = ({
 	data,
 	fields,
-	onBlur,
 	onDeleteFileClick,
-	onOptionMatch,
 	selectedField,
-	uploadFile
+	uploadFile,
+	...props
 }) => {
 	const containerEl = useRef(null);
 
@@ -25,6 +24,16 @@ export const Fields = ({
 			}
 		}
 	}, [selectedField]);
+
+	const onBlur = useCallback((error, value, name) => {
+		if (error) return;
+
+		props.onBlur(data.id, name, value);
+	}, [data]);
+
+	const onOptionMatch = useCallback((value, name) => {
+		props.onOptionMatch(data.id, name, value);
+	}, [data]);
 
 	const fieldsToRender = [];
 	let linkedFields = [];
@@ -84,7 +93,7 @@ export const Fields = ({
 		}
 	});
 
-	// flush linked fields if they are at the end of the list of linked fields
+	// flush linked fields if they are at the end of the list of fields
 	if (linkedFields.length > 0) {
 		fieldsToRender.push(
 			<LinkedFields

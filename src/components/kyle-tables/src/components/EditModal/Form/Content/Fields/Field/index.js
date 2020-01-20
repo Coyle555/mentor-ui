@@ -9,8 +9,10 @@ import { getMentorInput } from 'mentor-inputs';
 export const Field = ({
 	disabled,
 	fieldId,
+	onBlur,
 	onChange,
 	onDeleteFileClick,
+	onOptionMatch,
 	options,
 	parse,
 	parseMatchedValue,
@@ -22,16 +24,6 @@ export const Field = ({
 	...props
 }) => {
 	type = Array.isArray(options) && type !== 'listfilter' ? 'select' : type;
-
-	const onBlur = useCallback((error, value, name) => {
-		if (error) return;
-
-		props.onBlur(rowId, name, value);
-	});
-
-	const onOptionMatch = useCallback((value, name) => {
-		props.onOptionMatch(rowId, name, value);
-	});
 
 	let Input;
 	let inputProps = {
@@ -70,7 +62,7 @@ export const Field = ({
 			<ColorField
 				{...inputProps}
 				fieldId={fieldId}
-				onColorChange={props.onBlur}
+				onColorChange={onBlur}
 				rowId={rowId}
 			/>
 		);
