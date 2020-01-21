@@ -287,7 +287,7 @@ export class ListFilter extends Component {
 
 				this.onMatch(value);
 
-			} else if (typeof onChange === 'function') {
+			} else if (typeof onChange === 'function' && value !== this.lastMatchedVal) {
 				onChange(this.state.hasError, value, name);
 			}
 		});
@@ -409,7 +409,7 @@ export class ListFilter extends Component {
 				this.onMatch(value);
 
 			// otherwise it was just a change event w/ no match
-			} else if (typeof onChange === 'function') {
+			} else if (typeof onChange === 'function' && value !== this.lastMatchedVal) {
 				onChange(this.state.hasError, value, name);
 			}
 		});

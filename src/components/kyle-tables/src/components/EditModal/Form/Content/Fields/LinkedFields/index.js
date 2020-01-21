@@ -13,6 +13,7 @@ export const LinkedFields = ({
 	...props
 }) => {
 	const containerEl = useRef(null);
+	const allRequired = useRef(fields.some(field => !!field.required));
 
 	// updates get fired only when all fields are valid and the user blurs from the
 	// linked fields
@@ -42,10 +43,13 @@ export const LinkedFields = ({
 		const data = Object.assign({}, newData, { [name]: value });
 		const errors = Object.assign({}, errors, { [name]: !!err });
 		const fieldIndex = fields.findIndex(field => field.id === name);
+		const required = fields[fieldIndex].required;
 
-		for (let i = fieldIndex + 1; i < fields.length && value !== ''; i++) {
-			data[fields[i].id] = '';
-			errors[fields[i].id] = true;
+		if (value !== '' || (!value && required)) {
+			for (let i = fieldIndex + 1; i < fields.length; i++) {
+				data[fields[i].id] = '';
+				errors[fields[i].id] = true;
+			}
 		}
 
 		setNewData(data);
@@ -79,8 +83,6 @@ export const LinkedFields = ({
 			props.onBlur(false, value, fieldId);
 		});
 	};
-
-	console.log('loaded linked field data', newData);
 
 	return (
 		<div
@@ -121,7 +123,7 @@ export const LinkedFields = ({
 							onChange={onChange}
 							onDeleteFileClick={onDeleteFileClick}
 							onOptionMatch={onOptionMatch}
-							required={required || field.required}
+							required={required || allRequired.current}
 							rowId={data.id}
 							uploadFile={uploadFile}
 							value={newData[field.id]}

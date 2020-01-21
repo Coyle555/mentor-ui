@@ -15,7 +15,7 @@ export function hasError(value, required, customValidators) {
 				if (typeof validity === 'string') {
 					return validity;
 				} else if (!validator(value)) {
-					return true;
+					return 'An error occurred';
 				}
 			}
 		}

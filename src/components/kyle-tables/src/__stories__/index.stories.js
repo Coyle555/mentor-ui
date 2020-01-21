@@ -97,7 +97,8 @@ const columns = [
 			{ id: 'baz', name: 'Baz' }
 		]),
 		parse: val => !!val && typeof val ==='object' ? val.name : val,
-		parseMatchedValue: val => val.id
+		required: true
+		//parseMatchedValue: val => val.id
 	},
 	{
 		label: 'Options',

@@ -35,7 +35,6 @@ const SelectInput = ({
 			setCurrentValue(value);
 			setError(hasError(value, required, validate));
 		}
-
 	}, [value]);
 
 	/// as soon as the input ref is attached to the node
@@ -44,12 +43,13 @@ const SelectInput = ({
 	useEffect(() => {
 		if (!inputRef.current) return;
 
-		const err = setError(hasError(currentValue, required, validate));
+		const err = hasError(currentValue, required, validate);
+		setError(err);
 
 		if (typeof err === 'string') {
 			inputRef.current.setCustomValidity(err);
 		}
-	}, [inputRef.current]);
+	});
 
 	const onBlur = useCallback(evt => {
 		if (typeof props.onBlur !== 'function') return;
@@ -73,7 +73,8 @@ const SelectInput = ({
 		const newValue = evt.target.value;
 		setCurrentValue(newValue);
 
-		const error = hasError(newValue, required, validate, evt.target);
+		const error = hasError(newValue, required, validate);
+		console.log('changing', error);
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
@@ -98,7 +99,7 @@ const SelectInput = ({
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
-		'mui-mi-input-field-has-error': error
+		'mui-mi-input-field-has-error': !!error
 	});
 
 	return (
