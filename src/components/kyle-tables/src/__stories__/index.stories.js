@@ -96,7 +96,8 @@ const columns = [
 			{ id: 'bar', name: 'Bar' },
 			{ id: 'baz', name: 'Baz' }
 		]),
-		parse: val => !!val && typeof val ==='object' ? val.name : val
+		parse: val => !!val && typeof val ==='object' ? val.name : val,
+		parseMatchedValue: val => val.id
 	},
 	{
 		label: 'Options',
@@ -124,6 +125,7 @@ const data = [
 		datetime: '2019-09-05 17:04:41.2350000',
 		float: 13.5,
 		id: 'row1',
+		listfilterfunc: { id: 'bar', name: 'Bar' },
 		num: 3,
 		string: 'Test desc',
 		options: 'Option2',

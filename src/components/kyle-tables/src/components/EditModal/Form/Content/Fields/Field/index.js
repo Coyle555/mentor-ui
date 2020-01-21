@@ -75,7 +75,6 @@ export const Field = ({
 
 			inputProps.options = options;
 			inputProps.parse = parse;
-			inputProps.parseMatchedValue = parseMatchedValue;
 
 		} else if (type === 'listfilter') {
 
@@ -83,7 +82,6 @@ export const Field = ({
 			inputProps.onMatch = onOptionMatch;
 			inputProps.options = options;
 			inputProps.parse = parse;
-			inputProps.parseMatchedValue = parseMatchedValue;
 
 		} else if (type === 'date' || type === 'datetime') {
 

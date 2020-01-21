@@ -26,13 +26,24 @@ export const Fields = ({
 	}, [selectedField]);
 
 	const onBlur = useCallback((error, value, name) => {
-		console.log('blurring field', error, value, name);
 		if (error) return;
+
+		const field = fields.find(field => field.id === name);
+
+		if (typeof field.parseMatchedValue === 'function') {
+			value = field.parseMatchedValue(value);
+		}
 
 		props.onBlur(data.id, name, value);
 	}, [data]);
 
 	const onOptionMatch = useCallback((value, name) => {
+		const field = fields.find(field => field.id === name);
+
+		if (typeof field.parseMatchedValue === 'function') {
+			value = field.parseMatchedValue(value);
+		}
+
 		props.onOptionMatch(data.id, name, value);
 	}, [data]);
 

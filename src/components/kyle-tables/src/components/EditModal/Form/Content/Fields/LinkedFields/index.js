@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,6 +12,8 @@ export const LinkedFields = ({
 	uploadFile,
 	...props
 }) => {
+	const containerEl = useRef(null);
+
 	// updates get fired only when all fields are valid and the user blurs from the
 	// linked fields
 	const [newData, setNewData] = useState(() => (
@@ -24,6 +26,17 @@ export const LinkedFields = ({
 		}, {})
 	));
 	const [errors, setErrors] = useState({});
+
+	useLayoutEffect(() => {
+		if (!containerEl.current) return;
+
+		for (let i = 0; i < containerEl.current.children.length; i++) {
+			if (containerEl.current.children[i].className.includes('field-highlighted')) {
+				containerEl.current.children[i].scrollIntoView({ behavior: 'smooth' });
+				break;
+			}
+		}
+	}, [selectedField]);
 
 	const onChange = (err, value, name) => {
 		const data = Object.assign({}, newData, { [name]: value });
@@ -67,8 +80,13 @@ export const LinkedFields = ({
 		});
 	};
 
+	console.log('loaded linked field data', newData);
+
 	return (
-		<div className="linked-fields">
+		<div
+			className="linked-fields"
+			ref={containerEl}
+		>
 			{ fields.map((field, i, arr) => {
 				const fieldClasses = classNames({
 					'field': true,
@@ -76,10 +94,12 @@ export const LinkedFields = ({
 				});
 
 				let disabled = field.updateable === false;
+				let required;
 
 				if (i > 0) {
 					const prevVal = arr[i - 1].id;
 					disabled = newData[prevVal] === '';
+					required = newData[prevVal] !== '';
 				}
 
 				return (
@@ -101,6 +121,7 @@ export const LinkedFields = ({
 							onChange={onChange}
 							onDeleteFileClick={onDeleteFileClick}
 							onOptionMatch={onOptionMatch}
+							required={required || field.required}
 							rowId={data.id}
 							uploadFile={uploadFile}
 							value={newData[field.id]}
