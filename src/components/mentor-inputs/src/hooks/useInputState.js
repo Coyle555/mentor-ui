@@ -51,7 +51,7 @@ export const useInputState = (props = {}) => {
 		if (typeof err === 'string') {
 			inputRef.current.setCustomValidity(err);
 		}
-	});
+	}, [inputRef.current, currentValue, required, validate]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,

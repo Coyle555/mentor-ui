@@ -26,25 +26,25 @@ const columns = [
 		type: 'float',
 		display: false
 	},
-	{
+	[{
 		label: 'String',
 		id: 'string',
 		type: 'string',
-		required: true
+		//required: true
 	},
-	[{
+	{
 		label: 'Multiline',
 		id: 'multiline',
 		type: 'multiline',
 		display: false,
-	},
+	}],
 	{
 		label: 'Email',
 		id: 'email',
 		type: 'email',
 		display: false,
 		onLink: () => {}
-	}],
+	},
 	{
 		label: 'Money',
 		id: 'money',
@@ -129,6 +129,7 @@ const data = [
 		listfilterfunc: { id: 'bar', name: 'Bar' },
 		num: 3,
 		string: 'Test desc',
+		multiline: 'multi test',
 		options: 'Option2',
 		file: IMAGE,
 		img: IMAGE,

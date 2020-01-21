@@ -35,7 +35,7 @@ export const Fields = ({
 		}
 
 		props.onBlur(data.id, name, value);
-	}, [data]);
+	}, [data, props.onBlur]);
 
 	const onOptionMatch = useCallback((value, name) => {
 		const field = fields.find(field => field.id === name);
@@ -45,7 +45,7 @@ export const Fields = ({
 		}
 
 		props.onOptionMatch(data.id, name, value);
-	}, [data]);
+	}, [data, props.onOptionMatch]);
 
 	const fieldsToRender = [];
 	let linkedFields = [];
@@ -67,6 +67,7 @@ export const Fields = ({
 					<LinkedFields
 						data={data}
 						fields={linkedFields}
+						key={'linkedfields' + i}
 						onBlur={onBlur}
 						onDeleteFileClick={onDeleteFileClick}
 						onOptionMatch={onOptionMatch}
@@ -111,6 +112,7 @@ export const Fields = ({
 			<LinkedFields
 				data={data}
 				fields={linkedFields}
+				key="linkedFieldFlush"
 				onBlur={onBlur}
 				onDeleteFileClick={onDeleteFileClick}
 				onOptionMatch={onOptionMatch}

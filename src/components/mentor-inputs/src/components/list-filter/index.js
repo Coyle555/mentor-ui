@@ -78,6 +78,7 @@ export class ListFilter extends Component {
 			: options;
 
 		this.lastMatchedVal = '';
+		this.initialLoadComplete = false;
 		this.rawOptions = this.props.options;
 
 		// @focused: true when the input box is focused; false otherwise
@@ -121,8 +122,7 @@ export class ListFilter extends Component {
 
 		this.setState({
 			hasError,
-			options: newOptions,
-			value
+			options: newOptions
 		});
 	}
 
@@ -168,8 +168,7 @@ export class ListFilter extends Component {
 				value
 			});
 		// new list of options were passed in
-		} else if (this.props.options !== nextProps.options
-				&& typeof this.props.options !== 'function') {
+		} else if (this.props.options !== nextProps.options && typeof this.props.options !== 'function') {
 			const { required } = this.props;
 			const { value } = this.state;
 
@@ -271,7 +270,7 @@ export class ListFilter extends Component {
 	}
 
 	loadFilterOptions = (value, newOptions) => {
-		const { name, onChange, onMatch, required } = this.props;
+		const { name, onChange, onMatch, parse, required } = this.props;
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -287,9 +286,11 @@ export class ListFilter extends Component {
 
 				this.onMatch(value);
 
-			} else if (typeof onChange === 'function' && value !== this.lastMatchedVal) {
+			} else if (typeof onChange === 'function' && this.initialLoadComplete) {
 				onChange(this.state.hasError, value, name);
 			}
+
+			this.initialLoadComplete = true;
 		});
 	}
 
@@ -409,7 +410,7 @@ export class ListFilter extends Component {
 				this.onMatch(value);
 
 			// otherwise it was just a change event w/ no match
-			} else if (typeof onChange === 'function' && value !== this.lastMatchedVal) {
+			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			}
 		});

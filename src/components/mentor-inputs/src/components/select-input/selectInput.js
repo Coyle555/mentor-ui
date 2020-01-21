@@ -49,7 +49,7 @@ const SelectInput = ({
 		if (typeof err === 'string') {
 			inputRef.current.setCustomValidity(err);
 		}
-	});
+	}, [inputRef.current, currentValue, required, validate]);
 
 	const onBlur = useCallback(evt => {
 		if (typeof props.onBlur !== 'function') return;
@@ -67,14 +67,13 @@ const SelectInput = ({
 
 			props.onBlur(error, actualValue, props.name, evt);
 		}
-	});
+	}, [parse, parseMatchedValue, props.name, props.onBlur]);
 
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;
 		setCurrentValue(newValue);
 
 		const error = hasError(newValue, required, validate);
-		console.log('changing', error);
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
@@ -94,7 +93,7 @@ const SelectInput = ({
 
 			props.onChange(error, actualValue, props.name, evt);
 		}
-	});
+	}, [inputRef.current, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,

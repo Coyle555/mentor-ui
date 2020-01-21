@@ -45,7 +45,8 @@ export const LinkedFields = ({
 		const fieldIndex = fields.findIndex(field => field.id === name);
 		const required = fields[fieldIndex].required;
 
-		if (value !== '' || (!value && required)) {
+		if (value !== '' || (value === '' && required)) {
+			console.log('valid change hit', value);
 			for (let i = fieldIndex + 1; i < fields.length; i++) {
 				data[fields[i].id] = '';
 				errors[fields[i].id] = true;
@@ -69,10 +70,12 @@ export const LinkedFields = ({
 		const errors = Object.assign({}, errors, { [name]: false });
 		const fieldIndex = fields.findIndex(field => field.id === name);
 
-		for (let i = fieldIndex + 1; i < fields.length && value !== ''; i++) {
+		for (let i = fieldIndex + 1; i < fields.length; i++) {
 			data[fields[i].id] = '';
 			errors[fields[i].id] = true;
 		}
+		
+		console.log('matching data', data);
 
 		setNewData(data);
 		setErrors(errors);
@@ -99,9 +102,10 @@ export const LinkedFields = ({
 				let required;
 
 				if (i > 0) {
-					const prevVal = arr[i - 1].id;
-					disabled = newData[prevVal] === '';
-					required = newData[prevVal] !== '';
+					const prevVal = newData[arr[i - 1].id];
+					console.log('prev val', prevVal, prevVal === '');
+					disabled = prevVal === '';
+					required = prevVal !== '';
 				}
 
 				return (
