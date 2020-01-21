@@ -30,6 +30,7 @@ const columns = [
 		label: 'String',
 		id: 'string',
 		type: 'string',
+		updateable: false
 		//required: true
 	},
 	{

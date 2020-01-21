@@ -14,6 +14,7 @@ export const LinkedFields = ({
 }) => {
 	const containerEl = useRef(null);
 	const allRequired = useRef(fields.some(field => !!field.required));
+	const notUpdateable = useRef(fields.some(field => field.updateable === false));
 
 	// updates get fired only when all fields are valid and the user blurs from the
 	// linked fields
@@ -46,7 +47,6 @@ export const LinkedFields = ({
 		const required = fields[fieldIndex].required;
 
 		if (value !== '' || (value === '' && required)) {
-			console.log('valid change hit', value);
 			for (let i = fieldIndex + 1; i < fields.length; i++) {
 				data[fields[i].id] = '';
 				errors[fields[i].id] = true;
@@ -75,8 +75,6 @@ export const LinkedFields = ({
 			errors[fields[i].id] = true;
 		}
 		
-		console.log('matching data', data);
-
 		setNewData(data);
 		setErrors(errors);
 
@@ -103,7 +101,6 @@ export const LinkedFields = ({
 
 				if (i > 0) {
 					const prevVal = newData[arr[i - 1].id];
-					console.log('prev val', prevVal, prevVal === '');
 					disabled = prevVal === '';
 					required = prevVal !== '';
 				}
@@ -114,14 +111,15 @@ export const LinkedFields = ({
 						key={'field' + field.id}
 					>
 						<label>{field.label}</label>
-						{ field.updateable === false
+						<i className="fal fa-link fa-xs linked" />
+						{ notUpdateable.current 
 							&& <span className="cannot-update">
 								Field cannot be changed
 							</span>
 						}
 						<Field
 							{...field}
-							disabled={disabled}
+							disabled={notUpdateable.current || disabled}
 							fieldId={field.id}
 							onBlur={onBlur}
 							onChange={onChange}

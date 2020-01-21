@@ -79,7 +79,7 @@ export class ListFilter extends Component {
 
 		this.lastMatchedVal = '';
 		this.initialLoadComplete = false;
-		this.rawOptions = this.props.options;
+		this.rawOptions = options;
 
 		// @focused: true when the input box is focused; false otherwise
 		// @hasError: true when the list filter has an error due to a 
@@ -139,6 +139,7 @@ export class ListFilter extends Component {
 
 			if (typeof this.props.options === 'function') {
 				this.lastMatchedVal = value;
+				this.initialLoadComplete = false;
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
 				});
