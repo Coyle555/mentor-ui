@@ -116,6 +116,10 @@ exports[`Linking fields Render regular links on mount 1`] = `
                 >
                   Text Input 1
                 </div>
+                <i
+                  className="far fa-link fa-lg stepper-link"
+                  title="Linked"
+                />
                 <div
                   className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
                 />
@@ -279,6 +283,10 @@ exports[`Linking fields Render required links on mount 1`] = `
                 >
                   Text Input 1
                 </div>
+                <i
+                  className="far fa-link fa-lg stepper-link"
+                  title="Linked"
+                />
                 <div
                   className="stepper-step-right-bar stepper-bar-link-next stepper-bar-default"
                 />

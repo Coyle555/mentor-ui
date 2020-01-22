@@ -335,6 +335,10 @@ exports[`Step that links to next step 1`] = `
   <div
     className="stepper-step-title stepper-default-title"
   />
+  <i
+    className="far fa-link fa-lg stepper-link"
+    title="Linked"
+  />
   <div
     className="stepper-step-right-bar stepper-bar-link-next"
   />

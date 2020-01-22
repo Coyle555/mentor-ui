@@ -8,7 +8,7 @@ import { TableMain } from './components/Table';
 import { Loading } from './components/Loading';
 import { EditModal } from './components/EditModal';
 import InsertForm from 'insert-popup-form';
-import { cloneFieldsForEdit, initializeColumns } from './utils';
+import { initializeColumns } from './utils';
 
 import './styles.less';
 

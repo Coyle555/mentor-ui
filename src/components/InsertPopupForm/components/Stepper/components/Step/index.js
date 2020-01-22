@@ -88,6 +88,8 @@ export class Step extends Component {
 				{ hasPrevStep && 
 					<div className={leftBarClasses} />
 				}
+				{ step.linkNext
+					&& <i className="far fa-link fa-lg stepper-link" title="Linked" /> }
 				{ hasNextStep && 
 					<div className={rightBarClasses} />
 				}

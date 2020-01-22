@@ -111,7 +111,7 @@ export const LinkedFields = ({
 						key={'field' + field.id}
 					>
 						<label>{field.label}</label>
-						<i className="fal fa-link fa-xs linked" />
+						<i className="far fa-link fa-xs linked" title="Linked" />
 						{ notUpdateable.current 
 							&& <span className="cannot-update">
 								Field cannot be changed

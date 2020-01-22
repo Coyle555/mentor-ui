@@ -11,7 +11,7 @@ const sortAscendingIcon = <i className="fas fa-sort-up" />;
 export const TableHeaderRow = ({
 	allowSelection,
 	allRowsSelected,
-	cells,
+	columns,
 	customClasses,
 	expandable,
 	rowButtons,
@@ -52,20 +52,21 @@ export const TableHeaderRow = ({
 					_onRowSelectAll={_onRowSelectAll}
 				/>
 			}
-			{ cells.map((cell, i) => (
+			{ columns.map((col, i, arr) => (
 				<TableHeaderCell
 					customClasses={customClasses}
-					id={cell.id}
-					key={cell.label}
+					id={col.id}
+					key={col.label}
+					link={col.linkToNext || col.linkToPrev}
 					onClick={_onSort}
-					sort={sort.id === cell.id
+					sort={sort.id === col.id
 						? sort.ascending
 							? 'ascending'
 							: 'descending'
 						: null
 					}
-					title={cell.label}
-					type={cell.type}
+					title={col.label}
+					type={col.type}
 				/>
 			))}
 		</tr>
@@ -75,7 +76,7 @@ export const TableHeaderRow = ({
 TableHeaderRow.propTypes = {
 	allRowsSelected: PropTypes.bool,
 	allowSelection: PropTypes.bool,
-	cells: PropTypes.arrayOf(PropTypes.object).isRequired,
+	columns: PropTypes.arrayOf(PropTypes.object).isRequired,
 	customClasses: PropTypes.object,
 	expandable: PropTypes.bool,
 	rowButtons: PropTypes.arrayOf(PropTypes.object),
@@ -88,7 +89,7 @@ TableHeaderRow.propTypes = {
 };
 
 TableHeaderRow.defaultProps = {
-	cells: [],
+	columns: [],
 	customClasses: {},
 	rowButtons: [],
 	sort: {}
