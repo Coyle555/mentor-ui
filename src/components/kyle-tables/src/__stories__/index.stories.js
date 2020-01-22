@@ -98,13 +98,24 @@ const columns = [
 			{ id: 'baz', name: 'Baz' }
 		]),
 		parse: val => !!val && typeof val ==='object' ? val.name : val,
-		required: true
-		//parseMatchedValue: val => val.id
+		required: true,
+		parseMatchedValue: val => `parsed value before return to id -- ${val.id}`
 	},
 	{
 		label: 'Options',
 		id: 'options',
-		options: ['Option1', 'Option2', 'Option3']
+		options: ['Option1', 'Option2', 'Option3'],
+		onLink: (val) => {
+			if (val.id === 'foo') {
+				return { options: ['Foo1', 'Foo2', 'Foo3'] };
+			}
+			
+			if (val.id === 'bar') {
+				return { options: ['Bar1', 'Bar2', 'Bar3'] };
+			}
+
+			return {};
+		}
 	}],
 	{
 		label: 'Link to File',

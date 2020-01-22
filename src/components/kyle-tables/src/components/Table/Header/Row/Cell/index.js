@@ -56,7 +56,7 @@ export class TableHeaderCell extends Component {
 				>
 					{title}
 					{ !!link
-						&& <i className="far fa-link fa-sm linked" title="Linked" />
+						&& <i className="far fa-link fa-xs linked" title="Linked" />
 					}
 					{ sort && SORT_ICONS[sort] }
 				</span>

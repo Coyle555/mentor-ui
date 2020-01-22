@@ -31,9 +31,10 @@ export const Field = ({
 		name: fieldId,
 		onBlur,
 		onChange,
-		required,
 		type,
-		value
+		value,
+		...props.inputProps,
+		required,
 	};
 
 	if (type === 'image') {
@@ -89,7 +90,13 @@ export const Field = ({
 
 		}
 
-		Input = <Input {...inputProps} />;
+		Input = (
+			<Input
+				{...inputProps}
+				{...props.inputProps}
+				required={required}
+			/>
+		);
 	}
 
 	return Input;
@@ -98,6 +105,7 @@ export const Field = ({
 Field.propTypes = {
 	disabled: PropTypes.bool,
 	fieldId: PropTypes.string,
+	inputProps: PropTypes.object,
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
 	onOptionMatch: PropTypes.func,
@@ -110,4 +118,5 @@ Field.propTypes = {
 };
 
 Field.defaultProps = {
+	inputProps: {}
 };

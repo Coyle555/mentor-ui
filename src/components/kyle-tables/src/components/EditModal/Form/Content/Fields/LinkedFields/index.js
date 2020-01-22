@@ -97,12 +97,19 @@ export const LinkedFields = ({
 				});
 
 				let disabled = field.updateable === false;
+				let inputProps = {};
 				let required;
 
 				if (i > 0) {
 					const prevVal = newData[arr[i - 1].id];
-					disabled = prevVal === '';
+					disabled = prevVal === ''
+						|| !!errors[arr[i - 1].id]
+						|| typeof field.onLink !== 'function';
 					required = prevVal !== '';
+
+					if (typeof field.onLink === 'function' && prevVal !== '') {
+						inputProps = field.onLink(prevVal);
+					}
 				}
 
 				return (
@@ -121,6 +128,7 @@ export const LinkedFields = ({
 							{...field}
 							disabled={notUpdateable.current || disabled}
 							fieldId={field.id}
+							inputProps={inputProps}
 							onBlur={onBlur}
 							onChange={onChange}
 							onDeleteFileClick={onDeleteFileClick}
