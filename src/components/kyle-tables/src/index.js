@@ -148,14 +148,9 @@ export class Table extends Component {
 
 		this.lastSelectedRowIndexStack = [];
 
-		this.el = document.getElementById('mui-table-edit-root');
-
-		if (!this.el) {
-			this.el = document.createElement('div');
-			this.el.id = 'mui-table-edit-root';
-			this.el.className = 'table-edit-mode';
-			document.body.appendChild(this.el);
-		}
+		this.el = document.createElement('div');
+		this.el.className = 'table-edit-mode';
+		document.body.appendChild(this.el);
 
 		// @columns{[object]) - list of fields describing the columns in the table
 		// @editMode(bool) - toggle for edit mode of table
@@ -696,6 +691,7 @@ export class Table extends Component {
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}
 					onOptionMatch={this._onOptionMatch}
+					portalNode={this.el}
 					sections={editSections}
 					uploadFile={this._uploadFile}
 				/>
