@@ -5,16 +5,7 @@ import classNames from 'classnames';
 import SelectInput from '../select-input/selectInput';
 
 const OPTIONS = [true, false];
-
-const parse = (val => {
-	if (val === true) {
-		return 'True'
-	}
-	
-	if (val === false) {
-		return 'False'
-	}
-});
+const parse = (val => val ? 'Yes' : 'No');
 
 const BooleanInput = ({ value, ...props }) => {
 
