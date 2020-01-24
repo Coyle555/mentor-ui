@@ -43,6 +43,7 @@ export class ListFilter extends Component {
 		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 		parse: PropTypes.func,
 		parseMatchedValue: PropTypes.func,
+		placeholder: PropTypes.string,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
 		value: PropTypes.any
@@ -63,6 +64,7 @@ export class ListFilter extends Component {
 		options: [],
 		parse: null,
 		parseMatchedValue: null,
+		placeholder: 'Select a value',
 		required: false,
 		validation: null,
 		value: ''
@@ -550,7 +552,6 @@ export class ListFilter extends Component {
 					onFocus={this.onFocus}
 					onKeyDown={this.onKeyDown}
 					onKeyUp={this.onKeyUp}
-					placeholder="Select an option"
 					ref={ref => this.inputRef = ref}
 					type="text"
 					value={value}

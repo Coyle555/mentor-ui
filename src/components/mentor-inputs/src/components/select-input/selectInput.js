@@ -149,7 +149,7 @@ SelectInput.propTypes = {
 
 SelectInput.defaultProps = {
 	options: [],
-	placeholder: 'Select an option',
+	placeholder: 'Select a value',
 	value: ''
 };
 
