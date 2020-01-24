@@ -15,6 +15,11 @@ const columns = [
 		display: false
 	},
 	{
+		label: 'Boolean',
+		id: 'bool',
+		type: 'boolean',
+	},
+	{
 		label: 'Number',
 		id: 'num',
 		type: 'integer',
@@ -135,6 +140,7 @@ const columns = [
 
 const data = [
 	{
+		bool: true,
 		datetime: '2019-09-05 17:04:41.2350000',
 		float: 13.5,
 		id: 'row1',
@@ -150,6 +156,7 @@ const data = [
 		customColumnId: 'custom 1'
 	},
 	{
+		bool: false,
 		date: '2019-09-05',
 		float: 5,
 		id: 'row2',

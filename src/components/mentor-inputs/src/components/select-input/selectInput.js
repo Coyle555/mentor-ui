@@ -58,16 +58,13 @@ const SelectInput = ({
 			lastVal.current = currentValue;
 
 			let actualValue = typeof parse === 'function'
-				? options.find(opt => parse(opt) === currentValue)
-				: currentValue;
-
-			if (typeof parseMatchedValue === 'function') {
-				actualValue = parseMatchedValue(actualValue);
-			}
+				&& typeof parseMatchedValue !== 'function'
+					? options.find(opt => parse(opt) === currentValue)
+					: currentValue;
 
 			props.onBlur(error, actualValue, props.name, evt);
 		}
-	}, [parse, parseMatchedValue, props.name, props.onBlur]);
+	}, [currentValue, options, parse, parseMatchedValue, props.name, props.onBlur]);
 
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;
@@ -93,7 +90,7 @@ const SelectInput = ({
 
 			props.onChange(error, actualValue, props.name, evt);
 		}
-	}, [inputRef.current, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
+	}, [inputRef.current, options, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
