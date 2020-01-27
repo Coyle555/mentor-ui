@@ -31,7 +31,7 @@ export class StructuredQuery extends Component {
 		fields: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
-			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+			options: PropTypes.arrayOf(PropTypes.any),
 			parse: PropTypes.func,
 			type: PropTypes.string
 		})),

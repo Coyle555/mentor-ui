@@ -151,7 +151,6 @@ exports[`Handling key events Navigating up and down the menu Going up/down keyst
 exports[`Rendering states of typeahead Custom class render 1`] = `
 <div
   className="filter-input-group"
-  onClick={[Function]}
 >
   <div
     className="filter-category"
@@ -165,6 +164,7 @@ exports[`Rendering states of typeahead Custom class render 1`] = `
     <input
       className="foo"
       onChange={[Function]}
+      onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
       value=""
@@ -176,7 +176,6 @@ exports[`Rendering states of typeahead Custom class render 1`] = `
 exports[`Rendering states of typeahead Default render 1`] = `
 <div
   className="filter-input-group"
-  onClick={[Function]}
 >
   <div
     className="filter-category"
@@ -190,6 +189,7 @@ exports[`Rendering states of typeahead Default render 1`] = `
     <input
       className=""
       onChange={[Function]}
+      onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
       value=""
@@ -201,7 +201,6 @@ exports[`Rendering states of typeahead Default render 1`] = `
 exports[`Rendering states of typeahead Label render 1`] = `
 <div
   className="filter-input-group"
-  onClick={[Function]}
 >
   <div
     className="filter-category"
@@ -217,6 +216,7 @@ exports[`Rendering states of typeahead Label render 1`] = `
     <input
       className=""
       onChange={[Function]}
+      onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
       value=""
@@ -228,7 +228,6 @@ exports[`Rendering states of typeahead Label render 1`] = `
 exports[`Rendering states of typeahead Operator label render 1`] = `
 <div
   className="filter-input-group"
-  onClick={[Function]}
 >
   <div
     className="filter-category"
@@ -244,38 +243,11 @@ exports[`Rendering states of typeahead Operator label render 1`] = `
     <input
       className=""
       onChange={[Function]}
+      onFocus={[Function]}
       onKeyDown={[Function]}
       type="text"
       value=""
     />
-  </div>
-</div>
-`;
-
-exports[`Typeahead with a list of options Datepicker instead of a list of options 1`] = `
-<div>
-  <div
-    class="filter-input-group"
-  >
-    <div
-      class="filter-category"
-    />
-    <div
-      class="filter-operator"
-    />
-    <div
-      class="typeahead"
-    >
-      <input
-        class=""
-        type="text"
-        value=""
-      />
-      <div>
-        Datepicker: 
-        {}
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -296,133 +268,10 @@ exports[`Typeahead with a list of options Empty list of options 1`] = `
     >
       <input
         class=""
+        data-testid="typeahead"
         type="text"
         value=""
       />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Typeahead with a list of options List of string options 1`] = `
-<div>
-  <div
-    class="filter-input-group"
-  >
-    <div
-      class="filter-category"
-    />
-    <div
-      class="filter-operator"
-    />
-    <div
-      class="typeahead"
-    >
-      <input
-        class=""
-        type="text"
-        value=""
-      />
-      <div
-        class="typeahead-selector"
-      >
-        <div
-          class="header"
-        >
-          Field
-        </div>
-        <ul>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              foo
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              bar
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              baz
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Typeahead with a list of options Options that are generated from a function 1`] = `
-<div>
-  <div
-    class="filter-input-group"
-  >
-    <div
-      class="filter-category"
-    />
-    <div
-      class="filter-operator"
-    />
-    <div
-      class="typeahead"
-    >
-      <input
-        class=""
-        type="text"
-        value=""
-      />
-      <div
-        class="typeahead-selector"
-      >
-        <div
-          class="header"
-        >
-          Field
-        </div>
-        <ul>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              1
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              2
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              3
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </div>

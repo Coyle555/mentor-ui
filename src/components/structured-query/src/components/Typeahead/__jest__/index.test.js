@@ -49,103 +49,65 @@ describe('Rendering states of typeahead', () => {
 describe('Typeahead with a list of options', () => {
 	
 	test('List of string options', async () => {
-		const { container } = await render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
+		const { debug, getByTestId, queryByText } = render(
+			<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
-		fireEvent.click(container.querySelector('input'));
-		expect(container).toMatchSnapshot();
+		fireEvent.focus(getByTestId('typeahead'));
+
+		await wait(() => {
+			expect(queryByText('foo')).toBeTruthy();
+			expect(queryByText('bar')).toBeTruthy();
+			expect(queryByText('baz')).toBeTruthy();
+		});
 	});
 
-	test('Initialized raw options', async () => {
-		const tree = renderer.create(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
-
-		expect(tree.getInstance().rawOptions).toEqual(['foo', 'bar', 'baz']);
-	});
-
-	test('Initialized raw options function with parse', async () => {
+	test('Initialize options with parse', async () => {
 		const parse = jest.fn(val => val.name);
-		const options = jest.fn(() => Promise.resolve([{ name: 'foo' }, { name: 'bar' }]));
+		const options = [{ name: 'foo' }, { name: 'bar' }];
 		const tree = renderer.create(<TypeaheadComponent options={options} parse={parse} />);
 
 		await wait(() => {
 			expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
 			expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
-			expect(tree.getInstance().rawOptions).toEqual([{ name: 'foo' }, { name: 'bar' }]);
 		});
 	});
 
-	test('List of options with a parse func', async () => {
-		const parse = jest.fn(val => val.name);
-		const { container } = await render(
-			<TypeaheadComponent
-				options={[
-					{ name: 'foo' },
-					{ name: 'bar' },
-					{ name: 'baz' }
-				]}
-				parse={parse}
-			/>
+	test('New list of options passed down', async () => {
+		const { getByTestId, getByText, queryByText, rerender } = await render(
+			<TypeaheadComponent options={['a', 'b', 'c']} />
 		);
 
-		fireEvent.click(container.querySelector('input'));
-		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
-		expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
-		expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
-	});
-
-	test('Options that are generated from a function', async () => {
-		const options = jest.fn(() => (['1', '2', '3']));
-		const { container } = await render(<TypeaheadComponent options={options} />);
-
-		fireEvent.click(container.querySelector('input'));
-		expect(options).toHaveBeenCalledWith('');
-		expect(container).toMatchSnapshot();
-	});
-
-	test('Options that are generated from a function and a parse func', async () => {
-		const parse = jest.fn(val => val.name);
-		const options = jest.fn(() => ([{ name: '1' }, { name: '2' }, { name: '3' }]));
-		const { container } = await render(<TypeaheadComponent options={options} parse={parse} />);
-
-		fireEvent.click(container.querySelector('input'));
-		expect(options).toHaveBeenCalledWith('');
-		expect(parse).toHaveBeenNthCalledWith(1, { name: '1' });
-		expect(parse).toHaveBeenNthCalledWith(2, { name: '2' });
-		expect(parse).toHaveBeenNthCalledWith(3, { name: '3' });
-	});
-
-	test('New list of options passed down', async () => {
-		const {
-			container,
-			getByText,
-			queryByText,
-			rerender
-		} = await render(<TypeaheadComponent options={['a', 'b', 'c']} />);
-
-		fireEvent.click(container.querySelector('input'));
+		fireEvent.focus(getByTestId('typeahead'));
 		expect(getByText('a')).toBeTruthy();
 
 		await rerender(<TypeaheadComponent options={['d', 'e', 'f']} />);
-		fireEvent.click(container.querySelector('input'));
 		expect(queryByText('a')).toBeFalsy();
 		expect(getByText('d')).toBeTruthy();
+		expect(getByText('e')).toBeTruthy();
+		expect(getByText('f')).toBeTruthy();
 	});
 
 	test('Empty list of options', async () => {
 		const { container } = await render(<TypeaheadComponent options={[]} />);
 
-		fireEvent.click(container.querySelector('input'));
+		fireEvent.focus(container.querySelector('input'));
 		expect(container).toMatchSnapshot();
 	});
 
-	test('Datepicker instead of a list of options', async () => {
-		const { container } = await render(<TypeaheadComponent datatype="datetime" />);
+	test('Datepicker datetime format', async () => {
+		const { queryByText } = await render(<TypeaheadComponent datatype="datetime" />);
 
-		fireEvent.click(container.querySelector('input'));
-		expect(container).toMatchSnapshot();
+		expect(queryByText(/Datepicker:/)).toBeTruthy();
+	});
+
+	test('Datepicker date format', async () => {
+		const { queryByText } = await render(<TypeaheadComponent datatype="date" />);
+
+		expect(queryByText(/Datepicker:/)).toBeTruthy();
 	});
 });
 
-describe('Sending new options to the typeahead', () => {
+describe.only('Sending new options to the typeahead', () => {
 	test('New list of options with a parse func', async () => {
 		const parse = jest.fn(val => val.name);
 		const { container, rerender } = await render(
