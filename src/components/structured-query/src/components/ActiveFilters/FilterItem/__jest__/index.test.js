@@ -22,7 +22,7 @@ test('Filter item with child object', () => {
 test('Filter item of type datetime', () => {
 	const tree = renderer.create(
 		<FilterItem type="datetime">
-			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22' }}
+			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22 23:30:00' }}
 		</FilterItem>
 	).toJSON();
 

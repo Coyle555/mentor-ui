@@ -51,7 +51,7 @@ const SelectInput = ({
 		}
 	}, [inputRef.current, currentValue, required, validate]);
 
-	const onBlur = useCallback(evt => {
+	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
 		
 		if (currentValue !== lastVal.current) {
@@ -64,7 +64,7 @@ const SelectInput = ({
 
 			props.onBlur(error, actualValue, props.name, evt);
 		}
-	}, [currentValue, options, parse, parseMatchedValue, props.name, props.onBlur]);
+	};
 
 	const onChange = useCallback(evt => {
 		const newValue = evt.target.value;

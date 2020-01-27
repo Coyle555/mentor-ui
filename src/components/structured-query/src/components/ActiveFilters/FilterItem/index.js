@@ -34,11 +34,11 @@ export class FilterItem extends Component {
 
 		} else if (this.props.type === 'datetime') {
 
-			return moment(val, moment.ISO_8601).format(DATETIME_FORMAT);
+			return moment.utc(val).local().format(DATETIME_FORMAT);
 
 		} else if (this.props.type === 'date') {
 
-			return moment(val, moment.ISO_8601).format(DATE_FORMAT);
+			return new moment.utc(val).format(DATE_FORMAT);
 
 		}
 

@@ -27,7 +27,7 @@ export class TypeaheadComponent extends Component {
 		header: PropTypes.string,
 		onKeyDown: PropTypes.func,
 		operator: PropTypes.string,
-		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+		options: PropTypes.array,
 		parse: PropTypes.func
 	}
 
@@ -76,16 +76,10 @@ export class TypeaheadComponent extends Component {
 	}
 
 	getOptions = (options) => {
-		if (!options || (!Array.isArray(options) && typeof options !== 'function')) {
-			return;
-		}
+		if (!options || !Array.isArray(options)) return;
 
 		new Promise((resolve, reject) => {
-			if (typeof options === 'function') {
-				resolve(options(''));
-			} else {
-				resolve(options);
-			}
+			resolve(options);
 		}).then(initOptions => {
 			this.rawOptions = initOptions;
 
@@ -133,7 +127,7 @@ export class TypeaheadComponent extends Component {
 		const { options } = this.props;
 		let value = event.target.value;
 
-		if (typeof options === 'function' || options.length > 0) {
+		if (options.length > 0) {
 			this.updateVisibleOptions(value);
 		} else {
 			this.setState({ value });
@@ -143,34 +137,16 @@ export class TypeaheadComponent extends Component {
 	updateVisibleOptions = (value) => {
 		const { options, parse } = this.props;
 
-		new Promise((resolve, reject) => {
-			this.loadingOptions = true;
+		const visibleOptions = fuzzy.filter(
+			value,
+			options,
+			{ extract: typeof parse === 'function' ? parse : undefined }
+		).map(res => res.string);
 
-			if (typeof options === 'function') {
-				resolve(options(value));
-			} else {
-				resolve(fuzzy.filter(
-					value,
-					options,
-					{ extract: typeof parse === 'function' ? parse : undefined }
-				).map(res => res.string));
-			}
-		}).then(visibleOptions => {
-			if (typeof options === 'function') {
-				this.rawOptions = visibleOptions;
-
-				if (typeof parse === 'function') {
-					visibleOptions = visibleOptions.map(val => parse(val));
-				}
-			}
-
-			this.setState({
-				selectedOptionIndex: -1,
-				value,
-				visibleOptions
-			}, () => {
-				this.loadingOptions = false;
-			});
+		this.setState({
+			selectedOptionIndex: -1,
+			value,
+			visibleOptions
 		});
 	}
 
