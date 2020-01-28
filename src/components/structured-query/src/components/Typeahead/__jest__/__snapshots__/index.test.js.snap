@@ -16,47 +16,10 @@ exports[`Handling key events Navigating up and down the menu Going down keystrok
     >
       <input
         class=""
+        data-testid="typeahead"
         type="text"
         value=""
       />
-      <div
-        class="typeahead-selector"
-      >
-        <div
-          class="header"
-        >
-          Field
-        </div>
-        <ul>
-          <li
-            class="hover"
-          >
-            <a
-              class=""
-            >
-              foo
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              bar
-            </a>
-          </li>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              baz
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </div>
@@ -78,6 +41,7 @@ exports[`Handling key events Navigating up and down the menu Going up keystroke 
     >
       <input
         class=""
+        data-testid="typeahead"
         type="text"
         value=""
       />
@@ -140,6 +104,7 @@ exports[`Handling key events Navigating up and down the menu Going up/down keyst
     >
       <input
         class=""
+        data-testid="typeahead"
         type="text"
         value=""
       />
@@ -163,6 +128,7 @@ exports[`Rendering states of typeahead Custom class render 1`] = `
   >
     <input
       className="foo"
+      data-testid="typeahead"
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -188,6 +154,7 @@ exports[`Rendering states of typeahead Default render 1`] = `
   >
     <input
       className=""
+      data-testid="typeahead"
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -215,6 +182,7 @@ exports[`Rendering states of typeahead Label render 1`] = `
   >
     <input
       className=""
+      data-testid="typeahead"
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -242,6 +210,7 @@ exports[`Rendering states of typeahead Operator label render 1`] = `
   >
     <input
       className=""
+      data-testid="typeahead"
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -277,50 +246,6 @@ exports[`Typeahead with a list of options Empty list of options 1`] = `
 </div>
 `;
 
-exports[`Updating the list of options as a user types Filtering a list of options with a function 1`] = `
-<div>
-  <div
-    class="filter-input-group"
-  >
-    <div
-      class="filter-category"
-    />
-    <div
-      class="filter-operator"
-    />
-    <div
-      class="typeahead"
-    >
-      <input
-        class=""
-        type="text"
-        value="b"
-      />
-      <div
-        class="typeahead-selector"
-      >
-        <div
-          class="header"
-        >
-          Field
-        </div>
-        <ul>
-          <li
-            class=""
-          >
-            <a
-              class=""
-            >
-              banana
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Updating the list of options as a user types Filtering a list of string options 1`] = `
 <div>
   <div
@@ -337,6 +262,7 @@ exports[`Updating the list of options as a user types Filtering a list of string
     >
       <input
         class=""
+        data-testid="typeahead"
         type="text"
         value="b"
       />

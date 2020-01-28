@@ -72,21 +72,6 @@ describe('Typeahead with a list of options', () => {
 		});
 	});
 
-	test('New list of options passed down', async () => {
-		const { getByTestId, getByText, queryByText, rerender } = await render(
-			<TypeaheadComponent options={['a', 'b', 'c']} />
-		);
-
-		fireEvent.focus(getByTestId('typeahead'));
-		expect(getByText('a')).toBeTruthy();
-
-		await rerender(<TypeaheadComponent options={['d', 'e', 'f']} />);
-		expect(queryByText('a')).toBeFalsy();
-		expect(getByText('d')).toBeTruthy();
-		expect(getByText('e')).toBeTruthy();
-		expect(getByText('f')).toBeTruthy();
-	});
-
 	test('Empty list of options', async () => {
 		const { container } = await render(<TypeaheadComponent options={[]} />);
 
@@ -107,7 +92,22 @@ describe('Typeahead with a list of options', () => {
 	});
 });
 
-describe.only('Sending new options to the typeahead', () => {
+describe('Sending new options to the typeahead', () => {
+	test('New list of options passed down', async () => {
+		const { getByTestId, getByText, queryByText, rerender } = await render(
+			<TypeaheadComponent options={['a', 'b', 'c']} />
+		);
+
+		fireEvent.focus(getByTestId('typeahead'));
+		expect(getByText('a')).toBeTruthy();
+
+		await rerender(<TypeaheadComponent options={['d', 'e', 'f']} />);
+		expect(queryByText('a')).toBeFalsy();
+		expect(getByText('d')).toBeTruthy();
+		expect(getByText('e')).toBeTruthy();
+		expect(getByText('f')).toBeTruthy();
+	});
+
 	test('New list of options with a parse func', async () => {
 		const parse = jest.fn(val => val.name);
 		const { container, rerender } = await render(
@@ -121,69 +121,21 @@ describe.only('Sending new options to the typeahead', () => {
 			/>
 		);
 
-		fireEvent.click(container.querySelector('input'));
+		fireEvent.focus(container.querySelector('input'));
 		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
 		expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
 		expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
-	});
-
-	test('New list of options that are generated from a function and a parse func', async () => {
-		const parse = jest.fn(val => val.name);
-		const options = jest.fn(() => ([{ name: '1' }]));
-		const { container, debug, rerender } = await render(
-			<TypeaheadComponent options={options} parse={parse} />
-		);
-
-		await rerender(
-			<TypeaheadComponent
-				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
-				parse={parse}
-			/>
-		);
-
-		fireEvent.click(container.querySelector('input'));
-		expect(options).toHaveBeenCalledWith('');
-		expect(parse).toHaveBeenNthCalledWith(2, { name: 'foo' });
-		expect(parse).toHaveBeenNthCalledWith(3, { name: 'bar' });
-		expect(parse).toHaveBeenNthCalledWith(4, { name: 'baz' });
-	});
-
-	test('New raw options', async () => {
-		const parse = val => val.name;
-		const options = [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }];
-		const newOptions = [{ name: '1' }, { name: '2' }, { name: '3' }];
-		const tree = renderer.create(<TypeaheadComponent options={options} parse={parse} />);
-		tree.update(<TypeaheadComponent options={newOptions} parse={parse} />);
-
-		await wait(() => {
-			expect(tree.getInstance().rawOptions).toEqual([
-				{ name: '1' },
-				{ name: '2' },
-				{ name: '3' }
-			]);
-		});
-	});
-
-	test('New raw options with generated options', async () => {
-		const parse = val => val.name;
-		const newOptions = jest.fn(() => ([{ name: '1' }]));
-		const options = [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }];
-		const tree = renderer.create(<TypeaheadComponent options={options} parse={parse} />);
-		tree.update(<TypeaheadComponent options={newOptions} parse={parse} />);
-
-		await wait(() => {
-			expect(tree.getInstance().rawOptions).toEqual([{ name: '1' }]);
-		});
 	});
 });
 
 describe('Updating the list of options as a user types', () => {
 
 	test('Filtering a list of string options', async () => {
-		const { container, queryByText } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
+		const { container, getByTestId, queryByText } = render(
+			<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
-		fireEvent.click(container.querySelector('input'));
-		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
+		fireEvent.focus(getByTestId('typeahead'));
+		fireEvent.change(getByTestId('typeahead'), { target: { value: 'b' } });
 
 		await wait(() => {
 			expect(queryByText('foo')).toBeFalsy();
@@ -193,49 +145,25 @@ describe('Updating the list of options as a user types', () => {
 	});
 
 	test('Filtering a list of string options with a parse', async () => {
-		const parse = jest.fn(val => val === 'a' ? 'alpha' : val)
-		const { container, queryByText } = render(
-			<TypeaheadComponent options={['foo', 'bar', 'baz']} parse={parse} />
+		const parse = jest.fn(val => val.name);
+		const { container, getByTestId, queryByText } = render(
+			<TypeaheadComponent
+				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
+				parse={parse}
+			/>
 		);
 
-		fireEvent.click(container.querySelector('input'));
-		fireEvent.change(container.querySelector('input'), { target: { value: 'a' } });
+		fireEvent.focus(getByTestId('typeahead'));
+		fireEvent.change(getByTestId('typeahead'), { target: { value: 'f' } });
 
 		await wait(() => {
-			expect(parse).toHaveBeenNthCalledWith(4, 'foo');
-			expect(parse).toHaveBeenNthCalledWith(5, 'bar');
-			expect(parse).toHaveBeenNthCalledWith(6, 'baz');
-		});
-	});
-
-	test('Filtering a list of options with a function', async () => {
-		const options = jest.fn((val) => val === 'b' ? ['banana'] : ['apple']);
-
-		const { container, queryByText } = render(<TypeaheadComponent options={options} />);
-
-		fireEvent.click(container.querySelector('input'));
-		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
-
-		await wait(() => {
-			expect(queryByText('apple')).toBeFalsy();
-			expect(queryByText('banana')).toBeTruthy();
+			expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
+			expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
+			expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
 			expect(container.querySelector('ul').children.length).toBe(1);
-			expect(container).toMatchSnapshot();
-		});
-	});
-
-	test('Filtering a list of options with a function and a parse', async () => {
-		const parse = jest.fn(val => val.name);
-		const options = jest.fn(val => val === 'b' ? ['banana'] : ['apple']);
-		const { container, queryByText } = render(
-			<TypeaheadComponent options={options} parse={parse} />);
-
-		fireEvent.click(container.querySelector('input'));
-		fireEvent.change(container.querySelector('input'), { target: { value: 'b' } });
-
-		await wait(() => {
-			expect(parse).toHaveBeenNthCalledWith(1, 'apple');
-			expect(parse).toHaveBeenNthCalledWith(2, 'banana');
+			expect(queryByText('foo')).toBeTruthy();
+			expect(queryByText('bar')).toBeFalsy();
+			expect(queryByText('baz')).toBeFalsy();
 		});
 	});
 });
@@ -244,9 +172,10 @@ describe('Handling key events', () => {
 	
 	describe('Closing the menu with escape', () => {
 		test('Escape keystroke', async () => {
-			const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
+			const { container, getByTestId } = render(
+				<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
 				expect(container.querySelector('ul').children.length).toBe(3);
@@ -261,12 +190,13 @@ describe('Handling key events', () => {
 
 	describe('Navigating up and down the menu', () => {
 		test('Going down keystroke', async () => {
-			const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
+			const { container, getByTestId } = render(
+				<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.click(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.DOWN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
 
 				await wait(() => {
 					expect(container).toMatchSnapshot();
@@ -275,12 +205,13 @@ describe('Handling key events', () => {
 		});
 
 		test('Going up keystroke', async () => {
-			const { container } = render(<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
+			const { container, getByTestId } = render(
+				<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.UP });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
 
 				await wait(() => {
 					expect(container).toMatchSnapshot();
@@ -289,12 +220,12 @@ describe('Handling key events', () => {
 		});
 
 		test('Going up/down keystroke with no options', async () => {
-			const { container } = render(<TypeaheadComponent options={[]} />);
+			const { container, getByTestId } = render(<TypeaheadComponent options={[]} />);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.click(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.UP });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
 
 				await wait(() => {
 					expect(container).toMatchSnapshot();
@@ -306,17 +237,17 @@ describe('Handling key events', () => {
 	describe('Matching an option in the list', () => {
 		test('Enter keystroke on default option', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={['foo', 'bar', 'baz']}
 				/>
 			);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ENTER });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('foo');
@@ -325,14 +256,10 @@ describe('Handling key events', () => {
 		});
 
 		test('Enter keystroke on option function with a parse', async () => {
-			const options = jest.fn(() => Promise.resolve([
-				{ name: 'foo' },
-				{ name: 'bar' },
-				{ name: 'baz' }
-			]));
+			const options = [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }];
 			const parse = jest.fn(val => val.name);
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={options}
@@ -340,10 +267,10 @@ describe('Handling key events', () => {
 				/>
 			);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ENTER });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
 				await wait(() => {
 					expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
@@ -357,19 +284,19 @@ describe('Handling key events', () => {
 
 		test('Enter keystroke on a selected option', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={['foo', 'bar', 'baz']}
 				/>
 			);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ENTER });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('bar');
@@ -379,17 +306,17 @@ describe('Handling key events', () => {
 
 		test('Enter keystroke with no options', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={[]}
 				/>
 			);
 
-			fireEvent.change(container.querySelector('input'), { target: { value: 'test' } });
+			fireEvent.change(getByTestId('typeahead'), { target: { value: 'test' } });
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ENTER });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('test');
@@ -399,17 +326,17 @@ describe('Handling key events', () => {
 
 		test('Return keystroke on default option', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={['foo', 'bar', 'baz']}
 				/>
 			);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.RETURN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('foo');
@@ -419,19 +346,19 @@ describe('Handling key events', () => {
 
 		test('Enter keystroke on a selected option', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={['foo', 'bar', 'baz']}
 				/>
 			);
 
-			fireEvent.click(container.querySelector('input'));
+			fireEvent.focus(getByTestId('typeahead'));
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.RETURN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('bar');
@@ -441,44 +368,20 @@ describe('Handling key events', () => {
 
 		test('Return keystroke with no options', async () => {
 			const addTokenForValue = jest.fn();
-			const { container } = render(
+			const { getByTestId } = render(
 				<TypeaheadComponent
 					addTokenForValue={addTokenForValue}
 					options={[]}
 				/>
 			);
 
-			fireEvent.change(container.querySelector('input'), { target: { value: 'test' } });
+			fireEvent.change(getByTestId('typeahead'), { target: { value: 'test' } });
 
 			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.RETURN });
+				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('test');
-				});
-			});
-		});
-
-		test('Converting data type of a date w/ enter keystroke', async () => {
-			const date = '1995-12-17T05:00:00.000Z';
-			const addTokenForValue = jest.fn();
-			const { container } = render(
-				<TypeaheadComponent
-					addTokenForValue={addTokenForValue}
-					datatype="datetime"
-					options={[]}
-				/>
-			);
-
-			fireEvent.change(container.querySelector('input'), { target: { value: date } });
-
-			await wait(async () => {
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ENTER });
-
-				await wait(() => {
-					expect(addTokenForValue)
-						.toHaveBeenCalledWith(new Date(date)
-						.toISOString());
 				});
 			});
 		});
@@ -497,38 +400,6 @@ describe('Handling key events', () => {
 		instance.state.value = 'b';
 		instance._onKeyDown({ keyCode: 98 });
 		expect(onKeyDown).toHaveBeenCalledWith({ keyCode: 98 }, 'b');
-	});
-});
-
-describe('Date handling functionality', () => {
-
-	test('Handle date picker close', () => {
-		const instance = renderer.create(<TypeaheadComponent />).getInstance();
-
-		instance.state.focused = true;
-		instance.handleDatepickerClose({ stopPropagation: jest.fn() });
-		expect(instance.state.focused).toBe(false);
-	});
-
-	test('Clear date picker input', () => {
-		const instance = renderer.create(<TypeaheadComponent />).getInstance();
-
-		instance.state.value = 'test';
-		instance.clearDatepickerInput();
-		expect(instance.state.value).toBe('');
-	});
-
-	test('Save date picker input', () => {
-		const addTokenForValue = jest.fn();
-		const instance = renderer.create(
-			<TypeaheadComponent addTokenForValue={addTokenForValue} />
-		).getInstance();
-
-		instance.state.value = 'test';
-		instance.saveDatepickerValue();
-
-		expect(instance.state.value).toBe('');
-		expect(addTokenForValue).toHaveBeenCalledWith('test');
 	});
 });
 
