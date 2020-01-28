@@ -41,10 +41,6 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 		let labelType = _getFieldDataType(fields, token.id);
 
 		switch (labelType) {
-			case 'string':
-			case 'text':
-			case 'email':
-				return STRING_OPERATIONS;
 			case 'enumoptions':
 			case 'boolean':
 				return ENUM_OPERATIONS;
@@ -54,7 +50,7 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 			case 'date':
 				return NUM_DATE_OPERATIONS;
 			default:
-				return [];
+				return STRING_OPERATIONS;
 		}
 	} else {
 		return _getLabelOptions(fields, token.id);
