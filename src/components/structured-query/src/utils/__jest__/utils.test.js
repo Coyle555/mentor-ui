@@ -5,7 +5,7 @@ import {
 } from '../../constants';
 
 import {
-	_getLabelDataType,
+	_getFieldDataType,
 	_getLabelOptions,
 	_getHeader,
 	_getInputDatatype,
@@ -88,19 +88,19 @@ describe('Validate token utility function', () => {
 describe('Get label data type utility function', () => {
 
 	test('Enum options data type', () => {
-		expect(_getLabelDataType([{ id: 'foo', options: true }], 'foo')).toBe('enumoptions');
+		expect(_getFieldDataType([{ id: 'foo', options: [] }], 'foo')).toBe('enumoptions');
 	});
 
 	test('label data type', () => {
-		expect(_getLabelDataType([{ id: 'foo', type: 'string' }], 'foo')).toBe('string');
+		expect(_getFieldDataType([{ id: 'foo', type: 'string' }], 'foo')).toBe('string');
 	});
 
 	test('No data type attached to the option', () => {
-		expect(_getLabelDataType([{ id: 'foo' }], 'foo')).toBe('string');
+		expect(_getFieldDataType([{ id: 'foo' }], 'foo')).toBe('string');
 	});
 
 	test('label not found in list of options', () => {
-		expect(_getLabelDataType([{ id: 'foo' }], 'bar')).toBe('string');
+		expect(_getFieldDataType([{ id: 'foo' }], 'bar')).toBe('string');
 	});
 });
 

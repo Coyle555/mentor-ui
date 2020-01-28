@@ -38,7 +38,7 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 		return fields.map(field => field.label);
 
 	} else if (!token.operator) {
-		let labelType = _getLabelDataType(fields, token.id);
+		let labelType = _getFieldDataType(fields, token.id);
 
 		switch (labelType) {
 			case 'string':
@@ -64,17 +64,17 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 
 // Get the data type of a label
 // defaults to string if an error occurs
-export function	_getLabelDataType(fields = [], id) {
-	let label = fields.find(field => field.id === id);
+export function	_getFieldDataType(fields = [], id) {
+	let field = fields.find(field => field.id === id);
 
-	if (!label) {
+	if (!field) {
 		return 'string';
 	}
 
-	if (!!label.options) {
+	if (Array.isArray(field.options)) {
 		return 'enumoptions';
 	} else {
-		return label.type || 'string';
+		return field.type || 'string';
 	}
 }
 
@@ -86,7 +86,7 @@ export function _getLabelOptions(fields = [], id) {
 	if (!label) return [];
 	
 	// default case for boolean data types
-	if (label.type === 'boolean' && !label.options) {
+	if (label.type === 'boolean' && !Array.isArray(label.options)) {
 		return ['True', 'False'];
 	}
 
@@ -119,7 +119,7 @@ export function _getHeader(nextToken = {}) {
 // Renders to string if label and operator have been selected
 export function _getInputDatatype(token, fields) {
 	if (!!token.label && !!token.operator) {
-		return _getLabelDataType(fields, token.id);
+		return _getFieldDataType(fields, token.id);
 	}
 
 	return 'string';
