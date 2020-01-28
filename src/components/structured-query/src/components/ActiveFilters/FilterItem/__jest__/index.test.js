@@ -29,10 +29,30 @@ test('Filter item of type datetime', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('Filter item of type datetime with no value', () => {
+	const tree = renderer.create(
+		<FilterItem type="datetime">
+			{{ label: 'Foo', operator: 'Bar', value: '' }}
+		</FilterItem>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
 test('Filter item of type date', () => {
 	const tree = renderer.create(
 		<FilterItem type="date">
 			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22' }}
+		</FilterItem>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Filter item of type date with no value', () => {
+	const tree = renderer.create(
+		<FilterItem type="date">
+			{{ label: 'Foo', operator: 'Bar', value: '' }}
 		</FilterItem>
 	).toJSON();
 
