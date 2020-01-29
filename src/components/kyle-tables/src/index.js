@@ -554,7 +554,9 @@ export class Table extends Component {
 		let filterFields = this.state.columns.map(col => ({
 			id: col.id,
 			label: col.label,
-			options: col.options,
+			options: Array.isArray(col.options)
+				? col.options
+				: undefined,
 			type: col.type
 		}));
 		filterFields = this.sortFilterFields(filterFields);
