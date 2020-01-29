@@ -28,7 +28,6 @@ export class TypeaheadComponent extends Component {
 		onKeyDown: PropTypes.func,
 		operator: PropTypes.string,
 		options: PropTypes.arrayOf(PropTypes.any),
-		parse: PropTypes.func
 	}
 
 	static defaultProps = {
@@ -38,7 +37,6 @@ export class TypeaheadComponent extends Component {
 		header: 'Field',
 		onKeyDown: null,
 		options: [],
-		parse: null
 	}
 
 	constructor(props) {
@@ -78,10 +76,6 @@ export class TypeaheadComponent extends Component {
 
 		let visibleOptions = this.props.options.slice();
 
-		if (typeof this.props.parse === 'function') {
-			visibleOptions = visibleOptions.map(val => this.props.parse(val));
-		}
-
 		this.setState({ visibleOptions });
 	}
 
@@ -94,7 +88,7 @@ export class TypeaheadComponent extends Component {
 	// to refocus the user to the input, update the value in the input,
 	// and get the next list of options
 	_onOptionSelected = (option) => {
-		const { addTokenForValue, parse } = this.props;
+		const { addTokenForValue } = this.props;
 		// need to refocus on input box after selection
 		this.inputRef.focus();
 
@@ -108,10 +102,6 @@ export class TypeaheadComponent extends Component {
 			value: '',
 			visibleOptions: []
 		});
-
-		if (typeof parse === 'function') {
-			option = this.props.options.find(opt => parse(opt) === option);
-		}
 
 		addTokenForValue(option);
 	}
@@ -129,13 +119,11 @@ export class TypeaheadComponent extends Component {
 	}
 
 	updateVisibleOptions = (value) => {
-		const { options, parse } = this.props;
+		const { options } = this.props;
 
-		const visibleOptions = fuzzy.filter(
-			value,
-			options,
-			{ extract: typeof parse === 'function' ? parse : undefined }
-		).map(res => res.string);
+		const visibleOptions = fuzzy
+			.filter(value, options)
+			.map(res => res.string);
 
 		this.setState({
 			selectedOptionIndex: -1,

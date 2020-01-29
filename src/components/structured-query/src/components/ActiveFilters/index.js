@@ -4,7 +4,6 @@ import Tether from 'react-tether';
 import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 
-import { _getParseForOptions } from '../../utils/utils';
 import { FilterItem } from './FilterItem';
 
 export class ActiveFiltersComponent extends Component {
@@ -15,7 +14,6 @@ export class ActiveFiltersComponent extends Component {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-			parse: PropTypes.func,
 			type: PropTypes.string
 		})),
 		onRemove: PropTypes.func,
@@ -82,7 +80,6 @@ export class ActiveFiltersComponent extends Component {
 						<FilterItem
 							key={token.id + token.operator + token.value}
 							onRemove={onRemove}
-							parse={_getParseForOptions(fields, token)}
 							type={token.type}
 						>
 							{token}

@@ -10,7 +10,6 @@ import {
 	_getHeader,
 	_getInputDatatype,
 	_getOptionsForTypeahead,
-	_getParseForOptions,
 	_isDuplicateToken,
 	validateToken
 } from './utils/utils';
@@ -32,7 +31,6 @@ export class StructuredQuery extends Component {
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
 			options: PropTypes.arrayOf(PropTypes.any),
-			parse: PropTypes.func,
 			type: PropTypes.string
 		})),
 		exportSearch: PropTypes.func,
@@ -128,12 +126,11 @@ export class StructuredQuery extends Component {
 		}
 
 		const newToken = Object.assign({}, nextToken, { value });
-		const parse = _getParseForOptions(fields, nextToken);
 
 		// Else, we are attaching a value so we need to add the 
 		// next token to the list of all tokens
 		// We check first to make sure there are no duplicates
-		if (!_isDuplicateToken(searchTokens, newToken, parse)) {
+		if (!_isDuplicateToken(searchTokens, newToken)) {
 			this._addValueToNewToken(value);
 		}
 	}
@@ -288,7 +285,6 @@ export class StructuredQuery extends Component {
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
 					options={_getOptionsForTypeahead(fields, nextToken)}
-					parse={_getParseForOptions(fields, nextToken)}
 				/>
 				{/*<span className="input-group-addon right-addon">
 					<i className="far fa-search" />

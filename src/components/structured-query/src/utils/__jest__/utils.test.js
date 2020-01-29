@@ -11,7 +11,6 @@ import {
 	_getInputDatatype,
 	_isDuplicateToken,
 	_getOptionsForTypeahead,
-	_getParseForOptions,
 	validateToken
 } from '../utils';
 
@@ -236,7 +235,7 @@ describe('Get options for the typeahead utility function', () => {
 
 		test('Invalid type operators', () => {
 			expect(_getOptionsForTypeahead(options, { id: 'j', label: 'A' }))
-				.toEqual([]);
+				.toEqual(STRING_OPERATIONS);
 		});
 	});
 
@@ -271,69 +270,5 @@ describe('Is duplicate token utility function', () => {
 			tokens,
 			{ label: 'Bar', operator: 'equals', value: 'baz' }
 		)).toBe(false);
-	});
-
-	test('Duplicate token not found with an object value and parse', () => {
-		const parse = jest.fn(val => val.name);
-		const tokens = [{ label: 'Baz', operator: 'equals', value: { name: 'baz' } }];
-
-		expect(_isDuplicateToken(
-			tokens,
-			{ label: 'Baz', operator: 'equals', value: { name: 'foo' } },
-			parse
-		)).toBe(false);
-
-		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
-		expect(parse).toHaveBeenNthCalledWith(2, { name: 'baz' });
-	});
-	
-	test('Duplicate token found with an object value and parse', () => {
-		const parse = jest.fn(val => val.name);
-		const tokens = [{ label: 'Baz', operator: 'equals', value: { name: 'baz' } }];
-
-		expect(_isDuplicateToken(
-			tokens,
-			{ label: 'Baz', operator: 'equals', value: { name: 'baz' } },
-			parse
-		)).toBe(true);
-
-		expect(parse).toHaveBeenNthCalledWith(1, { name: 'baz' });
-		expect(parse).toHaveBeenNthCalledWith(2, { name: 'baz' });
-	});
-});
-
-describe('Getting the parse function for an options list', () => {
-	test('No fields', () => {
-		expect(_getParseForOptions(
-			[],
-			{ id: 'foo', label: 'Foo', operator: 'equals' })
-		).toBeNull();
-	});
-
-	test('Token with no id', () => {
-		expect(_getParseForOptions([], {})).toBeNull();
-	});
-
-	test('Token with no label', () => {
-		expect(_getParseForOptions([], { id: 'foo' })).toBeNull();
-	});
-
-	test('Token with no operator', () => {
-		expect(_getParseForOptions([], { id: 'foo', label: 'Foo' })).toBeNull();
-	});
-
-	test('Token with no parse', () => {
-		expect(_getParseForOptions(
-			[{ id: 'foo' }],
-			{ id: 'foo', label: 'Foo', operator: 'equals' })
-		).toBe(undefined);
-	});
-
-	test('Token with a parse', () => {
-		const parse = () => {}
-		expect(_getParseForOptions(
-			[{ id: 'foo', parse }],
-			{ id: 'foo', label: 'Foo', operator: 'equals' })
-		).toEqual(parse);
 	});
 });

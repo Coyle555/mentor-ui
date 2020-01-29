@@ -14,13 +14,11 @@ export class FilterItem extends Component {
 			value: PropTypes.any
 		}),
 		onRemove: PropTypes.func,
-		parse: PropTypes.func,
 		type: PropTypes.oneOf(['date', 'datetime'])
 	}
 
 	static defaultProps = {
 		children: {},
-		parse: null
 	}
 
 	onRemove = () => {
@@ -28,11 +26,7 @@ export class FilterItem extends Component {
 	}
 
 	renderValue = (val) => {
-		if (typeof this.props.parse === 'function') {
-
-			return this.props.parse(val);
-
-		} else if (this.props.type === 'datetime' && !!val) {
+		if (this.props.type === 'datetime' && !!val) {
 
 			return moment.utc(val).local().format(DATETIME_FORMAT);
 

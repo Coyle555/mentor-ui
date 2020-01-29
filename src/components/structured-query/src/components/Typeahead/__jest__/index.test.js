@@ -61,17 +61,6 @@ describe('Typeahead with a list of options', () => {
 		});
 	});
 
-	test('Initialize options with parse', async () => {
-		const parse = jest.fn(val => val.name);
-		const options = [{ name: 'foo' }, { name: 'bar' }];
-		const tree = renderer.create(<TypeaheadComponent options={options} parse={parse} />);
-
-		await wait(() => {
-			expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
-			expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
-		});
-	});
-
 	test('Empty list of options', async () => {
 		const { container } = await render(<TypeaheadComponent options={[]} />);
 
@@ -107,25 +96,6 @@ describe('Sending new options to the typeahead', () => {
 		expect(getByText('e')).toBeTruthy();
 		expect(getByText('f')).toBeTruthy();
 	});
-
-	test('New list of options with a parse func', async () => {
-		const parse = jest.fn(val => val.name);
-		const { container, rerender } = await render(
-			<TypeaheadComponent options={[]} parse={parse} />
-		);
-
-		await rerender(
-			<TypeaheadComponent
-				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
-				parse={parse}
-			/>
-		);
-
-		fireEvent.focus(container.querySelector('input'));
-		expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
-		expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
-		expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
-	});
 });
 
 describe('Updating the list of options as a user types', () => {
@@ -141,29 +111,6 @@ describe('Updating the list of options as a user types', () => {
 			expect(queryByText('foo')).toBeFalsy();
 			expect(container.querySelector('ul').children.length).toBe(2);
 			expect(container).toMatchSnapshot();
-		});
-	});
-
-	test('Filtering a list of string options with a parse', async () => {
-		const parse = jest.fn(val => val.name);
-		const { container, getByTestId, queryByText } = render(
-			<TypeaheadComponent
-				options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
-				parse={parse}
-			/>
-		);
-
-		fireEvent.focus(getByTestId('typeahead'));
-		fireEvent.change(getByTestId('typeahead'), { target: { value: 'f' } });
-
-		await wait(() => {
-			expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
-			expect(parse).toHaveBeenNthCalledWith(5, { name: 'bar' });
-			expect(parse).toHaveBeenNthCalledWith(6, { name: 'baz' });
-			expect(container.querySelector('ul').children.length).toBe(1);
-			expect(queryByText('foo')).toBeTruthy();
-			expect(queryByText('bar')).toBeFalsy();
-			expect(queryByText('baz')).toBeFalsy();
 		});
 	});
 });
@@ -251,33 +198,6 @@ describe('Handling key events', () => {
 
 				await wait(() => {
 					expect(addTokenForValue).toHaveBeenCalledWith('foo');
-				});
-			});
-		});
-
-		test('Enter keystroke on option function with a parse', async () => {
-			const options = [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }];
-			const parse = jest.fn(val => val.name);
-			const addTokenForValue = jest.fn();
-			const { getByTestId } = render(
-				<TypeaheadComponent
-					addTokenForValue={addTokenForValue}
-					options={options}
-					parse={parse}
-				/>
-			);
-
-			fireEvent.focus(getByTestId('typeahead'));
-
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
-
-				await wait(() => {
-					expect(parse).toHaveBeenNthCalledWith(1, { name: 'foo' });
-					expect(parse).toHaveBeenNthCalledWith(2, { name: 'bar' });
-					expect(parse).toHaveBeenNthCalledWith(3, { name: 'baz' });
-					expect(parse).toHaveBeenNthCalledWith(4, { name: 'foo' });
-					expect(addTokenForValue).toHaveBeenCalledWith({ name: 'foo' });
 				});
 			});
 		});

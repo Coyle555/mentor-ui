@@ -89,16 +89,6 @@ export function _getLabelOptions(fields = [], id) {
 	return label.options;
 }
 
-// get the parse functions for an options list if it exists
-export function _getParseForOptions(fields = [], token) {
-	if (fields.length === 0 || !token.id || !token.label || !token.operator) {
-		return null;
-	}
-
-	const field = fields.find(field => field.id === token.id);
-	return field.parse;
-}
-
 // gets the next header to display over the selectable list of options
 export function _getHeader(nextToken = {}) {
 	if (nextToken.label === '') {
@@ -122,19 +112,10 @@ export function _getInputDatatype(token, fields) {
 }
 
 // Check a token against the current list of tokens for duplicates
-export function _isDuplicateToken(tokens, newToken, parse) {
-	let newTokenValue = typeof parse === 'function'
-		? parse(newToken.value)
-		: newToken.value;
-	let tokenValue;
-
-	return tokens.some(token => {
-		tokenValue = typeof parse === 'function'
-			? parse(token.value)
-			: token.value;
-
-		return token.label === newToken.label &&
-			token.operator === newToken.operator &&
-			tokenValue === newTokenValue;
-	}, this);
+export function _isDuplicateToken(tokens, newToken) {
+	return tokens.some(token => (
+		token.label === newToken.label &&
+		token.operator === newToken.operator &&
+		token.value === newToken.value
+	), this);
 }

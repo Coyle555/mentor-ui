@@ -12,7 +12,14 @@ storiesOf('Structured Query', module)
 		const fields = [
 			{ id: 'foo', label: 'Foo', type: 'string' },
 			{ id: 'bar', label: 'Bar', type: 'string' },
-			{ id: 'baz', label: 'Baz', type: 'string' }
+			{ id: 'baz', label: 'Baz', type: 'string' },
+			{
+				id: 'opt',
+				label: 'Opt Test',
+				options: () => ([1, 2, 3, 4]),
+				type: 'listfilter',
+				utc: false
+			}
 		];
 
 		return (

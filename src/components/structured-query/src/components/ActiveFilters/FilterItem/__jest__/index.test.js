@@ -59,18 +59,6 @@ test('Filter item of type date with no value', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Filter item with a parse function', () => {
-	const parse = jest.fn(val => val.name);
-	const tree = renderer.create(
-		<FilterItem parse={parse}>
-			{{ label: 'Foo', operator: 'Bar', value: { name: 'bar' } }}
-		</FilterItem>
-	).toJSON();
-
-	expect(parse).toHaveBeenCalledWith({ name: 'bar' });
-	expect(tree).toMatchSnapshot();
-});
-
 test('On remove click callback', () => {
 	const tbody = document.createElement('tbody');
 	const onRemove = jest.fn();
