@@ -551,7 +551,12 @@ export class Table extends Component {
 	renderLayout = () => {
 		const { customClasses } = this.props;
 
-		let filterFields = cloneDeep(this.state.columns);
+		let filterFields = this.state.columns.map(col => ({
+			id: col.id,
+			label: col.label,
+			options: col.options,
+			type: col.type
+		}));
 		filterFields = this.sortFilterFields(filterFields);
 
 		const HeaderComponent = (
