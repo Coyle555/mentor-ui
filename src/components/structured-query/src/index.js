@@ -26,7 +26,13 @@ export class StructuredQuery extends Component {
 	}
 
 	static propTypes = {
-		customClasses: PropTypes.object,
+		customClasses: PropTypes.shape({
+			container: PropTypes.string,
+			input: PropTypes.string,
+			listAnchor: PropTypes.string,
+			listItem: PropTypes.string,
+			results: PropTypes.string
+		}),
 		fields: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,

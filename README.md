@@ -9,7 +9,6 @@ Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/me
 ### Components
 
 - [Button](./src/components/Button)
-- [DatePicker](./src/components/DatePicker)
 - [Error Page](./src/components/ErrorPage)
 - [Hierarchy](./src/components/Hierarchy)
 - [Inputs](./src/components/mentor-inputs)

@@ -8,7 +8,7 @@ Props | Type | Required | Description
 ----- | ---- | -------- | -----------
 [fields](#fields) | [Object] | **Yes** | Fields used for filter
 [customClasses](#customClasses) | Object | No | Custom classes that can be applied to components of the structured query
-exportSearch | Function | No | Callback when exporting applied tokens
+exportSearch | Function | No | Callback when exporting generated tokens
 initTokens | [Object] | No | Tokens used to initialize structured query. See [tokens](#tokens)
 onTokenAdd | Function | No | Callback used after a token is added. Callback receives [tokens](#tokens). Signature *([token]) => {}*
 onTokenRemove | Function | No | Callback used after a token is removed. Callback receives [tokens](#tokens). Signature *([token]) => {}*
@@ -32,3 +32,13 @@ Fields have the following shape:
 - **options**(*[string]*): List of options on an enumerated list of values.
 - **type**(*string*): Data type of the field. Defaults to text, but will render a datepicker when 
 the type is date or datetime
+
+### CustomClasses
+
+The following classes can be applied to the structured query
+
+- **container**(*string*): class name to apply to the structured query container
+- **input**(*string*): class name to apply to the input
+- **listAnchor**(*string*): class name to apply to the dropdown list item link
+- **listItem**(*string*): class name to apply to the dropdown list item
+- **results**(*string*): class name to apply to the results dropdown
