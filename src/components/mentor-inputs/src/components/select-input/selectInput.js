@@ -12,10 +12,11 @@ const SelectInput = ({
 	parseMatchedValue,
 	required,
 	validate, 
-	value,
 	...props 
 }) => {
-	value = typeof parse === 'function' ? parse(value) : value;
+	let value = typeof parse === 'function'
+		? parse(props.value)
+		: props.value;
 
 	if (!value) value = '';
 
@@ -31,11 +32,15 @@ const SelectInput = ({
 	}, [required, validate]);
 
 	useEffect(() => {
+		const value = typeof parse === 'function'
+			? parse(props.value)
+			: props.value;
+
 		if (currentValue !== value) {
 			setCurrentValue(value);
 			setError(hasError(value, required, validate));
 		}
-	}, [value]);
+	}, [props.value]);
 
 	/// as soon as the input ref is attached to the node
 	/// check for errors on the value
@@ -57,7 +62,7 @@ const SelectInput = ({
 		if (currentValue !== lastVal.current) {
 			lastVal.current = currentValue;
 
-			let actualValue = typeof parse === 'function'
+			const actualValue = typeof parse === 'function'
 				&& typeof parseMatchedValue !== 'function'
 					? options.find(opt => parse(opt) === currentValue)
 					: currentValue;
@@ -75,7 +80,7 @@ const SelectInput = ({
 
 		if (typeof props.onChange === 'function') {
 			
-			let actualValue = typeof parse === 'function'
+			const actualValue = typeof parse === 'function'
 				&& typeof parseMatchedValue !== 'function'
 					? options.find(opt => parse(opt) === newValue)
 					: newValue;

@@ -10,6 +10,8 @@ const onChange = action('onChange');
 
 const options = [ 'Apple', 'Banana', 'Clementine', 'Mango', 'Grape' ];
 
+// TODO add a story that has a parsed value and a parsed list of options
+// 	the value isnt loading correctly when the select input renders
 storiesOf('Inputs/SelectInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('using an options array of string values', () => {
