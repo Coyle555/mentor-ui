@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from 'storybook-utils';
+import { cloneDeep } from 'lodash';
 
 import { Table, TableComponent } from '../../../../index';
 import { DraggableTable } from './DraggableTable';
@@ -18,6 +19,7 @@ const columns = [
 		label: 'Boolean',
 		id: 'bool',
 		type: 'boolean',
+		display: false
 	},
 	{
 		label: 'Number',
@@ -157,7 +159,8 @@ const data = [
 	},
 	{
 		bool: false,
-		date: '2019-09-05',
+		datetime: '2020-02-07 15:00:30.315',
+		date: '2020-01-09 19:12:56.343',
 		float: 5,
 		id: 'row2',
 		money: 10,
@@ -233,30 +236,42 @@ const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) 
 };
 
 storiesOf('Table', module)
-	.add('Basic table', () => (
-		<Table
-			columns={columns}
-			csvURL="www.duckduckgo.com"
-			currentPage={1}
-			customColumns={customColumns}
-			customToolbarButtons={customToolbarButtons}
-			data={data}
-			deleteCb={action('onDeleteClick')}
-			editSections={editSections}
-			exportTable={action('exportTable')}
-			filters={filters}
-			handleTableChange={action('handleTableChange')}
-			insertCb={action('insertCb')}
-			onDisplayColChange={action('onDisplayColChange')}
-			pageSize={5}
-			quickViews={quickViews}
-			recordCount={10}
-			sortId="string"
-			sortDir="ASC"
-			updateCb={action('updateCb')}
-			uploadFileCb={action('uploadFileCb')}
-		/>
-	))
+	.add('Basic table', () => {
+		const [dataState, setDataState] = useState(cloneDeep(data));
+
+		const updateCb = (id, field, value) => {
+			const newDataState = cloneDeep(dataState);
+			const record = newDataState.find(d => d.id === id);
+			record[field] = value;
+
+			setDataState(newDataState);
+		};
+
+		return (
+			<Table
+				columns={columns}
+				csvURL="www.duckduckgo.com"
+				currentPage={1}
+				customColumns={customColumns}
+				customToolbarButtons={customToolbarButtons}
+				data={dataState}
+				deleteCb={action('onDeleteClick')}
+				editSections={editSections}
+				exportTable={action('exportTable')}
+				filters={filters}
+				handleTableChange={action('handleTableChange')}
+				insertCb={action('insertCb')}
+				onDisplayColChange={action('onDisplayColChange')}
+				pageSize={5}
+				quickViews={quickViews}
+				recordCount={10}
+				sortId="string"
+				sortDir="ASC"
+				updateCb={updateCb}
+				uploadFileCb={action('uploadFileCb')}
+			/>
+		);
+	})
 	.add('Expandable table', () => {
 		const ExpandComponent = (props) => <span>{JSON.stringify(props)}</span>;
 
