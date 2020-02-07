@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -28,6 +28,16 @@ export const LinkedFields = ({
 		}, {})
 	));
 	const [errors, setErrors] = useState({});
+
+	useEffect(() => {
+		setNewData(fields.reduce((acc, field) => {
+			acc[field.id] = data[field.id] !== undefined && data[field.id] !== null
+				? data[field.id]
+				: '';
+
+			return acc;
+		}, {}));
+	}, [data]);
 
 	useLayoutEffect(() => {
 		if (!containerEl.current) return;
@@ -117,7 +127,11 @@ export const LinkedFields = ({
 						className={fieldClasses}
 						key={'field' + field.id}
 					>
-						<label>{field.label}</label>
+						<label>
+							{field.label}
+							{ field.required
+								&& <span className="required">Required</span> }
+						</label>
 						<i className="far fa-link fa-xs linked" title="Linked" />
 						{ notUpdateable.current 
 							&& <span className="cannot-update">

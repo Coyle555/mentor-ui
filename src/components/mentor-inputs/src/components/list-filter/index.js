@@ -130,12 +130,17 @@ export class ListFilter extends Component {
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
 		// if new value passed in, refilter list and check for error
-		if (!!nextProps.value && this.state.value !== nextProps.value) {
+		if (this.state.value !== nextProps.value) {
 			const { name, parse, required } = this.props;
+			let value = nextProps.value;
 
-			const value = !!nextProps.value && typeof parse === 'function'
-				? parse(nextProps.value)
-				: nextProps.value;
+			if (nextProps.value === null || nextProps.value === undefined) {
+				value = '';
+			}
+			
+			if (typeof parse === 'function') {
+				value = parse(value);
+			}
 
 			if (this.state.value === value) return;
 
@@ -261,6 +266,10 @@ export class ListFilter extends Component {
 			new Promise((resolve, reject) => {
 				resolve(this.props.options(value));
 			}).then(newOptions => {
+				// discard results if the value has changed since the
+				// promise was executed
+				if (value !== this.state.value) return;
+
 				this.rawOptions = newOptions;
 
 				if (typeof this.props.parse === 'function') {

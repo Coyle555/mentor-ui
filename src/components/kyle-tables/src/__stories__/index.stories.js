@@ -25,7 +25,8 @@ const columns = [
 		label: 'Number',
 		id: 'num',
 		type: 'integer',
-		display: false
+		display: false,
+		required: true
 	},
 	{
 		label: 'Float',
@@ -95,15 +96,48 @@ const columns = [
 		type: 'listfilter',
 		options: ['Option1', 'Option2', 'Option3']
 	},
+	{
+		label: 'List Filter w/ async',
+		id: 'listfilterasync',
+		type: 'listfilter',
+		options: val => {
+			if (val === 'f') {
+				return new Promise((resolve, reject) => {
+					setTimeout(function() {
+						resolve([{ id: 'foo', name: 'Foo' }])
+					}, 500);
+				});
+			} else if (val === 'fb') {
+				return new Promise((resolve, reject) => {
+					setTimeout(function() {
+						resolve([
+							{ id: 'bar', name: 'Bar' },
+							{ id: 'baz', name: 'Baz' }
+						])
+					}, 200);
+				});
+			} else {
+				return [
+					{ id: 'foo', name: 'Foo' },
+					{ id: 'bar', name: 'Bar' },
+					{ id: 'baz', name: 'Baz' }
+				];
+			}
+		},
+		parse: val => !!val && typeof val ==='object' ? val.name : val,
+		parseMatchedValue: val => `parsed value before return to id -- ${val.id}`
+	},
 	[{
 		label: 'List Filter w/ func',
 		id: 'listfilterfunc',
 		type: 'listfilter',
-		options: val => ([
-			{ id: 'foo', name: 'Foo' },
-			{ id: 'bar', name: 'Bar' },
-			{ id: 'baz', name: 'Baz' }
-		]),
+		options: val => {
+			return [
+				{ id: 'foo', name: 'Foo' },
+				{ id: 'bar', name: 'Bar' },
+				{ id: 'baz', name: 'Baz' }
+			];
+		},
 		parse: val => !!val && typeof val ==='object' ? val.name : val,
 		required: true,
 		parseMatchedValue: val => `parsed value before return to id -- ${val.id}`

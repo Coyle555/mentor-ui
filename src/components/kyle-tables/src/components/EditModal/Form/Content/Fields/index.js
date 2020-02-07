@@ -84,7 +84,11 @@ export const Fields = ({
 					className={fieldClasses}
 					key={'field' + field.id}
 				>
-					<label>{field.label}</label>
+					<label>
+						{field.label}
+						{ field.required
+							&& <span className="required">Required</span> }
+					</label>
 					{ field.updateable === false
 						&& <span className="cannot-update">
 							Field cannot be changed
