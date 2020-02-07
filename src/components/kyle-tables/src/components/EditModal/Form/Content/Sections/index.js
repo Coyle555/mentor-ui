@@ -12,12 +12,6 @@ export const Sections = ({
 	selectedSectionLabel,
 	selectField
 }) => {
-	const iconClasses = classNames({
-		'fas': true,
-		'fa-chevron-left': !fieldsOpen,
-		'fa-chevron-down': fieldsOpen,
-	});
-
 	return (
 		<ul className="sections">
 			<li
@@ -28,7 +22,6 @@ export const Sections = ({
 				onClick={() => openSection({ content: null, label: 'Fields' })}
 			>
 				Fields
-				<i className={iconClasses} />
 			</li>
 			{ fieldsOpen && (
 				<li>

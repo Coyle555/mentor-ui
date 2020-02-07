@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useSpring, animated } from 'react-spring';
 
-export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
+export const PreviousRecord = ({ hasPrevious, onPreviousClick }) => {
 	const previousClasses = classNames({
 		'previous-record': true,
 		'end-of-previous-records': !hasPrevious
@@ -22,7 +22,7 @@ export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
 		>
 			<p className="previous-record-label">
 				{ hasPrevious
-					? label
+					? 'Previous Record'
 					: 'No Previous Record'
 				}
 			</p>
@@ -32,10 +32,5 @@ export const PreviousRecord = ({ label, hasPrevious, onPreviousClick }) => {
 
 PreviousRecord.propTypes = {
 	hasPrevious: PropTypes.bool,
-	label: PropTypes.string,
 	onClick: PropTypes.func,
-};
-
-PreviousRecord.defaultProps = {
-	label: 'Previous Record'
 };
