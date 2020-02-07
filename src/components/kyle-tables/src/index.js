@@ -252,7 +252,7 @@ export class Table extends Component {
 		// else if new column, start with desc ordering
 		} else {
 			sortId = sortColId
-			sortDir = sortMap.ASC;
+			sortDir = sortMap.DESC;
 		}
 
 		this.props.handleTableChange({
