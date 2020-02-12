@@ -17,7 +17,14 @@ export const FileField = ({ disabled, fieldId, onDeleteClick, rowId, uploadFile,
 		return (
 			<div className="file-input-container">
 				<div className="file-display">
-					<a href={value} download className="file-link">File</a>
+					<a
+						className="file-link"
+						download
+						href={value}
+						title="Download"
+					>
+						File
+					</a>
 				</div>
 			</div>
 		);
@@ -26,15 +33,23 @@ export const FileField = ({ disabled, fieldId, onDeleteClick, rowId, uploadFile,
 	return (
 		<div className="file-input-container">
 			{ value &&
+				<>
+				<i
+					className="far fa-trash-alt file-delete"
+					onClick={() => onDeleteClick(rowId, fieldId)}
+					title="Delete File"
+				/>
 				<div className="file-display">
-					<a href={value} download className="file-link">File</a>
-					<p
-						className="file-delete"
-						onClick={() => onDeleteClick(rowId, fieldId)}
+					<a
+						className="file-link"
+						download
+						href={value}
+						title="Download"
 					>
-						Delete File
-					</p>
+						File
+					</a>
 				</div>
+				</>
 			}
 			<div className="file-input" style={{ width: !!value ? '75%' : '100%' }}>
 				<FileInput

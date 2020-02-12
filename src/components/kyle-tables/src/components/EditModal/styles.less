@@ -131,11 +131,12 @@
 				background: lighten(@blue-primary-dark, 82%);
 			}
 
+
 			.field {
 				font-size: 1rem;
 				font-weight: 600;
 				color: @charcoal;
-				padding: 5px 12.5px;
+				padding: 7.5px 12.5px;
 
 				> label {
 					display: inline-block;
@@ -173,32 +174,37 @@
 					display: flex;
 					height: 100px;
 					align-items: center;
+					justify-content: center;
+					position: relative;
 
 					> .file-display {
 						text-align: center;
-						width: 25%;
+						width: 33.3%;
 
 						> .file-image {
 							max-height: 100px;
 						}
 
 						> .file-link {
-							font-size: .9rem;
+							font-size: 1.8rem;
 							font-weight: 500;
+							color: @dark-link;
 						}
 
-						> .file-delete {
-							color: red;
-							margin: 15px 0 0 0;
-							font-size: .7rem;
-							font-weight: 400;
-							cursor: pointer;
-						}
+					}
+
+					> .file-delete {
+						color: @ketchup;
+						position: absolute;
+						top: 0;
+						right: 0;
+						cursor: pointer;
 					}
 
 					> .file-input {
 						height: 100%;
-						width: 75%;
+						width: 66.6%;
+						padding-right: 25px;
 					}
 				}
 

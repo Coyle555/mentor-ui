@@ -26,15 +26,16 @@ export const ImageField = ({ disabled, fieldId, onDeleteClick, rowId, uploadFile
 	return (
 		<div className="file-input-container">
 			{ value &&
+				<>
+				<i
+					className="far fa-trash-alt file-delete"
+					onClick={() => onDeleteClick(rowId, fieldId)}
+					title="Delete Image"
+				/>
 				<div className="file-display">
 					<img className="file-image" src={value} />
-					<p
-						className="file-delete"
-						onClick={() => onDeleteClick(rowId, fieldId)}
-					>
-						Delete Image
-					</p>
 				</div>
+				</>
 			}
 			<div className="file-input" style={{ width: !!value ? '75%' : '100%' }}>
 				<FileInput
