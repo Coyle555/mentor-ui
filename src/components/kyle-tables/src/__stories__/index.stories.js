@@ -88,7 +88,14 @@ const columns = [
 		label: 'Image',
 		id: 'img',
 		type: 'image',
-		display: false
+		display: false,
+	},
+	{
+		label: 'Image Disabled',
+		id: 'img-disabled',
+		type: 'image',
+		display: false,
+		updateable: false
 	},
 	{
 		label: 'List Filter w/ array',
@@ -161,12 +168,24 @@ const columns = [
 	{
 		label: 'Link to File',
 		id: 'file',
-		type: 'file'
+		type: 'file',
+	},
+	{
+		label: 'Link to File Disabled',
+		id: 'file-disabled',
+		type: 'file',
+		updateable: false
 	},
 	{
 		label: 'Color',
 		id: 'color',
-		type: 'color'
+		type: 'color',
+	},
+	{
+		label: 'Color Disabled',
+		id: 'color-disabled',
+		type: 'color',
+		updateable: false
 	},
 	{
 		label: 'Custom Column',
@@ -187,8 +206,11 @@ const data = [
 		multiline: 'multi test',
 		options: 'Option2',
 		file: IMAGE,
+		'file-disabled': IMAGE,
 		img: IMAGE,
-		color: '#000000',
+		'img-disabled': IMAGE,
+		color: '#B80000',
+		'color-disabled': '#ffffff',
 		customColumnId: 'custom 1'
 	},
 	{

@@ -17,11 +17,11 @@ const COLORS = [
 
 export class ColorField extends Component {
 
-	state = { color: this.props.value };
+	state = { color: this.props.value || '#fff' };
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.value !== this.props.value) {
-			this.setState({ color: this.props.value });
+			this.setState({ color: this.props.value || '#fff' });
 		}
 	}
 
@@ -33,18 +33,21 @@ export class ColorField extends Component {
 	}
 
 	render() {
+		const { disabled } = this.props;
 		const { color } = this.state;
 
 		return (
 			<div className="color-input-container">
 				<div className="color-circle" style={{ backgroundColor: color }} />
-				<GithubPicker
-					color={color}
-					colors={COLORS}
-					onChangeComplete={this.onChangeComplete}
-					width="75%"
-					triangle="hide"
-				/>
+				{ !disabled &&
+					<GithubPicker
+						color={color}
+						colors={COLORS}
+						onChangeComplete={this.onChangeComplete}
+						width="75%"
+						triangle="hide"
+					/>
+				}
 			</div>
 		);
 	}
@@ -55,8 +58,4 @@ ColorField.propTypes = {
 	onColorChange: PropTypes.func,
 	rowId: PropTypes.string,
 	value: PropTypes.string
-};
-
-ColorField.defaultProps = {
-	value: '#ffffff'
 };

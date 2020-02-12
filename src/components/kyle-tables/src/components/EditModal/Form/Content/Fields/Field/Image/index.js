@@ -3,29 +3,49 @@ import PropTypes from 'prop-types';
 
 import { FileInput } from 'mentor-inputs';
 
-export const ImageField = ({ fieldId, onDeleteClick, rowId, uploadFile, value }) => (
+export const ImageField = ({ disabled, fieldId, onDeleteClick, rowId, uploadFile, value }) => {
+	
+	if (disabled && !value) {
+		return (
+			<p className="no-file">
+				No Image Uploaded
+			</p>
+		);
+	}
 
-	<div className="file-input-container">
-		{ value &&
-			<div className="file-display">
-				<img className="file-image" src={value} />
-				<p
-					className="file-delete"
-					onClick={() => onDeleteClick(rowId, fieldId)}
-				>
-					Delete Image
-				</p>
+	if (disabled) {
+		return (
+			<div className="file-input-container">
+				<div className="file-display">
+					<img className="file-image" src={value} />
+				</div>
 			</div>
-		}
-		<div className="file-input" style={{ width: !!value ? '75%' : '100%' }}>
-			<FileInput
-				label="Upload Image"
-				name={fieldId}
-				onDrop={uploadFile}
-			/>
+		);
+	}
+
+	return (
+		<div className="file-input-container">
+			{ value &&
+				<div className="file-display">
+					<img className="file-image" src={value} />
+					<p
+						className="file-delete"
+						onClick={() => onDeleteClick(rowId, fieldId)}
+					>
+						Delete Image
+					</p>
+				</div>
+			}
+			<div className="file-input" style={{ width: !!value ? '75%' : '100%' }}>
+				<FileInput
+					label="Upload Image"
+					name={fieldId}
+					onDrop={uploadFile}
+				/>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 ImageField.propTypes = {
 	fieldId: PropTypes.string,
