@@ -47,7 +47,7 @@ export const Modal = props => {
 	if (!props.display) return null;
 
 	const overlayClassName = cn(
-		{ [props.overlayClassName]: !!props.customClasses.overlay },
+		{ [props.customClasses.overlayClassName]: !!props.customClasses.overlay },
 		'APM-modal-overlay'
 	);
 
