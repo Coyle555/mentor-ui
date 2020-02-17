@@ -11,13 +11,8 @@ const ESCAPE_KEYCODE = 27;
 export const Modal = props => {
 
 	const el = useMemo(() => {
-		let div = document.getElementById('mui-modal');
-
-		if (!div) {
-			div = document.createElement('div');
-			div.className = 'APM-modal-wrapper';
-			div.id = 'mui-modal';
-		}
+		const div = document.createElement('div');
+		div.className = 'APM-modal-wrapper';
 
 		return div;
 	}, []);
