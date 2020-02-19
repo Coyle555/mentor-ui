@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Stickyfill from 'stickyfilljs';
 import ReactResizeDetector from 'react-resize-detector';
 
 import { Toolbar } from './Toolbar';

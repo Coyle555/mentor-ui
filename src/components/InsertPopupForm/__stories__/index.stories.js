@@ -16,7 +16,7 @@ storiesOf('InsertPopupForm', module)
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
-					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'boolean', label: 'Boolean Input', type: 'boolean' },
 					{ id: 'date', label: 'Date', type: 'date', utc: false},
 					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },

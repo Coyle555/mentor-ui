@@ -9,12 +9,7 @@ export const Scaffold = ({ level, nodeIndex, tree }) => {
 
 		// need to get the ancestor for the node at the level being processed
 		// for the scaffolding
-		console.log(currentNode);
-		console.log(currentLevel)
-		console.log(tree);
-
 		while (currentLevel !== i) {
-
 			currentNode = tree[currentNode.parent];
 			currentLevel--;
 		}
