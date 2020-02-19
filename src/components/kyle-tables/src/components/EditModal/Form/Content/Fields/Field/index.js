@@ -7,39 +7,34 @@ import { ImageField } from './Image';
 import { getMentorInput } from 'mentor-inputs';
 
 export const Field = ({
+	disabled,
 	fieldId,
+	onBlur,
+	onChange,
 	onDeleteFileClick,
+	onOptionMatch,
 	options,
 	parse,
 	parseMatchedValue,
 	required,
 	rowId,
 	type,
-	updateable,
 	uploadFile,
 	value,
 	...props
 }) => {
 	type = Array.isArray(options) && type !== 'listfilter' ? 'select' : type;
 
-	const onBlur = useCallback((error, value, name) => {
-		if (error) return;
-
-		props.onBlur(rowId, name, value);
-	});
-
-	const onOptionMatch = useCallback((value, name) => {
-		props.onOptionMatch(rowId, name, value);
-	});
-
 	let Input;
 	let inputProps = {
-		disabled: !updateable,
+		disabled,
 		name: fieldId,
 		onBlur,
-		required,
+		onChange,
 		type,
-		value
+		value,
+		...props.inputProps,
+		required,
 	};
 
 	if (type === 'image') {
@@ -68,7 +63,7 @@ export const Field = ({
 			<ColorField
 				{...inputProps}
 				fieldId={fieldId}
-				onColorChange={props.onBlur}
+				onColorChange={onBlur}
 				rowId={rowId}
 			/>
 		);
@@ -81,7 +76,6 @@ export const Field = ({
 
 			inputProps.options = options;
 			inputProps.parse = parse;
-			inputProps.parseMatchedValue = parseMatchedValue;
 
 		} else if (type === 'listfilter') {
 
@@ -89,7 +83,6 @@ export const Field = ({
 			inputProps.onMatch = onOptionMatch;
 			inputProps.options = options;
 			inputProps.parse = parse;
-			inputProps.parseMatchedValue = parseMatchedValue;
 
 		} else if (type === 'date' || type === 'datetime') {
 
@@ -97,14 +90,22 @@ export const Field = ({
 
 		}
 
-		Input = <Input {...inputProps} />;
+		Input = (
+			<Input
+				{...inputProps}
+				{...props.inputProps}
+				required={required}
+			/>
+		);
 	}
 
 	return Input;
 }
 
 Field.propTypes = {
+	disabled: PropTypes.bool,
 	fieldId: PropTypes.string,
+	inputProps: PropTypes.object,
 	onBlur: PropTypes.func,
 	onDeleteFileClick: PropTypes.func,
 	onOptionMatch: PropTypes.func,
@@ -112,11 +113,10 @@ Field.propTypes = {
 	parse: PropTypes.func,
 	required: PropTypes.bool,
 	type: PropTypes.string,
-	updateable: PropTypes.bool,
 	uploadFile: PropTypes.func,
 	value: PropTypes.any
 };
 
 Field.defaultProps = {
-	updateable: true
+	inputProps: {}
 };

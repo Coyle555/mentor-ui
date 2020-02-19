@@ -56,3 +56,48 @@ test('Rendering a field with a string value', () => {
 
 	expect(tree).toMatchSnapshot();
 });
+
+test('Rendering a field with a false valid linked value', () => {
+	const Input = (props) => <input {...props} type="text" />;
+
+	const tree = renderer.create(
+		<Field
+			InputComponent={<Input />}
+			link={{ valid: false }}
+		/>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Rendering a field with a valid linked value', () => {
+	const Input = (props) => <input {...props} type="text" />;
+
+	const tree = renderer.create(
+		<Field
+			InputComponent={<Input />}
+			link={{ valid: true }}
+		/>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Rendering field with a onLink callback', () => {
+	const onLink = jest.fn(() => ({ value: 'test' }));
+	const Input = (props) => <input {...props} type="text" />;
+
+	const tree = renderer.create(
+		<Field
+			InputComponent={<Input />}
+			link={{
+				disabled: false,
+				onLink,
+				value: 'foo',
+			}}
+		/>
+	).toJSON();
+
+	expect(onLink).toHaveBeenCalledWith('foo');
+	expect(tree).toMatchSnapshot();
+});

@@ -27,16 +27,21 @@ storiesOf('Inputs/ListFilterInput', module)
 		)
 	})
 	.addWithJSX('Custom filtering', () => {
-		const filter = (val) => {
-			return val.split('');
+		const options = (val) => {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(['foo', 'bar', 'baz']);
+				}, 500);
+			});
 		}
 
 		return (
 			<ListFilterInput
+				disabled={true}
 				name="listFilter"
-				filter={filter}
 				onChange={action('onChange')}
 				onMatch={action('onMatch')}
+				options={options}
 			/>
 		)
 	})

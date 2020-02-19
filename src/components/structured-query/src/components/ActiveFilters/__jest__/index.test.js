@@ -28,28 +28,6 @@ describe('Rendering active filters', () => {
 			expect(queryByText('Clear All')).toBeTruthy();
 		});
 	});
-
-	test('Opening active filters with search tokens and parse', async () => {
-		const parse = jest.fn(val => val.name);
-		const { container, queryByText } = render(
-			<ActiveFiltersComponent
-				fields={[{ id: 'foo', parse }]}
-				searchTokens={[{
-					id: 'foo',
-					label: 'Foo',
-					operator: 'equals',
-					value: { name: 'value' }
-				}]}
-			/>);
-
-		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
-
-		await wait(() => {
-			expect(parse).toHaveBeenCalledWith({ name: 'value' });
-			expect(queryByText('value')).toBeTruthy();
-			expect(queryByText('Clear All')).toBeTruthy();
-		});
-	});
 });
 
 describe('Clearing search', () => {

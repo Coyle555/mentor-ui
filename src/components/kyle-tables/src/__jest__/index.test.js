@@ -1,3 +1,12 @@
+jest.mock('react-dnd', () => {
+	return {
+		DragSource: (type, source, collect) => (row) => null,
+		DropTarget: (type, source, collect) => (row) => null
+	};
+});
+jest.mock('../components/Table/Body/Row/Drag/Droppable');
+jest.mock('../components/Table/Body/Row/Drag/Draggable');
+
 import React from 'react';
 import { Table } from '../index';
 import renderer from 'react-test-renderer';

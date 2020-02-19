@@ -57,13 +57,8 @@ export const Modal = props => {
 	);
 
 	const contentClassName = cn(
-		'apm-modal-content',
-		{ [props.customClasses.content]: !!props.customClasses.content }
-	);
-
-	const bodyClassName = cn(
 		'apm-modal-body',
-		{ [props.customClasses.body]: !!props.customClasses.body }
+		{ [props.customClasses.content]: !!props.customClasses.content }
 	);
 
 	const contentStyle = defaults({
@@ -94,15 +89,20 @@ export const Modal = props => {
 			data-testid="modal-overlay"
 		>
 			<div
-				className={contentClassName}
+				className="apm-modal-content"
 				style={contentStyle}
 			>
 				{ !props.hideCloseButton &&
 					<div className="apm-modal-actions">
-						<i className="fal fa-times fa-lg close-modal" onClick={props.onClose} />
+						<i
+							className="fal fa-times fa-lg close-modal"
+							onClick={typeof props.onClose === 'function'
+								? props.onClose
+								: undefined}
+						/>
 					</div>
 				}
-				<div className="apm-modal-body">
+				<div className={contentClassName}>
 					{ props.children }
 				</div>
 			</div>
@@ -115,7 +115,6 @@ Modal.defaultProps = {
 	closeOnOutsideClick: true,
 	contentStyle: {},
 	customClasses: {},
-	onClose: () => {},
 	overlayStyle: {},
 }
 
@@ -125,7 +124,6 @@ Modal.propTypes = {
 	customClasses: PropTypes.shape({
 		overlay: PropTypes.string,
 		content: PropTypes.string,
-		body: PropTypes.string
 	}),
 	display: PropTypes.bool,
 	height: PropTypes.number,

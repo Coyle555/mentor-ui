@@ -9,7 +9,7 @@ exports[`Table footer render that has a next page 1`] = `
   className="table-footer row m-t-sm"
 >
   <div
-    className="col-4"
+    className="buttons"
   >
     <button
       disabled={true}
@@ -30,25 +30,21 @@ exports[`Table footer render that has a next page 1`] = `
       />
     </button>
   </div>
-  <div
-    className="col-4"
-  >
-    <p>
-      Showing 
-      <b>
-        1
-      </b>
-       to 
-      <b>
-        25
-      </b>
-       of 
-      <b>
-        20
-      </b>
-       records
-    </p>
-  </div>
+  <p>
+    Showing 
+    <b>
+      1
+    </b>
+     to 
+    <b>
+      25
+    </b>
+     of 
+    <b>
+      20
+    </b>
+     records
+  </p>
   <div
     className="page-dropdown"
   >

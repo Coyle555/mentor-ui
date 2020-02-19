@@ -9,7 +9,7 @@
 	background: rgba(211, 211, 211, 0.5);
 	transform: translate(-50%, -50%);
 	display: none;
-	z-index: 2;
+	z-index: 10;
 
 	> .table-edit-modals {
 		display: flex;
@@ -26,7 +26,7 @@
 
 .table-main-container {
 	overflow: auto;
-	height: calc(100% - 65px);
+	height: calc(100% - 60px);
 	display: flex;
 	flex-direction: column;
 	background: white;
@@ -47,62 +47,6 @@
 	table-layout: fixed;
 }
 
-.apm-table-map {
-	height: 100%;
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 3;
-
-	&-appear {
-		right: 0;
-	}
-
-	&-appear-active {
-		right: 50%;
-		transition: right 400ms ease-in-out;
-	}
-
-	&-enter {
-		right: 0;
-	}
-
-	&-enter-active {
-		border-right: 5px solid @green-primary;
-		right: 50%;
-		transition: right 400ms ease-in-out;
-	}
-
-	&-enter-done {
-		border-right: 5px solid @green-primary;
-		right: 50%;
-	}
-
-	&-exit {
-		border-right: 5px solid @green-primary;
-		right: 50%;
-	}
-
-	&-exit-active {
-		border-right: 5px solid @green-primary;
-		right: 0;
-		transition: right 400ms ease-in-out;
-	}
-
-	&-exit-done {
-		right: 0;
-	}
-}
-
-.apm-table-map-display {
-	height: 100%;
-	display: flex;
-	align-self: flex-end;
-}
-
 .table-loading {
 	margin: 75px;
 	text-align: center;
@@ -113,47 +57,4 @@
 	top: 20%;
 	font-size: 3rem;
 	padding: 50px;
-}
-
-.table-popover {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 4;
-	left: 100%;
-
-	&-appear {
-		left: 100%;
-	}
-
-	&-appear-active {
-		left: 0;
-		transition: left 400ms ease-in-out;
-	}
-
-	&-enter {
-		left: 100%;
-	}
-
-	&-enter-active {
-		left: 0;
-		transition: left 400ms ease-in-out;
-	}
-
-	&-enter-done {
-		left: 0;
-	}
-
-	&-exit {
-		left: 0;
-	}
-
-	&-exit-active {
-		left: 100%;
-		transition: left 400ms ease-in-out;
-	}
-
-	&-exit-done {
-		left: 100%;
-	}
 }

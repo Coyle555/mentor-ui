@@ -85,3 +85,19 @@ test('Step gets activated with a click event', () => {
 	fireEvent.click(container.querySelector('div.stepper-step-circle'));
 	expect(onClick).toHaveBeenCalledWith(1);
 });
+
+test('Step that links to prev step', () => {
+	const tree = renderer.create(
+		<Step hasPrevStep={true} step={{ linkPrev: true }} />
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Step that links to next step', () => {
+	const tree = renderer.create(
+		<Step hasNextStep={true} step={{ linkNext: true }} />
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});

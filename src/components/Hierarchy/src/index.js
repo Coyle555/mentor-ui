@@ -22,6 +22,7 @@ export const Tree = ({
 	customHandle,
 	isVirtualized,
 	nodeStyle,
+	onNodeDrop,
 	onExpandNode,
 	onNodeClick,
 	onTreeChange,
@@ -41,6 +42,40 @@ export const Tree = ({
 
 		return initialTree;
 	});
+
+	const onDrop = useCallback((prevIndex, newIndex) => {
+		let newParentId;
+
+		if (prevIndex === newIndex) {
+			newParentId = convertedTree[newIndex].newParentId;
+		} else {
+			newParentId = convertedTree[newIndex].id;
+		}
+
+		if (typeof onNodeDrop === 'function') {
+			
+			onNodeDrop(convertedTree[prevIndex].id, newParentId)
+		}
+
+	}, [convertedTree]);
+
+	const onHover = useCallback((prevIndex, newIndex) => {
+		const draggedNode = convertedTree[prevIndex];
+		const hoveredNode = convertedTree[newIndex];
+		
+		const _tree = convertedTree.slice();
+
+		_tree.splice(prevIndex, 1);
+		_tree.splice(newIndex, 0, 
+			{
+				...convertedTree[prevIndex],
+				newParentId: convertedTree[newIndex].parentId,
+			}
+		);
+
+		setConvertedTree(_tree);
+		
+	}, [convertedTree]);
 
 	useEffect(() => {
 		const newTree = convertTree([tree]);
@@ -81,7 +116,7 @@ export const Tree = ({
 				return { ...state, buttonMenuIndex: newButtonIndex };
 
 			default:
-				return state;
+				throw 'Bad action type ' + action.type
 		}
 	});
 
@@ -157,7 +192,7 @@ export const Tree = ({
 			setConvertedTree(newTree);
 			afterTreeChange(newTree);
 		}
-	});
+	}, []);
 
 	const renderRow = useCallback(({ index, style, ...props }) => (
 		<Row
@@ -171,6 +206,8 @@ export const Tree = ({
 			loading={convertedTree[index].id === loadingNodeId}
 			key={props.key}
 			nodeStyle={nodeStyle}
+			onDrop={onDrop}
+			onHover={onHover}
 			onExpandNode={onExpandNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}

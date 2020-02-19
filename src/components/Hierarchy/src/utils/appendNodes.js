@@ -3,7 +3,7 @@
 // @nodeToAppendTo: the node object to append the nodes to
 // @newNodes: list of new nodes to append to a node
 // @parentIndex: index of the node to append to
-export function appendNodes({ nodeToAppendTo, newNodes = [], parentIndex }) {
+export function appendNodes({ nodeToAppendTo, newNodes = [], parentIndex, parentId }) {
 	const nodesToAppend = [];
 
 	for (let node of newNodes) {
@@ -16,7 +16,8 @@ export function appendNodes({ nodeToAppendTo, newNodes = [], parentIndex }) {
 			hasSibling: newNodes[newNodes.length - 1] !== node,
 			level: nodeToAppendTo.level + 1,
 			// index position of the parent in the list
-			parent: parentIndex
+			parent: parentIndex,
+			parentId
 		});
 	}
 

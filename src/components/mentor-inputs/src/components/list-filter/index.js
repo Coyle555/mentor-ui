@@ -43,6 +43,7 @@ export class ListFilter extends Component {
 		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 		parse: PropTypes.func,
 		parseMatchedValue: PropTypes.func,
+		placeholder: PropTypes.string,
 		required: PropTypes.bool,
 		validation: PropTypes.func,
 		value: PropTypes.any
@@ -63,6 +64,7 @@ export class ListFilter extends Component {
 		options: [],
 		parse: null,
 		parseMatchedValue: null,
+		placeholder: 'Select a value',
 		required: false,
 		validation: null,
 		value: ''
@@ -78,7 +80,8 @@ export class ListFilter extends Component {
 			: options;
 
 		this.lastMatchedVal = '';
-		this.rawOptions = this.props.options;
+		this.initialLoadComplete = false;
+		this.rawOptions = options;
 
 		// @focused: true when the input box is focused; false otherwise
 		// @hasError: true when the list filter has an error due to a 
@@ -121,24 +124,29 @@ export class ListFilter extends Component {
 
 		this.setState({
 			hasError,
-			options: newOptions,
-			value
+			options: newOptions
 		});
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
 		// if new value passed in, refilter list and check for error
-		if (!!nextProps.value && this.state.value !== nextProps.value) {
+		if (this.state.value !== nextProps.value) {
 			const { name, parse, required } = this.props;
+			let value = nextProps.value;
 
-			const value = !!nextProps.value && typeof parse === 'function'
-				? parse(nextProps.value)
-				: nextProps.value;
+			if (nextProps.value === null || nextProps.value === undefined) {
+				value = '';
+			}
+			
+			if (typeof parse === 'function') {
+				value = parse(value);
+			}
 
 			if (this.state.value === value) return;
 
 			if (typeof this.props.options === 'function') {
 				this.lastMatchedVal = value;
+				this.initialLoadComplete = false;
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
 				});
@@ -168,8 +176,7 @@ export class ListFilter extends Component {
 				value
 			});
 		// new list of options were passed in
-		} else if (this.props.options !== nextProps.options
-				&& typeof this.props.options !== 'function') {
+		} else if (this.props.options !== nextProps.options && typeof this.props.options !== 'function') {
 			const { required } = this.props;
 			const { value } = this.state;
 
@@ -259,6 +266,10 @@ export class ListFilter extends Component {
 			new Promise((resolve, reject) => {
 				resolve(this.props.options(value));
 			}).then(newOptions => {
+				// discard results if the value has changed since the
+				// promise was executed
+				if (value !== this.state.value) return;
+
 				this.rawOptions = newOptions;
 
 				if (typeof this.props.parse === 'function') {
@@ -271,7 +282,7 @@ export class ListFilter extends Component {
 	}
 
 	loadFilterOptions = (value, newOptions) => {
-		const { name, onChange, onMatch, required } = this.props;
+		const { name, onChange, onMatch, parse, required } = this.props;
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -287,9 +298,11 @@ export class ListFilter extends Component {
 
 				this.onMatch(value);
 
-			} else if (typeof onChange === 'function') {
+			} else if (typeof onChange === 'function' && this.initialLoadComplete) {
 				onChange(this.state.hasError, value, name);
 			}
+
+			this.initialLoadComplete = true;
 		});
 	}
 
@@ -548,7 +561,6 @@ export class ListFilter extends Component {
 					onFocus={this.onFocus}
 					onKeyDown={this.onKeyDown}
 					onKeyUp={this.onKeyUp}
-					placeholder="Select an option"
 					ref={ref => this.inputRef = ref}
 					type="text"
 					value={value}

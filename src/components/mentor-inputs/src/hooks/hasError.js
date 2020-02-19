@@ -7,7 +7,11 @@ export function hasError(value, required, customValidators) {
 		customValidators = [customValidators];
 	}
 
-	if (value.length > 0 && !!customValidators && customValidators.length > 0) {
+	if (typeof value === 'string'
+		&& value.length > 0
+		&& !!customValidators
+		&& customValidators.length > 0) {
+
 		for (let validator of customValidators) {
 			if (typeof validator === 'function') {
 				const validity = validator(value);
@@ -15,7 +19,7 @@ export function hasError(value, required, customValidators) {
 				if (typeof validity === 'string') {
 					return validity;
 				} else if (!validator(value)) {
-					return true;
+					return 'An error occurred';
 				}
 			}
 		}

@@ -34,11 +34,18 @@ export function convertCellToString(value, type, isUtc) {
 
 		return convertDate(value, isUtc);
 
+	} else if (type === 'money') {
+
+		return '$ ' + Number(value).toFixed(2);
+
+	} else if (valueType === 'boolean') {
+
+		return value ? 'Yes' : 'No';
+
 	// handle primitive data types
-	} else if (valueType === 'string' || valueType === 'number' || valueType === 'boolean') {
+	} else if (valueType === 'string' || valueType === 'number') {
 
 		return value.toString();
-
 
 	// default to name field for objects
 	} else if (valueType === 'object' && value.name) {

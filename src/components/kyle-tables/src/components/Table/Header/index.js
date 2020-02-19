@@ -25,7 +25,7 @@ export const TableHeader = ({
 			<TableHeaderRow
 				allowSelection={allowSelection}
 				allRowsSelected={allRowsSelected}
-				cells={columns}
+				columns={columns}
 				customClasses={customClasses}
 				expandable={expandable}
 				rowButtons={rowButtons}

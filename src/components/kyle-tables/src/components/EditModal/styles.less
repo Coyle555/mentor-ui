@@ -52,6 +52,13 @@
 			> li.section-label:first-child {
 				margin-top: 0;
 				border-top: none;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+
+			> li.section-label:last-child {
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
 			}
 
 			> li.section-label {
@@ -115,17 +122,32 @@
 
 			.field-highlighted {
 				background: @green-light;
+				border-radius: 5px;
 			}
-		
+
+			.linked-fields {
+				border: 1px solid @blue-gray-charcoal;
+				border-radius: 5px;
+				background: lighten(@blue-primary-dark, 82%);
+			}
+
+
 			.field {
 				font-size: 1rem;
 				font-weight: 600;
 				color: @charcoal;
-				padding: 5px 12.5px;
+				padding: 7.5px 12.5px;
 
 				> label {
 					display: inline-block;
 					margin-bottom: 3.5px;
+
+					> .required {
+						color: @ketchup;
+						font-size: 0.7rem;
+						font-weight: 500;
+						margin-left: 5px;
+					}
 				}
 
 				> span.cannot-update {
@@ -135,36 +157,54 @@
 					font-weight: 500;
 				}
 
+				> .linked {
+					position: relative;
+					bottom: 2px;
+					margin-left: 5px;
+					color: @link;
+				}
+
+				> .no-file {
+					text-align: center;
+					font-size: .85rem;
+					font-style: italic;
+				}
+
 				> .file-input-container {
 					display: flex;
 					height: 100px;
 					align-items: center;
+					justify-content: center;
+					position: relative;
 
 					> .file-display {
 						text-align: center;
-						width: 25%;
+						width: 33.3%;
 
 						> .file-image {
-							max-height: 75px;
+							max-height: 100px;
 						}
 
 						> .file-link {
-							font-size: .9rem;
+							font-size: 1.8rem;
 							font-weight: 500;
+							color: @dark-link;
 						}
 
-						> .file-delete {
-							color: red;
-							margin: 15px 0 0 0;
-							font-size: .7rem;
-							font-weight: 400;
-							cursor: pointer;
-						}
+					}
+
+					> .file-delete {
+						color: @ketchup;
+						position: absolute;
+						top: 0;
+						right: 0;
+						cursor: pointer;
 					}
 
 					> .file-input {
 						height: 100%;
-						width: 75%;
+						width: 66.6%;
+						padding-right: 25px;
 					}
 				}
 

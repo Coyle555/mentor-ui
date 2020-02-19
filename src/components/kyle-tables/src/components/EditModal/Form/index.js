@@ -23,15 +23,24 @@ export const Form = ({
 	totalRecords,
 	uploadFile
 }) => {
+	const idRef = useRef(data.id);
 	const direction = useRef(currentIndex);
 
 	// determine which direction the modal should slide in the next/prev record
 	const x = currentIndex < direction.current ? -200 : 200;
 	direction.current = currentIndex;
 
+	let immediate = true;
+
+	if (idRef.current !== data.id) {
+		immediate = false;
+		idRef.current = data.id;
+	}
+
 	const motionProps = useSpring({
 		from: { opacity: 0, transform: `translateX(${x}px)` },
 		to: { opacity: 1, transform: 'translateX(0px)' },
+		immediate,
 		reset: true
 	});
 

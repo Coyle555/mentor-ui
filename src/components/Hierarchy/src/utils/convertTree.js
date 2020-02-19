@@ -1,6 +1,6 @@
 
-export function convertTree(tree = [], level = 0, parentIndex = null) {
-	tree = convert(tree, level, parentIndex);
+export function convertTree(tree = [], level = 0, parentIndex = null, parentId) {
+	tree = convert(tree, level, parentIndex, parentId);
 	
 	tree.forEach(node => {
 		delete node.children;
@@ -9,7 +9,7 @@ export function convertTree(tree = [], level = 0, parentIndex = null) {
 	return tree;
 };
 
-function convert(tree, level, parentIndex) {
+function convert(tree, level, parentIndex, parentId) {
 	let convertedTree = [];
 
 	if (tree.length === 0) return [];
@@ -28,7 +28,8 @@ function convert(tree, level, parentIndex) {
 			hasSibling: tree[tree.length - 1] !== node,
 			level,
 			// index position of the parent in the list
-			parent: parentIndex
+			parent: parentIndex,
+			parentId: parentId
 		};
 
 		let subtree = [];
@@ -42,7 +43,8 @@ function convert(tree, level, parentIndex) {
 				// move down a level
 				parentIndex !== null
 					? parentIndex + totalParentDescendants + 1
-					: 0
+					: 0,
+				node.id
 			);
 		}
 

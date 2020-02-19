@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fields with a list of fields 1`] = `
+<div>
+  <div
+    className="field"
+  >
+    <label>
+      Foo
+    </label>
+    <div>
+      {"id":"foo","label":"Foo","disabled":false,"fieldId":"foo","rowId":"data_id","value":"foo_value"}
+    </div>
+  </div>
+  <div
+    className="field"
+  >
+    <label>
+      Bar
+    </label>
+    <div>
+      {"id":"bar","label":"Bar","disabled":false,"fieldId":"bar","rowId":"data_id","value":"bar_value"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fields with a not updateable field 1`] = `
+<div>
+  <div
+    className="field"
+  >
+    <label>
+      Foo
+    </label>
+    <span
+      className="cannot-update"
+    >
+      Field cannot be changed
+    </span>
+    <div>
+      {"id":"foo","label":"Foo","updateable":false,"disabled":true,"fieldId":"foo","rowId":"data_id","value":"foo_value"}
+    </div>
+  </div>
+  <div
+    className="field"
+  >
+    <label>
+      Bar
+    </label>
+    <div>
+      {"id":"bar","label":"Bar","disabled":false,"fieldId":"bar","rowId":"data_id","value":"bar_value"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fields with a selected field 1`] = `
+<div>
+  <div
+    className="field field-highlighted"
+  >
+    <label>
+      Foo
+    </label>
+    <div>
+      {"id":"foo","label":"Foo","disabled":false,"fieldId":"foo","rowId":"data_id","value":"foo_value"}
+    </div>
+  </div>
+  <div
+    className="field"
+  >
+    <label>
+      Bar
+    </label>
+    <div>
+      {"id":"bar","label":"Bar","disabled":false,"fieldId":"bar","rowId":"data_id","value":"bar_value"}
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fields with an empty list of fields 1`] = `<div />`;

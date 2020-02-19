@@ -5,22 +5,33 @@ import classNames from 'classnames';
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
 import { keyEvent as KeyEvent } from 'utils';
-import { getInputComponent } from './utils/getInputComponent';
+import { getInputComponent } from './utils';
 
 import './styles/form.less';
 
 export default class InsertForm extends Component {
 
 	static propTypes = {
-		formFields: PropTypes.arrayOf(PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			label: PropTypes.string.isRequired,
-			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-			parse: PropTypes.func,
-			parseMatchedValue: PropTypes.func,
-			required: PropTypes.bool,
-			type: PropTypes.string
-		})).isRequired,
+		formFields: PropTypes.arrayOf(PropTypes.oneOfType([
+			PropTypes.shape({
+				id: PropTypes.string,
+				label: PropTypes.string,
+				options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+				parse: PropTypes.func,
+				parseMatchedValue: PropTypes.func,
+				required: PropTypes.bool,
+				type: PropTypes.string
+			}),
+			PropTypes.arrayOf(PropTypes.shape({
+				id: PropTypes.string,
+				label: PropTypes.string,
+				options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
+				parse: PropTypes.func,
+				parseMatchedValue: PropTypes.func,
+				required: PropTypes.bool,
+				type: PropTypes.string
+			})),
+		])).isRequired,
 		initInsertData: PropTypes.object,
 		onDisable: PropTypes.func,
 		onSubmit: PropTypes.func,
@@ -81,8 +92,6 @@ export default class InsertForm extends Component {
 				this.handleGoingLeft();
 			} else if (fieldIndex + 1 < formModel.length) {
 				this.handleGoingRight();
-			} else {
-				this._onSubmit();
 			}
 		} else if (event.keyCode === KeyEvent.DOM_VK_ESCAPE) {
 			this.onDisable();
@@ -90,64 +99,117 @@ export default class InsertForm extends Component {
 	}
 
 	initializeInsertForm = () => {
-		const { formFields } = this.props;
+		const { formFields, initInsertData } = this.props;
 
-		this.insertData = {};
-		const initInsertData = Object.assign({}, this.props.initInsertData);
+		if (typeof initInsertData === 'object' && !!initInsertData) {
+			// initial insertion data to load into the form
+			this.insertData = Object.keys(initInsertData).reduce((acc, key) => {
+				acc[key] = initInsertData[key] !== null && initInsertData[key] !== undefined
+					? initInsertData[key]
+					: '';
+
+				return acc;
+			}, {});
+		}
+
 		const newFormModel = [];
 		const newFieldsWithError = {};
 		const newSteps = [];
 
-		let InputComponent = null;
-		let MentorInput = null;
-		let inputProps = {};
-
 		// initialize insert data
 		formFields.forEach(field => {
-			inputProps = {
-				autoFocus: true,
-				className: 'form-input',
-				key: field.id,
-				name: field.id,
-				onBlur: this._handleInputBlur,
-				onChange: this._handleInputChange,
-				onKeyDown: this.onKeyDown,
-				onMatch: this._handleOptionMatch,
-				required: field.required,
-				value: ''
-			};
+			if (Array.isArray(field)) {
+				const isRequired = field.some(fld => fld.required);
 
-			InputComponent = getInputComponent(field, inputProps);
-			
-			this.insertData[field.id] = '';	// initialize insert data
+				field.forEach((linkedField, i, arr) => {
+					linkedField.required = !!isRequired;
+					linkedField.disabled = i > 0;
+					linkedField.linkToNext = i < arr.length - 1;
+					linkedField.linkToPrev = i > 0;
 
-			if (field.required && !initInsertData[field.id]) {
-				newFieldsWithError[field.id] = true;
+					const {
+						processedField,
+						hasError,
+						step
+					} = this.processField(linkedField);
+
+					newSteps.push(step);
+					newFormModel.push(processedField);
+
+					if (hasError) {
+						newFieldsWithError[linkedField.id] = true;
+					}
+				});
+			} else {
+				const {
+					processedField,
+					hasError,
+					step
+				} = this.processField(field);
+
+				newSteps.push(step);
+				newFormModel.push(processedField);
+
+				if (hasError) {
+					newFieldsWithError[field.id] = true;
+				}
 			}
-
-			newSteps.push({
-				id: field.id,
-				title: field.label,
-				error: !!field.required && !initInsertData[field.id]
-			});
-
-			newFormModel.push(Object.assign({}, field, { InputComponent }));
-		});
-
-		// initial data passed in to load into the form
-		Object.keys(initInsertData).forEach(key => {
-			this.insertData[key] = initInsertData[key];
 		});
 
 		this.setState({
-			currentInputLabel: formFields.length > 0
-				? formFields[0].label
+			currentInputLabel: newFormModel.length > 0
+				? newFormModel[0].label
 				: '',
 			fieldIndex: 0,
 			fieldsWithError: newFieldsWithError,
 			formModel: newFormModel,
 			steps: newSteps
 		});
+	}
+
+	processField = (field) => {
+		let hasError = false;
+		let step;
+		let InputComponent = null;
+		
+		const inputProps = {
+			autoFocus: true,
+			className: 'form-input',
+			disabled: !!field.disabled,
+			key: field.id,
+			name: field.id,
+			onBlur: this._handleInputBlur,
+			onChange: this._handleInputChange,
+			onKeyDown: this.onKeyDown,
+			onMatch: this._handleOptionMatch,
+			required: field.required,
+			value: ''
+		};
+
+		InputComponent = getInputComponent(field, inputProps);
+		
+		// initialize insert data if not loaded from props
+		if (!this.insertData[field.id]) {
+			this.insertData[field.id] = '';
+		}
+
+		if (field.required && !this.insertData[field.id]) {
+			hasError = true;
+		}
+
+		step = {
+			id: field.id,
+			title: field.label,
+			error: hasError,
+			linkNext: field.linkToNext,
+			linkPrev: field.linkToPrev
+		};
+
+		return {
+			hasError,
+			processedField: Object.assign({}, field, { InputComponent }),
+			step
+		};
 	}
 
 	getField = () => {
@@ -163,8 +225,8 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputChange = (error, newValue, fieldId) => {
-		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId);
+		this.handleValue(newValue, this.state.fieldIndex);
+		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
 	// handle input after user blurs an input form, add new
@@ -174,26 +236,49 @@ export default class InsertForm extends Component {
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
 	_handleInputBlur = (error, newValue, fieldId) => {
-		this.insertData[fieldId] = newValue;
-		this.handleFieldError(error, fieldId);
+		this.handleValue(newValue, this.state.fieldIndex);
+		this.handleFieldError(error, fieldId, newValue, this.state.fieldIndex);
 	}
 
 	// handle matches in list filter for options
 	// @option(string|object) - option that was matched
 	// @fieldId(string) - field to assign the match to
 	_handleOptionMatch = (option, fieldId) => {
-		this.insertData[fieldId] = option; 
-		this.handleFieldError(false, fieldId);
+		this.handleValue(option, this.state.fieldIndex);
+		this.handleFieldError(false, fieldId, option, this.state.fieldIndex);
 	}
 
-	handleFieldError = (error, fieldId) => {
-		const { fieldIndex, fieldsWithError, steps } = this.state;
+	handleValue = (newValue, fieldIndex) => {
+		const { formModel } = this.state;
+		const field = formModel[fieldIndex];
+		let currentVal = this.insertData[field.id];
+
+		if (typeof field.parse === 'function') {
+			currentVal = field.parse(this.insertData[field.id]);
+		}
+
+		if (newValue !== currentVal) {
+			this.insertData[field.id] = newValue;
+
+			// on value changes clear all linked fields
+			if (field.linkToNext) {
+				this.handleValue('', fieldIndex + 1);
+			}
+		}
+	}
+
+	handleFieldError = (error, fieldId, value, fieldIndex) => {
+		const { fieldsWithError, formModel, steps } = this.state;
 		const newFieldsWithError = Object.assign({}, fieldsWithError);
 		const newSteps = steps.slice();
 
-		if (error) {
+		if (error || (formModel[fieldIndex].linkToPrev
+			&& this.insertData[formModel[fieldIndex - 1].id] !== ''
+			&& value === '')) {
+
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
+
 		// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
@@ -203,7 +288,24 @@ export default class InsertForm extends Component {
 		this.setState({
 			fieldsWithError: newFieldsWithError,
 			steps: newSteps
+		}, () => {
+			this.handleLinkedFieldError(error, value, fieldIndex);
 		});
+	}
+
+	handleLinkedFieldError = (error, value, fieldIndex) => {
+		const { formModel } = this.state;
+
+		if (formModel[fieldIndex].linkToNext) {
+			const nextField = formModel[fieldIndex + 1];
+
+			this.handleFieldError(
+				error || (value !== '' && this.insertData[nextField.id] === ''),
+				nextField.id,
+				this.insertData[nextField.id],
+				fieldIndex + 1
+			);
+		}
 	}
 
 	// handle submitting insertion data to the backend
@@ -242,9 +344,14 @@ export default class InsertForm extends Component {
 			this.insertData[field] = '';
 		});
 
-		Object.keys(initInsertData).forEach(field => {
-			this.insertData[field] = initInsertData[field];
-		});
+		if (typeof initInsertData === 'object' && !!initInsertData) {
+			Object.keys(initInsertData).forEach(field => {
+				this.insertData[field] = initInsertData[field] !== null 
+					&& initInsertData[field] !== undefined
+						? initInsertData[field]
+						: '';
+			});
+		}
 
 		this.setState({
 			fieldIndex: newIndex,
@@ -264,8 +371,8 @@ export default class InsertForm extends Component {
 			const newIndex = fieldIndex + 1;
 
 			this.setState({
+				currentInputLabel: formModel[newIndex].label,
 				fieldIndex: newIndex,
-				currentInputLabel: formModel[newIndex].label
 			});
 		}
 	}
@@ -310,7 +417,20 @@ export default class InsertForm extends Component {
 
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
-		const fieldId = this.getField().id;
+		const field = this.getField();
+		let link;
+
+		if (field.linkToPrev) {
+			const prevFieldId = formModel[fieldIndex - 1].id;
+
+			link = {
+				disabled: this.insertData[prevFieldId] === ''
+					|| fieldsWithError[prevFieldId]
+					|| typeof field.onLink !== 'function',
+				onLink: field.onLink,
+				value: this.insertData[prevFieldId]
+			};
+		}
 
 		return (
 			<Portal>
@@ -327,19 +447,18 @@ export default class InsertForm extends Component {
 							<div className="form">
 								<Label
 									label={currentInputLabel}
-									required={this.getField().required}
+									required={field.required}
 								/>
 								<Field
 									canGoLeft={canGoLeft}
 									canGoRight={canGoRight}
-									canSubmit={!canGoRight
-										&& Object.keys(fieldsWithError).length === 0}
+									canSubmit={!canGoRight && Object.keys(fieldsWithError).length === 0}
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
-									InputComponent={this.getField().InputComponent}
-									value={this.insertData[fieldId]}
+									InputComponent={field.InputComponent}
+									link={link}
+									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
-
 								/>
 							</div>
 							<div className="insert-popup-stepper">

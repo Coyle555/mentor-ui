@@ -36,3 +36,15 @@ export const ListOfFields = ({ fields, selectField }) => {
 		</div>
 	);
 };
+
+ListOfFields.propTypes = {
+	fields: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.string,
+		label: PropTypes.string
+	})),
+	selectField: PropTypes.func
+};
+
+ListOfFields.defaultProps = {
+	fields: []
+};

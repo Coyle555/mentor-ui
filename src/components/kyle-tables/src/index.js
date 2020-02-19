@@ -8,6 +8,7 @@ import { TableMain } from './components/Table';
 import { Loading } from './components/Loading';
 import { EditModal } from './components/EditModal';
 import InsertForm from 'insert-popup-form';
+import { initializeColumns } from './utils';
 
 import './styles.less';
 
@@ -129,7 +130,7 @@ export class Table extends Component {
 		formFields: null,
 		getRowName: null,
 		id: '',
-		initInsertData: null,
+		initInsertData: {},
 		insertCb: null,
 		multipleInsertion: true,
 		onRowSelect: null,
@@ -148,7 +149,6 @@ export class Table extends Component {
 		this.lastSelectedRowIndexStack = [];
 
 		this.el = document.createElement('div');
-		this.el.id = 'mui-table-edit-root';
 		this.el.className = 'table-edit-mode';
 		document.body.appendChild(this.el);
 
@@ -160,7 +160,7 @@ export class Table extends Component {
 		// @numRowsSelected: number of rows currently selected
 		// @selectedRows: map of all the rows the user has selected
 		this.state = {
-			columns: cloneDeep(this.props.columns),
+			columns: initializeColumns(this.props.columns),
 			editMode: false,
 			insertMode: false,
 			insertType: 'single',
@@ -197,7 +197,7 @@ export class Table extends Component {
 		}
 
 		if (this.props.columns !== prevProps.columns) {
-			this.setState({ columns: cloneDeep(this.props.columns) });
+			this.setState({ columns: initializeColumns(this.props.columns) });
 		}
 	}
 
@@ -252,7 +252,7 @@ export class Table extends Component {
 		// else if new column, start with desc ordering
 		} else {
 			sortId = sortColId
-			sortDir = sortMap.ASC;
+			sortDir = sortMap.DESC;
 		}
 
 		this.props.handleTableChange({
@@ -551,7 +551,14 @@ export class Table extends Component {
 	renderLayout = () => {
 		const { customClasses } = this.props;
 
-		let filterFields = cloneDeep(this.props.columns);
+		let filterFields = this.state.columns.map(col => ({
+			id: col.id,
+			label: col.label,
+			options: Array.isArray(col.options)
+				? col.options
+				: undefined,
+			type: col.type
+		}));
 		filterFields = this.sortFilterFields(filterFields);
 
 		const HeaderComponent = (
@@ -667,8 +674,13 @@ export class Table extends Component {
 					<InsertForm
 						initInsertData={initInsertData}
 						formFields={!!formFields
-							? cloneDeep(formFields.filter(field => field.insertable !== false))
-							: cloneDeep(columns.filter(col => col.insertable !== false))}
+							? cloneDeep(formFields.filter(field => (
+								field.insertable !== false
+							)))
+							: cloneDeep(columns.filter(col => (
+								col.insertable !== false
+							)))
+						}
 						onDisable={this._onInsertClick}
 						onSubmit={this._onSubmitInsertion}
 						resetForm={insertType === 'multiple'}
@@ -686,6 +698,7 @@ export class Table extends Component {
 					onBlur={this._onBlur}
 					onDeleteFileClick={this._onDeleteFileClick}
 					onOptionMatch={this._onOptionMatch}
+					portalNode={this.el}
 					sections={editSections}
 					uploadFile={this._uploadFile}
 				/>

@@ -31,7 +31,6 @@ exports[`Render states of the StructuredQuery Custom container class 1`] = `
   </span>
   <div
     className="filter-input-group"
-    onClick={[Function]}
   >
     <div
       className="filter-category"
@@ -48,7 +47,9 @@ exports[`Render states of the StructuredQuery Custom container class 1`] = `
     >
       <input
         className=""
+        data-testid="typeahead"
         onChange={[Function]}
+        onFocus={[Function]}
         onKeyDown={[Function]}
         type="text"
         value=""
@@ -92,7 +93,6 @@ exports[`Render states of the StructuredQuery Default render 1`] = `
   </span>
   <div
     className="filter-input-group"
-    onClick={[Function]}
   >
     <div
       className="filter-category"
@@ -109,7 +109,9 @@ exports[`Render states of the StructuredQuery Default render 1`] = `
     >
       <input
         className=""
+        data-testid="typeahead"
         onChange={[Function]}
+        onFocus={[Function]}
         onKeyDown={[Function]}
         type="text"
         value=""
@@ -153,7 +155,6 @@ exports[`Render states of the StructuredQuery Export search callback 1`] = `
   </span>
   <div
     className="filter-input-group"
-    onClick={[Function]}
   >
     <div
       className="filter-category"
@@ -170,7 +171,9 @@ exports[`Render states of the StructuredQuery Export search callback 1`] = `
     >
       <input
         className=""
+        data-testid="typeahead"
         onChange={[Function]}
+        onFocus={[Function]}
         onKeyDown={[Function]}
         type="text"
         value=""

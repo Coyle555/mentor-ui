@@ -20,6 +20,11 @@ Each form field object has the following shape:
 
 - **id**(*string*) **REQUIRED**: id of the input field
 - **label**(*string*) **REQUIRED**: label to render for the input field
+- **linkTo**(*string*): Id of another field to link to. Linking fields means the linked to field must be 
+filled out before this field can be filled out.
+- **onLink**(*function*): Function called when a linked field is rendered and the field it's linked to has a value. Signature 
+is *(linkedFieldValue) => {}*. The function must return an object that can have keys that will override input props. See mentor-inputs 
+for more info about options that can be passed in.
 - **options**(*[] | function*): Either a list of options or a function callback to use that 
 will generate a list of options. Can be used in conjunction with parse and parseMatchedValue to 
 use any data form as it is a list. Function signature *(value) => []*

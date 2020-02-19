@@ -60,11 +60,48 @@ storiesOf('InsertPopupForm', module)
 			<InsertPopupForm 
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
-					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
+					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
+					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
+					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
+					{
+						id: 'listfilter2',
+						label: 'List Filter w/ Filter',
+						type: 'listfilter',
+						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+						parse: val => val.name
+					}
 				]}
 				onSubmit={action('onSubmit')}
 				resetForm={true}
 			/>
-		)
+		);
 	})
+	.add('Linked fields', () => {
+		return (
+			<InsertPopupForm 
+				formFields={[
+					[
+						{ id: 'text2', label: 'Text Input 2' },
+						{ id: 'dependentField', label: 'Dependent field', onLink: (val) => ({}) }
+					],
+					[{
+						id: 'listfilter2',
+						label: 'List Filter w/ Filter',
+						type: 'listfilter',
+						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
+						parse: val => typeof val === 'object' ? val.name : val,
+						required: true
+					},
+					{
+						id: 'text5',
+						label: 'Text Input 5',
+						onLink: (val) => ({})
+					}]
+				]}
+				onSubmit={action('onSubmit')}
+			/>
+		);
+	});

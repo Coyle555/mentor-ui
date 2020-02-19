@@ -43,16 +43,24 @@ export class Step extends Component {
 			width
 		} = this.props;
 
-		let circleStatus = getCircleStatus(step, activeStep, index);
+		const circleStatus = getCircleStatus(step, activeStep, index);
 
-		let leftBarClasses = classNames({
+		const circleStatusClasses = classNames(
+			'stepper-step-circle',
+			circleStatus,
+			{ 'stepper-step-circle-link': step.linkNext || step.linkPrev }
+		);
+
+		const leftBarClasses = classNames({
 			'stepper-step-left-bar': true,
+			'stepper-bar-link-prev': step.linkPrev,
 			'stepper-bar-active': index <= activeStep,
 			'stepper-bar-default': index > activeStep
 		});
 
-		let rightBarClasses = classNames({
+		const rightBarClasses = classNames({
 			'stepper-step-right-bar': true,
+			'stepper-bar-link-next': step.linkNext,
 			'stepper-bar-active': index < activeStep,
 			'stepper-bar-default': index >= activeStep
 		});
@@ -63,7 +71,8 @@ export class Step extends Component {
 				style={{ width }}
 			>
 				<div
-					className={`stepper-step-circle ${circleStatus}`}
+					className={circleStatusClasses}
+					data-testid={`stepper-${step.id}`}
 					onClick={this.onClick}
 				>
 					<span className="stepper-step-text">
@@ -79,6 +88,8 @@ export class Step extends Component {
 				{ hasPrevStep && 
 					<div className={leftBarClasses} />
 				}
+				{ step.linkNext
+					&& <i className="far fa-link fa-lg stepper-link" title="Linked" /> }
 				{ hasNextStep && 
 					<div className={rightBarClasses} />
 				}

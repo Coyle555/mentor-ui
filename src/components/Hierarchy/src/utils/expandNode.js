@@ -9,6 +9,7 @@ export function expandNode({ parentIndex, nodesToAppend = [], tree }) {
 		newNodes: nodesToAppend,
 		nodeToAppendTo: node,
 		parentIndex,
+		parentId: node.id,
 	});
 
 	node.expanded = true;

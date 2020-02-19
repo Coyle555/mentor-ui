@@ -16,6 +16,7 @@ jest.mock('../Image', () => {
 import React from 'react';
 import { Field } from '../index';
 import renderer from 'react-test-renderer';
+import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
 const props = {
 	id: 'bar',
@@ -70,4 +71,15 @@ test('Rendering field with a parse', () => {
 	).toJSON();
 
 	expect(tree).toMatchSnapshot();
+});
+
+test.skip('Firing events on a text input', async () => {
+	const onChange = jest.fn();
+	const { debug, container, getByPlaceholderText } = render(<Field {...props} onChange={onChange} type="string" />);
+	debug();
+
+	fireEvent.change(getByPlaceholderText('Enter text'), { target: { value: 'foo' } });
+	await wait(() => {
+		expect(onChange).toHaveBeenCalledWith('foo');
+	});
 });

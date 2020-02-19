@@ -27,8 +27,7 @@ export class TypeaheadComponent extends Component {
 		header: PropTypes.string,
 		onKeyDown: PropTypes.func,
 		operator: PropTypes.string,
-		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-		parse: PropTypes.func
+		options: PropTypes.arrayOf(PropTypes.any),
 	}
 
 	static defaultProps = {
@@ -38,13 +37,10 @@ export class TypeaheadComponent extends Component {
 		header: 'Field',
 		onKeyDown: null,
 		options: [],
-		parse: null
 	}
 
 	constructor(props) {
 		super(props);
-
-		this.rawOptions = this.props.options;
 
 		// @focused: form is focused by user
 		// @visibleOptions: currently visible set of options
@@ -76,25 +72,11 @@ export class TypeaheadComponent extends Component {
 	}
 
 	getOptions = (options) => {
-		if (!options || (!Array.isArray(options) && typeof options !== 'function')) {
-			return;
-		}
+		if (!options || !Array.isArray(options)) return;
 
-		new Promise((resolve, reject) => {
-			if (typeof options === 'function') {
-				resolve(options(''));
-			} else {
-				resolve(options);
-			}
-		}).then(initOptions => {
-			this.rawOptions = initOptions;
+		let visibleOptions = this.props.options.slice();
 
-			if (typeof this.props.parse === 'function') {
-				initOptions = initOptions.map(val => this.props.parse(val));
-			}
-
-			this.setState({ visibleOptions: initOptions });
-		});
+		this.setState({ visibleOptions });
 	}
 
 	// Update the value when using a calendar popup
@@ -106,7 +88,7 @@ export class TypeaheadComponent extends Component {
 	// to refocus the user to the input, update the value in the input,
 	// and get the next list of options
 	_onOptionSelected = (option) => {
-		const { addTokenForValue, parse } = this.props;
+		const { addTokenForValue } = this.props;
 		// need to refocus on input box after selection
 		this.inputRef.focus();
 
@@ -121,10 +103,6 @@ export class TypeaheadComponent extends Component {
 			visibleOptions: []
 		});
 
-		if (typeof parse === 'function') {
-			option = this.rawOptions.find(opt => parse(opt) === option);
-		}
-
 		addTokenForValue(option);
 	}
 
@@ -133,7 +111,7 @@ export class TypeaheadComponent extends Component {
 		const { options } = this.props;
 		let value = event.target.value;
 
-		if (typeof options === 'function' || options.length > 0) {
+		if (options.length > 0) {
 			this.updateVisibleOptions(value);
 		} else {
 			this.setState({ value });
@@ -141,36 +119,16 @@ export class TypeaheadComponent extends Component {
 	}
 
 	updateVisibleOptions = (value) => {
-		const { options, parse } = this.props;
+		const { options } = this.props;
 
-		new Promise((resolve, reject) => {
-			this.loadingOptions = true;
+		const visibleOptions = fuzzy
+			.filter(value, options)
+			.map(res => res.string);
 
-			if (typeof options === 'function') {
-				resolve(options(value));
-			} else {
-				resolve(fuzzy.filter(
-					value,
-					options,
-					{ extract: typeof parse === 'function' ? parse : undefined }
-				).map(res => res.string));
-			}
-		}).then(visibleOptions => {
-			if (typeof options === 'function') {
-				this.rawOptions = visibleOptions;
-
-				if (typeof parse === 'function') {
-					visibleOptions = visibleOptions.map(val => parse(val));
-				}
-			}
-
-			this.setState({
-				selectedOptionIndex: -1,
-				value,
-				visibleOptions
-			}, () => {
-				this.loadingOptions = false;
-			});
+		this.setState({
+			selectedOptionIndex: -1,
+			value,
+			visibleOptions
 		});
 	}
 
@@ -304,6 +262,8 @@ export class TypeaheadComponent extends Component {
 	}
 
 	_focusTypeahead = () => {
+		if (this.state.focused) return;
+
 		this.setState({ focused: true });
 	}
 
@@ -348,6 +308,7 @@ export class TypeaheadComponent extends Component {
 			<>
 				<input
 					className={inputClassList}
+					data-testid="typeahead"
 					onChange={this._onTextEntryUpdated}
 					onFocus={this._focusTypeahead}
 					onKeyDown={this._onKeyDown}

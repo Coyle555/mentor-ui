@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const DEFAULT_HANDLER = <i className="far fa-bars fa-lg" />;
 
-export const Handler = ({ canDrag, customHandle, loading, node }) => {
+export const Handler = forwardRef(({ canDrag, customHandle, loading, node }, ref) => {
 	const handlerClasses = classNames({
 		'mui-node-handler': true,
 		'mui-node-handler-draggable': canDrag
@@ -23,13 +23,16 @@ export const Handler = ({ canDrag, customHandle, loading, node }) => {
 	}
 
 	return (
-		<div className={handlerClasses}>
+		<div 
+			className={handlerClasses}
+			ref={ref}
+		>
 			<div className="node-handler-icon">
 				{handlerIcon}
 			</div>
 		</div>
 	);
-};
+});
 
 Handler.propTypes = {
 	canDrag: PropTypes.bool,

@@ -11,9 +11,31 @@ exports[`Filter item of type date 1`] = `
   <td
     className="filter-value"
   >
-    <span>
-      October 21, 1995 8:00 PM
-    </span>
+    Oct 22, 1995
+  </td>
+  <td>
+    <a
+      className="clear-filter"
+      onClick={[Function]}
+    >
+      Clear
+    </a>
+  </td>
+</tr>
+`;
+
+exports[`Filter item of type date with no value 1`] = `
+<tr>
+  <td>
+    Foo
+  </td>
+  <td>
+    Bar
+  </td>
+  <td
+    className="filter-value"
+  >
+    
   </td>
   <td>
     <a
@@ -37,9 +59,7 @@ exports[`Filter item of type datetime 1`] = `
   <td
     className="filter-value"
   >
-    <span>
-      October 21, 1995, 8:00 PM
-    </span>
+    Oct 22, 1995, 7:30 PM
   </td>
   <td>
     <a
@@ -52,7 +72,7 @@ exports[`Filter item of type datetime 1`] = `
 </tr>
 `;
 
-exports[`Filter item with a parse function 1`] = `
+exports[`Filter item of type datetime with no value 1`] = `
 <tr>
   <td>
     Foo
@@ -63,7 +83,7 @@ exports[`Filter item with a parse function 1`] = `
   <td
     className="filter-value"
   >
-    bar
+    
   </td>
   <td>
     <a

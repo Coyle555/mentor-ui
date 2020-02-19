@@ -13,6 +13,7 @@ export class TableHeaderCell extends Component {
 	static propTypes = {
 		customClasses: PropTypes.object,
 		id: PropTypes.string,
+		link: PropTypes.bool,
 		onClick: PropTypes.func,
 		sortIcon: PropTypes.element,
 		sorted: PropTypes.bool,
@@ -22,6 +23,7 @@ export class TableHeaderCell extends Component {
 
 	static defaultProps = {
 		customClasses: {},
+		link: false,
 		sorted: false,
 		sortIcon: null,
 		title: ''
@@ -36,7 +38,7 @@ export class TableHeaderCell extends Component {
 	}
 
 	render() {
-		const { customClasses, sort, title, type } = this.props;
+		const { customClasses, link, sort, title, type } = this.props;
 
 		const classList = classNames({
 			'table-heading-cell': true,
@@ -48,8 +50,15 @@ export class TableHeaderCell extends Component {
 				className={classList}
 				ref={ref => this.headerCellRef = ref}
 			>
-				<span onClick={this._onSortClick}>
-					{title} { sort && SORT_ICONS[sort] }
+				<span
+					onClick={this._onSortClick}
+					title={title}
+				>
+					{title}
+					{ !!link
+						&& <i className="far fa-link fa-xs linked" title="Linked" />
+					}
+					{ sort && SORT_ICONS[sort] }
 				</span>
 			</th>
 		);

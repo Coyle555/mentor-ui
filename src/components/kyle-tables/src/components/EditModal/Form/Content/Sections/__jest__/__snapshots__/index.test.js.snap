@@ -1,34 +1,166 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`List of fields 1`] = `
-Array [
-  <input
-    autoComplete="false"
-    className="mui-mi-input-field"
-    onBlur={[Function]}
-    onChange={[Function]}
-    placeholder="Search fields"
-    type="text"
-    value=""
-  />,
-  <ul
-    className="fields-ul"
+exports[`Default sections render 1`] = `
+<ul
+  className="sections"
+>
+  <li
+    className="section-label"
+    onClick={[Function]}
   >
-    <li
-      className="field-li"
+    Fields
+    <i
+      className="fas fa-chevron-left"
+    />
+  </li>
+</ul>
+`;
+
+exports[`Sections list 1`] = `
+<ul
+  className="sections"
+>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    Fields
+    <i
+      className="fas fa-chevron-left"
+    />
+  </li>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    foo
+  </li>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    bar
+  </li>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    baz
+  </li>
+</ul>
+`;
+
+exports[`Sections list with a highlighted section 1`] = `
+<ul
+  className="sections"
+>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    Fields
+    <i
+      className="fas fa-chevron-left"
+    />
+  </li>
+  <li
+    className="section-label section-highlighted"
+    onClick={[Function]}
+  >
+    foo
+  </li>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    bar
+  </li>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    baz
+  </li>
+</ul>
+`;
+
+exports[`Sections render with selected section 1`] = `
+<ul
+  className="sections"
+>
+  <li
+    className="section-label section-highlighted"
+    onClick={[Function]}
+  >
+    Fields
+    <i
+      className="fas fa-chevron-left"
+    />
+  </li>
+</ul>
+`;
+
+exports[`Sections with an open list of fields 1`] = `
+<ul
+  className="sections"
+>
+  <li
+    className="section-label"
+    onClick={[Function]}
+  >
+    Fields
+    <i
+      className="fas fa-chevron-down"
+    />
+  </li>
+  <li>
+    <div
+      className="list-of-fields"
     >
-      Foo
-    </li>
-    <li
-      className="field-li"
-    >
-      Bar
-    </li>
-    <li
-      className="field-li"
-    >
-      Baz
-    </li>
-  </ul>,
-]
+      <input
+        autoComplete="false"
+        className="mui-mi-input-field"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder="Search Fields"
+        type="text"
+        value=""
+      />
+      <ul
+        className="fields-ul"
+      >
+        <li
+          className="field-li"
+          onClick={[Function]}
+        >
+          <span
+            className="label"
+          >
+            Foo
+          </span>
+        </li>
+        <li
+          className="field-li"
+          onClick={[Function]}
+        >
+          <span
+            className="label"
+          >
+            Bar
+          </span>
+        </li>
+        <li
+          className="field-li"
+          onClick={[Function]}
+        >
+          <span
+            className="label"
+          >
+            Baz
+          </span>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
 `;

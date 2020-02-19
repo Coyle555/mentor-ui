@@ -11,6 +11,7 @@ exports[`Default render of a step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -36,6 +37,7 @@ exports[`Render of a step with a title 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -63,6 +65,7 @@ exports[`Step that has a next step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -91,6 +94,7 @@ exports[`Step that has a next step and an active step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-active"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -121,6 +125,7 @@ exports[`Step that has a next step and an inactive(default) step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-active"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -149,6 +154,7 @@ exports[`Step that has a previous step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -177,6 +183,7 @@ exports[`Step that has a previous step and an active step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-active"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -205,6 +212,7 @@ exports[`Step that has a previous step and an inactive(default) step 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -233,6 +241,7 @@ exports[`Step that has an error 1`] = `
 >
   <div
     className="stepper-step-circle stepper-error"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -260,6 +269,7 @@ exports[`Step that has been completed with no error 1`] = `
 >
   <div
     className="stepper-step-circle stepper-active"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -287,6 +297,7 @@ exports[`Step that is active 1`] = `
 >
   <div
     className="stepper-step-circle stepper-active"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span
@@ -297,6 +308,68 @@ exports[`Step that is active 1`] = `
   </div>
   <div
     className="stepper-step-title stepper-active-title"
+  />
+</div>
+`;
+
+exports[`Step that links to next step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default stepper-step-circle-link"
+    data-testid="stepper-undefined"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <i
+    className="far fa-link fa-lg stepper-link"
+    title="Linked"
+  />
+  <div
+    className="stepper-step-right-bar stepper-bar-link-next"
+  />
+</div>
+`;
+
+exports[`Step that links to prev step 1`] = `
+<div
+  className="stepper-step"
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="stepper-step-circle stepper-default stepper-step-circle-link"
+    data-testid="stepper-undefined"
+    onClick={[Function]}
+  >
+    <span
+      className="stepper-step-text"
+    >
+      NaN
+    </span>
+  </div>
+  <div
+    className="stepper-step-title stepper-default-title"
+  />
+  <div
+    className="stepper-step-left-bar stepper-bar-link-prev"
   />
 </div>
 `;
@@ -312,6 +385,7 @@ exports[`Step with a custom width 1`] = `
 >
   <div
     className="stepper-step-circle stepper-default"
+    data-testid="stepper-undefined"
     onClick={[Function]}
   >
     <span

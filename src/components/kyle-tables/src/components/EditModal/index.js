@@ -17,6 +17,7 @@ export const EditModal = ({
 	onBlur,
 	onDeleteFileClick,
 	onOptionMatch,
+	portalNode,
 	sections,
 	uploadFile
 }) => {
@@ -45,12 +46,9 @@ export const EditModal = ({
 			closeEditMode={closeEditMode}
 			goToNextRecord={onNextClick}
 			goToPreviousRecord={onPreviousClick}
+			node={portalNode}
 		>
 			<PreviousRecord
-				label={hasPrevious && typeof getRowName === 'function'
-					? getRowName(data[recordIndex - 1])
-					: 'Previous Record'
-				}
 				hasPrevious={hasPrevious}
 				onPreviousClick={onPreviousClick}
 			/>
@@ -75,10 +73,6 @@ export const EditModal = ({
 				uploadFile={uploadFile}
 			/>
 			<NextRecord
-				label={hasNext && typeof getRowName === 'function'
-					? getRowName(data[recordIndex + 1])
-					: 'Next Record'
-				}
 				hasNext={hasNext}
 				onNextClick={onNextClick}
 			/>

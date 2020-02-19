@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from 'storybook-utils';
+import { cloneDeep } from 'lodash';
 
 import { Table, TableComponent } from '../../../../index';
 import { DraggableTable } from './DraggableTable';
@@ -15,10 +16,17 @@ const columns = [
 		display: false
 	},
 	{
+		label: 'Boolean',
+		id: 'bool',
+		type: 'boolean',
+		display: false
+	},
+	{
 		label: 'Number',
 		id: 'num',
 		type: 'integer',
-		display: false
+		display: false,
+		required: true
 	},
 	{
 		label: 'Float',
@@ -26,22 +34,25 @@ const columns = [
 		type: 'float',
 		display: false
 	},
-	{
+	[{
 		label: 'String',
 		id: 'string',
 		type: 'string',
+		updateable: false
+		//required: true
 	},
 	{
 		label: 'Multiline',
 		id: 'multiline',
 		type: 'multiline',
-		display: false
-	},
+		display: false,
+	}],
 	{
 		label: 'Email',
 		id: 'email',
 		type: 'email',
-		display: false
+		display: false,
+		onLink: () => {}
 	},
 	{
 		label: 'Money',
@@ -77,7 +88,14 @@ const columns = [
 		label: 'Image',
 		id: 'img',
 		type: 'image',
-		display: false
+		display: false,
+	},
+	{
+		label: 'Image Disabled',
+		id: 'img-disabled',
+		type: 'image',
+		display: false,
+		updateable: false
 	},
 	{
 		label: 'List Filter w/ array',
@@ -86,30 +104,88 @@ const columns = [
 		options: ['Option1', 'Option2', 'Option3']
 	},
 	{
+		label: 'List Filter w/ async',
+		id: 'listfilterasync',
+		type: 'listfilter',
+		options: val => {
+			if (val === 'f') {
+				return new Promise((resolve, reject) => {
+					setTimeout(function() {
+						resolve([{ id: 'foo', name: 'Foo' }])
+					}, 500);
+				});
+			} else if (val === 'fb') {
+				return new Promise((resolve, reject) => {
+					setTimeout(function() {
+						resolve([
+							{ id: 'bar', name: 'Bar' },
+							{ id: 'baz', name: 'Baz' }
+						])
+					}, 200);
+				});
+			} else {
+				return [
+					{ id: 'foo', name: 'Foo' },
+					{ id: 'bar', name: 'Bar' },
+					{ id: 'baz', name: 'Baz' }
+				];
+			}
+		},
+		parse: val => !!val && typeof val ==='object' ? val.name : val,
+		parseMatchedValue: val => `parsed value before return to id -- ${val.id}`
+	},
+	[{
 		label: 'List Filter w/ func',
 		id: 'listfilterfunc',
 		type: 'listfilter',
-		options: val => ([
-			{ id: 'foo', name: 'Foo' },
-			{ id: 'bar', name: 'Bar' },
-			{ id: 'baz', name: 'Baz' }
-		]),
-		parse: val => !!val && typeof val ==='object' ? val.name : ''
+		options: val => {
+			return [
+				{ id: 'foo', name: 'Foo' },
+				{ id: 'bar', name: 'Bar' },
+				{ id: 'baz', name: 'Baz' }
+			];
+		},
+		parse: val => !!val && typeof val ==='object' ? val.name : val,
+		required: true,
+		parseMatchedValue: val => `parsed value before return to id -- ${val.id}`
 	},
 	{
 		label: 'Options',
 		id: 'options',
-		options: ['Option1', 'Option2', 'Option3']
-	},
+		options: ['Option1', 'Option2', 'Option3'],
+		onLink: (val) => {
+			if (val.id === 'foo') {
+				return { options: ['Foo1', 'Foo2', 'Foo3'] };
+			}
+			
+			if (val.id === 'bar') {
+				return { options: ['Bar1', 'Bar2', 'Bar3'] };
+			}
+
+			return {};
+		}
+	}],
 	{
 		label: 'Link to File',
 		id: 'file',
-		type: 'file'
+		type: 'file',
+	},
+	{
+		label: 'Link to File Disabled',
+		id: 'file-disabled',
+		type: 'file',
+		updateable: false
 	},
 	{
 		label: 'Color',
 		id: 'color',
-		type: 'color'
+		type: 'color',
+	},
+	{
+		label: 'Color Disabled',
+		id: 'color-disabled',
+		type: 'color',
+		updateable: false
 	},
 	{
 		label: 'Custom Column',
@@ -119,21 +195,31 @@ const columns = [
 
 const data = [
 	{
+		bool: true,
 		datetime: '2019-09-05 17:04:41.2350000',
 		float: 13.5,
 		id: 'row1',
+		listfilterfunc: { id: 'bar', name: 'Bar' },
 		num: 3,
 		string: 'Test desc',
+		money: 0,
+		multiline: 'multi test',
 		options: 'Option2',
 		file: IMAGE,
+		'file-disabled': IMAGE,
 		img: IMAGE,
-		color: '#000000',
+		'img-disabled': IMAGE,
+		color: '#B80000',
+		'color-disabled': '#ffffff',
 		customColumnId: 'custom 1'
 	},
 	{
-		date: '2019-09-05',
+		bool: false,
+		datetime: '2020-02-07 15:00:30.315',
+		date: '2020-01-09 19:12:56.343',
 		float: 5,
 		id: 'row2',
+		money: 10,
 		num: 31,
 		object: { id: 'apple', name: 'Apple' },
 		string: 'Another desc that is going to be really long. The quick brown fox jumped over the lazy dog.',
@@ -145,6 +231,7 @@ const data = [
 		float: .5,
 		id: 'row3',
 		object: { id: 'test', name: 'Test' },
+		money: '',
 		num: 938,
 		string: 'Foo bar',
 		color: '#FCCB00',
@@ -155,6 +242,7 @@ const data = [
 		date: null,
 		float: .5,
 		id: 'row4',
+		money: .25,
 		string: 'bar',
 		color: '#008B02',
 		img: IMAGE
@@ -163,6 +251,7 @@ const data = [
 		date: null,
 		float: .5,
 		id: 'row5',
+		money: -3,
 		object: { id: 'abc', name: 'ABC' },
 		color: '#DB3E00',
 		num: 12,
@@ -203,29 +292,42 @@ const customColumns = { customColumnId: (row, { editMode, rowSelected, value }) 
 };
 
 storiesOf('Table', module)
-	.add('Basic table', () => (
-		<Table
-			columns={columns}
-			csvURL="www.duckduckgo.com"
-			currentPage={1}
-			customColumns={customColumns}
-			customToolbarButtons={customToolbarButtons}
-			data={data}
-			deleteCb={action('onDeleteClick')}
-			editSections={editSections}
-			exportTable={action('exportTable')}
-			filters={filters}
-			handleTableChange={action('handleTableChange')}
-			onDisplayColChange={action('onDisplayColChange')}
-			pageSize={5}
-			quickViews={quickViews}
-			recordCount={10}
-			sortId="string"
-			sortDir="ASC"
-			updateCb={action('updateCb')}
-			uploadFileCb={action('uploadFileCb')}
-		/>
-	))
+	.add('Basic table', () => {
+		const [dataState, setDataState] = useState(cloneDeep(data));
+
+		const updateCb = (id, field, value) => {
+			const newDataState = cloneDeep(dataState);
+			const record = newDataState.find(d => d.id === id);
+			record[field] = value;
+
+			setDataState(newDataState);
+		};
+
+		return (
+			<Table
+				columns={columns}
+				csvURL="www.duckduckgo.com"
+				currentPage={1}
+				customColumns={customColumns}
+				customToolbarButtons={customToolbarButtons}
+				data={dataState}
+				deleteCb={action('onDeleteClick')}
+				editSections={editSections}
+				exportTable={action('exportTable')}
+				filters={filters}
+				handleTableChange={action('handleTableChange')}
+				insertCb={action('insertCb')}
+				onDisplayColChange={action('onDisplayColChange')}
+				pageSize={5}
+				quickViews={quickViews}
+				recordCount={10}
+				sortId="string"
+				sortDir="ASC"
+				updateCb={updateCb}
+				uploadFileCb={action('uploadFileCb')}
+			/>
+		);
+	})
 	.add('Expandable table', () => {
 		const ExpandComponent = (props) => <span>{JSON.stringify(props)}</span>;
 

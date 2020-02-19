@@ -8,7 +8,7 @@ Props | Type | Required | Description
 ----- | ---- | -------- | -----------
 [fields](#fields) | [Object] | **Yes** | Fields used for filter
 [customClasses](#customClasses) | Object | No | Custom classes that can be applied to components of the structured query
-exportSearch | Function | No | Callback when exporting applied tokens
+exportSearch | Function | No | Callback when exporting generated tokens
 initTokens | [Object] | No | Tokens used to initialize structured query. See [tokens](#tokens)
 onTokenAdd | Function | No | Callback used after a token is added. Callback receives [tokens](#tokens). Signature *([token]) => {}*
 onTokenRemove | Function | No | Callback used after a token is removed. Callback receives [tokens](#tokens). Signature *([token]) => {}*
@@ -29,9 +29,16 @@ Fields have the following shape:
 
 - **id**(*string*) **REQUIRED**: The id of the field
 - **label**(*string*): Label of the field to display to the user
-- **options**(*[any] | function*): List of options on an enumerated list of values. When using a function, 
-it needs to return a list. Signature is *(value) => []*. Can be used in conjunction with parse to 
-display values
-- **parse**(*function*): Callback used with options to generate displayed values
+- **options**(*[string]*): List of options on an enumerated list of values.
 - **type**(*string*): Data type of the field. Defaults to text, but will render a datepicker when 
 the type is date or datetime
+
+### CustomClasses
+
+The following classes can be applied to the structured query
+
+- **container**(*string*): class name to apply to the structured query container
+- **input**(*string*): class name to apply to the input
+- **listAnchor**(*string*): class name to apply to the dropdown list item link
+- **listItem**(*string*): class name to apply to the dropdown list item
+- **results**(*string*): class name to apply to the results dropdown

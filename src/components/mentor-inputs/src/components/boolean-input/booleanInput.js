@@ -4,31 +4,22 @@ import classNames from 'classnames';
 
 import SelectInput from '../select-input/selectInput';
 
-const OPTIONS = [true, false];
-
-const parse = (val => {
-	if (val === true) {
-		return 'True'
-	}
-	
-	if (val === false) {
-		return 'False'
-	}
-});
+const OPTIONS = ['Yes', 'No'];
+const parseMatchedValue = (val => val === 'Yes' ? true : false);
 
 const BooleanInput = ({ value, ...props }) => {
 
-	if (value === 'true' || value === 'True') {
-		value = true;
-	} else if (value === 'false' || value === 'False') {
-		value = false;
+	if (value === true || value === 'true') {
+		value = 'Yes';
+	} else if (value === false || value === 'false') {
+		value = 'No';
 	}
 
 	return (
 		<SelectInput 
 			{...props}
 			options={OPTIONS}
-			parse={parse}
+			parseMatchedValue={parseMatchedValue}
 			value={value}
 		/>
 	);

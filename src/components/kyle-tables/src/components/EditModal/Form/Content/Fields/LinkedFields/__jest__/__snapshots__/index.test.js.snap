@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Linked field with a list of fields 1`] = `
+<div
+  className="linked-fields"
+/>
+`;
+
+exports[`Linked fields with no fields 1`] = `
+<div
+  className="linked-fields"
+/>
+`;

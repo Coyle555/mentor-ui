@@ -314,7 +314,7 @@ describe('Adding a field to a token', () => {
 
 	test('Adding a duplicate token', () => {
 		const fields = [
-			{ id: 'foo', label: 'Foo', type: 'string', options: [{ name: 'foo' }], parse: val => val.name },
+			{ id: 'foo', label: 'Foo', type: 'string', options: ['foo'] },
 			{ id: 'bar', label: 'Bar', type: 'string' }
 		];
 		const onTokenAdd = jest.fn();
@@ -324,11 +324,11 @@ describe('Adding a field to a token', () => {
 
 		instance._addTokenForValue('Foo');
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
-		instance._addTokenForValue({ name: 'foo' });
+		instance._addTokenForValue('foo');
 
 		instance._addTokenForValue('Foo');
 		instance._addTokenForValue(ALL_OPERATIONS.EQUALS);
-		instance._addTokenForValue({ name: 'foo' });
+		instance._addTokenForValue('foo');
 
 		expect(instance.state.searchTokens.length).toBe(1);
 	});

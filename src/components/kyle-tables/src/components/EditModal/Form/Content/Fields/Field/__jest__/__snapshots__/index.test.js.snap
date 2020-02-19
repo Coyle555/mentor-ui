@@ -2,42 +2,42 @@
 
 exports[`Rendering a file field 1`] = `
 <div>
-  {"disabled":false,"type":"file","value":""}
+  {"type":"file","value":""}
 </div>
 `;
 
 exports[`Rendering an color field 1`] = `
 <div>
-  {"disabled":false,"type":"color","value":""}
+  {"type":"color","value":""}
 </div>
 `;
 
 exports[`Rendering an image field 1`] = `
 <div>
-  {"disabled":false,"type":"image","value":""}
+  {"type":"image","value":""}
 </div>
 `;
 
 exports[`Rendering field with a parse 1`] = `
 <div>
-  {"disabled":false,"type":"string","value":{"name":"foo"}}
+  {"type":"string","value":{"name":"foo"}}
 </div>
 `;
 
 exports[`Rendering options that is a list filter 1`] = `
 <div>
-  {"disabled":false,"type":"listfilter","value":"","options":["foo"]}
+  {"type":"listfilter","value":"","options":["foo"]}
 </div>
 `;
 
 exports[`Rendering options that is not a list filter 1`] = `
 <div>
-  {"disabled":false,"type":"select","value":"","options":["foo"]}
+  {"type":"select","value":"","options":["foo"]}
 </div>
 `;
 
 exports[`Rendering text field 1`] = `
 <div>
-  {"disabled":false,"type":"string","value":""}
+  {"type":"string","value":""}
 </div>
 `;

@@ -22,7 +22,17 @@ test('Filter item with child object', () => {
 test('Filter item of type datetime', () => {
 	const tree = renderer.create(
 		<FilterItem type="datetime">
-			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22' }}
+			{{ label: 'Foo', operator: 'Bar', value: '1995-10-22 23:30:00' }}
+		</FilterItem>
+	).toJSON();
+
+	expect(tree).toMatchSnapshot();
+});
+
+test('Filter item of type datetime with no value', () => {
+	const tree = renderer.create(
+		<FilterItem type="datetime">
+			{{ label: 'Foo', operator: 'Bar', value: '' }}
 		</FilterItem>
 	).toJSON();
 
@@ -39,15 +49,13 @@ test('Filter item of type date', () => {
 	expect(tree).toMatchSnapshot();
 });
 
-test('Filter item with a parse function', () => {
-	const parse = jest.fn(val => val.name);
+test('Filter item of type date with no value', () => {
 	const tree = renderer.create(
-		<FilterItem parse={parse}>
-			{{ label: 'Foo', operator: 'Bar', value: { name: 'bar' } }}
+		<FilterItem type="date">
+			{{ label: 'Foo', operator: 'Bar', value: '' }}
 		</FilterItem>
 	).toJSON();
 
-	expect(parse).toHaveBeenCalledWith({ name: 'bar' });
 	expect(tree).toMatchSnapshot();
 });
 

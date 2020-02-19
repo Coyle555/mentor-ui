@@ -43,6 +43,29 @@ exports[`Rendering a field that can be submitted 1`] = `
 </div>
 `;
 
+exports[`Rendering a field with a false valid linked value 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-2 text-right"
+  />
+  <div
+    className="col-8"
+  >
+    <input
+      data-testid="field-input"
+      disabled={false}
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="col-2"
+  />
+</div>
+`;
+
 exports[`Rendering a field with a string value 1`] = `
 <div
   className="row"
@@ -58,6 +81,29 @@ exports[`Rendering a field with a string value 1`] = `
     >
       foo
     </input>
+  </div>
+  <div
+    className="col-2"
+  />
+</div>
+`;
+
+exports[`Rendering a field with a valid linked value 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-2 text-right"
+  />
+  <div
+    className="col-8"
+  >
+    <input
+      data-testid="field-input"
+      disabled={false}
+      type="text"
+      value=""
+    />
   </div>
   <div
     className="col-2"
@@ -154,5 +200,29 @@ exports[`Rendering field that can go right 1`] = `
       Next
     </button>
   </div>
+</div>
+`;
+
+exports[`Rendering field with a onLink callback 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-2 text-right"
+  />
+  <div
+    className="col-8"
+  >
+    <input
+      data-testid="field-input"
+      disabled={false}
+      required={true}
+      type="text"
+      value="test"
+    />
+  </div>
+  <div
+    className="col-2"
+  />
 </div>
 `;

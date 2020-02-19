@@ -10,7 +10,6 @@ import {
 	_getHeader,
 	_getInputDatatype,
 	_getOptionsForTypeahead,
-	_getParseForOptions,
 	_isDuplicateToken,
 	validateToken
 } from './utils/utils';
@@ -27,12 +26,17 @@ export class StructuredQuery extends Component {
 	}
 
 	static propTypes = {
-		customClasses: PropTypes.object,
+		customClasses: PropTypes.shape({
+			container: PropTypes.string,
+			input: PropTypes.string,
+			listAnchor: PropTypes.string,
+			listItem: PropTypes.string,
+			results: PropTypes.string
+		}),
 		fields: PropTypes.arrayOf(PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			label: PropTypes.string,
-			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-			parse: PropTypes.func,
+			options: PropTypes.arrayOf(PropTypes.any),
 			type: PropTypes.string
 		})),
 		exportSearch: PropTypes.func,
@@ -128,12 +132,11 @@ export class StructuredQuery extends Component {
 		}
 
 		const newToken = Object.assign({}, nextToken, { value });
-		const parse = _getParseForOptions(fields, nextToken);
 
 		// Else, we are attaching a value so we need to add the 
 		// next token to the list of all tokens
 		// We check first to make sure there are no duplicates
-		if (!_isDuplicateToken(searchTokens, newToken, parse)) {
+		if (!_isDuplicateToken(searchTokens, newToken)) {
 			this._addValueToNewToken(value);
 		}
 	}
@@ -288,7 +291,6 @@ export class StructuredQuery extends Component {
 					onKeyDown={this._onKeyDown}
 					operator={nextToken.operator}
 					options={_getOptionsForTypeahead(fields, nextToken)}
-					parse={_getParseForOptions(fields, nextToken)}
 				/>
 				{/*<span className="input-group-addon right-addon">
 					<i className="far fa-search" />

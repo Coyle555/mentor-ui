@@ -9,7 +9,6 @@ Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/me
 ### Components
 
 - [Button](./src/components/Button)
-- [DatePicker](./src/components/DatePicker)
 - [Error Page](./src/components/ErrorPage)
 - [Hierarchy](./src/components/Hierarchy)
 - [Inputs](./src/components/mentor-inputs)
@@ -18,4 +17,5 @@ Please refer to the the [Mentor Code Styleguide](https://github.com/MentorAPM/me
 - [Panel](./src/components/Panel)
 - [Structured Query](./src/components/structured-query)
 - [Table](./src/components/kyle-tables)
+  - [Table Component](./src/components/kyle-tables/src/components/Table)
 - [Toggle List](./src/components/ToggleList)

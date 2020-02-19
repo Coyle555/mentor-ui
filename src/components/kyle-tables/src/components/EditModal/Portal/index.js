@@ -14,7 +14,7 @@ export class Portal extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const editRoot = document.getElementById('mui-table-edit-root');
+		const editRoot = this.props.node;
 		editRoot.style.display = 'flex';
 		editRoot.style.justifyContent = 'space-between';
 		editRoot.style.alignItems = 'center';
@@ -23,7 +23,7 @@ export class Portal extends React.Component {
 	}
 
 	componentWillUnmount() {
-		const editRoot = document.getElementById('mui-table-edit-root');
+		const editRoot = this.props.node;
 		editRoot.style.display = 'none';
 
 		window.removeEventListener('keydown', this.handleKeyDown);
@@ -55,6 +55,6 @@ export class Portal extends React.Component {
 	}
 
 	render() {
-		return createPortal(this.props.children, document.getElementById('mui-table-edit-root'));
+		return createPortal(this.props.children, this.props.node);
 	}
 }
