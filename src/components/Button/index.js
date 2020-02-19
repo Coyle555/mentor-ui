@@ -7,7 +7,7 @@ import './index.less';
 /**
 	A simple button component with some preset styles
 */
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
 	const {
 		block,
 		className = '',
@@ -48,11 +48,12 @@ const Button = (props) => {
 		<button
 			{...btnAttributes}
 			className={btnClass}
+			ref={ref}
 		>
 			{ children }
 		</button>
 	);
-}
+});
 
 Button.propTypes = {
 	block: PropTypes.bool,

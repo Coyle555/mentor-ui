@@ -110,7 +110,7 @@ export const Node = ({
 		},
 	});
 	
-	drag(drop(ref));
+	
 
 	const nodeClasses = classNames({
 		'mui-node-content': true,
@@ -121,7 +121,7 @@ export const Node = ({
 
 	return (
 		<div
-			ref={ref}
+			ref={preview(drop(ref))}
 			className={nodeClasses}
 			onClick={() => { dispatch({ type: 'selectNode', nodeIndex })}}
 			style={_style}
@@ -131,7 +131,7 @@ export const Node = ({
 				customHandle={customHandle}
 				loading={loading}
 				node={node}
-				ref={handlerRef}
+				ref={drag}
 			/>		
 			<span>
 				<div className="node-text-title">

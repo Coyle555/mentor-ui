@@ -19,7 +19,7 @@ storiesOf('Inputs/BooleanInput', module)
 			'false (String)': 'false',
 			'true (Boolean)': true,
 			'false (Boolean)' : false,
-			null: null	
+			null: null
 		}
 
 		return (
