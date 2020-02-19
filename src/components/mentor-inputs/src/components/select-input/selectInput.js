@@ -32,8 +32,8 @@ const SelectInput = ({
 	}, [required, validate]);
 
 	useEffect(() => {
-		const value = typeof parse === 'function'
-			? parse(props.value)
+		const value = typeof parseMatchedValue === 'function'
+			? parseMatchedValue(props.value)
 			: props.value;
 
 		if (currentValue !== value) {
