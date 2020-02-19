@@ -123,7 +123,7 @@ export const Tree = ({
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [loadingNodeId, setLoadingNodeId] = useState('');
 
-	const toggleChildVisibility = useCallback(({ index, node }) => {
+	const toggleChildVisibility = ({ index, node }) => {
 		// deselect nodes if collapsing and close opened button menus
 		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
 			dispatch({ type: 'selectNode', nodeIndex: -1 });
@@ -192,9 +192,9 @@ export const Tree = ({
 			setConvertedTree(newTree);
 			afterTreeChange(newTree);
 		}
-	}, []);
+	};
 
-	const renderRow = useCallback(({ index, style, ...props }) => (
+	const renderRow = ({ index, style, ...props }) => (
 		<Row
 			buttonMenuIndex={state.buttonMenuIndex}
 			canDrag={canDrag}
@@ -215,7 +215,7 @@ export const Tree = ({
 			toggleChildVisibility={toggleChildVisibility}
 			tree={convertedTree}
 		/>
-	));
+	);
 
 	if (isVirtualized) {
 		return (
