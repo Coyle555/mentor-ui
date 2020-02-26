@@ -42,6 +42,7 @@ export const TableMain = ({
 								&& numRowsSelected === rowProperties.data.length}
 							columns={columns}
 							customClasses={customClasses}
+							draggable={dragProperties.draggable}
 							expandable={!!rowProperties.ExpandComponent}
 							rowButtons={rowButtons}
 							sort={sort}

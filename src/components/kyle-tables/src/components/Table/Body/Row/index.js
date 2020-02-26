@@ -52,11 +52,19 @@ export const TableRow = ({
 	// table row to display
 	const tableRow = (
 		<tr className={classNames(rowClass)}>
+			{ !!draggable &&
+				<td className={classNames(
+					'table-cell-view table-row-button',
+					{ 'table-btn-border': !expandable && rowButtons.length === 0 }
+				)} >
+					<i className="fas fa-grip-vertical table-row-drag-btn" />
+				</td>
+			}
 			{ rowButtons.map((btn, i) => (
 				<td
 					className={classNames({
 						'table-cell-view table-row-button': true,
-						'table-btn-border': rowButtons.length === i + 1
+						'table-btn-border': !expandable && rowButtons.length === i + 1
 					})}
 					key={`${rowId}-extra-${i}`}
 					onClick={() => onExtraColClick(btn.onClick)}
@@ -67,7 +75,6 @@ export const TableRow = ({
 			{ expandable && 
 				<ExpandCell
 					expanded={expanded}
-					lastBtn={rowButtons.length === 0}
 					onClick={_onExpandClick}
 				/>
 			}
@@ -103,7 +110,7 @@ export const TableRow = ({
 	);
 
 
-	if (!!dropType && !rowSelected) {
+	/*if (!!dropType && !rowSelected) {
 		let colSpan = expandable
 			? columns.length + 2
 			: columns.length + 1;
@@ -131,7 +138,7 @@ export const TableRow = ({
 				{tableRow}
 			</TableRowDraggable>
 		);
-	}
+	}*/
 
 	return tableRow;
 };

@@ -13,6 +13,7 @@ export const TableHeaderRow = ({
 	allRowsSelected,
 	columns,
 	customClasses,
+	draggable,
 	expandable,
 	rowButtons,
 	sort,
@@ -31,21 +32,24 @@ export const TableHeaderRow = ({
 
 	return (
 		<tr className={headerRowClasses}>
-			{ expandable &&
+			{ draggable &&
 				<th className={classNames({
 					'table-heading-cell table-expand-cell': true,
-					'table-btn-border': rowButtons.length === 0
+					'table-btn-border': !expandable && rowButtons.length === 0
 				})} />
 			}
 			{ rowButtons.map((btn, i) => (
 				<th
 					className={classNames({
 						'table-heading-cell table-expand-cell': true,
-						'table-btn-border': rowButtons.length === i + 1
+						'table-btn-border': !expandable && rowButtons.length === i + 1
 					})}
 					key={`table-extra-col-${i}`}
 				/>
 			))}
+			{ expandable &&
+				<th className="table-heading-cell table-expand-cell table-btn-border" />
+			}
 			{ allowSelection && 
 				<TableHeaderCheckboxCell
 					allRowsSelected={allRowsSelected}

@@ -4,8 +4,10 @@ import { useDrop, DndProvider } from 'react-dnd';
 
 import { Table } from '../index';
 
+const DRAG_TYPE = 'TABLE_DRAG';
+
 const DraggableArea = (props) => {
-	const [collectedProps, drop] = useDrop({ accept: 'TABLE_DRAG' });
+	const [collectedProps, drop] = useDrop({ accept: DRAG_TYPE });
 
 	return (
 		<div
@@ -40,6 +42,12 @@ export const DraggableTable = ({ columns, data }) => {
 					columns={columns}
 					currentPage={1}
 					data={data}
+					draggable={{
+						dragType: DRAG_TYPE,
+						dragCb: (row) => {
+							console.log('dragged row', row);
+						}
+					}}
 					pageSize={10}
 					recordCount={10}
 				/>

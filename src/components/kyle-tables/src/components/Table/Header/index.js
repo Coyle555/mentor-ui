@@ -10,6 +10,7 @@ export const TableHeader = ({
 	allRowsSelected,
 	columns,
 	customClasses,
+	draggable,
 	expandable,
 	rowButtons,
 	sort,
@@ -27,6 +28,7 @@ export const TableHeader = ({
 				allRowsSelected={allRowsSelected}
 				columns={columns}
 				customClasses={customClasses}
+				draggable={draggable}
 				expandable={expandable}
 				rowButtons={rowButtons}
 				sort={sort}
