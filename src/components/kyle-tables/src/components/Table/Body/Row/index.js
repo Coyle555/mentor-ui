@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 
 import { createDragPreview } from './Drag/createDragPreview';
-import { TableRowDraggable } from './Drag/Draggable';
-import { TableRowDroppable } from './Drag/Droppable';
 import { ExpandCell } from './Cell/ExpandCell';
 import { Cell } from './Cell';
 
@@ -129,37 +127,6 @@ export const TableRow = ({
 			))}
 		</tr>
 	);
-
-
-	/*if (!!dropType && !rowSelected) {
-		let colSpan = expandable
-			? columns.length + 2
-			: columns.length + 1;
-
-		return (
-			<TableRowDroppable
-				colSpan={colSpan}
-				desc={row.desc}
-				dropType={dropType}
-				name={row.name}
-				rowId={rowId}
-			>
-				{tableRow}
-			</TableRowDroppable>
-		);
-	// if view row is draggable, wrap row in a draggable component
-	} else if (draggable && rowSelected) {
-		return (
-			<TableRowDraggable
-				dragCb={draggable.dragCb}
-				dragType={draggable.dragType}
-				selectedRows={selectedRows}
-				rowId={rowId}
-			>
-				{tableRow}
-			</TableRowDraggable>
-		);
-	}*/
 
 	return tableRow;
 };
