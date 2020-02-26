@@ -121,6 +121,7 @@ TableMain.propTypes = {
 
 TableMain.defaultProps = {
 	customClasses: {},
+	dragProperties: {},
 	events: {},
 	numRowsSelected: 0,
 	pageProperties: {

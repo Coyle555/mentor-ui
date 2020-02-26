@@ -7,7 +7,13 @@ import { Table } from '../index';
 const DRAG_TYPE = 'TABLE_DRAG';
 
 const DraggableArea = (props) => {
-	const [collectedProps, drop] = useDrop({ accept: DRAG_TYPE });
+	const [collectedProps, drop] = useDrop({
+		accept: DRAG_TYPE,
+		drop: (item, monitor) => {
+			console.log('item dropped', item);
+			console.log('monitor drop result', monitor.getDropResult());
+		}
+	});
 
 	return (
 		<div

@@ -32,7 +32,7 @@ export const TableHeaderRow = ({
 
 	return (
 		<tr className={headerRowClasses}>
-			{ draggable &&
+			{ !!draggable.dragType &&
 				<th className={classNames({
 					'table-heading-cell table-expand-cell': true,
 					'table-btn-border': !expandable && rowButtons.length === 0

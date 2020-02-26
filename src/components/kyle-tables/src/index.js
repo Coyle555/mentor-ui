@@ -121,7 +121,7 @@ export class Table extends Component {
 		data: [],
 		deleteCb: null,
 		displayCols: [],
-		draggable: null,
+		draggable: {},
 		dropType: '',
 		editSections: [],
 		ExpandComponent: null,

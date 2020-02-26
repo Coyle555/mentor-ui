@@ -41,6 +41,7 @@ export const TableHeader = ({
 
 TableHeader.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
+	draggable: PropTypes.object,
 	sort: PropTypes.shape({
 		id: PropTypes.string,
 		ascending: PropTypes.bool
@@ -49,5 +50,6 @@ TableHeader.propTypes = {
 };
 
 TableHeader.defaultProps = {
-	customClasses: {}
+	customClasses: {},
+	draggable: {}
 };

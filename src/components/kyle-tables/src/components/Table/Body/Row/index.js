@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useDrag } from 'react-dnd';
 
 import { TableRowDraggable } from './Drag/Draggable';
 import { TableRowDroppable } from './Drag/Droppable';
@@ -49,14 +50,30 @@ export const TableRow = ({
 		[customClasses.tableRow]: !!customClasses.tableRow
 	};
 
+	let drag, preview;
+
+	if (draggable.dragType) {
+		[, drag, preview] = useDrag({
+			canDrag: monitor => Object.keys(selectedRows).length === 0
+				|| selectedRows.hasOwnProperty(rowId),
+			item: { type: draggable.dragType, row }
+		});
+	}
+
 	// table row to display
 	const tableRow = (
-		<tr className={classNames(rowClass)}>
-			{ !!draggable &&
-				<td className={classNames(
-					'table-cell-view table-row-button',
-					{ 'table-btn-border': !expandable && rowButtons.length === 0 }
-				)} >
+		<tr
+			className={classNames(rowClass)}
+			ref={preview}
+		>
+			{ !!draggable.dragType &&
+				<td
+					className={classNames(
+						'table-cell-view table-row-button',
+						{ 'table-btn-border': !expandable && rowButtons.length === 0 }
+					)}
+					ref={drag}
+				>
 					<i className="fas fa-grip-vertical table-row-drag-btn" />
 				</td>
 			}
@@ -147,13 +164,10 @@ TableRow.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
 	customClasses: PropTypes.object,
 	customColumns: PropTypes.object,
-	draggable: PropTypes.oneOfType([
-		PropTypes.bool,
-		PropTypes.shape({
-			dragType: PropTypes.string,
-			dragCb: PropTypes.func
-		})
-	]),
+	draggable: PropTypes.shape({
+		dragType: PropTypes.string,
+		dragCb: PropTypes.func
+	}),
 	expandable: PropTypes.bool,
 	expanded: PropTypes.bool,
 	rowSelected: PropTypes.bool,
@@ -166,7 +180,7 @@ TableRow.defaultProps = {
 	columns: [],
 	customClasses: {},
 	customColumns: {},
-	draggable: false,
+	draggable: {},
 	expandable: false,
 	rowButtons: [],
 	row: {}
