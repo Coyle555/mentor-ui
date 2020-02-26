@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { useDrag } from 'react-dnd';
+import { useDrag, DragPreviewImage } from 'react-dnd';
 
+import { createDragPreview } from './Drag/createDragPreview';
 import { TableRowDraggable } from './Drag/Draggable';
 import { TableRowDroppable } from './Drag/Droppable';
 import { ExpandCell } from './Cell/ExpandCell';
@@ -64,9 +65,11 @@ export const TableRow = ({
 	const tableRow = (
 		<tr
 			className={classNames(rowClass)}
-			ref={preview}
+			//ref={preview}
 		>
 			{ !!draggable.dragType &&
+				<>
+				<DragPreviewImage connect={preview} src={createDragPreview()} />
 				<td
 					className={classNames(
 						'table-cell-view table-row-button',
@@ -76,6 +79,7 @@ export const TableRow = ({
 				>
 					<i className="fas fa-grip-vertical table-row-drag-btn" />
 				</td>
+				</>
 			}
 			{ rowButtons.map((btn, i) => (
 				<td
