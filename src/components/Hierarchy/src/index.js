@@ -1,12 +1,16 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
+import { cloneDeep } from 'lodash';
 
 import { Row } from './components/Row';
-import { collapseNode, convertTree, expandNode, findNode } from './utils';
+import { collapseNode, convertTree, expandNode, findNode, reducer } from './utils';
 
 import './styles.less';
+
+//const workerPath = new URL('./worker', window.location.origin)
+const worker = new Worker('./worker.js', { type: 'module' });
 
 const ROW_HEIGHT = 62;
 
@@ -30,6 +34,12 @@ export const Tree = ({
 	subtitle,
 	...props
 }) => { 
+
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const [loadingNodeId, setLoadingNodeId] = useState('');
+
+	const mutatedTree = useRef(null);
+
 	const afterTreeChange = useCallback((tree) => {
 		if (typeof onTreeChange === 'function') {
 			onTreeChange(tree);
@@ -43,90 +53,108 @@ export const Tree = ({
 		return initialTree;
 	});
 
-	const onDrop = useCallback((prevIndex, newIndex) => {
+	const onDrop = useCallback((prevIndex, newIndex, droppedOnNode) => {
+		const droppedId = convertedTree[prevIndex].id;
 		let newParentId;
 
-		if (prevIndex === newIndex) {
-			newParentId = convertedTree[newIndex].newParentId;
-		} else {
+		if (droppedOnNode) {
+			// dropped directly on a node. make that node count as the new parent
 			newParentId = convertedTree[newIndex].id;
+			//update the ui to show the dragged node is a child of the hovered node now
+
+			worker.postMessage({
+				tree: mutatedTree.current,
+				draggedNode: convertedTree[prevIndex], 
+				hoveredNode: convertedTree[newIndex],
+				droppedOnNewParent: true,				
+			});
+		} else {
+			newParentId = convertedTree[convertedTree[newIndex].parent].id;
+
+			// dropped in a slot above a node 
+			// make the node below a sibling by grabbing the parent id
 		}
 
 		if (typeof onNodeDrop === 'function') {
 			
-			onNodeDrop(convertedTree[prevIndex].id, newParentId)
+			onNodeDrop(droppedId, newParentId)
 		}
-
+		// console.log({ newParentId });
 	}, [convertedTree]);
 
 	const onHover = useCallback((prevIndex, newIndex) => {
-		const draggedNode = convertedTree[prevIndex];
+		let draggedNode = convertedTree[prevIndex];
 		const hoveredNode = convertedTree[newIndex];
-		
-		const _tree = convertedTree.slice();
 
-		_tree.splice(prevIndex, 1);
-		_tree.splice(newIndex, 0, 
-			{
-				...convertedTree[prevIndex],
-				newParentId: convertedTree[newIndex].parentId,
-			}
-		);
+		if (!draggedNode || !hoveredNode) {
+			console.log({ prevIndex, newIndex, convertedTree });
+			return;
+		}
 
-		setConvertedTree(_tree);
+		if (state.draggedId !== draggedNode.id) {
+			console.log('drag id changed somehow??', state.draggedId, draggedNode.id);
+
+			const actualIndex = convertedTree.findIndex(v => v.id === state.draggedId);
+			if (actualIndex === -1) {
+				console.log('couldnt find node in convertedTree array with id', state.draggedId);
+				return;	
+			}			
+			console.log('expected node at index', actualIndex, 'instead of', prevIndex);
+			/*
+				confusing behavior occurs at seemingly random times. the onHover function fires twice 
+				on a second node during a single drag, 
+				so as a temporary patch Im tracking the id of the node getting dragged
+				to prevent this 
+			*/	
+
+			draggedNode = convertedTree[actualIndex];
+		}
 		
-	}, [convertedTree]);
+		if (draggedNode && hoveredNode) {
+			worker.postMessage({ 
+				tree: cloneDeep(mutatedTree.current),
+				draggedNode: draggedNode, 
+				hoveredNode: hoveredNode
+			});
+		}
+
+	
+	}, [convertedTree, state.draggedId]);
 
 	useEffect(() => {
+		console.log('New tree value received', tree);
+		mutatedTree.current = tree;
+
 		const newTree = convertTree([tree]);
 		setConvertedTree(newTree);
 		afterTreeChange(newTree);
 	}, [tree]);
 
-	const reducer = useCallback((state, action) => {
-		switch (action.type) {
-			case 'selectNode':
-				let newIndex = -1;
-
-				if (state.selectedNodeIndex !== action.nodeIndex) {
-					newIndex = action.nodeIndex;
-				}
-
-				if (typeof onNodeClick === 'function') {
-					onNodeClick(newIndex > -1 ? convertedTree[newIndex] : null);
-				}
-
-				return {
-					...state,
-					buttonMenuIndex: -1,
-					selectedNodeIndex: newIndex
-				};
-
-			case 'updateNodeIndex':
-
-				return { ...state, selectedNodeIndex: action.nodeIndex };
-
-			case 'openButtonMenu':
-				let newButtonIndex = -1;
-
-				if (state.buttonMenuIndex !== action.nodeIndex) {
-					newButtonIndex = action.nodeIndex;
-				}
-
-				return { ...state, buttonMenuIndex: newButtonIndex };
-
-			default:
-				throw 'Bad action type ' + action.type
+	useEffect(() => {
+		worker.onmessage = function(e) {
+			const [ newTree, newConvertedTree ] = e.data;
+			mutatedTree.current = newTree;
+			setConvertedTree(newConvertedTree);
+			afterTreeChange(newConvertedTree);			
 		}
-	});
+	}, []);
 
-	const [state, dispatch] = useReducer(reducer, initialState);
-	const [loadingNodeId, setLoadingNodeId] = useState('');
+	const selectNode = useCallback((nodeIndex) => {
+
+		console.log('selected node will be ', convertedTree[nodeIndex]);
+		if (typeof onNodeClick === 'function') {
+			onNodeClick(convertedTree[nodeIndex]);
+		}
+
+		dispatch({ type: 'selectNode', nodeIndex });
+
+	}, [onNodeClick, state.selectedNodeIndex]);
+
 
 	const toggleChildVisibility = ({ index, node }) => {
 		// deselect nodes if collapsing and close opened button menus
 		if (state.selectedNodeIndex > index && state.selectedNodeIndex <= index + node.descendants) {
-			dispatch({ type: 'selectNode', nodeIndex: -1 });
+			selectNode(-1);
 		} else {
 			dispatch({ type: 'openButtonMenu', nodeIndex: -1 });
 		}
@@ -202,6 +230,7 @@ export const Tree = ({
 			customButtons={customButtons}
 			customHandle={customHandle}
 			dispatch={dispatch}
+			draggedId={state.draggedId}
 			index={index}
 			loading={convertedTree[index].id === loadingNodeId}
 			key={props.key}
@@ -209,6 +238,7 @@ export const Tree = ({
 			onDrop={onDrop}
 			onHover={onHover}
 			onExpandNode={onExpandNode}
+			selectNode={selectNode}
 			selectedNodeIndex={state.selectedNodeIndex}
 			style={style}
 			subtitle={subtitle}

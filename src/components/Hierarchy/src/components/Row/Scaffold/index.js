@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const Scaffold = ({ level, nodeIndex, tree }) => {
+	if (isNaN(level)) {
+		console.log({ level, nodeIndex, tree });
+	}
+	
 	return new Array(level + 1).fill(null).map((val, i) => {
 		let currentNode = tree[nodeIndex];
 		let currentLevel = level;
@@ -26,7 +30,6 @@ export const Scaffold = ({ level, nodeIndex, tree }) => {
 		return (
 			<div
 				className={classes}
-				data-i={i}
 				key={'scaffold' + currentNode.id + i}
 			/>
 		);

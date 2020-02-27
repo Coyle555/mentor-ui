@@ -13,6 +13,10 @@ module.exports = async ({ config, mode }) => {
 		include: path.resolve(__dirname, '../'),
 	});
 
+// config.module.rules.push(      {
+//         test: /\.worker\.js$/,
+//         use: { loader: 'worker-loader' }
+//       })
 	// resolvers
 	config.resolve.alias['mentor-ui-constants'] = path.resolve(__dirname, '../src/styles/mentor-ui-constants.less');
 	config.resolve.alias['storybook-utils'] = path.resolve(__dirname, '../src/utils/storybook');
