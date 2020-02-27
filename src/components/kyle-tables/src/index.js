@@ -65,7 +65,7 @@ export class Table extends Component {
 		displayCols: PropTypes.arrayOf(PropTypes.string),
 		draggable: PropTypes.shape({
 			dragType: PropTypes.string,
-			dragCb: PropTypes.func
+			preview: PropTypes.func
 		}),
 		dropType: PropTypes.string,
 		editSections: PropTypes.arrayOf(PropTypes.shape({

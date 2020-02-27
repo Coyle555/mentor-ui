@@ -49,8 +49,8 @@ export const DraggableTable = ({ columns, data }) => {
 					currentPage={1}
 					data={data}
 					draggable={{
-						preview: row => row.string,
 						dragType: DRAG_TYPE,
+						preview: row => row.string,
 					}}
 					pageSize={10}
 					recordCount={10}
