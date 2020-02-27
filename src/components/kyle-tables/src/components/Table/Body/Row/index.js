@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDrag, DragPreviewImage } from 'react-dnd';
@@ -15,7 +15,6 @@ export const TableRow = ({
 	customClasses,
 	customColumns,
 	draggable,
-	dropType,
 	expandable,
 	expanded,
 	rowButtons,
@@ -25,6 +24,7 @@ export const TableRow = ({
 	selectedRows,
 	...props
 }) => {
+	const [draggingRows, setDraggingRows] = useState(null);
 
 	const _onExpandClick = useCallback((event) => {
 		event.stopPropagation();
@@ -50,24 +50,33 @@ export const TableRow = ({
 	};
 
 	let drag, preview;
+	let rowIds = [row.id];
 
 	if (draggable.dragType) {
+		const selectedRowIds = Object.keys(selectedRows);
+
+		if (selectedRowIds.length > 0) {
+			if (selectedRowIds.includes(row.id)) {
+				rowIds = selectedRowIds;
+			} else {
+				rowIds = rowIds.concat(selectedRowIds);
+			}
+		}
+
 		[, drag, preview] = useDrag({
-			canDrag: monitor => Object.keys(selectedRows).length === 0
-				|| selectedRows.hasOwnProperty(rowId),
-			item: { type: draggable.dragType, row }
+			item: { type: draggable.dragType, rowIds }
 		});
 	}
 
 	// table row to display
 	const tableRow = (
-		<tr
-			className={classNames(rowClass)}
-			//ref={preview}
-		>
+		<tr className={classNames(rowClass)}>
 			{ !!draggable.dragType &&
 				<>
-				<DragPreviewImage connect={preview} src={createDragPreview()} />
+				<DragPreviewImage
+					connect={preview}
+					src={createDragPreview(rowIds, draggable.preview)}
+				/>
 				<td
 					className={classNames(
 						'table-cell-view table-row-button',
