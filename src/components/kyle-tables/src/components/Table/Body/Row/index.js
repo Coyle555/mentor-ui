@@ -50,21 +50,16 @@ export const TableRow = ({
 	};
 
 	let drag, preview;
-	let rowIds = [row.id];
 
 	if (draggable.dragType) {
-		const selectedRowIds = Object.keys(selectedRows);
-
-		if (selectedRowIds.length > 0) {
-			if (selectedRowIds.includes(row.id)) {
-				rowIds = selectedRowIds;
-			} else {
-				rowIds = rowIds.concat(selectedRowIds);
-			}
-		}
-
 		[, drag, preview] = useDrag({
-			item: { type: draggable.dragType, rowIds }
+			canDrag: () => Object.keys(selectedRows).length === 0 || selectedRows[rowId],
+			item: {
+				type: draggable.dragType,
+				rowIds: Object.keys(selectedRows).length > 0
+					? Object.keys(selectedRows)
+					: [row.id]
+			}
 		});
 	}
 
@@ -78,7 +73,6 @@ export const TableRow = ({
 					src={createDragPreview({
 						preview: draggable.preview,
 						row,
-						rowIds,
 						selectedRows,
 					})}
 				/>
@@ -89,7 +83,13 @@ export const TableRow = ({
 					)}
 				>
 					<i
-						className="fas fa-grip-vertical"
+						className={classNames(
+							'fas',
+							{
+								'fa-grip-vertical': Object.keys(selectedRows).length === 0 || selectedRows[rowId],
+								'fa-ban drag-disabled': Object.keys(selectedRows).length > 0 && !selectedRows[rowId]
+							}
+						)}
 						ref={drag}
 					/>
 				</td>
