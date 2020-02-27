@@ -75,16 +75,23 @@ export const TableRow = ({
 				<>
 				<DragPreviewImage
 					connect={preview}
-					src={createDragPreview(rowIds, draggable.preview)}
+					src={createDragPreview({
+						preview: draggable.preview,
+						row,
+						rowIds,
+						selectedRows,
+					})}
 				/>
 				<td
 					className={classNames(
-						'table-cell-view table-row-button',
+						'table-cell-view table-row-button table-row-drag-btn',
 						{ 'table-btn-border': !expandable && rowButtons.length === 0 }
 					)}
-					ref={drag}
 				>
-					<i className="fas fa-grip-vertical table-row-drag-btn" />
+					<i
+						className="fas fa-grip-vertical"
+						ref={drag}
+					/>
 				</td>
 				</>
 			}
