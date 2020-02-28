@@ -63,8 +63,7 @@ export const TableRow = ({
 		});
 	}
 
-	// table row to display
-	const tableRow = (
+	return (
 		<tr className={classNames(rowClass)}>
 			{ !!draggable.dragType &&
 				<>
@@ -143,8 +142,6 @@ export const TableRow = ({
 			))}
 		</tr>
 	);
-
-	return tableRow;
 };
 
 TableRow.propTypes = {
