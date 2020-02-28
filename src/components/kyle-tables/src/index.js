@@ -714,7 +714,7 @@ export class Table extends Component {
 		if (draggable.dragType) {
 			return (
 				<DndContext.Consumer>
-					{ this.renderTable() }
+					{ ({ dragDropManager }) => this.renderTable() }
 				</DndContext.Consumer>
 			);
 		}
