@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDrag, DragPreviewImage } from 'react-dnd';
@@ -24,8 +24,6 @@ export const TableRow = ({
 	selectedRows,
 	...props
 }) => {
-	const [draggingRows, setDraggingRows] = useState(null);
-
 	const _onExpandClick = useCallback((event) => {
 		event.stopPropagation();
 		props._onExpandClick(rowId);
