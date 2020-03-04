@@ -1,15 +1,16 @@
 
-export function convertTree(tree = [], level = 0, parentIndex = null, parentId) {
-	tree = convert(tree, level, parentIndex, parentId);
+export function convertTree(tree = [], level = 0, parentIndex = null) {
+	tree = convert(tree, level, parentIndex, '');
 	
 	tree.forEach(node => {
+
 		delete node.children;
 	});
 
 	return tree;
 };
 
-function convert(tree, level, parentIndex, parentId) {
+function convert(tree, level, parentIndex, path = '') {
 	let convertedTree = [];
 
 	if (tree.length === 0) return [];
@@ -17,8 +18,10 @@ function convert(tree, level, parentIndex, parentId) {
 	// total parent descendants so the actual position of the parent in the tree
 	// list can be calculated accurately
 	let totalParentDescendants = 0;
-	
+	let order = -1;
+
 	for (let node of tree) {
+
 		const childrenCount = Array.isArray(node.children) ? node.children.length : 0;
 
 		const newNode = {
@@ -26,10 +29,12 @@ function convert(tree, level, parentIndex, parentId) {
 			...node,
 			// last node in tree has no siblings coming after it
 			hasSibling: tree[tree.length - 1] !== node,
+			// index of node relative to parent
+			order: ++order,
+			path: path,
 			level,
 			// index position of the parent in the list
 			parent: parentIndex,
-			parentId: parentId
 		};
 
 		let subtree = [];
@@ -44,7 +49,10 @@ function convert(tree, level, parentIndex, parentId) {
 				parentIndex !== null
 					? parentIndex + totalParentDescendants + 1
 					: 0,
-				node.id
+				// path enumeration for simpler traversal
+				level 
+					? path.length ? path + '.' + order : '' + order
+					: ''
 			);
 		}
 
@@ -61,3 +69,6 @@ function convert(tree, level, parentIndex, parentId) {
 
 	return convertedTree;
 }
+
+
+

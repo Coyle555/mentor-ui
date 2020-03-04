@@ -1,5 +1,5 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd';
+import { DndProvider, DndContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { Tree } from './src';
@@ -8,7 +8,16 @@ import { Tree } from './src';
 const Hierarchy = ({ withDndProvider = true, ...props }) => {
 
 	if (!withDndProvider) {
-		return <Tree {...props} />
+		return (
+			<DndContext.Consumer>
+				{
+					({ dragDropManager }) => 
+						dragDropManager !== undefined 
+							? <Tree {...props} dragDropManager={dragDropManager} />
+							: null
+				}
+			</DndContext.Consumer>
+		)
 	}
 
 	return (

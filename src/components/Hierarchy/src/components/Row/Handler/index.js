@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -10,25 +10,35 @@ export const Handler = forwardRef(({ canDrag, customHandle, loading, node }, ref
 		'mui-node-handler-draggable': canDrag
 	});
 
-	let handlerIcon = DEFAULT_HANDLER;
+	const handlerIcon = useMemo(() => {
+		let customComponent;
 
-	if (!!loading) {
-		handlerIcon = <i className="far fa-spinner mui-loading-spinner" />;
-	} else if (typeof customHandle === 'function') {
-		handlerIcon = customHandle(node);
-
-		if (!handlerIcon) {
-			handlerIcon = DEFAULT_HANDLER;
+		if (typeof customHandle === 'function') {
+			customComponent = customHandle(node);
+		} 
+		
+		if (customComponent) return customComponent;
+		
+		if (node.level === 0) {
+			return null;
 		}
-	}
+
+		return DEFAULT_HANDLER;
+
+	}, [customHandle, node]);
+
 
 	return (
 		<div 
 			className={handlerClasses}
-			ref={ref}
+			ref={canDrag ? ref : null}
 		>
 			<div className="node-handler-icon">
-				{handlerIcon}
+				{
+					loading 
+						? <i className="far fa-spinner mui-loading-spinner" />
+						: handlerIcon
+				}
 			</div>
 		</div>
 	);
