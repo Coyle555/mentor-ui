@@ -1,11 +1,19 @@
 import React from 'react';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { useDrop, DndProvider } from 'react-dnd';
+import { action } from 'storybook-utils';
 
 import { Table } from '../index';
 
+const DRAG_TYPE = 'TABLE_DRAG';
+
 const DraggableArea = (props) => {
-	const [collectedProps, drop] = useDrop({ accept: 'TABLE_DRAG' });
+	const [collectedProps, drop] = useDrop({
+		accept: DRAG_TYPE,
+		drop: (item, monitor) => {
+			console.log('item dropped', item);
+		}
+	});
 
 	return (
 		<div
@@ -40,6 +48,10 @@ export const DraggableTable = ({ columns, data }) => {
 					columns={columns}
 					currentPage={1}
 					data={data}
+					draggable={{
+						dragType: DRAG_TYPE,
+						preview: row => row.string,
+					}}
 					pageSize={10}
 					recordCount={10}
 				/>

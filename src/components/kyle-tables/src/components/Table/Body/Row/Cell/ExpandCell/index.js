@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './styles.less';
-
-export const ExpandCell = ({ expanded, lastBtn, onClick }) => {
+export const ExpandCell = ({ expanded, onClick }) => {
 	const iconClasses = classNames({
 		'fas': true,
 		'fa-caret-down': expanded,
@@ -12,13 +10,8 @@ export const ExpandCell = ({ expanded, lastBtn, onClick }) => {
 		'fa-2x': true,
 	});
 
-	const expandBtnClasses = classNames({
-		'table-expand-icon': true,
-		'table-btn-border': lastBtn
-	});
-
 	return (
-		<td className={expandBtnClasses} onClick={onClick}>
+		<td className="table-row-button table-btn-border" onClick={onClick}>
 			<i className={iconClasses} />
 		</td>
 	);
@@ -26,11 +19,9 @@ export const ExpandCell = ({ expanded, lastBtn, onClick }) => {
 
 ExpandCell.propTypes = {
 	expanded: PropTypes.bool.isRequired,
-	lastBtn: PropTypes.bool,
 	onClick: PropTypes.func.isRequired
 };
 
 ExpandCell.defaultProps = {
 	expanded: false,
-	lastBtn: true
 };

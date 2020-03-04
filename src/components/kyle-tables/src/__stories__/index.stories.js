@@ -255,6 +255,7 @@ const data = [
 		object: { id: 'abc', name: 'ABC' },
 		color: '#DB3E00',
 		num: 12,
+		string: 'test'
 	},
 ];
 

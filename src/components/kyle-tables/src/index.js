@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
+import { DndContext } from 'react-dnd';
 
 import { Header } from './components/Header';
 import { TableMain } from './components/Table';
@@ -65,7 +66,7 @@ export class Table extends Component {
 		displayCols: PropTypes.arrayOf(PropTypes.string),
 		draggable: PropTypes.shape({
 			dragType: PropTypes.string,
-			dragCb: PropTypes.func
+			preview: PropTypes.func
 		}),
 		dropType: PropTypes.string,
 		editSections: PropTypes.arrayOf(PropTypes.shape({
@@ -121,7 +122,7 @@ export class Table extends Component {
 		data: [],
 		deleteCb: null,
 		displayCols: [],
-		draggable: null,
+		draggable: {},
 		dropType: '',
 		editSections: [],
 		ExpandComponent: null,
@@ -664,7 +665,7 @@ export class Table extends Component {
 	       );
 	}
 
-	render() {
+	renderTable = () => {
 		const { data, editSections, formFields, getRowName, initInsertData } = this.props;
 		const { columns, editMode, insertMode, insertType, selectedRows } = this.state;
 
@@ -706,4 +707,18 @@ export class Table extends Component {
 			</React.Fragment>
 		);
 	}
-}
+
+	render() {
+		const { draggable } = this.props;
+
+		if (draggable.dragType) {
+			return (
+				<DndContext.Consumer>
+					{ ({ dragDropManager }) => this.renderTable() }
+				</DndContext.Consumer>
+			);
+		}
+
+		return this.renderTable();
+	}
+};

@@ -10,6 +10,7 @@ export const TableHeader = ({
 	allRowsSelected,
 	columns,
 	customClasses,
+	draggable,
 	expandable,
 	rowButtons,
 	sort,
@@ -27,6 +28,7 @@ export const TableHeader = ({
 				allRowsSelected={allRowsSelected}
 				columns={columns}
 				customClasses={customClasses}
+				draggable={draggable}
 				expandable={expandable}
 				rowButtons={rowButtons}
 				sort={sort}
@@ -39,6 +41,7 @@ export const TableHeader = ({
 
 TableHeader.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object),
+	draggable: PropTypes.object,
 	sort: PropTypes.shape({
 		id: PropTypes.string,
 		ascending: PropTypes.bool
@@ -47,5 +50,6 @@ TableHeader.propTypes = {
 };
 
 TableHeader.defaultProps = {
-	customClasses: {}
+	customClasses: {},
+	draggable: {}
 };

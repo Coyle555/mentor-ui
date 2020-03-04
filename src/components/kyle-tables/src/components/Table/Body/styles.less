@@ -12,17 +12,32 @@
 	white-space: normal;
 	vertical-align: middle;
 	font-size: 17px;
-
-	&:not(:first-child) {
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
-	}
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .table-row-button {
 	text-align: center;
 	cursor: pointer;
+	text-overflow: initial;
+	overflow: initial;
+	white-space: initial;
+	color: @green-secondary;
+}
+
+.table-row-drag-btn {
+	cursor: default;
+
+	> i {
+		color: @gray-dark;
+		cursor: grabbing;
+	}
+
+	.drag-disabled {
+		cursor: not-allowed;
+		color: @ketchup;
+	}
 }
 
 .table-btn-border {
