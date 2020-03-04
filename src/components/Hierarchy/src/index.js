@@ -92,7 +92,7 @@ export const Tree = ({
 		}
 
 		if (state.draggedId !== draggedNode.id) {
-			console.log('drag id changed somehow??', state.draggedId, draggedNode.id);
+			//console.log('drag id changed somehow??', state.draggedId, draggedNode.id);
 
 			const actualIndex = convertedTree.findIndex(v => v.id === state.draggedId);
 			if (actualIndex === -1) {
@@ -122,7 +122,7 @@ export const Tree = ({
 	}, [convertedTree, state.draggedId]);
 
 	useEffect(() => {
-		console.log('New tree value received', tree);
+		//console.log('New tree value received', tree);
 		mutatedTree.current = tree;
 
 		const newTree = convertTree([tree]);
@@ -141,7 +141,6 @@ export const Tree = ({
 
 	const selectNode = useCallback((nodeIndex) => {
 
-		console.log('selected node will be ', convertedTree[nodeIndex]);
 		if (typeof onNodeClick === 'function') {
 			onNodeClick(convertedTree[nodeIndex]);
 		}
