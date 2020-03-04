@@ -112,6 +112,7 @@
 				border-radius: 1px;
 				z-index: 1;
 				background: rgb(244, 247, 250);
+				
 
 				> .node-handler-icon {
 					width: 100%;
@@ -122,9 +123,7 @@
 				}
 			}
 
-			> .mui-node-handler-draggable {
-				cursor: pointer;
-			}
+			
 
 			> .mui-node-content {
 				background: white;
@@ -150,6 +149,10 @@
 					text-overflow: ellipsis;
 				}
 
+				.mui-node-handler-draggable {
+					cursor: grabbing;
+				}
+
 				> .node-buttons {
 					border: none;
 					outline: none;
@@ -171,7 +174,7 @@
 			}
 
 			> .mui-node-selected {
-				background-color: @green-light;
+				//background-color: @green-light;
 			}
 
 			> .mui-node-clickable {
@@ -179,8 +182,15 @@
 			}
 
 			> .mui-node-isDragging { 
-				opacity: 0;
+				border: 2.5px dashed @blue-gray-dark;
+				background: @soft-white;				
 			}
+
+			> .mui-node-isOver { 
+				border: 2.5px dashed @blue-gray-dark;
+				background: darken(@soft-white, 10%);				
+			}
+
 		}
 	}
 }

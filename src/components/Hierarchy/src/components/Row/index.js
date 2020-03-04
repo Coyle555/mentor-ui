@@ -16,6 +16,7 @@ export const Row = ({
 	customButtons,
 	customHandle,
 	dispatch,
+	draggedId,
 	index,
 	loading,
 	nodeStyle,
@@ -23,6 +24,7 @@ export const Row = ({
 	onHover,
 	onExpandNode,
 	selectedNodeIndex,
+	selectNode,
 	style,
 	subtitle,
 	toggleChildVisibility,
@@ -56,11 +58,12 @@ export const Row = ({
 				/>					
 				<Node
 					buttonMenuIndex={buttonMenuIndex}
-					canDrag={canDrag}
+					canDrag={tree[index].level !== 0}
 					clickable={clickable}
 					customButtons={customButtons}
 					customHandle={customHandle}
 					dispatch={dispatch}
+					draggedId={draggedId}
 					loading={loading}
 					node={tree[index]}
 					nodeIndex={index}
@@ -68,6 +71,7 @@ export const Row = ({
 					onDrop={onDrop}
 					onHover={onHover}
 					selected={selectedNodeIndex === index}
+					selectNode={selectNode}
 					subtitle={subtitle || tree[index].subtitle}
 					title={title}
 				/>

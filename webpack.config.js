@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const WorkerPlugin = require('worker-plugin');
 
 module.exports = {
 	mode: 'production',
@@ -41,7 +41,7 @@ module.exports = {
 				test: /\.jsx?$/,
 				loader: ['babel-loader'],
 				exclude: /node_modules/
-			},		
+			},					
 			{
 				test: /\.css$/,
 				use: [
@@ -69,6 +69,7 @@ module.exports = {
 	},
 
 	plugins: [
+		new WorkerPlugin(),
 		new TerserPlugin({
 			parallel: true,
 			terserOptions: { ecma: 6 }
@@ -77,7 +78,8 @@ module.exports = {
 		new CaseSensitivePathsPlugin(),
 		new MiniCssExtractPlugin({
 			filename: '[name].style.css'
-		})
+		}),
+
 	],
 	externals: {
 		react: {
