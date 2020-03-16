@@ -1,7 +1,6 @@
 import a from './components/Button';
 import b from './components/Drawer';
 import c from './components/InsertPopupForm/index';
-import e from './components/Hierarchy';
 import f from './components/ToggleList';
 
 import './styles/index.less';
@@ -20,5 +19,4 @@ export * from './components/structured-query/index';
 export const Button = a; 
 export const Drawer = b;
 export const InsertPopupForm = c;
-export const Hierarchy = e;
 export const ToggleList = f;
