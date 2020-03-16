@@ -42,27 +42,31 @@ const SelectInput = ({
 	validate, 
 	...props 
 }) => {
-	let value = typeof parse === 'function'
-		? parse(props.value)
+	let value = typeof parseMatchedValue === 'function'
+		? parseMatchedValue(props.value)
 		: props.value;
 
-	if (!value) value = '';
+	if (value === undefined || value === null) {
+		value = '';
+	}
 
 	const lastVal = useRef(value);
 	const inputRef = useRef(null);
 	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(() => 
-		hasError(value, required, validate)
-	);
+	const [ error, setError ] = useState(() => hasError(value, required, validate));
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
 	}, [required, validate]);
 
 	useEffect(() => {
-		const value = typeof parseMatchedValue === 'function'
+		let value = typeof parseMatchedValue === 'function'
 			? parseMatchedValue(props.value)
 			: props.value;
+
+		if (value === undefined || value === null) {
+			value = '';
+		}
 
 		if (currentValue !== value) {
 			setCurrentValue(value);
@@ -87,6 +91,8 @@ const SelectInput = ({
 	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
 		
+		console.log('current value', currentValue);
+		console.log('last val', lastVal.current);
 		if (currentValue !== lastVal.current) {
 			lastVal.current = currentValue;
 
@@ -144,7 +150,7 @@ const SelectInput = ({
 		>
 			<option
 				disabled={required}
-				value="" 
+				value=""
 			>
 				{ placeholder }
 			</option>
