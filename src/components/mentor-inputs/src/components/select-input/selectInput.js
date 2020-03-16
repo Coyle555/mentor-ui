@@ -2,8 +2,36 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { hasError } from '../../hooks/index';
 import '../../styles/index.less';
+
+function hasError(value, required, customValidators) {
+	if (value === '' && !!required) {
+		return 'Value is required';
+	}
+
+	if (!!customValidators && !Array.isArray(customValidators)) {
+		customValidators = [customValidators];
+	}
+
+	if (value !== ''
+		&& !!customValidators
+		&& customValidators.length > 0) {
+
+		for (let validator of customValidators) {
+			if (typeof validator === 'function') {
+				const validity = validator(value);
+				
+				if (typeof validity === 'string') {
+					return validity;
+				} else if (!validator(value)) {
+					return 'An error occurred';
+				}
+			}
+		}
+	}
+
+	return false;
+}
 
 const SelectInput = ({ 
 	options, 
