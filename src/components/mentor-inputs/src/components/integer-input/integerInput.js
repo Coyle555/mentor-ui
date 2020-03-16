@@ -42,7 +42,7 @@ const IntegerInput = ({ max, min, validate, ...props }) => {
 
 	return (
 		<TextInput
-			placeholder="Enter number"
+			placeholder="Enter whole number"
 			{...props}
 			validate={validates}
 		/>
