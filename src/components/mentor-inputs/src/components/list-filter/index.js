@@ -431,11 +431,11 @@ export class ListFilter extends Component {
 	onMatch = (value) => {
 		const { name, onMatch, options, parse, parseMatchedValue } = this.props;
 
-		let matchedValue = typeof parse === 'function'
+		let matchedValue = typeof parse === 'function' && !!value
 			? this.rawOptions.find(option => parse(option) === value)
 			: value;
 
-		if (typeof parseMatchedValue === 'function') {
+		if (typeof parseMatchedValue === 'function' && !!matchedValue) {
 			matchedValue = parseMatchedValue(matchedValue);
 		}
 
