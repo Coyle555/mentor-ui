@@ -31,13 +31,14 @@ const MoneyInput = (props) => {
 		<FloatInput
 			placeholder="Enter dollar amount"
 			{...props}
-			validation={[isMoney, props.validate]}
+			precision={undefined}
+			validate={[isMoney].concat(props.validate)}
 		/>
 	);
 };
 
 MoneyInput.propTypes = {
-	validate: PropTypes.func
+	validate: PropTypes.oneOfType(PropTypes.array, PropTypes.func)
 };
 
 export default MoneyInput;

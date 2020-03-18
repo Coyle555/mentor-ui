@@ -52,7 +52,7 @@ FloatInput.propTypes = {
 	max: PropTypes.number,
 	min: PropTypes.number,
 	precision: PropTypes.number,
-	validate: PropTypes.func
+	validate: PropTypes.oneOfType(PropTypes.array, PropTypes.func)
 };
 
 FloatInput.defaultProps = {

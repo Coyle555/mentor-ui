@@ -91,8 +91,6 @@ const SelectInput = ({
 	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
 		
-		console.log('current value', currentValue);
-		console.log('last val', lastVal.current);
 		if (currentValue !== lastVal.current) {
 			lastVal.current = currentValue;
 
