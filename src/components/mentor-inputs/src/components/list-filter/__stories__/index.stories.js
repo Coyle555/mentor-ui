@@ -26,6 +26,24 @@ storiesOf('Inputs/ListFilterInput', module)
 			/>
 		)
 	})
+	.addWithJSX('Disabled', () => {
+		const options = (val) => {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve(['foo', 'bar', 'baz']);
+				}, 500);
+			});
+		}
+
+		return (
+			<ListFilterInput
+				disabled
+				name="listFilter"
+				options={options}
+				value="f"
+			/>
+		)
+	})
 	.addWithJSX('Custom filtering', () => {
 		const options = (val) => {
 			return new Promise((resolve, reject) => {

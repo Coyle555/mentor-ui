@@ -105,8 +105,10 @@ export class ListFilter extends Component {
 	}
 
 	componentDidMount() {
-		const { name, onMatch, options, required } = this.props;
+		const { disabled, name, onMatch, options, required } = this.props;
 		const { value } = this.state;
+
+		if (disabled) return;
 
 		if (typeof options === 'function') {
 			this.lastMatchedVal = value;
@@ -129,6 +131,11 @@ export class ListFilter extends Component {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (nextProps.disabled) {
+			this.setState({ hasError: false });
+			return;
+		}
+
 		// if new value passed in, refilter list and check for error
 		if (this.state.value !== nextProps.value) {
 			const { name, parse, required } = this.props;
