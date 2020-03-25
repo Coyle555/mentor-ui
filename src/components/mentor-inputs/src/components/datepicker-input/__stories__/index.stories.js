@@ -5,30 +5,38 @@ import { action } from 'storybook-utils';
 import DatePickerInput from '../DatePickerInput';
 
 storiesOf('Inputs/DatePickerInput', module)
-	.add('Datetime Input', () =>
-		<>
-		<input type="text" />
-		<DatePickerInput
-			isUtc={true}
-			name="datepicker-input"
-			onBlur={action('onBlur')}
-			onChange={action('onChange')}
-			type="datetime"
-			value={'2019-09-05 17:04:41.2350000'}
-		/>
-		<input type="text" />
-		</>
-	)
-	.add('Date Input', () =>
-		<DatePickerInput
-			name="datepicker-input"
-			onBlur={action('onBlur')}
-			onChange={action('onChange')}
-			type="date"
-			isUtc={false}
-			value={'2019-09-05'}
-		/>
-	)
+	.add('Datetime Input', () => {
+		const [value, setValue] = React.useState('2019-09-05 17:04:41.2350000');
+
+		return (
+			<DatePickerInput
+				isUtc={true}
+				name="datepicker-input"
+				onBlur={(err, value) => {
+					setValue(value);
+				}}
+				onChange={action('onChange')}
+				type="datetime"
+				value={value}
+			/>
+		);
+	})
+	.add('Date Input', () => {
+		const [value, setValue] = React.useState('2019-09-05');
+
+		return (
+			<DatePickerInput
+				name="datepicker-input"
+				onBlur={(err, value) => {
+					setValue(value);
+				}}
+				onChange={action('onChange')}
+				type="date"
+				isUtc={false}
+				value={value}
+			/>
+		);
+	})
 	.add('Required Date Input', () =>
 		<DatePickerInput
 			name="datepicker-input"
