@@ -6,6 +6,8 @@ import DatePickerInput from '../DatePickerInput';
 
 storiesOf('Inputs/DatePickerInput', module)
 	.add('Datetime Input', () =>
+		<>
+		<input type="text" />
 		<DatePickerInput
 			isUtc={true}
 			name="datepicker-input"
@@ -14,6 +16,8 @@ storiesOf('Inputs/DatePickerInput', module)
 			type="datetime"
 			value={'2019-09-05 17:04:41.2350000'}
 		/>
+		<input type="text" />
+		</>
 	)
 	.add('Date Input', () =>
 		<DatePickerInput

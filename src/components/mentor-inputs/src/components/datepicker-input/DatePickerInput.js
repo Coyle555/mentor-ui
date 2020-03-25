@@ -60,9 +60,9 @@ class DatePickerInput extends Component {
 				: moment(value, moment.ISO_8601).toDate();
 		}
 
-		this.lastVal = isValid
-			? moment(initValue).format(getDateFormat(type))
-			: null;
+		this.lastVal = isValid ? initValue : null;
+
+		this.datePickerRef = React.createRef();
 
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
@@ -106,19 +106,28 @@ class DatePickerInput extends Component {
 			if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			};
+
+			this.datePickerRef.setFocus(true);
 		});
 	}
 
-	handleBlur = ({ target: { value } }) => {
+	handleBlur = (evt) => {
 		const { name, onBlur, type } = this.props;
-		const { hasError } = this.state;
+		const { hasError, inputValue } = this.state;
 
-		if (typeof onBlur === 'function' && this.lastVal !== value) {
+		if (typeof onBlur === 'function' && this.lastVal !== inputValue) {
 			const mask = getDateFormat(type);
-			const isoDate = moment(value, mask).toDate();
+			const isoDate = moment(inputValue, mask).toDate();
 
 			onBlur(hasError, isoDate, name);
-			this.lastVal = value;
+			this.lastVal = inputValue;
+		}
+	}
+
+	onKeyDown = (evt) => {
+		if (evt.keyCode === KeyEvent.DOM_VK_TAB || evt.which === KeyEvent.DOM_VK_TAB) {
+			this.datePickerRef.setOpen(false);
+			this.handleBlur();
 		}
 	}
 
@@ -149,6 +158,7 @@ class DatePickerInput extends Component {
 				fixedHeight
 				onBlur={this.handleBlur}
 				onChange={this.handleChange}
+				onKeyDown={this.onKeyDown}
 				openToDate={inputValue}
 				placeholderText={getPlaceholder(type)}
 				popperClassName="mui-datepicker-popper"
@@ -159,6 +169,7 @@ class DatePickerInput extends Component {
 						boundariesElement: 'viewport'
 					}
 				}}
+				ref={ref => this.datePickerRef = ref}
 				selected={inputValue}
 				shouldCloseOnSelect={false}
 				showTimeSelect={type === 'datetime'}
