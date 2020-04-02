@@ -5,7 +5,9 @@ import { get } from 'lodash';
 import { hasError } from './hasError';
 
 function validateValue(value) {
-	return value === 0 || !!value ? String(value) : '';
+	return value !== null || value !== undefined
+		? String(value)
+		: '';
 }
 
 export const useInputState = (props = {}) => {
@@ -40,7 +42,7 @@ export const useInputState = (props = {}) => {
 
 		setCurrentValue(newVal);
 		setError(hasError(newVal, required, validate));
-	}, [value]);
+	}, [inputRef.current, value]);
 
 	useEffect(() => {
 		if (!inputRef.current) return;

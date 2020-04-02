@@ -24,7 +24,7 @@ storiesOf('Inputs/TextInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
+		);
 	})
 	.addWithJSX('with custom validation', () => {
 
