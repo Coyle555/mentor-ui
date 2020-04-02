@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { hasError } from './hasError';
 
 function validateValue(value) {
-	return value !== null || value !== undefined
+	return value !== null && value !== undefined
 		? String(value)
 		: '';
 }
@@ -25,24 +25,8 @@ export const useInputState = (props = {}) => {
 	const inputRef = useRef(null);
 	const lastVal = useRef(validateValue(value));
 
-	const [ currentValue, setCurrentValue ] = useState(() => 
-		validateValue(value)
-	);
-	
-	const [ error, setError ] = useState(() => 
-		hasError(currentValue, required, validate)
-	);
-
-	useEffect(() => {
-		setError(hasError(currentValue, required, validate));
-	}, [required, validate]);
-	
-	useEffect(() => {
-		const newVal = validateValue(value);
-
-		setCurrentValue(newVal);
-		setError(hasError(newVal, required, validate));
-	}, [inputRef.current, value]);
+	const [ currentValue, setCurrentValue ] = useState(validateValue(value));
+	const [ error, setError ] = useState(hasError(currentValue, required, validate));
 
 	useEffect(() => {
 		if (!inputRef.current) return;
