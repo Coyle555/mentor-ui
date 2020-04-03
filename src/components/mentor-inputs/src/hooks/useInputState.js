@@ -23,6 +23,7 @@ export const useInputState = (props = {}) => {
 	} = props;
 
 	const inputRef = useRef(null);
+	// last valid value used in the input, invalid inputs will not cause this to update
 	const lastVal = useRef(validateValue(value));
 
 	const [ currentValue, setCurrentValue ] = useState(() => 
@@ -69,7 +70,10 @@ export const useInputState = (props = {}) => {
 			if (typeof onBlur !== 'function') return;
 			
 			if (String(currentValue).trim() !== String(lastVal.current).trim()) {
-				lastVal.current = currentValue;
+				if (!error) {
+					lastVal.current = currentValue;
+				}
+
 				onBlur(error, currentValue, input.name, evt);
 			}
 		}),
