@@ -83,7 +83,7 @@ export function _getLabelOptions(fields = [], id) {
 	
 	// default case for boolean data types
 	if (label.type === 'boolean' && !Array.isArray(label.options)) {
-		return ['True', 'False'];
+		return ['Yes', 'No'];
 	}
 
 	return label.options;
