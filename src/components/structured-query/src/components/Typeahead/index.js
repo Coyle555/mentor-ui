@@ -144,25 +144,28 @@ export class TypeaheadComponent extends Component {
 				return this._onEnter;
 			case keyEvent.DOM_VK_ESCAPE:
 				return this._onEscape;
-			//case keyEvent.DOM_VK_TAB:
-				//return this._onTab;
+			case keyEvent.DOM_VK_TAB:
+				return this._onTab;
 			default:
 				return null;
 		}
 	}
 
 	// Handle a tab event for autofill
-	/*_onTab(event) {
+	_onTab(event) {
 		event.preventDefault();
+
+		this.setState({ focused: false });
+		this.inputRef.blur();
 
 		// pass the first visible option in the list for tab 
 		// completion if no selected option
-		let option = this.state.selectedOptionIndex >= 0
+		/*let option = this.state.selectedOptionIndex >= 0
 			? this.state.visibleOptions[this.state.selectedOptionIndex]
 			: this.state.visibleOptions[0];
 	
-		this._onOptionSelected(option);
-	}*/
+		this._onOptionSelected(option);*/
+	}
 
 	// Handle an escape event for deselecting an option using arrow keys and
 	// losing focus on input
