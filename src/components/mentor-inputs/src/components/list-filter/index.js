@@ -74,12 +74,11 @@ export class ListFilter extends Component {
 		super(props);
 
 		const { options, parse, value } = this.props;
-		const initValue = !!value && typeof parse === 'function' ? parse(value) : value;
+		const initValue = this.parseValue(value);
 		const initOptions = Array.isArray(options) && typeof parse === 'function'
 			? options.map(val => parse(val))
 			: options;
 
-		this.lastMatchedVal = '';
 		this.initialLoadComplete = false;
 		this.rawOptions = options;
 
@@ -111,7 +110,6 @@ export class ListFilter extends Component {
 		if (disabled) return;
 
 		if (typeof options === 'function') {
-			this.lastMatchedVal = value;
 			this.customFilterMatches(value);
 
 			return;
@@ -119,10 +117,6 @@ export class ListFilter extends Component {
 
 		const newOptions = this.filterMatches(value, options);
 		const hasError = this.checkForError(value, newOptions, required);
-
-		if (!hasError) {
-			this.lastMatchedVal = value;
-		}
 
 		this.setState({
 			hasError,
@@ -132,27 +126,24 @@ export class ListFilter extends Component {
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (nextProps.disabled) {
-			this.setState({ hasError: false });
+			this.setState({
+				hasError: false,
+				value: this.state.value !== nextProps.value
+					? this.parseValue(nextProps.value)
+					: this.state.value
+			});
+
 			return;
 		}
 
 		// if new value passed in, refilter list and check for error
 		if (this.state.value !== nextProps.value) {
 			const { name, parse, required } = this.props;
-			let value = nextProps.value;
-
-			if (nextProps.value === null || nextProps.value === undefined) {
-				value = '';
-			}
-			
-			if (typeof parse === 'function') {
-				value = parse(value);
-			}
+			let value = this.parseValue(nextProps.value);
 
 			if (this.state.value === value) return;
 
 			if (typeof this.props.options === 'function') {
-				this.lastMatchedVal = value;
 				this.initialLoadComplete = false;
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
@@ -173,33 +164,48 @@ export class ListFilter extends Component {
 
 			const hasError = this.checkForError(value, options, required);
 
-			if (!hasError) {
-				this.lastMatchedVal = value;
-			}
-
 			this.setState({
 				hasError,
 				options,
 				value
 			});
 		// new list of options were passed in
-		} else if (this.props.options !== nextProps.options && typeof this.props.options !== 'function') {
+		} else if (this.props.options !== nextProps.options) {
 			const { required } = this.props;
 			const { value } = this.state;
+
+			if (typeof this.props.options === 'function') {
+				this.initialLoadComplete = false;
+				this.setState({ value }, () => {
+					this.customFilterMatches(value);
+				});
+
+				return;
+			}
 
 			const newOptions = this.filterMatches(value, nextProps.options);
 			const hasError = this.checkForError(value, newOptions, required);
 			this.rawOptions = nextProps.options;
 
-			if (!hasError) {
-				this.lastMatchedVal = value;
-			}
-			
 			this.setState({
 				hasError,
 				options: newOptions
 			});
 		}
+	}
+
+	parseValue = (value) => {
+		const { parse } = this.props;
+
+		if (value === null || value === undefined) {
+			return '';
+		}
+		
+		if (typeof parse === 'function') {
+			return parse(value);
+		}
+
+		return value;
 	}
 
 	checkForError = (value, options = [], required) => {
@@ -299,9 +305,7 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			// fire onMatch if the value matches an option in the list
-			if (typeof onMatch === 'function'
-				&& !this.state.hasError
-				&& value !== this.lastMatchedVal) {
+			if (typeof onMatch === 'function' && !this.state.hasError) {
 
 				this.onMatch(value);
 
@@ -378,7 +382,7 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value: option
 		}, () => {
-			if (typeof onMatch === 'function' && this.lastMatchedVal !== option) {
+			if (typeof onMatch === 'function') {
 				this.onMatch(option);
 			}
 		});
@@ -420,11 +424,8 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value
 		}, () => {
-			// fire onMatch if the value matches an option in the list or
-			// if there is no value and its not required
-			if (typeof onMatch === 'function'
-				&& !this.state.hasError
-				&& this.lastMatchedVal !== value) {
+			// fire onMatch if the value matches an option in the list
+			if (typeof onMatch === 'function' && !this.state.hasError) {
 
 				this.onMatch(value);
 
@@ -438,6 +439,8 @@ export class ListFilter extends Component {
 	onMatch = (value) => {
 		const { name, onMatch, options, parse, parseMatchedValue } = this.props;
 
+		if (!value) return;
+
 		let matchedValue = typeof parse === 'function' && !!value
 			? this.rawOptions.find(option => parse(option) === value)
 			: value;
@@ -447,7 +450,6 @@ export class ListFilter extends Component {
 		}
 
 		onMatch(matchedValue, name);
-		this.lastMatchedVal = value;
 	}
 
 	clearInput = () => {
@@ -474,7 +476,7 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value: selectedOption
 		}, () => {
-			if (typeof onMatch === 'function' && this.lastMatchedVal !== selectedOption) {
+			if (typeof onMatch === 'function') {
 				this.onMatch(selectedOption);
 			}
 		});
