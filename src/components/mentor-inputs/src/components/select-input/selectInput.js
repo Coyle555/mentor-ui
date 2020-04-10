@@ -34,6 +34,7 @@ function hasError(value, required, customValidators) {
 }
 
 const SelectInput = ({ 
+	disabled,
 	options, 
 	placeholder,
 	parse, 
@@ -50,7 +51,6 @@ const SelectInput = ({
 		value = '';
 	}
 
-	const lastVal = useRef(value);
 	const inputRef = useRef(null);
 	const [ currentValue, setCurrentValue ] = useState(value);
 	const [ error, setError ] = useState(() => hasError(value, required, validate));
@@ -91,16 +91,12 @@ const SelectInput = ({
 	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
 		
-		if (currentValue !== lastVal.current) {
-			lastVal.current = currentValue;
+		const actualValue = typeof parse === 'function'
+			&& typeof parseMatchedValue !== 'function'
+				? options.find(opt => parse(opt) === currentValue)
+				: currentValue;
 
-			const actualValue = typeof parse === 'function'
-				&& typeof parseMatchedValue !== 'function'
-					? options.find(opt => parse(opt) === currentValue)
-					: currentValue;
-
-			props.onBlur(error, actualValue, props.name, evt);
-		}
+		props.onBlur(error, actualValue, props.name, evt);
 	};
 
 	const onChange = useCallback(evt => {
@@ -132,12 +128,13 @@ const SelectInput = ({
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
-		'mui-mi-input-field-has-error': !!error
+		'mui-mi-input-field-has-error': !!error && !disabled
 	});
 
 	return (
 		<select
 			{...props}
+			disabled={disabled}
 			required={required}
 			className={inputClasses}
 			name={props.name}

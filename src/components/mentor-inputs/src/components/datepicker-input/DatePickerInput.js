@@ -60,8 +60,6 @@ class DatePickerInput extends Component {
 				: moment(value, moment.ISO_8601).toDate();
 		}
 
-		this.lastVal = isValid ? initValue : null;
-
 		this.datePickerRef = React.createRef();
 
 		// @hasError(bool) - if there is an error with the users selected date
@@ -83,8 +81,6 @@ class DatePickerInput extends Component {
 					? moment.utc(this.props.value).local().toDate()
 					: moment(this.props.value, moment.ISO_8601).toDate();
 			}
-
-			this.lastVal = isValid ? inputValue : null;
 
 			this.setState({
 				hasError: !!this.props.required && !isValid,
@@ -113,12 +109,11 @@ class DatePickerInput extends Component {
 		const { name, onBlur, type } = this.props;
 		const { hasError, inputValue } = this.state;
 
-		if (typeof onBlur === 'function' && this.lastVal !== inputValue) {
+		if (typeof onBlur === 'function') {
 			const mask = getDateFormat(type);
 			const isoDate = moment(inputValue, mask).toDate();
 
 			onBlur(hasError, isoDate, name);
-			this.lastVal = inputValue;
 		}
 	}
 

@@ -23,8 +23,6 @@ export const useInputState = (props = {}) => {
 	} = props;
 
 	const inputRef = useRef(null);
-	// last valid value used in the input, invalid inputs will not cause this to update
-	const lastVal = useRef(validateValue(value));
 
 	const [ currentValue, setCurrentValue ] = useState(() => 
 		validateValue(value)
@@ -41,7 +39,6 @@ export const useInputState = (props = {}) => {
 	useEffect(() => {
 		const newVal = validateValue(value);
 
-		lastVal.current = newVal;
 		setCurrentValue(newVal);
 		setError(hasError(newVal, required, validate));
 	}, [value]);
@@ -69,13 +66,7 @@ export const useInputState = (props = {}) => {
 		onBlur: useCallback(evt => {
 			if (typeof onBlur !== 'function') return;
 			
-			if (String(currentValue).trim() !== String(lastVal.current).trim()) {
-				if (!error) {
-					lastVal.current = currentValue;
-				}
-
-				onBlur(error, currentValue, input.name, evt);
-			}
+			onBlur(error, currentValue, input.name, evt);
 		}),
 		
 		onChange: useCallback(evt => {
