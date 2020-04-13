@@ -446,7 +446,15 @@ export class ListFilter extends Component {
 		if (!value) return;
 
 		let matchedValue = typeof parse === 'function' && !!value
-			? this.rawOptions.find(option => parse(option) === value)
+			? this.rawOptions.find(option => {
+				option = parse(option);
+				
+				if (option.title) {
+					return option.title === value;
+				}
+
+				return option === value;
+			})
 			: value;
 
 		if (typeof parseMatchedValue === 'function' && !!matchedValue) {
