@@ -272,6 +272,10 @@ export class ListFilter extends Component {
 
 	// @value(string): value to filter against
 	customFilterMatches = (value) => {
+		if (typeof value === 'object') {
+			value = value.title;
+		}
+
 		this.setState({
 			loadingFilter: true,
 			value
@@ -449,11 +453,9 @@ export class ListFilter extends Component {
 			? this.rawOptions.find(option => {
 				option = parse(option);
 				
-				if (option.title) {
-					return option.title === value;
-				}
-
-				return option === value;
+				return !!option && typeof option === 'object' && option.title
+					? option.title === value
+					: option === value;
 			})
 			: value;
 
