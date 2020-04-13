@@ -305,7 +305,9 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			// fire onMatch if the value matches an option in the list
-			if (typeof onMatch === 'function' && !this.state.hasError) {
+			if (typeof onMatch === 'function'
+				&& !this.state.hasError
+				&& !!this.state.value) {
 
 				this.onMatch(value);
 
@@ -425,7 +427,9 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			// fire onMatch if the value matches an option in the list
-			if (typeof onMatch === 'function' && !this.state.hasError) {
+			if (typeof onMatch === 'function'
+				&& !this.state.hasError
+				&& !!this.state.value) {
 
 				this.onMatch(value);
 
