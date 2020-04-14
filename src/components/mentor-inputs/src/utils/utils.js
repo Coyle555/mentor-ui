@@ -33,7 +33,6 @@ export function getMentorInput(type = '') {
 			return FloatInput;
 		case 'datetime':
 		case 'date':
-		case 'time':
 			return DatePickerInput;	
 		case 'email':
 			return EmailInput;

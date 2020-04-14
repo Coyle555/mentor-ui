@@ -24,6 +24,7 @@ storiesOf('Inputs/DatePickerInput', module)
 				onChange={action('onChange')}
 				type="date"
 				isUtc={false}
+				value="2020-04-02"
 			/>
 		);
 	})
