@@ -65,7 +65,7 @@ class DatePickerInput extends Component {
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
 		this.state = {
-			hasError: !!required & !isValid,
+			hasError: !!required && !isValid,
 			inputValue: initValue
 		};
 	}
@@ -92,13 +92,14 @@ class DatePickerInput extends Component {
 	// when user selects a date or time on the datetime picker
 	handleChange = (value) => {
 		const { name, onChange, required } = this.props;
+		const isValid = isValidDate(value, moment.ISO_8601);
 
 		this.setState({
-			hasError: !!required && !value,
-			inputValue: !!value ? value : ''
+			hasError: (!!required && !value) || (!!value && !isValid),
+			inputValue: value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(this.state.hasError, value, name);
+				onChange(this.state.hasError, this.state.inputValue, name);
 			};
 
 			this.datePickerRef.setFocus(true);
@@ -106,14 +107,18 @@ class DatePickerInput extends Component {
 	}
 
 	handleBlur = (evt) => {
-		const { name, onBlur, type } = this.props;
-		const { hasError, inputValue } = this.state;
+		const { name, onBlur, required, type } = this.props;
+		const { inputValue } = this.state;
 
 		if (typeof onBlur === 'function') {
-			const mask = getDateFormat(type);
-			const isoDate = moment(inputValue, mask).toDate();
+			if (!!inputValue) {
+				const mask = getDateFormat(type);
+				const isoDate = moment(inputValue, mask).toDate();
 
-			onBlur(hasError, isoDate, name);
+				onBlur(this.state.hasError, isoDate, name);
+			} else {
+				onBlur(this.state.hasError, inputValue, name);
+			}
 		}
 	}
 
