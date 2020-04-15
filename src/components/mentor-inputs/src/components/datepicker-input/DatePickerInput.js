@@ -15,13 +15,16 @@ import {
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.less';
 
+const SEC_IN_MIN = 60;
+const MS_IN_SEC = 1000;
+
 class DatePickerInput extends Component {
 
 	static propTypes = {
 		className: PropTypes.string,
+		convertToLocal: PropTypes.bool,
 		disabled: PropTypes.bool,
 		error: PropTypes.bool,
-		isUtc: PropTypes.bool,
 		name: PropTypes.string,
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
@@ -35,9 +38,9 @@ class DatePickerInput extends Component {
 
 	static defaultProps = {
 		className: '',
+		convertToLocal: true,
 		disabled: false,
 		error: false,
-		isUtc: false,
 		name: '',
 		onBlur: null,
 		onChange: null,
@@ -49,15 +52,15 @@ class DatePickerInput extends Component {
 	constructor(props) {
 		super(props);
 
-		const { isUtc, required, type, value } = this.props;
+		const { convertToLocal, required, value } = this.props;
 
 		const isValid = isValidDate(value, moment.ISO_8601);
 		let initValue = null;
 
 		if (isValid) {
-			initValue = isUtc
-				? moment.utc(value).local().toDate()
-				: moment(value, moment.ISO_8601).toDate();
+			initValue = convertToLocal
+				? moment.utc(value).local().format()
+				: moment.utc(value).format();
 		}
 
 		this.datePickerRef = React.createRef();
@@ -77,9 +80,9 @@ class DatePickerInput extends Component {
 			let inputValue = null;
 
 			if (isValid) {
-				inputValue = this.props.isUtc
-					? moment.utc(this.props.value).local().toDate()
-					: moment(this.props.value, moment.ISO_8601).toDate();
+				inputValue = this.props.convertToLocal
+					? moment.utc(this.props.value).local().format()
+					: moment.utc(this.props.value).format();
 			}
 
 			this.setState({
@@ -132,6 +135,7 @@ class DatePickerInput extends Component {
 	render() {
 		const { 
 			className,
+			convertToLocal,
 			error,
 			name,
 			onBlur,
@@ -149,6 +153,18 @@ class DatePickerInput extends Component {
 			'mui-mi-input-field-has-error': hasError || error
 		});
 
+		let dateVal;
+
+		if (!!inputValue) {
+			if (convertToLocal) {
+				dateVal = new Date(inputValue);
+			// shift time by timezone offset when creating a date object
+			} else {
+				const offset = new Date().getTimezoneOffset();
+				dateVal = new Date(Date.parse(new Date(inputValue)) + (offset * SEC_IN_MIN * MS_IN_SEC));
+			}
+		}
+
 		return (
 			<DatePicker
 				className={inputClasses}
@@ -157,7 +173,7 @@ class DatePickerInput extends Component {
 				onBlur={this.handleBlur}
 				onChange={this.handleChange}
 				onKeyDown={this.onKeyDown}
-				openToDate={inputValue}
+				openToDate={dateVal}
 				placeholderText={getPlaceholder(type)}
 				popperClassName="mui-datepicker-popper"
 				popperModifiers={{
@@ -168,7 +184,7 @@ class DatePickerInput extends Component {
 					}
 				}}
 				ref={ref => this.datePickerRef = ref}
-				selected={inputValue}
+				selected={dateVal}
 				shouldCloseOnSelect={false}
 				showTimeSelect={type === 'datetime'}
 				timeIntervals={15}
