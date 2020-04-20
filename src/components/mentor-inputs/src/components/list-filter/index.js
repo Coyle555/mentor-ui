@@ -137,11 +137,9 @@ export class ListFilter extends Component {
 		}
 
 		// if new value passed in, refilter list and check for error
-		if (this.state.value !== nextProps.value) {
+		if (this.state.value !== this.parseValue(nextProps.value)) {
 			const { name, parse, required } = this.props;
 			let value = this.parseValue(nextProps.value);
-
-			if (this.state.value === value) return;
 
 			if (typeof this.props.options === 'function') {
 				this.initialLoadComplete = false;
@@ -202,7 +200,7 @@ export class ListFilter extends Component {
 		}
 		
 		if (typeof parse === 'function') {
-			return parse(value);
+			return parse(value).toString();
 		}
 
 		return value;
@@ -609,3 +607,4 @@ export class ListFilter extends Component {
 }
 
 export default onClickOutside(ListFilter);
+
