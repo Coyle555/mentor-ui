@@ -92,11 +92,6 @@ export class TypeaheadComponent extends Component {
 		// need to refocus on input box after selection
 		this.inputRef.focus();
 
-		// convert datetimes when user hits enter on value
-		if (this.props.datatype === 'datetime') {
-			option = moment(option).toISOString();
-		}
-
 		this.setState({
 			selectedOptionIndex: -1,
 			value: '',
@@ -197,17 +192,22 @@ export class TypeaheadComponent extends Component {
 	// Handle key events as user enters input
 	// @event: key pressed by user
 	_onKeyDown = (event) => {
-		const { addTokenForValue, onKeyDown } = this.props;
-		const { value, visibleOptions } = this.state;
+		const { addTokenForValue, datatype, onKeyDown } = this.props;
+		const { visibleOptions } = this.state;
 
 		let handler = this.eventMap(event);
+		let value = this.state.value;
 
 		// handle value completion if there were no options passed in
-		if ((event.keyCode === keyEvent.DOM_VK_RETURN
-			|| event.keyCode === keyEvent.DOM_VK_ENTER)
+		if ((event.keyCode === keyEvent.DOM_VK_RETURN || event.keyCode === keyEvent.DOM_VK_ENTER)
 			&& this.props.options.length === 0
 			&& !!this.state.value) {
 			
+			// convert date/datetimes when user hits enter on value
+			if (datatype === 'date' || datatype === 'datetime') {
+				value = moment(value).toISOString()
+			}
+
 			addTokenForValue(value);
 			this.setState({ value: '' });
 

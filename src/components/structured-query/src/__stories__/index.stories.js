@@ -3,7 +3,9 @@ import { storiesOf, action } from '@storybook/react';
 
 import { StructuredQuery } from '../index';
 
-const onTokenAdd = () => {};
+const onTokenAdd = (tokens) => {
+	console.log(tokens);
+};
 const onTokenRemove = () => {};
 const exportSearch = () => {};
 
