@@ -4,7 +4,6 @@ import cn from 'classnames';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
-import { keyEvent as KeyEvent } from 'utils';
 import {
 	getDateFormat,
 	getDateFormatForPicker,
@@ -14,6 +13,8 @@ import {
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.less';
+
+const KeyEvent = { DOM_VK_TAB: 9 };
 
 const SEC_IN_MIN = 60;
 const MS_IN_SEC = 1000;
@@ -114,14 +115,7 @@ class DatePickerInput extends Component {
 		const { inputValue } = this.state;
 
 		if (typeof onBlur === 'function') {
-			if (!!inputValue) {
-				const mask = getDateFormat(type);
-				const isoDate = moment(inputValue, mask).toDate();
-
-				onBlur(this.state.hasError, isoDate, name);
-			} else {
-				onBlur(this.state.hasError, inputValue, name);
-			}
+			onBlur(this.state.hasError, inputValue, name);
 		}
 	}
 
@@ -165,6 +159,11 @@ class DatePickerInput extends Component {
 			}
 		}
 
+		const popperClasses = cn(
+			'mui-datepicker-popper',
+			{ 'mui-datepicker-popper-datetime': type === 'datetime' }
+		);
+
 		return (
 			<DatePicker
 				className={inputClasses}
@@ -175,7 +174,7 @@ class DatePickerInput extends Component {
 				onKeyDown={this.onKeyDown}
 				openToDate={dateVal}
 				placeholderText={getPlaceholder(type)}
-				popperClassName="mui-datepicker-popper"
+				popperClassName={popperClasses}
 				popperModifiers={{
 					preventOverflow: {
 						enabled: true,
