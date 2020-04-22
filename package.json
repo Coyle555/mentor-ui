@@ -1,6 +1,6 @@
 {
   "name": "mentor-ui",
-  "version": "1.10.6",
+  "version": "1.10.7",
   "main": "dist/index.js",
   "repository": "https://github.com/MentorAPM/mentor-ui.git",
   "author": "",
