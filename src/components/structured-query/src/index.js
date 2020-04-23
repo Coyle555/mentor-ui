@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
 import { Typeahead } from './components/Typeahead';
-import { keyEvent } from 'utils';
 import { ActiveFilters } from './components/ActiveFilters';
 import {
 	_getHeader,
@@ -15,6 +14,8 @@ import {
 } from './utils/utils';
 import { ALL_OPERATIONS } from './constants';
 import './styles/structured-filter.less';
+
+const KeyEvent = { DOM_VK_BACK_SPACE: 8 };
 
 export class StructuredQuery extends Component {
 
@@ -78,7 +79,7 @@ export class StructuredQuery extends Component {
 	// Handle removing a token from the input box when user hits backspace
 	_onKeyDown = (event, value) => {
 		// only care about backspaces for removing token parts
-		if (event.keyCode !== keyEvent.DOM_VK_BACK_SPACE || value) {
+		if (event.keyCode !== KeyEvent.DOM_VK_BACK_SPACE || value) {
 			return;
 		}
 

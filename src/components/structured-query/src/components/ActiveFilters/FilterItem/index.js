@@ -26,11 +26,13 @@ export class FilterItem extends Component {
 	}
 
 	renderValue = (val) => {
-		if (this.props.type === 'datetime' && !!val) {
+		const { type } = this.props;
+
+		if (type === 'datetime' && !!val) {
 
 			return moment.utc(val).local().format(DATETIME_FORMAT);
 
-		} else if (this.props.type === 'date' && !!val) {
+		} else if (type === 'date' && !!val) {
 
 			return new moment.utc(val).format(DATE_FORMAT);
 
