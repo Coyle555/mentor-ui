@@ -150,12 +150,11 @@ class DatePickerInput extends Component {
 		let dateVal;
 
 		if (!!inputValue) {
-			if (convertToLocal) {
-				dateVal = new Date(inputValue);
-			// shift time by timezone offset when creating a date object
-			} else {
-				const offset = new Date().getTimezoneOffset();
-				dateVal = new Date(Date.parse(new Date(inputValue)) + (offset * SEC_IN_MIN * MS_IN_SEC));
+			dateVal = new Date(inputValue);
+
+			// shift time by timezone offset if there is no local conversion
+			if (!convertToLocal) {
+				dateVal.setTime(dateVal.getTime() + dateVal.getTimezoneOffset() * SEC_IN_MIN * MS_IN_SEC);
 			}
 		}
 

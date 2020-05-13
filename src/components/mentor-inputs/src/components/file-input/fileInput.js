@@ -11,7 +11,7 @@ const FileInput = ({ label, name, onDrop, ...props }) => {
 		if (typeof onDrop === 'function') {
 			onDrop(acceptedFiles, name);
 		}
-	}, []);
+	}, [onDrop, name]);
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
 		onDrop: dropzoneDrop 
