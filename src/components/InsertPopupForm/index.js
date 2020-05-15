@@ -4,10 +4,14 @@ import classNames from 'classnames';
 
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
-import { keyEvent as KeyEvent } from 'utils';
 import { getInputComponent } from './utils';
 
 import './styles/form.less';
+
+const KeyEvent = {
+	DOM_VK_TAB: 9,
+	DOM_VK_ESCAPE: 27
+};
 
 export default class InsertForm extends Component {
 
@@ -326,11 +330,15 @@ export default class InsertForm extends Component {
 				return acc;
 			}, {});
 
-			this.props.onSubmit(dataToSubmit);
-		}
-
-		if (this.props.resetForm) {
-			this.initializeInsertForm();
+			new Promise((resolve, reject) => {
+				resolve(this.props.onSubmit(dataToSubmit));
+			}).then(() => {
+				if (this.props.resetForm) {
+					this.initializeInsertForm();
+				}
+			}).catch(err => {
+				console.log('Error on submit', err);
+			});
 		}
 	}
 
@@ -450,3 +458,4 @@ export default class InsertForm extends Component {
 		);
 	}
 }
+
