@@ -26,7 +26,7 @@ storiesOf('InsertPopupForm', module)
 						label: 'List Filter w/ Filter',
 						type: 'listfilter',
 						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
-						parse: val => val.name
+						parse: val => typeof val === 'object' ? val.name : val,
 					}
 				]}
 				onDisable={action('onDisable')}
@@ -71,7 +71,7 @@ storiesOf('InsertPopupForm', module)
 						label: 'List Filter w/ Filter',
 						type: 'listfilter',
 						options: () => ([{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]),
-						parse: val => val.name
+						parse: val => typeof val === 'object' ? val.name : val,
 					}
 				]}
 				onSubmit={action('onSubmit')}

@@ -330,33 +330,8 @@ export default class InsertForm extends Component {
 		}
 
 		if (this.props.resetForm) {
-			this.resetForm();
+			this.initializeInsertForm();
 		}
-	}
-
-	// resets a form to original state
-	resetForm() {
-		const { initInsertData } = this.props;
-		const { formModel } = this.state;
-		const newIndex = 0;
-		
-		Object.keys(this.insertData).forEach(field => {
-			this.insertData[field] = '';
-		});
-
-		if (typeof initInsertData === 'object' && !!initInsertData) {
-			Object.keys(initInsertData).forEach(field => {
-				this.insertData[field] = initInsertData[field] !== null 
-					&& initInsertData[field] !== undefined
-						? initInsertData[field]
-						: '';
-			});
-		}
-
-		this.setState({
-			fieldIndex: newIndex,
-			currentInputLabel: formModel[newIndex].label
-		});
 	}
 
 	// handles going right for fields to be inserted
