@@ -71,7 +71,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onMatch={action('onMatch')}
 				options={[{
 					title: 'foo',
-					subtitle: 'Foo subtitle'
+					subtitle: 'This will be a really long subtitle --- Foo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitle'
 				}, {
 					title: 'bar',
 					subtitle: 'Bar subtitle'

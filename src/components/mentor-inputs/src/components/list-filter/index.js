@@ -200,7 +200,6 @@ export class ListFilter extends Component {
 		}
 		
 		if (typeof parse === 'function') {
-			console.log(parse(value), value);
 			return parse(value).toString();
 		}
 
