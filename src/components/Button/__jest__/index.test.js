@@ -1,81 +1,21 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import Button from '../index';
+import { render, cleanup, fireEvent } from '@testing-library/react';
+import { Button } from '../index';
 
-test('Render default button', () => {
-	const tree = renderer.create(<Button>Foo</Button>).toJSON();
+afterEach(cleanup)
 
-	expect(tree).toMatchSnapshot();
-});
+describe('Button Component', () => {
+  test('button displays proper text', () => {
+    const { getByText } = render(<Button>Test Button</Button>);
+    expect(getByText('Test Button')).toBeDefined();
+  })
 
-test('Render blue button', () => {
-	const tree = renderer.create(<Button isBlue={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render block button', () => {
-	const tree = renderer.create(<Button block={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render light button', () => {
-	const tree = renderer.create(<Button isLight={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render light blue button', () => {
-	const tree = renderer.create(<Button isBlue={true} isLight={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render outline button', () => {
-	const tree = renderer.create(<Button isOutline={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render outline button', () => {
-	const tree = renderer.create(<Button isOutline={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render mini button', () => {
-	const tree = renderer.create(<Button isMini={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render end cap left button', () => {
-	const tree = renderer.create(<Button isLeftEndCap={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render end cap right button', () => {
-	const tree = renderer.create(<Button isRightEndCap={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render capless button', () => {
-	const tree = renderer.create(<Button isCapless={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render medium button', () => {
-	const tree = renderer.create(<Button medium={true}>Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
-
-test('Render button with custom class', () => {
-	const tree = renderer.create(<Button className="bar">Foo</Button>).toJSON();
-
-	expect(tree).toMatchSnapshot();
-});
+  test('button allows being clicked', () => {
+    const testClick = jest.fn();
+    const { getByText } = render(
+      <Button onClick={testClick}>Test Click</Button>
+    );
+    fireEvent.click(getByText('Test Click'));
+    expect(testClick.mock.calls.length).toBe(1);
+  })
+})
