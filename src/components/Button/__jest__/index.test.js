@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import { Button } from '../index';
 
 afterEach(cleanup)
@@ -7,7 +8,7 @@ afterEach(cleanup)
 export const TEST_BTN_PREFIX = 'APMButton';
 
 describe('Button Component', () => {
-  test('is a button', async () => {
+  test('is an html button', async () => {
     const { findByRole } = render(<Button>Test Button</Button>);
     const button = await findByRole('button')
     expect(button).toBeDefined();
@@ -27,104 +28,102 @@ describe('Button Component', () => {
     expect(testClick.mock.calls.length).toBe(1);
   })
 
-  test(`should always have class ${TEST_BTN_PREFIX}`, () => {
-    const { getByText } = render(<Button>Test Button</Button>);
-    expect(getByText('Test Button')).toHaveClass(TEST_BTN_PREFIX);
-  })
-
-  test('button defaults to the default theme', () => {
-    const { getByText } = render(<Button>Default Button</Button>);
-    expect(getByText('Default Button')).toHaveClass(`${TEST_BTN_PREFIX}-default`)
-  })
-
-  test('button default theme works properly in light case', () => {
-    const { getByText } = render(<Button isLight>Default Button</Button>);
-    expect(getByText('Default Button')).toHaveClass(`${TEST_BTN_PREFIX}-default-light`)
-  })
-
-  test('button primary theme works properly', () => {
-    const { getByText } = render(<Button theme="primary">Primary Button</Button>);
-    expect(getByText('Primary Button')).toHaveClass(`${TEST_BTN_PREFIX}-primary`)
-  })
-
-  test('button primary theme works properly in light case', () => {
-    const { getByText } = render(<Button theme="primary" isLight>Primary Button</Button>);
-    expect(getByText('Primary Button')).toHaveClass(`${TEST_BTN_PREFIX}-primary-light`)
-  })
-
-  test('button success theme works properly', () => {
-    const { getByText } = render(<Button theme="success">Success Button</Button>);
-    expect(getByText('Success Button')).toHaveClass(`${TEST_BTN_PREFIX}-success`)
-  })
-
-  test('button success theme works properly in light case', () => {
-    const { getByText } = render(<Button theme="success" isLight>Success Button</Button>);
-    expect(getByText('Success Button')).toHaveClass(`${TEST_BTN_PREFIX}-success-light`)
-  })
-
-  test('button danger theme works properly', () => {
-    const { getByText } = render(<Button theme="danger">danger Button</Button>);
-    expect(getByText('danger Button')).toHaveClass(`${TEST_BTN_PREFIX}-danger`)
-  })
-
-  test('button danger theme works properly in light case', () => {
-    const { getByText } = render(<Button theme="danger" isLight>danger Button</Button>);
-    expect(getByText('danger Button')).toHaveClass(`${TEST_BTN_PREFIX}-danger-light`)
-  })
-
-  test('button block option works properly', () => {
-    const { getByText } = render(<Button block>block Button</Button>);
-    expect(getByText('block Button')).toHaveClass(`${TEST_BTN_PREFIX}-block`)
-  })
-
-  test('button outline option works properly', () => {
-    const { getByText } = render(<Button isOutline>outline Button</Button>);
-    expect(getByText('outline Button')).toHaveClass(`${TEST_BTN_PREFIX}-outline`)
-  })
-
-  test('button mini option works properly', () => {
-    const { getByText } = render(<Button isMini>mini Button</Button>);
-    expect(getByText('mini Button')).toHaveClass(`${TEST_BTN_PREFIX}-is-mini`)
-  })
-
-  test('button medium option works properly', () => {
-    const { getByText } = render(<Button medium>medium Button</Button>);
-    expect(getByText('medium Button')).toHaveClass(`${TEST_BTN_PREFIX}-is-medium`)
-  })
-
-  test('button left end cap option works properly', () => {
-    const { getByText } = render(<Button isLeftEndCap>left end cap Button</Button>);
-    expect(getByText('left end cap Button')).toHaveClass(`${TEST_BTN_PREFIX}-end-cap-left`)
-  })
-
-  test('button right end cap option works properly', () => {
-    const { getByText } = render(<Button isRightEndCap>right end cap Button</Button>);
-    expect(getByText('right end cap Button')).toHaveClass(`${TEST_BTN_PREFIX}-end-cap-right`)
-  })
-
-  test('button capless option works properly', () => {
-    const { getByText } = render(<Button isCapless>capless Button</Button>);
-    expect(getByText('capless Button')).toHaveClass(`${TEST_BTN_PREFIX}-is-capless`)
-  })
-
-  test('allows additional classnames', () => {
-    const { getByText } = render(<Button className="test-class">Classy Button</Button>);
-    expect(getByText('Classy Button')).toHaveClass(`test-class`)
-  })
-
-  test('allows disabled option', () => {
-    const { getByText } = render(<Button disabled>Disabled Button</Button>);
-    expect(getByText('Disabled Button')).toBeDisabled()
-  })
-
   test('allows misc button options', () => {
     const { getByText } = render(<Button name="test">Named Button</Button>);
     expect(getByText('Named Button')).toHaveAttribute('name', 'test')
   })
 
-  test('allows forward refs', () => {
+  test('allows forward refs', async () => {
     const testRef = React.createRef();
-    render(<Button ref={testRef}>Ref Button</Button>);
-    expect(testRef.current).toHaveClass(`${TEST_BTN_PREFIX}`);
+    const { findByRole } = render(<Button ref={testRef}>Ref Button</Button>);
+    const button = await findByRole('button');
+    expect(testRef.current).toContainElement(button);
+  })
+
+  test('allows additional classnames', () => {
+    const { getByText } = render(<Button className="test-class">Foo</Button>);
+    expect(getByText('Foo')).toHaveClass(`test-class`)
+  })
+
+
+  // UI Snapshot tests
+  test('default button case', () => {
+    const tree = renderer.create(<Button>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('default button light case', () => {
+    const tree = renderer.create(<Button isLight>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('primary button', () => {
+    const tree = renderer.create(<Button theme="primary">Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('primary button light case', () => {
+    const tree = renderer.create(<Button theme="primary" isLight>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('success button', () => {
+    const tree = renderer.create(<Button theme="success">Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('success button light case', () => {
+    const tree = renderer.create(<Button theme="success" isLight>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('danger button', () => {
+    const tree = renderer.create(<Button theme="danger">Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('danger button light case', () => {
+    const tree = renderer.create(<Button theme="danger" isLight>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('block button', () => {
+    const tree = renderer.create(<Button theme="danger" block>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('outline button', () => {
+    const tree = renderer.create(<Button isOutline>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('mini button', () => {
+    const tree = renderer.create(<Button isMini>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('medium button', () => {
+    const tree = renderer.create(<Button medium>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('left end cap button', () => {
+    const tree = renderer.create(<Button isLeftEndCap>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('right end cap button', () => {
+    const tree = renderer.create(<Button isRightEndCap>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('capless button', () => {
+    const tree = renderer.create(<Button isCapless>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
+
+  test('disabled button', () => {
+    const tree = renderer.create(<Button disabled>Foo</Button>).toJSON();
+    expect(tree).toMatchSnapshot();
   })
 })

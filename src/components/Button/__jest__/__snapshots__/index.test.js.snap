@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component block button 1`] = `
+<button
+  className="APMButton APMButton-danger APMButton-block"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component capless button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-is-capless"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component danger button 1`] = `
+<button
+  className="APMButton APMButton-danger"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component danger button light case 1`] = `
+<button
+  className="APMButton APMButton-danger APMButton-danger-light"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component default button case 1`] = `
+<button
+  className="APMButton APMButton-default"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component default button light case 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-default-light"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component disabled button 1`] = `
+<button
+  className="APMButton APMButton-default"
+  disabled={true}
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component left end cap button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-end-cap-left"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component medium button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-is-medium"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component mini button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-is-mini"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component outline button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-outline"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component primary button 1`] = `
+<button
+  className="APMButton APMButton-primary"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component primary button light case 1`] = `
+<button
+  className="APMButton APMButton-primary APMButton-primary-light"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component right end cap button 1`] = `
+<button
+  className="APMButton APMButton-default APMButton-end-cap-right"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component success button 1`] = `
+<button
+  className="APMButton APMButton-success"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component success button light case 1`] = `
+<button
+  className="APMButton APMButton-success APMButton-success-light"
+>
+  Foo
+</button>
+`;
