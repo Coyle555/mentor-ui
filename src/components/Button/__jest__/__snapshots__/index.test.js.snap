@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Button Component allows additional classnames 1`] = `
+<button
+  className="APMButton APMButton-default bar"
+>
+  Foo
+</button>
+`;
+
+exports[`Button Component allows misc button options 1`] = `
+<button
+  className="APMButton APMButton-default"
+  name="bar"
+>
+  Foo
+</button>
+`;
+
 exports[`Button Component block button 1`] = `
 <button
   className="APMButton APMButton-danger APMButton-block"
