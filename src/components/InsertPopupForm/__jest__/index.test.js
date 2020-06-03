@@ -287,14 +287,21 @@ describe('Submitting an insert form using submit button', () => {
   test('Resetting after a submission', async () => {
     const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 
-    const { getByDisplayValue, getByTestId, getByText } = render(
-      <InsertForm formFields={formFields} resetForm={true} />);
+    /* Passing null function because form requires onSubmit to be typeOf function to start submitting */
+    const { getByTestId, getByText } = render(
+      <InsertForm
+        formFields={formFields}
+        resetForm={true}
+        onSubmit={() => null} />);
 
     fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
     expect(getByTestId('field-input').value).toBe('Test');
-
     fireEvent.click(getByText('Submit'));
-    expect(getByTestId('field-input').value).toBe('');
+
+    // Submission is handled in a promise, so wait for that promise to resolve
+    await wait(() => {
+      expect(getByTestId('field-input').value).toBe('');
+    })
   });
 });
 
@@ -304,7 +311,9 @@ describe('Initializing the form with data', () => {
     const initInsertData = { foo: 'Test' };
 
     const { getByDisplayValue, getByTestId } = render(
-      <InsertForm formFields={formFields} initInsertData={initInsertData} />);
+      <InsertForm
+        formFields={formFields}
+        initInsertData={initInsertData} />);
 
 
     expect(getByTestId('field-input').value).toBe('Test');
