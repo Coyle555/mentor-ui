@@ -249,7 +249,7 @@ describe('Submitting an insert form using submit button', () => {
       label: 'Bar',
       id: 'foo',
       options: [{ name: 'foo' }],
-      parse: val => val.name,
+      parse: val => val ? val.name : '',
       type: 'listfilter'
     }];
 
@@ -269,7 +269,7 @@ describe('Submitting an insert form using submit button', () => {
       label: 'Bar',
       id: 'foo',
       options: [{ id: 'foo', name: 'Foo' }],
-      parse: val => val.name,
+      parse: val => val ? val.name : '',
       parseMatchedValue,
       type: 'listfilter'
     }];
