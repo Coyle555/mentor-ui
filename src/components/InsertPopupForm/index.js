@@ -55,6 +55,8 @@ export default class InsertForm extends Component {
 
 		// insertion data taken from the form
 		this.insertData = {};
+		this.linkValue = '';
+		this.linkProps = {};
 
 		// @currentInputLabel: the current input label viewable by the user
 		// @fieldIndex: index of the current form field that is active
@@ -257,11 +259,9 @@ export default class InsertForm extends Component {
 		const field = formModel[fieldIndex];
 		let currentVal = this.insertData[field.id];
 
-		if (typeof field.parse === 'function') {
-			currentVal = field.parse(this.insertData[field.id]);
-		}
+		if ((typeof field.parse === 'function' && field.parse(newValue).toString() !== field.parse(currentVal).toString())
+			|| (typeof field.parse !== 'function' && newValue !== currentVal)) {
 
-		if (newValue !== currentVal) {
 			this.insertData[field.id] = newValue;
 
 			// on value changes clear all linked fields
@@ -401,17 +401,27 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
-		let link;
+		let linkedProps = {};
 
 		if (field.linkToPrev) {
 			const prevFieldId = formModel[fieldIndex - 1].id;
-
-			link = {
-				disabled: this.insertData[prevFieldId] === ''
+			const disabled = this.insertData[prevFieldId] === ''
 					|| fieldsWithError[prevFieldId]
-					|| typeof field.onLink !== 'function',
-				onLink: field.onLink,
-				value: this.insertData[prevFieldId]
+					|| typeof field.onLink !== 'function';
+			const value = this.insertData[prevFieldId];
+
+			// only change linked input props when the linked value is actually changed
+			if ((typeof field.parse === 'function' && field.parse(this.linkValue).toString() !== field.parse(value).toString())
+				|| (typeof field.parse !== 'function' && this.linkValue !== value)) {
+
+				this.linkValue = value;
+				this.linkProps = field.onLink(value);
+			}
+
+			linkedProps = {
+				...this.linkProps,
+				disabled,
+				required: value !== '' && !disabled,
 			};
 		}
 
@@ -439,7 +449,7 @@ export default class InsertForm extends Component {
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={field.InputComponent}
-									link={link}
+									linkedProps={linkedProps}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
 								/>

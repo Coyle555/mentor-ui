@@ -8,23 +8,15 @@ export const Field = ({
 	handleGoingLeft,
 	handleGoingRight,
 	InputComponent,
-	link,
+	linkedProps,
 	value,
 	_onSubmit
 }) => {
 	let inputProps = {
+		...linkedProps,
 		'data-testid': 'field-input',
-		disabled: !!link.disabled,
 		value
 	};
-
-	if (typeof link === 'object' && link.value !== '' && link.disabled === false) {
-		inputProps = {
-			...inputProps,
-			...link.onLink(link.value),
-			required: true
-		};
-	}
 
 	return (
 		<div className="row">
