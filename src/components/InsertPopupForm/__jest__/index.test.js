@@ -114,14 +114,25 @@ describe('Partially filled data', () => {
     const { baseElement, debug, getByTestId, getByText } = render(
       <InsertForm formFields={formFields} />
     );
+    let current_field;
 
     fireEvent.click(getByText('6'));
-    fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
-    await wait(() => {
-      fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
-      fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
-      expect(getByTestId('field-input').value).toEqual('f');
-    });
+
+    current_field = await getByTestId('field-input');
+    fireEvent.change(current_field, { target: { value: 'foo' } });
+
+    current_field = await getByTestId('field-input');
+    expect(current_field.value).toEqual('foo');
+
+    fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+
+    current_field = await getByTestId('field-input');
+    expect(current_field.value).not.toEqual('foo');
+
+    fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+
+    current_field = await getByTestId('field-input');
+    expect(current_field.value).toEqual('foo');
   });
 });
 
