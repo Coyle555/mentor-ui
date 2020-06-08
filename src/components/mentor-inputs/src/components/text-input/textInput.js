@@ -6,18 +6,17 @@ import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
 const TextInput = ({ validate, ...props }) => {
+  const inputState = useInputState({ validate, ...props });
 
-	const inputState = useInputState({ validate, ...props });
-
-	return (
-		<input
-			autoComplete="false"
-			placeholder="Enter text"
-			type="text"
-			{...props}
-			{...inputState}
-		/>
-	);
+  return (
+    <input
+      autoComplete="false"
+      placeholder="Enter text"
+      type="text"
+      {...props}
+      {...inputState}
+    />
+  );
 }
 
 export default TextInput;
