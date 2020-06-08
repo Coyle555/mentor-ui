@@ -107,7 +107,7 @@ exports[`Boolean input with valid initial value 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  value={true}
+  value="Yes"
 >
   <option
     value=""
