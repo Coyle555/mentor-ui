@@ -11,9 +11,8 @@ function validateValue(value) {
 }
 
 export const useInputState = (props = {}) => {
-
-	let {
-		disabled,
+	const {
+		id,
 		onBlur,
 		onChange,
 		required,
@@ -21,8 +20,6 @@ export const useInputState = (props = {}) => {
 		value,
 		...input
 	} = props;
-
-	const inputRef = useRef(null);
 
 	const [ currentValue, setCurrentValue ] = useState(() => 
 		validateValue(value)
@@ -41,25 +38,19 @@ export const useInputState = (props = {}) => {
 
 		setCurrentValue(newVal);
 		setError(hasError(newVal, required, validate));
-	}, [value]);
+	}, [id, value]);
 
 	useEffect(() => {
-		if (!inputRef.current) return;
-
 		const err = hasError(currentValue, required, validate);
 		setError(err);
-
-		if (typeof err === 'string') {
-			inputRef.current.setCustomValidity(err);
-		}
-	}, [inputRef.current, currentValue, required, validate]);
+	}, [currentValue, required, validate]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
 		'mui-mi-input-field-has-error': error
 	});
-		
+
 	return {
 		className: inputClasses,
 
@@ -76,21 +67,12 @@ export const useInputState = (props = {}) => {
 			const error = hasError(newValue, required, validate);
 			setError(error);
 
-			if (inputRef.current) {
-				if (error) {
-					inputRef.current.setCustomValidity(String(error));
-				} else {
-					inputRef.current.setCustomValidity('');
-				}
-			}
-
 			if (typeof onChange === 'function') {
 				onChange(error, newValue, input.name, evt);
 			}
 		}),
 
 		name: input.name,
-		ref: inputRef,
 		value: currentValue
 	}
 };

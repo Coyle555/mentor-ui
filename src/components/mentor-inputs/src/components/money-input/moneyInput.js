@@ -48,7 +48,7 @@ export const isMoney = (val) => {
 			: 'Invalid money value';
 }
 
-const MoneyInput = (props) => {
+const MoneyInput = React.forwardRef((props, ref) => {
 	const [value, setValue] = useState(props.value);
 
 	useEffect(() => {
@@ -81,11 +81,12 @@ const MoneyInput = (props) => {
 			{...props}
 			onBlur={onBlur}
 			precision={undefined}
+			ref={ref}
 			validate={[isMoney].concat(props.validate)}
 			value={value}
 		/>
 	);
-};
+});
 
 MoneyInput.propTypes = {
 	validate: PropTypes.oneOfType(PropTypes.array, PropTypes.func),
