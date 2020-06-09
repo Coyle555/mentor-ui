@@ -10,16 +10,16 @@ function isEmail(value) {
 		: 'Invalid email';
 }
 
-const EmailInput = ({ validate = [], ...props }) => {
+const EmailInput = React.forwardRef(({ validate = [], ...props }) => {
 
 	return (
 		<TextInput
 			placeholder="Enter email"
 			{...props}
+			ref={ref}
 			validate={[isEmail].concat(validate)}
 		/>		
 	);
-}
-
+});
 
 export default EmailInput;

@@ -7,7 +7,7 @@ import SelectInput from '../select-input/selectInput';
 const OPTIONS = ['Yes', 'No'];
 const parseMatchedValue = (val => val === 'Yes' ? true : val === 'No' ? false : '');
 
-const BooleanInput = ({ value, ...props }) => {
+const BooleanInput = React.forwardRef(({ value, ...props }, ref) => {
 
 	if (value === true || value === 'true') {
 		value = 'Yes';
@@ -20,10 +20,11 @@ const BooleanInput = ({ value, ...props }) => {
 			{...props}
 			options={OPTIONS}
 			parseMatchedValue={parseMatchedValue}
+			ref={ref}
 			value={value}
 		/>
 	);
-}
+});
 
 BooleanInput.propTypes = {
 	className: PropTypes.string,

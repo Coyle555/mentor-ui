@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const TextInput = ({ validate, ...props }) => {
+const TextInput = React.forwardRef(({ validate, ...props }, ref) => {
 
 	const inputState = useInputState({ validate, ...props });
 
@@ -16,9 +16,10 @@ const TextInput = ({ validate, ...props }) => {
 			type="text"
 			{...props}
 			{...inputState}
+			ref={ref}
 		/>
 	);
-}
+});
 
 export default TextInput;
 
