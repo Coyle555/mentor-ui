@@ -328,7 +328,7 @@ exports[`Linking fields Render required links on mount 1`] = `
 </div>
 `;
 
-exports[`Rendering the insert form Default render of the insert form 1`] = `null`;
+exports[`Rendering the insert form If no form fields are passed, render null 1`] = `null`;
 
 exports[`Rendering the insert form Rendering a required field that has data 1`] = `
 <div>

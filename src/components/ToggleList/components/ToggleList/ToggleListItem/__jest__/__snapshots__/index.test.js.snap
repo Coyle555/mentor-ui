@@ -5,7 +5,7 @@ exports[`Default toggle list item 1`] = `
   className="mui-toggle-list-item"
 >
   <div
-    className="title"
+    className="mui-toggle-list-item-title"
     onClick={[Function]}
   >
     <div>
@@ -60,7 +60,7 @@ exports[`Toggle list item with custom class for the title 1`] = `
   className="mui-toggle-list-item"
 >
   <div
-    className="title custom-class"
+    className="mui-toggle-list-item-title custom-class"
     onClick={[Function]}
   >
     <div>

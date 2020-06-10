@@ -7,18 +7,18 @@ import '../../styles/index.less';
 
 const TextInput = React.forwardRef(({ validate, ...props }, ref) => {
 
-	const inputState = useInputState({ validate, ...props });
+  const inputState = useInputState({ validate, ...props });
 
-	return (
-		<input
-			autoComplete="false"
-			placeholder="Enter text"
-			type="text"
-			{...props}
-			{...inputState}
-			ref={ref}
-		/>
-	);
+  return (
+    <input
+      autoComplete="false"
+      placeholder="Enter text"
+      type="text"
+      {...props}
+      {...inputState}
+      ref={ref}
+    />
+  );
 });
 
 export default TextInput;

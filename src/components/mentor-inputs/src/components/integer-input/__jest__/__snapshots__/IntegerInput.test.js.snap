@@ -6,7 +6,7 @@ exports[`<IntegerInput /> accepts a value prop of type number 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="3"
 />
@@ -18,7 +18,7 @@ exports[`<IntegerInput /> with a custom className 1`] = `
   className="mui-mi-input-field custom-class"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value=""
 />
@@ -30,7 +30,7 @@ exports[`<IntegerInput /> with no props 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value=""
 />
@@ -42,7 +42,7 @@ exports[`Integer input with a decimal value 1`] = `
   className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="3.24"
 />
@@ -54,7 +54,7 @@ exports[`Integer input with a non integer value 1`] = `
   className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="test"
 />
@@ -66,7 +66,7 @@ exports[`Maximum value failed for integer input 1`] = `
   className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />
@@ -78,7 +78,7 @@ exports[`Maximum value passed for integer input 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />
@@ -90,7 +90,7 @@ exports[`Minimum value failed for integer input 1`] = `
   className="mui-mi-input-field mui-mi-input-field-has-error"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />
@@ -102,7 +102,7 @@ exports[`Minimum value passed for integer input 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />
@@ -114,7 +114,7 @@ exports[`New maximum value failed for integer input 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />
@@ -126,7 +126,7 @@ exports[`New minimum value failed for integer input 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  placeholder="Enter number"
+  placeholder="Enter whole number"
   type="text"
   value="5"
 />

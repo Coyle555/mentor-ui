@@ -132,5 +132,7 @@ typings/
 .dynamodb/
 
 # End of https://www.gitignore.io/api/node,linux,macos
-
 .npmrc
+
+# vscode user settings
+.vscode

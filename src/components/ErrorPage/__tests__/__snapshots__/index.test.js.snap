@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Page forbidden status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    403
+  </h1>
+  <h3>
+    Forbidden
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page resource not found status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    404
+  </h1>
+  <h3>
+    Resource not found
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page resource not found status 2`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    502
+  </h1>
+  <h3>
+    Forbidden Gateway
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page route not found status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    400
+  </h1>
+  <h3>
+    Route not found
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page server error status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    500
+  </h1>
+  <h3>
+    Server Error
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page something went wrong status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1 />
+  <h3>
+    Something went wrong
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
+
+exports[`Error Page unauthorized status 1`] = `
+<div
+  className="mui-errorpage"
+>
+  <h1>
+    401
+  </h1>
+  <h3>
+    Unauthorized
+  </h3>
+  <div
+    className="error-desc"
+  />
+</div>
+`;
