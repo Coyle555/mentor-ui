@@ -153,7 +153,7 @@ class DatePickerInput extends Component {
 	}
 
 	render() {
-		const { 
+		const {
 			className,
 			convertToLocal,
 			error,

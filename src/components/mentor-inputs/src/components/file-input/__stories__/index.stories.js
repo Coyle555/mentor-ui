@@ -7,17 +7,17 @@ import FileInput from '../fileInput';
 
 
 const actions = {
-  onDrop: action('onDrop')
+	onDrop: action('onDrop')
 }
 
 storiesOf('Inputs/FileInput', module)
-  .addDecorator(withKnobs)
-  .addWithJSX('basic', () => {
+	.addDecorator(withKnobs)
+	.addWithJSX('basic', () => {
 
-    return (
-      <FileInput onDrop={actions.onDrop} />
-    )
-  })
+		return (
+			<FileInput onDrop={actions.onDrop} />
+		)
+	})
 
 
 

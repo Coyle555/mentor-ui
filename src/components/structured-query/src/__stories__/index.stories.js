@@ -6,8 +6,8 @@ import { StructuredQuery } from '../index';
 const onTokenAdd = (tokens) => {
 	console.log(tokens);
 };
-const onTokenRemove = () => {};
-const exportSearch = () => {};
+const onTokenRemove = () => { };
+const exportSearch = () => { };
 
 storiesOf('Structured Query', module)
 	.add('String fields', () => {

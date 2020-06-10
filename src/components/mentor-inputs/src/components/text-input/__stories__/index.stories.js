@@ -51,7 +51,7 @@ storiesOf('Inputs/TextInput', module)
 				</code>
 			</div>
 		)
-	})			
+	})
 
 
 

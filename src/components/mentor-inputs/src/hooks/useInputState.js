@@ -21,18 +21,18 @@ export const useInputState = (props = {}) => {
 		...input
 	} = props;
 
-	const [ currentValue, setCurrentValue ] = useState(() => 
+	const [currentValue, setCurrentValue] = useState(() =>
 		validateValue(value)
 	);
-	
-	const [ error, setError ] = useState(() => 
+
+	const [error, setError] = useState(() =>
 		hasError(currentValue, required, validate)
 	);
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
 	}, [required, validate]);
-	
+
 	useEffect(() => {
 		const newVal = validateValue(value);
 
@@ -56,10 +56,10 @@ export const useInputState = (props = {}) => {
 
 		onBlur: useCallback(evt => {
 			if (typeof onBlur !== 'function') return;
-			
+
 			onBlur(error, currentValue, input.name, evt);
 		}),
-		
+
 		onChange: useCallback(evt => {
 			const newValue = evt.target.value;
 			setCurrentValue(newValue);

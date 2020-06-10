@@ -33,7 +33,7 @@ export function getMentorInput(type = '') {
 			return FloatInput;
 		case 'datetime':
 		case 'date':
-			return DatePickerInput;	
+			return DatePickerInput;
 		case 'email':
 			return EmailInput;
 		case 'select':
@@ -44,7 +44,7 @@ export function getMentorInput(type = '') {
 		case 'money':
 			return MoneyInput;
 		//case 'maskedinput':
-			//return MaskedInput;
+		//return MaskedInput;
 		case 'url':
 			return URLInput;
 		case 'string':

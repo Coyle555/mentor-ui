@@ -13,7 +13,7 @@ const getErrorMessage = (validityState) => {
 		tooLong: 'Field too long',
 		tooShort: 'Field too short',
 		typeMismatch: 'Invalid field type', /// i
-		valueMissing: 'This field is required' 
+		valueMissing: 'This field is required'
 	}
 	for (let key in validityState) {
 		if (validityState[key]) {
@@ -25,11 +25,11 @@ const getErrorMessage = (validityState) => {
 
 
 export function useInputValidation(customValidators) {
-	const [ errorMessage, setErrorMessage ] = useState('');
- 	
- 	if (!Array.isArray(customValidators)) {
- 		customValidators = [customValidators];
- 	}
+	const [errorMessage, setErrorMessage] = useState('');
+
+	if (!Array.isArray(customValidators)) {
+		customValidators = [customValidators];
+	}
 
 	const validator = (inputRef) => {
 		let i = -1;
@@ -60,14 +60,14 @@ export function useInputValidation(customValidators) {
 				inputRef.setCustomValidity(browserError);
 				setErrorMessage(browserError);
 			} else {
-			// if no custom validation function was passed in, or the custom handlers all passed
-			// use browsers built in validation based on various html attributes passed in (required, min, max, etc)
-			// to generate an error message
+				// if no custom validation function was passed in, or the custom handlers all passed
+				// use browsers built in validation based on various html attributes passed in (required, min, max, etc)
+				// to generate an error message
 				//console.log(inputRef.name, inputRef.validationMessage, inputRef.value, typeof inputRef.value, inputRef.checkValidity());
-				setErrorMessage(inputRef.validationMessage);	
-			}		
+				setErrorMessage(inputRef.validationMessage);
+			}
 		}
 	}
 
-	return [ errorMessage, validator ];
+	return [errorMessage, validator];
 };

@@ -27,54 +27,54 @@ export const ActiveFiltersComponent = ({ clearSearch, fields, onRemove, searchTo
 
 	return (
 		<>
-		<span
-			className={activeFilterClasses}
-			data-for="structured-query-tooltip"
-			data-tip="View Filters"
-			onClick={toggleFilterList}
-			ref={setRefElement}
-		>
-			<i className="far fa-list" />
-			<span className="active-filter-count">
-				{searchTokens.length}
-			</span>
-		</span>
-		{ searchTokens.length === 0 || !filtersActive
-			? null
-			: <table
-				className="active-filters-list ignore-react-onclickoutside"
-				ref={setPopperElement}
-				style={styles.popper}
-				{...attributes.popper}
+			<span
+				className={activeFilterClasses}
+				data-for="structured-query-tooltip"
+				data-tip="View Filters"
+				onClick={toggleFilterList}
+				ref={setRefElement}
 			>
-				<thead>
-					<tr>
-						<td>Field</td>
-						<td>Operator</td>
-						<td>Value</td>
-						<td>
-							<a
-								className="clear-all-filters"
-								onClick={clearSearch}
-							>
-								Clear All
+				<i className="far fa-list" />
+				<span className="active-filter-count">
+					{searchTokens.length}
+				</span>
+			</span>
+			{searchTokens.length === 0 || !filtersActive
+				? null
+				: <table
+					className="active-filters-list ignore-react-onclickoutside"
+					ref={setPopperElement}
+					style={styles.popper}
+					{...attributes.popper}
+				>
+					<thead>
+						<tr>
+							<td>Field</td>
+							<td>Operator</td>
+							<td>Value</td>
+							<td>
+								<a
+									className="clear-all-filters"
+									onClick={clearSearch}
+								>
+									Clear All
 							</a>
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					{ searchTokens.map(token => (
-						<FilterItem
-							key={token.id + token.operator + token.value}
-							onRemove={onRemove}
-							type={token.type}
-						>
-							{token}
-						</FilterItem>
-					))}
-				</tbody>
-			</table>
-		}
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						{searchTokens.map(token => (
+							<FilterItem
+								key={token.id + token.operator + token.value}
+								onRemove={onRemove}
+								type={token.type}
+							>
+								{token}
+							</FilterItem>
+						))}
+					</tbody>
+				</table>
+			}
 		</>
 	);
 };

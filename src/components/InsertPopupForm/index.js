@@ -177,7 +177,7 @@ export default class InsertForm extends Component {
 		let hasError = false;
 		let step;
 		let InputComponent = null;
-		
+
 		const inputProps = {
 			autoFocus: true,
 			className: 'form-input',
@@ -193,7 +193,7 @@ export default class InsertForm extends Component {
 		};
 
 		InputComponent = getInputComponent(field, inputProps);
-		
+
 		// initialize insert data if not loaded from props
 		if (!this.insertData[field.id]) {
 			this.insertData[field.id] = '';
@@ -283,7 +283,7 @@ export default class InsertForm extends Component {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
 
-		// if old error is no longer valid, delete it
+			// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
@@ -406,8 +406,8 @@ export default class InsertForm extends Component {
 		if (field.linkToPrev) {
 			const prevFieldId = formModel[fieldIndex - 1].id;
 			const disabled = this.insertData[prevFieldId] === ''
-					|| fieldsWithError[prevFieldId]
-					|| typeof field.onLink !== 'function';
+				|| fieldsWithError[prevFieldId]
+				|| typeof field.onLink !== 'function';
 			const value = this.insertData[prevFieldId];
 
 			// only change linked input props when the linked value is actually changed
@@ -455,7 +455,7 @@ export default class InsertForm extends Component {
 								/>
 							</div>
 							<div className="insert-popup-stepper">
-								<Stepper 
+								<Stepper
 									activeStep={fieldIndex}
 									onClick={this.onStepperClick}
 									steps={steps}

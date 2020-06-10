@@ -47,7 +47,7 @@ describe('Rendering states of typeahead', () => {
 });
 
 describe('Typeahead with a list of options', () => {
-	
+
 	test('List of string options', async () => {
 		const { debug, getByTestId, queryByText } = render(
 			<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
@@ -116,7 +116,7 @@ describe('Updating the list of options as a user types', () => {
 });
 
 describe('Handling key events', () => {
-	
+
 	describe('Closing the menu with escape', () => {
 		test('Escape keystroke', async () => {
 			const { container, getByTestId } = render(

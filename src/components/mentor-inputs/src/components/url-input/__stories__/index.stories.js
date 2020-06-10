@@ -50,6 +50,6 @@ storiesOf('Inputs/UrlInput', module)
 				</code>
 			</div>
 		)
-	})			
+	})
 
 

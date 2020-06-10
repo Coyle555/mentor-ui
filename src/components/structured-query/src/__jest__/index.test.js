@@ -10,7 +10,7 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 afterEach(cleanup);
 
 describe('Render states of the StructuredQuery', () => {
-	
+
 	test('Default render', () => {
 		const tree = renderer.create(<StructuredQuery />).toJSON();
 
@@ -24,7 +24,7 @@ describe('Render states of the StructuredQuery', () => {
 	});
 
 	test('Export search callback', () => {
-		const tree = renderer.create(<StructuredQuery exportSearch={() => {}} />).toJSON();
+		const tree = renderer.create(<StructuredQuery exportSearch={() => { }} />).toJSON();
 
 		expect(tree).toMatchSnapshot();
 	});
@@ -45,7 +45,7 @@ describe('Initial tokens in StructuredQuery', () => {
 			{ id: 'baz', label: 'Baz', operator: 'is empty' }
 		]);
 	});
-	
+
 	test('New tokens passed in', () => {
 		const render = renderer.create(
 			<StructuredQuery initTokens={[
@@ -63,7 +63,7 @@ describe('Initial tokens in StructuredQuery', () => {
 			{ id: 'baz', label: 'Baz', operator: 'is empty' }
 		]);
 	});
-	
+
 	test('Invalid tokens on mount', () => {
 		const instance = renderer.create(
 			<StructuredQuery initTokens={[
@@ -181,7 +181,7 @@ describe('Adding a field to a token', () => {
 		{ id: 'foo', label: 'Foo', type: 'string' },
 		{ id: 'bar', label: 'Bar', type: 'string' }
 	];
-	
+
 	test('Adding a label to a token', () => {
 		const instance = renderer.create(<StructuredQuery fields={fields} />).getInstance();
 

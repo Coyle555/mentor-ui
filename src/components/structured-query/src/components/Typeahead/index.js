@@ -176,10 +176,10 @@ export class TypeaheadComponent extends Component {
 		this.setState({
 			focused: false,
 			selectedOptionIndex: -1
- 		});
+		});
 
 		this.inputRef.blur();
- 	}
+	}
 
 
 	// Handle an enter event that wasn't caught in this.onKeyDown()
@@ -210,7 +210,7 @@ export class TypeaheadComponent extends Component {
 		if ((event.keyCode === KeyEvent.DOM_VK_RETURN || event.keyCode === KeyEvent.DOM_VK_ENTER)
 			&& this.props.options.length === 0
 			&& !!this.state.value) {
-			
+
 			// convert date/datetimes when user hits enter on value
 			if (datatype === 'date' || datatype === 'datetime') {
 				value = moment(value).toISOString()
@@ -327,7 +327,7 @@ export class TypeaheadComponent extends Component {
 					type="text"
 					value={this.state.value}
 				/>
-				{ this.state.focused && this.state.visibleOptions.length > 0
+				{this.state.focused && this.state.visibleOptions.length > 0
 					? <TypeaheadSelector
 						customClasses={this.props.customClasses}
 						options={this.state.visibleOptions}
@@ -353,13 +353,13 @@ export class TypeaheadComponent extends Component {
 					{operator}
 				</div>
 				<div className="typeahead">
-					{ this.props.datatype !== 'datetime' && this.props.datatype !== 'date'
+					{this.props.datatype !== 'datetime' && this.props.datatype !== 'date'
 						? this.renderNormalInput()
 						: this.renderDatePicker()
 					}
 				</div>
 			</div>
-	       );
+		);
 	}
 }
 
