@@ -8,11 +8,11 @@ const OPTIONS = ['Yes', 'No'];
 const parseMatchedValue = (val => val === 'Yes' ? true : val === 'No' ? false : '');
 
 const BooleanInput = React.forwardRef(({ value, ...props }, ref) => {
-
+  let renderedValue = '';
   if (value === true || value === 'true') {
-    value = 'Yes';
+    renderedValue = 'Yes';
   } else if (value === false || value === 'false') {
-    value = 'No';
+    renderedValue = 'No';
   }
 
   return (
@@ -21,7 +21,7 @@ const BooleanInput = React.forwardRef(({ value, ...props }, ref) => {
       options={OPTIONS}
       parseMatchedValue={parseMatchedValue}
       ref={ref}
-      value={value}
+      value={renderedValue}
     />
   );
 });

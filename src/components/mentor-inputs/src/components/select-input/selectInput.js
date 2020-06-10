@@ -43,8 +43,8 @@ const SelectInput = React.forwardRef(({
   validate,
   ...props
 }, ref) => {
-  let value = typeof parseMatchedValue === 'function'
-    ? parseMatchedValue(props.value)
+  let value = typeof parse === 'function'
+    ? parse(props.value)
     : props.value;
 
   if (value === undefined || value === null) {
@@ -59,8 +59,8 @@ const SelectInput = React.forwardRef(({
   }, [required, validate]);
 
   useEffect(() => {
-    let value = typeof parseMatchedValue === 'function'
-      ? parseMatchedValue(props.value)
+    let value = typeof parse === 'function'
+      ? parse(props.value)
       : props.value;
 
     if (value === undefined || value === null) {
