@@ -33,7 +33,7 @@ function hasError(value, required, customValidators) {
   return false;
 }
 
-const SelectInput = ({
+const SelectInput = React.forwardRef(({
   disabled,
   options,
   placeholder,
@@ -42,16 +42,15 @@ const SelectInput = ({
   required,
   validate,
   ...props
-}) => {
-  let value = typeof parse === 'function'
-    ? parse(props.value)
+}, ref) => {
+  let value = typeof parseMatchedValue === 'function'
+    ? parseMatchedValue(props.value)
     : props.value;
 
   if (value === undefined || value === null) {
     value = '';
   }
 
-  const inputRef = useRef(null);
   const [currentValue, setCurrentValue] = useState(value);
   const [error, setError] = useState(() => hasError(value, required, validate));
 
@@ -60,9 +59,10 @@ const SelectInput = ({
   }, [required, validate]);
 
   useEffect(() => {
-    let value = typeof parse === 'function'
-      ? parse(props.value)
+    let value = typeof parseMatchedValue === 'function'
+      ? parseMatchedValue(props.value)
       : props.value;
+
     if (value === undefined || value === null) {
       value = '';
     }
@@ -73,19 +73,10 @@ const SelectInput = ({
     }
   }, [props.value]);
 
-  /// as soon as the input ref is attached to the node
-  /// check for errors on the value
-  /// (We also need to reevaluate error status if required attribute is changed)
   useEffect(() => {
-    if (!inputRef.current) return;
-
     const err = hasError(currentValue, required, validate);
     setError(err);
-
-    if (typeof err === 'string') {
-      inputRef.current.setCustomValidity(err);
-    }
-  }, [inputRef.current, currentValue, required, validate]);
+  }, [currentValue, required, validate]);
 
   const onBlur = evt => {
     if (typeof props.onBlur !== 'function') return;
@@ -112,17 +103,9 @@ const SelectInput = ({
         ? options.find(opt => parse(opt) === newValue)
         : newValue;
 
-      if (inputRef.current) {
-        if (error) {
-          inputRef.current.setCustomValidity(String(error));
-        } else {
-          inputRef.current.setCustomValidity('');
-        }
-      }
-
       props.onChange(error, actualValue, props.name, evt);
     }
-  }, [inputRef.current, options, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
+  }, [options, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
 
   const inputClasses = classNames({
     'mui-mi-input-field': true,
@@ -139,7 +122,7 @@ const SelectInput = ({
       name={props.name}
       onBlur={onBlur}
       onChange={onChange}
-      ref={inputRef}
+      ref={ref}
       value={currentValue}
     >
       <option
@@ -169,7 +152,7 @@ const SelectInput = ({
       })}
     </select>
   );
-}
+});
 
 SelectInput.propTypes = {
   options: PropTypes.array,

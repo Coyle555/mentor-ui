@@ -10,7 +10,7 @@ function isFloat(num) {
     : 'Invalid number';
 }
 
-const FloatInput = ({ max, min, precision, validate, ...props }) => {
+const FloatInput = React.forwardRef(({ max, min, precision, validate, ...props }, ref) => {
 
   const hasValidPrecision = useCallback(val => (
     precision > -1 && String(Number(val).toFixed(precision)) !== val
@@ -43,10 +43,11 @@ const FloatInput = ({ max, min, precision, validate, ...props }) => {
     <TextInput
       placeholder="Enter decimal"
       {...props}
+      ref={ref}
       validate={validates}
     />
   );
-};
+});
 
 FloatInput.propTypes = {
   max: PropTypes.number,

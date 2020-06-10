@@ -17,7 +17,7 @@ function isInteger(num) {
 		: 'Invalid number';
 }
 
-const IntegerInput = ({ max, min, validate, ...props }) => {
+const IntegerInput = React.forwardRef(({ max, min, validate, ...props }, ref) => {
 
 	const isGreaterThanMin = useCallback(value => (
 		typeof min === 'number' && Number(value) < min 
@@ -44,10 +44,11 @@ const IntegerInput = ({ max, min, validate, ...props }) => {
 		<TextInput
 			placeholder="Enter whole number"
 			{...props}
+			ref={ref}
 			validate={validates}
 		/>
 	);
-};
+});
 
 IntegerInput.propTypes = {
 	min: PropTypes.number,
