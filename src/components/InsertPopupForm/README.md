@@ -6,13 +6,13 @@ Insert popup form creates a form that will take one input at a time. Uses mentor
 to render the inputs.
 
 
-Props | Type | Required | Description
------ | ---- | -------- | -----------
-[formFields](#formFields) | [Object] | **Yes** | Metadata on displaying the form
-onSubmit | Function | **Yes** | Callback when the user submits the form. Signature *(data) => {}*
-initInsertData | Object | No | Initial insertion data to add to the insert data
-onDisable | Function | No | Callback when the user disables the form. Signature *() => {}*
-resetForm | Boolean | No | Clears all inserted data and resets the form to the first field when true
+| Props                     | Type     | Required | Description                                                               |
+| ------------------------- | -------- | -------- | ------------------------------------------------------------------------- |
+| [formFields](#formFields) | [Object] | **Yes**  | Metadata on displaying the form                                           |
+| onSubmit                  | Function | **Yes**  | Callback when the user submits the form. Signature *(data) => {}*         |
+| initInsertData            | Object   | No       | Initial insertion data to add to the insert data                          |
+| onDisable                 | Function | No       | Callback when the user disables the form. Signature *() => {}*            |
+| resetForm                 | Boolean  | No       | Clears all inserted data and resets the form to the first field when true |
 
 ### FormFields
 

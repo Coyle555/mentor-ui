@@ -25,7 +25,7 @@ storiesOf('Inputs/EmailInput', module)
 				required={boolean('required', false)}
 			/>
 		)
-	})		
+	})
 
 
 

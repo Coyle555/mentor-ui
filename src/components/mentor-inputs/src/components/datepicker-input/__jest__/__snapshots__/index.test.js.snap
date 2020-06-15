@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Datepicker passed props conditions allows custom class 1`] = `
+<div
+  className="react-datepicker-wrapper"
+>
+  <div
+    className="react-datepicker__input-container"
+  >
+    <input
+      className="mui-mi-input-field foo"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Enter date"
+      readOnly={false}
+      type="text"
+      value="Jun 01, 2020"
+    />
+  </div>
+</div>
+`;

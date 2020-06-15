@@ -26,7 +26,7 @@ export const Modal = props => {
 
 	useEffect(() => {
 		document.body.appendChild(el);
-		document.body.style.setProperty('overflow',  'hidden');
+		document.body.style.setProperty('overflow', 'hidden');
 
 		return () => {
 			document.body.removeChild(el);
@@ -57,7 +57,7 @@ export const Modal = props => {
 	);
 
 	const contentStyle = defaults({
-		width:  props.width,
+		width: props.width,
 		height: props.height
 	}, props.contentStyle);
 
@@ -87,7 +87,7 @@ export const Modal = props => {
 				className="apm-modal-content"
 				style={contentStyle}
 			>
-				{ !props.hideCloseButton &&
+				{!props.hideCloseButton &&
 					<div className="apm-modal-actions">
 						<i
 							className="fal fa-times fa-lg close-modal"
@@ -98,11 +98,11 @@ export const Modal = props => {
 					</div>
 				}
 				<div className={contentClassName}>
-					{ props.children }
+					{props.children}
 				</div>
 			</div>
 		</div>
-	, el)
+		, el)
 }
 
 

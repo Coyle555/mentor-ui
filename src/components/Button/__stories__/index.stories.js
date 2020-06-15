@@ -9,27 +9,27 @@ import Button from '../';
 const optionsConfig = {
 	block: 'block',
 	disabled: 'disabled',
-	isCapless: 'isCapless',	
+	isCapless: 'isCapless',
 	isLight: 'isLight',
-	isLeftEndCap: 'isLeftEndCap',	
+	isLeftEndCap: 'isLeftEndCap',
 	isMini: 'isMini',
 	isRightEndCap: 'isRightEndCap',
 	medium: 'medium',
 }
 
 //options returns an array of strings
-const formatProps = (selectedOptions = []) => 
+const formatProps = (selectedOptions = []) =>
 	selectedOptions.reduce((obj, curr) => ({ ...obj, [curr]: true }), {});
-	
+
 
 storiesOf('Button', module)
 	.addDecorator(withInfo)
 	.addDecorator(withKnobs)
 	.add('general', () => {
-		
+
 		const buttonText = text('children', 'Button Text');
 		return (
-			<Button 
+			<Button
 				block={boolean('block', false)}
 				disabled={boolean('disabled', false)}
 				isCapless={boolean('isCapless', false)}
@@ -41,7 +41,7 @@ storiesOf('Button', module)
 				medium={boolean('medium', false)}
 				onClick={action('onClick')}
 			>
-				{ buttonText }
+				{buttonText}
 			</Button>
 		)
 	})

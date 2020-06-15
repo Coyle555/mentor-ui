@@ -18,7 +18,7 @@ const UrlInput = ({ validate, ...props }) => {
 			placeholder="Enter URL"
 			{...props}
 			validate={[isUrl].concat(validate)}
-		/>		
+		/>
 	)
 }
 

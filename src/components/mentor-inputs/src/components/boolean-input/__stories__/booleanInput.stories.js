@@ -18,7 +18,7 @@ storiesOf('Inputs/BooleanInput', module)
 			'true (String)': 'true',
 			'false (String)': 'false',
 			'true (Boolean)': true,
-			'false (Boolean)' : false,
+			'false (Boolean)': false,
 			null: null
 		}
 
@@ -42,8 +42,8 @@ storiesOf('Inputs/BooleanInput', module)
 			'true (String)': 'true',
 			'false (String)': 'false',
 			'true (Boolean)': true,
-			'false (Boolean)' : false,
-			null: null	
+			'false (Boolean)': false,
+			null: null
 		}
 
 		return (

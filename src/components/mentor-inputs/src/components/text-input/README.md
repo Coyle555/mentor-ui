@@ -1,5 +1,5 @@
 # Text Input
 
-Props | Type | Required | Description
------ | ---- | -------- | -----------
+| Props | Type | Required | Description |
+| ----- | ---- | -------- | ----------- |
 

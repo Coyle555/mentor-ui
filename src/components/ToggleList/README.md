@@ -5,11 +5,11 @@
 List of items where each item can be toggled opened and closed
 
 
-Props | Type | Required | Description
------ | ---- | -------- | -----------
-[list](#list) | [Object] | **Yes** | List of items to render
-[customClasses](#customClasses) | Object | No | Custom classes that can be applied to the title or content of a list item
-expanded | Boolean | No | List items will be expanded when true
+| Props                           | Type     | Required | Description                                                               |
+| ------------------------------- | -------- | -------- | ------------------------------------------------------------------------- |
+| [list](#list)                   | [Object] | **Yes**  | List of items to render                                                   |
+| [customClasses](#customClasses) | Object   | No       | Custom classes that can be applied to the title or content of a list item |
+| expanded                        | Boolean  | No       | List items will be expanded when true                                     |
 
 ### List
 

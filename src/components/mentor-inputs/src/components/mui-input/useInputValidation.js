@@ -1,35 +1,12 @@
 import { useState } from 'react';
 
 
-//https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
-/// define error messages
-const getErrorMessage = (validityState) => {
-	const messages = {
-		badInput: 'This field is invalid',
-		patternMismatch: 'Invalid format',
-		rangeOverflow: 'Value is too big.',
-		rangeUnderflow: 'Value is too small.',
-		stepMismatch: 'Invalid step', //idk...
-		tooLong: 'Field too long',
-		tooShort: 'Field too short',
-		typeMismatch: 'Invalid field type', /// i
-		valueMissing: 'This field is required' 
-	}
-	for (let key in validityState) {
-		if (validityState[key]) {
-			return messages[key];
-		}
-	}
-	return '';
-}
-
-
 export function useInputValidation(customValidators) {
-	const [ errorMessage, setErrorMessage ] = useState('');
- 	
- 	if (!Array.isArray(customValidators)) {
- 		customValidators = [customValidators];
- 	}
+	const [errorMessage, setErrorMessage] = useState('');
+
+	if (!Array.isArray(customValidators)) {
+		customValidators = [customValidators];
+	}
 
 	const validator = (inputRef) => {
 		let i = -1;
@@ -52,22 +29,11 @@ export function useInputValidation(customValidators) {
 		}
 
 		if (!errorString) {
-			let { customError, ...validityState } = inputRef.validity;
-			// clear out any previously applied custom error messages since all tests passed
-			if (customError) {
-				const browserError = getErrorMessage(validityState);
-
-				inputRef.setCustomValidity(browserError);
-				setErrorMessage(browserError);
-			} else {
-			// if no custom validation function was passed in, or the custom handlers all passed
 			// use browsers built in validation based on various html attributes passed in (required, min, max, etc)
 			// to generate an error message
-				//console.log(inputRef.name, inputRef.validationMessage, inputRef.value, typeof inputRef.value, inputRef.checkValidity());
-				setErrorMessage(inputRef.validationMessage);	
-			}		
+			setErrorMessage(inputRef.validationMessage);
 		}
 	}
 
-	return [ errorMessage, validator ];
+	return [errorMessage, validator];
 };
