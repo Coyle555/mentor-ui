@@ -2,7 +2,7 @@ import React from 'react';
 import { ListFilter } from '../index';
 import KeyEvent from '../keyEvents';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor, wait } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -44,7 +44,7 @@ describe('Mounting a list filter', () => {
 		test('List of options', async () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
 		});
@@ -52,7 +52,7 @@ describe('Mounting a list filter', () => {
 		test('List of options with an initial value', async () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} value="b" />);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
 		});
@@ -64,7 +64,7 @@ describe('Mounting a list filter', () => {
 				<ListFilter options={filter} value="foo" />
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(filter).toHaveBeenCalledWith('foo');
 				expect(tree.getInstance().rawOptions).toEqual(['foo']);
 			});
@@ -105,7 +105,7 @@ describe('Mounting a list filter', () => {
 				<ListFilter options={options} parse={parse} />
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalled();
 				expect(options).toHaveBeenCalled();
 			});
@@ -128,11 +128,13 @@ describe('Mounting a list filter', () => {
 				/>
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalled();
 				expect(options).toHaveBeenCalled();
-				expect(tree.toJSON()).toMatchSnapshot();
 			});
+			// this expect is after waitFor because it allows all
+			//  promises to resolve before running 
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 	});
 
@@ -142,7 +144,7 @@ describe('Mounting a list filter', () => {
 				<ListFilter autoFocus={true} options={options} required={true} />
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
 		});
@@ -152,7 +154,7 @@ describe('Mounting a list filter', () => {
 				<ListFilter autoFocus={true} options={options} required={true} value="b" />
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
 		});
@@ -162,7 +164,7 @@ describe('Mounting a list filter', () => {
 				<ListFilter autoFocus={true} options={options} required={true} value="bar" />
 			);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 			});
 		});
@@ -194,27 +196,19 @@ describe('List filter receiving new props', () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 			tree.update(<ListFilter value="b" />);
 
-			await wait(() => {
-				expect(tree.toJSON()).toMatchSnapshot();
-			});
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 
 		test('New list of options with a value', async () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 			tree.update(<ListFilter options={newOptions} value="op" />);
-
-			await wait(() => {
-				expect(tree.toJSON()).toMatchSnapshot();
-			});
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 
 		test('New valid value passed in', async () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 			tree.update(<ListFilter value="bar" />);
-
-			await wait(() => {
-				expect(tree.toJSON()).toMatchSnapshot();
-			});
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 
 		test('Required with a new invalid value passed in', async () => {
@@ -223,9 +217,7 @@ describe('List filter receiving new props', () => {
 			);
 			tree.update(<ListFilter value="b" />);
 
-			await wait(() => {
-				expect(tree.toJSON()).toMatchSnapshot();
-			});
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 
 		test('Custom filter with a new value and options list', async () => {
@@ -233,9 +225,7 @@ describe('List filter receiving new props', () => {
 			const tree = renderer.create(<ListFilter options={filter} />);
 			tree.update(<ListFilter options={filter} value="list" />);
 
-			await wait(() => {
-				expect(filter).toHaveBeenCalledWith('list');
-			});
+			expect(filter).toHaveBeenCalledWith('list');
 		});
 
 		test('New list of options and new value with a parse function', async () => {
@@ -266,7 +256,7 @@ describe('List filter receiving new props', () => {
 			const tree = renderer.create(<ListFilter autoFocus={true} options={options} />);
 			tree.update(<ListFilter options={newOptions} />);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.toJSON()).toMatchSnapshot();
 				expect(tree.getInstance().rawOptions).toEqual(['new', 'options', 'list']);
 			});
@@ -290,7 +280,7 @@ describe('List filter receiving new props', () => {
 			);
 			tree.update(<ListFilter options={newOptions} value="list" />);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(tree.getInstance().rawOptions).toEqual(['new', 'options', 'list']);
 			});
 		});
@@ -301,9 +291,7 @@ describe('List filter receiving new props', () => {
 			);
 			tree.update(<ListFilter options={newOptions} value="foo" />);
 
-			await wait(() => {
-				expect(tree.toJSON()).toMatchSnapshot();
-			});
+			expect(tree.toJSON()).toMatchSnapshot();
 		});
 	});
 });
@@ -316,7 +304,7 @@ describe('Focusing on the list filter', () => {
 
 		fireEvent.focus(getByRole('test'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(getByText('foo')).toBeTruthy();
 			expect(getByText('bar')).toBeTruthy();
 			expect(getByText('baz')).toBeTruthy();
@@ -355,7 +343,7 @@ describe('List filter onChange event', () => {
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
 			expect(onChange).toHaveBeenCalledWith(true, 'b', 'inputName');
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(queryByText('foo')).toBeNull();
 				expect(queryByText('bar')).toBeTruthy();
 				expect(queryByText('baz')).toBeTruthy();
@@ -380,7 +368,7 @@ describe('List filter onChange event', () => {
 			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
 			expect(onChange).toHaveBeenCalledWith(false, 'bar', 'inputName');
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(queryByText('bar')).toBeTruthy();
 			});
 		});
@@ -482,7 +470,7 @@ describe('List filter onChange event', () => {
 			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
 			expect(filter).toHaveBeenCalledTimes(2);
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith({ name: 'bar' }, 'inputName');
 			});
 		});
@@ -593,11 +581,11 @@ describe('Custom filtering on a list filter', () => {
       * allowed until initialLoadComplete is set to true. However; initialLoadComplete
       * isn't true until after the first call of loadFilterOptions. Therefore, I fired
       * a change event with an empty string to getInitialLoadComplete set to true, and
-      * again to assert the test. After the first event fire, the first wait is used just to 
+      * again to assert the test. After the first event fire, the first waitFor is used just to 
       * give time for all the promises to resolve
       * */
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onChange).not.toHaveBeenCalled();
 			});
 			// End hacky solution
@@ -605,7 +593,7 @@ describe('Custom filtering on a list filter', () => {
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
 			expect(filter).toHaveBeenCalledWith('b');
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(onChange).toHaveBeenCalledWith(false, 'b', 'inputName');
 			});
 		});
@@ -630,17 +618,17 @@ describe('Custom filtering on a list filter', () => {
       * allowed until initialLoadComplete is set to true. However; initialLoadComplete
       * isn't true until after the first call of loadFilterOptions. Therefore, I fired
       * a change event with an empty string to getInitialLoadComplete set to true, and
-      * again to assert the test. After the first event fire, the first wait is used just to 
+      * again to assert the test. After the first event fire, the first waitFor is used just to 
       * give time for all the promises to resolve
       * */
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onChange).not.toHaveBeenCalled();
 			});
 			// End hacky solution
 
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onChange).toHaveBeenCalledWith(true, 'b', 'inputName');
 			});
 		});
@@ -662,7 +650,7 @@ describe('Custom filtering on a list filter', () => {
 			);
 
 			fireEvent.change(getByRole('test'), { target: { value: 'bar' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('bar', 'inputName');
 			});
 		});
@@ -684,7 +672,7 @@ describe('Custom filtering on a list filter', () => {
 			);
 
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).not.toHaveBeenCalled();
 			});
 		});
@@ -708,7 +696,7 @@ describe('Custom filtering on a list filter', () => {
 
 			fireEvent.change(getByRole('test'), { target: { value: 'b' } });
 			fireEvent.change(getByRole('test'), { target: { value: 'foo' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
 			});
 		});
@@ -731,7 +719,7 @@ describe('Custom filtering on a list filter', () => {
 			);
 
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).not.toHaveBeenCalled();
 
 			});
@@ -755,7 +743,7 @@ describe('Custom filtering on a list filter', () => {
 
 			fireEvent.change(getByRole('test'), { target: { value: 'ba' } });
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onChange).toHaveBeenCalledWith(false, '', 'inputName');
 			});
 		});
@@ -780,7 +768,7 @@ describe('List filter onKeyDown event', () => {
 			);
 
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
 			});
 		});
@@ -799,7 +787,7 @@ describe('List filter onKeyDown event', () => {
 			);
 
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			await wait(() => {
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ name: 'foo' });
 				expect(parse).toHaveBeenCalledWith({ name: 'bar' });
 			});
@@ -819,24 +807,28 @@ describe('List filter onKeyDown event', () => {
 			);
 
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_RETURN });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
 			});
 		});
 
 		test('Auto complete with a custom filter', async () => {
-			const filter = jest.fn(value => Promise.resolve(options));
+			const filter = jest.fn(value => {
+				return Promise.resolve(options)
+			});
 
-			const { getByRole } = render(
+			const { getByRole, getByText } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
 					role="test"
 				/>
 			);
-
-			await wait(() => {
-				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			// wait for the autocomplete filter menu to appear.
+			//   the mocked promise needs to resolve on initial filter
+			await waitFor(() => getByText('foo'));
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
+			await waitFor(() => {
 				expect(filter).toHaveBeenCalledWith('foo');
 			});
 		});
@@ -860,7 +852,7 @@ describe('List filter onKeyDown event', () => {
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_DOWN });
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_UP });
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('foo', 'inputName');
 			});
 		});
@@ -880,7 +872,7 @@ describe('List filter onKeyDown event', () => {
 
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_UP });
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
 			});
 		});
@@ -895,14 +887,12 @@ describe('List filter onKeyDown event', () => {
 					role="test"
 				/>
 			);
+			expect(queryByText('foo')).toBeTruthy();
 
-			await wait(async () => {
-				expect(queryByText('foo')).toBeTruthy();
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ESCAPE });
 
-				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ESCAPE });
-				await wait(() => {
-					expect(queryByText('foo')).toBeNull();
-				});
+			await waitFor(() => {
+				expect(queryByText('foo')).toBeNull();
 			});
 		});
 
@@ -915,13 +905,11 @@ describe('List filter onKeyDown event', () => {
 				/>
 			);
 
-			await wait(async () => {
-				expect(queryByText('foo')).toBeTruthy();
+			expect(queryByText('foo')).toBeTruthy();
 
-				fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_TAB });
-				await wait(() => {
-					expect(queryByText('foo')).toBeNull();
-				});
+			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_TAB });
+			await waitFor(() => {
+				expect(queryByText('foo')).toBeNull();
 			});
 		});
 	});
@@ -945,7 +933,7 @@ describe('Handling list item events', () => {
 
 			fireEvent.mouseOver(queryByText('baz'));
 			fireEvent.keyDown(getByRole('test'), { keyCode: KeyEvent.DOM_VK_ENTER });
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
 			});
 		});
@@ -964,7 +952,7 @@ describe('Handling list item events', () => {
 			);
 
 			fireEvent.click(queryByText('baz'));
-			await wait(() => {
+			await waitFor(() => {
 				expect(onMatch).toHaveBeenCalledWith('baz', 'inputName');
 			});
 		});
@@ -972,7 +960,7 @@ describe('Handling list item events', () => {
 		test('Clicking a list item with parse', async () => {
 			const parse = jest.fn(val => typeof val === 'object' ? val.name : val);
 			const onMatch = jest.fn();
-			const { queryByText } = render(
+			const { getByText } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -982,8 +970,9 @@ describe('Handling list item events', () => {
 				/>
 			);
 
-			fireEvent.click(queryByText('baz'));
-			await wait(() => {
+			await waitFor(() => getByText('baz'))
+			fireEvent.click(getByText('baz'));
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ name: 'foo' });
 				expect(parse).toHaveBeenCalledWith({ name: 'bar' });
 				expect(parse).toHaveBeenCalledWith({ name: 'baz' });
@@ -993,16 +982,16 @@ describe('Handling list item events', () => {
 
 		test('Clicking a list item with a custom filter', async () => {
 			const filter = jest.fn(val => options);
-			const { debug, queryByText } = render(
+			const { debug, getByText } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
 					name="inputName"
 				/>
 			);
-
-			await wait(() => {
-				fireEvent.click(queryByText('baz'));
+			await waitFor(() => getByText('baz'))
+			fireEvent.click(getByText('baz'));
+			await waitFor(() => {
 				expect(filter).toHaveBeenCalledWith('');
 				expect(filter).toHaveBeenCalledWith('baz');
 			});
@@ -1014,7 +1003,7 @@ describe('Handling list item events', () => {
 			const filter = jest.fn(() => Promise.resolve([
 				{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }
 			]));
-			const { queryByText } = render(
+			const { getByText } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
@@ -1024,8 +1013,9 @@ describe('Handling list item events', () => {
 				/>
 			);
 
-			await wait(() => {
-				fireEvent.click(queryByText('baz'));
+			await waitFor(() => getByText('baz'))
+			fireEvent.click(getByText('baz'));
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ name: 'foo' });
 				expect(parse).toHaveBeenCalledWith({ name: 'bar' });
 				expect(parse).toHaveBeenCalledWith({ name: 'baz' });
@@ -1074,7 +1064,7 @@ describe('Filtering with a parse function', () => {
 
 			fireEvent.change(getByRole('test'), { target: { value: 'f' } });
 
-			await wait(() => {
+			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ id: 'foo', name: 'Foo' });
 				expect(parse).toHaveBeenCalledWith({ id: 'bar', name: 'Bar' });
 				expect(parse).toHaveBeenCalledWith({ id: 'baz', name: 'Baz' });
@@ -1098,18 +1088,18 @@ describe('Clearing input', () => {
 		);
 
 		fireEvent.change(getByRole('test'), { target: { value: 'foo' } });
-		await wait(async () => {
+		await waitFor(async () => {
 			expect(queryByText('foo')).toBeTruthy();
 			expect(queryByText('bar')).toBeNull();
 			expect(queryByText('baz')).toBeNull();
+		});
 
-			fireEvent.click(getByTestId('clear-input'));
+		fireEvent.click(getByTestId('clear-input'));
 
-			await wait(() => {
-				expect(queryByText('foo')).toBeTruthy();
-				expect(queryByText('bar')).toBeTruthy();
-				expect(queryByText('baz')).toBeTruthy();
-			});
+		await waitFor(() => {
+			expect(queryByText('foo')).toBeTruthy();
+			expect(queryByText('bar')).toBeTruthy();
+			expect(queryByText('baz')).toBeTruthy();
 		});
 	});
 });
