@@ -42,6 +42,18 @@ test('<MoneyInput /> with proper money', () => {
 	expect(tree).toMatchSnapshot();
 });
 
+test('<MoneyInput /> corrects blurred value', () => {
+	const { container } = render(<MoneyInput value="" />);
+
+	// Change input to value to be corrected
+	fireEvent.change(container.querySelector('input'), { target: { value: '12.5' } });
+
+	// Blur Input
+	fireEvent.blur(container.querySelector('input'));
+
+	expect(container.querySelector('input').value).toEqual('12.50');
+});
+
 describe('Money validation function', () => {
 
 	test('Integer is a valid money value', () => {
