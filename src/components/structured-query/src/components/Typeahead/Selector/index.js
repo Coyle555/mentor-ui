@@ -29,7 +29,7 @@ export class TypeaheadSelector extends Component {
 
 		const listHeight = parseInt(window.getComputedStyle(this.listRef).height, 10);
 		const children = this.listRef.children;
-		
+
 		// heights of each child can vary so need height of selected option
 		const listItemHeight = parseInt(
 			window.getComputedStyle(children[selectedOptionIndex]).height, 10);
@@ -73,7 +73,7 @@ export class TypeaheadSelector extends Component {
 			<div className={classList}>
 				<div className="header">{header}</div>
 				<ul ref={ref => this.listRef = ref}>
-					{ options.map((option, i) => (
+					{options.map((option, i) => (
 						<TypeaheadOption
 							onClick={onOptionSelected}
 							option={option}

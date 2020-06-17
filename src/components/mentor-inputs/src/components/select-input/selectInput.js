@@ -20,7 +20,7 @@ function hasError(value, required, customValidators) {
 		for (let validator of customValidators) {
 			if (typeof validator === 'function') {
 				const validity = validator(value);
-				
+
 				if (typeof validity === 'string') {
 					return validity;
 				} else if (!validator(value)) {
@@ -33,34 +33,34 @@ function hasError(value, required, customValidators) {
 	return false;
 }
 
-const SelectInput = React.forwardRef(({ 
+const SelectInput = React.forwardRef(({
 	disabled,
-	options, 
+	options,
 	placeholder,
-	parse, 
+	parse,
 	parseMatchedValue,
 	required,
-	validate, 
-	...props 
+	validate,
+	...props
 }, ref) => {
-	let value = typeof parseMatchedValue === 'function'
-		? parseMatchedValue(props.value)
+	let value = typeof parse === 'function'
+		? parse(props.value)
 		: props.value;
 
 	if (value === undefined || value === null) {
 		value = '';
 	}
 
-	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(() => hasError(value, required, validate));
+	const [currentValue, setCurrentValue] = useState(value);
+	const [error, setError] = useState(() => hasError(value, required, validate));
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
 	}, [required, validate]);
 
 	useEffect(() => {
-		let value = typeof parseMatchedValue === 'function'
-			? parseMatchedValue(props.value)
+		let value = typeof parse === 'function'
+			? parse(props.value)
 			: props.value;
 
 		if (value === undefined || value === null) {
@@ -80,11 +80,11 @@ const SelectInput = React.forwardRef(({
 
 	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
-		
+
 		const actualValue = typeof parse === 'function'
 			&& typeof parseMatchedValue !== 'function'
-				? options.find(opt => parse(opt) === currentValue)
-				: currentValue;
+			? options.find(opt => parse(opt) === currentValue)
+			: currentValue;
 
 		props.onBlur(error, actualValue, props.name, evt);
 	};
@@ -97,11 +97,11 @@ const SelectInput = React.forwardRef(({
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
-			
+
 			const actualValue = typeof parse === 'function'
 				&& typeof parseMatchedValue !== 'function'
-					? options.find(opt => parse(opt) === newValue)
-					: newValue;
+				? options.find(opt => parse(opt) === newValue)
+				: newValue;
 
 			props.onChange(error, actualValue, props.name, evt);
 		}
@@ -129,15 +129,15 @@ const SelectInput = React.forwardRef(({
 				disabled={required}
 				value=""
 			>
-				{ placeholder }
+				{placeholder}
 			</option>
-			{ options.map(option => {
+			{options.map(option => {
 
 				const value = typeof parse === 'function'
 					? parse(option)
 					: option;
 
-				const returnValue = typeof parseMatchedValue === 'function' 
+				const returnValue = typeof parseMatchedValue === 'function'
 					? parseMatchedValue(option)
 					: value;
 

@@ -76,7 +76,7 @@ export class Step extends Component {
 					onClick={this.onClick}
 				>
 					<span className="stepper-step-text">
-						{ (index < activeStep && !step.error)
+						{(index < activeStep && !step.error)
 							? <i className="fa fa-check" />
 							: (index + 1)
 						}
@@ -85,12 +85,12 @@ export class Step extends Component {
 				<div className={`stepper-step-title ${circleStatus}-title`}>
 					{step.title}
 				</div>
-				{ hasPrevStep && 
+				{hasPrevStep &&
 					<div className={leftBarClasses} />
 				}
-				{ step.linkNext
-					&& <i className="far fa-link fa-lg stepper-link" title="Linked" /> }
-				{ hasNextStep && 
+				{step.linkNext
+					&& <i className="far fa-link fa-lg stepper-link" title="Linked" />}
+				{hasNextStep &&
 					<div className={rightBarClasses} />
 				}
 			</div>

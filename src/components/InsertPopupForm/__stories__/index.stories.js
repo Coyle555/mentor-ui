@@ -9,15 +9,24 @@ import InsertPopupForm from '../index';
 storiesOf('InsertPopupForm', module)
 	.addDecorator(withInfo)
 	.addDecorator(withKnobs)
-	.add('General', () => {
-		
+	.add('Single Field', () => {
 		return (
-			<InsertPopupForm 
+			<InsertPopupForm
+				formFields={[{ label: 'Bar', id: 'foo', type: 'string' }]}
+				onDisable={action('onDisable')}
+				onSubmit={action('onSubmit')}
+			/>
+		)
+	})
+	.add('General', () => {
+
+		return (
+			<InsertPopupForm
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'boolean', label: 'Boolean Input', type: 'boolean', required: true },
-					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'date', label: 'Date', type: 'date', utc: false },
 					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
@@ -36,12 +45,12 @@ storiesOf('InsertPopupForm', module)
 	})
 	.add('Initial data', () => {
 		return (
-			<InsertPopupForm 
+			<InsertPopupForm
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
-					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'date', label: 'Date', type: 'date', utc: false },
 					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 				]}
 				initInsertData={{
@@ -57,12 +66,12 @@ storiesOf('InsertPopupForm', module)
 	})
 	.add('Reset form', () => {
 		return (
-			<InsertPopupForm 
+			<InsertPopupForm
 				formFields={[
 					{ id: 'text', label: 'Text Input' },
 					{ id: 'requiredText', label: 'Required Text Input', required: true },
 					{ id: 'multiline', label: 'Multiline Text Input', multiline: true },
-					{ id: 'date', label: 'Date', type: 'date', utc: false},
+					{ id: 'date', label: 'Date', type: 'date', utc: false },
 					{ id: 'datetime', label: 'DateTime', type: 'datetime', utc: true },
 					{ id: 'options', label: 'Options', options: ['foo', 'bar'] },
 					{ id: 'listfilter1', label: 'List Filter w/ Options', options: ['foo', 'bar', 'baz'], type: 'listfilter' },
@@ -81,7 +90,7 @@ storiesOf('InsertPopupForm', module)
 	})
 	.add('Linked fields', () => {
 		return (
-			<InsertPopupForm 
+			<InsertPopupForm
 				formFields={[
 					[
 						{ id: 'text2', label: 'Text Input 2' },

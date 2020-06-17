@@ -13,7 +13,7 @@ const ESCAPE_KEYSTROKE = 27;
 afterEach(cleanup);
 
 describe('Rendering the insert form', () => {
-	test('Default render of the insert form', () => {
+	test('If no form fields are passed, render null', () => {
 		const tree = renderer.create(<InsertForm />).toJSON();
 
 		expect(tree).toMatchSnapshot();
@@ -114,14 +114,25 @@ describe('Partially filled data', () => {
 		const { baseElement, debug, getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
+		let current_field;
 
 		fireEvent.click(getByText('6'));
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
-		await wait(() => {
-			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
-			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
-			expect(getByTestId('field-input').value).toEqual('f');
-		});
+
+		current_field = await getByTestId('field-input');
+		fireEvent.change(current_field, { target: { value: 'foo' } });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).toEqual('foo');
+
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).not.toEqual('foo');
+
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).toEqual('foo');
 	});
 });
 
@@ -249,7 +260,7 @@ describe('Submitting an insert form using submit button', () => {
 			label: 'Bar',
 			id: 'foo',
 			options: [{ name: 'foo' }],
-			parse: val => val.name,
+			parse: val => val ? val.name : '',
 			type: 'listfilter'
 		}];
 
@@ -269,7 +280,7 @@ describe('Submitting an insert form using submit button', () => {
 			label: 'Bar',
 			id: 'foo',
 			options: [{ id: 'foo', name: 'Foo' }],
-			parse: val => val.name,
+			parse: val => val ? val.name : '',
 			parseMatchedValue,
 			type: 'listfilter'
 		}];
@@ -286,15 +297,22 @@ describe('Submitting an insert form using submit button', () => {
 
 	test('Resetting after a submission', async () => {
 		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
-		
-		const { getByDisplayValue, getByTestId, getByText } = render(
-			<InsertForm formFields={formFields} resetForm={true} />);
+
+		/* Passing null function because form requires onSubmit to be typeOf function to start submitting */
+		const { getByTestId, getByText } = render(
+			<InsertForm
+				formFields={formFields}
+				resetForm={true}
+				onSubmit={() => null} />);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		expect(getByTestId('field-input').value).toBe('Test');
-
 		fireEvent.click(getByText('Submit'));
-		expect(getByTestId('field-input').value).toBe('');
+
+		// Submission is handled in a promise, so wait for that promise to resolve
+		await wait(() => {
+			expect(getByTestId('field-input').value).toBe('');
+		})
 	});
 });
 
@@ -304,7 +322,9 @@ describe('Initializing the form with data', () => {
 		const initInsertData = { foo: 'Test' };
 
 		const { getByDisplayValue, getByTestId } = render(
-			<InsertForm formFields={formFields} initInsertData={initInsertData} />);
+			<InsertForm
+				formFields={formFields}
+				initInsertData={initInsertData} />);
 
 
 		expect(getByTestId('field-input').value).toBe('Test');

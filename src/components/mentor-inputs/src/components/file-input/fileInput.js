@@ -6,15 +6,15 @@ import { useDropzone } from 'react-dropzone';
 import '../../styles/index.less';
 
 const FileInput = ({ label, name, onDrop, ...props }) => {
-	
+
 	const dropzoneDrop = useCallback(acceptedFiles => {
 		if (typeof onDrop === 'function') {
 			onDrop(acceptedFiles, name);
 		}
 	}, [onDrop, name]);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
-		onDrop: dropzoneDrop 
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+		onDrop: dropzoneDrop
 	});
 
 	const classes = classNames({
@@ -26,8 +26,8 @@ const FileInput = ({ label, name, onDrop, ...props }) => {
 
 	return (
 		<div {...rootProps}>
-			<input 
-				{...getInputProps()} 
+			<input
+				{...getInputProps()}
 				accept={props.accept}
 				capture={props.capture}
 				multiple={props.multiple}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Default render of a nonexpanded toggle list 1`] = `
+exports[`Default render of a non-expanded toggle list 1`] = `
 <div
   className="mui-toggle-list"
 >
@@ -12,22 +12,6 @@ exports[`Default render of a nonexpanded toggle list 1`] = `
   </div>
   <div>
     {"customClasses":{},"content":"Baz content","expanded":false,"title":"Baz"}
-  </div>
-</div>
-`;
-
-exports[`Default render of a toggle list 1`] = `
-<div
-  className="mui-toggle-list"
->
-  <div>
-    {"customClasses":{},"content":"Foo content","title":"Foo"}
-  </div>
-  <div>
-    {"customClasses":{},"content":"Bar content","title":"Bar"}
-  </div>
-  <div>
-    {"customClasses":{},"content":"Baz content","title":"Baz"}
   </div>
 </div>
 `;

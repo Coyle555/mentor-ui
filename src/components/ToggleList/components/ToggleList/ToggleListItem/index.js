@@ -19,16 +19,16 @@ export const ToggleListItem = ({ content, customClasses, expanded, title }) => {
 					from={{ transform: 'rotate(0deg)' }}
 					to={{ transform: `rotate(${toggleExpand ? 90 : 0}deg)` }}
 				>
-					{ props => <i className="fas fa-caret-right icon" style={props} /> }
+					{props => <i className="fas fa-caret-right icon" style={props} />}
 				</Spring>
 				{title}
 			</div>
-			{ toggleExpand &&
+			{toggleExpand &&
 				<Spring
 					from={{ opacity: 0 }}
 					to={{ opacity: 1 }}
 				>
-					{ props => (
+					{props => (
 						<div className={contentClasses} style={props}>
 							{content}
 						</div>

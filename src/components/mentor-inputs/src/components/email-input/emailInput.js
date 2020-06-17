@@ -10,7 +10,7 @@ function isEmail(value) {
 		: 'Invalid email';
 }
 
-const EmailInput = React.forwardRef(({ validate = [], ...props }) => {
+const EmailInput = React.forwardRef(({ validate = [], ...props }, ref) => {
 
 	return (
 		<TextInput
@@ -18,7 +18,7 @@ const EmailInput = React.forwardRef(({ validate = [], ...props }) => {
 			{...props}
 			ref={ref}
 			validate={[isEmail].concat(validate)}
-		/>		
+		/>
 	);
 });
 

@@ -54,7 +54,7 @@ class DatePickerInput extends Component {
 	constructor(props) {
 		super(props);
 
-		const { convertToLocal, required, value } = this.props;
+		const { required, value } = this.props;
 
 		const isValid = isValidDate(value, moment.ISO_8601);
 		let initValue = null;
@@ -68,7 +68,7 @@ class DatePickerInput extends Component {
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
 		this.state = {
-			hasError: !!required && !isValid,
+			hasError: !!required || !isValid,
 			inputValue: initValue
 		};
 	}
@@ -97,7 +97,7 @@ class DatePickerInput extends Component {
 	}
 
 	handleChange = (value, event) => {
-		const { name, onDateChange, required, type } = this.props;
+		const { name, onChange, required, type } = this.props;
 		let hasError = false;
 		let inputValue = value;
 
@@ -107,8 +107,8 @@ class DatePickerInput extends Component {
 		if (!!event && event.type === 'change') {
 			inputValue = event.target.value;
 
-			const isValid = isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type)
-				&& isValidDate(inputValue, getDateFormat(type));
+			const isValid = isValidDate(inputValue, getDateFormat(type))
+				&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
 
 			hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
 		}
@@ -117,20 +117,20 @@ class DatePickerInput extends Component {
 			hasError,
 			inputValue
 		}, () => {
-			if (typeof onDateChange === 'function') {
-				onDateChange(this.state.hasError, this.state.inputValue, name);
+			if (typeof onChange === 'function') {
+				onChange(this.state.hasError, this.state.inputValue, name);
 			};
 		});
 	}
 
 	// when blurring, if the input has an invalid date, the error and input need to 
 	// be checked if they have to be cleared
-	onBlur = (evt) => {
-		const { name, onDateChange, required, type } = this.props;
+	handleBlur = (evt) => {
+		const { name, onBlur, required, type } = this.props;
 
-		const inputValue = event.target.value;
-		const isValid = isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type)
-			&& isValidDate(inputValue, getDateFormat(type));
+		const inputValue = evt.target.value;
+		const isValid = isValidDate(inputValue, getDateFormat(type))
+			&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
 
 		const hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
 
@@ -140,8 +140,8 @@ class DatePickerInput extends Component {
 			hasError,
 			inputValue
 		}, () => {
-			if (typeof onDateChange === 'function') {
-				onDateChange(this.state.hasError, this.state.inputValue, name);
+			if (typeof onBlur === 'function') {
+				onBlur(this.state.hasError, this.state.inputValue, name);
 			};
 		});
 	}
@@ -153,7 +153,7 @@ class DatePickerInput extends Component {
 	}
 
 	render() {
-		const { 
+		const {
 			className,
 			convertToLocal,
 			error,
@@ -184,10 +184,10 @@ class DatePickerInput extends Component {
 			}
 		}
 
-		const popperClasses = cn(
-			'mui-datepicker-popper',
-			{ 'mui-datepicker-popper-datetime': type === 'datetime' }
-		);
+		const popperClasses = cn({
+			'mui-datepicker-popper': true,
+			'mui-datepicker-popper-datetime': type === 'datetime'
+		});
 
 		return (
 			<DatePicker
@@ -195,7 +195,7 @@ class DatePickerInput extends Component {
 				dateFormat={getDateFormatForPicker(type)}
 				dayClassName={() => 'mui-datepicker-day'}
 				fixedHeight
-				onBlur={this.onBlur}
+				onBlur={this.handleBlur}
 				onChange={this.handleChange}
 				onKeyDown={this.onKeyDown}
 				openToDate={!hasError ? dateVal : undefined}

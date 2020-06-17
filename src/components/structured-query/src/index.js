@@ -141,7 +141,7 @@ export class StructuredQuery extends Component {
 			this._addValueToNewToken(value);
 		}
 	}
-	
+
 	// Add a label to the new token
 	_addLabelToNewToken(value) {
 		let field = this.props.fields.find(field => {
@@ -149,12 +149,12 @@ export class StructuredQuery extends Component {
 		});
 
 		const newToken = Object.assign({},
-				this.state.nextToken,
-				{
-					label: value,
-					id: field.id,
-					type: field.type
-				});
+			this.state.nextToken,
+			{
+				label: value,
+				id: field.id,
+				type: field.type
+			});
 
 		this.setState({ nextToken: newToken });
 	}
@@ -277,7 +277,7 @@ export class StructuredQuery extends Component {
 				>
 					<i className="fal fa-save" />
 				</span>
-				<ActiveFilters 
+				<ActiveFilters
 					clearSearch={this.clearSearch}
 					fields={fields}
 					onRemove={this._removeTokenForValue}

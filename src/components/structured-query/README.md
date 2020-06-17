@@ -4,14 +4,14 @@
 
 Structured Query filters data by generating tokens that describe how to filter data.
 
-Props | Type | Required | Description
------ | ---- | -------- | -----------
-[fields](#fields) | [Object] | **Yes** | Fields used for filter
-[customClasses](#customClasses) | Object | No | Custom classes that can be applied to components of the structured query
-exportSearch | Function | No | Callback when exporting generated tokens
-initTokens | [Object] | No | Tokens used to initialize structured query. See [tokens](#tokens)
-onTokenAdd | Function | No | Callback used after a token is added. Callback receives [tokens](#tokens). Signature *([token]) => {}*
-onTokenRemove | Function | No | Callback used after a token is removed. Callback receives [tokens](#tokens). Signature *([token]) => {}*
+| Props                           | Type     | Required | Description                                                                                              |
+| ------------------------------- | -------- | -------- | -------------------------------------------------------------------------------------------------------- |
+| [fields](#fields)               | [Object] | **Yes**  | Fields used for filter                                                                                   |
+| [customClasses](#customClasses) | Object   | No       | Custom classes that can be applied to components of the structured query                                 |
+| exportSearch                    | Function | No       | Callback when exporting generated tokens                                                                 |
+| initTokens                      | [Object] | No       | Tokens used to initialize structured query. See [tokens](#tokens)                                        |
+| onTokenAdd                      | Function | No       | Callback used after a token is added. Callback receives [tokens](#tokens). Signature *([token]) => {}*   |
+| onTokenRemove                   | Function | No       | Callback used after a token is removed. Callback receives [tokens](#tokens). Signature *([token]) => {}* |
 
 ### Tokens
 

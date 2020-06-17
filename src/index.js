@@ -12,6 +12,6 @@ export * from './components/Spinner';
 export * from './components/mentor-inputs/src/index';
 export * from './components/structured-query/index';
 
-export const Button = a; 
+export const Button = a;
 export const InsertPopupForm = c;
 export const ToggleList = f;

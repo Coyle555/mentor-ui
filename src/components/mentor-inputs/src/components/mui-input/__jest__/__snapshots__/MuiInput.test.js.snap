@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic mui input render 1`] = `
+<div
+  className="apm-mui-input-group m-b"
+>
+  <input
+    className=""
+    data-testid="example-mui-input-input"
+    name="example-mui-input"
+    onChange={[Function]}
+    value=""
+  />
+  <span
+    className="apm-mui-highlight"
+  />
+  <span
+    className="apm-mui-bar"
+  />
+  <label>
+    Test Input
+  </label>
+  <span
+    className="APM-error-text"
+  >
+    <strong
+      data-testid="example-mui-input-error"
+    >
+      
+    </strong>
+  </span>
+</div>
+`;

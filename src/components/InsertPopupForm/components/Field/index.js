@@ -21,7 +21,7 @@ export const Field = ({
 	return (
 		<div className="row">
 			<div className="col-2 text-right">
-				{ canGoLeft && 
+				{canGoLeft &&
 					<button
 						className="nav-btn"
 						onClick={handleGoingLeft}
@@ -33,10 +33,10 @@ export const Field = ({
 				}
 			</div>
 			<div className="col-8">
-				{ !!InputComponent && React.cloneElement(InputComponent, inputProps) }
+				{!!InputComponent && React.cloneElement(InputComponent, inputProps)}
 			</div>
 			<div className="col-2">
-				{ canGoRight &&
+				{canGoRight &&
 					<button
 						className="nav-btn"
 						onClick={handleGoingRight}
@@ -46,7 +46,7 @@ export const Field = ({
 						Next
 					</button>
 				}
-				{ canSubmit &&
+				{canSubmit &&
 					<button
 						className="nav-btn nav-btn-submit"
 						onClick={_onSubmit}
@@ -68,7 +68,7 @@ Field.propTypes = {
 	handleGoingLeft: PropTypes.func,
 	handleGoingRight: PropTypes.func,
 	InputComponent: PropTypes.element,
-	link: PropTypes.shape({
+	linkedProps: PropTypes.shape({
 		valid: PropTypes.bool,
 		onLink: PropTypes.func
 	}),

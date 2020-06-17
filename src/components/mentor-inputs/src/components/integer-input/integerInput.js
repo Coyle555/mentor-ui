@@ -20,7 +20,7 @@ function isInteger(num) {
 const IntegerInput = React.forwardRef(({ max, min, validate, ...props }, ref) => {
 
 	const isGreaterThanMin = useCallback(value => (
-		typeof min === 'number' && Number(value) < min 
+		typeof min === 'number' && Number(value) < min
 			? 'Value is too small'
 			: true
 	), [min]);

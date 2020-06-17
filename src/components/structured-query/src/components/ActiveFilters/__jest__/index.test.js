@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActiveFiltersComponent } from '../index';
+import { ActiveFiltersComponent, ActiveFilters } from '../index';
 import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render, wait } from '@testing-library/react';
 
@@ -76,11 +76,27 @@ describe('Clearing search', () => {
 
 describe('Handle click outside -- 3rd party lib', () => {
 
-	test('Handle click outside method', () => {
-		const instance = renderer.create(<ActiveFiltersComponent />).getInstance();
-
-		instance.state.filtersActive = true;
-		instance.handleClickOutside();
-		expect(instance.state.filtersActive).toBe(false);
+	test('Handle click outside method', async () => {
+		// Initialize component with search tokens, so filter list can be shown
+		const { baseElement, container } = render(
+			<ActiveFilters
+				searchTokens={[{
+					id: 'foo',
+					label: 'Foo',
+					operator: 'equals',
+					value: 'value'
+				}]} />
+		);
+		// make sure active filter list isn't already shown
+		expect(container.querySelector('.active-filters-list')).not.toBeInTheDocument();
+		fireEvent.click(container.querySelector('.active-filter-container'));
+		await wait(() => {
+			expect(container.querySelector('.active-filters-list')).toBeInTheDocument();
+		})
+		// click base element to simulate clicking outside the active filter list somewhere
+		fireEvent.click(baseElement);
+		await wait(() => {
+			expect(container.querySelector('.some-element-outside')).not.toBeInTheDocument()
+		})
 	});
 });

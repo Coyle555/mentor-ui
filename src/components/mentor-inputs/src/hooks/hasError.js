@@ -15,7 +15,7 @@ export function hasError(value, required, customValidators) {
 		for (let validator of customValidators) {
 			if (typeof validator === 'function') {
 				const validity = validator(value);
-				
+
 				if (typeof validity === 'string') {
 					return validity;
 				} else if (!validator(value)) {

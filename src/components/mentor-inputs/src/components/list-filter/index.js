@@ -19,7 +19,7 @@ const AUTOCOMPLETE_KEYS = {
 // keycodes for going up and down the list
 const NAVIGATION_KEYS = {
 	[KeyEvent.DOM_VK_UP]: true,
-	[KeyEvent.DOM_VK_DOWN] : true
+	[KeyEvent.DOM_VK_DOWN]: true
 };
 
 // list filter takes a list of options and filters them as the user types
@@ -167,7 +167,7 @@ export class ListFilter extends Component {
 				options,
 				value
 			});
-		// new list of options were passed in
+			// new list of options were passed in
 		} else if (this.props.options !== nextProps.options) {
 			const { required } = this.props;
 			const { value } = this.state;
@@ -198,7 +198,7 @@ export class ListFilter extends Component {
 		if (value === null || value === undefined) {
 			return '';
 		}
-		
+
 		if (typeof parse === 'function') {
 			return parse(value).toString();
 		}
@@ -333,11 +333,11 @@ export class ListFilter extends Component {
 			event.preventDefault();
 			event.stopPropagation();
 			this.autoCompleteKeyDown();
-		// navigate highlighted option up or down
+			// navigate highlighted option up or down
 		} else if (NAVIGATION_KEYS[event.keyCode]) {
 			event.stopPropagation();
 			this.navigationKeyDown(event.keyCode);
-		// escape closes options
+			// escape closes options
 		} else if (this.state.focused
 			&& (event.keyCode === KeyEvent.DOM_VK_ESCAPE
 				|| event.keyCode === KeyEvent.DOM_VK_TAB)) {
@@ -435,7 +435,7 @@ export class ListFilter extends Component {
 
 				this.onMatch(value);
 
-			// otherwise it was just a change event w/ no match
+				// otherwise it was just a change event w/ no match
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			}
@@ -450,7 +450,7 @@ export class ListFilter extends Component {
 		let matchedValue = typeof parse === 'function' && !!value
 			? this.rawOptions.find(option => {
 				option = parse(option);
-				
+
 				return !!option && typeof option === 'object' && option.title
 					? option.title === value
 					: option === value;
@@ -517,7 +517,7 @@ export class ListFilter extends Component {
 				className={listContainerClasses}
 				style={listStyle.container}
 			>
-				{ Array.isArray(options) && options.length > 0
+				{Array.isArray(options) && options.length > 0
 					? options.map((option, i) => (
 						<ListFilterItem
 							index={i}
@@ -543,7 +543,7 @@ export class ListFilter extends Component {
 	}
 
 	render() {
-		const { 
+		const {
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,
@@ -586,13 +586,13 @@ export class ListFilter extends Component {
 					type="text"
 					value={value}
 				/>
-				{ this.renderIncrementalSearchResults() }
-				{ loadingFilter &&
+				{this.renderIncrementalSearchResults()}
+				{loadingFilter &&
 					<span className="mui-mi-clear-input">
 						<Spinner className="apm-color-black mui-loading-spinner" />
 					</span>
 				}
-				{ !!value && !loadingFilter && !disabled &&
+				{!!value && !loadingFilter && !disabled &&
 					<span
 						className="mui-mi-clear-input"
 						data-testid="clear-input"

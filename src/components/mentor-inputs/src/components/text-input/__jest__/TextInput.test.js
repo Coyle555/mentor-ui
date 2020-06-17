@@ -7,46 +7,46 @@ import TextInput from '../textInput';
 afterEach(cleanup);
 
 test('<TextInput /> with no props', () => {
-	 const component = renderer.create( <TextInput/> );
+	const component = renderer.create(<TextInput />);
 
-	 const tree = component.toJSON();
-	 expect(tree).toMatchSnapshot();
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a disabled attribute', () => {
- 	const component = renderer.create(<TextInput disabled={true} />);
+	const component = renderer.create(<TextInput disabled={true} />);
 
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a required attribute', () => {
- 	const component = renderer.create(<TextInput required={true} />);
+	const component = renderer.create(<TextInput required={true} />);
 
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with value of null', () => {
- 	const component = renderer.create(<TextInput value={null} />);
+	const component = renderer.create(<TextInput value={null} />);
 
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a stringified value', () => {
- 	const component = renderer.create(<TextInput value={4593.3} />);
+	const component = renderer.create(<TextInput value={4593.3} />);
 
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput /> with a string value', () => {
- 	const component = renderer.create(<TextInput value="Bill" />);
+	const component = renderer.create(<TextInput value="Bill" />);
 
- 	const tree = component.toJSON();
- 	expect(tree).toMatchSnapshot();
-}); 
+	const tree = component.toJSON();
+	expect(tree).toMatchSnapshot();
+});
 
 test('Text input with custom class', () => {
 	const tree = renderer.create(<TextInput className="foo" />).toJSON();
@@ -59,7 +59,7 @@ test('Text input onChange callback', () => {
 	const { container } = render(<TextInput name="text" onChange={onChange} />);
 
 	fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
-	expect(onChange).toHaveBeenCalledWith(false, 'foo', 'text');
+	expect(onChange).toHaveBeenCalledWith(false, 'foo', 'text', expect.anything());
 });
 
 test('Text input onBlur callback', () => {
@@ -68,7 +68,7 @@ test('Text input onBlur callback', () => {
 
 	fireEvent.change(container.querySelector('input'), { target: { value: 'foo' } });
 	fireEvent.blur(container.querySelector('input'));
-	expect(onBlur).toHaveBeenCalledWith(false, 'foo', 'text');
+	expect(onBlur).toHaveBeenCalledWith(false, 'foo', 'text', expect.anything());
 });
 
 test('Custom validation on text input', () => {
@@ -77,5 +77,5 @@ test('Custom validation on text input', () => {
 	const { container } = render(<TextInput name="text" onChange={onChange} validate={validate} />);
 
 	fireEvent.change(container.querySelector('input'), { target: { value: 'adam' } });
-	expect(onChange).toHaveBeenCalledWith(true, 'adam', 'text');
+	expect(onChange).toHaveBeenCalledWith('An error occurred', 'adam', 'text', expect.anything());
 });

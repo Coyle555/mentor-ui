@@ -1,10 +1,12 @@
 jest.mock('react-spring/renderprops', () => {
-	return { Spring: props => (
-		<div>
-			<div>{JSON.stringify(props)}</div>
-			{props.children({})}
-		</div>
-	)};
+	return {
+		Spring: props => (
+			<div>
+				<div>{JSON.stringify(props)}</div>
+				{props.children({})}
+			</div>
+		)
+	};
 });
 
 import React from 'react';

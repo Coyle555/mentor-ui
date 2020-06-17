@@ -5,38 +5,45 @@ import classNames from 'classnames';
 import FloatInput from '../float-input/floatInput';
 
 export const isMoney = (val) => {
+	const decimalIncluded = val.includes('.');
 	// check for proper precision if a decimal was added
-	if (val.includes('.')) {
-		const parts = val.split('.');
-		
+	if (decimalIncluded) {
+		const [integerPortion, decimalPortion] = val.split('.');
+		const valHasNoIntegerPortion = (integerPortion.length === 0);
+
 		// a decimal with no leading numbers, check if the precision is a valid int
-		if (parts[0].length === 0) {
-			return !isNaN(parts[1])
-				&& parseInt(Number(parts[1])) === Number(parts[1])
-				&& !isNaN(parseInt(parts[1], 10))
-				&& parts[1].length <= 2
-					? true
-					: 'Invalid money value';
+		if (valHasNoIntegerPortion) {
+			return !isNaN(decimalPortion)
+				&& parseInt(Number(decimalPortion)) === Number(decimalPortion)
+				&& !isNaN(parseInt(decimalPortion, 10))
+				&& decimalPortion.length <= 2
+				? true
+				: 'Invalid money value';
+		}
+
+		// precision of 0 not allowed
+		if (decimalPortion.length === 0) {
+			return 'Invalid money value'
 		}
 
 		// only one precision after decimal; gets autofilled on blur
-		if (parts[1].length === 1) {
+		if (decimalPortion.length === 1) {
 			return !isNaN(val)
 				&& parseFloat(Number(val)) === Number(val)
 				&& !isNaN(parseFloat(val, 10))
 				&& String(Number(val).toFixed(1)) === val
-					? true
-					: 'Invalid money value'
+				? true
+				: 'Invalid money value'
 		}
 
 		// valid precision after decimal for money
-		if (parts[1].length === 2) {
+		if (decimalPortion.length === 2) {
 			return !isNaN(val)
 				&& parseFloat(Number(val)) === Number(val)
 				&& !isNaN(parseFloat(val, 10))
 				&& String(Number(val).toFixed(2)) === val
-					? true
-					: 'Invalid money value'
+				? true
+				: 'Invalid money value'
 		}
 	}
 
@@ -44,8 +51,8 @@ export const isMoney = (val) => {
 	return !isNaN(val)
 		&& parseInt(Number(val)) === Number(val)
 		&& !isNaN(parseInt(val, 10))
-			? true
-			: 'Invalid money value';
+		? true
+		: 'Invalid money value';
 }
 
 const MoneyInput = React.forwardRef((props, ref) => {
@@ -89,7 +96,7 @@ const MoneyInput = React.forwardRef((props, ref) => {
 });
 
 MoneyInput.propTypes = {
-	validate: PropTypes.oneOfType(PropTypes.array, PropTypes.func),
+	validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 	value: PropTypes.string
 };
 
