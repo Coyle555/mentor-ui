@@ -21,16 +21,6 @@ module.exports = {
 	optimization: {
 		minimize: true,
 		minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
-		splitChunks: {
-			cacheGroups: {
-				styles: {
-					name: 'mentor-ui',
-					test: /\.(le|c)ss$/,
-					chunks: 'all',
-					enforce: true
-				}
-			}
-		}
 	},
 	module: {
 		rules: [
@@ -68,7 +58,7 @@ module.exports = {
 		new webpack.ProgressPlugin({ profile: false }),
 		new CaseSensitivePathsPlugin(),
 		new MiniCssExtractPlugin({
-			filename: '[name].style.css'
+			filename: 'mentor-ui.style.css'
 		}),
 	],
 	externals: {

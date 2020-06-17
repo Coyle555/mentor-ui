@@ -9,11 +9,8 @@ const question = {
 	choices: ['Major', 'Minor', 'Patch']
 }
 
-
-
 inquirer.prompt([question])
 	.then(answers => { 
-
 		exec(`npm version ${answers.type.toLowerCase()}`, (error, stderr, stdout) => {
 
 			if (error) {
@@ -24,7 +21,4 @@ inquirer.prompt([question])
 			process.exit(0);
 		})
 
-	})
-
-
-	
+	});
