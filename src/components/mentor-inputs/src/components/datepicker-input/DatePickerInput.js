@@ -109,12 +109,12 @@ class DatePickerInput extends Component {
 		}, () => {
 			if (typeof onChange === 'function') {
 				onChange(this.state.hasError, this.state.inputValue, name);
-			};
+			}
 		});
 	}
 
 	// change event indicates we are dealing with an event initiated by the user typing
-	// into the input; otherwise it would be a click event which indicates the calendar 
+	// into the input; otherwise it would be a click event which indicates the calendar
 	// was clicked and a valid date was selected by the user
 	handleChangeRaw = (event) => {
 		const { name, onChange, required, type } = this.props;
@@ -131,11 +131,11 @@ class DatePickerInput extends Component {
 		}, () => {
 			if (typeof onChange === 'function') {
 				onChange(this.state.hasError, this.state.inputValue, name);
-			};
+			}
 		});
 	}
 
-	// when blurring, if the input has an invalid date, the error and input need to 
+	// when blurring, if the input has an invalid date, the error and input need to
 	// be checked if they have to be cleared
 	handleBlur = (evt) => {
 		const { name, onBlur, required, type } = this.props;
@@ -152,7 +152,7 @@ class DatePickerInput extends Component {
 		}, () => {
 			if (typeof onBlur === 'function') {
 				onBlur(this.state.hasError, this.state.inputValue, name);
-			};
+			}
 		});
 	}
 
@@ -163,6 +163,7 @@ class DatePickerInput extends Component {
 	}
 
 	render() {
+		/* eslint-disable no-unused-vars */
 		const {
 			className,
 			convertToLocal,
@@ -175,6 +176,7 @@ class DatePickerInput extends Component {
 			value,
 			...props
 		} = this.props;
+		/* eslint-enable no-unused-vars */
 		const { hasError, inputValue } = this.state;
 
 		const inputClasses = cn({
@@ -185,7 +187,7 @@ class DatePickerInput extends Component {
 
 		let dateVal;
 
-		if (!!inputValue) {
+		if (inputValue) {
 			dateVal = new Date(inputValue);
 
 			// shift time by timezone offset to get utc if there is no local conversion

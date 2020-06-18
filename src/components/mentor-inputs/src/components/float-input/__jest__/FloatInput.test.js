@@ -1,8 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, waitForElement, cleanup, act, getByTestId } from '@testing-library/react';
+import { fireEvent, render, cleanup, } from '@testing-library/react';
 
 import FloatInput from '../floatInput';
+
+afterEach(cleanup);
 
 test('<FloatInput /> with no props', () => {
 
@@ -47,7 +49,7 @@ test('Float input with an invalid float', () => {
 
 test('Float input blur with a precision', () => {
 	const onBlur = jest.fn();
-	const { debug, container } = render(<FloatInput name="foo" onBlur={onBlur} precision={2} />);
+	const { container } = render(<FloatInput name="foo" onBlur={onBlur} precision={2} />);
 
 	fireEvent.change(container.querySelector('input'), { target: { value: '123.423' } });
 	fireEvent.blur(container.querySelector('input'));

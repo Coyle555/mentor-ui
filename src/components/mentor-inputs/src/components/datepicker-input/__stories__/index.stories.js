@@ -45,4 +45,4 @@ storiesOf('Inputs/DatePickerInput', module)
 			onChange={action('onChange')}
 			type="date"
 		/>
-	)
+	);

@@ -122,10 +122,9 @@ describe('Datepicker passed props conditions', () => {
 		});
 
 		it('should clear input if blurred with an invalid date', () => {
-			// Initialize with a valid date
 			const date = '2020-06-01';
 			const onBlur = jest.fn();
-			const { container, getByText } = render(
+			const { container, } = render(
 				<DatePickerInput
 					name="test-datepicker"
 					onBlur={onBlur}
@@ -142,9 +141,8 @@ describe('Datepicker passed props conditions', () => {
 		});
 
 		it('Input renders with required class if input blurred with an invalid date', () => {
-			// Initialize with a valid date
 			const date = '2020-06-01';
-			const { container, getByText } = render(
+			const { container, } = render(
 				<DatePickerInput
 					name="test-datepicker"
 					required={true}
@@ -160,38 +158,31 @@ describe('Datepicker passed props conditions', () => {
 		});
 	});
 
-	describe('prop value updates', () => {
+	describe('Updating with new prop values', () => {
 		it('should update to formatted string if input is valid', () => {
-			// Initialize with a valid date
 			const date = '';
 			const { container, rerender } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
 
-			// Assert the input value changed correctly
 			expect(container.querySelector('input').value).toBe('');
 
-			const newValidDate = '2020-06-01'
-			rerender(<DatePickerInput type="date" value={newValidDate} convertToLocal={false} />)
+			const newValidDate = '2020-06-01';
+			rerender(<DatePickerInput type="date" value={newValidDate} convertToLocal={false} />);
 
-			// Assert the input value changed correctly
 			expect(container.querySelector('input').value).toBe('Jun 01, 2020');
-		})
+		});
 		it('should update empty string if input is invalid', () => {
-			// Initialize with a valid date
 			const date = '';
 			const { container, rerender } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
 
-			// Assert the input value changed correctly
 			expect(container.querySelector('input').value).toBe('');
 
-			const newValidDate = 'invalidDate'
-			rerender(<DatePickerInput type="date" value={newValidDate} convertToLocal={false} />)
+			const newValidDate = 'invalidDate';
+			rerender(<DatePickerInput type="date" value={newValidDate} convertToLocal={false} />);
 
-			// Assert the input value changed correctly
 			expect(container.querySelector('input').value).toBe('');
-		})
-	})
+		});
+	});
 	it('allows custom class', () => {
-		// Initialize with a valid data
 		const date = '2020-06-01';
 		const tree = renderer.create(
 			<DatePickerInput
@@ -201,69 +192,53 @@ describe('Datepicker passed props conditions', () => {
 				className="foo"
 			/>).toJSON();
 
-		// Assert the date initialized correctly
 		expect(tree).toMatchSnapshot();
-	})
+	});
 });
 
 describe('Datepicker user use cases', () => {
 	it('allows picking a date by clicking through a ui', () => {
-		// Initialize with a valid date
 		const date = '2020-06-01';
 		const { container, getByText } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
 
-		// Assert the date initialized correctly
 		expect(container.querySelector('input').value).toBe('Jun 01, 2020');
 
-		// Open the ui date picker
 		fireEvent.click(container.querySelector('input'));
+		fireEvent.click(getByText('16'));
 
-		// and click on another day that DOES NOT CONFLICT with test date
-		fireEvent.click(getByText('16'))
-
-		// Assert the input value changed correctly
 		expect(container.querySelector('input').value).toBe('Jun 16, 2020');
-	})
+	});
+
 	it('allows picking a date manually through typing', () => {
-		// Initialize with a valid date
 		const date = '2020-06-01T10:23:00-00:00';
 		const { container } = render(<DatePickerInput
 			name="test-datepicker"
 			value={date}
 		/>);
 
-		// Assert the date initialized correctly
 		expect(container.querySelector('input').value).toBe('Jun 01, 2020, 6:23 AM');
 
 		fireEvent.change(container.querySelector('input'), { target: { value: 'Mar 15, 2020, 6:22 PM' } });
-
-		// Blur the input to make sure the input was valid
 		fireEvent.blur(container.querySelector('input'));
 
-		// Assert the input value changed correctly
 		expect(container.querySelector('input').value).toBe('Mar 15, 2020, 6:22 PM');
-	})
-	it('closes the datepicker ui when the tab button is pressed', () => {
-		// Initialize with a valid date
-		const date = '2020-06-01';
-		const { baseElement, container, getByText, queryByText } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
+	});
 
-		// Assert the date initialized correctly
+	it('closes the datepicker ui when the tab button is pressed', () => {
+		const date = '2020-06-01';
+		const { container, getByText, queryByText } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
+
 		expect(container.querySelector('input').value).toBe('Jun 01, 2020');
 
-		// Open the ui date picker
 		fireEvent.click(container.querySelector('input'));
 
-		// Assert that a day element in the datepicker is shown
-		expect(getByText('16')).toBeInTheDocument()
+		expect(getByText('16')).toBeInTheDocument();
 
-		// press the tab key
 		const TAB_KEYCODE = 9;
 		fireEvent.keyDown(container.querySelector('input'), { keyCode: TAB_KEYCODE });
 
-		// Assert that a day element in the datepicker is hidden
-		expect(queryByText('16')).toBeNull()
-	})
+		expect(queryByText('16')).toBeNull();
+	});
 });
 
 

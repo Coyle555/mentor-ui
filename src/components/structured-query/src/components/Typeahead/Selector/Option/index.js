@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-// Typeahead option displays a single option in 
+// Typeahead option displays a single option in
 // a list of all options
 export const TypeaheadOption = ({ active, customClasses, onClick, option }) => {
 
@@ -29,9 +29,9 @@ TypeaheadOption.propTypes = {
 	customClasses: PropTypes.object,
 	onClick: PropTypes.func,
 	option: PropTypes.string
-}
+};
 
 TypeaheadOption.defaultProps = {
 	active: false,
 	customClasses: {}
-}
+};

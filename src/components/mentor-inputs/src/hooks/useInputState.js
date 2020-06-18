@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { get } from 'lodash';
 
 import { hasError } from './hasError';
 
@@ -74,5 +73,5 @@ export const useInputState = (props = {}) => {
 
 		name: input.name,
 		value: currentValue
-	}
+	};
 };

@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 jest.mock('react-datepicker', () => {
 	return (props) => <div>Datepicker: {JSON.stringify(props)}</div>;
 });
@@ -49,7 +51,7 @@ describe('Rendering states of typeahead', () => {
 describe('Typeahead with a list of options', () => {
 
 	test('List of string options', async () => {
-		const { debug, getByTestId, queryByText } = render(
+		const { getByTestId, queryByText } = render(
 			<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.focus(getByTestId('typeahead'));

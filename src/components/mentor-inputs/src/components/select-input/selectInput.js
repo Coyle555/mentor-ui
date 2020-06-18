@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -155,9 +155,18 @@ const SelectInput = React.forwardRef(({
 });
 
 SelectInput.propTypes = {
+	className: PropTypes.string,
+	disabled: PropTypes.bool,
+	name: PropTypes.string,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
 	options: PropTypes.array,
 	parse: PropTypes.func,
-	validation: PropTypes.func,
+	parseMatchedValue: PropTypes.func,
+	placeholder: PropTypes.string,
+	required: PropTypes.bool,
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]),
+	value: PropTypes.any
 };
 
 SelectInput.defaultProps = {

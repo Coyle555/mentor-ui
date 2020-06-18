@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { storiesOf, action } from '@storybook/react';
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
 import { StructuredQuery } from '../index';
 

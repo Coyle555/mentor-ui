@@ -13,14 +13,14 @@ test('No error when no value and not required', () => {
 });
 
 test('Error with custom validator', () => {
-	const validator = jest.fn(val => false);
+	const validator = jest.fn(() => false);
 
 	expect(hasError('foo', false, validator)).toBe('An error occurred');
 	expect(validator).toHaveBeenCalledWith('foo');
 });
 
 test('No error with custom validator', () => {
-	const validator = jest.fn(val => true);
+	const validator = jest.fn(() => true);
 
 	expect(hasError('foo', false, validator)).toBe(false);
 });

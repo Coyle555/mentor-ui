@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
@@ -226,7 +225,7 @@ export default class InsertForm extends Component {
 
 	// handle input after user changes an input form, add new
 	// value to current insert data object
-	// @error(bool) - true if the field has an error via validation; false 
+	// @error(bool) - true if the field has an error via validation; false
 	// 	otherwise
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
@@ -237,7 +236,7 @@ export default class InsertForm extends Component {
 
 	// handle input after user blurs an input form, add new
 	// value to current insert data object
-	// @error(bool) - true if the field has an error via validation; false 
+	// @error(bool) - true if the field has an error via validation; false
 	// 	otherwise
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
@@ -330,7 +329,7 @@ export default class InsertForm extends Component {
 				return acc;
 			}, {});
 
-			new Promise((resolve, reject) => {
+			new Promise((resolve) => {
 				resolve(this.props.onSubmit(dataToSubmit));
 			}).then(() => {
 				if (this.props.resetForm) {

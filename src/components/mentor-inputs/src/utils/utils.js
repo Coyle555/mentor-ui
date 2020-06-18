@@ -46,4 +46,4 @@ export function getMentorInput(type = '') {
 		default:
 			return TextInput;
 	}
-};
+}

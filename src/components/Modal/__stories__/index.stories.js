@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action, configureActions } from '@storybook/addon-actions';
-import { withKnobs, optionsKnob, number, boolean, text } from '@storybook/addon-knobs';
+import { withKnobs, number, boolean, } from '@storybook/addon-knobs';
 
 import useState from 'storybook-useState';
 import { Modal } from '../index';
@@ -31,7 +30,7 @@ storiesOf('Modal', module)
 					Modal Content
 				</Modal>
 			</React.Fragment>
-		)
+		);
 	})
 	.addWithJSX('nested modals', () => {
 
@@ -64,5 +63,5 @@ storiesOf('Modal', module)
 					</Modal>
 				</Modal>
 			</React.Fragment>
-		)
-	})	
+		);
+	});

@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 jest.mock('../ToggleListItem', () => {
 	return { ToggleListItem: props => <div>{JSON.stringify(props)}</div> };
 });

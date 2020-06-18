@@ -41,9 +41,13 @@ jobs:
             - node_modules
           key: dependency-cache-{{ checksum "package.json" }}
 
+      - run:
+          name: Lint
+          command: npm run lint
+
       # run tests!
       - run:
-          name: test
+          name: Test
           command: npm run jest-ci -- -w 1
 
       - run: 

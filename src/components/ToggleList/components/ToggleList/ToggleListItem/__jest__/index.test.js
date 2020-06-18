@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 jest.mock('react-spring/renderprops', () => {
 	return {
 		Spring: props => (
@@ -8,6 +10,8 @@ jest.mock('react-spring/renderprops', () => {
 		)
 	};
 });
+
+/* eslint-enable */
 
 import React from 'react';
 import renderer from 'react-test-renderer';

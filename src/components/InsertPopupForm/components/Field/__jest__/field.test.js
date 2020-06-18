@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { Field } from '../index';
 import renderer from 'react-test-renderer';

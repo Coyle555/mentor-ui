@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, waitForElement, cleanup, act, getByTestId } from '@testing-library/react';
+import { render, fireEvent, cleanup, } from '@testing-library/react';
 
 import TextInput from '../textInput';
 

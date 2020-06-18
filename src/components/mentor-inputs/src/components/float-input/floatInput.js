@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
+
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import TextInput from '../text-input/textInput'
+import TextInput from '../text-input/textInput';
 
 function isFloat(num) {
 	return !isNaN(num) && parseFloat(Number(num)) === Number(num) && !isNaN(parseFloat(num, 10))

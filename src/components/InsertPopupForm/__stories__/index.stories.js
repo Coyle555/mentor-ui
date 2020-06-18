@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
+import { withKnobs, } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 import { withInfo } from '@storybook/addon-info';
 
@@ -16,7 +16,7 @@ storiesOf('InsertPopupForm', module)
 				onDisable={action('onDisable')}
 				onSubmit={action('onSubmit')}
 			/>
-		)
+		);
 	})
 	.add('General', () => {
 
@@ -41,7 +41,7 @@ storiesOf('InsertPopupForm', module)
 				onDisable={action('onDisable')}
 				onSubmit={action('onSubmit')}
 			/>
-		)
+		);
 	})
 	.add('Initial data', () => {
 		return (
@@ -62,7 +62,7 @@ storiesOf('InsertPopupForm', module)
 				}}
 				onSubmit={action('onSubmit')}
 			/>
-		)
+		);
 	})
 	.add('Reset form', () => {
 		return (
@@ -94,7 +94,7 @@ storiesOf('InsertPopupForm', module)
 				formFields={[
 					[
 						{ id: 'text2', label: 'Text Input 2' },
-						{ id: 'dependentField', label: 'Dependent field', onLink: (val) => ({}) }
+						{ id: 'dependentField', label: 'Dependent field', onLink: () => ({}) }
 					],
 					[{
 						id: 'listfilter2',
@@ -107,7 +107,7 @@ storiesOf('InsertPopupForm', module)
 					{
 						id: 'text5',
 						label: 'Text Input 5',
-						onLink: (val) => ({})
+						onLink: () => ({})
 					}]
 				]}
 				onSubmit={action('onSubmit')}

@@ -33,6 +33,7 @@ export class TypeaheadComponent extends Component {
 		customClasses: PropTypes.object,
 		datatype: PropTypes.string,
 		header: PropTypes.string,
+		label: PropTypes.string,
 		onKeyDown: PropTypes.func,
 		operator: PropTypes.string,
 		options: PropTypes.arrayOf(PropTypes.any),
@@ -92,7 +93,7 @@ export class TypeaheadComponent extends Component {
 		this.setState({ value: newValue });
 	}
 
-	// When a user selects an option in the current list, we need 
+	// When a user selects an option in the current list, we need
 	// to refocus the user to the input, update the value in the input,
 	// and get the next list of options
 	_onOptionSelected = (option) => {
@@ -161,12 +162,12 @@ export class TypeaheadComponent extends Component {
 		this.setState({ focused: false });
 		this.inputRef.blur();
 
-		// pass the first visible option in the list for tab 
+		// pass the first visible option in the list for tab
 		// completion if no selected option
 		/*let option = this.state.selectedOptionIndex >= 0
 			? this.state.visibleOptions[this.state.selectedOptionIndex]
 			: this.state.visibleOptions[0];
-	
+
 		this._onOptionSelected(option);*/
 	}
 
@@ -185,7 +186,7 @@ export class TypeaheadComponent extends Component {
 	// Handle an enter event that wasn't caught in this.onKeyDown()
 	// pass either a selected option from arrow keys or pass the first
 	// visible option in the list
-	_onEnter(event) {
+	_onEnter() {
 		if (this.loadingOptions) return;
 
 		const { selectedOptionIndex, visibleOptions } = this.state;
@@ -213,7 +214,7 @@ export class TypeaheadComponent extends Component {
 
 			// convert date/datetimes when user hits enter on value
 			if (datatype === 'date' || datatype === 'datetime') {
-				value = moment(value).toISOString()
+				value = moment(value).toISOString();
 			}
 
 			addTokenForValue(value);
@@ -250,7 +251,7 @@ export class TypeaheadComponent extends Component {
 
 		let newIndex = this.state.selectedOptionIndex + delta;
 
-		// wrap around to end or start if user goes past start 
+		// wrap around to end or start if user goes past start
 		// or end of list
 		if (newIndex < 0) {
 			newIndex = visibleOptions.length - 1;
@@ -258,7 +259,6 @@ export class TypeaheadComponent extends Component {
 			newIndex -= visibleOptions.length;
 		}
 
-		let newSelection = visibleOptions[newIndex];
 		this.setState({ selectedOptionIndex: newIndex });
 	}
 
@@ -278,7 +278,7 @@ export class TypeaheadComponent extends Component {
 		this.setState({ focused: true });
 	}
 
-	handleClickOutside = (event) => {
+	handleClickOutside = () => {
 		this.setState({
 			focused: false,
 			selectedOptionIndex: -1
@@ -286,7 +286,7 @@ export class TypeaheadComponent extends Component {
 	}
 
 	handleDatePickerChange = (date) => {
-		this.setState({ value: !!date ? date : '' });
+		this.setState({ value: date ? date : '' });
 	}
 
 	renderDatePicker = () => {

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { FilterItem } from './FilterItem';
 
-export const ActiveFiltersComponent = ({ clearSearch, fields, onRemove, searchTokens }) => {
+export const ActiveFiltersComponent = ({ clearSearch, onRemove, searchTokens }) => {
 
 	// true when the user has opened the list of all applied filters; false otherwise
 	const [filtersActive, setFiltersActive] = useState(false);
@@ -58,7 +58,7 @@ export const ActiveFiltersComponent = ({ clearSearch, fields, onRemove, searchTo
 									onClick={clearSearch}
 								>
 									Clear All
-							</a>
+								</a>
 							</td>
 						</tr>
 					</thead>
@@ -81,12 +81,6 @@ export const ActiveFiltersComponent = ({ clearSearch, fields, onRemove, searchTo
 
 ActiveFiltersComponent.propTypes = {
 	clearSearch: PropTypes.func,
-	fields: PropTypes.arrayOf(PropTypes.shape({
-		id: PropTypes.string.isRequired,
-		label: PropTypes.string,
-		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-		type: PropTypes.string
-	})),
 	onRemove: PropTypes.func,
 	searchTokens: PropTypes.arrayOf(PropTypes.shape({
 		label: PropTypes.string,
@@ -97,7 +91,6 @@ ActiveFiltersComponent.propTypes = {
 };
 
 ActiveFiltersComponent.defaultProps = {
-	fields: [],
 	searchTokens: []
 };
 

@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
+
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import TextInput from '../text-input/textInput'
+import TextInput from '../text-input/textInput';
 
 /// check if value is a float (1.000 wont throw an error in an input by default)
 function noDecimals(num) {

@@ -1,6 +1,10 @@
+/* eslint-disable */
+
 jest.mock('../components/Portal', () => {
 	return { Portal: props => <div>{props.children}</div> };
 });
+
+/* eslint-enable */
 
 import React from 'react';
 import InsertForm from '../index';
@@ -111,7 +115,7 @@ describe('Partially filled data', () => {
 	});
 
 	test('Saving input on a list filter with a custom filter', async () => {
-		const { baseElement, debug, getByTestId, getByText } = render(
+		const { baseElement, getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 		let current_field;
@@ -312,7 +316,7 @@ describe('Submitting an insert form using submit button', () => {
 		// Submission is handled in a promise, so waitFor for that promise to resolve
 		await waitFor(() => {
 			expect(getByTestId('field-input').value).toBe('');
-		})
+		});
 	});
 });
 
@@ -321,7 +325,7 @@ describe('Initializing the form with data', () => {
 		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 		const initInsertData = { foo: 'Test' };
 
-		const { getByDisplayValue, getByTestId } = render(
+		const { getByTestId } = render(
 			<InsertForm
 				formFields={formFields}
 				initInsertData={initInsertData} />);
@@ -456,7 +460,7 @@ describe('Linking fields', () => {
 	});
 
 	test('Original field value changes and the linked field value clears', async () => {
-		const { debug, getByTestId, getByText } = render(
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
@@ -477,7 +481,7 @@ describe('Linking fields', () => {
 	});
 
 	test('Required linked fields and original field has a value', () => {
-		const { getByTestId, getByText } = render(<InsertForm formFields={requiredFormFields} />);
+		const { getByTestId, } = render(<InsertForm formFields={requiredFormFields} />);
 
 		expect(getByTestId('stepper-text').className)
 			.toEqual(expect.stringContaining('stepper-error'));
@@ -527,7 +531,7 @@ describe('Linking fields', () => {
 			{ id: 'dependentField', label: 'Dependent field', onLink },
 		]];
 
-		const { debug, getByTestId, getByText } = render(
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 

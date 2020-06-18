@@ -92,11 +92,11 @@ describe('Handle click outside -- 3rd party lib', () => {
 		fireEvent.click(container.querySelector('.active-filter-container'));
 		await waitFor(() => {
 			expect(container.querySelector('.active-filters-list')).toBeInTheDocument();
-		})
+		});
 		// click base element to simulate clicking outside the active filter list somewhere
 		fireEvent.click(baseElement);
 		await waitFor(() => {
-			expect(container.querySelector('.some-element-outside')).not.toBeInTheDocument()
-		})
+			expect(container.querySelector('.some-element-outside')).not.toBeInTheDocument();
+		});
 	});
 });

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { useInputValidation } from './useInputValidation';
@@ -18,7 +18,7 @@ export const MuiInput = props => {
 	const [isEmpty, setIsEmpty] = useState(inputProps.value);
 
 	function handleOnChange(evt) {
-		const inputRef = evt.target
+		const inputRef = evt.target;
 		// check if input is empty
 		setIsEmpty(inputRef.value.length > 0);
 		checkForErrors(inputRef);
@@ -54,5 +54,12 @@ export const MuiInput = props => {
 				</strong>
 			</span>
 		</div>
-	)
-}
+	);
+};
+
+MuiInput.propTypes = {
+	className: PropTypes.string,
+	customValidator: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]),
+	label: PropTypes.string,
+	onChange: PropTypes.func,
+};

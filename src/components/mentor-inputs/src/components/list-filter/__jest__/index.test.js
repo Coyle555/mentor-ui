@@ -2,7 +2,7 @@ import React from 'react';
 import { ListFilter } from '../index';
 import KeyEvent from '../keyEvents';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, waitFor, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor, } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -72,7 +72,7 @@ describe('Mounting a list filter', () => {
 
 		test('Options with a parse function', async () => {
 			const parse = jest.fn(val => typeof val === 'object' ? val.name : val);
-			const tree = renderer.create(
+			renderer.create(
 				<ListFilter
 					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
 					parse={parse}
@@ -86,7 +86,7 @@ describe('Mounting a list filter', () => {
 
 		test('Options with a parse function and initial value', async () => {
 			const parse = jest.fn(val => typeof val === 'object' ? val.name : val);
-			const tree = renderer.create(
+			renderer.create(
 				<ListFilter
 					options={[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]}
 					parse={parse}
@@ -101,7 +101,8 @@ describe('Mounting a list filter', () => {
 			const options = jest.fn(() => Promise.resolve(
 				[{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]
 			));
-			const tree = renderer.create(
+
+			renderer.create(
 				<ListFilter options={options} parse={parse} />
 			);
 
@@ -133,7 +134,7 @@ describe('Mounting a list filter', () => {
 				expect(options).toHaveBeenCalled();
 			});
 			// this expect is after waitFor because it allows all
-			//  promises to resolve before running 
+			//  promises to resolve before running
 			expect(tree.toJSON()).toMatchSnapshot();
 		});
 	});
@@ -171,7 +172,7 @@ describe('Mounting a list filter', () => {
 
 		test('Required with custom validation', async () => {
 			const validation = jest.fn();
-			const tree = renderer.create(
+			renderer.create(
 				<ListFilter
 					autoFocus={true}
 					name="test"
@@ -329,7 +330,7 @@ describe('List filter onChange event', () => {
 		test('User types partial match', async () => {
 			const onChange = jest.fn();
 			const parse = jest.fn(val => typeof val === 'object' ? val.name : val);
-			const { debug, getByRole, queryByText } = render(
+			const { getByRole, queryByText } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -376,7 +377,7 @@ describe('List filter onChange event', () => {
 		test('On change event with a custom filter', async () => {
 			const filter = jest.fn(value => Promise.resolve([value]));
 
-			const { getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
@@ -393,7 +394,7 @@ describe('List filter onChange event', () => {
 	describe('User types a match', () => {
 		test('User types complete match with onMatch handler', async () => {
 			const onMatch = jest.fn();
-			const { container, getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -415,7 +416,7 @@ describe('List filter onChange event', () => {
 			];
 
 			const parseMatchedValue = jest.fn(val => val.id);
-			const { container, getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -434,7 +435,7 @@ describe('List filter onChange event', () => {
 		test('User types complete match with onMatch handler and parse function', async () => {
 			const parse = jest.fn(val => typeof val === 'object' ? val.name : val);
 			const onMatch = jest.fn();
-			const { container, getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -456,7 +457,7 @@ describe('List filter onChange event', () => {
 				: [{ name: 'foo' }, { name: 'bar' }, { name: 'baz' }]
 			);
 			const onMatch = jest.fn();
-			const { container, getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
@@ -478,7 +479,7 @@ describe('List filter onChange event', () => {
 		test('User types match that was a previous match', async () => {
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
-			const { container, getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -500,7 +501,7 @@ describe('List filter onChange event', () => {
 	describe('Matching on empty', () => {
 		test('Matching on empty with onMatch handler', async () => {
 			const onMatch = jest.fn();
-			const { getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -519,7 +520,7 @@ describe('List filter onChange event', () => {
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
-			const { getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -540,7 +541,7 @@ describe('List filter onChange event', () => {
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
-			const { getByRole, queryByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					name="inputName"
@@ -574,14 +575,14 @@ describe('Custom filtering on a list filter', () => {
 					role="test"
 				/>
 			);
-      /*
+			/*
       * The following is a hacky solution to get this test to pass
       * reason: onChange isn't called until loadFilterOptions because of the branch
       * case found in this.onChange from using a custom filter. It isn't
       * allowed until initialLoadComplete is set to true. However; initialLoadComplete
       * isn't true until after the first call of loadFilterOptions. Therefore, I fired
       * a change event with an empty string to getInitialLoadComplete set to true, and
-      * again to assert the test. After the first event fire, the first waitFor is used just to 
+      * again to assert the test. After the first event fire, the first waitFor is used just to
       * give time for all the promises to resolve
       * */
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
@@ -599,7 +600,7 @@ describe('Custom filtering on a list filter', () => {
 		});
 
 		test('On change event with a custom filter and invalid value', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onChange = jest.fn();
 
 			const { getByRole } = render(
@@ -611,14 +612,14 @@ describe('Custom filtering on a list filter', () => {
 					role="test"
 				/>
 			);
-      /*
+			/*
       * The following is a hacky solution to get this test to pass
       * reason: onChange isn't called until loadFilterOptions because of the branch
       * case found in this.onChange from using a custom filter. It isn't
       * allowed until initialLoadComplete is set to true. However; initialLoadComplete
       * isn't true until after the first call of loadFilterOptions. Therefore, I fired
       * a change event with an empty string to getInitialLoadComplete set to true, and
-      * again to assert the test. After the first event fire, the first waitFor is used just to 
+      * again to assert the test. After the first event fire, the first waitFor is used just to
       * give time for all the promises to resolve
       * */
 			fireEvent.change(getByRole('test'), { target: { value: '' } });
@@ -636,7 +637,7 @@ describe('Custom filtering on a list filter', () => {
 
 	describe('Match events with a custom filter', () => {
 		test('On match event with a custom filter', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onMatch = jest.fn();
 
 			const { getByRole } = render(
@@ -656,7 +657,7 @@ describe('Custom filtering on a list filter', () => {
 		});
 
 		test('On match event with a custom filter and invalid value', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
@@ -678,7 +679,7 @@ describe('Custom filtering on a list filter', () => {
 		});
 
 		test('Last matched value gets matched again', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
@@ -704,10 +705,10 @@ describe('Custom filtering on a list filter', () => {
 
 	describe('Matching on empty event with a custom filter', () => {
 		test('On match event with a custom filter and matching on empty', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onMatch = jest.fn();
 
-			const { getByRole, getByText } = render(
+			const { getByRole, } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
@@ -726,7 +727,7 @@ describe('Custom filtering on a list filter', () => {
 		});
 
 		test('Last matched value was empty', async () => {
-			const filter = jest.fn(value => Promise.resolve(['foo', 'bar', 'baz']));
+			const filter = jest.fn(() => Promise.resolve(['foo', 'bar', 'baz']));
 			const onChange = jest.fn();
 			const onMatch = jest.fn();
 
@@ -813,8 +814,8 @@ describe('List filter onKeyDown event', () => {
 		});
 
 		test('Auto complete with a custom filter', async () => {
-			const filter = jest.fn(value => {
-				return Promise.resolve(options)
+			const filter = jest.fn(() => {
+				return Promise.resolve(options);
 			});
 
 			const { getByRole, getByText } = render(
@@ -970,7 +971,7 @@ describe('Handling list item events', () => {
 				/>
 			);
 
-			await waitFor(() => getByText('baz'))
+			await waitFor(() => getByText('baz'));
 			fireEvent.click(getByText('baz'));
 			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ name: 'foo' });
@@ -981,15 +982,15 @@ describe('Handling list item events', () => {
 		});
 
 		test('Clicking a list item with a custom filter', async () => {
-			const filter = jest.fn(val => options);
-			const { debug, getByText } = render(
+			const filter = jest.fn(() => options);
+			const { getByText } = render(
 				<ListFilter
 					autoFocus={true}
 					options={filter}
 					name="inputName"
 				/>
 			);
-			await waitFor(() => getByText('baz'))
+			await waitFor(() => getByText('baz'));
 			fireEvent.click(getByText('baz'));
 			await waitFor(() => {
 				expect(filter).toHaveBeenCalledWith('');
@@ -1013,7 +1014,7 @@ describe('Handling list item events', () => {
 				/>
 			);
 
-			await waitFor(() => getByText('baz'))
+			await waitFor(() => getByText('baz'));
 			fireEvent.click(getByText('baz'));
 			await waitFor(() => {
 				expect(parse).toHaveBeenCalledWith({ name: 'foo' });
@@ -1047,7 +1048,7 @@ describe('Filtering with a parse function', () => {
 
 	describe('Custom filtering', () => {
 		test('Parse function with a custom filter', async () => {
-			const filter = jest.fn(val => Promise.resolve([
+			const filter = jest.fn(() => Promise.resolve([
 				{ id: 'foo', name: 'Foo' },
 				{ id: 'bar', name: 'Bar' },
 				{ id: 'baz', name: 'Baz' }

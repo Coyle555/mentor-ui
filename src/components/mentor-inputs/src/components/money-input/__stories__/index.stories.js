@@ -20,5 +20,5 @@ storiesOf('Inputs/MoneyInput', module)
 				name="example-float-input1"
 				required={boolean('required', false)}
 			/>
-		)
-	})		
+		);
+	});

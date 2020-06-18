@@ -21,5 +21,5 @@ storiesOf('Inputs/IntegerInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
-	})		
+		);
+	});

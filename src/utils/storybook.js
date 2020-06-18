@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeDecorator } from '@storybook/addons';
@@ -8,14 +10,14 @@ export const action = (...args) => {
 	const fn = a(...args);
 	fn.toString = () => '[[ Function ]]';
 	return fn;
-}
+};
 
 
-// children, title, defaultProps, propTypes, defaultState 
+// children, title, defaultProps, propTypes, defaultState
 export const SwitchBoard = ({ children, component, defaultState }) => {
 	const [state, setState] = useState({});
 	const [loaded, setLoaded] = useState(false);
-	const propTypes = useRef([])
+	const propTypes = useRef([]);
 	const componentName = useRef(null);
 
 	useEffect(() => {
@@ -101,9 +103,9 @@ export const SwitchBoard = ({ children, component, defaultState }) => {
 				</table>
 			</section>
 		</div>
-	)
-}
+	);
+};
 
 SwitchBoard.defaultProps = {
 	defaultState: {}
-}
+};

@@ -16,7 +16,7 @@ export function useInputValidation(customValidators) {
 			const fn = customValidators[i];
 
 			if (typeof fn === 'function') {
-				// validator fn should return a string if input is invalid, 
+				// validator fn should return a string if input is invalid,
 				// if it returns a falsey value assign an empty string
 				errorString = fn(inputRef.value, inputRef) || '';
 				// display error message in the ui
@@ -33,7 +33,7 @@ export function useInputValidation(customValidators) {
 			// to generate an error message
 			setErrorMessage(inputRef.validationMessage);
 		}
-	}
+	};
 
 	return [errorMessage, validator];
-};
+}

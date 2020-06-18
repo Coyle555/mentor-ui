@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { defaults } from 'lodash';
@@ -31,7 +31,7 @@ export const Modal = props => {
 		return () => {
 			document.body.removeChild(el);
 			document.body.style.removeProperty('overflow');
-		}
+		};
 	}, []);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export const Modal = props => {
 
 		return () => {
 			window.removeEventListener('keydown', closeModalOnKeyDown);
-		}
+		};
 	}, [props.display]);
 
 	if (!props.display) return null;
@@ -74,7 +74,7 @@ export const Modal = props => {
 			// dont allow it to bubble up. if its a nested modal, both will close
 			evt.stopPropagation();
 		}
-	}
+	};
 
 	return createPortal(
 		<div
@@ -102,8 +102,8 @@ export const Modal = props => {
 				</div>
 			</div>
 		</div>
-		, el)
-}
+		, el);
+};
 
 
 Modal.defaultProps = {
@@ -111,7 +111,7 @@ Modal.defaultProps = {
 	contentStyle: {},
 	customClasses: {},
 	overlayStyle: {},
-}
+};
 
 Modal.propTypes = {
 	closeOnOutsideClick: PropTypes.bool,

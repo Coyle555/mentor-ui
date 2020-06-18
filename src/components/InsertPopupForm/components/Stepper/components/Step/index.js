@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 function getCircleStatus(step, activeStep, index) {
-	if (!!step.error) {
+	if (step.error) {
 		return 'stepper-error';
 	} else if (index <= activeStep) {
 		return 'stepper-active';

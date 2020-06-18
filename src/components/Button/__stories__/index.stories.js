@@ -1,26 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 import { withInfo } from '@storybook/addon-info';
 
 import Button from '../';
-
-const optionsConfig = {
-	block: 'block',
-	disabled: 'disabled',
-	isCapless: 'isCapless',
-	isLight: 'isLight',
-	isLeftEndCap: 'isLeftEndCap',
-	isMini: 'isMini',
-	isRightEndCap: 'isRightEndCap',
-	medium: 'medium',
-}
-
-//options returns an array of strings
-const formatProps = (selectedOptions = []) =>
-	selectedOptions.reduce((obj, curr) => ({ ...obj, [curr]: true }), {});
-
 
 storiesOf('Button', module)
 	.addDecorator(withInfo)
@@ -43,7 +27,7 @@ storiesOf('Button', module)
 			>
 				{buttonText}
 			</Button>
-		)
+		);
 	})
 	.add('Default', () => {
 		return (
@@ -96,4 +80,4 @@ storiesOf('Button', module)
 				<Button theme="primary" disabled>Primary Disabled</Button>
 			</div>
 		);
-	})
+	});

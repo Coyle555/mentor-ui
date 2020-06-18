@@ -5,7 +5,7 @@ import { StructuredQuery } from '../index';
 import { keyEvent } from 'utils';
 import { ALL_OPERATIONS } from '../constants';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, } from '@testing-library/react';
 
 afterEach(cleanup);
 

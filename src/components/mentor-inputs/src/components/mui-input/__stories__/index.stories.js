@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, } from '@storybook/addon-knobs';
 
 import { action } from 'storybook-utils';
 import useStateAddon from 'storybook-useState';
@@ -25,7 +25,7 @@ storiesOf('Inputs/MuiInput', module)
 					value={text('Set value text', '')}
 				/>
 			</div>
-		)
+		);
 	})
 	.addWithJSX('with custom validation rules', () => {
 
@@ -53,8 +53,8 @@ storiesOf('Inputs/MuiInput', module)
 					value={currVal}
 				/>
 			</div>
-		)
+		);
 
-	})
+	});
 
 

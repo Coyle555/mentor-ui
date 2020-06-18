@@ -10,10 +10,11 @@ import { TypeaheadOption } from './Option';
 export class TypeaheadSelector extends Component {
 
 	static propTypes = {
-		options: PropTypes.array,
-		header: PropTypes.string,
 		customClasses: PropTypes.object,
-		onOptionSelected: PropTypes.func
+		header: PropTypes.string,
+		onOptionSelected: PropTypes.func,
+		options: PropTypes.array,
+		selectedOptionIndex: PropTypes.number
 	}
 
 	static defaultProps = {
@@ -86,4 +87,4 @@ export class TypeaheadSelector extends Component {
 			</div>
 		);
 	}
-};
+}

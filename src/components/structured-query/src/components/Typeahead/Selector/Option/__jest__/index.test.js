@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { TypeaheadOption } from '../index';
 import renderer from 'react-test-renderer';
 import { cleanup, fireEvent, render } from '@testing-library/react';

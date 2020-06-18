@@ -57,5 +57,5 @@ test('<BooleanInput /> onBlur cb returns a boolean or null', () => {
 	fireEvent.blur(container.querySelector('select'));
 
 	// Expect anything on the last argument, because it's an event
-	expect(onBlur).toHaveBeenCalledWith(false, "true", 'attending', expect.anything());
+	expect(onBlur).toHaveBeenCalledWith(false, 'true', 'attending', expect.anything());
 });

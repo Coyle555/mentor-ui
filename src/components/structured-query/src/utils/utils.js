@@ -74,7 +74,7 @@ export function _getFieldDataType(fields = [], id) {
 	}
 }
 
-// Get the available options(enum) if any were passed in with the 
+// Get the available options(enum) if any were passed in with the
 // options object
 export function _getLabelOptions(fields = [], id) {
 	const label = fields.find(field => field.id === id);

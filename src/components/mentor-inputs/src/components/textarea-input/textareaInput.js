@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -23,5 +23,9 @@ const TextareaInput = React.forwardRef(({ validate, ...props }, ref) => {
 		/>
 	);
 });
+
+TextareaInput.propTypes = {
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])
+};
 
 export default TextareaInput;

@@ -1,6 +1,7 @@
-import React, { Component, useState } from 'react';
+/* eslint-disable react/display-name */
+
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import SelectInput from '../select-input/selectInput';
 
@@ -32,6 +33,6 @@ BooleanInput.propTypes = {
 	required: PropTypes.bool,
 	style: PropTypes.object,
 	value: PropTypes.oneOf([false, true, 'false', 'true', '', null, undefined])
-}
+};
 
 export default BooleanInput;

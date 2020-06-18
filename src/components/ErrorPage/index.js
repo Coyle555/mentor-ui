@@ -23,6 +23,7 @@ const ErrorPage = ({ children, status }) => (
 );
 
 ErrorPage.propTypes = {
+	children: PropTypes.any,
 	status: PropTypes.number,
 };
 

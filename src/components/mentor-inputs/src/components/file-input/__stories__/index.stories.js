@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import { withKnobs, } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 
 import FileInput from '../fileInput';
@@ -8,7 +8,7 @@ import FileInput from '../fileInput';
 
 const actions = {
 	onDrop: action('onDrop')
-}
+};
 
 storiesOf('Inputs/FileInput', module)
 	.addDecorator(withKnobs)
@@ -16,8 +16,8 @@ storiesOf('Inputs/FileInput', module)
 
 		return (
 			<FileInput onDrop={actions.onDrop} />
-		)
-	})
+		);
+	});
 
 
 

@@ -1,0 +1,54 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+	    "impliedStrict": true,
+            "jsx": true
+        },
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+	"comma-spacing": ["error", { "before": false, "after": true }],
+        "indent": [
+            "error",
+            "tab",
+	    {
+		    "ImportDeclaration": 1,
+		    "MemberExpression": 1,
+		    "ObjectExpression": 1,
+		    "SwitchCase": 1
+	    }
+        ],
+	"jsx-quotes": ["error", "prefer-double"],
+        "linebreak-style": ["error", "unix"],
+	"no-undef": "off",
+	"no-var": "error",
+	"object-curly-spacing": ["error", "always"],
+        "quotes": ["error", "single"],
+	"react/prop-types": "warn",
+        "semi": ["error", "always"],
+	"no-trailing-spaces": "error"
+    },
+    "settings": {
+        "react": {
+          "version": "detect"
+	},
+	"linkComponents": [
+          { "name": "Link", "linkAttribute": "to" }
+	]
+    }
+}
+

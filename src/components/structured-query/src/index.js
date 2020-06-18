@@ -51,8 +51,8 @@ export class StructuredQuery extends Component {
 
 		// @searchTokens - holds all user generated tokens to search with
 		// 	Ex: [{label: 'id', operator: '=', value: '123'}, ...]
-		// @nextToken - holds the next token to be added to the search 
-		// 		tokens which are used for filtering -- 
+		// @nextToken - holds the next token to be added to the search
+		// 		tokens which are used for filtering --
 		// 		contains:
 		// 			@id - id for back end retrieval
 		// 			@label - which field to search in
@@ -86,7 +86,7 @@ export class StructuredQuery extends Component {
 		event.preventDefault();
 
 		// remove part of a new token
-		if (!!this.state.nextToken.operator) {
+		if (this.state.nextToken.operator) {
 			this.setState({
 				nextToken: Object.assign(
 					{},
@@ -94,7 +94,7 @@ export class StructuredQuery extends Component {
 					{ operator: '', value: '' }
 				)
 			});
-		} else if (!!this.state.nextToken.label) {
+		} else if (this.state.nextToken.label) {
 			this.setState({
 				nextToken: {
 					id: '',
@@ -109,7 +109,7 @@ export class StructuredQuery extends Component {
 
 	// Add a token to the users current query
 	// One of three things can happen when a user selects something
-	// 
+	//
 	// 1. The label is selected so add label name to the typeahead component
 	// 2. The operator is selected so add an operator to the typeahead component
 	// 3. The value has been added so add a token to the searchTokens, retrieve
@@ -117,7 +117,6 @@ export class StructuredQuery extends Component {
 	//
 	// @value: value to add to the token
 	_addTokenForValue = (value) => {
-		const { fields } = this.props;
 		const { nextToken, searchTokens } = this.state;
 
 		// Handle attaching a label to input
@@ -134,7 +133,7 @@ export class StructuredQuery extends Component {
 
 		const newToken = Object.assign({}, nextToken, { value });
 
-		// Else, we are attaching a value so we need to add the 
+		// Else, we are attaching a value so we need to add the
 		// next token to the list of all tokens
 		// We check first to make sure there are no duplicates
 		if (!_isDuplicateToken(searchTokens, newToken)) {

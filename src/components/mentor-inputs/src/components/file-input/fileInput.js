@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -35,7 +37,7 @@ const FileInput = ({ label, name, onDrop, ...props }) => {
 			<p className={classes}>{label}</p>
 		</div>
 	);
-}
+};
 
 FileInput.propTypes = {
 	label: PropTypes.string,

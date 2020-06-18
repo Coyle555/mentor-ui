@@ -19,8 +19,8 @@ const TestStateFullMui = () => {
 			onChange={e => setCurrVal(e.target.value)}
 			value={currVal}
 		/>
-	)
-}
+	);
+};
 
 afterEach(cleanup);
 test('basic mui input render', () => {
@@ -31,7 +31,7 @@ test('basic mui input render', () => {
 			value={''}
 		/>).toJSON();
 	expect(tree).toMatchSnapshot();
-})
+});
 it('should render a label', () => {
 	const { getByText } = render(
 		<MuiInput
@@ -40,15 +40,15 @@ it('should render a label', () => {
 			value={''}
 		/>);
 	expect(getByText('Test Input')).toBeInTheDocument();
-})
+});
 it('should render an error message', () => {
 	const { getByText, getByTestId, queryByText } = render(
 		<TestStateFullMui />
-	)
+	);
 
 	expect(queryByText('Apple?? Are you kidding me??!!?')).toBeNull();
 
-	fireEvent.change(getByTestId('test-input'), { target: { value: 'apple' } })
+	fireEvent.change(getByTestId('test-input'), { target: { value: 'apple' } });
 
 	expect(getByText('Apple?? Are you kidding me??!!?')).toBeInTheDocument();
-})
+});

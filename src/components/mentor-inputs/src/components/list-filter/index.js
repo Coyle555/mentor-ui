@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
@@ -39,6 +41,7 @@ export class ListFilter extends Component {
 		}),
 		name: PropTypes.string,
 		onChange: PropTypes.func,
+		onFocus: PropTypes.func,
 		onMatch: PropTypes.func,
 		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 		parse: PropTypes.func,
@@ -83,9 +86,9 @@ export class ListFilter extends Component {
 		this.rawOptions = options;
 
 		// @focused: true when the input box is focused; false otherwise
-		// @hasError: true when the list filter has an error due to a 
+		// @hasError: true when the list filter has an error due to a
 		// 	mismatch or no value and it is required
-		// @loadingFilter: true when loading in new options from a 
+		// @loadingFilter: true when loading in new options from a
 		// 	custom filter; false otherwise
 		// @options: list of current options displayed to the user
 		// @selectedOptionIndex: current option selected by the user
@@ -104,7 +107,7 @@ export class ListFilter extends Component {
 	}
 
 	componentDidMount() {
-		const { disabled, name, onMatch, options, required } = this.props;
+		const { disabled, options, required } = this.props;
 		const { value } = this.state;
 
 		if (disabled) return;
@@ -138,7 +141,7 @@ export class ListFilter extends Component {
 
 		// if new value passed in, refilter list and check for error
 		if (this.state.value !== this.parseValue(nextProps.value)) {
-			const { name, parse, required } = this.props;
+			const { required } = this.props;
 			let value = this.parseValue(nextProps.value);
 
 			if (typeof this.props.options === 'function') {
@@ -154,7 +157,7 @@ export class ListFilter extends Component {
 
 			// new list of options passed in with value
 			if (nextProps.options.length > 0 && this.props.options !== nextProps.options) {
-				options = this.filterMatches(value, nextProps.options)
+				options = this.filterMatches(value, nextProps.options);
 				this.rawOptions = nextProps.options;
 			} else {
 				options = this.filterMatches(value, this.props.options);
@@ -278,7 +281,7 @@ export class ListFilter extends Component {
 			loadingFilter: true,
 			value
 		}, () => {
-			new Promise((resolve, reject) => {
+			new Promise((resolve) => {
 				resolve(this.props.options(value));
 			}).then(newOptions => {
 				// discard results if the value has changed since the
@@ -297,7 +300,7 @@ export class ListFilter extends Component {
 	}
 
 	loadFilterOptions = (value, newOptions) => {
-		const { name, onChange, onMatch, parse, required } = this.props;
+		const { name, onChange, onMatch, required } = this.props;
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -321,7 +324,7 @@ export class ListFilter extends Component {
 		});
 	}
 
-	// if the user hits a valid keycode, fill out the input 
+	// if the user hits a valid keycode, fill out the input
 	// or move up and down the list
 	onKeyDown = (event) => {
 		if (!this.state.focused) {
@@ -356,7 +359,7 @@ export class ListFilter extends Component {
 
 	// auto complete fires when enter is hit; will always be a valid input
 	autoCompleteKeyDown = () => {
-		const { onChange, onMatch, name } = this.props;
+		const { onMatch, } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
 		let option;
@@ -443,7 +446,7 @@ export class ListFilter extends Component {
 	}
 
 	onMatch = (value) => {
-		const { name, onMatch, options, parse, parseMatchedValue } = this.props;
+		const { name, onMatch, parse, parseMatchedValue } = this.props;
 
 		if (!value) return;
 
@@ -472,7 +475,7 @@ export class ListFilter extends Component {
 	// handle a user clicking an option in the list with the mouse
 	// @selectedOption(string|object) - the option the user clicked on
 	onListItemClick = (selectedOption) => {
-		const { name, onMatch, options } = this.props;
+		const { onMatch, options } = this.props;
 
 		if (typeof options === 'function') {
 			this.setState({ value: selectedOption }, () => {
@@ -535,7 +538,7 @@ export class ListFilter extends Component {
 			</ul>
 		);
 
-		if (!!portalRef) {
+		if (portalRef) {
 			return createPortal(listContainer, portalRef);
 		}
 
@@ -543,6 +546,7 @@ export class ListFilter extends Component {
 	}
 
 	render() {
+		/* eslint-disable no-unused-vars */
 		const {
 			disabled,
 			disableOnClickOutside,
@@ -563,6 +567,7 @@ export class ListFilter extends Component {
 			validation,
 			...props
 		} = this.props;
+		/* eslint-enable no-unused-vars */
 		const { hasError, loadingFilter, value } = this.state;
 
 		const inputClasses = classNames({

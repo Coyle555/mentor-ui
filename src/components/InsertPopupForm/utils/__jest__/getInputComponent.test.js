@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 jest.mock('mentor-inputs', () => {
 	return {
 		getMentorInput: () => props => <div>{JSON.stringify(props)}</div>,
@@ -5,6 +7,8 @@ jest.mock('mentor-inputs', () => {
 		SelectInput: props => <div>{JSON.stringify(props)}</div>,
 	};
 });
+
+/* eslint-enable */
 
 import { getInputComponent } from '../getInputComponent';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, cleanup, wait } from '@testing-library/react';
+import { render, fireEvent, cleanup, } from '@testing-library/react';
 
 import SelectInput from '../selectInput';
 
@@ -124,7 +124,7 @@ test('<SelectInput /> with a parsed value on blur', () => {
 
 test('<SelectInput /> onChange cb returns parsed value with props.parse', () => {
 	const onChange = jest.fn();
-	const { container, debug } = render(
+	const { container, } = render(
 		<SelectInput
 			name="foo"
 			onChange={onChange}

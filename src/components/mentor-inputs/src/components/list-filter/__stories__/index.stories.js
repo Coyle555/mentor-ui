@@ -13,7 +13,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onMatch={action('onMatch')}
 				options={['foo', 'bar', 'baz']}
 			/>
-		)
+		);
 	})
 	.addWithJSX('Required', () => {
 		return (
@@ -24,16 +24,16 @@ storiesOf('Inputs/ListFilterInput', module)
 				options={['foo', 'bar', 'baz']}
 				required={true}
 			/>
-		)
+		);
 	})
 	.addWithJSX('Disabled', () => {
-		const options = (val) => {
-			return new Promise((resolve, reject) => {
+		const options = () => {
+			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(['foo', 'bar', 'baz']);
 				}, 500);
 			});
-		}
+		};
 
 		return (
 			<ListFilterInput
@@ -42,17 +42,17 @@ storiesOf('Inputs/ListFilterInput', module)
 				options={options}
 				value="f"
 			/>
-		)
+		);
 	})
 	.addWithJSX('Custom filtering', () => {
 		const options = (val) => {
 			action('filter')(val);
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(['foo', 'bar', 'baz']);
 				}, 500);
-			})
-		}
+			});
+		};
 
 		return (
 			<ListFilterInput
@@ -61,7 +61,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onMatch={action('onMatch')}
 				options={options}
 			/>
-		)
+		);
 	})
 	.addWithJSX('Options with subtitles', () => {
 		return (
@@ -81,4 +81,4 @@ storiesOf('Inputs/ListFilterInput', module)
 				}]}
 			/>
 		);
-	})
+	});

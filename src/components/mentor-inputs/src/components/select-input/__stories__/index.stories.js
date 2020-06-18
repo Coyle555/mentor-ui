@@ -25,11 +25,11 @@ storiesOf('Inputs/SelectInput', module)
 				required={boolean('Is required?', false, 'Required')}
 				value={select('value', options, null, 'Set value from props')}
 			/>
-		)
+		);
 	})
 	.addWithJSX('using an options array of objects', () => {
 		const prices = [1.59, 2.31, 1.22, 0.98, 0.05];
-		const fruitPrices = options.map((fruit, i) => ({ labelText: fruit, price: prices[i] }))
+		const fruitPrices = options.map((fruit, i) => ({ labelText: fruit, price: prices[i] }));
 
 		return (
 			<SelectInput
@@ -43,7 +43,7 @@ storiesOf('Inputs/SelectInput', module)
 				required={boolean('Is required?', false)}
 				value={select('value', fruitPrices, null, 'Set value from props')}
 			/>
-		)
+		);
 	})
 	.addWithJSX('with custom validation', () => {
 
@@ -59,5 +59,5 @@ storiesOf('Inputs/SelectInput', module)
 				value={select('value', options, null)}
 				validate={val => val !== 'Grape'}
 			/>
-		)
-	})	
+		);
+	});

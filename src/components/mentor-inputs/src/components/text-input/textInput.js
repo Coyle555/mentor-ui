@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
@@ -21,5 +20,8 @@ const TextInput = React.forwardRef(({ validate, ...props }, ref) => {
 	);
 });
 
-export default TextInput;
+TextInput.propTypes = {
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])
+};
 
+export default TextInput;

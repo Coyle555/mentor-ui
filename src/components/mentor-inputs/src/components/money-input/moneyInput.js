@@ -1,6 +1,7 @@
+/* eslint-disable react/display-name */
+
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import FloatInput from '../float-input/floatInput';
 
@@ -23,7 +24,7 @@ export const isMoney = (val) => {
 
 		// precision of 0 not allowed
 		if (decimalPortion.length === 0) {
-			return 'Invalid money value'
+			return 'Invalid money value';
 		}
 
 		// only one precision after decimal; gets autofilled on blur
@@ -33,7 +34,7 @@ export const isMoney = (val) => {
 				&& !isNaN(parseFloat(val, 10))
 				&& String(Number(val).toFixed(1)) === val
 				? true
-				: 'Invalid money value'
+				: 'Invalid money value';
 		}
 
 		// valid precision after decimal for money
@@ -43,7 +44,7 @@ export const isMoney = (val) => {
 				&& !isNaN(parseFloat(val, 10))
 				&& String(Number(val).toFixed(2)) === val
 				? true
-				: 'Invalid money value'
+				: 'Invalid money value';
 		}
 	}
 
@@ -53,7 +54,7 @@ export const isMoney = (val) => {
 		&& !isNaN(parseInt(val, 10))
 		? true
 		: 'Invalid money value';
-}
+};
 
 const MoneyInput = React.forwardRef((props, ref) => {
 	const [value, setValue] = useState(props.value);
@@ -96,6 +97,7 @@ const MoneyInput = React.forwardRef((props, ref) => {
 });
 
 MoneyInput.propTypes = {
+	onBlur: PropTypes.func,
 	validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 	value: PropTypes.string
 };
