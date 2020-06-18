@@ -96,22 +96,34 @@ class DatePickerInput extends Component {
 			: moment.utc(value).format();
 	}
 
+	// handle when the user clicks on a date in the calendar
 	handleChange = (value, event) => {
+		// ignore change events caused by user input
+		if (!!event && event.type === 'change') return;
+
+		const { name, onChange } = this.props;
+
+		this.setState({
+			hasError: false,
+			inputValue: value
+		}, () => {
+			if (typeof onChange === 'function') {
+				onChange(this.state.hasError, this.state.inputValue, name);
+			};
+		});
+	}
+
+	// change event indicates we are dealing with an event initiated by the user typing
+	// into the input; otherwise it would be a click event which indicates the calendar 
+	// was clicked and a valid date was selected by the user
+	handleChangeRaw = (event) => {
 		const { name, onChange, required, type } = this.props;
-		let hasError = false;
-		let inputValue = value;
+		const inputValue = event.target.value;
 
-		// change event indicates we are dealing with an event initiated by the user typing
-		// into the input; otherwise it would be a click event which indicates the calendar 
-		// was clicked and a valid date was selected by the user
-		if (!!event && event.type === 'change') {
-			inputValue = event.target.value;
+		const isValid = isValidDate(inputValue, getDateFormat(type))
+			&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
 
-			const isValid = isValidDate(inputValue, getDateFormat(type))
-				&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
-
-			hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
-		}
+		const hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
 
 		this.setState({
 			hasError,
@@ -195,6 +207,7 @@ class DatePickerInput extends Component {
 				fixedHeight
 				onBlur={this.handleBlur}
 				onChange={this.handleChange}
+				onChangeRaw={this.handleChangeRaw}
 				onKeyDown={this.onKeyDown}
 				openToDate={!hasError ? dateVal : undefined}
 				placeholderText={getPlaceholder(type)}

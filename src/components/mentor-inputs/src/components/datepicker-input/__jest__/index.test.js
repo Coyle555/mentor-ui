@@ -67,31 +67,45 @@ describe('Datepicker passed props conditions', () => {
 			const { container } = render(<DatePickerInput type="datetime" value={datetime} />);
 			expect(container.querySelector('input').value).toBe('');
 		});
-	})
+	});
+
 	describe('onChange events', () => {
 		it('should call onChange props from user input', () => {
-			const onChange = jest.fn(() => null);
-			// Initialize with a valid date
+			const onChange = jest.fn();
 			const date = '2020-06-01';
+
 			const { container } = render(<DatePickerInput
 				name="test-datepicker"
-				value={date}
 				onChange={onChange}
+				type="date"
+				value={date}
 			/>);
 
 			fireEvent.change(container.querySelector('input'), { target: { value: 'Jun 16, 2020' } });
+			expect(onChange).toHaveBeenCalledWith(false, 'Jun 16, 2020', 'test-datepicker');
+		});
 
-			// Assert the input value changed correctly
-			expect(onChange).toHaveBeenCalledWith(true, 'Jun 16, 2020', 'test-datepicker');
+		it('Error when user changes to an invalid date', () => {
+			const onChange = jest.fn();
+			const date = '2020-06-01';
 
-		})
+			const { container } = render(<DatePickerInput
+				name="test-datepicker"
+				onChange={onChange}
+				type="date"
+				value={date}
+			/>);
+
+			fireEvent.change(container.querySelector('input'), { target: { value: 'Jun 16, 202' } });
+			expect(container.querySelector('input')).toHaveClass('mui-mi-input-field-has-error');
+		});
 	});
 
 	describe('onBlur events', () => {
 		it('should call onBlur prop if blurred with a valid date', () => {
 			const onBlur = jest.fn();
-			// Initialize with a valid date
 			const date = '2020-06-01';
+
 			const { container } = render(
 				<DatePickerInput
 					name="test-datepicker"
