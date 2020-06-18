@@ -5,7 +5,7 @@ jest.mock('../components/Portal', () => {
 import React from 'react';
 import InsertForm from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
 const TAB_KEYSTROKE = 9;
 const ESCAPE_KEYSTROKE = 27;
@@ -309,8 +309,8 @@ describe('Submitting an insert form using submit button', () => {
 		expect(getByTestId('field-input').value).toBe('Test');
 		fireEvent.click(getByText('Submit'));
 
-		// Submission is handled in a promise, so wait for that promise to resolve
-		await wait(() => {
+		// Submission is handled in a promise, so waitFor for that promise to resolve
+		await waitFor(() => {
 			expect(getByTestId('field-input').value).toBe('');
 		})
 	});
@@ -345,7 +345,7 @@ describe('Form stepper interaction', () => {
 		// click the second step
 		fireEvent.click(getByText('2'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(getAllByText('Foo')).toHaveLength(1);
 			expect(getAllByText('Bar')).toHaveLength(2);
 		});
@@ -365,7 +365,7 @@ describe('Form stepper interaction', () => {
 		// click the second step
 		fireEvent.click(getByText('1'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(getAllByText('Foo')).toHaveLength(2);
 			expect(getAllByText('Bar')).toHaveLength(1);
 		});
@@ -467,7 +467,7 @@ describe('Linking fields', () => {
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'bar' } });
 		fireEvent.click(getByText('Next'));
 
-		await wait(() => {
+		await waitFor(() => {
 			const el = getByTestId('field-input');
 			expect(el.value).toEqual('');
 			expect(el.disabled).toEqual(false);
@@ -532,8 +532,9 @@ describe('Linking fields', () => {
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
-		await wait(() => {
-			fireEvent.click(getByText('Next'));
+		await waitFor(() => getByText('Next'));
+		fireEvent.click(getByText('Next'));
+		await waitFor(() => {
 			expect(onLink).toHaveBeenCalledWith({ name: 'foo' });
 		});
 	});

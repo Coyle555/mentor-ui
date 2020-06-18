@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActiveFiltersComponent, ActiveFilters } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -23,7 +23,7 @@ describe('Rendering active filters', () => {
 
 		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(queryByText('value')).toBeTruthy();
 			expect(queryByText('Clear All')).toBeTruthy();
 		});
@@ -46,7 +46,7 @@ describe('Clearing search', () => {
 
 		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
 
-		await wait(() => {
+		await waitFor(() => {
 			fireEvent.click(queryByText('Clear'));
 			expect(onRemove).toHaveBeenCalled();
 		});
@@ -67,7 +67,7 @@ describe('Clearing search', () => {
 
 		fireEvent.click(container.querySelector('span.left-addon.active-filter-container'));
 
-		await wait(() => {
+		await waitFor(() => {
 			fireEvent.click(queryByText('Clear All'));
 			expect(clearSearch).toHaveBeenCalled();
 		});
@@ -90,12 +90,12 @@ describe('Handle click outside -- 3rd party lib', () => {
 		// make sure active filter list isn't already shown
 		expect(container.querySelector('.active-filters-list')).not.toBeInTheDocument();
 		fireEvent.click(container.querySelector('.active-filter-container'));
-		await wait(() => {
+		await waitFor(() => {
 			expect(container.querySelector('.active-filters-list')).toBeInTheDocument();
 		})
 		// click base element to simulate clicking outside the active filter list somewhere
 		fireEvent.click(baseElement);
-		await wait(() => {
+		await waitFor(() => {
 			expect(container.querySelector('.some-element-outside')).not.toBeInTheDocument()
 		})
 	});
