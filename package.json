@@ -1,11 +1,12 @@
 {
 	"name": "mentor-ui",
-	"version": "1.10.14",
+	"version": "1.10.16",
 	"main": "dist/index.js",
 	"repository": "https://github.com/MentorAPM/mentor-ui.git",
 	"author": "",
 	"license": "MIT",
 	"scripts": {
+		"build-webpack": "npx webpack",
 		"prepublishOnly": "rm -rf ./dist && webpack && node ./scripts/bump",
 		"build-storybook": "build-storybook -c .storybook -o docs && cp ./README.md ./docs/index.md",
 		"storybook": "start-storybook -s ./public,src/components/Hierarchy/src",
@@ -55,6 +56,7 @@
 		"less": "^3.9.0",
 		"less-loader": "^5.0.0",
 		"mini-css-extract-plugin": "^0.7.0",
+		"optimize-css-assets-webpack-plugin": "^5.0.3",
 		"react-test-renderer": "^16.8.6",
 		"storybook-addon-jsx": "^7.1.2",
 		"style-loader": "^0.23.1",
