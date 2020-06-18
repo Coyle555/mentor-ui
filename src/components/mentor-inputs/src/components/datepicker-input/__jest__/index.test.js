@@ -5,6 +5,36 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 
 afterEach(cleanup);
 
+describe('Datepicker default render', () => {
+	it('Default datetime render -- not required', () => {
+		const tree = renderer.create(
+			<DatePickerInput type="datetime" />).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
+
+	it('Default date render -- not required', () => {
+		const tree = renderer.create(
+			<DatePickerInput type="datetime" />).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
+
+	it('Default datetime render -- required', () => {
+		const tree = renderer.create(
+			<DatePickerInput required={true} type="datetime" />).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
+
+	it('Default date render -- required', () => {
+		const tree = renderer.create(
+			<DatePickerInput required={true} type="datetime" />).toJSON();
+
+		expect(tree).toMatchSnapshot();
+	});
+});
+
 describe('Datepicker passed props conditions', () => {
 	describe('initialized with date', () => {
 		it('should render valid formatted date with valid date initialization', () => {
@@ -18,7 +48,7 @@ describe('Datepicker passed props conditions', () => {
 			expect(container.querySelector('input').value).toBe('Aug 31, 1999');
 		});
 		it('should render an empty string with invalid date initialization', () => {
-			const date = '1999';
+			const date = 'invalid';
 
 			const { container } = render(<DatePickerInput type="date" value={date} />);
 			expect(container.querySelector('input').value).toBe('');
@@ -32,7 +62,7 @@ describe('Datepicker passed props conditions', () => {
 			expect(container.querySelector('input').value).toBe('Aug 31, 1999, 6:23 AM');
 		});
 		it('should render an empty string with invalid datetime initialization', () => {
-			const datetime = '1999';
+			const datetime = 'invalid';
 
 			const { container } = render(<DatePickerInput type="datetime" value={datetime} />);
 			expect(container.querySelector('input').value).toBe('');
@@ -55,39 +85,67 @@ describe('Datepicker passed props conditions', () => {
 			expect(onChange).toHaveBeenCalledWith(true, 'Jun 16, 2020', 'test-datepicker');
 
 		})
-	})
+	});
+
 	describe('onBlur events', () => {
-		it('should not call onBlur prop if blurred with a valid date', () => {
-			const onBlur = jest.fn(() => null);
+		it('should call onBlur prop if blurred with a valid date', () => {
+			const onBlur = jest.fn();
 			// Initialize with a valid date
 			const date = '2020-06-01';
-			const { container } = render(<DatePickerInput
-				name="test-datepicker"
-				value={date}
-				onBlur={onBlur}
-			/>);
+			const { container } = render(
+				<DatePickerInput
+					name="test-datepicker"
+					onBlur={onBlur}
+					type="date"
+					value={date}
+				/>
+			);
 
 			fireEvent.change(container.querySelector('input'), { target: { value: 'Jun 16, 2020' } });
-
 			fireEvent.blur(container.querySelector('input'));
 
-			expect(onBlur).not.toHaveBeenCalled();
-		})
+			expect(onBlur).toHaveBeenCalledWith(false, 'Jun 16, 2020', 'test-datepicker');
+		});
+
 		it('should clear input if blurred with an invalid date', () => {
 			// Initialize with a valid date
 			const date = '2020-06-01';
-			const { container, getByText } = render(<DatePickerInput type="date" value={date} convertToLocal={false} />);
+			const onBlur = jest.fn();
+			const { container, getByText } = render(
+				<DatePickerInput
+					name="test-datepicker"
+					onBlur={onBlur}
+					type="date"
+					value={date}
+				/>
+			);
 
-			// change the input to invalid date
 			fireEvent.change(container.querySelector('input'), { target: { value: 'invalid date' } });
-
-			// blur the input
 			fireEvent.blur(container.querySelector('input'));
 
-			// Assert the input value changed correctly
+			expect(onBlur).toHaveBeenCalledWith(false, '', 'test-datepicker');
 			expect(container.querySelector('input').value).toBe('');
-		})
-	})
+		});
+
+		it('Input renders with required class if input blurred with an invalid date', () => {
+			// Initialize with a valid date
+			const date = '2020-06-01';
+			const { container, getByText } = render(
+				<DatePickerInput
+					name="test-datepicker"
+					required={true}
+					type="date"
+					value={date}
+				/>
+			);
+
+			fireEvent.change(container.querySelector('input'), { target: { value: 'invalid date' } });
+			fireEvent.blur(container.querySelector('input'));
+
+			expect(container.querySelector('input')).toHaveClass('mui-mi-input-field-has-error');
+		});
+	});
+
 	describe('prop value updates', () => {
 		it('should update to formatted string if input is valid', () => {
 			// Initialize with a valid date

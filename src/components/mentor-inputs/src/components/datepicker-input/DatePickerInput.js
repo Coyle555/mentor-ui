@@ -57,7 +57,7 @@ class DatePickerInput extends Component {
 		const { required, value } = this.props;
 
 		const isValid = isValidDate(value, moment.ISO_8601);
-		let initValue = null;
+		let initValue = '';
 
 		if (isValid) {
 			initValue = this.formatDate(value);
@@ -68,7 +68,7 @@ class DatePickerInput extends Component {
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
 		this.state = {
-			hasError: !!required || !isValid,
+			hasError: (!!required && !initValue) || (!!initValue && !isValid),
 			inputValue: initValue
 		};
 	}
@@ -77,14 +77,14 @@ class DatePickerInput extends Component {
 		// new date passed down
 		if (this.props.value !== prevProps.value) {
 			const isValid = isValidDate(this.props.value, moment.ISO_8601);
-			let inputValue = null;
+			let inputValue = '';
 
 			if (isValid) {
 				inputValue = this.formatDate(this.props.value);
 			}
 
 			this.setState({
-				hasError: !!this.props.required && !isValid,
+				hasError: (!!this.props.required && !this.props.value) || (!!this.props.value && !isValid),
 				inputValue
 			});
 		}
@@ -128,16 +128,14 @@ class DatePickerInput extends Component {
 	handleBlur = (evt) => {
 		const { name, onBlur, required, type } = this.props;
 
-		const inputValue = evt.target.value;
-		const isValid = isValidDate(inputValue, getDateFormat(type))
-			&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
+		let inputValue = evt.target.value;
+		const isValid = isValidDate(inputValue, getDateFormat(type));
 
-		const hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
-
-		if (!hasError) return;
+		// clear the input if invalid
+		if (!isValid) inputValue = '';
 
 		this.setState({
-			hasError,
+			hasError: !!required && !inputValue,
 			inputValue
 		}, () => {
 			if (typeof onBlur === 'function') {
