@@ -136,3 +136,6 @@ typings/
 
 # vscode user settings
 .vscode
+
+# package lock
+package-lock.json
