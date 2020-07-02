@@ -82,7 +82,7 @@ exports[`Boolean input with invalid initial value 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  value=""
+  value="ASdas"
 >
   <option
     value=""
@@ -107,7 +107,7 @@ exports[`Boolean input with valid initial value 1`] = `
   className="mui-mi-input-field"
   onBlur={[Function]}
   onChange={[Function]}
-  value="Yes"
+  value={true}
 >
   <option
     value=""
