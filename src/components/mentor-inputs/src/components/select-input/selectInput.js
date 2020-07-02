@@ -131,7 +131,7 @@ const SelectInput = React.forwardRef(({
 			>
 				{placeholder}
 			</option>
-			{options.map(option => {
+			{ options.map(option => {
 
 				const value = typeof parse === 'function'
 					? parse(option)
