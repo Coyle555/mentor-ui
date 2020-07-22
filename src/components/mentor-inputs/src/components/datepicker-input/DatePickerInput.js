@@ -118,12 +118,16 @@ class DatePickerInput extends Component {
 	// was clicked and a valid date was selected by the user
 	handleChangeRaw = (event) => {
 		const { name, onChange, required, type } = this.props;
-		const inputValue = event.target.value;
+		let inputValue = event.target.value;
 
 		const isValid = isValidDate(inputValue, getDateFormat(type))
 			&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
 
 		const hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
+
+		if (isValid) {
+			inputValue = moment(inputValue, getDateFormat(type)).toISOString();
+		}
 
 		this.setState({
 			hasError,
@@ -144,7 +148,11 @@ class DatePickerInput extends Component {
 		const isValid = isValidDate(inputValue, getDateFormat(type));
 
 		// clear the input if invalid
-		if (!isValid) inputValue = '';
+		if (!isValid) {
+			inputValue = '';
+		} else {
+			inputValue = moment(inputValue, getDateFormat(type)).toISOString();
+		}
 
 		this.setState({
 			hasError: !!required && !inputValue,
