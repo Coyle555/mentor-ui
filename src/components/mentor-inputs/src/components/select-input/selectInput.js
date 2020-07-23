@@ -71,7 +71,7 @@ const SelectInput = React.forwardRef(({
 			setCurrentValue(value);
 			setError(hasError(value, required, validate));
 		}
-	}, [props.value]);
+	}, [props.id, props.value]);
 
 	useEffect(() => {
 		const err = hasError(currentValue, required, validate);
