@@ -376,7 +376,7 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe.only('Linking fields', () => {
+describe('Linking fields', () => {
 	const formFields = [[
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
@@ -617,16 +617,16 @@ describe.only('Linking fields', () => {
 
 		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
 
-		fireEvent.change(getByTestId('field-input'), { target: 5 });
+		fireEvent.change(getByTestId('field-input'), { target: { value: '5' } });
 		fireEvent.click(getByText('Next'));
-		fireEvent.change(getByTestId('field-input'), { target: 5.5 });
+		fireEvent.change(getByTestId('field-input'), { target: { value: '5.5' } });
 
 		expect(getByTestId('field-input').value).toEqual('5.5');
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.not.stringContaining('stepper-error'));
 	});
 
-	test.only('Overwriting the type of a linked field component and invalid input', async () => {
+	test('Overwriting the type of a linked field component and invalid input', async () => {
 		const formFields = [[
 			{ id: 'dtl', type: 'integer', label: 'Integer' },
 			{
@@ -634,24 +634,18 @@ describe.only('Linking fields', () => {
 				type: 'url',
 				label: 'Dependent float',
 				onLink: (value) => {
-					console.log('value on link', value);
 					return { type: 'float' };
 				}
 			}
 		]];
 
-		const { debug, getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
 
-		fireEvent.change(getByTestId('field-input'), { target: 5 });
+		fireEvent.change(getByTestId('field-input'), { target: { value: 5 } });
 		fireEvent.click(getByText('Next'));
-		fireEvent.change(getByTestId('field-input'), { target: 'asd' });
+		fireEvent.change(getByTestId('field-input'), { target: { value: 'asd' } });
 
-		await waitFor(() => {
-
-			debug();
-
-			expect(getByTestId('stepper-dependentField').className)
-				.toEqual(expect.stringContaining('stepper-error'));
-		});
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.stringContaining('stepper-error'));
 	});
 });
