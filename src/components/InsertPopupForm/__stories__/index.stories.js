@@ -99,8 +99,6 @@ storiesOf('InsertPopupForm', module)
 							type: 'url',
 							label: 'Url -> Float',
 							onLink: (value) => {
-								console.log('on link fired', value);
-
 								return { type: 'float' };
 							}
 						}

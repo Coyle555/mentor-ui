@@ -376,7 +376,7 @@ describe('Form stepper interaction', () => {
 	});
 });
 
-describe('Linking fields', () => {
+describe.only('Linking fields', () => {
 	const formFields = [[
 		{ id: 'text', label: 'Text Input 1' },
 		{ id: 'dependentField', label: 'Dependent field', onLink: jest.fn() },
@@ -621,15 +621,23 @@ describe('Linking fields', () => {
 		fireEvent.click(getByText('Next'));
 		fireEvent.change(getByTestId('field-input'), { target: 5.5 });
 
-		expect(getByTestId('field-input').value).toEqual('');
+		expect(getByTestId('field-input').value).toEqual('5.5');
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.not.stringContaining('stepper-error'));
 	});
 
-	test('Overwriting the type of a linked field component and invalid input', () => {
+	test.only('Overwriting the type of a linked field component and invalid input', async () => {
 		const formFields = [[
 			{ id: 'dtl', type: 'integer', label: 'Integer' },
-			{ id: 'dependentField', type: 'url', label: 'Dependent float', onLink: (value) => ({ type: 'float' }) }
+			{
+				id: 'dependentField',
+				type: 'url',
+				label: 'Dependent float',
+				onLink: (value) => {
+					console.log('value on link', value);
+					return { type: 'float' };
+				}
+			}
 		]];
 
 		const { debug, getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
@@ -638,10 +646,12 @@ describe('Linking fields', () => {
 		fireEvent.click(getByText('Next'));
 		fireEvent.change(getByTestId('field-input'), { target: 'asd' });
 
-		debug();
+		await waitFor(() => {
 
-		expect(getByTestId('field-input').value).toEqual('');
-		expect(getByTestId('stepper-dependentField').className)
-			.toEqual(expect.stringContaining('stepper-error'));
+			debug();
+
+			expect(getByTestId('stepper-dependentField').className)
+				.toEqual(expect.stringContaining('stepper-error'));
+		});
 	});
 });
