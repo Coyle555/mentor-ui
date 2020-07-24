@@ -608,4 +608,40 @@ describe('Linking fields', () => {
 		expect(getByTestId('stepper-dependentField').className)
 			.toEqual(expect.stringContaining('stepper-error'));
 	});
+
+	test('Overwriting the type of a linked field component and valid input', () => {
+		const formFields = [[
+			{ id: 'dtl', type: 'integer', label: 'Integer' },
+			{ id: 'dependentField', type: 'url', label: 'Dependent float', onLink: (value) => ({ type: 'float' }) }
+		]];
+
+		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+
+		fireEvent.change(getByTestId('field-input'), { target: 5 });
+		fireEvent.click(getByText('Next'));
+		fireEvent.change(getByTestId('field-input'), { target: 5.5 });
+
+		expect(getByTestId('field-input').value).toEqual('');
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.not.stringContaining('stepper-error'));
+	});
+
+	test('Overwriting the type of a linked field component and invalid input', () => {
+		const formFields = [[
+			{ id: 'dtl', type: 'integer', label: 'Integer' },
+			{ id: 'dependentField', type: 'url', label: 'Dependent float', onLink: (value) => ({ type: 'float' }) }
+		]];
+
+		const { debug, getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
+
+		fireEvent.change(getByTestId('field-input'), { target: 5 });
+		fireEvent.click(getByText('Next'));
+		fireEvent.change(getByTestId('field-input'), { target: 'asd' });
+
+		debug();
+
+		expect(getByTestId('field-input').value).toEqual('');
+		expect(getByTestId('stepper-dependentField').className)
+			.toEqual(expect.stringContaining('stepper-error'));
+	});
 });

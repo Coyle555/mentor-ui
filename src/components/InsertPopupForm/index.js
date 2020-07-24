@@ -400,6 +400,7 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
+		let InputComponent = field.InputComponent;
 		let linkedProps = {};
 
 		if (field.linkToPrev) {
@@ -422,6 +423,26 @@ export default class InsertForm extends Component {
 				disabled,
 				required: value !== '' && !disabled,
 			};
+
+			if (linkedProps.type) {
+				const type = linkedProps.type;
+				delete linkedProps.type;
+
+				InputComponent = getInputComponent(
+					{ ...field, type },
+					{
+						...linkedProps,
+						autoFocus: true,
+						className: 'form-input',
+						key: field.id,
+						name: field.id,
+						onBlur: this._handleInputBlur,
+						onChange: this._handleInputChange,
+						onKeyDown: this.onKeyDown,
+						onMatch: this._handleOptionMatch,
+					}
+				);
+			}
 		}
 
 		return (
@@ -447,7 +468,7 @@ export default class InsertForm extends Component {
 									canSubmit={!canGoRight && Object.keys(fieldsWithError).length === 0}
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
-									InputComponent={field.InputComponent}
+									InputComponent={InputComponent}
 									linkedProps={linkedProps}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
