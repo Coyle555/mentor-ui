@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { Field, Label, Stepper } from './components/index';
 import { Portal } from './components/Portal';
-import { keyEvent as KeyEvent } from 'utils';
 import { getInputComponent } from './utils';
 
 import './styles/form.less';
+
+const KeyEvent = {
+	DOM_VK_TAB: 9,
+	DOM_VK_ESCAPE: 27
+};
 
 export default class InsertForm extends Component {
 
@@ -51,6 +54,8 @@ export default class InsertForm extends Component {
 
 		// insertion data taken from the form
 		this.insertData = {};
+		this.linkValue = '';
+		this.linkProps = {};
 
 		// @currentInputLabel: the current input label viewable by the user
 		// @fieldIndex: index of the current form field that is active
@@ -171,7 +176,7 @@ export default class InsertForm extends Component {
 		let hasError = false;
 		let step;
 		let InputComponent = null;
-		
+
 		const inputProps = {
 			autoFocus: true,
 			className: 'form-input',
@@ -187,7 +192,7 @@ export default class InsertForm extends Component {
 		};
 
 		InputComponent = getInputComponent(field, inputProps);
-		
+
 		// initialize insert data if not loaded from props
 		if (!this.insertData[field.id]) {
 			this.insertData[field.id] = '';
@@ -220,7 +225,7 @@ export default class InsertForm extends Component {
 
 	// handle input after user changes an input form, add new
 	// value to current insert data object
-	// @error(bool) - true if the field has an error via validation; false 
+	// @error(bool) - true if the field has an error via validation; false
 	// 	otherwise
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
@@ -231,7 +236,7 @@ export default class InsertForm extends Component {
 
 	// handle input after user blurs an input form, add new
 	// value to current insert data object
-	// @error(bool) - true if the field has an error via validation; false 
+	// @error(bool) - true if the field has an error via validation; false
 	// 	otherwise
 	// @newValue(string) - new value in the input box
 	// @fieldId(string) - id of the form field that was updated
@@ -253,11 +258,9 @@ export default class InsertForm extends Component {
 		const field = formModel[fieldIndex];
 		let currentVal = this.insertData[field.id];
 
-		if (typeof field.parse === 'function') {
-			currentVal = field.parse(this.insertData[field.id]);
-		}
+		if ((typeof field.parse === 'function' && field.parse(newValue).toString() !== field.parse(currentVal).toString())
+			|| (typeof field.parse !== 'function' && newValue !== currentVal)) {
 
-		if (newValue !== currentVal) {
 			this.insertData[field.id] = newValue;
 
 			// on value changes clear all linked fields
@@ -279,7 +282,7 @@ export default class InsertForm extends Component {
 			newFieldsWithError[fieldId] = true;
 			newSteps[fieldIndex].error = true;
 
-		// if old error is no longer valid, delete it
+			// if old error is no longer valid, delete it
 		} else if (newFieldsWithError[fieldId]) {
 			delete newFieldsWithError[fieldId];
 			newSteps[fieldIndex].error = false;
@@ -326,37 +329,16 @@ export default class InsertForm extends Component {
 				return acc;
 			}, {});
 
-			this.props.onSubmit(dataToSubmit);
-		}
-
-		if (this.props.resetForm) {
-			this.resetForm();
-		}
-	}
-
-	// resets a form to original state
-	resetForm() {
-		const { initInsertData } = this.props;
-		const { formModel } = this.state;
-		const newIndex = 0;
-		
-		Object.keys(this.insertData).forEach(field => {
-			this.insertData[field] = '';
-		});
-
-		if (typeof initInsertData === 'object' && !!initInsertData) {
-			Object.keys(initInsertData).forEach(field => {
-				this.insertData[field] = initInsertData[field] !== null 
-					&& initInsertData[field] !== undefined
-						? initInsertData[field]
-						: '';
+			new Promise((resolve) => {
+				resolve(this.props.onSubmit(dataToSubmit));
+			}).then(() => {
+				if (this.props.resetForm) {
+					this.initializeInsertForm();
+				}
+			}).catch(err => {
+				console.log('Error on submit', err);
 			});
 		}
-
-		this.setState({
-			fieldIndex: newIndex,
-			currentInputLabel: formModel[newIndex].label
-		});
 	}
 
 	// handles going right for fields to be inserted
@@ -418,17 +400,27 @@ export default class InsertForm extends Component {
 		const canGoLeft = (fieldIndex > 0);
 		const canGoRight = ((fieldIndex + 1) < this.state.formModel.length);
 		const field = this.getField();
-		let link;
+		let linkedProps = {};
 
 		if (field.linkToPrev) {
 			const prevFieldId = formModel[fieldIndex - 1].id;
+			const disabled = this.insertData[prevFieldId] === ''
+				|| fieldsWithError[prevFieldId]
+				|| typeof field.onLink !== 'function';
+			const value = this.insertData[prevFieldId];
 
-			link = {
-				disabled: this.insertData[prevFieldId] === ''
-					|| fieldsWithError[prevFieldId]
-					|| typeof field.onLink !== 'function',
-				onLink: field.onLink,
-				value: this.insertData[prevFieldId]
+			// only change linked input props when the linked value is actually changed
+			if ((typeof field.parse === 'function' && field.parse(this.linkValue).toString() !== field.parse(value).toString())
+				|| (typeof field.parse !== 'function' && this.linkValue !== value)) {
+
+				this.linkValue = value;
+				this.linkProps = field.onLink(value);
+			}
+
+			linkedProps = {
+				...this.linkProps,
+				disabled,
+				required: value !== '' && !disabled,
 			};
 		}
 
@@ -456,13 +448,13 @@ export default class InsertForm extends Component {
 									handleGoingLeft={this.handleGoingLeft}
 									handleGoingRight={this.handleGoingRight}
 									InputComponent={field.InputComponent}
-									link={link}
+									linkedProps={linkedProps}
 									value={this.insertData[field.id]}
 									_onSubmit={this._onSubmit}
 								/>
 							</div>
 							<div className="insert-popup-stepper">
-								<Stepper 
+								<Stepper
 									activeStep={fieldIndex}
 									onClick={this.onStepperClick}
 									steps={steps}
@@ -475,3 +467,4 @@ export default class InsertForm extends Component {
 		);
 	}
 }
+

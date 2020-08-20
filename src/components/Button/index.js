@@ -13,7 +13,6 @@ const Button = React.forwardRef((props, ref) => {
 		className = '',
 		children,
 		medium,
-		isBlue,
 		isLight,
 		isMini,
 		isOutline,
@@ -50,7 +49,7 @@ const Button = React.forwardRef((props, ref) => {
 			className={btnClass}
 			ref={ref}
 		>
-			{ children }
+			{children}
 		</button>
 	);
 });
@@ -62,7 +61,6 @@ Button.propTypes = {
 	disabled: PropTypes.bool,
 	onClick: PropTypes.func,
 	medium: PropTypes.bool,
-	isBlue: PropTypes.bool,
 	isLight: PropTypes.bool,
 	isMini: PropTypes.bool,
 	isOutline: PropTypes.bool,
@@ -77,4 +75,4 @@ Button.defaultProps = {
 };
 
 
-export default Button;
+export { Button, Button as default };

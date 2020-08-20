@@ -1,36 +1,38 @@
-import React, { Component } from 'react';
+/* eslint-disable react/display-name */
+
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import SelectInput from '../select-input/selectInput';
 
 const OPTIONS = ['Yes', 'No'];
 const parseMatchedValue = (val => val === 'Yes' ? true : val === 'No' ? false : '');
 
-const BooleanInput = ({ value, ...props }) => {
-
+const BooleanInput = React.forwardRef(({ value, ...props }, ref) => {
+	let renderedValue = '';
 	if (value === true || value === 'true') {
-		value = 'Yes';
+		renderedValue = 'Yes';
 	} else if (value === false || value === 'false') {
-		value = 'No';
+		renderedValue = 'No';
 	}
 
 	return (
-		<SelectInput 
+		<SelectInput
 			{...props}
 			options={OPTIONS}
 			parseMatchedValue={parseMatchedValue}
-			value={value}
+			ref={ref}
+			value={renderedValue}
 		/>
 	);
-}
+});
 
 BooleanInput.propTypes = {
 	className: PropTypes.string,
 	placeholder: PropTypes.string,
 	required: PropTypes.bool,
 	style: PropTypes.object,
-	value: PropTypes.oneOf([ false, true, 'false', 'true', '', null, undefined])	
-}
+	value: PropTypes.oneOf([false, true, 'false', 'true', '', null, undefined])
+};
 
 export default BooleanInput;

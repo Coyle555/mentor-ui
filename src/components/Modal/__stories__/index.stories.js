@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action, configureActions } from '@storybook/addon-actions';
-import { withKnobs, optionsKnob, number, boolean, text } from '@storybook/addon-knobs';
+import { withKnobs, number, boolean, } from '@storybook/addon-knobs';
 
 import useState from 'storybook-useState';
 import { Modal } from '../index';
@@ -20,7 +19,7 @@ storiesOf('Modal', module)
 				<Button onClick={() => setModalVisibility(true)}>
 					Open The Modal By Clicking Here
 				</Button>
-				<Modal 
+				<Modal
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={modalVisibility}
 					hideCloseButton={boolean('hideCloseButton', false)}
@@ -31,7 +30,7 @@ storiesOf('Modal', module)
 					Modal Content
 				</Modal>
 			</React.Fragment>
-		)
+		);
 	})
 	.addWithJSX('nested modals', () => {
 
@@ -41,8 +40,8 @@ storiesOf('Modal', module)
 			<React.Fragment>
 				<Button onClick={() => setModal1Visibility(true)}>
 					Open The Modal By Clicking Here
-				</Button>					
-				<Modal 
+				</Button>
+				<Modal
 					closeOnOutsideClick={boolean('closeOnOutsideClick', true)}
 					display={modal1Visibility}
 					onClose={() => setModal1Visibility(false)}
@@ -52,8 +51,8 @@ storiesOf('Modal', module)
 					<p>Modal 1 Content</p>
 					<Button onClick={() => setModal2Visibility(true)}>
 						Open The Inner Modal By Clicking Here
-					</Button>						
-					<Modal 
+					</Button>
+					<Modal
 						display={modal2Visibility}
 						// overlayStyle={{ background: 'none' }}
 						height={400}
@@ -64,5 +63,5 @@ storiesOf('Modal', module)
 					</Modal>
 				</Modal>
 			</React.Fragment>
-		)
-	})	
+		);
+	});

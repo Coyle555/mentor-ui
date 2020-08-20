@@ -6,7 +6,7 @@ import {
 } from '../utils';
 import moment from 'moment';
 
-const datetime = 'MMM DD, YYYY, hh:mm a';
+const datetime = 'MMM DD, YYYY, h:mm A';
 const date = 'MMM DD, YYYY';
 
 const datetimePicker = 'MMM dd, yyyy, h:mm a';
@@ -45,7 +45,7 @@ describe('Get placeholder util function', () => {
 });
 
 describe('isValidDate util function', () => {
-	
+
 	describe('Datetime values', () => {
 		test('Value is not same length as mask', () => {
 			expect(isValidDate('Aug', datetime)).toBe(false);
@@ -60,7 +60,7 @@ describe('isValidDate util function', () => {
 		test('Not in correct format', () => {
 			expect(isValidDate('August 31, 1999 - 12:35 pm', datetime, 'datetime')).toBe(false);
 		});
-		
+
 		test('Outside of boundaries of datetime', () => {
 			expect(isValidDate('Aug 40, 1999 - 12:35pm', datetime, 'datetime')).toBe(false);
 			expect(isValidDate('Aug 12, 1999 - 27:35pm', datetime, 'datetime')).toBe(false);
@@ -77,6 +77,7 @@ describe('isValidDate util function', () => {
 		test('In correct format', () => {
 			expect(isValidDate('Aug 31, 1999', date, 'date')).toBe(true);
 			expect(isValidDate('2019-10-24', moment.ISO_8601)).toBe(true);
+			expect(isValidDate('1999-08-31', moment.ISO_8601)).toBe(true);
 		});
 
 		test('Not in correct format', () => {

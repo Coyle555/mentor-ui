@@ -5,26 +5,29 @@ import { action } from 'storybook-utils';
 import DatePickerInput from '../DatePickerInput';
 
 storiesOf('Inputs/DatePickerInput', module)
-	.add('Datetime Input', () =>
-		<DatePickerInput
-			isUtc={true}
-			name="datepicker-input"
-			onBlur={action('onBlur')}
-			onChange={action('onChange')}
-			type="datetime"
-			value={'2019-09-05 17:04:41.2350000'}
-		/>
-	)
-	.add('Date Input', () =>
-		<DatePickerInput
-			name="datepicker-input"
-			onBlur={action('onBlur')}
-			onChange={action('onChange')}
-			type="date"
-			isUtc={false}
-			value={'2019-09-05'}
-		/>
-	)
+	.add('Datetime Input', () => {
+		return (
+			<DatePickerInput
+				isUtc={true}
+				name="datepicker-input"
+				onBlur={action('onBlur')}
+				onChange={action('onChange')}
+				type="datetime"
+			/>
+		);
+	})
+	.add('Date Input', () => {
+		return (
+			<DatePickerInput
+				name="datepicker-input"
+				onBlur={action('onBlur')}
+				onChange={action('onChange')}
+				type="date"
+				isUtc={false}
+				value="2020-04-02"
+			/>
+		);
+	})
 	.add('Required Date Input', () =>
 		<DatePickerInput
 			name="datepicker-input"
@@ -42,4 +45,4 @@ storiesOf('Inputs/DatePickerInput', module)
 			onChange={action('onChange')}
 			type="date"
 		/>
-	)
+	);

@@ -17,9 +17,8 @@ storiesOf('Inputs/MoneyInput', module)
 				onBlur={action('onBlur')}
 				onChange={action('onChange')}
 				placeholder={text('placeholder', 'Enter a value')}
-				precision={number('precision', 2)}
 				name="example-float-input1"
 				required={boolean('required', false)}
 			/>
-		)
-	})		
+		);
+	});

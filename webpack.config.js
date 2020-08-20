@@ -1,19 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkerPlugin = require('worker-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
 	entry: './src/index.js',
-	// optimization: {
-	//   splitChunks: {
-	//     // include all types of chunks
-	//     chunks: 'all'
-	//   }
-	// },
 	output: {
 		filename: 'index.js',
 		library: '',
@@ -22,19 +18,10 @@ module.exports = {
 		//umdNamedDefine: true,
 		libraryTarget: 'commonjs',
 	},
-	// optimization: {
-	// 	runtimeChunk: false,
-	// 	splitChunks: {
-	// 		cacheGroups: {
-	// 			main: {
-	// 				chunks: 'initial',
-	// 				name: 'vendor',
-	// 				priority: -10,
-	// 				test: /node_modules\/(.*)\.js/
-	// 			}
-	// 		}
-	// 	}
-	// },	
+	optimization: {
+		minimize: true,
+		minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+	},
 	module: {
 		rules: [
 			{
@@ -43,15 +30,12 @@ module.exports = {
 				exclude: /node_modules/
 			},					
 			{
-				test: /\.css$/,
+				test: /\.(le|c)ss$/,
 				use: [
 					MiniCssExtractPlugin.loader,
-					'css-loader'
+					'css-loader',
+					'less-loader'
 				]
-			},
-			{
-				test: /\.less$/,
-				use: ['style-loader', 'css-loader', 'less-loader']
 			},
 			{
 				test: /\.(png|jpg|gif)(\?v=\d+\.\d+\.\d+)?$/,
@@ -69,17 +53,13 @@ module.exports = {
 	},
 
 	plugins: [
+		new CleanWebpackPlugin(),
 		new WorkerPlugin(),
-		new TerserPlugin({
-			parallel: true,
-			terserOptions: { ecma: 6 }
-		}),
 		new webpack.ProgressPlugin({ profile: false }),
 		new CaseSensitivePathsPlugin(),
 		new MiniCssExtractPlugin({
-			filename: '[name].style.css'
+			filename: 'mentor-ui.style.css'
 		}),
-
 	],
 	externals: {
 		react: {

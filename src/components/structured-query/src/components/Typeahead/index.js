@@ -7,11 +7,19 @@ import onClickOutside from 'react-onclickoutside';
 import DatePicker from 'react-datepicker';
 
 import { TypeaheadSelector } from './Selector';
-import { keyEvent } from 'utils';
 
 const DATE_FORMATS = {
 	datetime: 'MMM dd, yyyy, h:mm a',
 	date: 'MMM dd, yyyy'
+};
+
+const KeyEvent = {
+	DOM_VK_UP: 38,
+	DOM_VK_DOWN: 40,
+	DOM_VK_RETURN: 13,
+	DOM_VK_ENTER: 14,
+	DOM_VK_ESCAPE: 27,
+	DOM_VK_TAB: 9
 };
 
 // Typeahead an auto-completion text input
@@ -25,6 +33,7 @@ export class TypeaheadComponent extends Component {
 		customClasses: PropTypes.object,
 		datatype: PropTypes.string,
 		header: PropTypes.string,
+		label: PropTypes.string,
 		onKeyDown: PropTypes.func,
 		operator: PropTypes.string,
 		options: PropTypes.arrayOf(PropTypes.any),
@@ -84,18 +93,13 @@ export class TypeaheadComponent extends Component {
 		this.setState({ value: newValue });
 	}
 
-	// When a user selects an option in the current list, we need 
+	// When a user selects an option in the current list, we need
 	// to refocus the user to the input, update the value in the input,
 	// and get the next list of options
 	_onOptionSelected = (option) => {
 		const { addTokenForValue } = this.props;
 		// need to refocus on input box after selection
 		this.inputRef.focus();
-
-		// convert datetimes when user hits enter on value
-		if (this.props.datatype === 'datetime') {
-			option = moment(option).toISOString();
-		}
 
 		this.setState({
 			selectedOptionIndex: -1,
@@ -135,34 +139,37 @@ export class TypeaheadComponent extends Component {
 	// Event mappings for keystrokes
 	eventMap = (event) => {
 		switch (event.keyCode) {
-			case keyEvent.DOM_VK_UP:
+			case KeyEvent.DOM_VK_UP:
 				return this.navUp;
-			case keyEvent.DOM_VK_DOWN:
+			case KeyEvent.DOM_VK_DOWN:
 				return this.navDown;
-			case keyEvent.DOM_VK_RETURN:
-			case keyEvent.DOM_VK_ENTER:
+			case KeyEvent.DOM_VK_RETURN:
+			case KeyEvent.DOM_VK_ENTER:
 				return this._onEnter;
-			case keyEvent.DOM_VK_ESCAPE:
+			case KeyEvent.DOM_VK_ESCAPE:
 				return this._onEscape;
-			//case keyEvent.DOM_VK_TAB:
-				//return this._onTab;
+			case KeyEvent.DOM_VK_TAB:
+				return this._onTab;
 			default:
 				return null;
 		}
 	}
 
 	// Handle a tab event for autofill
-	/*_onTab(event) {
+	_onTab(event) {
 		event.preventDefault();
 
-		// pass the first visible option in the list for tab 
+		this.setState({ focused: false });
+		this.inputRef.blur();
+
+		// pass the first visible option in the list for tab
 		// completion if no selected option
-		let option = this.state.selectedOptionIndex >= 0
+		/*let option = this.state.selectedOptionIndex >= 0
 			? this.state.visibleOptions[this.state.selectedOptionIndex]
 			: this.state.visibleOptions[0];
-	
-		this._onOptionSelected(option);
-	}*/
+
+		this._onOptionSelected(option);*/
+	}
 
 	// Handle an escape event for deselecting an option using arrow keys and
 	// losing focus on input
@@ -170,16 +177,16 @@ export class TypeaheadComponent extends Component {
 		this.setState({
 			focused: false,
 			selectedOptionIndex: -1
- 		});
+		});
 
 		this.inputRef.blur();
- 	}
+	}
 
 
 	// Handle an enter event that wasn't caught in this.onKeyDown()
 	// pass either a selected option from arrow keys or pass the first
 	// visible option in the list
-	_onEnter(event) {
+	_onEnter() {
 		if (this.loadingOptions) return;
 
 		const { selectedOptionIndex, visibleOptions } = this.state;
@@ -194,17 +201,22 @@ export class TypeaheadComponent extends Component {
 	// Handle key events as user enters input
 	// @event: key pressed by user
 	_onKeyDown = (event) => {
-		const { addTokenForValue, onKeyDown } = this.props;
-		const { value, visibleOptions } = this.state;
+		const { addTokenForValue, datatype, onKeyDown } = this.props;
+		const { visibleOptions } = this.state;
 
 		let handler = this.eventMap(event);
+		let value = this.state.value;
 
 		// handle value completion if there were no options passed in
-		if ((event.keyCode === keyEvent.DOM_VK_RETURN
-			|| event.keyCode === keyEvent.DOM_VK_ENTER)
+		if ((event.keyCode === KeyEvent.DOM_VK_RETURN || event.keyCode === KeyEvent.DOM_VK_ENTER)
 			&& this.props.options.length === 0
 			&& !!this.state.value) {
-			
+
+			// convert date/datetimes when user hits enter on value
+			if (datatype === 'date' || datatype === 'datetime') {
+				value = moment(value).toISOString();
+			}
+
 			addTokenForValue(value);
 			this.setState({ value: '' });
 
@@ -239,7 +251,7 @@ export class TypeaheadComponent extends Component {
 
 		let newIndex = this.state.selectedOptionIndex + delta;
 
-		// wrap around to end or start if user goes past start 
+		// wrap around to end or start if user goes past start
 		// or end of list
 		if (newIndex < 0) {
 			newIndex = visibleOptions.length - 1;
@@ -247,7 +259,6 @@ export class TypeaheadComponent extends Component {
 			newIndex -= visibleOptions.length;
 		}
 
-		let newSelection = visibleOptions[newIndex];
 		this.setState({ selectedOptionIndex: newIndex });
 	}
 
@@ -267,7 +278,7 @@ export class TypeaheadComponent extends Component {
 		this.setState({ focused: true });
 	}
 
-	handleClickOutside = (event) => {
+	handleClickOutside = () => {
 		this.setState({
 			focused: false,
 			selectedOptionIndex: -1
@@ -275,7 +286,7 @@ export class TypeaheadComponent extends Component {
 	}
 
 	handleDatePickerChange = (date) => {
-		this.setState({ value: !!date ? date : '' });
+		this.setState({ value: date ? date : '' });
 	}
 
 	renderDatePicker = () => {
@@ -316,7 +327,7 @@ export class TypeaheadComponent extends Component {
 					type="text"
 					value={this.state.value}
 				/>
-				{ this.state.focused && this.state.visibleOptions.length > 0
+				{this.state.focused && this.state.visibleOptions.length > 0
 					? <TypeaheadSelector
 						customClasses={this.props.customClasses}
 						options={this.state.visibleOptions}
@@ -342,13 +353,13 @@ export class TypeaheadComponent extends Component {
 					{operator}
 				</div>
 				<div className="typeahead">
-					{ this.props.datatype !== 'datetime' && this.props.datatype !== 'date'
+					{this.props.datatype !== 'datetime' && this.props.datatype !== 'date'
 						? this.renderNormalInput()
 						: this.renderDatePicker()
 					}
 				</div>
 			</div>
-	       );
+		);
 	}
 }
 

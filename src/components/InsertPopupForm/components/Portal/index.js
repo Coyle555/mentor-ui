@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
 export class Portal extends React.Component {
@@ -26,3 +27,7 @@ export class Portal extends React.Component {
 		return createPortal(this.props.children, this.el);
 	}
 }
+
+Portal.propTypes = {
+	children: PropTypes.any
+};

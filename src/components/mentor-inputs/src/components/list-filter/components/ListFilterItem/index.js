@@ -5,10 +5,13 @@ import classNames from 'classnames';
 export class ListFilterItem extends Component {
 
 	static propTypes = {
+		index: PropTypes.number,
 		listClasses: PropTypes.object,
 		onClick: PropTypes.func,
+		onMouseOver: PropTypes.func,
 		option: PropTypes.string,
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+		style: PropTypes.object
 	}
 
 	static defaultProps = {
@@ -18,14 +21,14 @@ export class ListFilterItem extends Component {
 
 	onClick = (event) => {
 		event.stopPropagation();
-	
+
 		this.props.onClick(this.props.option);
 	}
 
 	onMouseOver = () => {
 		this.props.onMouseOver(this.props.index);
 	}
-	
+
 	render() {
 		const {
 			listClasses,
@@ -49,11 +52,11 @@ export class ListFilterItem extends Component {
 				onMouseOver={this.onMouseOver}
 				style={style}
 			>
-				{ !!option && typeof option === 'object' && option.title
+				{!!option && typeof option === 'object' && option.title
 					? option.title
 					: option
 				}
-				{ !!option && typeof option === 'object' && option.subtitle
+				{!!option && typeof option === 'object' && option.subtitle
 					&& <>
 						<br />
 						<span className="subtitle">

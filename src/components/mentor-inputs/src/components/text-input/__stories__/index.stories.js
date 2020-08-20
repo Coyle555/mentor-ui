@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 
 import TextInput from '../textInput';
@@ -9,7 +9,7 @@ import TextInput from '../textInput';
 const actions = {
 	onBlur: action('onBlur'),
 	onChange: action('onChange')
-}
+};
 
 storiesOf('Inputs/TextInput', module)
 	.addDecorator(withKnobs)
@@ -24,7 +24,7 @@ storiesOf('Inputs/TextInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
+		);
 	})
 	.addWithJSX('with custom validation', () => {
 
@@ -33,7 +33,7 @@ storiesOf('Inputs/TextInput', module)
 			if (!reservedNames.includes(value.toLowerCase().trim())) {
 				return 'That name has already been added.';
 			}
-		}
+		};
 
 		return (
 			<div>
@@ -47,11 +47,11 @@ storiesOf('Inputs/TextInput', module)
 					required={boolean('required', false)}
 				/>
 				<code>
-					The names 'Adam', 'Barry', 'Chris', and 'Kyle' won't be accepted
+					The names &apos;Adam&apos;, &apos;Barry&apos;, &apos;Chris&apos;, and &apos;Kyle&apos; won&apos;t be accepted
 				</code>
 			</div>
-		)
-	})			
+		);
+	});
 
 
 

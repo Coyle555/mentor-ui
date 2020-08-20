@@ -55,8 +55,8 @@ exports[`Rendering a field with a false valid linked value 1`] = `
   >
     <input
       data-testid="field-input"
-      disabled={false}
       type="text"
+      valid={false}
       value=""
     />
   </div>
@@ -102,6 +102,7 @@ exports[`Rendering a field with a valid linked value 1`] = `
       data-testid="field-input"
       disabled={false}
       type="text"
+      valid={true}
       value=""
     />
   </div>
@@ -217,6 +218,7 @@ exports[`Rendering field with a onLink callback 1`] = `
       data-testid="field-input"
       disabled={false}
       required={true}
+      test="Foo"
       type="text"
       value="test"
     />

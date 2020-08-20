@@ -60,7 +60,7 @@ export function _getOptionsForTypeahead(fields = [], token = {}) {
 
 // Get the data type of a label
 // defaults to string if an error occurs
-export function	_getFieldDataType(fields = [], id) {
+export function _getFieldDataType(fields = [], id) {
 	let field = fields.find(field => field.id === id);
 
 	if (!field) {
@@ -74,16 +74,16 @@ export function	_getFieldDataType(fields = [], id) {
 	}
 }
 
-// Get the available options(enum) if any were passed in with the 
+// Get the available options(enum) if any were passed in with the
 // options object
 export function _getLabelOptions(fields = [], id) {
 	const label = fields.find(field => field.id === id);
 
 	if (!label) return [];
-	
+
 	// default case for boolean data types
 	if (label.type === 'boolean' && !Array.isArray(label.options)) {
-		return ['True', 'False'];
+		return ['Yes', 'No'];
 	}
 
 	return label.options;

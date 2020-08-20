@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
+
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import TextInput from '../text-input/textInput'
+import TextInput from '../text-input/textInput';
 
 /// check if value is a float (1.000 wont throw an error in an input by default)
 function noDecimals(num) {
@@ -17,10 +18,10 @@ function isInteger(num) {
 		: 'Invalid number';
 }
 
-const IntegerInput = ({ max, min, validate, ...props }) => {
+const IntegerInput = React.forwardRef(({ max, min, validate, ...props }, ref) => {
 
 	const isGreaterThanMin = useCallback(value => (
-		typeof min === 'number' && Number(value) < min 
+		typeof min === 'number' && Number(value) < min
 			? 'Value is too small'
 			: true
 	), [min]);
@@ -42,12 +43,13 @@ const IntegerInput = ({ max, min, validate, ...props }) => {
 
 	return (
 		<TextInput
-			placeholder="Enter number"
+			placeholder="Enter whole number"
 			{...props}
+			ref={ref}
 			validate={validates}
 		/>
 	);
-};
+});
 
 IntegerInput.propTypes = {
 	min: PropTypes.number,

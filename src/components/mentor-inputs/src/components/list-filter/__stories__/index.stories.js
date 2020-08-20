@@ -13,7 +13,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onMatch={action('onMatch')}
 				options={['foo', 'bar', 'baz']}
 			/>
-		)
+		);
 	})
 	.addWithJSX('Required', () => {
 		return (
@@ -24,26 +24,44 @@ storiesOf('Inputs/ListFilterInput', module)
 				options={['foo', 'bar', 'baz']}
 				required={true}
 			/>
-		)
+		);
 	})
-	.addWithJSX('Custom filtering', () => {
-		const options = (val) => {
-			return new Promise((resolve, reject) => {
+	.addWithJSX('Disabled', () => {
+		const options = () => {
+			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(['foo', 'bar', 'baz']);
 				}, 500);
 			});
-		}
+		};
 
 		return (
 			<ListFilterInput
-				disabled={true}
+				disabled
+				name="listFilter"
+				options={options}
+				value="f"
+			/>
+		);
+	})
+	.addWithJSX('Custom filtering', () => {
+		const options = (val) => {
+			action('filter')(val);
+			return new Promise((resolve) => {
+				setTimeout(() => {
+					resolve(['foo', 'bar', 'baz']);
+				}, 500);
+			});
+		};
+
+		return (
+			<ListFilterInput
 				name="listFilter"
 				onChange={action('onChange')}
 				onMatch={action('onMatch')}
 				options={options}
 			/>
-		)
+		);
 	})
 	.addWithJSX('Options with subtitles', () => {
 		return (
@@ -53,7 +71,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onMatch={action('onMatch')}
 				options={[{
 					title: 'foo',
-					subtitle: 'Foo subtitle'
+					subtitle: 'This will be a really long subtitle --- Foo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitleFoo subtitle'
 				}, {
 					title: 'bar',
 					subtitle: 'Bar subtitle'
@@ -63,4 +81,4 @@ storiesOf('Inputs/ListFilterInput', module)
 				}]}
 			/>
 		);
-	})
+	});

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { defaults } from 'lodash';
@@ -26,12 +26,12 @@ export const Modal = props => {
 
 	useEffect(() => {
 		document.body.appendChild(el);
-		document.body.style.setProperty('overflow',  'hidden');
+		document.body.style.setProperty('overflow', 'hidden');
 
 		return () => {
 			document.body.removeChild(el);
 			document.body.style.removeProperty('overflow');
-		}
+		};
 	}, []);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export const Modal = props => {
 
 		return () => {
 			window.removeEventListener('keydown', closeModalOnKeyDown);
-		}
+		};
 	}, [props.display]);
 
 	if (!props.display) return null;
@@ -57,7 +57,7 @@ export const Modal = props => {
 	);
 
 	const contentStyle = defaults({
-		width:  props.width,
+		width: props.width,
 		height: props.height
 	}, props.contentStyle);
 
@@ -74,7 +74,7 @@ export const Modal = props => {
 			// dont allow it to bubble up. if its a nested modal, both will close
 			evt.stopPropagation();
 		}
-	}
+	};
 
 	return createPortal(
 		<div
@@ -87,7 +87,7 @@ export const Modal = props => {
 				className="apm-modal-content"
 				style={contentStyle}
 			>
-				{ !props.hideCloseButton &&
+				{!props.hideCloseButton &&
 					<div className="apm-modal-actions">
 						<i
 							className="fal fa-times fa-lg close-modal"
@@ -98,12 +98,12 @@ export const Modal = props => {
 					</div>
 				}
 				<div className={contentClassName}>
-					{ props.children }
+					{props.children}
 				</div>
 			</div>
 		</div>
-	, el)
-}
+		, el);
+};
 
 
 Modal.defaultProps = {
@@ -111,7 +111,7 @@ Modal.defaultProps = {
 	contentStyle: {},
 	customClasses: {},
 	overlayStyle: {},
-}
+};
 
 Modal.propTypes = {
 	closeOnOutsideClick: PropTypes.bool,

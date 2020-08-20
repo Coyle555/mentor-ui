@@ -22,7 +22,7 @@ storiesOf('Inputs/FloatInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
+		);
 	})
 	.add('required', () => {
 		return (
@@ -33,5 +33,5 @@ storiesOf('Inputs/FloatInput', module)
 				name="example-float-input1"
 				required={true}
 			/>
-		)
-	})		
+		);
+	});

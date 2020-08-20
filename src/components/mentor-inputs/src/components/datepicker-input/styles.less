@@ -1,4 +1,4 @@
-@import '../../../../../styles/mentor-ui-constants';
+@import '~mentor-ui-constants';
 
 .react-datepicker-wrapper {
 	display: block;
@@ -6,4 +6,13 @@
 
 .mui-datepicker-popper {
 	z-index: @extra_zIndex;
+}
+
+.mui-datepicker-popper-datetime {
+	width: 330px;
+}
+
+.mui-datepicker-day:hover {
+	background: @green-primary;
+	color: white;
 }

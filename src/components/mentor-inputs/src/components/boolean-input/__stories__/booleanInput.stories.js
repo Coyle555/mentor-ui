@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
-import { withInfo } from '@storybook/addon-info';
 
 import BooleanInput from '../booleanInput';
 
@@ -18,9 +17,9 @@ storiesOf('Inputs/BooleanInput', module)
 			'true (String)': 'true',
 			'false (String)': 'false',
 			'true (Boolean)': true,
-			'false (Boolean)' : false,
+			'false (Boolean)': false,
 			null: null
-		}
+		};
 
 		return (
 			<BooleanInput
@@ -42,9 +41,9 @@ storiesOf('Inputs/BooleanInput', module)
 			'true (String)': 'true',
 			'false (String)': 'false',
 			'true (Boolean)': true,
-			'false (Boolean)' : false,
-			null: null	
-		}
+			'false (Boolean)': false,
+			null: null
+		};
 
 		return (
 			<BooleanInput

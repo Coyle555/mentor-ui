@@ -6,7 +6,7 @@ import { Step } from './components/Step';
 export const Stepper = ({ activeStep, onClick, steps }) => (
 	<div className="stepper-container">
 		<div className="stepper">
-			{ steps.map((step, i) => (
+			{steps.map((step, i) => (
 				<Step
 					activeStep={activeStep}
 					hasNextStep={i !== steps.length - 1}

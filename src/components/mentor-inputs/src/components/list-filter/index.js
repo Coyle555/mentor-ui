@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
@@ -19,7 +21,7 @@ const AUTOCOMPLETE_KEYS = {
 // keycodes for going up and down the list
 const NAVIGATION_KEYS = {
 	[KeyEvent.DOM_VK_UP]: true,
-	[KeyEvent.DOM_VK_DOWN] : true
+	[KeyEvent.DOM_VK_DOWN]: true
 };
 
 // list filter takes a list of options and filters them as the user types
@@ -39,6 +41,7 @@ export class ListFilter extends Component {
 		}),
 		name: PropTypes.string,
 		onChange: PropTypes.func,
+		onFocus: PropTypes.func,
 		onMatch: PropTypes.func,
 		options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
 		parse: PropTypes.func,
@@ -74,19 +77,18 @@ export class ListFilter extends Component {
 		super(props);
 
 		const { options, parse, value } = this.props;
-		const initValue = !!value && typeof parse === 'function' ? parse(value) : value;
+		const initValue = this.parseValue(value);
 		const initOptions = Array.isArray(options) && typeof parse === 'function'
 			? options.map(val => parse(val))
 			: options;
 
-		this.lastMatchedVal = '';
 		this.initialLoadComplete = false;
 		this.rawOptions = options;
 
 		// @focused: true when the input box is focused; false otherwise
-		// @hasError: true when the list filter has an error due to a 
+		// @hasError: true when the list filter has an error due to a
 		// 	mismatch or no value and it is required
-		// @loadingFilter: true when loading in new options from a 
+		// @loadingFilter: true when loading in new options from a
 		// 	custom filter; false otherwise
 		// @options: list of current options displayed to the user
 		// @selectedOptionIndex: current option selected by the user
@@ -105,11 +107,12 @@ export class ListFilter extends Component {
 	}
 
 	componentDidMount() {
-		const { name, onMatch, options, required } = this.props;
+		const { disabled, options, required } = this.props;
 		const { value } = this.state;
 
+		if (disabled) return;
+
 		if (typeof options === 'function') {
-			this.lastMatchedVal = value;
 			this.customFilterMatches(value);
 
 			return;
@@ -118,10 +121,6 @@ export class ListFilter extends Component {
 		const newOptions = this.filterMatches(value, options);
 		const hasError = this.checkForError(value, newOptions, required);
 
-		if (!hasError) {
-			this.lastMatchedVal = value;
-		}
-
 		this.setState({
 			hasError,
 			options: newOptions
@@ -129,23 +128,23 @@ export class ListFilter extends Component {
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (nextProps.disabled) {
+			this.setState({
+				hasError: false,
+				value: this.state.value !== nextProps.value
+					? this.parseValue(nextProps.value)
+					: this.state.value
+			});
+
+			return;
+		}
+
 		// if new value passed in, refilter list and check for error
-		if (this.state.value !== nextProps.value) {
-			const { name, parse, required } = this.props;
-			let value = nextProps.value;
-
-			if (nextProps.value === null || nextProps.value === undefined) {
-				value = '';
-			}
-			
-			if (typeof parse === 'function') {
-				value = parse(value);
-			}
-
-			if (this.state.value === value) return;
+		if (this.state.value !== this.parseValue(nextProps.value)) {
+			const { required } = this.props;
+			let value = this.parseValue(nextProps.value);
 
 			if (typeof this.props.options === 'function') {
-				this.lastMatchedVal = value;
 				this.initialLoadComplete = false;
 				this.setState({ value }, () => {
 					this.customFilterMatches(value);
@@ -158,7 +157,7 @@ export class ListFilter extends Component {
 
 			// new list of options passed in with value
 			if (nextProps.options.length > 0 && this.props.options !== nextProps.options) {
-				options = this.filterMatches(value, nextProps.options)
+				options = this.filterMatches(value, nextProps.options);
 				this.rawOptions = nextProps.options;
 			} else {
 				options = this.filterMatches(value, this.props.options);
@@ -166,33 +165,48 @@ export class ListFilter extends Component {
 
 			const hasError = this.checkForError(value, options, required);
 
-			if (!hasError) {
-				this.lastMatchedVal = value;
-			}
-
 			this.setState({
 				hasError,
 				options,
 				value
 			});
-		// new list of options were passed in
-		} else if (this.props.options !== nextProps.options && typeof this.props.options !== 'function') {
+			// new list of options were passed in
+		} else if (this.props.options !== nextProps.options) {
 			const { required } = this.props;
 			const { value } = this.state;
+
+			if (typeof this.props.options === 'function') {
+				this.initialLoadComplete = false;
+				this.setState({ value }, () => {
+					this.customFilterMatches(value);
+				});
+
+				return;
+			}
 
 			const newOptions = this.filterMatches(value, nextProps.options);
 			const hasError = this.checkForError(value, newOptions, required);
 			this.rawOptions = nextProps.options;
 
-			if (!hasError) {
-				this.lastMatchedVal = value;
-			}
-			
 			this.setState({
 				hasError,
 				options: newOptions
 			});
 		}
+	}
+
+	parseValue = (value) => {
+		const { parse } = this.props;
+
+		if (value === null || value === undefined) {
+			return '';
+		}
+
+		if (typeof parse === 'function') {
+			return parse(value).toString();
+		}
+
+		return value;
 	}
 
 	checkForError = (value, options = [], required) => {
@@ -259,11 +273,15 @@ export class ListFilter extends Component {
 
 	// @value(string): value to filter against
 	customFilterMatches = (value) => {
+		if (typeof value === 'object') {
+			value = value.title;
+		}
+
 		this.setState({
 			loadingFilter: true,
 			value
 		}, () => {
-			new Promise((resolve, reject) => {
+			new Promise((resolve) => {
 				resolve(this.props.options(value));
 			}).then(newOptions => {
 				// discard results if the value has changed since the
@@ -282,7 +300,7 @@ export class ListFilter extends Component {
 	}
 
 	loadFilterOptions = (value, newOptions) => {
-		const { name, onChange, onMatch, parse, required } = this.props;
+		const { name, onChange, onMatch, required } = this.props;
 
 		this.setState({
 			hasError: this.checkForError(value, newOptions, required),
@@ -294,7 +312,7 @@ export class ListFilter extends Component {
 			// fire onMatch if the value matches an option in the list
 			if (typeof onMatch === 'function'
 				&& !this.state.hasError
-				&& value !== this.lastMatchedVal) {
+				&& !!this.state.value) {
 
 				this.onMatch(value);
 
@@ -306,7 +324,7 @@ export class ListFilter extends Component {
 		});
 	}
 
-	// if the user hits a valid keycode, fill out the input 
+	// if the user hits a valid keycode, fill out the input
 	// or move up and down the list
 	onKeyDown = (event) => {
 		if (!this.state.focused) {
@@ -318,11 +336,11 @@ export class ListFilter extends Component {
 			event.preventDefault();
 			event.stopPropagation();
 			this.autoCompleteKeyDown();
-		// navigate highlighted option up or down
+			// navigate highlighted option up or down
 		} else if (NAVIGATION_KEYS[event.keyCode]) {
 			event.stopPropagation();
 			this.navigationKeyDown(event.keyCode);
-		// escape closes options
+			// escape closes options
 		} else if (this.state.focused
 			&& (event.keyCode === KeyEvent.DOM_VK_ESCAPE
 				|| event.keyCode === KeyEvent.DOM_VK_TAB)) {
@@ -341,7 +359,7 @@ export class ListFilter extends Component {
 
 	// auto complete fires when enter is hit; will always be a valid input
 	autoCompleteKeyDown = () => {
-		const { onChange, onMatch, name } = this.props;
+		const { onMatch, } = this.props;
 		const { options, selectedOptionIndex } = this.state;
 
 		let option;
@@ -371,7 +389,7 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value: option
 		}, () => {
-			if (typeof onMatch === 'function' && this.lastMatchedVal !== option) {
+			if (typeof onMatch === 'function') {
 				this.onMatch(option);
 			}
 		});
@@ -413,15 +431,14 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value
 		}, () => {
-			// fire onMatch if the value matches an option in the list or
-			// if there is no value and its not required
+			// fire onMatch if the value matches an option in the list
 			if (typeof onMatch === 'function'
 				&& !this.state.hasError
-				&& this.lastMatchedVal !== value) {
+				&& !!this.state.value) {
 
 				this.onMatch(value);
 
-			// otherwise it was just a change event w/ no match
+				// otherwise it was just a change event w/ no match
 			} else if (typeof onChange === 'function') {
 				onChange(this.state.hasError, value, name);
 			}
@@ -429,18 +446,25 @@ export class ListFilter extends Component {
 	}
 
 	onMatch = (value) => {
-		const { name, onMatch, options, parse, parseMatchedValue } = this.props;
+		const { name, onMatch, parse, parseMatchedValue } = this.props;
 
-		let matchedValue = typeof parse === 'function'
-			? this.rawOptions.find(option => parse(option) === value)
+		if (!value) return;
+
+		let matchedValue = typeof parse === 'function' && !!value
+			? this.rawOptions.find(option => {
+				option = parse(option);
+
+				return !!option && typeof option === 'object' && option.title
+					? option.title === value
+					: option === value;
+			})
 			: value;
 
-		if (typeof parseMatchedValue === 'function') {
+		if (typeof parseMatchedValue === 'function' && !!matchedValue) {
 			matchedValue = parseMatchedValue(matchedValue);
 		}
 
 		onMatch(matchedValue, name);
-		this.lastMatchedVal = value;
 	}
 
 	clearInput = () => {
@@ -451,7 +475,7 @@ export class ListFilter extends Component {
 	// handle a user clicking an option in the list with the mouse
 	// @selectedOption(string|object) - the option the user clicked on
 	onListItemClick = (selectedOption) => {
-		const { name, onMatch, options } = this.props;
+		const { onMatch, options } = this.props;
 
 		if (typeof options === 'function') {
 			this.setState({ value: selectedOption }, () => {
@@ -467,7 +491,7 @@ export class ListFilter extends Component {
 			selectedOptionIndex: -1,
 			value: selectedOption
 		}, () => {
-			if (typeof onMatch === 'function' && this.lastMatchedVal !== selectedOption) {
+			if (typeof onMatch === 'function') {
 				this.onMatch(selectedOption);
 			}
 		});
@@ -496,7 +520,7 @@ export class ListFilter extends Component {
 				className={listContainerClasses}
 				style={listStyle.container}
 			>
-				{ Array.isArray(options) && options.length > 0
+				{Array.isArray(options) && options.length > 0
 					? options.map((option, i) => (
 						<ListFilterItem
 							index={i}
@@ -514,7 +538,7 @@ export class ListFilter extends Component {
 			</ul>
 		);
 
-		if (!!portalRef) {
+		if (portalRef) {
 			return createPortal(listContainer, portalRef);
 		}
 
@@ -522,7 +546,8 @@ export class ListFilter extends Component {
 	}
 
 	render() {
-		const { 
+		/* eslint-disable no-unused-vars */
+		const {
 			disabled,
 			disableOnClickOutside,
 			enableOnClickOutside,
@@ -542,6 +567,7 @@ export class ListFilter extends Component {
 			validation,
 			...props
 		} = this.props;
+		/* eslint-enable no-unused-vars */
 		const { hasError, loadingFilter, value } = this.state;
 
 		const inputClasses = classNames({
@@ -565,13 +591,13 @@ export class ListFilter extends Component {
 					type="text"
 					value={value}
 				/>
-				{ this.renderIncrementalSearchResults() }
-				{ loadingFilter &&
+				{this.renderIncrementalSearchResults()}
+				{loadingFilter &&
 					<span className="mui-mi-clear-input">
 						<Spinner className="apm-color-black mui-loading-spinner" />
 					</span>
 				}
-				{ !!value && !loadingFilter && !disabled &&
+				{!!value && !loadingFilter && !disabled &&
 					<span
 						className="mui-mi-clear-input"
 						data-testid="clear-input"
@@ -586,3 +612,4 @@ export class ListFilter extends Component {
 }
 
 export default onClickOutside(ListFilter);
+

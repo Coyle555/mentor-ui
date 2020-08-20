@@ -22,8 +22,6 @@ exports[`Rendering a list filter item with a custom component 1`] = `
   onClick={[Function]}
   onMouseOver={[Function]}
 >
-  <div>
-    {"option":"foo"}
-  </div>
+  foo
 </li>
 `;

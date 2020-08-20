@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const TextInput = ({ validate, ...props }) => {
+const TextInput = React.forwardRef(({ validate, ...props }, ref) => {
 
 	const inputState = useInputState({ validate, ...props });
 
@@ -16,9 +15,13 @@ const TextInput = ({ validate, ...props }) => {
 			type="text"
 			{...props}
 			{...inputState}
+			ref={ref}
 		/>
 	);
-}
+});
+
+TextInput.propTypes = {
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])
+};
 
 export default TextInput;
-

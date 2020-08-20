@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { storiesOf, action } from '@storybook/react';
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
 import { StructuredQuery } from '../index';
 
-const onTokenAdd = () => {};
-const onTokenRemove = () => {};
-const exportSearch = () => {};
+const onTokenAdd = (tokens) => {
+	console.log(tokens);
+};
+const onTokenRemove = () => { };
+const exportSearch = () => { };
 
 storiesOf('Structured Query', module)
 	.add('String fields', () => {

@@ -1,132 +1,101 @@
-import React, { Component } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Tether from 'react-tether';
+import { usePopper } from 'react-popper';
 import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 
 import { FilterItem } from './FilterItem';
 
-export class ActiveFiltersComponent extends Component {
+export const ActiveFiltersComponent = ({ clearSearch, onRemove, searchTokens }) => {
 
-	static propTypes = {
-		clearSearch: PropTypes.func,
-		fields: PropTypes.arrayOf(PropTypes.shape({
-			id: PropTypes.string.isRequired,
-			label: PropTypes.string,
-			options: PropTypes.oneOfType([PropTypes.array, PropTypes.func]),
-			type: PropTypes.string
-		})),
-		onRemove: PropTypes.func,
-		searchTokens: PropTypes.arrayOf(PropTypes.shape({
-			label: PropTypes.string,
-			id: PropTypes.string,
-			operator: PropTypes.string,
-			value: PropTypes.any
-		}))
-	}
+	// true when the user has opened the list of all applied filters; false otherwise
+	const [filtersActive, setFiltersActive] = useState(false);
+	const [refElement, setRefElement] = useState(null);
+	const [popperElement, setPopperElement] = useState(null);
+	const { styles, attributes } = usePopper(refElement, popperElement, { placement: 'bottom-start' });
 
-	static defaultProps = {
-		fields: [],
-		searchTokens: []
-	}
+	const toggleFilterList = useCallback(() => {
+		setFiltersActive(!filtersActive);
+	}, [filtersActive]);
 
-	constructor(props) {
-		super(props);
+	ActiveFiltersComponent.handleClickOutside = () => setFiltersActive(false);
 
-		// @filtersActive: true when the user has opened the list of
-		// 	all applied filters; false otherwise
-		this.state = {
-			filtersActive: false
-		};
-	}
+	const activeFilterClasses = classNames({
+		'left-addon active-filter-container': true,
+		'active-filter-enabled': searchTokens.length > 0
+	});
 
-	toggleFilterList = () => {
-		this.setState({ filtersActive: !this.state.filtersActive });
-	}
-
-	handleClickOutside = (event) => {
-		this.setState({ filtersActive: false });
-	}
-
-	renderFilters = (ref) => {
-		const { clearSearch, fields, onRemove, searchTokens } = this.props;
-
-		if (searchTokens.length === 0) {
-			return null;
-		}
-
-		return (
-			<table
-				className="active-filters-list ignore-react-onclickoutside"
-				ref={ref}
+	return (
+		<>
+			<span
+				className={activeFilterClasses}
+				data-for="structured-query-tooltip"
+				data-tip="View Filters"
+				onClick={toggleFilterList}
+				ref={setRefElement}
 			>
-				<thead>
-					<tr>
-						<td>Field</td>
-						<td>Operator</td>
-						<td>Value</td>
-						<td>
-							<a
-								className="clear-all-filters"
-								onClick={clearSearch}
+				<i className="far fa-list" />
+				<span className="active-filter-count">
+					{searchTokens.length}
+				</span>
+			</span>
+			{searchTokens.length === 0 || !filtersActive
+				? null
+				: <table
+					className="active-filters-list ignore-react-onclickoutside"
+					ref={setPopperElement}
+					style={styles.popper}
+					{...attributes.popper}
+				>
+					<thead>
+						<tr>
+							<td>Field</td>
+							<td>Operator</td>
+							<td>Value</td>
+							<td>
+								<a
+									className="clear-all-filters"
+									onClick={clearSearch}
+								>
+									Clear All
+								</a>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						{searchTokens.map(token => (
+							<FilterItem
+								key={token.id + token.operator + token.value}
+								onRemove={onRemove}
+								type={token.type}
 							>
-								Clear All
-							</a>
-						</td>
-					</tr>
-				</thead>
-				<tbody>
-					{ searchTokens.map(token => (
-						<FilterItem
-							key={token.id + token.operator + token.value}
-							onRemove={onRemove}
-							type={token.type}
-						>
-							{token}
-						</FilterItem>
-					))}
-				</tbody>
-			</table>
-		);
-	}
-	
-	render() {
-		const { searchTokens } = this.props;
-		const { filtersActive } = this.state;
-
-		const activeFilterClasses = classNames({
-			'left-addon active-filter-container': true,
-			'active-filter-enabled': searchTokens.length > 0
-		});
-
-		return (
-			<Tether
-				attachment="top left"
-				targetAttachment="bottom left"
-				constraints={[{ to: 'scrollParent' }]}
-				style={{zIndex: 4}}
-				renderTarget={ref => (
-					<span
-						className={activeFilterClasses}
-						data-for="structured-query-tooltip"
-						data-tip="View Filters"
-						onClick={this.toggleFilterList}
-						ref={ref}
-					>
-						<i className="far fa-list" />
-						<span className="active-filter-count">
-							{searchTokens.length}
-						</span>
-					</span>
-				)}
-				renderElement={ref => (
-					filtersActive
-						? this.renderFilters(ref)
-						: null
-				)}
-			/>
-		);
-	}
+								{token}
+							</FilterItem>
+						))}
+					</tbody>
+				</table>
+			}
+		</>
+	);
 };
 
-export const ActiveFilters = onClickOutside(ActiveFiltersComponent);
+ActiveFiltersComponent.propTypes = {
+	clearSearch: PropTypes.func,
+	onRemove: PropTypes.func,
+	searchTokens: PropTypes.arrayOf(PropTypes.shape({
+		label: PropTypes.string,
+		id: PropTypes.string,
+		operator: PropTypes.string,
+		value: PropTypes.any
+	}))
+};
+
+ActiveFiltersComponent.defaultProps = {
+	searchTokens: []
+};
+
+const clickOutsideConfig = {
+	handleClickOutside: () => ActiveFiltersComponent.handleClickOutside
+};
+
+export const ActiveFilters = onClickOutside(ActiveFiltersComponent, clickOutsideConfig);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ToggleListItem } from './ToggleListItem';
@@ -8,7 +8,7 @@ import '../../styles.less';
 export const ToggleList = ({ customClasses, expanded, list }) => {
 	return (
 		<div className="mui-toggle-list">
-			{ list.map((item, i) => (
+			{list.map((item, i) => (
 				<ToggleListItem
 					customClasses={customClasses}
 					content={item.content}

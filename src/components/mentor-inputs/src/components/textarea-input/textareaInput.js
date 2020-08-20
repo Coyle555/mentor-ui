@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { useInputState } from '../../hooks/index';
 import '../../styles/index.less';
 
-const TextareaInput = ({ validate, ...props }) => {
+const TextareaInput = React.forwardRef(({ validate, ...props }, ref) => {
 
 	const inputState = useInputState({ validate, ...props });
 	const textareaClasses = classNames('mui-textarea-resize-vert', inputState.className);
@@ -19,8 +19,13 @@ const TextareaInput = ({ validate, ...props }) => {
 			{...props}
 			{...inputState}
 			className={textareaClasses}
+			ref={ref}
 		/>
 	);
-}
+});
+
+TextareaInput.propTypes = {
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])
+};
 
 export default TextareaInput;

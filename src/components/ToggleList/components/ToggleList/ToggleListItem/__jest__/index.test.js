@@ -1,11 +1,17 @@
+/* eslint-disable */
+
 jest.mock('react-spring/renderprops', () => {
-	return { Spring: props => (
-		<div>
-			<div>{JSON.stringify(props)}</div>
-			{props.children({})}
-		</div>
-	)};
+	return {
+		Spring: props => (
+			<div>
+				<div>{JSON.stringify(props)}</div>
+				{props.children({})}
+			</div>
+		)
+	};
 });
+
+/* eslint-enable */
 
 import React from 'react';
 import renderer from 'react-test-renderer';

@@ -13,7 +13,7 @@ exports[`List filter receiving new props Passing in new options New list of opti
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -62,7 +62,7 @@ exports[`List filter receiving new props Passing in new options New options pass
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="foo"
   />
@@ -95,7 +95,7 @@ exports[`List filter receiving new props Passing in new value New list of option
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="op"
   />
@@ -124,6 +124,48 @@ exports[`List filter receiving new props Passing in new value New list of option
 </div>
 `;
 
+exports[`List filter receiving new props Passing in new value New valid value passed in 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={false}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select a value"
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  >
+    <li
+      className="mui-list-filter-menu-li"
+      onClick={[Function]}
+      onMouseOver={[Function]}
+      style={Object {}}
+    >
+      bar
+    </li>
+  </ul>
+  <span
+    className="mui-mi-clear-input"
+    data-testid="clear-input"
+    onClick={[Function]}
+  >
+    <i
+      className="far fa-times"
+    />
+  </span>
+</div>
+`;
+
 exports[`List filter receiving new props Passing in new value New value passed in 1`] = `
 <div
   className="mui-mi-container"
@@ -137,7 +179,7 @@ exports[`List filter receiving new props Passing in new value New value passed i
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="b"
   />
@@ -187,7 +229,7 @@ exports[`List filter receiving new props Passing in new value Required with a ne
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="b"
   />
@@ -237,7 +279,7 @@ exports[`Mounting a list filter Mounting a non required input List of options 1`
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -286,7 +328,7 @@ exports[`Mounting a list filter Mounting a non required input List of options wi
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="b"
   />
@@ -336,7 +378,7 @@ exports[`Mounting a list filter Mounting a non required input Option function wi
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="bar"
   />
@@ -378,7 +420,7 @@ exports[`Mounting a list filter Mounting with a required input Required with no 
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -427,7 +469,7 @@ exports[`Mounting a list filter Mounting with a required input Required with par
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="b"
   />
@@ -477,7 +519,7 @@ exports[`Mounting a list filter Mounting with a required input Required with val
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value="bar"
   />
@@ -519,7 +561,7 @@ exports[`Renders of list filters Default render of list filter 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -539,7 +581,7 @@ exports[`Renders of list filters Render with a custom css class 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -559,7 +601,7 @@ exports[`Renders of list filters Render with a custom list container css class 1
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />
@@ -583,7 +625,7 @@ exports[`Renders of list filters Render with a custom list container style 1`] =
     onFocus={[Function]}
     onKeyDown={[Function]}
     onKeyUp={[Function]}
-    placeholder="Select an option"
+    placeholder="Select a value"
     type="text"
     value=""
   />

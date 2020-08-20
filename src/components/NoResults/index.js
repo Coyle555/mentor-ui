@@ -9,7 +9,8 @@ export const NoResults = ({ className, children }) => (
 );
 
 NoResults.propTypes = {
-	className: PropTypes.string
+	className: PropTypes.string,
+	children: PropTypes.any
 };
 
 NoResults.defaultProps = {

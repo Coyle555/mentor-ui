@@ -1,11 +1,15 @@
+/* eslint-disable */
+
 jest.mock('../components/Portal', () => {
 	return { Portal: props => <div>{props.children}</div> };
 });
 
+/* eslint-enable */
+
 import React from 'react';
 import InsertForm from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
 const TAB_KEYSTROKE = 9;
 const ESCAPE_KEYSTROKE = 27;
@@ -13,7 +17,7 @@ const ESCAPE_KEYSTROKE = 27;
 afterEach(cleanup);
 
 describe('Rendering the insert form', () => {
-	test('Default render of the insert form', () => {
+	test('If no form fields are passed, render null', () => {
 		const tree = renderer.create(<InsertForm />).toJSON();
 
 		expect(tree).toMatchSnapshot();
@@ -111,17 +115,28 @@ describe('Partially filled data', () => {
 	});
 
 	test('Saving input on a list filter with a custom filter', async () => {
-		const { baseElement, debug, getByTestId, getByText } = render(
+		const { baseElement, getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
+		let current_field;
 
 		fireEvent.click(getByText('6'));
-		fireEvent.change(getByTestId('field-input'), { target: { value: 'f' } });
-		await wait(() => {
-			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
-			fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
-			expect(getByTestId('field-input').value).toEqual('f');
-		});
+
+		current_field = await getByTestId('field-input');
+		fireEvent.change(current_field, { target: { value: 'foo' } });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).toEqual('foo');
+
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE, shiftKey: true });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).not.toEqual('foo');
+
+		fireEvent.keyDown(baseElement, { keyCode: TAB_KEYSTROKE });
+
+		current_field = await getByTestId('field-input');
+		expect(current_field.value).toEqual('foo');
 	});
 });
 
@@ -249,7 +264,7 @@ describe('Submitting an insert form using submit button', () => {
 			label: 'Bar',
 			id: 'foo',
 			options: [{ name: 'foo' }],
-			parse: val => val.name,
+			parse: val => val ? val.name : '',
 			type: 'listfilter'
 		}];
 
@@ -269,7 +284,7 @@ describe('Submitting an insert form using submit button', () => {
 			label: 'Bar',
 			id: 'foo',
 			options: [{ id: 'foo', name: 'Foo' }],
-			parse: val => val.name,
+			parse: val => val ? val.name : '',
 			parseMatchedValue,
 			type: 'listfilter'
 		}];
@@ -286,15 +301,22 @@ describe('Submitting an insert form using submit button', () => {
 
 	test('Resetting after a submission', async () => {
 		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
-		
-		const { getByDisplayValue, getByTestId, getByText } = render(
-			<InsertForm formFields={formFields} resetForm={true} />);
+
+		/* Passing null function because form requires onSubmit to be typeOf function to start submitting */
+		const { getByTestId, getByText } = render(
+			<InsertForm
+				formFields={formFields}
+				resetForm={true}
+				onSubmit={() => null} />);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'Test' } });
 		expect(getByTestId('field-input').value).toBe('Test');
-
 		fireEvent.click(getByText('Submit'));
-		expect(getByTestId('field-input').value).toBe('');
+
+		// Submission is handled in a promise, so waitFor for that promise to resolve
+		await waitFor(() => {
+			expect(getByTestId('field-input').value).toBe('');
+		});
 	});
 });
 
@@ -303,8 +325,10 @@ describe('Initializing the form with data', () => {
 		const formFields = [{ label: 'Bar', id: 'foo', type: 'string' }];
 		const initInsertData = { foo: 'Test' };
 
-		const { getByDisplayValue, getByTestId } = render(
-			<InsertForm formFields={formFields} initInsertData={initInsertData} />);
+		const { getByTestId } = render(
+			<InsertForm
+				formFields={formFields}
+				initInsertData={initInsertData} />);
 
 
 		expect(getByTestId('field-input').value).toBe('Test');
@@ -325,7 +349,7 @@ describe('Form stepper interaction', () => {
 		// click the second step
 		fireEvent.click(getByText('2'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(getAllByText('Foo')).toHaveLength(1);
 			expect(getAllByText('Bar')).toHaveLength(2);
 		});
@@ -345,7 +369,7 @@ describe('Form stepper interaction', () => {
 		// click the second step
 		fireEvent.click(getByText('1'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(getAllByText('Foo')).toHaveLength(2);
 			expect(getAllByText('Bar')).toHaveLength(1);
 		});
@@ -436,7 +460,7 @@ describe('Linking fields', () => {
 	});
 
 	test('Original field value changes and the linked field value clears', async () => {
-		const { debug, getByTestId, getByText } = render(
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
@@ -447,7 +471,7 @@ describe('Linking fields', () => {
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'bar' } });
 		fireEvent.click(getByText('Next'));
 
-		await wait(() => {
+		await waitFor(() => {
 			const el = getByTestId('field-input');
 			expect(el.value).toEqual('');
 			expect(el.disabled).toEqual(false);
@@ -457,7 +481,7 @@ describe('Linking fields', () => {
 	});
 
 	test('Required linked fields and original field has a value', () => {
-		const { getByTestId, getByText } = render(<InsertForm formFields={requiredFormFields} />);
+		const { getByTestId, } = render(<InsertForm formFields={requiredFormFields} />);
 
 		expect(getByTestId('stepper-text').className)
 			.toEqual(expect.stringContaining('stepper-error'));
@@ -507,13 +531,14 @@ describe('Linking fields', () => {
 			{ id: 'dependentField', label: 'Dependent field', onLink },
 		]];
 
-		const { debug, getByTestId, getByText } = render(
+		const { getByTestId, getByText } = render(
 			<InsertForm formFields={formFields} />
 		);
 
 		fireEvent.change(getByTestId('field-input'), { target: { value: 'foo' } });
-		await wait(() => {
-			fireEvent.click(getByText('Next'));
+		await waitFor(() => getByText('Next'));
+		fireEvent.click(getByText('Next'));
+		await waitFor(() => {
 			expect(onLink).toHaveBeenCalledWith({ name: 'foo' });
 		});
 	});

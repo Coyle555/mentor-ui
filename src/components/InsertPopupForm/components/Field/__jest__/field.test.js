@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { Field } from '../index';
 import renderer from 'react-test-renderer';
@@ -21,7 +23,7 @@ test('Rendering field that can go right', () => {
 	const handleGoingRight = jest.fn();
 
 	const tree = renderer.create(
-		<Field 
+		<Field
 			canGoLeft={false}
 			canGoRight={true}
 			handleGoingRight={handleGoingRight}
@@ -63,7 +65,7 @@ test('Rendering a field with a false valid linked value', () => {
 	const tree = renderer.create(
 		<Field
 			InputComponent={<Input />}
-			link={{ valid: false }}
+			linkedProps={{ valid: false }}
 		/>
 	).toJSON();
 
@@ -76,7 +78,7 @@ test('Rendering a field with a valid linked value', () => {
 	const tree = renderer.create(
 		<Field
 			InputComponent={<Input />}
-			link={{ valid: true }}
+			linkedProps={{ disabled: false, valid: true }}
 		/>
 	).toJSON();
 
@@ -84,20 +86,20 @@ test('Rendering a field with a valid linked value', () => {
 });
 
 test('Rendering field with a onLink callback', () => {
-	const onLink = jest.fn(() => ({ value: 'test' }));
 	const Input = (props) => <input {...props} type="text" />;
 
 	const tree = renderer.create(
 		<Field
+			value="test"
 			InputComponent={<Input />}
-			link={{
+			linkedProps={{
 				disabled: false,
-				onLink,
-				value: 'foo',
+				required: true,
+				test: 'Foo'
 			}}
 		/>
 	).toJSON();
 
-	expect(onLink).toHaveBeenCalledWith('foo');
+
 	expect(tree).toMatchSnapshot();
 });

@@ -4,24 +4,29 @@ import cn from 'classnames';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
-import { keyEvent as KeyEvent } from 'utils';
 import {
 	getDateFormat,
 	getDateFormatForPicker,
 	getPlaceholder,
-	isValidDate
+	isValidDate,
+	isValidDateOnInput
 } from './utils/utils';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.less';
 
+const KeyEvent = { DOM_VK_TAB: 9 };
+
+const SEC_IN_MIN = 60;
+const MS_IN_SEC = 1000;
+
 class DatePickerInput extends Component {
 
 	static propTypes = {
 		className: PropTypes.string,
+		convertToLocal: PropTypes.bool,
 		disabled: PropTypes.bool,
 		error: PropTypes.bool,
-		isUtc: PropTypes.bool,
 		name: PropTypes.string,
 		onBlur: PropTypes.func,
 		onChange: PropTypes.func,
@@ -35,9 +40,9 @@ class DatePickerInput extends Component {
 
 	static defaultProps = {
 		className: '',
+		convertToLocal: true,
 		disabled: false,
 		error: false,
-		isUtc: false,
 		name: '',
 		onBlur: null,
 		onChange: null,
@@ -49,25 +54,21 @@ class DatePickerInput extends Component {
 	constructor(props) {
 		super(props);
 
-		const { isUtc, required, type, value } = this.props;
+		const { required, value } = this.props;
 
 		const isValid = isValidDate(value, moment.ISO_8601);
-		let initValue = null;
+		let initValue = '';
 
 		if (isValid) {
-			initValue = isUtc
-				? moment.utc(value).local().toDate()
-				: moment(value, moment.ISO_8601).toDate();
+			initValue = this.formatDate(value);
 		}
 
-		this.lastVal = isValid
-			? moment(initValue).format(getDateFormat(type))
-			: null;
+		this.datePickerRef = React.createRef();
 
 		// @hasError(bool) - if there is an error with the users selected date
 		// @inputValue(string) - current value in the input field
 		this.state = {
-			hasError: !!required & !isValid,
+			hasError: (!!required && !initValue) || (!!initValue && !isValid),
 			inputValue: initValue
 		};
 	}
@@ -76,55 +77,96 @@ class DatePickerInput extends Component {
 		// new date passed down
 		if (this.props.value !== prevProps.value) {
 			const isValid = isValidDate(this.props.value, moment.ISO_8601);
-			let inputValue = null;
+			let inputValue = '';
 
 			if (isValid) {
-				inputValue = this.props.isUtc
-					? moment.utc(this.props.value).local().toDate()
-					: moment(this.props.value, moment.ISO_8601).toDate();
+				inputValue = this.formatDate(this.props.value);
 			}
 
-			this.lastVal = isValid
-				? moment(inputValue).format(getDateFormat(this.props.type))
-				: null;
-
 			this.setState({
-				hasError: !!this.props.required && !isValid,
+				hasError: (!!this.props.required && !this.props.value) || (!!this.props.value && !isValid),
 				inputValue
 			});
 		}
 	}
 
-	// when user selects a date or time on the datetime picker
-	handleChange = (value) => {
-		const { name, onChange, required } = this.props;
+	formatDate = (value) => {
+		return this.props.convertToLocal
+			? moment.utc(value).local().format()
+			: moment.utc(value).format();
+	}
+
+	// handle when the user clicks on a date in the calendar
+	handleChange = (value, event) => {
+		// ignore change events caused by user input
+		if (!!event && event.type === 'change') return;
+
+		const { name, onChange } = this.props;
 
 		this.setState({
-			hasError: !!required && !value,
-			inputValue: !!value ? value : ''
+			hasError: false,
+			inputValue: value
 		}, () => {
 			if (typeof onChange === 'function') {
-				onChange(this.state.hasError, value, name);
-			};
+				onChange(this.state.hasError, this.state.inputValue, name);
+			}
 		});
 	}
 
-	handleBlur = ({ target: { value } }) => {
-		const { name, onBlur, type } = this.props;
-		const { hasError } = this.state;
+	// change event indicates we are dealing with an event initiated by the user typing
+	// into the input; otherwise it would be a click event which indicates the calendar
+	// was clicked and a valid date was selected by the user
+	handleChangeRaw = (event) => {
+		const { name, onChange, required, type } = this.props;
+		const inputValue = event.target.value;
 
-		if (typeof onBlur === 'function' && this.lastVal !== value) {
-			const mask = getDateFormat(type);
-			const isoDate = moment(value, mask).toDate();
+		const isValid = isValidDate(inputValue, getDateFormat(type))
+			&& isValidDateOnInput(moment(inputValue).format(getDateFormat(type)), type);
 
-			onBlur(hasError, isoDate, name);
-			this.lastVal = value;
+		const hasError = (!!required && !inputValue) || (!!inputValue && !isValid);
+
+		this.setState({
+			hasError,
+			inputValue
+		}, () => {
+			if (typeof onChange === 'function') {
+				onChange(this.state.hasError, this.state.inputValue, name);
+			}
+		});
+	}
+
+	// when blurring, if the input has an invalid date, the error and input need to
+	// be checked if they have to be cleared
+	handleBlur = (evt) => {
+		const { name, onBlur, required, type } = this.props;
+
+		let inputValue = evt.target.value;
+		const isValid = isValidDate(inputValue, getDateFormat(type));
+
+		// clear the input if invalid
+		if (!isValid) inputValue = '';
+
+		this.setState({
+			hasError: !!required && !inputValue,
+			inputValue
+		}, () => {
+			if (typeof onBlur === 'function') {
+				onBlur(this.state.hasError, this.state.inputValue, name);
+			}
+		});
+	}
+
+	onKeyDown = (evt) => {
+		if (evt.keyCode === KeyEvent.DOM_VK_TAB || evt.which === KeyEvent.DOM_VK_TAB) {
+			this.datePickerRef.setOpen(false);
 		}
 	}
 
 	render() {
-		const { 
+		/* eslint-disable no-unused-vars */
+		const {
 			className,
+			convertToLocal,
 			error,
 			name,
 			onBlur,
@@ -134,6 +176,7 @@ class DatePickerInput extends Component {
 			value,
 			...props
 		} = this.props;
+		/* eslint-enable no-unused-vars */
 		const { hasError, inputValue } = this.state;
 
 		const inputClasses = cn({
@@ -142,16 +185,35 @@ class DatePickerInput extends Component {
 			'mui-mi-input-field-has-error': hasError || error
 		});
 
+		let dateVal;
+
+		if (inputValue) {
+			dateVal = new Date(inputValue);
+
+			// shift time by timezone offset to get utc if there is no local conversion
+			if (!convertToLocal) {
+				dateVal.setTime(dateVal.getTime() + dateVal.getTimezoneOffset() * SEC_IN_MIN * MS_IN_SEC);
+			}
+		}
+
+		const popperClasses = cn({
+			'mui-datepicker-popper': true,
+			'mui-datepicker-popper-datetime': type === 'datetime'
+		});
+
 		return (
 			<DatePicker
 				className={inputClasses}
 				dateFormat={getDateFormatForPicker(type)}
+				dayClassName={() => 'mui-datepicker-day'}
 				fixedHeight
 				onBlur={this.handleBlur}
 				onChange={this.handleChange}
-				openToDate={inputValue}
+				onChangeRaw={this.handleChangeRaw}
+				onKeyDown={this.onKeyDown}
+				openToDate={!hasError ? dateVal : undefined}
 				placeholderText={getPlaceholder(type)}
-				popperClassName="mui-datepicker-popper"
+				popperClassName={popperClasses}
 				popperModifiers={{
 					preventOverflow: {
 						enabled: true,
@@ -159,8 +221,8 @@ class DatePickerInput extends Component {
 						boundariesElement: 'viewport'
 					}
 				}}
-				selected={inputValue}
-				shouldCloseOnSelect={false}
+				ref={ref => this.datePickerRef = ref}
+				selected={!hasError ? dateVal : undefined}
 				showTimeSelect={type === 'datetime'}
 				timeIntervals={15}
 				{...props}

@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 jest.mock('react-datepicker', () => {
 	return (props) => <div>Datepicker: {JSON.stringify(props)}</div>;
 });
@@ -5,7 +7,7 @@ jest.mock('react-datepicker', () => {
 import React from 'react';
 import { TypeaheadComponent } from '../index';
 import renderer from 'react-test-renderer';
-import { cleanup, fireEvent, render, wait } from '@testing-library/react';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -47,14 +49,14 @@ describe('Rendering states of typeahead', () => {
 });
 
 describe('Typeahead with a list of options', () => {
-	
+
 	test('List of string options', async () => {
-		const { debug, getByTestId, queryByText } = render(
+		const { getByTestId, queryByText } = render(
 			<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 		fireEvent.focus(getByTestId('typeahead'));
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(queryByText('foo')).toBeTruthy();
 			expect(queryByText('bar')).toBeTruthy();
 			expect(queryByText('baz')).toBeTruthy();
@@ -107,30 +109,32 @@ describe('Updating the list of options as a user types', () => {
 		fireEvent.focus(getByTestId('typeahead'));
 		fireEvent.change(getByTestId('typeahead'), { target: { value: 'b' } });
 
-		await wait(() => {
+		await waitFor(() => {
 			expect(queryByText('foo')).toBeFalsy();
-			expect(container.querySelector('ul').children.length).toBe(2);
+			expect(queryByText('bar')).toBeInTheDocument();
+			expect(queryByText('baz')).toBeInTheDocument();
 			expect(container).toMatchSnapshot();
 		});
 	});
 });
 
 describe('Handling key events', () => {
-	
+
 	describe('Closing the menu with escape', () => {
 		test('Escape keystroke', async () => {
-			const { container, getByTestId } = render(
+			const { container, getByTestId, getByText } = render(
 				<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				expect(container.querySelector('ul').children.length).toBe(3);
-				fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ESCAPE });
-
-				await wait(() => {
-					expect(container.querySelector('div.typeahead').children.length).toBe(1);
-				});
+			await waitFor(async () => {
+				expect(getByText('foo')).toBeInTheDocument();
+				expect(getByText('bar')).toBeInTheDocument();
+				expect(getByText('baz')).toBeInTheDocument();
+			});
+			fireEvent.keyDown(container.querySelector('input'), { keyCode: keyCodes.ESCAPE });
+			await waitFor(() => {
+				expect(container.querySelector('div.typeahead').children.length).toBe(1);
 			});
 		});
 	});
@@ -141,13 +145,11 @@ describe('Handling key events', () => {
 				<TypeaheadComponent options={['foo', 'bar', 'baz']} />);
 
 			fireEvent.click(getByTestId('typeahead'));
+			await waitFor(() => getByTestId('typeahead'));
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
-
-				await wait(() => {
-					expect(container).toMatchSnapshot();
-				});
+			await waitFor(() => {
+				expect(container).toMatchSnapshot();
 			});
 		});
 
@@ -157,12 +159,10 @@ describe('Handling key events', () => {
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
 
-				await wait(() => {
-					expect(container).toMatchSnapshot();
-				});
+			await waitFor(() => {
+				expect(container).toMatchSnapshot();
 			});
 		});
 
@@ -171,12 +171,10 @@ describe('Handling key events', () => {
 
 			fireEvent.click(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.UP });
 
-				await wait(() => {
-					expect(container).toMatchSnapshot();
-				});
+			await waitFor(() => {
+				expect(container).toMatchSnapshot();
 			});
 		});
 	});
@@ -193,12 +191,10 @@ describe('Handling key events', () => {
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('foo');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('foo');
 			});
 		});
 
@@ -213,14 +209,12 @@ describe('Handling key events', () => {
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('bar');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('bar');
 			});
 		});
 
@@ -235,12 +229,10 @@ describe('Handling key events', () => {
 
 			fireEvent.change(getByTestId('typeahead'), { target: { value: 'test' } });
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.ENTER });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('test');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('test');
 			});
 		});
 
@@ -255,12 +247,10 @@ describe('Handling key events', () => {
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('foo');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('foo');
 			});
 		});
 
@@ -275,14 +265,12 @@ describe('Handling key events', () => {
 
 			fireEvent.focus(getByTestId('typeahead'));
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.DOWN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('bar');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('bar');
 			});
 		});
 
@@ -297,12 +285,10 @@ describe('Handling key events', () => {
 
 			fireEvent.change(getByTestId('typeahead'), { target: { value: 'test' } });
 
-			await wait(async () => {
-				fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
+			fireEvent.keyDown(getByTestId('typeahead'), { keyCode: keyCodes.RETURN });
 
-				await wait(() => {
-					expect(addTokenForValue).toHaveBeenCalledWith('test');
-				});
+			await waitFor(() => {
+				expect(addTokenForValue).toHaveBeenCalledWith('test');
 			});
 		});
 	});

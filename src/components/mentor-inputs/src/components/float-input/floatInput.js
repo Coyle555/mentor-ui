@@ -1,8 +1,9 @@
+/* eslint-disable react/display-name */
+
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import TextInput from '../text-input/textInput'
+import TextInput from '../text-input/textInput';
 
 function isFloat(num) {
 	return !isNaN(num) && parseFloat(Number(num)) === Number(num) && !isNaN(parseFloat(num, 10))
@@ -10,7 +11,7 @@ function isFloat(num) {
 		: 'Invalid number';
 }
 
-const FloatInput = ({ max, min, precision, validate, ...props }) => {
+const FloatInput = React.forwardRef(({ max, min, precision, validate, ...props }, ref) => {
 
 	const hasValidPrecision = useCallback(val => (
 		precision > -1 && String(Number(val).toFixed(precision)) !== val
@@ -43,16 +44,17 @@ const FloatInput = ({ max, min, precision, validate, ...props }) => {
 		<TextInput
 			placeholder="Enter decimal"
 			{...props}
+			ref={ref}
 			validate={validates}
 		/>
 	);
-};
+});
 
 FloatInput.propTypes = {
 	max: PropTypes.number,
 	min: PropTypes.number,
 	precision: PropTypes.number,
-	validate: PropTypes.func
+	validate: PropTypes.oneOfType([PropTypes.array, PropTypes.func])
 };
 
 FloatInput.defaultProps = {

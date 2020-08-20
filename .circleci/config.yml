@@ -3,11 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
+general:
+  branches:
+    only:
+      - master
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:11.15
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -37,9 +41,13 @@ jobs:
             - node_modules
           key: dependency-cache-{{ checksum "package.json" }}
 
+      - run:
+          name: Lint
+          command: npm run lint
+
       # run tests!
       - run:
-          name: test
+          name: Test
           command: npm run jest-ci -- -w 1
 
       - run: 

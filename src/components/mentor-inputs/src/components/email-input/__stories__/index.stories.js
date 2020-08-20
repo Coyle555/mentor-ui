@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 
 import EmailInput from '../emailInput';
@@ -9,7 +9,7 @@ import EmailInput from '../emailInput';
 const actions = {
 	onBlur: action('onBlur'),
 	onChange: action('onChange')
-}
+};
 
 storiesOf('Inputs/EmailInput', module)
 	.addDecorator(withKnobs)
@@ -24,8 +24,8 @@ storiesOf('Inputs/EmailInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
-	})		
+		);
+	});
 
 
 

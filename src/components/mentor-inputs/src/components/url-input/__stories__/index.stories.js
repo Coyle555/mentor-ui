@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text, } from '@storybook/addon-knobs';
 import { action } from 'storybook-utils';
 
 import UrlInput from '../urlInput';
@@ -9,7 +9,7 @@ import UrlInput from '../urlInput';
 const actions = {
 	onBlur: action('onBlur'),
 	onChange: action('onChange')
-}
+};
 
 storiesOf('Inputs/UrlInput', module)
 	.addDecorator(withKnobs)
@@ -24,7 +24,7 @@ storiesOf('Inputs/UrlInput', module)
 				value={text('overwrite value via props', '')}
 				required={boolean('required', false)}
 			/>
-		)
+		);
 	})
 	.addWithJSX('with custom validation', () => {
 
@@ -32,7 +32,7 @@ storiesOf('Inputs/UrlInput', module)
 			if (/pirate/gi.test(value)) {
 				return 'URLs with the word pirate in them are invalid';
 			}
-		}
+		};
 
 		return (
 			<div>
@@ -49,7 +49,7 @@ storiesOf('Inputs/UrlInput', module)
 					URLs with the word <em>pirate</em> in them are invalid
 				</code>
 			</div>
-		)
-	})			
+		);
+	});
 
 

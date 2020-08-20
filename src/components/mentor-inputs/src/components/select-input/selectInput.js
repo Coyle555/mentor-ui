@@ -1,40 +1,71 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { hasError } from '../../hooks/index';
 import '../../styles/index.less';
 
-const SelectInput = ({ 
-	options, 
+function hasError(value, required, customValidators) {
+	if (value === '' && !!required) {
+		return 'Value is required';
+	}
+
+	if (!!customValidators && !Array.isArray(customValidators)) {
+		customValidators = [customValidators];
+	}
+
+	if (value !== ''
+		&& !!customValidators
+		&& customValidators.length > 0) {
+
+		for (let validator of customValidators) {
+			if (typeof validator === 'function') {
+				const validity = validator(value);
+
+				if (typeof validity === 'string') {
+					return validity;
+				} else if (!validator(value)) {
+					return 'An error occurred';
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+const SelectInput = React.forwardRef(({
+	disabled,
+	options,
 	placeholder,
-	parse, 
+	parse,
 	parseMatchedValue,
 	required,
-	validate, 
-	...props 
-}) => {
+	validate,
+	...props
+}, ref) => {
 	let value = typeof parse === 'function'
 		? parse(props.value)
 		: props.value;
 
-	if (!value) value = '';
+	if (value === undefined || value === null) {
+		value = '';
+	}
 
-	const lastVal = useRef(value);
-	const inputRef = useRef(null);
-	const [ currentValue, setCurrentValue ] = useState(value);
-	const [ error, setError ] = useState(() => 
-		hasError(value, required, validate)
-	);
+	const [currentValue, setCurrentValue] = useState(value);
+	const [error, setError] = useState(() => hasError(value, required, validate));
 
 	useEffect(() => {
 		setError(hasError(currentValue, required, validate));
 	}, [required, validate]);
 
 	useEffect(() => {
-		const value = typeof parseMatchedValue === 'function'
-			? parseMatchedValue(props.value)
+		let value = typeof parse === 'function'
+			? parse(props.value)
 			: props.value;
+
+		if (value === undefined || value === null) {
+			value = '';
+		}
 
 		if (currentValue !== value) {
 			setCurrentValue(value);
@@ -42,33 +73,20 @@ const SelectInput = ({
 		}
 	}, [props.value]);
 
-	/// as soon as the input ref is attached to the node
-	/// check for errors on the value
-	/// (We also need to reevaluate error status if required attribute is changed)
 	useEffect(() => {
-		if (!inputRef.current) return;
-
 		const err = hasError(currentValue, required, validate);
 		setError(err);
-
-		if (typeof err === 'string') {
-			inputRef.current.setCustomValidity(err);
-		}
-	}, [inputRef.current, currentValue, required, validate]);
+	}, [currentValue, required, validate]);
 
 	const onBlur = evt => {
 		if (typeof props.onBlur !== 'function') return;
-		
-		if (currentValue !== lastVal.current) {
-			lastVal.current = currentValue;
 
-			const actualValue = typeof parse === 'function'
-				&& typeof parseMatchedValue !== 'function'
-					? options.find(opt => parse(opt) === currentValue)
-					: currentValue;
-
-			props.onBlur(error, actualValue, props.name, evt);
-		}
+		const actualValue = typeof parse === 'function'
+			&& typeof parseMatchedValue !== 'function'
+			? options.find(opt => parse(opt) === currentValue)
+			: currentValue;
+			
+		props.onBlur(error, actualValue, props.name, evt);
 	};
 
 	const onChange = useCallback(evt => {
@@ -79,54 +97,47 @@ const SelectInput = ({
 		setError(error);
 
 		if (typeof props.onChange === 'function') {
-			
+
 			const actualValue = typeof parse === 'function'
 				&& typeof parseMatchedValue !== 'function'
-					? options.find(opt => parse(opt) === newValue)
-					: newValue;
-
-			if (inputRef.current) {
-				if (error) {
-					inputRef.current.setCustomValidity(String(error));
-				} else {
-					inputRef.current.setCustomValidity('');
-				}
-			}
+				? options.find(opt => parse(opt) === newValue)
+				: newValue;
 
 			props.onChange(error, actualValue, props.name, evt);
 		}
-	}, [inputRef.current, options, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
+	}, [options, parse, parseMatchedValue, props.name, props.onChange, required, validate]);
 
 	const inputClasses = classNames({
 		'mui-mi-input-field': true,
 		[props.className]: !!props.className,
-		'mui-mi-input-field-has-error': !!error
+		'mui-mi-input-field-has-error': !!error && !disabled
 	});
 
 	return (
 		<select
 			{...props}
+			disabled={disabled}
 			required={required}
 			className={inputClasses}
 			name={props.name}
 			onBlur={onBlur}
 			onChange={onChange}
-			ref={inputRef}
+			ref={ref}
 			value={currentValue}
 		>
 			<option
 				disabled={required}
-				value="" 
+				value=""
 			>
-				{ placeholder }
+				{placeholder}
 			</option>
-			{ options.map(option => {
+			{options.map(option => {
 
 				const value = typeof parse === 'function'
 					? parse(option)
 					: option;
 
-				const returnValue = typeof parseMatchedValue === 'function' 
+				const returnValue = typeof parseMatchedValue === 'function'
 					? parseMatchedValue(option)
 					: value;
 
@@ -141,12 +152,21 @@ const SelectInput = ({
 			})}
 		</select>
 	);
-}
+});
 
 SelectInput.propTypes = {
+	className: PropTypes.string,
+	disabled: PropTypes.bool,
+	name: PropTypes.string,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
 	options: PropTypes.array,
 	parse: PropTypes.func,
-	validation: PropTypes.func,
+	parseMatchedValue: PropTypes.func,
+	placeholder: PropTypes.string,
+	required: PropTypes.bool,
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)]),
+	value: PropTypes.any
 };
 
 SelectInput.defaultProps = {

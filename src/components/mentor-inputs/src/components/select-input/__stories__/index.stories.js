@@ -8,18 +8,16 @@ import SelectInput from '../selectInput';
 const onBlur = action('onBlur');
 const onChange = action('onChange');
 
-const options = [ 'Apple', 'Banana', 'Clementine', 'Mango', 'Grape' ];
+const options = ['Apple', 'Banana', 'Clementine', 'Mango', 'Grape'];
 
-// TODO add a story that has a parsed value and a parsed list of options
-// 	the value isnt loading correctly when the select input renders
 storiesOf('Inputs/SelectInput', module)
 	.addDecorator(withKnobs)
 	.addWithJSX('using an options array of string values', () => {
 
-		
+
 
 		return (
-			<SelectInput 
+			<SelectInput
 				name="fruit"
 				onBlur={onBlur}
 				onChange={onChange}
@@ -27,30 +25,31 @@ storiesOf('Inputs/SelectInput', module)
 				required={boolean('Is required?', false, 'Required')}
 				value={select('value', options, null, 'Set value from props')}
 			/>
-		)
+		);
 	})
 	.addWithJSX('using an options array of objects', () => {
-		const prices = [1.59, 2.31, 1.22, 0.98, 0.05 ];
-		const fruitPrices = options.map((fruit, i) => ({ labelText: fruit, price: prices[i]}))
+		const prices = [1.59, 2.31, 1.22, 0.98, 0.05];
+		const fruitPrices = options.map((fruit, i) => ({ labelText: fruit, price: prices[i] }));
 
 		return (
-			<SelectInput 
+			<SelectInput
 				name="fruitPrice"
 				onBlur={onBlur}
 				onChange={onChange}
 				options={fruitPrices}
 				parse={opt => opt.labelText}
+				parseMatchedValue={opt => opt.price}
 				placeholder={text('Set placeholder text', 'Select one fruit')}
 				required={boolean('Is required?', false)}
-				value={{ labelText: 'Apple', price: 1.59 }}
+				value={select('value', fruitPrices, null, 'Set value from props')}
 			/>
-		)
+		);
 	})
 	.addWithJSX('with custom validation', () => {
 
 
 		return (
-			<SelectInput 
+			<SelectInput
 				name="fruit"
 				onBlur={onBlur}
 				onChange={onChange}
@@ -58,7 +57,7 @@ storiesOf('Inputs/SelectInput', module)
 				placeholder="Select a fruit"
 				required={boolean('Is required?', false)}
 				value={select('value', options, null)}
-				validate={ val => val !== 'Grape'}
+				validate={val => val !== 'Grape'}
 			/>
-		)
-	})	
+		);
+	});

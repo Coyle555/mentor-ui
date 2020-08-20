@@ -128,7 +128,7 @@ describe('Get label options utility function', () => {
 		{ id: 'bar', options: ['a', 'b', 'c'], type: 'boolean' },
 		{ id: 'baz', type: 'boolean' }
 	];
-	
+
 	test('label not found', () => {
 		expect(_getLabelOptions(options, 'test')).toEqual([]);
 	});
@@ -146,12 +146,12 @@ describe('Get label options utility function', () => {
 	});
 
 	test('Found option with a boolean type', () => {
-		expect(_getLabelOptions(options, 'baz')).toEqual(['True', 'False']);
+		expect(_getLabelOptions(options, 'baz')).toEqual(['Yes', 'No']);
 	});
 });
 
 describe('Get input data type utility function', () => {
-	
+
 	test('Get the data type when label and operator are selected on next token', () => {
 		expect(_getInputDatatype(
 			{ id: 'foo', label: 'Foo', operator: '==' },
@@ -178,7 +178,7 @@ describe('Get options for the typeahead utility function', () => {
 		{ id: 'f', label: 'F', type: 'integer' },
 		{ id: 'g', label: 'G', type: 'float' },
 		{ id: 'h', label: 'H', type: 'datetime' },
-		{ id: 'i', label: 'I', options: () => {} },
+		{ id: 'i', label: 'I', options: () => { } },
 		{ id: 'j', label: 'J', type: 'invalid' }
 	];
 
@@ -248,7 +248,7 @@ describe('Get options for the typeahead utility function', () => {
 		expect(_getOptionsForTypeahead(
 			options,
 			{ id: 'e', label: 'E', operator: 'equals' }
-		)).toEqual(['True', 'False']);
+		)).toEqual(['Yes', 'No']);
 	});
 });
 
