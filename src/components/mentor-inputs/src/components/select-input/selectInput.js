@@ -71,7 +71,7 @@ const SelectInput = React.forwardRef(({
 			setCurrentValue(value);
 			setError(hasError(value, required, validate));
 		}
-	}, [props.value]);
+	}, [props.id, props.value]);
 
 	useEffect(() => {
 		const err = hasError(currentValue, required, validate);
@@ -131,7 +131,7 @@ const SelectInput = React.forwardRef(({
 			>
 				{placeholder}
 			</option>
-			{options.map(option => {
+			{ options.map(option => {
 
 				const value = typeof parse === 'function'
 					? parse(option)

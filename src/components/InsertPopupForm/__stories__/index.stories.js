@@ -93,7 +93,27 @@ storiesOf('InsertPopupForm', module)
 			<InsertPopupForm
 				formFields={[
 					[
-						{ id: 'text2', label: 'Text Input 2' },
+						{ id: 'int-1', type: 'integer', label: 'Integer' },
+						{
+							id: 'utf-2',
+							type: 'url',
+							label: 'Url -> Float',
+							onLink: (value) => {
+								return { type: 'float' };
+							}
+						}
+					],
+					[
+						{ id: 'dtl', type: 'datetime', label: 'Datetime Minimum Date Link' },
+						{
+							id: 'dtl_dependentField',
+							type: 'float',
+							label: 'Dependent field',
+							onLink: (value) => ({ minDate: value, type: 'date' })
+						}
+					],
+					[
+						{ id: 'text2', label: 'Text Input Link' },
 						{ id: 'dependentField', label: 'Dependent field', onLink: () => ({}) }
 					],
 					[{

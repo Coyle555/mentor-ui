@@ -6,23 +6,20 @@ import PropTypes from 'prop-types';
 import SelectInput from '../select-input/selectInput';
 
 const OPTIONS = ['Yes', 'No'];
-const parseMatchedValue = (val => val === 'Yes' ? true : val === 'No' ? false : '');
 
-const BooleanInput = React.forwardRef(({ value, ...props }, ref) => {
-	let renderedValue = '';
-	if (value === true || value === 'true') {
-		renderedValue = 'Yes';
-	} else if (value === false || value === 'false') {
-		renderedValue = 'No';
-	}
+const parseMatchedValue = val => val === 'Yes'
+	? true
+	: val === 'No'
+		? false
+		: '';
 
+const BooleanInput = React.forwardRef((props, ref) => {
 	return (
 		<SelectInput
 			{...props}
 			options={OPTIONS}
 			parseMatchedValue={parseMatchedValue}
 			ref={ref}
-			value={renderedValue}
 		/>
 	);
 });

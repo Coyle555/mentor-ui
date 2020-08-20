@@ -25,7 +25,7 @@ const EmailInput = React.forwardRef(({ validate = [], ...props }, ref) => {
 });
 
 EmailInput.propTypes = {
-	validate: PropTypes.oneOfType(PropTypes.func, PropTypes.arrayOf(PropTypes.func))
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.arrayOf(PropTypes.func)])
 };
 
 export default EmailInput;

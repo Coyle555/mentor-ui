@@ -73,6 +73,7 @@ describe('Datepicker passed props conditions', () => {
 		it('should call onChange props from user input', () => {
 			const onChange = jest.fn();
 			const date = '2020-06-01';
+			const isoDate = new Date('Jun 16, 2020').toISOString();
 
 			const { container } = render(<DatePickerInput
 				name="test-datepicker"
@@ -82,7 +83,7 @@ describe('Datepicker passed props conditions', () => {
 			/>);
 
 			fireEvent.change(container.querySelector('input'), { target: { value: 'Jun 16, 2020' } });
-			expect(onChange).toHaveBeenCalledWith(false, 'Jun 16, 2020', 'test-datepicker');
+			expect(onChange).toHaveBeenCalledWith(false, isoDate, 'test-datepicker');
 		});
 
 		it('Error when user changes to an invalid date', () => {
@@ -105,6 +106,7 @@ describe('Datepicker passed props conditions', () => {
 		it('should call onBlur prop if blurred with a valid date', () => {
 			const onBlur = jest.fn();
 			const date = '2020-06-01';
+			const isoDate = new Date('Jun 16, 2020').toISOString();
 
 			const { container } = render(
 				<DatePickerInput
@@ -118,7 +120,7 @@ describe('Datepicker passed props conditions', () => {
 			fireEvent.change(container.querySelector('input'), { target: { value: 'Jun 16, 2020' } });
 			fireEvent.blur(container.querySelector('input'));
 
-			expect(onBlur).toHaveBeenCalledWith(false, 'Jun 16, 2020', 'test-datepicker');
+			expect(onBlur).toHaveBeenCalledWith(false, isoDate, 'test-datepicker');
 		});
 
 		it('should clear input if blurred with an invalid date', () => {
@@ -182,6 +184,7 @@ describe('Datepicker passed props conditions', () => {
 			expect(container.querySelector('input').value).toBe('');
 		});
 	});
+
 	it('allows custom class', () => {
 		const date = '2020-06-01';
 		const tree = renderer.create(

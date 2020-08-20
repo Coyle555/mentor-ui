@@ -26,6 +26,7 @@
             "error",
             "tab",
 	    {
+		    "ignoredNodes": ["IfStatement[attr>1]"],
 		    "ImportDeclaration": 1,
 		    "MemberExpression": 1,
 		    "ObjectExpression": 1,
