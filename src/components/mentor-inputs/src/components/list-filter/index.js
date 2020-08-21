@@ -302,7 +302,7 @@ export class ListFilter extends Component {
 
 	fetchOptionsAsync = debounce((value) => {
 		return this.props.options(value);
-	}, 200);
+	}, 100);
 
 	loadFilterOptions = (value, newOptions) => {
 		const { name, onChange, onMatch, required } = this.props;
