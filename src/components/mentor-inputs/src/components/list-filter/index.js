@@ -85,6 +85,7 @@ export class ListFilter extends Component {
 
 		this.initialLoadComplete = false;
 		this.rawOptions = options;
+		this.lastSearch = '';
 
 		// @focused: true when the input box is focused; false otherwise
 		// @hasError: true when the list filter has an error due to a
@@ -103,7 +104,7 @@ export class ListFilter extends Component {
 				? initOptions
 				: [],
 			selectedOptionIndex: -1,
-			value: initValue
+			value: initValue,
 		};
 	}
 
@@ -273,7 +274,7 @@ export class ListFilter extends Component {
 	}
 
 	// @value(string): value to filter against
-	customFilterMatches = (value) => {
+	customFilterMatches = (value, withThrottle) => {
 		if (typeof value === 'object') {
 			value = value.title;
 		}
@@ -283,7 +284,12 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			new Promise((resolve) => {
-				resolve(this.fetchOptionsAsync(value));
+				if (withThrottle) {
+					resolve(this.fetchOptionsAsync(value));
+				} else {
+					resolve(this.props.options(value));
+				}
+				
 			}).then(newOptions => {
 				// discard results if the value has changed since the
 				// promise was executed
@@ -301,8 +307,9 @@ export class ListFilter extends Component {
 	}
 
 	fetchOptionsAsync = debounce((value) => {
+
 		return this.props.options(value);
-	}, 100);
+	}, 100, { leading: true, trailing: true });
 
 	loadFilterOptions = (value, newOptions) => {
 		const { name, onChange, onMatch, required } = this.props;
@@ -422,7 +429,7 @@ export class ListFilter extends Component {
 
 		if (typeof options === 'function') {
 			this.setState({ value }, () => {
-				this.customFilterMatches(value);
+				this.customFilterMatches(value, true);
 			});
 
 			return;

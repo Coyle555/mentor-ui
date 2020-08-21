@@ -49,7 +49,7 @@ storiesOf('Inputs/ListFilterInput', module)
 			action('filter')(val);
 			const valRegex = new RegExp(val, 'gi');
 			return new Promise(resolve => {
-			
+				console.log('firing query', Date.now());
 				fetch('https://jsonplaceholder.typicode.com/users')
 				  .then(response => response.json())
 				  .then(users => 
@@ -68,6 +68,7 @@ storiesOf('Inputs/ListFilterInput', module)
 				onChange={action('onChange')}
 				onMatch={action('onMatch')}
 				options={options}
+				value="Leanne Graham"
 			/>
 		);
 	})

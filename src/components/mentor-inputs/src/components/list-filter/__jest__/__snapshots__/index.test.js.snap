@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Focusing on the list filter List filter focus 1`] = `
+<div
+  className="mui-mi-container"
+>
+  <input
+    autoComplete="off"
+    autoFocus={true}
+    className="mui-mi-input-field mui-mi-list-filter"
+    disabled={false}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    placeholder="Select a value"
+    type="text"
+    value="bar"
+  />
+  <ul
+    className="mui-list-filter-menu-ul ignore-react-onclickoutside"
+    style={Object {}}
+  />
+  <span
+    className="mui-mi-clear-input"
+  >
+    <i
+      className="far fa-spinner mui-spinner apm-color-black mui-loading-spinner"
+    />
+  </span>
+</div>
+`;
+
 exports[`List filter receiving new props Passing in new options New list of options 1`] = `
 <div
   className="mui-mi-container"
