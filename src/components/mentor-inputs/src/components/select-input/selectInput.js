@@ -85,7 +85,7 @@ const SelectInput = React.forwardRef(({
 			&& typeof parseMatchedValue !== 'function'
 			? options.find(opt => parse(opt) === currentValue)
 			: currentValue;
-
+			
 		props.onBlur(error, actualValue, props.name, evt);
 	};
 
