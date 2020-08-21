@@ -289,7 +289,7 @@ export class ListFilter extends Component {
 				} else {
 					resolve(this.props.options(value));
 				}
-				
+
 			}).then(newOptions => {
 				// discard results if the value has changed since the
 				// promise was executed

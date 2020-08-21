@@ -49,17 +49,17 @@ storiesOf('Inputs/ListFilterInput', module)
 			action('filter')(val);
 			const valRegex = new RegExp(val, 'gi');
 			return new Promise(resolve => {
-				console.log('firing query', Date.now());
+				//console.log('firing query', Date.now());
 				fetch('https://jsonplaceholder.typicode.com/users')
-				  .then(response => response.json())
-				  .then(users => 
-				  	users.map(user => user.name)
-				  		.filter(user => valRegex.test(user))
-				  )
-				  .then(users => resolve(users))
-			})
+					.then(response => response.json())
+					.then(users =>
+						users.map(user => user.name)
+							.filter(user => valRegex.test(user))
+					)
+					.then(users => resolve(users));
+			});
 
-			 
+
 		};
 
 		return (

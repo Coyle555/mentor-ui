@@ -612,7 +612,7 @@ describe('Linking fields', () => {
 	test('Overwriting the type of a linked field component and valid input', () => {
 		const formFields = [[
 			{ id: 'dtl', type: 'integer', label: 'Integer' },
-			{ id: 'dependentField', type: 'url', label: 'Dependent float', onLink: (value) => ({ type: 'float' }) }
+			{ id: 'dependentField', type: 'url', label: 'Dependent float', onLink: () => ({ type: 'float' }) }
 		]];
 
 		const { getByTestId, getByText } = render(<InsertForm formFields={formFields} />);
@@ -633,7 +633,7 @@ describe('Linking fields', () => {
 				id: 'dependentField',
 				type: 'url',
 				label: 'Dependent float',
-				onLink: (value) => {
+				onLink: () => {
 					return { type: 'float' };
 				}
 			}
