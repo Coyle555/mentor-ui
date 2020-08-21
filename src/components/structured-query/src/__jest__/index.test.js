@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 jest.mock('react-tooltip', () => (props) => <div>{JSON.stringify(props)}</div>);
 
 import React from 'react';
