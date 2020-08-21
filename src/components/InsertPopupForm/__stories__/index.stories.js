@@ -98,7 +98,7 @@ storiesOf('InsertPopupForm', module)
 							id: 'utf-2',
 							type: 'url',
 							label: 'Url -> Float',
-							onLink: (value) => {
+							onLink: () => {
 								return { type: 'float' };
 							}
 						}
