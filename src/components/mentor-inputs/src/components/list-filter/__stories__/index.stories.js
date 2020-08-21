@@ -40,18 +40,26 @@ storiesOf('Inputs/ListFilterInput', module)
 				disabled
 				name="listFilter"
 				options={options}
-				value="f"
+				value="foo"
 			/>
 		);
 	})
 	.addWithJSX('Custom filtering', () => {
 		const options = (val) => {
 			action('filter')(val);
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(['foo', 'bar', 'baz']);
-				}, 500);
-			});
+			const valRegex = new RegExp(val, 'gi');
+			return new Promise(resolve => {
+			
+				fetch('https://jsonplaceholder.typicode.com/users')
+				  .then(response => response.json())
+				  .then(users => 
+				  	users.map(user => user.name)
+				  		.filter(user => valRegex.test(user))
+				  )
+				  .then(users => resolve(users))
+			})
+
+			 
 		};
 
 		return (

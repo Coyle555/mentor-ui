@@ -6,6 +6,7 @@ import { createPortal } from 'react-dom';
 import fuzzy from 'fuzzy';
 import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
+import { debounce } from 'lodash';
 
 import { Spinner } from './components/Spinner';
 import { ListFilterItem } from './components/ListFilterItem';
@@ -282,7 +283,7 @@ export class ListFilter extends Component {
 			value
 		}, () => {
 			new Promise((resolve) => {
-				resolve(this.props.options(value));
+				resolve(this.fetchOptionsAsync(value));
 			}).then(newOptions => {
 				// discard results if the value has changed since the
 				// promise was executed
@@ -298,6 +299,10 @@ export class ListFilter extends Component {
 			});
 		});
 	}
+
+	fetchOptionsAsync = debounce((value) => {
+		return this.props.options(value);
+	}, 200);
 
 	loadFilterOptions = (value, newOptions) => {
 		const { name, onChange, onMatch, required } = this.props;
