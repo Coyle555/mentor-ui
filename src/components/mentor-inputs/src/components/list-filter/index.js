@@ -488,6 +488,7 @@ export class ListFilter extends Component {
 	// @selectedOption(string|object) - the option the user clicked on
 	onListItemClick = (selectedOption) => {
 		const { onMatch, options } = this.props;
+		this.inputRef.focus();
 
 		if (typeof options === 'function') {
 			this.setState({ value: selectedOption }, () => {
