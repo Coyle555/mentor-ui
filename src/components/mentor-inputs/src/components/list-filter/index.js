@@ -501,13 +501,14 @@ export class ListFilter extends Component {
 		this.setState({
 			hasError: false,
 			options: this.filterMatches(selectedOption, options),
+			focused: false,
 			selectedOptionIndex: -1,
 			value: selectedOption
 		}, () => {
 			if (typeof onMatch === 'function') {
 				this.onMatch(selectedOption);
 			}
-		});
+		}); 
 	}
 
 	onListItemMouseOver = (index) => {
