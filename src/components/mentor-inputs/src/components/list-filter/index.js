@@ -508,7 +508,7 @@ export class ListFilter extends Component {
 			if (typeof onMatch === 'function') {
 				this.onMatch(selectedOption);
 			}
-		}); 
+		});
 	}
 
 	onListItemMouseOver = (index) => {
