@@ -181,6 +181,7 @@ export default class InsertForm extends Component {
 			autoFocus: true,
 			className: 'form-input',
 			disabled: !!field.disabled,
+			id: field.id,
 			key: field.id,
 			name: field.id,
 			onBlur: this._handleInputBlur,
@@ -432,6 +433,7 @@ export default class InsertForm extends Component {
 					{ ...field, type },
 					{
 						...linkedProps,
+						id: field.id,
 						autoFocus: true,
 						className: 'form-input',
 						key: field.id,
@@ -459,6 +461,7 @@ export default class InsertForm extends Component {
 						<div className="layout">
 							<div className="form">
 								<Label
+									htmlFor={field.id}
 									label={currentInputLabel}
 									required={field.required}
 								/>

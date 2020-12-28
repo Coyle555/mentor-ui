@@ -34,6 +34,7 @@ exports[`Linking fields Render regular links on mount 1`] = `
             >
               <label
                 className="label"
+                htmlFor="text"
               >
                 Text Input 1
               </label>
@@ -57,6 +58,7 @@ exports[`Linking fields Render regular links on mount 1`] = `
                 className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 disabled={false}
+                id="text"
                 name="text"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -195,6 +197,7 @@ exports[`Linking fields Render required links on mount 1`] = `
             >
               <label
                 className="label"
+                htmlFor="text"
               >
                 Text Input 1
               </label>
@@ -224,6 +227,7 @@ exports[`Linking fields Render required links on mount 1`] = `
                 className="mui-mi-input-field form-input mui-mi-input-field-has-error"
                 data-testid="field-input"
                 disabled={false}
+                id="text"
                 name="text"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -364,6 +368,7 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
             >
               <label
                 className="label"
+                htmlFor="foo"
               >
                 Bar
               </label>
@@ -393,6 +398,7 @@ exports[`Rendering the insert form Rendering a required field that has data 1`] 
                 className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 disabled={false}
+                id="foo"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -496,6 +502,7 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
             >
               <label
                 className="label"
+                htmlFor="foo"
               >
                 Bar
               </label>
@@ -525,6 +532,7 @@ exports[`Rendering the insert form Rendering a required field that has no data 1
                 className="mui-mi-input-field form-input mui-mi-input-field-has-error"
                 data-testid="field-input"
                 disabled={false}
+                id="foo"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -617,6 +625,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
             >
               <label
                 className="label"
+                htmlFor="foo"
               >
                 Bar
               </label>
@@ -640,6 +649,7 @@ exports[`Rendering the insert form Rendering with a list of fields 1`] = `
                 className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 disabled={false}
+                id="foo"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
@@ -773,6 +783,7 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
             >
               <label
                 className="label"
+                htmlFor="foo"
               >
                 Bar
               </label>
@@ -796,6 +807,7 @@ exports[`Rendering the insert form Rendering with a submit button 1`] = `
                 className="mui-mi-input-field form-input"
                 data-testid="field-input"
                 disabled={false}
+                id="foo"
                 name="foo"
                 onBlur={[Function]}
                 onChange={[Function]}
